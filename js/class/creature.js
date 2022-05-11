@@ -5,6 +5,9 @@ class Creature {
     name = ""
     health = 0
     maxHealth = 0
+    energy = 0 //mana
+    maxEnergy = 0
+
     moveSpeed = 1
     x = 0
     y = 0
@@ -22,14 +25,15 @@ class Creature {
     targetObj = {}
 
 
-    constructor(name,enemy,health,x,y,direction,speed = 1) {
+    constructor(name,enemy,health,energy,x,y,direction,speed = 1) {
         this.id = creatures
         creatures ++
         this.enemy = enemy
-
         this.name = name
         this.health = health
         this.maxHealth = health
+        this.energy = energy
+        this.maxEnergy = energy
         this.moveSpeed = speed
         this.x = x
         this.y = y

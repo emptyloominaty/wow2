@@ -16,7 +16,7 @@ canvas,body,html {
 #test {
     position:fixed;
     top:10px;
-    left:10px;
+    left:48%;
 }
 
 #ui {
