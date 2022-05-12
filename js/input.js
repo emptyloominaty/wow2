@@ -7,7 +7,8 @@ let keybinds = {
     "Move Down":{mod:"",key:"KeyS"},
     "Move Left":{mod:"",key:"KeyA"},
     "Move Right":{mod:"",key:"KeyD"},
-    "Ability1 +":{mod:"ShiftLeft",key:"KeyQ"}, //rsk
+    "Ability1 Bar1":{mod:"",key:"Digit1"}, //vivify
+    "Ability1+":{mod:"ShiftLeft",key:"KeyQ"}, //rsk
 
 }
 let keyLoop = () => {
@@ -38,6 +39,11 @@ let keyLoop = () => {
     if (keyPressed[keybinds["Move Down"].key]) {
         if ((modPressed("Move Down"))) {
             player.move(-0.5)
+        }
+    }
+    if (keyPressed[keybinds["Ability1 Bar1"].key]) {
+        if ((modPressed("Ability1 Bar1"))) {
+            player.abilities["Vivify"].startCast(player)
         }
     }
 

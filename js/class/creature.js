@@ -1,4 +1,4 @@
-creatures = 0
+creatures = []
 
 class Creature {
     id = 0
@@ -7,6 +7,9 @@ class Creature {
     maxHealth = 0
     energy = 0 //mana
     maxEnergy = 0
+    energyRegen = 0.8 // 1sec
+
+    stats = {primary:100, haste:0, crit:0, vers:0, mastery:0, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -19,25 +22,57 @@ class Creature {
     isRooted = false
     isMoving = false
     isCasting = false
+    casting = {name:"", time:0, time2:0}
     isDead = false
+    gcd = 0
 
     target = ""
     targetObj = {}
 
 
-    constructor(name,enemy,health,energy,x,y,direction,speed = 1) {
-        this.id = creatures
-        creatures ++
+    constructor(name,enemy,health,energy,x,y,direction,spec) {
+        this.id = creatures.length
+        creatures.push(this)
         this.enemy = enemy
         this.name = name
         this.health = health
         this.maxHealth = health
         this.energy = energy
         this.maxEnergy = energy
-        this.moveSpeed = speed
+        this.direction = direction
         this.x = x
         this.y = y
+
+        if (spec==="mistweaver") {
+            this.abilities = new Mw_abilities()
+        }
     }
+
+    run() {
+        this.energy += this.energyRegen/fps
+        if (this.energy>this.maxEnergy) {
+            this.energy = this.maxEnergy
+        }
+
+        if (this.gcd>0) {
+            this.gcd -= progress/1000
+        }
+
+        //casting ability
+        if (this.isCasting) {
+            if (this.casting.time<this.casting.time2) {
+                this.casting.time += progress/1000
+            } else {
+                this.abilities[this.casting.name].endCast(this)
+                this.casting = {name:"", time:0, time2:0}
+                this.isCasting = false
+            }
+        }
+        //
+        //
+
+    }
+
 
     move(val) { //val -0.5 - 1
         let speed = val * this.moveSpeed
@@ -46,7 +81,8 @@ class Creature {
         let vy = Math.cos(angleInRadian) * speed
 
         if (this.isCasting) {
-            //TODO:STOP CASTING
+            this.isCasting = false
+            this.casting = {name:"", time:0, timeleft:0}
         }
         if (!this.isStunned && !this.isRooted) {
             this.x += vx

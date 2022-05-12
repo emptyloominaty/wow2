@@ -6,9 +6,12 @@ function loop(timestamp) {
     if (progress > 250) {
         progress = 250
     }
+
     keyLoop(progress)
     update(progress)
     draw(progress)
+
+    lastRender = timestamp
     window.requestAnimationFrame(loop)
 }
 

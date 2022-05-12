@@ -19,6 +19,7 @@ class Bar {
         div.style.backgroundColor = backgroundColor
         div.style.border = "2px solid #111111"
         div.style.borderRadius = "1px"
+        div.id = id+"_bg"
 
         let div2 = document.createElement("div")
         div2.style.position = "fixed"
@@ -29,8 +30,19 @@ class Bar {
         div2.style.backgroundColor = color
         div2.id = id
 
+        let span = document.createElement("span")
+        span.style.position = "fixed"
+        span.style.top = (y+2)+"px"
+        span.style.left = (x)+"px"
+        span.style.width = width+"px"
+        span.style.height = height+"px"
+        span.style.textAlign = "center"
+        span.id = id+"_text"
+
+
         elements.ui.appendChild(div)
         elements.ui.appendChild(div2)
+        elements.ui.appendChild(span)
     }
 
     setVal(val) {
@@ -38,6 +50,22 @@ class Bar {
     }
     setMaxVal(val) {
         this.maxVal = val
+    }
+
+    setText(text) {
+        document.getElementById(this.id+"_text").innerText = text
+    }
+    setVisibility(vis) {
+        if (!vis) {
+            document.getElementById(this.id).style.display = "none"
+            document.getElementById(this.id+"_bg").style.display = "none"
+            document.getElementById(this.id+"_text").style.display = "none"
+        } else {
+            document.getElementById(this.id).style.display = "inline-block"
+            document.getElementById(this.id+"_bg").style.display = "inline-block"
+            document.getElementById(this.id+"_text").style.display = "inline-block"
+        }
+
     }
 }
 
