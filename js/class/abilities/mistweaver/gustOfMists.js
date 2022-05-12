@@ -25,10 +25,10 @@ class GustOfMists extends HealAbility {
         this.spellPower = caster.stats.mastery/100
         if (caster.target==="") {
             //heal self
-            doHeal(caster,caster,this,30)
+            doHeal(caster,caster,this,15)
         } else {
             //heal target
-            doHeal(caster,caster.targetObj,this,30)
+            doHeal(caster,caster.targetObj,this,15)
         }
     }
 }

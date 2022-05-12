@@ -42,7 +42,16 @@ class Vivify extends HealAbility {
             caster.abilities["Gust of Mists"].heal(caster)
             //TODO:RANGE
         }
-        //TODO:renewing mist
+        //renewingMist
+        let _y = 30
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
+                if (friendlyTargets[i].buffs[key].name === "Renewing Mist") {
+                    doHeal(caster,friendlyTargets[i],this,_y,this.spellPowerSec)
+                    _y+=15
+                }
+            })
+        }
         caster.energy -= this.cost
     }
 }

@@ -51,7 +51,6 @@ class RenewingMist extends HealAbility {
             caster.abilities["Gust of Mists"].heal(caster)
             //TODO:RANGE
         }
-        //TODO:renewing mist
         caster.energy -= this.cost
     }
 }

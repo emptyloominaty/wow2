@@ -7,9 +7,15 @@ let critChance = function(caster) {
     return 1
 }
 
-let doHeal = function(caster,target,ability,yOffset = 0) {
+let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
     let crit = critChance(caster)
-    let heal = (caster.stats.primary * ability.spellPower) * (1+(caster.stats.vers/100)) * crit
+    let heal = 0
+    if (spellPower===0) {
+        heal = (caster.stats.primary * ability.spellPower) * (1+(caster.stats.vers/100)) * crit
+    } else {
+        heal = (caster.stats.primary * spellPower) * (1+(caster.stats.vers/100)) * crit
+    }
+
     floatingTexts.push(new FloatingText(300,350+yOffset,heal,"heal",crit,ability.name))
     target.health += heal
     if (target.health>target.maxHealth) {
