@@ -1,7 +1,23 @@
 bars.playerHealth = new Bar(120,20,100,100,10,10,"#DD5555","#555555","bar_playerHealth")
 bars.playerMana = new Bar(120,20,100,100,10,35,"#63a0dd","#555555","bar_playerMana")
-
 bars.playerCast = new Bar(120,20,1.5,1.5,10,65,"#bbbbbb","#555555","bar_playerCast")
+
+if (0===0) {
+    let buffHTML = "<div id='top_buff'>"
+    let debuffHTML = "<div id='top_debuff'>"
+    for (let i = 0; i<8; i++) {
+        buffHTML += "<div class='buff_div' id='buff_"+i+"'><img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span></div>"
+        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> </div>"
+    }
+    buffHTML += "</div><div id='bottom_buff'>"
+    debuffHTML += "</div><div id='bottom_debuff'>"
+    for (let i = 8; i<16; i++) {
+        buffHTML += "<div class='buff_div' id='buff_"+i+"'> <img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span> </div>"
+        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> </div>"
+    }
+    elements.buffsDebuffs_parent.innerHTML = "<div id='buff_bar'>" + buffHTML + "</div></div> <div id='debuff_barr'>" + debuffHTML + "</div></div>"
+}
+
 
 function draw(progress) {
     //---------------test---------------
@@ -38,6 +54,22 @@ function draw(progress) {
     Object.keys(bars).forEach(key => {
         document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width)+"px"
     })
-    //----
+
+    //buffs
+    //reset
+    for (let i = 0; i<16; i++) {
+        document.getElementById("buff_"+i+"_image").src = ""
+        document.getElementById("buff_"+i+"_text").textContent = ""
+    }
+
+    for (let i = 0; i<player.buffs.length; i++) {
+        if (i<16) {
+            document.getElementById("buff_"+i+"_image").src = iconsPath[player.buffs[i].name]
+            document.getElementById("buff_"+i+"_text").textContent = player.buffs[i].duration.toFixed(0)+"s"
+        }
+        //player.buffs[i].name
+        //player.buffs[i].duration
+
+    }
 
 }

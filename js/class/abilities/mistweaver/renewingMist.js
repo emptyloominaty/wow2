@@ -1,28 +1,37 @@
-class Vivify extends HealAbility {
+class RenewingMist extends HealAbility {
     constructor() {
-        let name = "Vivify"
-        let cost = 3.8 //% mana
+        let name = "Renewing Mist"
+        let cost = 1.8 //% mana
         let gcd = 1.5
-        let castTime = 1.5
-        let cd = 0
-        let charges = 1
-        let maxCharges = 1
+        let castTime = 0
+        let cd = 9
+        let charges = 2
+        let maxCharges = 2
         let channeling = false
-        let casting = true
+        let casting = false
         let canMove = false
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 1.41 //141%
-        this.spellPowerSec = 1.04 //104% renewing
+        this.spellPower = 2.25
+        this.duration = 20
     }
 
     run() {
+        if (this.cd<this.maxCd) {
+            this.cd+=progress/1000
+            if (this.cd>=this.maxCd) {
+                this.charges++
+                if (this.charges!==this.maxCharges) {
+                    this.cd=0
+                }
+            }
+        }
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0) {
+        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && this.charges>0) {
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
             caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
@@ -32,13 +41,13 @@ class Vivify extends HealAbility {
 
     endCast(caster) {
         caster.isCasting = false
+        this.charges--
+        this.cd = 0
         if (caster.target==="") {
-            //heal self
-            doHeal(caster,caster,this)
+            applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)
         } else {
-            //heal target
-            doHeal(caster,caster.targetObj,this)
+            applyHot(caster,caster.targetObj,this)
             caster.abilities["Gust of Mists"].heal(caster)
             //TODO:RANGE
         }

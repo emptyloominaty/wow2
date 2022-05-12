@@ -7,12 +7,25 @@ let critChance = function(caster) {
     return 1
 }
 
-let doHeal = function(caster,target,ability) {
+let doHeal = function(caster,target,ability,yOffset = 0) {
     let crit = critChance(caster)
     let heal = (caster.stats.primary * ability.spellPower) * (1+(caster.stats.vers/100)) * crit
-    //console.log(heal)
+    floatingTexts.push(new FloatingText(300,350+yOffset,heal,"heal",crit,ability.name))
     target.health += heal
     if (target.health>target.maxHealth) {
         target.health = target.maxHealth
     }
+}
+
+let applyHot = function (caster,target,ability) {
+    for (let i = 0; i<target.buffs.length; i++) {
+        if (target.buffs[i].name===ability.name) {
+            target.buffs[i].duration += ability.duration
+            if (target.buffs[i].duration>ability.duration*1.3) {//30%
+                target.buffs[i].duration = ability.duration*1.3
+            }
+            return true
+        }
+    }
+    target.buffs.push({name:ability.name, type:"hot",timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster })
 }

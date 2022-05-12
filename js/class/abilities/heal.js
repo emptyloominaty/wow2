@@ -1,6 +1,6 @@
 class HealAbility extends Ability {
-    constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range) {
-        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range)
+    constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges) {
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
     }
 }

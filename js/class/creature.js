@@ -9,7 +9,7 @@ class Creature {
     maxEnergy = 0
     energyRegen = 0.8 // 1sec
 
-    stats = {primary:100, haste:0, crit:0, vers:0, mastery:0, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
+    stats = {primary:100, haste:50, crit:10, vers:0, mastery:34, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -25,6 +25,9 @@ class Creature {
     casting = {name:"", time:0, time2:0}
     isDead = false
     gcd = 0
+
+    buffs = []
+    debuffs = []
 
     target = ""
     targetObj = {}
@@ -58,6 +61,11 @@ class Creature {
             this.gcd -= progress/1000
         }
 
+        //abilities cds
+        Object.keys(this.abilities).forEach((key)=> {
+            this.abilities[key].run()
+        })
+
         //casting ability
         if (this.isCasting) {
             if (this.casting.time<this.casting.time2) {
@@ -68,7 +76,25 @@ class Creature {
                 this.isCasting = false
             }
         }
-        //
+
+        //buffs / debuffs
+        for (let i = 0; i<this.buffs.length; i++) {
+            if (this.buffs[i].type==="hot") {
+                if (this.buffs[i].timer<1) {
+                    this.buffs[i].timer+= (progress/1000)*(1 + (this.buffs[i].caster.stats.haste / 100))
+                } else {
+                    doHeal(this.buffs[i].caster,this,this.buffs[i])
+                    this.buffs[i].timer = 0
+                }
+            }
+
+            this.buffs[i].duration-=progress/1000
+            if (this.buffs[i].duration<0) {
+                this.buffs.splice(i,1)
+                i--
+            }
+        }
+
         //
 
     }

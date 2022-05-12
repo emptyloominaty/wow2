@@ -7,7 +7,19 @@ let keybinds = {
     "Move Down":{mod:"",key:"KeyS"},
     "Move Left":{mod:"",key:"KeyA"},
     "Move Right":{mod:"",key:"KeyD"},
-    "Ability1 Bar1":{mod:"",key:"Digit1"}, //vivify
+    "Bar1 Ability0":{mod:"",key:"Digit1"}, //vivify
+    "Bar1 Ability1":{mod:"",key:"Digit2"}, //rem
+    "Bar1 Ability2":{mod:"",key:"Digit3"}, //mana tea
+    "Bar1 Ability3":{mod:"",key:"Digit4"}, //roll
+    "Bar1 Ability4":{mod:"",key:"F1"}, //ring
+    "Bar1 Ability5":{mod:"",key:"F2"}, //transcendence port
+    "Bar1 Ability6":{mod:"",key:"F3"}, //transcendence
+    "Bar1 Ability7":{mod:"",key:"F4"}, //trinket
+    "Bar1 Ability8":{mod:"",key:"KeyQ"}, //soothing mist
+    "Bar1 Ability9":{mod:"",key:"KeyE"}, //enveloping mist
+    "Bar1 Ability10":{mod:"",key:"KeyR"}, //aoe stun
+    "Bar1 Ability11":{mod:"",key:"KeyT"}, //healt pot
+
     "Ability1+":{mod:"ShiftLeft",key:"KeyQ"}, //rsk
 
 }
@@ -41,11 +53,102 @@ let keyLoop = () => {
             player.move(-0.5)
         }
     }
-    if (keyPressed[keybinds["Ability1 Bar1"].key]) {
-        if ((modPressed("Ability1 Bar1"))) {
-            player.abilities["Vivify"].startCast(player)
+    if (keyPressed[keybinds["Bar1 Ability0"].key]) {
+        if ((modPressed("Bar1 Ability0"))) {
+            if (actionBars[1].abilities[0] !== undefined) {
+                player.abilities[actionBars[1].abilities[0]].startCast(player)
+            }
         }
     }
+    if (keyPressed[keybinds["Bar1 Ability1"].key]) {
+        if ((modPressed("Bar1 Ability1"))) {
+            if (actionBars[1].abilities[1] !== undefined) {
+                player.abilities[actionBars[1].abilities[1]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability2"].key]) {
+        if ((modPressed("Bar1 Ability2"))) {
+            if (actionBars[1].abilities[2]!==undefined) {
+                player.abilities[actionBars[1].abilities[2]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability3"].key]) {
+        if ((modPressed("Bar1 Ability3"))) {
+            if (actionBars[1].abilities[3] !== undefined) {
+                player.abilities[actionBars[1].abilities[3]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability4"].key]) {
+        if ((modPressed("Bar1 Ability4"))) {
+            if (actionBars[1].abilities[4] !== undefined) {
+                player.abilities[actionBars[1].abilities[4]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability5"].key]) {
+        if ((modPressed("Bar1 Ability5"))) {
+            if (actionBars[1].abilities[5] !== undefined) {
+                player.abilities[actionBars[1].abilities[5]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability6"].key]) {
+        if ((modPressed("Bar1 Ability6"))) {
+            if (actionBars[1].abilities[6] !== undefined) {
+                player.abilities[actionBars[1].abilities[6]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability7"].key]) {
+        if ((modPressed("Bar1 Ability7"))) {
+            if (actionBars[1].abilities[7] !== undefined) {
+                player.abilities[actionBars[1].abilities[7]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability8"].key]) {
+        if ((modPressed("Bar1 Ability8"))) {
+            if (actionBars[1].abilities[8] !== undefined) {
+                player.abilities[actionBars[1].abilities[8]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability9"].key]) {
+        if ((modPressed("Bar1 Ability9"))) {
+            if (actionBars[1].abilities[9] !== undefined) {
+                player.abilities[actionBars[1].abilities[9]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability10"].key]) {
+        if ((modPressed("Bar1 Ability10"))) {
+            if (actionBars[1].abilities[10] !== undefined) {
+                player.abilities[actionBars[1].abilities[10]].startCast(player)
+            }
+        }
+    }
+
+    if (keyPressed[keybinds["Bar1 Ability11"].key]) {
+        if ((modPressed("Bar1 Ability11"))) {
+            if (actionBars[1].abilities[11] !== undefined) {
+                player.abilities[actionBars[1].abilities[11]].startCast(player)
+            }
+        }
+    }
+
+
 
 }
 
