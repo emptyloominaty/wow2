@@ -6,7 +6,7 @@ class Action {
         this.bar = bar
         this.slot = slot
         actionBars[bar].abilities[slot] = ability
-        document.getElementById("action_"+bar+"_"+slot+"").innerHTML = "<div class='action_gcd' id='action_gcd_"+bar+"_"+slot+"'><div class='action_cd'  id='action_cd_"+bar+"_"+slot+"'></div></div><img src='"+iconsPath[ability]+"'> <span class='ab_keybind'>"+keybindsD[keybinds["Bar"+bar+" Ability"+slot+""].key]+"</span> <span class='ab_charges'></span>"
+        document.getElementById("action_"+bar+"_"+slot+"").innerHTML = "<div class='action_gcd' id='action_gcd_"+bar+"_"+slot+"'></div><div class='action_cd'  id='action_cd_"+bar+"_"+slot+"'></div><img src='"+iconsPath[ability]+"'> <span class='ab_keybind'>"+keybindsD[keybinds["Bar"+bar+" Ability"+slot+""].key]+"</span> <span class='ab_charges'  id='action_charges_"+bar+"_"+slot+"'></span>"
     }
 
     run() {
@@ -16,9 +16,17 @@ class Action {
                 this.pressEnd()
             }
         }
+        //gcd
         if (player.gcd>0) {
-            console.log(((bars.playerCast.val/bars.playerCast.maxVal)*100)+"%")
             document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = ((bars.playerCast.val/bars.playerCast.maxVal)*100)+"%"
+        }
+        //cd
+        if (player.abilities[this.name].cd<player.abilities[this.name].maxCd) {
+            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.height = (100-((player.abilities[this.name].cd/player.abilities[this.name].maxCd)*100))+"%"
+        }
+        if (player.abilities[this.name].maxCharges>1) {
+            document.getElementById("action_charges_"+this.bar+"_"+this.slot).textContent = player.abilities[this.name].charges
+
         }
     }
 
