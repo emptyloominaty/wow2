@@ -16,6 +16,8 @@ class RenewingMist extends HealAbility {
 
         this.spellPower = 2.25
         this.duration = 20
+        this.effect = ""
+        this.effectValue = 0
     }
 
     run() {
@@ -51,6 +53,6 @@ class RenewingMist extends HealAbility {
             caster.abilities["Gust of Mists"].heal(caster)
             //TODO:RANGE
         }
-        caster.energy -= this.cost
+        caster.useEnergy(this.cost)
     }
 }

@@ -9,7 +9,7 @@ class Creature {
     maxEnergy = 0
     energyRegen = 0.8 // 1sec
 
-    stats = {primary:100, haste:50, crit:10, vers:0, mastery:34, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
+    stats = {primary:100, haste:20, crit:10, vers:0, mastery:34, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -86,7 +86,10 @@ class Creature {
                     doHeal(this.buffs[i].caster,this,this.buffs[i])
                     this.buffs[i].timer = 0
                 }
+            } else if (this.buffs[i].type==="buff") {
+
             }
+
 
             this.buffs[i].duration-=progress/1000
             if (this.buffs[i].duration<0) {
@@ -94,11 +97,18 @@ class Creature {
                 i--
             }
         }
-
         //
-
     }
 
+    useEnergy(val) {
+        let reduceEnergyCost = 1
+        for (let i = 0; i<this.buffs.length; i++) {
+            if (this.buffs[i].effect === "reduceEnergyCost") {
+                reduceEnergyCost = this.buffs[i].effectValue
+            }
+        }
+        this.energy -= val * reduceEnergyCost
+    }
 
     move(val) { //val -0.5 - 1
         let speed = val * this.moveSpeed
@@ -108,6 +118,7 @@ class Creature {
 
         if (this.isCasting) {
             this.isCasting = false
+            this.gcd = 0
             this.casting = {name:"", time:0, timeleft:0}
         }
         if (!this.isStunned && !this.isRooted) {

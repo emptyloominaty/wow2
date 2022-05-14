@@ -18,10 +18,3 @@ for (let i = 0; i<actionBars.length; i++) {
 
     elements.actionBars_parent.insertAdjacentHTML("beforeend", actionBarHTML)
 }
-
-
-actionBars[1].abilities[0] = "Vivify"
-document.getElementById("action_1_0").innerHTML = "<img src='img/mistweaver/Vivify.jpg'> <span class='ab_keybind'>1</span> <span class='ab_cd'></span>"
-
-actionBars[1].abilities[1] = "Renewing Mist"
-document.getElementById("action_1_1").innerHTML = "<img src='img/mistweaver/RenewingMist.jpg'> <span class='ab_keybind'>2</span> <span class='ab_cd'></span>"

@@ -16,6 +16,7 @@ class FloatingText {
         span.style.textAlign = "center"
         span.id = this.id+"_floatText"
         span.textContent = val.toFixed(0)
+        span.style.textShadow = "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000"
         if (type==="heal") {
             span.style.color = "#65ff65"
         } else if (type==="damage") {

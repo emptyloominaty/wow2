@@ -15,6 +15,7 @@ class GustOfMists extends HealAbility {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.34
+        this.effect = ""
     }
 
     run() {

@@ -1,5 +1,30 @@
 let keyPressed = {}
 
+let keybindsD = {
+    "Digit1":"1",
+    "Digit2":"2",
+    "Digit3":"3",
+    "Digit4":"4",
+    "Digit5":"5",
+    "Digit6":"6",
+    "Digit7":"7",
+    "Digit8":"8",
+    "Digit9":"9",
+    "Digit0":"0",
+    "keyQ":"Q",
+    "keyW":"W",
+    "keyE":"E",
+    "keyR":"R",
+    "keyT":"T",
+    "keyZ":"Z",
+    "keyU":"U",
+    "F1":"F1",
+    "F2":"F2",
+    "F3":"F3",
+    "F4":"F4",
+}
+
+
 let keybinds = {
     keyListening:0,
     keyDone:true,
@@ -34,13 +59,13 @@ let keyLoop = () => {
 
     if (keyPressed[keybinds["Move Left"].key]) {
         if ((modPressed("Move Left"))) {
-            player.rotate(player.direction+1)
+            player.rotate(player.direction+2)
 
         }
     }
     if (keyPressed[keybinds["Move Right"].key]) {
         if ((modPressed("Move Right"))) {
-            player.rotate(player.direction-1)
+            player.rotate(player.direction-2)
         }
     }
     if (keyPressed[keybinds["Move Up"].key]) {
@@ -57,6 +82,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability0"))) {
             if (actionBars[1].abilities[0] !== undefined) {
                 player.abilities[actionBars[1].abilities[0]].startCast(player)
+                actions[actionBars[1].abilities[0]].pressStart()
             }
         }
     }
@@ -64,6 +90,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability1"))) {
             if (actionBars[1].abilities[1] !== undefined) {
                 player.abilities[actionBars[1].abilities[1]].startCast(player)
+                actions[actionBars[1].abilities[1]].pressStart()
             }
         }
     }
@@ -72,6 +99,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability2"))) {
             if (actionBars[1].abilities[2]!==undefined) {
                 player.abilities[actionBars[1].abilities[2]].startCast(player)
+                actions[actionBars[1].abilities[2]].pressStart()
             }
         }
     }
@@ -80,6 +108,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability3"))) {
             if (actionBars[1].abilities[3] !== undefined) {
                 player.abilities[actionBars[1].abilities[3]].startCast(player)
+                actions[actionBars[1].abilities[3]].pressStart()
             }
         }
     }
@@ -88,6 +117,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability4"))) {
             if (actionBars[1].abilities[4] !== undefined) {
                 player.abilities[actionBars[1].abilities[4]].startCast(player)
+                actions[actionBars[1].abilities[4]].pressStart()
             }
         }
     }
@@ -96,6 +126,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability5"))) {
             if (actionBars[1].abilities[5] !== undefined) {
                 player.abilities[actionBars[1].abilities[5]].startCast(player)
+                actions[actionBars[1].abilities[5]].pressStart()
             }
         }
     }
@@ -104,6 +135,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability6"))) {
             if (actionBars[1].abilities[6] !== undefined) {
                 player.abilities[actionBars[1].abilities[6]].startCast(player)
+                actions[actionBars[1].abilities[6]].pressStart()
             }
         }
     }
@@ -112,6 +144,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability7"))) {
             if (actionBars[1].abilities[7] !== undefined) {
                 player.abilities[actionBars[1].abilities[7]].startCast(player)
+                actions[actionBars[1].abilities[7]].pressStart()
             }
         }
     }
@@ -120,6 +153,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability8"))) {
             if (actionBars[1].abilities[8] !== undefined) {
                 player.abilities[actionBars[1].abilities[8]].startCast(player)
+                actions[actionBars[1].abilities[8]].pressStart()
             }
         }
     }
@@ -128,6 +162,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability9"))) {
             if (actionBars[1].abilities[9] !== undefined) {
                 player.abilities[actionBars[1].abilities[9]].startCast(player)
+                actions[actionBars[1].abilities[9]].pressStart()
             }
         }
     }
@@ -136,6 +171,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability10"))) {
             if (actionBars[1].abilities[10] !== undefined) {
                 player.abilities[actionBars[1].abilities[10]].startCast(player)
+                actions[actionBars[1].abilities[10]].pressStart()
             }
         }
     }
@@ -144,6 +180,7 @@ let keyLoop = () => {
         if ((modPressed("Bar1 Ability11"))) {
             if (actionBars[1].abilities[11] !== undefined) {
                 player.abilities[actionBars[1].abilities[11]].startCast(player)
+                actions[actionBars[1].abilities[11]].pressStart()
             }
         }
     }

@@ -1,6 +1,41 @@
 class Action {
-    constructor(ability) {
-        this.ability = ability
+    press = 0
+    casting = 0
+    constructor(ability,bar,slot) {
+        this.name = ability
+        this.bar = bar
+        this.slot = slot
+        actionBars[bar].abilities[slot] = ability
+        document.getElementById("action_"+bar+"_"+slot+"").innerHTML = "<div class='action_gcd' id='action_gcd_"+bar+"_"+slot+"'><div class='action_cd'  id='action_cd_"+bar+"_"+slot+"'></div></div><img src='"+iconsPath[ability]+"'> <span class='ab_keybind'>"+keybindsD[keybinds["Bar"+bar+" Ability"+slot+""].key]+"</span> <span class='ab_charges'></span>"
+    }
+
+    run() {
+        if (this.press>0) {
+            this.press-=progress
+            if (this.press<=0) {
+                this.pressEnd()
+            }
+        }
+        if (player.gcd>0) {
+            console.log(((bars.playerCast.val/bars.playerCast.maxVal)*100)+"%")
+            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = ((bars.playerCast.val/bars.playerCast.maxVal)*100)+"%"
+        }
+    }
+
+    pressStart() {
+        this.press = 20+progress //ms
+        document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "1px solid #fff"
+    }
+
+    pressEnd() {
+        document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "0px solid #fff"
     }
 
 }
+
+let actions = {
+    "Vivify": new Action("Vivify", 1, 0),
+    "Renewing Mist": new Action("Renewing Mist", 1, 1),
+    "Mana Tea": new Action("Mana Tea", 1, 2),
+}
+

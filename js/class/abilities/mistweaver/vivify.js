@@ -16,6 +16,8 @@ class Vivify extends HealAbility {
 
         this.spellPower = 1.41 //141%
         this.spellPowerSec = 1.04 //104% renewing
+        this.effect = ""
+        this.effectValue = 0
     }
 
     run() {
@@ -52,6 +54,6 @@ class Vivify extends HealAbility {
                 }
             })
         }
-        caster.energy -= this.cost
+        caster.useEnergy(this.cost)
     }
 }
