@@ -1,3 +1,6 @@
+let strafing = false
+let mousePosition = {x:0,y:0}
+
 let keyPressed = {}
 
 let keybindsD = {
@@ -59,13 +62,20 @@ let keyLoop = () => {
 
     if (keyPressed[keybinds["Move Left"].key]) {
         if ((modPressed("Move Left"))) {
-            player.rotate(player.direction+2)
-
+            if (!strafing) {
+                player.rotate(player.direction+2)
+            } else {
+                player.move(1,1)
+            }
         }
     }
     if (keyPressed[keybinds["Move Right"].key]) {
         if ((modPressed("Move Right"))) {
-            player.rotate(player.direction-2)
+            if (!strafing) {
+                player.rotate(player.direction - 2)
+            } else {
+                player.move(1,2)
+            }
         }
     }
     if (keyPressed[keybinds["Move Up"].key]) {
@@ -223,6 +233,41 @@ let keydown = (e)=> {
 document.addEventListener('keydown', keydown)
 document.addEventListener('keyup', keyup)
 
+//right click
+let strafeStart = function(e) {
+    //0=left, 1=middle, 2=right
+    if (e.button===2) {
+        strafing = true
+    }
+}
+
+let strafeEnd = function(e) {
+    if (e.button===2) {
+        strafing = false
+    }
+}
+
+elements.canvas.addEventListener('mousedown', strafeStart)
+elements.canvas.addEventListener('mouseup', strafeEnd)
+
+
+window.oncontextmenu = (e) => {
+    e.preventDefault()
+
+}
+
+//mouse position
+let onMouseUpdate = function(e) {
+    if (strafing) {
+        let val = (e.pageX-mousePosition.x)/mouseSensitivity
+        player.rotate(player.direction - val)
+    }
+    mousePosition.x = e.pageX
+    mousePosition.y = e.pageY
+}
+
+document.addEventListener('mousemove', onMouseUpdate)
+
 //-------------------------------
 let resetInputs = function() {
     Object.keys(keyPressed).forEach(key => {
@@ -231,3 +276,4 @@ let resetInputs = function() {
 }
 
 window.addEventListener('blur', resetInputs)
+

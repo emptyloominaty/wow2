@@ -4,6 +4,12 @@
     left:0;
 }
 
+#stats_parent {
+    position:fixed;
+    top:100px;
+    left:10px;
+}
+
 #actionBars_parent {
     position:fixed;
     bottom:5px;
@@ -61,6 +67,17 @@
     top:22px;
     right:2px;
     font-size:22px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.ab_cdText {
+    color: #fffaa5;
+    position:absolute;
+    top:10px;
+    left:0px;
+    width:100%;
+    text-align: center;
+    font-size:18px;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 

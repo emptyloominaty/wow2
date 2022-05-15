@@ -46,6 +46,7 @@ class Creature {
         this.x = x
         this.y = y
 
+        this.abilities = {}
         if (spec==="mistweaver") {
             this.abilities = new Mw_abilities()
         }
@@ -110,9 +111,17 @@ class Creature {
         this.energy -= val * reduceEnergyCost
     }
 
-    move(val) { //val -0.5 - 1
+    move(val,strafe = 0) { //val -0.5 - 1
         let speed = val * this.moveSpeed
-        let angleInRadian = (this.direction-180) / 180 * Math.PI
+        let angleInRadian = 0
+        if (strafe===0) {
+            angleInRadian = (this.direction-180) / 180 * Math.PI
+        } else if (strafe===1) {
+            angleInRadian = (this.direction-90) / 180 * Math.PI
+        } else if (strafe===2) {
+            angleInRadian = (this.direction-270) / 180 * Math.PI
+        }
+
         let vx = Math.sin(angleInRadian) * speed
         let vy = Math.cos(angleInRadian) * speed
 

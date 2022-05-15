@@ -1,10 +1,3 @@
-/*
-CONFIG
- */
-let showFloatingAbilityName = true
-
-
-
 let friendlyTargets = []
 friendlyTargets.push(player)
 let enemyTargets = []

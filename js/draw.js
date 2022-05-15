@@ -18,7 +18,6 @@ if (0===0) {
     elements.buffsDebuffs_parent.innerHTML = "<div id='buff_bar'>" + buffHTML + "</div></div> <div id='debuff_barr'>" + debuffHTML + "</div></div>"
 }
 
-
 function draw(progress) {
     //---------------test---------------
     elements.test.innerHTML = "x: "+player.x+"<br>" +
@@ -33,6 +32,20 @@ function draw(progress) {
     game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15, "#6c746f")
     game2d.drawPlayerDirection(0, 0, 10, 3, "#999f9a", player.direction)
 
+    for (let i = 0; i<creatures.length; i++) {
+        if (creatures[i].name!=="player") {
+            let x = creatures[i].x - player.x
+            let y = creatures[i].y - player.y
+            let color
+            if (creatures[i].enemy) {
+                color = "#d78080"
+            } else {
+                color = "#91d786"
+            }
+            game2d.drawCircle((game2d.canvasW/2)+x, (game2d.canvasH/2)+y, 15, color)
+        }
+
+    }
 
     //---------------ui---------------
     //bars
@@ -54,6 +67,8 @@ function draw(progress) {
     Object.keys(bars).forEach(key => {
         document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width)+"px"
     })
+    //stats
+    elements.stats_parent.innerHTML = "Primary: "+player.stats.primary + "<br>Crit: "+player.stats.crit+ " <br>Haste: "+player.stats.haste+ " <br>Mastery: "+player.stats.mastery+ " <br>Vers: "+player.stats.vers+" "
 
     //buffs
     //reset
