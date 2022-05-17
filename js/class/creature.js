@@ -46,8 +46,14 @@ class Creature {
         this.x = x
         this.y = y
 
+        if (!enemy) {
+            friendlyTargets.push(this)
+        }
+
         this.abilities = {}
+        this.class = ""
         if (spec==="mistweaver") {
+            this.class = "Monk"
             this.abilities = new Mw_abilities()
         }
     }
@@ -166,3 +172,6 @@ class Creature {
     }
 
 }
+
+let friendlyTargets = []
+let enemyTargets = []

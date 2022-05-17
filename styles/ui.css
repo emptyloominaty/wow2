@@ -114,3 +114,41 @@
     max-height:65%;
 }
 
+#raidFrames_parent {
+    position:fixed;
+    bottom:300px;
+    left:30%;
+    display:flex;
+}
+
+.raidFrame {
+    position:relative;
+    background-color: #000;
+    width:110px;
+    height:50px;
+    margin:1px;
+}
+
+.raidFrame_name {
+    padding: 0 3px;
+    position:absolute;
+    top:0;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+.raidFrame_health {
+    width:100%;
+    height:100%;
+    opacity:0.85;
+    background-color: #00ac00;
+}
+
+.raidFrame_healthLost {
+    position:absolute;
+    top:15px;
+    width:100%;
+    text-align: center;
+    color:rgba(100,100,100,0.9);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}

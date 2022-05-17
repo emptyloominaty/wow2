@@ -196,6 +196,19 @@ let keyLoop = () => {
     }
 
 
+    if (keyPressed["Escape"]) {
+        //TODO: STOP CASTING
+        if (player.isCasting) {
+            player.isCasting = false
+            player.casting = casting = {name:"", time:0, time2:0}
+            player.gcd = 0
+        }
+
+        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+        player.targetObj = {}
+        player.target = ""
+    }
+
 
 }
 

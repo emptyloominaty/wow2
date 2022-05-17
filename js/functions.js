@@ -1,3 +1,16 @@
+let targetSelect = 0
+
+let playerNewTarget = function(id,enemy) {
+    document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+    targetSelect = id
+    if (!enemy) {
+        player.targetObj = friendlyTargets[id]
+        document.getElementById("raidFrame"+id).style.outline = "1px solid #fff"
+    } else {
+        player.targetObj = enemyTargets[id]
+    }
+    player.target = player.targetObj.name
+}
 
 let critChance = function(caster) {
     let critChance = (Math.random()*100)

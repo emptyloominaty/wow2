@@ -19,6 +19,8 @@ class Action {
         //gcd
         if (player.gcd>0) {
             document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = ((bars.playerCast.val/bars.playerCast.maxVal)*100)+"%"
+        } else {
+            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = "0%"
         }
         //cd
         if (player.abilities[this.name].cd<player.abilities[this.name].maxCd) {

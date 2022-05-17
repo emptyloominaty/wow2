@@ -1,9 +1,3 @@
-let friendlyTargets = []
-friendlyTargets.push(player)
-let enemyTargets = []
-
-
-
 let fps = 60
 
 function update(progress) {

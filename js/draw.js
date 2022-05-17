@@ -16,9 +16,23 @@ if (0===0) {
         debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> </div>"
     }
     elements.buffsDebuffs_parent.innerHTML = "<div id='buff_bar'>" + buffHTML + "</div></div> <div id='debuff_barr'>" + debuffHTML + "</div></div>"
+
+    let raidFramesHTML = ""
+    for (let i = 0; i<friendlyTargets.length; i++) {
+        //TODO:HOTS,DEBUFFS
+        raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'> <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div> <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span> <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> </div>"
+    }
+
+    elements.raidFrames_parent.innerHTML = raidFramesHTML
+
 }
 
-function draw(progress) {
+
+
+
+
+
+    function draw(progress) {
     //---------------test---------------
     elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
@@ -44,7 +58,6 @@ function draw(progress) {
             }
             game2d.drawCircle((game2d.canvasW/2)+x, (game2d.canvasH/2)+y, 15, color)
         }
-
     }
 
     //---------------ui---------------
@@ -84,7 +97,20 @@ function draw(progress) {
         }
         //player.buffs[i].name
         //player.buffs[i].duration
-
     }
+
+    //raidframes
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            //raidFramesHTML += "<div class='raidFrame_health' id='raidFrame_health"+i+"'></div>  <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> </div>"
+            document.getElementById("raidFrame_health"+i).style.width = ((friendlyTargets[i].health/friendlyTargets[i].maxHealth)*100)+"%"
+
+            if (friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
+                document.getElementById("raidFrame_healthLost"+i).textContent = "-"+(friendlyTargets[i].maxHealth-friendlyTargets[i].health).toFixed(0)
+            } else if (friendlyTargets[i].isDead) {
+                document.getElementById("raidFrame_healthLost"+i).textContent = "Dead"
+            } else {
+                document.getElementById("raidFrame_healthLost"+i).textContent = ""
+            }
+        }
 
 }
