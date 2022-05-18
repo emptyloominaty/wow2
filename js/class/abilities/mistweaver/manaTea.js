@@ -34,6 +34,9 @@ class ManaTea extends Ability {
         }
     }
 
-    endBuff(caster) {
+    runBuff(target,buff) {
+    }
+
+    endBuff(target) {
     }
 }

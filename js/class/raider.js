@@ -4,4 +4,4 @@ class Raider extends Creature {
     }
 }
 
-let raiders = [new Raider("test",false,1000,100,50,50,0,"")]
+let raiders = [new Raider("test",false,1500,100,50,50,0,"")]

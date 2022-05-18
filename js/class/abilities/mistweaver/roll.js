@@ -53,7 +53,10 @@ class Roll extends Ability {
         }
     }
 
-    endBuff(caster) {
-        caster.isRolling = false
+    runBuff(target,buff) {
+    }
+
+    endBuff(target) {
+        target.isRolling = false
     }
 }

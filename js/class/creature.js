@@ -99,13 +99,13 @@ class Creature {
                    this.move((this.buffs[i].effectValue*40)/fps)
                 }
             }
-
-
             this.buffs[i].duration-=progress/1000
             if (this.buffs[i].duration<0) {
                 this.buffs[i].ability.endBuff(this)
                 this.buffs.splice(i,1)
                 i--
+            } else {
+                this.buffs[i].ability.runBuff(this,this.buffs[i],i)
             }
         }
         //

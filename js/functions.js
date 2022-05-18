@@ -36,7 +36,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
     }
 }
 
-let applyHot = function (caster,target,ability) {
+let applyHot = function (caster,target,ability,duration = 0,extDuration = 0) {
     for (let i = 0; i<target.buffs.length; i++) {
         if (target.buffs[i].name === ability.name && target.buffs[i].caster === caster) {
             target.buffs[i].duration += ability.duration
@@ -46,7 +46,11 @@ let applyHot = function (caster,target,ability) {
             return true
         }
     }
-    target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
+    if (duration === 0) {
+        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
+    } else {
+        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, timer:0, duration:ability.duration, maxDuration:duration, extendedDuration:extDuration, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
+    }
 }
 
 let applyBuff = function (caster,target,ability) {

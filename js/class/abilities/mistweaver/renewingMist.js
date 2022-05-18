@@ -18,6 +18,7 @@ class RenewingMist extends Ability {
         this.duration = 20
         this.effect = ""
         this.effectValue = 0
+        this.jumpRange = 20
     }
 
     run() {
@@ -56,6 +57,27 @@ class RenewingMist extends Ability {
         caster.useEnergy(this.cost)
     }
 
-    endBuff(caster) {
+    runBuff(target,buff,id) {
+        //Jump
+        if(target.health>=target.maxHealth) {
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                //TODO:RANGE
+                if (friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
+                    let a = 0
+                    for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
+                        if (friendlyTargets[i].buffs[j].name === buff.name && friendlyTargets[i].buffs[j].caster === buff.caster) {
+                            a = 1
+                        }
+                    }
+                    if (a===0) {
+                        applyHot(buff.caster,friendlyTargets[i],buff.ability,buff.duration,buff.extendedDuration)
+                        target.buffs.splice(id,1)
+                    }
+                }
+            }
+        }
+    }
+
+    endBuff(target) {
     }
 }
