@@ -1,4 +1,4 @@
-class GustOfMists extends HealAbility {
+class GustOfMists extends Ability {
     constructor() {
         let name = "Gust of Mists"
         let cost = 0 //% mana

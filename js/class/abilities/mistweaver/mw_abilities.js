@@ -3,5 +3,6 @@ class Mw_abilities {
     "Renewing Mist" = new RenewingMist()
     "Gust of Mists" = new GustOfMists()
     "Mana Tea" = new ManaTea()
+    "Roll" = new Roll()
     "" = {startCast:function(xd){return false},run:function(){}}
 }

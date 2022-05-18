@@ -1,4 +1,4 @@
-class RenewingMist extends HealAbility {
+class RenewingMist extends Ability {
     constructor() {
         let name = "Renewing Mist"
         let cost = 1.8 //% mana
@@ -54,5 +54,8 @@ class RenewingMist extends HealAbility {
             //TODO:RANGE
         }
         caster.useEnergy(this.cost)
+    }
+
+    endBuff(caster) {
     }
 }

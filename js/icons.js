@@ -18,6 +18,7 @@ let iconsPath = {
     "Revival":"img/mistweaver/Revival.jpg",
     "Rising Mist":"img/mistweaver/RisingMist.jpg",
     "Rising Sun Kick":"img/mistweaver/RisingSunKick.jpg",
+    "Roll":"img/mistweaver/Roll.jpg",
     "Soothing Mist":"img/mistweaver/SoothingMist.jpg",
     "Spinning Crane Kick":"img/mistweaver/SpinningCraneKick.jpg",
     "Thunder Focus Tea":"img/mistweaver/ThunderFocusTea.jpg",

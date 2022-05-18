@@ -22,6 +22,7 @@ class Creature {
     isRooted = false
     isMoving = false
     isCasting = false
+    isRolling = false
     casting = {name:"", time:0, time2:0}
     isDead = false
     gcd = 0
@@ -94,12 +95,15 @@ class Creature {
                     this.buffs[i].timer = 0
                 }
             } else if (this.buffs[i].type==="buff") {
-
+                if (this.buffs[i].effect==="move") {
+                   this.move((this.buffs[i].effectValue*40)/fps)
+                }
             }
 
 
             this.buffs[i].duration-=progress/1000
             if (this.buffs[i].duration<0) {
+                this.buffs[i].ability.endBuff(this)
                 this.buffs.splice(i,1)
                 i--
             }
@@ -162,7 +166,7 @@ class Creature {
     }
 
     rotate(dir) { //0-360
-        if (!this.isStunned && !this.isRooted) {
+        if (!this.isStunned && !this.isRooted && !this.isRolling) {
             this.direction = dir
             this.direction = this.direction % 360
             if (this.direction < 0) {

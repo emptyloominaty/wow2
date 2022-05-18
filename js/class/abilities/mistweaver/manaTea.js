@@ -1,4 +1,4 @@
-class ManaTea extends HealAbility {
+class ManaTea extends Ability {
     constructor() {
         let name = "Mana Tea"
         let cost = 0 //% mana
@@ -32,5 +32,8 @@ class ManaTea extends HealAbility {
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
         }
+    }
+
+    endBuff(caster) {
     }
 }

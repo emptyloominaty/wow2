@@ -1,4 +1,4 @@
-class Vivify extends HealAbility {
+class Vivify extends Ability {
     constructor() {
         let name = "Vivify"
         let cost = 3.8 //% mana
