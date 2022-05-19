@@ -51,5 +51,8 @@ let actions = {
     "Renewing Mist": new Action("Renewing Mist", 1, 1),
     "Mana Tea": new Action("Mana Tea", 1, 2),
     "Roll": new Action("Roll", 1, 3),
+    "Soothing Mist": new Action("Soothing Mist", 1, 8),
+    "Enveloping Mist": new Action("Enveloping Mist", 1, 9),
+
 }
 

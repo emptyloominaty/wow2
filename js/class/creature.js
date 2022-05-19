@@ -9,7 +9,7 @@ class Creature {
     maxEnergy = 0
     energyRegen = 0.8 // 1sec
 
-    stats = {primary:100, haste:20, crit:10, vers:0, mastery:34, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
+    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:50, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -22,6 +22,8 @@ class Creature {
     isRooted = false
     isMoving = false
     isCasting = false
+    isChanneling = false
+    channeling = {name:"", time:0, time2:0}
     isRolling = false
     casting = {name:"", time:0, time2:0}
     isDead = false
@@ -30,8 +32,13 @@ class Creature {
     buffs = []
     debuffs = []
 
+    healingIncrease = 1
+
     target = ""
     targetObj = {}
+
+    healingDone = 0
+    damageDone = 0
 
 
     constructor(name,enemy,health,energy,x,y,direction,spec) {
@@ -53,11 +60,23 @@ class Creature {
 
         this.abilities = {}
         this.class = ""
+        this.spec = spec
         if (spec==="mistweaver") {
             this.class = "Monk"
             this.abilities = new Mw_abilities()
+        } else if (spec==="windwalker") {
+            this.class = "Monk"
+        } else if (spec==="restosham") {
+            this.class = "Shaman"
+        } else if (spec==="assassination") {
+            this.class = "Rogue"
+        } else if (spec==="restodruid") {
+            this.class = "Druid"
         }
-    }
+
+
+
+     }
 
     run() {
         this.energy += this.energyRegen/fps
@@ -86,6 +105,7 @@ class Creature {
         }
 
         //buffs / debuffs
+        this.healingIncrease = 1
         for (let i = 0; i<this.buffs.length; i++) {
             if (this.buffs[i].type==="hot") {
                 if (this.buffs[i].timer<1) {
@@ -95,10 +115,16 @@ class Creature {
                     this.buffs[i].timer = 0
                 }
             } else if (this.buffs[i].type==="buff") {
-                if (this.buffs[i].effect==="move") {
-                   this.move((this.buffs[i].effectValue*40)/fps)
-                }
+
             }
+            if (this.buffs[i].effect==="move") {
+                this.move((this.buffs[i].effectValue*40)/fps)
+            }
+            if (this.buffs[i].effect==="healingIncrease") {
+                this.healingIncrease += this.buffs[i].effectValue
+            }
+
+
             this.buffs[i].duration-=progress/1000
             if (this.buffs[i].duration<0) {
                 this.buffs[i].ability.endBuff(this)
@@ -138,7 +164,11 @@ class Creature {
         if (this.isCasting) {
             this.isCasting = false
             this.gcd = 0
-            this.casting = {name:"", time:0, timeleft:0}
+            this.casting = {name:"", time:0, time2:0}
+        }
+        if (this.isChanneling) {
+            this.isChanneling = false
+            this.channeling = {name:"", time:0, time2:0}
         }
         if (!this.isStunned && !this.isRooted) {
             this.x += vx
@@ -173,6 +203,32 @@ class Creature {
                 this.direction += 360
             }
         }
+    }
+
+    talents = {
+        //Mistweaver
+        MistWrap:false,
+        ChiWave:false,
+        ChiBurst:false,
+        Celerity:false,
+        ChiTorpedo:false,
+        TigersLust:false,
+        Lifecycles:false,
+        SpiritoftheCrane:false,
+        ManaTea:false,
+        TigerTailSweep:false,
+        SongofChiji:false,
+        RingofPeace:false,
+        HealingElixir:false,
+        DiffuseMagic:false,
+        DampenHarm:false,
+        SummonJadeSerpentStatue:false,
+        RefreshingJadeWind:false,
+        InvokeChijitheRedCrane:false,
+        FocusedThunder:false,
+        Upwelling:false,
+        RisingMist:false,
+        //
     }
 
 }

@@ -1,0 +1,52 @@
+class SoothingMist extends Ability {
+    constructor() {
+        let name = "Soothing Mist"
+        let cost = 0.4 //% mana every sec
+        let gcd = 1
+        let castTime = 1
+        let cd = 0
+        let charges = 1
+        let maxCharges = 1
+        let channeling = true
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+
+        this.spellPower = 0.55 //440% over 8sec
+        this.duration = 8
+        this.effect = ""
+        this.effectValue = 0
+    }
+
+    run() {
+    }
+
+    startCast(caster) {
+        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0) {
+            caster.isChanneling = true
+            caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+            bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+        }
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        if (caster.target==="") {
+            //heal self
+            doHeal(caster,caster,this)
+            let masteryRng = Math.floor(Math.random()*7) //TODO????????????????????
+            if (masteryRng===0) {
+                caster.abilities["Gust of Mists"].heal(caster)
+            }
+        } else {
+            //heal target
+            doHeal(caster,caster.targetObj,this)
+            caster.abilities["Gust of Mists"].heal(caster) //TODO:RNG
+            //TODO:RANGE
+        }
+        caster.useEnergy(this.cost)
+    }
+}

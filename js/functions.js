@@ -28,8 +28,11 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
     } else {
         heal = (caster.stats.primary * spellPower) * (1+(caster.stats.vers/100)) * crit
     }
+    //TODO????
+    heal = heal * target.healingIncrease
 
     floatingTexts.push(new FloatingText(300,350+yOffset,heal,"heal",crit,ability.name))
+    details.doHealing(caster,heal,ability)
     target.health += heal
     if (target.health>target.maxHealth) {
         target.health = target.maxHealth
@@ -47,9 +50,9 @@ let applyHot = function (caster,target,ability,duration = 0,extDuration = 0) {
         }
     }
     if (duration === 0) {
-        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
+        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
     } else {
-        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, timer:0, duration:ability.duration, maxDuration:duration, extendedDuration:extDuration, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
+        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:duration, extendedDuration:extDuration, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
     }
 }
 
@@ -60,4 +63,17 @@ let applyBuff = function (caster,target,ability) {
         }
     }
     target.buffs.push({name:ability.name, type:"buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
+}
+
+
+let details = { //TODO
+    doHealing: function(caster,val,ability) {
+        caster.healingDone+=val
+    },
+    doDamage: function() {
+
+    },
+    takeDamage: function() {
+
+    }
 }

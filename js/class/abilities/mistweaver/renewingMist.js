@@ -72,6 +72,7 @@ class RenewingMist extends Ability {
                     if (a===0) {
                         applyHot(buff.caster,friendlyTargets[i],buff.ability,buff.duration,buff.extendedDuration)
                         target.buffs.splice(id,1)
+                        return
                     }
                 }
             }

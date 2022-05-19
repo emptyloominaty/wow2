@@ -14,13 +14,13 @@ let keybindsD = {
     "Digit8":"8",
     "Digit9":"9",
     "Digit0":"0",
-    "keyQ":"Q",
-    "keyW":"W",
-    "keyE":"E",
-    "keyR":"R",
-    "keyT":"T",
-    "keyZ":"Z",
-    "keyU":"U",
+    "KeyQ":"Q",
+    "KeyW":"W",
+    "KeyE":"E",
+    "KeyR":"R",
+    "KeyT":"T",
+    "KeyZ":"Z",
+    "KeyU":"U",
     "F1":"F1",
     "F2":"F2",
     "F3":"F3",
@@ -200,8 +200,10 @@ let keyLoop = () => {
         //TODO: STOP CASTING
         if (player.isCasting) {
             player.isCasting = false
-            player.casting = casting = {name:"", time:0, time2:0}
+            player.casting = {name:"", time:0, time2:0}
             player.gcd = 0
+            player.isChanneling = false
+            player.channeling = {name:"", time:0, time2:0}
         }
 
         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"

@@ -20,24 +20,30 @@ if (0===0) {
     let raidFramesHTML = ""
     for (let i = 0; i<friendlyTargets.length; i++) {
         //TODO:HOTS,DEBUFFS
-        raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'> <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div> <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span> <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> </div>"
+        raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'>" +
+            " <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
+            " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span>" +
+            " <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> " +
+            "<img class='raidFrame_buff_bottomRight' id='raidFrame_buff_bottomRight"+i+"'>" +
+            "<span class='raidFrame_buff_bottomRight_duration' id='raidFrame_buff_bottomRight_duration"+i+"'></span>" +
+            "<img class='raidFrame_buff_bottomRight2' id='raidFrame_buff_bottomRight2"+i+"'>" +
+            "<span class='raidFrame_buff_bottomRight2_duration' id='raidFrame_buff_bottomRight2_duration"+i+"'></span>" +
+            "<img class='raidFrame_buff_bottomCentre' id='raidFrame_buff_bottomCentre"+i+"'>" +
+            "<span class='raidFrame_buff_bottomCentre_duration' id='raidFrame_buff_bottomCentre_duration"+i+"'></span>" +
+            "<img class='raidFrame_buff_centreRight' id='raidFrame_buff_centreRight"+i+"'>" +
+            "<span class='raidFrame_buff_centreRight_duration' id='raidFrame_buff_centreRight_duration"+i+"'></span>" +
+            "</div>"
     }
-
     elements.raidFrames_parent.innerHTML = raidFramesHTML
 
 }
 
-
-
-
-
-
     function draw(progress) {
     //---------------test---------------
-    elements.test.innerHTML = "x: "+player.x+"<br>" +
+    /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
-        " dir: "+player.direction+"<br>"
-
+        " dir: "+player.direction+"<br>"*/
+        elements.test.innerHTML = "FPS: "+fps.toFixed(0)+"<br> HPS: "+(player.healingDone/time).toFixed(0)
 
     //---------------2d---------------
     //reset
@@ -101,15 +107,56 @@ if (0===0) {
 
     //raidframes
         for (let i = 0; i<friendlyTargets.length; i++) {
-            //raidFramesHTML += "<div class='raidFrame_health' id='raidFrame_health"+i+"'></div>  <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> </div>"
             document.getElementById("raidFrame_health"+i).style.width = ((friendlyTargets[i].health/friendlyTargets[i].maxHealth)*100)+"%"
-
             if (friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
                 document.getElementById("raidFrame_healthLost"+i).textContent = "-"+(friendlyTargets[i].maxHealth-friendlyTargets[i].health).toFixed(0)
             } else if (friendlyTargets[i].isDead) {
                 document.getElementById("raidFrame_healthLost"+i).textContent = "Dead"
             } else {
                 document.getElementById("raidFrame_healthLost"+i).textContent = ""
+            }
+            //buffs debuffs
+            let bottomRight = false
+            let centreRight = false
+            let bottomCentre = false
+            let bottomRight2 = false
+            for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
+                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].bottomRight && friendlyTargets[i].buffs[j].caster === player) {
+                    bottomRight = 1
+                    document.getElementById("raidFrame_buff_bottomRight"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight]
+                    document.getElementById("raidFrame_buff_bottomRight_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                }
+                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].bottomRight2 && friendlyTargets[i].buffs[j].caster === player) {
+                    bottomRight2 = 1
+                    document.getElementById("raidFrame_buff_bottomRight2"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight2]
+                    document.getElementById("raidFrame_buff_bottomRight2_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                }
+                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].bottomCentre && friendlyTargets[i].buffs[j].caster === player) {
+                    bottomCentre = 1
+                    document.getElementById("raidFrame_buff_bottomCentre"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomCentre]
+                    document.getElementById("raidFrame_buff_bottomCentre_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                }
+                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].centreRight && friendlyTargets[i].buffs[j].caster === player) {
+                    centreRight = 1
+                    document.getElementById("raidFrame_buff_centreRight"+i).src = iconsPath[raidFramesBuffs[player.spec].centreRight]
+                    document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                }
+            }
+            if (!bottomRight) {
+                document.getElementById("raidFrame_buff_bottomRight"+i).src = ""
+                document.getElementById("raidFrame_buff_bottomRight_duration"+i).textContent = ""
+            }
+            if (!bottomRight2) {
+                document.getElementById("raidFrame_buff_bottomRight2"+i).src = ""
+                document.getElementById("raidFrame_buff_bottomRight2_duration"+i).textContent = ""
+            }
+            if (!bottomCentre) {
+                document.getElementById("raidFrame_buff_bottomCentre"+i).src = ""
+                document.getElementById("raidFrame_buff_bottomCentre_duration"+i).textContent = ""
+            }
+            if (!centreRight) {
+                document.getElementById("raidFrame_buff_centreRight"+i).src = ""
+                document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = ""
             }
         }
 

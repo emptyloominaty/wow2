@@ -1,0 +1,75 @@
+
+#raidFrames_parent {
+    position:fixed;
+    bottom:130px;
+    left:30%;
+    display:flex;
+    flex-direction:column;
+    max-height:270px;
+    width:700px;
+    align-content: flex-start;
+    flex-wrap:wrap;
+}
+
+.raidFrame {
+    position:relative;
+    background-color: #000;
+    width:110px;
+    height:50px;
+    margin:1px;
+}
+
+.raidFrame_name {
+    padding: 0 3px;
+    position:absolute;
+    top:0;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.8), 1px -1px 0 rgba(0,0,0,0.8), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.8);
+
+}
+
+.raidFrame_health {
+    width:100%;
+    height:100%;
+    opacity:0.85;
+    background-color: #00ac00;
+}
+
+.raidFrame_healthLost {
+    position:absolute;
+    top:15px;
+    width:100%;
+    text-align: center;
+    color:rgba(100,100,100,0.9);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.raidFrame_buff_bottomRight {
+    position:absolute;
+    max-width:16px;
+    right:0;
+    bottom:0;
+}
+
+.raidFrame_buff_bottomRight_duration {
+    position:absolute;
+    font-size: 12px;
+    right:0;
+    bottom:0;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.raidFrame_buff_centreRight {
+    position:absolute;
+    max-width:16px;
+    right:0;
+    bottom:15px;
+}
+
+.raidFrame_buff_centreRight_duration {
+    position:absolute;
+    font-size: 12px;
+    right:0;
+    bottom:15px;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
+}
+
