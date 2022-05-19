@@ -25,6 +25,17 @@ class Vivify extends Ability {
 
     startCast(caster) {
         if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0) {
+            if (caster.isChanneling) {
+                if (caster.channeling.name==="Soothing Mist") {
+                    this.endCast(caster)
+                    caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+                    bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+                    return
+                } else {
+                    this.isChanneling = false
+                    this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+                }
+            }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
             caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))

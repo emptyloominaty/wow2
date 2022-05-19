@@ -103,6 +103,21 @@ class Creature {
                 this.isCasting = false
             }
         }
+        //channeling ability
+        if (this.isChanneling) {
+            if (this.channeling.time<this.channeling.time2) {
+                this.channeling.time += progress/1000
+                this.channeling.timer += progress/1000
+                if (this.channeling.timer>=this.channeling.timer2) {
+                    this.channeling.timer = 0
+                    this.abilities[this.channeling.name].cast(this)
+                }
+
+            } else {
+                this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+                this.isChanneling = false
+            }
+        }
 
         //buffs / debuffs
         this.healingIncrease = 1

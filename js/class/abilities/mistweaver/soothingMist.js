@@ -24,27 +24,29 @@ class SoothingMist extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0) {
+        if (caster.energy>this.cost && !caster.isCasting && !caster.isChanneling && caster.gcd<=0) {
             caster.isChanneling = true
-            caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1}
             caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
         }
     }
 
-    endCast(caster) {
-        caster.isCasting = false
+    cast(caster) {
         if (caster.target==="") {
             //heal self
             doHeal(caster,caster,this)
-            let masteryRng = Math.floor(Math.random()*7) //TODO????????????????????
+            let masteryRng = Math.floor(Math.random()*7)
             if (masteryRng===0) {
                 caster.abilities["Gust of Mists"].heal(caster)
             }
         } else {
             //heal target
             doHeal(caster,caster.targetObj,this)
-            caster.abilities["Gust of Mists"].heal(caster) //TODO:RNG
+            let masteryRng = Math.floor(Math.random()*7)
+            if (masteryRng===0) {
+                caster.abilities["Gust of Mists"].heal(caster)
+            }
             //TODO:RANGE
         }
         caster.useEnergy(this.cost)

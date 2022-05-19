@@ -203,7 +203,7 @@ let keyLoop = () => {
             player.casting = {name:"", time:0, time2:0}
             player.gcd = 0
             player.isChanneling = false
-            player.channeling = {name:"", time:0, time2:0}
+            player.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
         }
 
         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"

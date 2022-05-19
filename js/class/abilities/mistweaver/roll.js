@@ -39,7 +39,12 @@ class Roll extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && caster.gcd<=0 && this.charges>0) {
+        if (caster.energy>this.cost && caster.gcd<=0  && this.charges>0) {
+            if (caster.isChanneling) {
+                this.isChanneling = false
+                this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+            }
+
             if (caster.isCasting) {
                 this.isCasting = false
                 this.casting = {name:"", time:0, timeleft:0}
