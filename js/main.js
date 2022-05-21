@@ -5,6 +5,8 @@ let progressInSec = 0.016
 function update(progress) {
     fps = 1/progress*1000
     progressInSec = progress/1000
+    //
+    spellQueue.run()
 
     //creatures
     for (let i = 0; i<creatures.length; i++) {

@@ -55,6 +55,8 @@ class Roll extends Ability {
             this.cd = 0
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
+        } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
+            spellQueue.add(this,caster.gcd)
         }
     }
 

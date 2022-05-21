@@ -24,7 +24,7 @@ class Vivify extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0) {
+        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && !caster.targetObj.isDead) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
@@ -40,6 +40,8 @@ class Vivify extends Ability {
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
             caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+        } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
+            spellQueue.add(this,caster.gcd)
         }
     }
 

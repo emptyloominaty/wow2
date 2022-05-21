@@ -1,6 +1,7 @@
 let showFloatingAbilityName = true
 
 let mouseSensitivity = 2.4
+let spellQueueWindow = 0.3 //sec
 
 let raidFramesBuffs = {
     "mistweaver": {

@@ -24,11 +24,13 @@ class SoothingMist extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && !caster.isChanneling && caster.gcd<=0) {
+        if (caster.energy>this.cost && !caster.isCasting && !caster.isChanneling && caster.gcd<=0 && !caster.targetObj.isDead) {
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1}
             caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+        } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
+            spellQueue.add(this,caster.gcd)
         }
     }
 
