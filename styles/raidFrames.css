@@ -73,3 +73,17 @@
     text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
 }
 
+.raidFrame_buff_bottomCentre {
+    position:absolute;
+    max-width:16px;
+    right:50px;
+    bottom:0;
+}
+
+.raidFrame_buff_bottomCentre_duration {
+    position:absolute;
+    font-size: 12px;
+    right:50px;
+    bottom:0;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
+}

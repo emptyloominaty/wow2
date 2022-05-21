@@ -2,6 +2,7 @@ class SpellQueue {
     done = true
     ability = {}
     time = 0
+//    target = {}
 
     run() {
         if (this.time>0) {
@@ -12,10 +13,11 @@ class SpellQueue {
         }
     }
 
-    add(ability,time) {
+    add(ability,time,target) {
         this.ability = ability
         this.time = time+progressInSec
         this.done = false
+ //       this.target = target
     }
 
 }

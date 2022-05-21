@@ -6,5 +6,7 @@ class Mw_abilities {
     "Roll" = new Roll()
     "Enveloping Mist" = new EnvelopingMist()
     "Soothing Mist" = new SoothingMist()
+    "Revival" = new Revival()
+    "Essence Font" = new EssenceFont()
     "" = {startCast:function(xd){return false},run:function(){}}
 }

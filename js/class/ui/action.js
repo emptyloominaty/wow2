@@ -38,9 +38,10 @@ class Action {
     pressStart() {
         if (!player.targetObj.isDead) {
             player.castTarget = player.targetObj
-            this.press = 20+progress //ms
-            document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "1px solid #fff"
         }
+        this.press = 20+progress //ms
+        document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "1px solid #fff"
+
     }
 
     pressEnd() {
@@ -56,6 +57,7 @@ let actions = {
     "Roll": new Action("Roll", 1, 3),
     "Soothing Mist": new Action("Soothing Mist", 1, 8),
     "Enveloping Mist": new Action("Enveloping Mist", 1, 9),
-
+    "Revival": new Action("Revival", 0, 0),
+    "Essence Font": new Action("Essence Font", 0, 1),
 }
 

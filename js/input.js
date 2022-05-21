@@ -21,6 +21,9 @@ let keybindsD = {
     "KeyT":"T",
     "KeyZ":"Z",
     "KeyU":"U",
+    "KeyP":"P",
+    "KeyF":"F",
+    "Backquote":";",
     "F1":"F1",
     "F2":"F2",
     "F3":"F3",
@@ -48,10 +51,30 @@ let keybinds = {
     "Bar1 Ability10":{mod:"",key:"KeyR"}, //aoe stun
     "Bar1 Ability11":{mod:"",key:"KeyT"}, //healt pot
 
+    "Bar0 Ability0":{mod:"ControlLeft",key:"Digit1"}, //
+    "Bar0 Ability1":{mod:"ControlLeft",key:"Digit2"}, //
+    "Bar0 Ability2":{mod:"",key:"Digit5"}, //
+    "Bar0 Ability3":{mod:"",key:"Digit6"}, //
+    "Bar0 Ability4":{mod:"ControlLeft",key:"Digit5"}, //
+    "Bar0 Ability5":{mod:"ShiftLeft",key:"Digit1"}, //
+    "Bar0 Ability6":{mod:"ShiftLeft",key:"Digit2"}, //
+    "Bar0 Ability7":{mod:"ShiftLeft",key:"Digit3"}, //
+    "Bar0 Ability8":{mod:"ShiftLeft",key:"Digit4"}, //
+    "Bar0 Ability9":{mod:"",key:"KeyF"}, //
+    "Bar0 Ability10":{mod:"",key:"KeyP"}, //middle button mouse yikes
+    "Bar0 Ability11":{mod:"",key:"Backquote"}, //;
+
     "Ability1+":{mod:"ShiftLeft",key:"KeyQ"}, //rsk
 
 }
 let keyLoop = () => {
+    let pressAbility = function(bar,slot){
+        if (actionBars[bar].abilities[slot] !== undefined) {
+            player.abilities[actionBars[bar].abilities[slot]].startCast(player)
+            actions[actionBars[bar].abilities[slot]].pressStart()
+        }
+    }
+
     let modPressed = function(name) {
         if (keybinds[name].mod === "") {
             return !(keyPressed["ShiftLeft"] || keyPressed["ControlLeft"])
@@ -90,114 +113,153 @@ let keyLoop = () => {
     }
     if (keyPressed[keybinds["Bar1 Ability0"].key]) {
         if ((modPressed("Bar1 Ability0"))) {
-            if (actionBars[1].abilities[0] !== undefined) {
-                player.abilities[actionBars[1].abilities[0]].startCast(player)
-                actions[actionBars[1].abilities[0]].pressStart()
-            }
+            pressAbility(1,0)
+
         }
     }
     if (keyPressed[keybinds["Bar1 Ability1"].key]) {
         if ((modPressed("Bar1 Ability1"))) {
-            if (actionBars[1].abilities[1] !== undefined) {
-                player.abilities[actionBars[1].abilities[1]].startCast(player)
-                actions[actionBars[1].abilities[1]].pressStart()
-            }
+            pressAbility(1,1)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability2"].key]) {
         if ((modPressed("Bar1 Ability2"))) {
-            if (actionBars[1].abilities[2]!==undefined) {
-                player.abilities[actionBars[1].abilities[2]].startCast(player)
-                actions[actionBars[1].abilities[2]].pressStart()
-            }
+            pressAbility(1,2)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability3"].key]) {
         if ((modPressed("Bar1 Ability3"))) {
-            if (actionBars[1].abilities[3] !== undefined) {
-                player.abilities[actionBars[1].abilities[3]].startCast(player)
-                actions[actionBars[1].abilities[3]].pressStart()
-            }
+            pressAbility(1,3)
+
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability4"].key]) {
         if ((modPressed("Bar1 Ability4"))) {
-            if (actionBars[1].abilities[4] !== undefined) {
-                player.abilities[actionBars[1].abilities[4]].startCast(player)
-                actions[actionBars[1].abilities[4]].pressStart()
-            }
+            pressAbility(1,4)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability5"].key]) {
         if ((modPressed("Bar1 Ability5"))) {
-            if (actionBars[1].abilities[5] !== undefined) {
-                player.abilities[actionBars[1].abilities[5]].startCast(player)
-                actions[actionBars[1].abilities[5]].pressStart()
-            }
+            pressAbility(1,5)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability6"].key]) {
         if ((modPressed("Bar1 Ability6"))) {
-            if (actionBars[1].abilities[6] !== undefined) {
-                player.abilities[actionBars[1].abilities[6]].startCast(player)
-                actions[actionBars[1].abilities[6]].pressStart()
-            }
+            pressAbility(1,6)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability7"].key]) {
         if ((modPressed("Bar1 Ability7"))) {
-            if (actionBars[1].abilities[7] !== undefined) {
-                player.abilities[actionBars[1].abilities[7]].startCast(player)
-                actions[actionBars[1].abilities[7]].pressStart()
-            }
+            pressAbility(1,7)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability8"].key]) {
         if ((modPressed("Bar1 Ability8"))) {
-            if (actionBars[1].abilities[8] !== undefined) {
-                player.abilities[actionBars[1].abilities[8]].startCast(player)
-                actions[actionBars[1].abilities[8]].pressStart()
-            }
+            pressAbility(1,8)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability9"].key]) {
         if ((modPressed("Bar1 Ability9"))) {
-            if (actionBars[1].abilities[9] !== undefined) {
-                player.abilities[actionBars[1].abilities[9]].startCast(player)
-                actions[actionBars[1].abilities[9]].pressStart()
-            }
+            pressAbility(1,9)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability10"].key]) {
         if ((modPressed("Bar1 Ability10"))) {
-            if (actionBars[1].abilities[10] !== undefined) {
-                player.abilities[actionBars[1].abilities[10]].startCast(player)
-                actions[actionBars[1].abilities[10]].pressStart()
-            }
+            pressAbility(1,10)
         }
     }
 
     if (keyPressed[keybinds["Bar1 Ability11"].key]) {
         if ((modPressed("Bar1 Ability11"))) {
-            if (actionBars[1].abilities[11] !== undefined) {
-                player.abilities[actionBars[1].abilities[11]].startCast(player)
-                actions[actionBars[1].abilities[11]].pressStart()
-            }
+            pressAbility(1,11)
+        }
+    }
+    //Bar 0
+    if (keyPressed[keybinds["Bar0 Ability0"].key]) {
+        if ((modPressed("Bar0 Ability0"))) {
+            pressAbility(0,0)
+
+        }
+    }
+    if (keyPressed[keybinds["Bar0 Ability1"].key]) {
+        if ((modPressed("Bar0 Ability1"))) {
+            pressAbility(0,1)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability2"].key]) {
+        if ((modPressed("Bar0 Ability2"))) {
+            pressAbility(0,2)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability3"].key]) {
+        if ((modPressed("Bar0 Ability3"))) {
+            pressAbility(0,3)
+
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability4"].key]) {
+        if ((modPressed("Bar0 Ability4"))) {
+            pressAbility(0,4)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability5"].key]) {
+        if ((modPressed("Bar0 Ability5"))) {
+            pressAbility(0,5)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability6"].key]) {
+        if ((modPressed("Bar0 Ability6"))) {
+            pressAbility(0,6)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability7"].key]) {
+        if ((modPressed("Bar0 Ability7"))) {
+            pressAbility(0,7)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability8"].key]) {
+        if ((modPressed("Bar0 Ability8"))) {
+            pressAbility(0,8)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability9"].key]) {
+        if ((modPressed("Bar0 Ability9"))) {
+            pressAbility(0,9)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability10"].key]) {
+        if ((modPressed("Bar0 Ability10"))) {
+            pressAbility(0,10)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar0 Ability11"].key]) {
+        if ((modPressed("Bar0 Ability11"))) {
+            pressAbility(0,11)
         }
     }
 
 
     if (keyPressed["Escape"]) {
-        if (player.isCasting) {
+        if (player.isCasting || player.isChanneling) {
             player.isCasting = false
             player.casting = {name:"", time:0, time2:0}
             player.gcd = 0
@@ -216,14 +278,14 @@ let keyLoop = () => {
 
 //----------------------------------
 let keyup = (e)=> {
-    if(e.code!=="F12" && e.code!=="F11" && e.code!=="Numpad0" && e.code!=="Numpad1" && e.code!=="Numpad2" && e.code!=="Numpad3" && e.code!=="Numpad4" && e.code!=="Numpad5" && e.code!=="Numpad6" && e.code!=="Numpad7" && e.code!=="Numpad8" && e.code!=="Numpad9" && e.code!=="Period" && e.code!=="NumpadDecimal" && e.code!=="Backspace") {
+    if(e.code!=="F12" && e.code!=="F11" && e.code!=="Numpad0" && e.code!=="Numpad1" && e.code!=="Numpad2" && e.code!=="Numpad3" && e.code!=="Numpad4" && e.code!=="Numpad5" && e.code!=="Numpad6" && e.code!=="Numpad7" && e.code!=="Numpad8" && e.code!=="Numpad9" && e.code!=="Period" && e.code!=="NumpadDecimal" && e.code!=="Backspace" && e.code!=="ControlLeft") {
         e.preventDefault()
     }
     keyPressed[e.code]=false
 }
 
 let keydown = (e)=> {
-    if (e.code!=="F12" &&  e.code!=="F11" && e.code!=="Numpad0" && e.code!=="Numpad1" && e.code!=="Numpad2" && e.code!=="Numpad3" && e.code!=="Numpad4" && e.code!=="Numpad5" && e.code!=="Numpad6" && e.code!=="Numpad7" && e.code!=="Numpad8" && e.code!=="Numpad9" && e.code!=="Period" && e.code!=="NumpadDecimal" && e.code!=="Backspace") {
+    if (e.code!=="F12" &&  e.code!=="F11" && e.code!=="Numpad0" && e.code!=="Numpad1" && e.code!=="Numpad2" && e.code!=="Numpad3" && e.code!=="Numpad4" && e.code!=="Numpad5" && e.code!=="Numpad6" && e.code!=="Numpad7" && e.code!=="Numpad8" && e.code!=="Numpad9" && e.code!=="Period" && e.code!=="NumpadDecimal" && e.code!=="Backspace" && e.code!=="ControlLeft") {
         e.preventDefault()
     }
     keyPressed[e.code]=true

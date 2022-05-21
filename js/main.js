@@ -10,7 +10,10 @@ function update(progress) {
 
     //creatures
     for (let i = 0; i<creatures.length; i++) {
-        creatures[i].run()
+        if (!creatures[i].isDead) {
+            creatures[i].run()
+        }
+
     }
     //floating texts
     for (let i = 0; i<floatingTexts.length; i++) {

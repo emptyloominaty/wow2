@@ -1,6 +1,9 @@
 bars.playerHealth = new Bar(120,20,100,100,10,10,"#DD5555","#555555","bar_playerHealth")
 bars.playerMana = new Bar(120,20,100,100,10,35,"#63a0dd","#555555","bar_playerMana")
 bars.playerCast = new Bar(120,20,1.5,1.5,10,65,"#bbbbbb","#555555","bar_playerCast")
+bars.playerCast2 = new Bar(240,20,1.5,1.5,840,65,"#1e1e1e","#555555","bar_playerCast2")
+
+let gameScaling = 1 //TODO
 
 if (0===0) {
     let buffHTML = "<div id='top_buff'>"
@@ -83,6 +86,22 @@ if (0===0) {
     } else {
         bars.playerCast.setVisibility(false)
     }
+
+    if (player.isCasting || player.isChanneling) {
+        bars.playerCast2.setVisibility(true)
+        if (player.isCasting) {
+            bars.playerCast2.setMaxVal(player.casting.time2)
+            bars.playerCast2.setVal(player.casting.time2-player.casting.time)
+            bars.playerCast2.setText((player.casting.time2-player.casting.time).toFixed(1)+"s "+player.casting.name)
+        } else if (player.isChanneling) {
+            bars.playerCast2.setMaxVal(player.channeling.time2)
+            bars.playerCast2.setVal(player.channeling.time2-player.channeling.time)
+            bars.playerCast2.setText((player.channeling.time2-player.channeling.time).toFixed(1)+"s "+player.channeling.name)
+        }
+    } else {
+        bars.playerCast2.setVisibility(false)
+    }
+
     Object.keys(bars).forEach(key => {
         document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width)+"px"
     })

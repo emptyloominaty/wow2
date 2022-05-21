@@ -150,7 +150,12 @@ class Creature {
                 this.buffs[i].ability.runBuff(this,this.buffs[i],i)
             }
         }
-        //
+
+        //death
+        if (this.health<0) {
+            this.health = 0
+            this.isDead = true
+        }
     }
 
     useEnergy(val) {
