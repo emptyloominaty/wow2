@@ -36,6 +36,7 @@ class Creature {
 
     target = ""
     targetObj = {}
+    castTarget = {}
 
     healingDone = 0
     damageDone = 0
@@ -85,7 +86,7 @@ class Creature {
         }
 
         if (this.gcd>0) {
-            this.gcd -= progress/1000
+            this.gcd -= progressInSec
         }
 
         //abilities cds
@@ -96,7 +97,7 @@ class Creature {
         //casting ability
         if (this.isCasting) {
             if (this.casting.time<this.casting.time2) {
-                this.casting.time += progress/1000
+                this.casting.time += progressInSec
             } else {
                 this.abilities[this.casting.name].endCast(this)
                 this.casting = {name:"", time:0, time2:0}
@@ -106,8 +107,8 @@ class Creature {
         //channeling ability
         if (this.isChanneling) {
             if (this.channeling.time<this.channeling.time2) {
-                this.channeling.time += progress/1000
-                this.channeling.timer += progress/1000
+                this.channeling.time += progressInSec
+                this.channeling.timer += progressInSec
                 if (this.channeling.timer>=this.channeling.timer2) {
                     this.channeling.timer = 0
                     this.abilities[this.channeling.name].cast(this)
@@ -124,7 +125,7 @@ class Creature {
         for (let i = 0; i<this.buffs.length; i++) {
             if (this.buffs[i].type==="hot") {
                 if (this.buffs[i].timer<1) {
-                    this.buffs[i].timer+= (progress/1000)*(1 + (this.buffs[i].caster.stats.haste / 100))
+                    this.buffs[i].timer+= (progressInSec)*(1 + (this.buffs[i].caster.stats.haste / 100))
                 } else {
                     doHeal(this.buffs[i].caster,this,this.buffs[i])
                     this.buffs[i].timer = 0
@@ -140,7 +141,7 @@ class Creature {
             }
 
 
-            this.buffs[i].duration-=progress/1000
+            this.buffs[i].duration -= progressInSec
             if (this.buffs[i].duration<0) {
                 this.buffs[i].ability.endBuff(this)
                 this.buffs.splice(i,1)

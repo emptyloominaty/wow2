@@ -36,8 +36,11 @@ class Action {
     }
 
     pressStart() {
-        this.press = 20+progress //ms
-        document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "1px solid #fff"
+        if (!player.targetObj.isDead) {
+            player.castTarget = player.targetObj
+            this.press = 20+progress //ms
+            document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "1px solid #fff"
+        }
     }
 
     pressEnd() {

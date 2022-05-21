@@ -37,7 +37,7 @@ class FloatingText {
     }
 
     run() {
-        this.duration+=progress/1000
+        this.duration += progressInSec
         this.y -= this.speed
         this.element.style.top=this.y+"px"
         if (this.duration>this.maxDuration) {

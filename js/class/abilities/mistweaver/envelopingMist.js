@@ -18,7 +18,6 @@ class EnvelopingMist extends Ability {
         this.duration = 6
         this.effect = "healingIncrease"
         this.effectValue = 0.3
-
     }
 
     run() {
@@ -29,12 +28,10 @@ class EnvelopingMist extends Ability {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
-                    console.log("H")
                     caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
                     bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
                     return
                 } else {
-                    console.log("HELO?")
                     this.isChanneling = false
                     this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
@@ -58,11 +55,11 @@ class EnvelopingMist extends Ability {
             this.effectValue = 0.3
         }
         caster.isCasting = false
-        if (caster.target==="") {
+        if (caster.target==="" || caster.castTarget.enemy) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)
         } else {
-            applyHot(caster,caster.targetObj,this)
+            applyHot(caster,caster.castTarget,this)
             caster.abilities["Gust of Mists"].heal(caster)
             //TODO:RANGE
         }

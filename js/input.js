@@ -197,13 +197,13 @@ let keyLoop = () => {
 
 
     if (keyPressed["Escape"]) {
-        //TODO: STOP CASTING
         if (player.isCasting) {
             player.isCasting = false
             player.casting = {name:"", time:0, time2:0}
             player.gcd = 0
             player.isChanneling = false
             player.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+            player.castTarget = ""
         }
 
         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"

@@ -1,9 +1,10 @@
 let fps = 60
 let time = 0
+let progressInSec = 0.016
 
 function update(progress) {
     fps = 1/progress*1000
-    time += progress/1000
+    progressInSec = progress/1000
 
     //creatures
     for (let i = 0; i<creatures.length; i++) {

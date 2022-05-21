@@ -24,11 +24,11 @@ class Roll extends Ability {
 
     run() {
         if (this.rollCd>0) {
-            this.rollCd += progress/1000
+            this.rollCd += progressInSec
         }
 
         if (this.cd<this.maxCd) {
-            this.cd += progress/1000
+            this.cd += progressInSec
             if (this.cd>=this.maxCd) {
                 this.charges++
                 if (this.charges !== this.maxCharges) {

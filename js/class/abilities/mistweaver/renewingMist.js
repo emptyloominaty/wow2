@@ -23,7 +23,7 @@ class RenewingMist extends Ability {
 
     run() {
         if (this.cd<this.maxCd) {
-            this.cd+=progress/1000
+            this.cd += progressInSec
             if (this.cd>=this.maxCd) {
                 this.charges++
                 if (this.charges!==this.maxCharges) {
@@ -50,11 +50,11 @@ class RenewingMist extends Ability {
         caster.isCasting = false
         this.charges--
         this.cd = 0
-        if (caster.target==="") {
+        if (caster.target==="" || caster.castTarget.enemy) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)
         } else {
-            applyHot(caster,caster.targetObj,this)
+            applyHot(caster,caster.castTarget,this)
             caster.abilities["Gust of Mists"].heal(caster)
             //TODO:RANGE
         }

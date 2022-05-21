@@ -3,6 +3,7 @@ let progress = 16.666666666666666666666666666667
 
 function loop(timestamp) {
     progress = timestamp - lastRender
+    time += progress/1000
     if (progress > 250) {
         progress = 250
     }

@@ -22,7 +22,7 @@ class ManaTea extends Ability {
 
     run() {
         if (this.cd<this.maxCd) {
-            this.cd+=progress/1000
+            this.cd += progressInSec
         }
     }
 

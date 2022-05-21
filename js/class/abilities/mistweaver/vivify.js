@@ -45,13 +45,13 @@ class Vivify extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (caster.target==="") {
+        if (caster.target==="" || caster.castTarget.enemy) {
             //heal self
             doHeal(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)
         } else {
             //heal target
-            doHeal(caster,caster.targetObj,this)
+            doHeal(caster,caster.castTarget,this)
             caster.abilities["Gust of Mists"].heal(caster)
             //TODO:RANGE
         }
