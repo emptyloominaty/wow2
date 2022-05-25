@@ -30,6 +30,7 @@ class Action {
             document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "1px Solid #FFFF00"
             document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = (player.abilities[this.name].maxCd-player.abilities[this.name].cd).toFixed(0)+"s"
         } else {
+            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.height = "0%"
             document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "0px Solid #FFFF00"
             document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = ""
         }
@@ -55,13 +56,21 @@ class Action {
 }
 
 let actions = {
+    //bar1
     "Vivify": new Action("Vivify", 1, 0),
     "Renewing Mist": new Action("Renewing Mist", 1, 1),
     "Mana Tea": new Action("Mana Tea", 1, 2),
     "Roll": new Action("Roll", 1, 3),
     "Soothing Mist": new Action("Soothing Mist", 1, 8),
     "Enveloping Mist": new Action("Enveloping Mist", 1, 9),
+
+    //bar0
     "Revival": new Action("Revival", 0, 0),
     "Essence Font": new Action("Essence Font", 0, 1),
+
+    //bar2
+    "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
+    "Tiger Palm": new Action("Tiger Palm", 2, 1),
+    "Blackout Kick": new Action("Blackout Kick", 2, 2),
 }
 

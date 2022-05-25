@@ -39,6 +39,20 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
     }
 }
 
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0) {
+    let crit = critChance(caster)
+    let damage = 0
+    if (spellPower===0) {
+        damage = (caster.stats.primary * ability.spellPower) * (1+(caster.stats.vers/100)) * crit
+    } else {
+        damage = (caster.stats.primary * spellPower) * (1+(caster.stats.vers/100)) * crit
+    }
+    floatingTexts.push(new FloatingText(300,350+yOffset,damage,"damage",crit,ability.name))
+    //TODO: details.doDamage(caster,damage,ability)
+    target.health -= damage
+
+}
+
 let applyHot = function (caster,target,ability,duration = 0,extDuration = 0,spellPowerHot = 0) {
     for (let i = 0; i<target.buffs.length; i++) {
         if (target.buffs[i].name === ability.name && target.buffs[i].caster === caster) {
@@ -60,13 +74,27 @@ let applyHot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     }
 }
 
-let applyBuff = function (caster,target,ability) {
+let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "") {
+    let buffName = ability.name
+    if (name!=="") {
+        buffName = name
+    }
+
     for (let i = 0; i<target.buffs.length; i++) {
-        if (target.buffs[i].name === ability.name && target.buffs[i].caster === caster) {
+        if (target.buffs[i].name === buffName && target.buffs[i].caster === caster) {
+            target.buffs[i].duration = ability.duration
+            if (stackable) {
+                if (ability.maxStacks>target.buffs[i].stacks) {
+                    target.buffs[i].stacks += stacks
+                    if (ability.maxStacks<target.buffs[i].stacks) {
+                        target.buffs[i].stacks = ability.maxStacks
+                    }
+                }
+            }
             return true
         }
     }
-    target.buffs.push({name:ability.name, type:"buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability })
+    target.buffs.push({name:buffName, type:"buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
 }
 
 

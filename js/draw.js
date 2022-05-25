@@ -1,8 +1,10 @@
+bars.playerName = new Bar(120,20,100,100,10,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_playerName")
 bars.playerHealth = new Bar(120,20,100,100,10,30,"#DD5555","#555555","bar_playerHealth")
 bars.playerMana = new Bar(120,20,100,100,10,55,"#63a0dd","#555555","bar_playerMana")
 bars.playerCast = new Bar(120,20,1.5,1.5,10,85,"#bbbbbb","#555555","bar_playerCast")
 bars.playerCast2 = new Bar(240,20,1.5,1.5,840,85,"#1e1e1e","#555555","bar_playerCast2")
 
+bars.targetName = new Bar(120,20,100,100,170,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_targetName")
 bars.targetHealth = new Bar(120,20,100,100,170,30,"#DD5555","#555555","bar_targetHealth")
 bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetMana")
 bars.targetCast = new Bar(120,20,1.5,1.5,170,85,"#bbbbbb","#555555","bar_targetCast")
@@ -14,14 +16,14 @@ if (0===0) {
     let buffHTML = "<div id='top_buff'>"
     let debuffHTML = "<div id='top_debuff'>"
     for (let i = 0; i<8; i++) {
-        buffHTML += "<div class='buff_div' id='buff_"+i+"'><img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span></div>"
-        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> </div>"
+        buffHTML += "<div class='buff_div' id='buff_"+i+"'><img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span> <span class='buff_stacks' id='buff_"+i+"_stacks'></span> </div>"
+        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> <span class='buff_stacks' id='debuff_"+i+"_stacks'></span> </div>"
     }
     buffHTML += "</div><div id='bottom_buff'>"
     debuffHTML += "</div><div id='bottom_debuff'>"
     for (let i = 8; i<16; i++) {
-        buffHTML += "<div class='buff_div' id='buff_"+i+"'> <img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span> </div>"
-        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> </div>"
+        buffHTML += "<div class='buff_div' id='buff_"+i+"'> <img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span>  <span class='buff_stacks' id='buff_"+i+"_stacks'></span> </div>"
+        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span>  <span class='buff_stacks' id='debuff_"+i+"_stacks'></span> </div>"
     }
     elements.buffsDebuffs_parent.innerHTML = "<div id='buff_bar'>" + buffHTML + "</div></div> <div id='debuff_barr'>" + debuffHTML + "</div></div>"
 
@@ -46,7 +48,7 @@ if (0===0) {
 
 }
 
-    function draw(progress) {
+function draw(progress) {
     //---------------test---------------
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
@@ -121,7 +123,31 @@ if (0===0) {
         document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width)+"px"
     })
 
+    bars.playerName.setText(player.name)
 
+    if (Object.keys(player.targetObj).length !== 0) {
+
+        bars.targetName.setText(player.targetObj.name)
+
+        bars.targetHealth.setVal(player.targetObj.health)
+        bars.targetHealth.setMaxVal(player.targetObj.maxHealth)
+        bars.targetHealth.setText(player.targetObj.health.toFixed(0)+"/"+player.targetObj.maxHealth.toFixed(0))
+
+
+        bars.targetMana.setVal(player.targetObj.energy)
+        bars.targetMana.setMaxVal(player.targetObj.maxEnergy)
+        bars.targetMana.setText(player.targetObj.energy.toFixed(0)+"/"+player.targetObj.maxEnergy.toFixed(0))
+
+        bars.targetName.setVisibility(true)
+        bars.targetHealth.setVisibility(true)
+        bars.targetMana.setVisibility(true)
+        bars.targetCast.setVisibility(false) //TODO
+    } else {
+        bars.targetName.setVisibility(false)
+        bars.targetHealth.setVisibility(false)
+        bars.targetMana.setVisibility(false)
+        bars.targetCast.setVisibility(false)
+    }
 
 
     //stats
@@ -132,12 +158,16 @@ if (0===0) {
     for (let i = 0; i<16; i++) {
         document.getElementById("buff_"+i+"_image").src = ""
         document.getElementById("buff_"+i+"_text").textContent = ""
+        document.getElementById("buff_"+i+"_stacks").textContent = ""
     }
 
     for (let i = 0; i<player.buffs.length; i++) {
         if (i<16) {
             document.getElementById("buff_"+i+"_image").src = iconsPath[player.buffs[i].name]
             document.getElementById("buff_"+i+"_text").textContent = player.buffs[i].duration.toFixed(0)+"s"
+            if (player.buffs[i].stacks>1) {
+                document.getElementById("buff_"+i+"_stacks").textContent = player.buffs[i].stacks
+            }
         }
         //player.buffs[i].name
         //player.buffs[i].duration

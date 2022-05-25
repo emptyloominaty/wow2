@@ -25,4 +25,5 @@ let iconsPath = {
     "Tiger Palm":"img/mistweaver/TigerPalm.jpg",
     "Touch Of Death":"img/mistweaver/TouchOfDeath.jpg",
     "Yu'Lon":"img/mistweaver/Yu'Lon.jpg",
+    "Teachings of the Monastery":"img/mistweaver/TeachingsOfTheMonastery.jpg",
 }

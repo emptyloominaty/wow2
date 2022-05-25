@@ -110,8 +110,18 @@
     bottom:0;
     font-size:12px;
     width: 100%;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .buff_div img,.debuff_div img {
     padding-left:7px;
     max-height:65%;
+}
+
+.buff_stacks {
+    position:absolute;
+    text-align:right;
+    right:0px;
+    top:10px;
+    font-size:18px !important;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }

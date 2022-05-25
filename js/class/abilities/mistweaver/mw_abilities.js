@@ -8,5 +8,8 @@ class Mw_abilities {
     "Soothing Mist" = new SoothingMist()
     "Revival" = new Revival()
     "Essence Font" = new EssenceFont()
+    "Tiger Palm" = new TigerPalm()
+    "Blackout Kick" = new BlackoutKick()
+    "Rising Sun Kick" = new RisingSunKick()
     "" = {startCast:function(xd){return false},run:function(){}}
 }
