@@ -1,10 +1,23 @@
 let fps = 60
 let time = 0
 let progressInSec = 0.016
+let avgFPS = 60
+let avgFPSlastSec = []
 
 function update(progress) {
     fps = 1/progress*1000
     progressInSec = progress/1000
+    //AvgFPS Sec---------------------------------------------
+    avgFPSlastSec.push(fps)
+    if (avgFPSlastSec.length===60) {
+        avgFPSlastSec.shift()
+    }
+    avgFPS = 0
+    for (let i = 0; i<avgFPSlastSec.length;i++) {
+        avgFPS += avgFPSlastSec[i]
+    }
+    avgFPS = avgFPS / avgFPSlastSec.length
+
     //
     spellQueue.run()
 

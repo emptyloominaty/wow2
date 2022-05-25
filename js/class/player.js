@@ -1,7 +1,7 @@
 class Player extends Creature {
-    constructor(name,enemy,health,energy,x,y,direction,spec) {
-        super(name,enemy,health,energy,x,y,direction,spec)
+    constructor(name,health,energy,x,y,direction,spec) {
+        super(name,false,health,energy,x,y,direction,spec)
     }
 }
 
-let player = new Player("player",false,50500,100,0,0,0,"mistweaver")
+let player = new Player("player",50500,100,0,0,0,"mistweaver")

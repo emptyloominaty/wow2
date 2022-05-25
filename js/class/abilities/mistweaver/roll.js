@@ -49,10 +49,12 @@ class Roll extends Ability {
                 this.isCasting = false
                 this.casting = {name:"", time:0, timeleft:0}
             }
-            this.charges--
             caster.isRolling = true
             caster.gcd = this.gcd
-            this.cd = 0
+            if (this.charges===this.maxCharges) {
+                this.cd = 0
+            }
+            this.charges--
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
         } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {

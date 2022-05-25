@@ -19,14 +19,18 @@ class Action {
         //gcd
         if (player.gcd>0) {
             document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = ((bars.playerCast.val/bars.playerCast.maxVal)*100)+"%"
+            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.borderBottom = "1px Solid #FFF"
         } else {
             document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = "0%"
+            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.borderBottom = "0px Solid #FFF"
         }
         //cd
         if (player.abilities[this.name].cd<player.abilities[this.name].maxCd) {
             document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.height = (100-((player.abilities[this.name].cd/player.abilities[this.name].maxCd)*100))+"%"
+            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "1px Solid #FFFF00"
             document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = (player.abilities[this.name].maxCd-player.abilities[this.name].cd).toFixed(0)+"s"
         } else {
+            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "0px Solid #FFFF00"
             document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = ""
         }
         if (player.abilities[this.name].maxCharges>1) {

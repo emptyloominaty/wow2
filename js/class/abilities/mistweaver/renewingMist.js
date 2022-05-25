@@ -50,8 +50,10 @@ class RenewingMist extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
+        if (this.charges===this.maxCharges) {
+            this.cd = 0
+        }
         this.charges--
-        this.cd = 0
         if (caster.target==="" || caster.castTarget.enemy) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)

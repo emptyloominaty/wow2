@@ -1,7 +1,12 @@
-bars.playerHealth = new Bar(120,20,100,100,10,10,"#DD5555","#555555","bar_playerHealth")
-bars.playerMana = new Bar(120,20,100,100,10,35,"#63a0dd","#555555","bar_playerMana")
-bars.playerCast = new Bar(120,20,1.5,1.5,10,65,"#bbbbbb","#555555","bar_playerCast")
-bars.playerCast2 = new Bar(240,20,1.5,1.5,840,65,"#1e1e1e","#555555","bar_playerCast2")
+bars.playerHealth = new Bar(120,20,100,100,10,30,"#DD5555","#555555","bar_playerHealth")
+bars.playerMana = new Bar(120,20,100,100,10,55,"#63a0dd","#555555","bar_playerMana")
+bars.playerCast = new Bar(120,20,1.5,1.5,10,85,"#bbbbbb","#555555","bar_playerCast")
+bars.playerCast2 = new Bar(240,20,1.5,1.5,840,85,"#1e1e1e","#555555","bar_playerCast2")
+
+bars.targetHealth = new Bar(120,20,100,100,170,30,"#DD5555","#555555","bar_targetHealth")
+bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetMana")
+bars.targetCast = new Bar(120,20,1.5,1.5,170,85,"#bbbbbb","#555555","bar_targetCast")
+
 
 let gameScaling = 1 //TODO
 
@@ -46,7 +51,7 @@ if (0===0) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-        elements.test.innerHTML = "FPS: "+fps.toFixed(0)+"<br> HPS: "+(player.healingDone/time).toFixed(0)
+        elements.test.innerHTML = "FPS: "+avgFPS.toFixed(0)+"<br> HPS: "+(player.healingDone/time).toFixed(0)
 
     //---------------2d---------------
     //reset
@@ -60,11 +65,21 @@ if (0===0) {
             let x = creatures[i].x - player.x
             let y = creatures[i].y - player.y
             let color
+            let healthColor = "#FFFFFFF"
+            let health = creatures[i].health/creatures[i].maxHealth
+            if (health>0.5) {
+                healthColor = "#FFFFFF"
+            } else if (health>0.1) {
+                healthColor = "#feff7e"
+            } else {
+                healthColor = "#ff6b6f"
+            }
             if (creatures[i].enemy) {
                 color = "#d78080"
             } else {
                 color = "#91d786"
             }
+            game2d.drawText((game2d.canvasW/2)+x, ((game2d.canvasH/2)+y)-20,(health*100).toFixed(0)+"%","14px Consolas",healthColor,"center")
             game2d.drawCircle((game2d.canvasW/2)+x, (game2d.canvasH/2)+y, 15, color)
         }
     }
@@ -105,6 +120,10 @@ if (0===0) {
     Object.keys(bars).forEach(key => {
         document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width)+"px"
     })
+
+
+
+
     //stats
     elements.stats_parent.innerHTML = "Primary: "+player.stats.primary + "<br>Crit: "+player.stats.crit+ " <br>Haste: "+player.stats.haste+ " <br>Mastery: "+player.stats.mastery+ " <br>Vers: "+player.stats.vers+" "
 

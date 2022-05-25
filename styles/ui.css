@@ -44,6 +44,7 @@
     width:100%;
     height:0%;
     background-color: rgba(0,0,0,0.65);
+    box-sizing: border-box;
 }
 
 .action_cd {
@@ -51,6 +52,7 @@
     width:100%;
     height:0%;
     background-color: rgba(0,0,0,0.7);
+    box-sizing: border-box;
 }
 
 .ab_keybind {
