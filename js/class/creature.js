@@ -249,7 +249,7 @@ class Creature {
         InvokeChijitheRedCrane:false,
         FocusedThunder:false,
         Upwelling:false,
-        RisingMist:false,
+        RisingMist:true,
         //
     }
 

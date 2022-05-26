@@ -57,7 +57,8 @@ let applyHot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     for (let i = 0; i<target.buffs.length; i++) {
         if (target.buffs[i].name === ability.name && target.buffs[i].caster === caster) {
             target.buffs[i].duration += ability.duration
-            if (target.buffs[i].duration>ability.duration*1.3) {//30%
+            target.buffs[i].extendedDuration += 0
+            if (target.buffs[i].duration>ability.duration*1.3) { //30%
                 target.buffs[i].duration = ability.duration*1.3
             }
             return true
@@ -70,7 +71,7 @@ let applyHot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     if (duration === 0) {
         target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
     } else {
-        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:duration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+        target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
     }
 }
 

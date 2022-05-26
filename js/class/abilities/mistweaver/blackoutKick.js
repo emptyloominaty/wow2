@@ -27,7 +27,7 @@ class BlackoutKick extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && !caster.targetObj.isDead) {
+        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && this.cd>=this.maxCd && !caster.targetObj.isDead) {
             let done = false
             let _y = 0
             if (caster.target!=="" && caster.castTarget.enemy) {

@@ -61,7 +61,7 @@ class Vivify extends Ability {
         let _y = 30
         for (let i = 0; i<friendlyTargets.length; i++) {
             Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
-                if (friendlyTargets[i].buffs[key].name === "Renewing Mist") {
+                if (friendlyTargets[i].buffs[key].name === "Renewing Mist" && friendlyTargets[i].buffs[key].caster === caster) {
                     doHeal(caster,friendlyTargets[i],this,_y,this.spellPowerSec)
                     _y+=15
                 }
