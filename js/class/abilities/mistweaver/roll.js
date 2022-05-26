@@ -22,19 +22,9 @@ class Roll extends Ability {
         this.rollCd = 0
     }
 
-    run() {
+    run(caster) {
         if (this.rollCd>0) {
             this.rollCd += progressInSec
-        }
-
-        if (this.cd<this.maxCd) {
-            this.cd += progressInSec
-            if (this.cd>=this.maxCd) {
-                this.charges++
-                if (this.charges !== this.maxCharges) {
-                    this.cd=0
-                }
-            }
         }
     }
 
@@ -50,7 +40,7 @@ class Roll extends Ability {
                 this.casting = {name:"", time:0, timeleft:0}
             }
             caster.isRolling = true
-            caster.gcd = this.gcd
+            this.setGcd(caster)
             if (this.charges===this.maxCharges) {
                 this.cd = 0
             }

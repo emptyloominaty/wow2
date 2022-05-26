@@ -11,5 +11,5 @@ class Mw_abilities {
     "Tiger Palm" = new TigerPalm()
     "Blackout Kick" = new BlackoutKick()
     "Rising Sun Kick" = new RisingSunKick()
-    "" = {startCast:function(xd){return false},run:function(){}}
+    "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

@@ -20,7 +20,7 @@ class Vivify extends Ability {
         this.effectValue = 0
     }
 
-    run() {
+    run(caster) {
     }
 
     startCast(caster) {
@@ -38,7 +38,7 @@ class Vivify extends Ability {
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
-            caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+            this.setGcd(caster)
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
         } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)

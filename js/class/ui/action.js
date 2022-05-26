@@ -28,7 +28,12 @@ class Action {
         if (player.abilities[this.name].cd<player.abilities[this.name].maxCd) {
             document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.height = (100-((player.abilities[this.name].cd/player.abilities[this.name].maxCd)*100))+"%"
             document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "1px Solid #FFFF00"
-            document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = (player.abilities[this.name].maxCd-player.abilities[this.name].cd).toFixed(0)+"s"
+
+            let cd = player.abilities[this.name].maxCd-player.abilities[this.name].cd
+            if (player.abilities[this.name].hasteCd) {
+                cd = (player.abilities[this.name].maxCd-player.abilities[this.name].cd) / (1 + (player.stats.haste / 100))
+            }
+            document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = (cd).toFixed(0)+"s"
         } else {
             document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.height = "0%"
             document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "0px Solid #FFFF00"

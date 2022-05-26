@@ -19,10 +19,7 @@ class Revival extends Ability {
         this.effectValue = 0
     }
 
-    run() {
-        if (this.cd<this.maxCd) {
-            this.cd += progressInSec
-        }
+    run(caster) {
     }
 
     startCast(caster) {
@@ -34,7 +31,7 @@ class Revival extends Ability {
             }
             //TODO DISPEL
             this.cd = 0
-            caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+            this.setGcd(caster)
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
             caster.useEnergy(this.cost)
         } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {

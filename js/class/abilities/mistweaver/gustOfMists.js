@@ -18,7 +18,7 @@ class GustOfMists extends Ability {
         this.effect = ""
     }
 
-    run() {
+    run(caster) {
     }
 
     heal(caster,target = {}) {

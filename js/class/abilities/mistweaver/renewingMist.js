@@ -21,16 +21,7 @@ class RenewingMist extends Ability {
         this.jumpRange = 20
     }
 
-    run() {
-        if (this.cd<this.maxCd) {
-            this.cd += progressInSec
-            if (this.cd>=this.maxCd) {
-                this.charges++
-                if (this.charges!==this.maxCharges) {
-                    this.cd=0
-                }
-            }
-        }
+    run(caster) {
     }
 
     startCast(caster) {
@@ -41,7 +32,7 @@ class RenewingMist extends Ability {
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
-            caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+            this.setGcd(caster)
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
         } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)

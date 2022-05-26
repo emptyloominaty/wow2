@@ -25,7 +25,7 @@ class TigerPalm extends Ability {
         this.buffName = "Teachings of the Monastery"
     }
 
-    run() {
+    run(caster) {
     }
 
     startCast(caster) {
@@ -47,7 +47,7 @@ class TigerPalm extends Ability {
                     this.isChanneling = false
                     this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
-                caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+                this.setGcd(caster)
                 bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
             }
 

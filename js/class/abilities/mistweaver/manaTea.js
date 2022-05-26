@@ -20,10 +20,7 @@ class ManaTea extends Ability {
         this.duration = 10
     }
 
-    run() {
-        if (this.cd<this.maxCd) {
-            this.cd += progressInSec
-        }
+    run(caster) {
     }
 
     startCast(caster) {

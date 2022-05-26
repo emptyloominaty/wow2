@@ -91,7 +91,8 @@ class Creature {
 
         //abilities cds
         Object.keys(this.abilities).forEach((key)=> {
-            this.abilities[key].run()
+            this.abilities[key].run(this)
+            this.abilities[key].incCd(this)
         })
 
         //casting ability
