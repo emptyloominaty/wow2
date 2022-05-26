@@ -27,6 +27,7 @@ class Creature {
     isRolling = false
     casting = {name:"", time:0, time2:0}
     isDead = false
+    playerCharacter = false
     gcd = 0
 
     buffs = []
@@ -59,6 +60,10 @@ class Creature {
             friendlyTargets.push(this)
         }
 
+        if (!this.playerCharacter) {
+            this.ai = new Ai(this)
+        }
+
         this.abilities = {}
         this.class = ""
         this.spec = spec
@@ -67,17 +72,30 @@ class Creature {
             this.abilities = new Mw_abilities()
         } else if (spec==="windwalker") {
             this.class = "Monk"
-        } else if (spec==="restosham") {
+        } else if (spec==="restorationShaman") {
+            this.class = "Shaman"
+        } else if (spec==="elemental") {
             this.class = "Shaman"
         } else if (spec==="assassination") {
             this.class = "Rogue"
-        } else if (spec==="restodruid") {
+        } else if (spec==="restorationDruid") {
             this.class = "Druid"
+        } else if (spec==="balance") {
+            this.class = "Druid"
+        } else if (spec==="arcane") {
+            this.class = "Mage"
+        } else if (spec==="havoc") {
+            this.class = "Demon Hunter"
+        } else if (spec==="bossTest") {
+            this.abilities = new BossTestAbilities()
+            this.class = "Boss"
         }
 
 
 
-     }
+
+
+    }
 
     run() {
         this.energy += this.energyRegen/fps
@@ -150,6 +168,10 @@ class Creature {
             } else {
                 this.buffs[i].ability.runBuff(this,this.buffs[i],i)
             }
+        }
+
+        if (!this.playerCharacter) {
+            this.ai.run()
         }
 
         //death

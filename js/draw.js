@@ -53,7 +53,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-        elements.test.innerHTML = "FPS: "+avgFPS.toFixed(0)+"<br> HPS: "+(player.healingDone/time).toFixed(0)
+        elements.test.innerHTML = "Time:"+getTime(time)+" FPS: "+avgFPS.toFixed(0)+"<br> HPS: "+(player.healingDone/time/1000).toFixed(1)+"k<br> DPS: "+(player.damageDone/time/1000).toFixed(1)+"k"
 
     //---------------2d---------------
     //reset
@@ -73,8 +73,10 @@ function draw(progress) {
                 healthColor = "#FFFFFF"
             } else if (health>0.1) {
                 healthColor = "#feff7e"
-            } else {
+            } else if (health>0) {
                 healthColor = "#ff6b6f"
+            } else {
+                healthColor = "#000000"
             }
             if (creatures[i].enemy) {
                 color = "#d78080"
@@ -87,6 +89,7 @@ function draw(progress) {
     }
 
     //---------------ui---------------
+    _message.run()
     //bars
     bars.playerHealth.setVal(player.health)
     bars.playerHealth.setMaxVal(player.maxHealth)

@@ -27,44 +27,49 @@ class BlackoutKick extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && this.cd>=this.maxCd && !caster.targetObj.isDead) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster) && !caster.targetObj.isDead) {
             let done = false
             let _y = 0
             if (caster.target!=="" && caster.castTarget.enemy) {
-                //TODO:RANGE
-                doDamage(caster,caster.targetObj,this)
-                if (caster.spec === "mistweaver") {
-                    for (let i = 0; i<caster.buffs.length; i++) {
-                        if (caster.buffs[i].name === "Teachings of the Monastery" && caster.buffs[i].caster === caster) {
-                            for (let j = 0; j<caster.buffs[i].stacks; j++) {
-                                _y += 15
-                                doDamage(caster,caster.targetObj,this,_y)
-                            }
-                            //Rising Sun Kick Reset
-                            let stacks = caster.buffs[i].stacks
-                            let resetChance = (Math.random())*100
-                            if (resetChance < 15+(stacks*15)) {
-                                caster.abilities["Rising Sun Kick"].cd = caster.abilities["Rising Sun Kick"].maxCd
-                            }
+                if (this.checkDistance(caster,caster.castTarget)) {
+                    doDamage(caster, caster.targetObj, this)
+                    if (caster.spec === "mistweaver") {
+                        for (let i = 0; i < caster.buffs.length; i++) {
+                            if (caster.buffs[i].name === "Teachings of the Monastery" && caster.buffs[i].caster === caster) {
+                                for (let j = 0; j < caster.buffs[i].stacks; j++) {
+                                    _y += 15
+                                    doDamage(caster, caster.targetObj, this, _y)
+                                }
+                                //Rising Sun Kick Reset
+                                let stacks = caster.buffs[i].stacks
+                                let resetChance = (Math.random()) * 100
+                                if (resetChance < 15 + (stacks * 15)) {
+                                    caster.abilities["Rising Sun Kick"].cd = caster.abilities["Rising Sun Kick"].maxCd
+                                }
 
-                            caster.buffs.splice(i,1)
-                            break
+                                caster.buffs.splice(i, 1)
+                                break
+                            }
                         }
                     }
+                    done = true
                 }
-                done = true
             } else {
-                //TODO:FIND NEAREST ENEMY TARGET
-                //done = true
+                let newTarget = findNearestEnemy(caster)
+                caster.targetObj = newTarget
+                caster.target = newTarget.name
+                if (this.checkDistance(caster,caster.targetObj)) {
+                    doDamage(caster, caster.targetObj, this)
+                    done = true
+                }
             }
             if (done) {
                 this.cd = 0
                 if (caster.isChanneling) {
-                    this.isChanneling = false
-                    this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+                    caster.isChanneling = false
+                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.setGcd(caster)
-                bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
             }
 
         } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {

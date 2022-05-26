@@ -1,6 +1,7 @@
 class Player extends Creature {
     constructor(name,health,energy,x,y,direction,spec) {
         super(name,false,health,energy,x,y,direction,spec)
+        this.playerCharacter = true
     }
 }
 

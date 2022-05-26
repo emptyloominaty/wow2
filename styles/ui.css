@@ -125,3 +125,16 @@
     font-size:18px !important;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+
+#_message {
+    opacity: 0;
+    transition: opacity .25s;
+    position:absolute;
+    text-align: center;
+    top: 120px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}

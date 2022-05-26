@@ -11,5 +11,6 @@ let colors = {
     "Shaman":"#0070DD",
     "Warlock":"#8788EE",
     "Warrior":"#C69B6D",
-    "":"#b900a5"
+    "":"#b900a5",
+    "error":"#ff7d66",
 }

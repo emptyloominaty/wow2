@@ -25,15 +25,14 @@ class RenewingMist extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && this.charges>0  && !caster.targetObj.isDead) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)  && !caster.targetObj.isDead) {
             if (caster.isChanneling) {
-                this.isChanneling = false
-                this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+                caster.isChanneling = false
+                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
             this.setGcd(caster)
-            bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
         } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
         }

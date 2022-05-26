@@ -363,9 +363,9 @@ let keyLoop = () => {
     }
 
     if (keyPressed["Tab"]) {
-        //TODO
-        player.targetObj = enemyTargets[0]
-        player.target = enemyTargets[0].name
+        let target = findNearestEnemy(player)
+        player.targetObj = target
+        player.target = target.name
     }
 
 
@@ -431,7 +431,7 @@ window.oncontextmenu = (e) => {
 //mouse position
 let onMouseUpdate = function(e) {
     if (strafing) {
-        let val = (e.pageX-mousePosition.x)/mouseSensitivity
+        let val = (e.pageX-mousePosition.x)/settings.mouseSensitivity
         player.rotate(player.direction - val)
     }
     mousePosition.x = e.pageX

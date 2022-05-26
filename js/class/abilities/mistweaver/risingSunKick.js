@@ -30,25 +30,30 @@ class RisingSunKick extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && this.cd>=this.maxCd && !caster.targetObj.isDead) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster) && !caster.targetObj.isDead) {
             let done = false
             if (caster.target!=="" && caster.castTarget.enemy) {
-                //TODO:RANGE
-                doDamage(caster,caster.targetObj,this)
-                done = true
+                if (this.checkDistance(caster,caster.castTarget)) {
+                    doDamage(caster, caster.targetObj, this)
+                    done = true
+                }
             } else {
-                //TODO:FIND NEAREST ENEMY TARGET
-                //done = true
+                let newTarget = findNearestEnemy(caster)
+                caster.targetObj = newTarget
+                caster.target = newTarget.name
+                if (this.checkDistance(caster,caster.targetObj)) {
+                    doDamage(caster, caster.targetObj, this)
+                    done = true
+                }
             }
             if (done) {
                 this.cd = 0
                 caster.useEnergy(this.cost)
                 if (caster.isChanneling) {
-                    this.isChanneling = false
-                    this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+                    caster.isChanneling = false
+                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.setGcd(caster)
-                bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
 
                 //rising mist
                 if (caster.talents.RisingMist) {

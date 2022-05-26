@@ -24,12 +24,11 @@ class EnvelopingMist extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && caster.gcd<=0 && !caster.targetObj.isDead) {
+        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 && !caster.targetObj.isDead) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
                     caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
-                    bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
                     return
                 } else {
                     this.isChanneling = false

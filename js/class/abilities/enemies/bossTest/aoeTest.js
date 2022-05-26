@@ -1,20 +1,21 @@
-class Revival extends Ability {
+class AoeTest extends Ability {
     constructor() {
-        let name = "Revival"
-        let cost = 4.374 //% mana
-        let gcd = 1.5
-        let castTime = 1.5
-        let cd = 180
+        let name = "Aoe Test"
+        let cost = 0 //% mana
+        let gcd = 3
+        let castTime = 0
+        let cd = 0
         let charges = 1
         let maxCharges = 1
         let channeling = false
         let casting = false
-        let canMove = false
-        let school = "nature"
-        let range = 40
+        let canMove = true
+        let school = "arcane"
+        let range = 60 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 2.83
+        this.spellPower = 0.1
+
         this.effect = ""
         this.effectValue = 0
     }
@@ -29,19 +30,20 @@ class Revival extends Ability {
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             for (let i = 0; i<friendlyTargets.length; i++) {
-                doHeal(caster,friendlyTargets[i],this)
-                caster.abilities["Gust of Mists"].heal(caster,friendlyTargets[i])
+                doDamage(caster,friendlyTargets[i],this)
             }
-            //TODO DISPEL
             this.cd = 0
             this.setGcd(caster)
             caster.useEnergy(this.cost)
-        } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
-            spellQueue.add(this,caster.gcd)
         }
     }
 
-    endCast() {
+    endCast(caster) {
+    }
 
+    runBuff() {
+    }
+
+    endBuff() {
     }
 }

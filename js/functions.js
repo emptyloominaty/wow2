@@ -31,8 +31,17 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
     //TODO????
     heal = heal * target.healingIncrease
 
-    floatingTexts.push(new FloatingText(300,350+yOffset,heal,"heal",crit,ability.name))
-    details.doHealing(caster,heal,ability)
+    if (caster===player && settings.showFloatingAbility) {
+        if (floatingTextIdx<1000) {
+            floatingTextIdx++
+        } else {
+            floatingTextIdx = 0
+        }
+        floatingTexts[floatingTextIdx] = (new FloatingText(300,350+yOffset,heal,"heal",crit,ability.name,floatingTextIdx))
+    }
+
+    let overhealing = (target.health + heal) - target.maxHealth
+    details.doHealing(caster,heal,ability,overhealing)
     target.health += heal
     if (target.health>target.maxHealth) {
         target.health = target.maxHealth
@@ -47,8 +56,17 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0) {
     } else {
         damage = (caster.stats.primary * spellPower) * (1+(caster.stats.vers/100)) * crit
     }
-    floatingTexts.push(new FloatingText(300,350+yOffset,damage,"damage",crit,ability.name))
-    //TODO: details.doDamage(caster,damage,ability)
+
+    if (caster===player && settings.showFloatingAbility) {
+        if (floatingTextIdx<1000) {
+            floatingTextIdx++
+        } else {
+            floatingTextIdx = 0
+        }
+        floatingTexts[floatingTextIdx] = (new FloatingText(300,350+yOffset,damage,"damage",crit,ability.name,floatingTextIdx))
+    }
+
+    details.doDamage(caster,damage,ability)
     target.health -= damage
 
 }
@@ -98,13 +116,50 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
     target.buffs.push({name:buffName, type:"buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
 }
 
+let getDistance = function(target1,target2) { //TODO IN ABILITIES
+    let a = target1.x - target2.x
+    let b = target1.y - target2.y
+    return (Math.sqrt( a*a + b*b))/22  //22 = px per meter
+}
+
+let findNearestEnemy = function(target1) {
+    if (!target1.enemy) {
+        let distances = []
+        for (let i = 0; i<enemyTargets.length; i++) {
+            distances.push({val:getDistance(target1,enemyTargets[i]),id:i})
+        }
+        distances = distances.sort((a, b) => a.val > b.val ? 1 : -1)
+        return enemyTargets[distances[0].id]
+    } else {
+        let distances = []
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            distances.push({val:getDistance(target1,friendlyTargets[i]),id:i})
+        }
+        distances = distances.sort((a, b) => a.val > b.val ? 1 : -1)
+        return friendlyTargets[distances[0].id]
+    }
+}
+
+let  getTime = function(time) {
+    let minutes = Math.floor(time / 60)
+    let seconds = time % 60
+
+    minutes = String(minutes.toFixed(0)).padStart(2, "0")
+    seconds = String(seconds.toFixed(0)).padStart(2, "0")
+
+    return minutes+":"+seconds
+}
 
 let details = { //TODO
-    doHealing: function(caster,val,ability) {
-        caster.healingDone+=val
+    doHealing: function(caster,val,ability,overhealing) {
+        if (overhealing>0) {
+            caster.healingDone+=val-overhealing
+        } else {
+            caster.healingDone+=val
+        }
     },
-    doDamage: function() {
-
+    doDamage: function(caster,val,ability) {
+        caster.damageDone+=val
     },
     takeDamage: function() {
 

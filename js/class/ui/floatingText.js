@@ -1,13 +1,18 @@
 class FloatingText {
     duration = 0
     maxDuration = 3
-    speed = 1
-    constructor(x,y,val,type,crit,name) {
+    speed = 1.4
+    constructor(x,y,val,type,crit,name,id,targetText = false) {
         this.x = x
         this.y = y
         this.number = val
         this.type = type
-        this.id = floatingTexts.length
+        this.id = id
+
+        if (targetText) {
+            this.maxDuration = 2
+            this.speed = 0.7
+        }
 
         let span = document.createElement("span")
         span.style.position = "fixed"
@@ -26,9 +31,9 @@ class FloatingText {
         if (crit===1) {
             span.style.fontSize = "15px"
         } else {
-            span.style.fontSize = "30px"
+            span.style.fontSize = "25px"
         }
-        if (showFloatingAbilityName) {
+        if (settings.showFloatingAbilityName && !targetText) {
             span.textContent += " ("+name+")"
         }
 
@@ -47,4 +52,5 @@ class FloatingText {
     }
 }
 
-let floatingTexts = []
+let floatingTexts = new Array(1000)
+let floatingTextIdx = 0

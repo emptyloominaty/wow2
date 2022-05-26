@@ -26,12 +26,15 @@ class EssenceFont extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && !caster.isCasting && !caster.isChanneling  && this.cd>=this.maxCd && caster.gcd<=0 && !caster.targetObj.isDead) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting  && this.checkCd(caster) &&  !caster.targetObj.isDead) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+            }
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))/6}
             this.setGcd(caster)
             this.cd = 0
-            bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
             caster.useEnergy(this.cost)
         } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
