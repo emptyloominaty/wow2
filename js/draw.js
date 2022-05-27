@@ -67,6 +67,7 @@ function draw(progress) {
             let x = creatures[i].x - player.x
             let y = creatures[i].y - player.y
             let color
+            let size = 15
             let healthColor = "#FFFFFFF"
             let health = creatures[i].health/creatures[i].maxHealth
             if (health>0.5) {
@@ -80,11 +81,12 @@ function draw(progress) {
             }
             if (creatures[i].enemy) {
                 color = "#d78080"
+                size = 25
             } else {
-                color = "#91d786"
+                color = colors[creatures[i].class]
             }
-            game2d.drawText((game2d.canvasW/2)+x, ((game2d.canvasH/2)+y)-20,(health*100).toFixed(0)+"%","14px Consolas",healthColor,"center")
-            game2d.drawCircle((game2d.canvasW/2)+x, (game2d.canvasH/2)+y, 15, color)
+            game2d.drawText((game2d.canvasW/2)+x, ((game2d.canvasH/2)+y)-(size+5),(health*100).toFixed(0)+"%","14px Consolas",healthColor,"center")
+            game2d.drawCircle((game2d.canvasW/2)+x, (game2d.canvasH/2)+y, size, color)
         }
     }
 

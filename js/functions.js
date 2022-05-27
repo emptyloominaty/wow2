@@ -122,6 +122,10 @@ let getDistance = function(target1,target2) { //TODO IN ABILITIES
     return (Math.sqrt( a*a + b*b))/22  //22 = px per meter
 }
 
+let getDirection = function(target1,target2) {
+    return 360-(Math.atan2(target2.y - target1.y, target2.x - target1.x)* (180 / Math.PI)+90)
+}
+
 let findNearestEnemy = function(target1) {
     if (!target1.enemy) {
         let distances = []

@@ -67,28 +67,49 @@ class Creature {
         this.abilities = {}
         this.class = ""
         this.spec = spec
-        if (spec==="mistweaver") {
+        this.melee = false
+        this.role = ""
+        if (spec==="mistweaver") { //----------------------------------------Mistweaver
             this.class = "Monk"
             this.abilities = new Mw_abilities()
-        } else if (spec==="windwalker") {
+            this.melee = true
+            this.role = "healer"
+        } else if (spec==="windwalker") {//----------------------------------------Windwalker
             this.class = "Monk"
-        } else if (spec==="restorationShaman") {
+            this.melee = true
+            this.role = "dps"
+        } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
             this.class = "Shaman"
-        } else if (spec==="elemental") {
+            this.melee = false
+            this.role = "healer"
+        } else if (spec==="elemental") {//----------------------------------------Elemental
             this.class = "Shaman"
-        } else if (spec==="assassination") {
+            this.melee = false
+            this.role = "dps"
+        } else if (spec==="assassination") { //----------------------------------------Assa
             this.class = "Rogue"
-        } else if (spec==="restorationDruid") {
+            this.melee = true
+            this.role = "dps"
+        } else if (spec==="restorationDruid") { //----------------------------------------Resto Druid
             this.class = "Druid"
-        } else if (spec==="balance") {
+            this.melee = false
+            this.role = "healer"
+        } else if (spec==="balance") {//----------------------------------------Balance
             this.class = "Druid"
-        } else if (spec==="arcane") {
+            this.melee = false
+            this.role = "dps"
+        } else if (spec==="arcane") {//----------------------------------------Arcane
             this.class = "Mage"
-        } else if (spec==="havoc") {
+            this.melee = false
+            this.role = "dps"
+        } else if (spec==="havoc") {//----------------------------------------Havoc
             this.class = "Demon Hunter"
-        } else if (spec==="bossTest") {
-            this.abilities = new BossTestAbilities()
+            this.melee = true
+            this.role = "dps"
+        } else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"
+            this.abilities = new BossTestAbilities()
+            this.melee = true
         }
 
 

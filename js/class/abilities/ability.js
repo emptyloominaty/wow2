@@ -18,10 +18,14 @@ class Ability {
 
     setGcd(caster) {
        caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
-        bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+        if (caster===player) {
+            bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+        }
         if (caster.gcd<0.75) {
             caster.gcd = 0.75
-            bars.playerCast.setMaxVal(0.75)
+            if (caster===player) {
+                bars.playerCast.setMaxVal(0.75)
+            }
         }
     }
 
