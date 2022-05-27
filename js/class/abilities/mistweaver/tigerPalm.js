@@ -29,10 +29,10 @@ class TigerPalm extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting && !caster.targetObj.isDead) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting) {
             let done = false
             if (caster.target!=="" && caster.castTarget.enemy) {
-                if (this.checkDistance(caster,caster.castTarget)) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.targetObj,this)
                     done = true
                 }
@@ -40,7 +40,7 @@ class TigerPalm extends Ability {
                 let newTarget = findNearestEnemy(caster)
                 caster.targetObj = newTarget
                 caster.target = newTarget.name
-                if (this.checkDistance(caster,caster.targetObj)) {
+                if (this.checkDistance(caster,caster.targetObj)  && !caster.targetObj.isDead) {
                     doDamage(caster, caster.targetObj, this)
                     done = true
                 }

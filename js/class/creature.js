@@ -92,7 +92,7 @@ class Creature {
         }
 
 
-
+        this.abilities["Auto Attack"] = new AutoAttack()
 
 
     }
