@@ -8,7 +8,6 @@ class Ai {
             //boss test
             this.creature.abilities["Aoe Test"].startCast(this.creature)
 
-
             //no target
             if (Object.keys(this.creature.targetObj).length === 0)  {
                 let newTarget = findNearestEnemy(this.creature)
@@ -16,6 +15,18 @@ class Ai {
                 this.creature.target = newTarget.name
             } else {
                 let b = this.creature
+                for (let i = 0; i<b.aggro.length; i++) {
+                    let currentAggro = b.aggro[b.targetObj.id2]
+                    if (currentAggro===undefined) {
+                        currentAggro = 0
+                    }
+                    if (currentAggro<b.aggro[i]) {
+                        b.targetObj = friendlyTargets[i]
+                        b.target = friendlyTargets[i].name
+                        b.castTarget = friendlyTargets[i]
+                    }
+                }
+
                 this.creature.direction = getDirection(b,b.targetObj)
 
                 let dist = getDistance(b,b.targetObj)
@@ -24,7 +35,6 @@ class Ai {
                 } else {
                     b.abilities["Auto Attack"].startCast(b)
                 }
-
             }
             //todo:aggro
 
@@ -50,6 +60,13 @@ class Ai {
                     if (b.melee) {
                         b.abilities["Auto Attack"].startCast(b)
                     }
+                    //TODO:ABILITIES
+                    if (this.creature.gcd<=0) {
+
+                    }
+
+
+
                 }
             }
 

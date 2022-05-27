@@ -41,7 +41,7 @@ class Creature {
 
     healingDone = 0
     damageDone = 0
-
+    aggroMultiplier = 1
 
     constructor(name,enemy,health,energy,x,y,direction,spec) {
         this.id = creatures.length
@@ -57,7 +57,12 @@ class Creature {
         this.y = y
 
         if (!enemy) {
+            this.id2 = friendlyTargets.length
             friendlyTargets.push(this)
+
+        } else {
+            this.id2 = enemyTargets.length
+            enemyTargets.push(this)
         }
 
         if (!this.playerCharacter) {
@@ -78,6 +83,10 @@ class Creature {
             this.class = "Monk"
             this.melee = true
             this.role = "dps"
+        } else if (spec==="brewmaster") {//----------------------------------------Brewmaster
+            this.class = "Monk"
+            this.melee = true
+            this.role = "tank"
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
             this.class = "Shaman"
             this.melee = false
@@ -115,7 +124,9 @@ class Creature {
 
         this.abilities["Auto Attack"] = new AutoAttack()
 
-
+        if (this.role==="tank") {
+            this.aggroMultiplier = 10
+        }
     }
 
     run() {
@@ -300,3 +311,4 @@ class Creature {
 
 let friendlyTargets = []
 let enemyTargets = []
+let enemies = []

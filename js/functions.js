@@ -48,8 +48,11 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
     }
 }
 
-let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0) {
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true) {
     let crit = critChance(caster)
+    if (!canCrit) {
+        crit = 1
+    }
     let damage = 0
     if (spellPower===0) {
         damage = (caster.stats.primary * ability.spellPower) * (1+(caster.stats.vers/100)) * crit
@@ -66,9 +69,13 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0) {
         floatingTexts[floatingTextIdx] = (new FloatingText(300,350+yOffset,damage,"damage",crit,ability.name,floatingTextIdx))
     }
 
+
+
     details.doDamage(caster,damage,ability)
     target.health -= damage
-
+    if (target.enemy) {
+        target.aggroInc(caster.id2,damage*caster.aggroMultiplier)
+    }
 }
 
 let applyHot = function (caster,target,ability,duration = 0,extDuration = 0,spellPowerHot = 0) {

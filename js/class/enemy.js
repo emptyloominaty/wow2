@@ -8,8 +8,11 @@ class Enemy extends Creature {
     }
 
     aggroInc(id,val) {
+        if (this.aggro[id]===undefined) {
+            this.aggro[id] = 0
+        }
         this.aggro[id] += val
     }
 }
 
-enemyTargets.push(new Enemy("Test1",150000,100,0,-150,180,"bossTest","boss"))
+enemies.push(new Enemy("Test1",150000,100,0,-150,180,"bossTest","boss"))

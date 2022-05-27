@@ -23,6 +23,8 @@
     padding: 0 3px;
     position:absolute;
     top:0;
+    left:18px;
+    font-size:14px;
     text-shadow: -1px -1px 0 rgba(0,0,0,0.8), 1px -1px 0 rgba(0,0,0,0.8), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.8);
 
 }
@@ -86,4 +88,12 @@
     right:50px;
     bottom:0;
     text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.raidFrame_role_icon {
+    position:absolute;
+    top:3px;
+    left:3px;
+    max-width:16px;
+
 }

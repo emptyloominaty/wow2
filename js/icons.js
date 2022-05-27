@@ -1,4 +1,8 @@
 let iconsPath = {
+    //
+    "dps":"img/roles/role_dps.png",
+    "healer":"img/roles/role_healer.png",
+    "tank":"img/roles/role_tank.png",
     //Monk
     "Vivify":"img/monk/Vivify.jpg",
     "Renewing Mist":"img/monk/RenewingMist.jpg",

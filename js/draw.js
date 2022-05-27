@@ -34,6 +34,7 @@ if (0===0) {
             " <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
             " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span>" +
             " <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> " +
+            "<img class='raidFrame_role_icon' id='raidFrame_role_icon"+i+"'>" +
             "<img class='raidFrame_buff_bottomRight' id='raidFrame_buff_bottomRight"+i+"'>" +
             "<span class='raidFrame_buff_bottomRight_duration' id='raidFrame_buff_bottomRight_duration"+i+"'></span>" +
             "<img class='raidFrame_buff_bottomRight2' id='raidFrame_buff_bottomRight2"+i+"'>" +
@@ -188,6 +189,9 @@ function draw(progress) {
             } else {
                 document.getElementById("raidFrame_healthLost"+i).textContent = ""
             }
+            //role
+            document.getElementById("raidFrame_role_icon"+i).src = iconsPath[friendlyTargets[i].role]
+
             //buffs debuffs
             let bottomRight = false
             let centreRight = false
