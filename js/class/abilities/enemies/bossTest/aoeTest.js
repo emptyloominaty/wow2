@@ -2,9 +2,9 @@ class AoeTest extends Ability {
     constructor() {
         let name = "Aoe Test"
         let cost = 0 //% mana
-        let gcd = 3
+        let gcd = 1.5
         let castTime = 0
-        let cd = 0
+        let cd = 7
         let charges = 1
         let maxCharges = 1
         let channeling = false
@@ -14,7 +14,7 @@ class AoeTest extends Ability {
         let range = 60 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.1
+        this.spellPower = 0.4
 
         this.effect = ""
         this.effectValue = 0

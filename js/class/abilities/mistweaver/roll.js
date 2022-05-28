@@ -47,7 +47,7 @@ class Roll extends Ability {
             this.charges--
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
-        } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
         }
     }

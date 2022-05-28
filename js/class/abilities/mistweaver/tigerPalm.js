@@ -38,11 +38,13 @@ class TigerPalm extends Ability {
                 }
             } else {
                 let newTarget = findNearestEnemy(caster)
-                caster.targetObj = newTarget
-                caster.target = newTarget.name
-                if (this.checkDistance(caster,caster.targetObj)  && !caster.targetObj.isDead) {
-                    doDamage(caster, caster.targetObj, this)
-                    done = true
+                if (newTarget!==false) {
+                    caster.targetObj = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                        doDamage(caster, caster.targetObj, this)
+                        done = true
+                    }
                 }
             }
             if (done) {
@@ -56,7 +58,7 @@ class TigerPalm extends Ability {
                 this.setGcd(caster)
             }
 
-        } else if (caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
         }
     }

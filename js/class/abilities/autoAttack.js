@@ -29,29 +29,20 @@ class AutoAttack extends Ability {
     startCast(caster) {
         if (this.checkCd(caster)) {
             let done = false
-            let isEnemy = false
-            //TODO: function (all dps abilities/heals)
-            if (caster.enemy) {
-                if (!caster.targetObj.enemy) {
-                    isEnemy = true
-                }
-            } else {
-                if (caster.targetObj.enemy) {
-                    isEnemy = true
-                }
-            }
-            if (caster.target!=="" && isEnemy && !caster.targetObj.isDead ) {
+            if (caster.target!=="" && this.isEnemy(caster) && !caster.targetObj.isDead ) {
                 if (this.checkDistance(caster,caster.targetObj)) {
                     doDamage(caster, caster.targetObj, this)
                     done = true
                 }
             } else {
                 let newTarget = findNearestEnemy(caster)
-                caster.targetObj = newTarget
-                caster.target = newTarget.name
-                if (this.checkDistance(caster,caster.targetObj) && !caster.targetObj.isDead) {
-                    doDamage(caster, caster.targetObj, this)
-                    done = true
+                if (newTarget!==false) {
+                    caster.targetObj = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                        doDamage(caster, caster.targetObj, this)
+                        done = true
+                    }
                 }
             }
             if (done) {

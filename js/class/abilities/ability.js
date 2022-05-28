@@ -29,6 +29,19 @@ class Ability {
         }
     }
 
+    isEnemy(caster) {
+        if (caster.enemy) {
+            if (!caster.targetObj.enemy) {
+                return true
+            }
+        } else {
+            if (caster.targetObj.enemy) {
+                return true
+            }
+        }
+        return false
+    }
+
     checkDistance(caster,target) {
         if (getDistance(caster,target)>this.range) {
             if (caster===player) {

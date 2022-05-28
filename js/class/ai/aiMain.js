@@ -5,20 +5,24 @@ class Ai {
     run() {
         //TODO:
         if (this.creature.spec==="bossTest") {//--------------------------------------------------- boss test
-            //boss test
             this.creature.abilities["Aoe Test"].startCast(this.creature)
 
             //no target
             if (Object.keys(this.creature.targetObj).length === 0)  {
                 let newTarget = findNearestEnemy(this.creature)
-                this.creature.targetObj = newTarget
-                this.creature.target = newTarget.name
+                if (newTarget!==false) {
+                    this.creature.targetObj = newTarget
+                    this.creature.target = newTarget.name
+                }
             } else {
                 let b = this.creature
                 for (let i = 0; i<b.aggro.length; i++) {
                     let currentAggro = b.aggro[b.targetObj.id2]
                     if (currentAggro===undefined) {
                         currentAggro = 0
+                    }
+                    if (b.targetObj.id2.isDead) {
+                        b.aggro[b.targetObj.id2] = 0
                     }
                     if (currentAggro<b.aggro[i]) {
                         b.targetObj = friendlyTargets[i]
@@ -34,9 +38,11 @@ class Ai {
                     b.move(1)
                 } else {
                     b.abilities["Auto Attack"].startCast(b)
+                    if (b.gcd<=0) {
+                        b.abilities["Big Dmg"].startCast(b)
+                    }
                 }
             }
-            //todo:aggro
 
 
         } else if (!this.creature.enemy) { //---------------------------------------------------friendly default

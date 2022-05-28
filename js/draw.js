@@ -12,6 +12,29 @@ bars.targetCast = new Bar(120,20,1.5,1.5,170,85,"#bbbbbb","#555555","bar_targetC
 
 let gameScaling = 1 //TODO
 
+let orderRaidFrames = function() {
+    let tanks = []
+    let healers = []
+    let dps = []
+    for (let i = 0; i<friendlyTargets.length; i++) {
+        if (friendlyTargets[i].role==="healer") {
+            healers.push(i)
+        } else if (friendlyTargets[i].role==="tank") {
+            tanks.push(i)
+        } else if (friendlyTargets[i].role==="dps") {
+            dps.push(i)
+        }
+    }
+    let order = [].concat(tanks,healers,dps)
+    let orderReturn = []
+    for (let i = 0; i<order.length; i++) {
+        orderReturn.push(friendlyTargets[order[i]])
+    }
+    return orderReturn
+}
+
+let raidFramesTargets = orderRaidFrames()
+
 if (0===0) {
     let buffHTML = "<div id='top_buff'>"
     let debuffHTML = "<div id='top_debuff'>"
@@ -29,7 +52,7 @@ if (0===0) {
 
     let raidFramesHTML = ""
     for (let i = 0; i<friendlyTargets.length; i++) {
-        //TODO:HOTS,DEBUFFS
+        //TODO:DEBUFFS
         raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'>" +
             " <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
             " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span>" +
@@ -46,7 +69,6 @@ if (0===0) {
             "</div>"
     }
     elements.raidFrames_parent.innerHTML = raidFramesHTML
-
 }
 
 function draw(progress) {
@@ -180,43 +202,47 @@ function draw(progress) {
     }
 
     //raidframes
-        for (let i = 0; i<friendlyTargets.length; i++) {
-            document.getElementById("raidFrame_health"+i).style.width = ((friendlyTargets[i].health/friendlyTargets[i].maxHealth)*100)+"%"
-            if (friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
-                document.getElementById("raidFrame_healthLost"+i).textContent = "-"+(friendlyTargets[i].maxHealth-friendlyTargets[i].health).toFixed(0)
-            } else if (friendlyTargets[i].isDead) {
+        for (let i = 0; i<raidFramesTargets.length; i++) {
+            let raidFrameTarget = raidFramesTargets[i]
+
+            document.getElementById("raidFrame_health"+i).style.width = ((raidFrameTarget.health/raidFrameTarget.maxHealth)*100)+"%"
+            document.getElementById("raidFrame_health"+i).style.backgroundColor = colors[raidFrameTarget.class]
+
+            if (raidFrameTarget.health<raidFrameTarget.maxHealth) {
+                document.getElementById("raidFrame_healthLost"+i).textContent = "-"+(raidFrameTarget.maxHealth-raidFrameTarget.health).toFixed(0)
+            } else if (raidFrameTarget.isDead) {
                 document.getElementById("raidFrame_healthLost"+i).textContent = "Dead"
             } else {
                 document.getElementById("raidFrame_healthLost"+i).textContent = ""
             }
             //role
-            document.getElementById("raidFrame_role_icon"+i).src = iconsPath[friendlyTargets[i].role]
+            document.getElementById("raidFrame_role_icon"+i).src = iconsPath[raidFrameTarget.role]
 
             //buffs debuffs
             let bottomRight = false
             let centreRight = false
             let bottomCentre = false
             let bottomRight2 = false
-            for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
-                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].bottomRight && friendlyTargets[i].buffs[j].caster === player) {
+            for (let j = 0; j<raidFrameTarget.buffs.length; j++) {
+                if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomRight && raidFrameTarget.buffs[j].caster === player) {
                     bottomRight = 1
                     document.getElementById("raidFrame_buff_bottomRight"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight]
-                    document.getElementById("raidFrame_buff_bottomRight_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                    document.getElementById("raidFrame_buff_bottomRight_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                 }
-                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].bottomRight2 && friendlyTargets[i].buffs[j].caster === player) {
+                if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomRight2 && raidFrameTarget.buffs[j].caster === player) {
                     bottomRight2 = 1
                     document.getElementById("raidFrame_buff_bottomRight2"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight2]
-                    document.getElementById("raidFrame_buff_bottomRight2_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                    document.getElementById("raidFrame_buff_bottomRight2_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                 }
-                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].bottomCentre && friendlyTargets[i].buffs[j].caster === player) {
+                if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomCentre && raidFrameTarget.buffs[j].caster === player) {
                     bottomCentre = 1
                     document.getElementById("raidFrame_buff_bottomCentre"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomCentre]
-                    document.getElementById("raidFrame_buff_bottomCentre_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                    document.getElementById("raidFrame_buff_bottomCentre_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                 }
-                if (friendlyTargets[i].buffs[j].name===raidFramesBuffs[player.spec].centreRight && friendlyTargets[i].buffs[j].caster === player) {
+                if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].centreRight && raidFrameTarget.buffs[j].caster === player) {
                     centreRight = 1
                     document.getElementById("raidFrame_buff_centreRight"+i).src = iconsPath[raidFramesBuffs[player.spec].centreRight]
-                    document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = friendlyTargets[i].buffs[j].duration.toFixed(0)
+                    document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                 }
             }
             if (!bottomRight) {
