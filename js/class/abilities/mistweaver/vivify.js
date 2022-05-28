@@ -20,11 +20,15 @@ class Vivify extends Ability {
         this.effectValue = 0
     }
 
+    getTooltip() {
+        return "Causes a surge of invigorating mists, healing the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" and all allies with your Renewing Mist active for "+((player.stats.primary * this.spellPowerSec) * (1 + (player.stats.vers / 100))).toFixed(0)+""
+    }
+
     run(caster) {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0) {
+        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
@@ -54,7 +58,6 @@ class Vivify extends Ability {
             //heal target
             doHeal(caster,caster.castTarget,this)
             caster.abilities["Gust of Mists"].heal(caster)
-            //TODO:RANGE
         }
         //renewingMist
         let _y = 30

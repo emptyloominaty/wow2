@@ -23,6 +23,10 @@ class BlackoutKick extends Ability {
 
     }
 
+    getTooltip() {
+        return "Kick with a blast of Chi energy, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage"
+    }
+
     run(caster) {
 
     }

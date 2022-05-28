@@ -6,7 +6,16 @@ class Action {
         this.bar = bar
         this.slot = slot
         actionBars[bar].abilities[slot] = ability
-        document.getElementById("action_"+bar+"_"+slot+"").innerHTML = "<div class='action_gcd' id='action_gcd_"+bar+"_"+slot+"'></div><div class='action_cd'  id='action_cd_"+bar+"_"+slot+"'></div><img src='"+iconsPath[ability]+"'> <span class='ab_keybind'>"+keybindsD[keybinds["Bar"+bar+" Ability"+slot+""].key]+"</span> <span class='ab_charges'  id='action_charges_"+bar+"_"+slot+"'></span> </span> <span class='ab_cdText'  id='action_cdText_"+bar+"_"+slot+"'></span>"
+
+        let keybind = keybindsD[keybinds["Bar"+bar+" Ability"+slot+""].key]
+        if (keybinds["Bar"+bar+" Ability"+slot+""].mod==="ShiftLeft") {
+            keybind = "S"+keybind
+        } else if (keybinds["Bar"+bar+" Ability"+slot+""].mod==="ControlLeft") {
+            keybind = "C"+keybind
+        }
+
+
+        document.getElementById("action_"+bar+"_"+slot+"").innerHTML = "<div class='action_gcd' id='action_gcd_"+bar+"_"+slot+"'></div><div class='action_cd'  id='action_cd_"+bar+"_"+slot+"'></div><img src='"+iconsPath[ability]+"'> <span class='ab_keybind'>"+keybind+"</span> <span class='ab_charges'  id='action_charges_"+bar+"_"+slot+"'></span> </span> <span class='ab_cdText'  id='action_cdText_"+bar+"_"+slot+"'></span>"
     }
 
     run() {
@@ -59,23 +68,35 @@ class Action {
     }
 
 }
+let actions = {}
 
-let actions = {
-    //bar1
-    "Vivify": new Action("Vivify", 1, 0),
-    "Renewing Mist": new Action("Renewing Mist", 1, 1),
-    "Mana Tea": new Action("Mana Tea", 1, 2),
-    "Roll": new Action("Roll", 1, 3),
-    "Soothing Mist": new Action("Soothing Mist", 1, 8),
-    "Enveloping Mist": new Action("Enveloping Mist", 1, 9),
+if (player.spec==="mistweaver") {
+    actions = {
+        //bar1
+        "Vivify": new Action("Vivify", 1, 0),
+        "Renewing Mist": new Action("Renewing Mist", 1, 1),
+        "Mana Tea": new Action("Mana Tea", 1, 2),
+        "Roll": new Action("Roll", 1, 3),
+        "Soothing Mist": new Action("Soothing Mist", 1, 8),
+        "Enveloping Mist": new Action("Enveloping Mist", 1, 9),
 
-    //bar0
-    "Revival": new Action("Revival", 0, 0),
-    "Essence Font": new Action("Essence Font", 0, 1),
+        //bar0
+        "Revival": new Action("Revival", 0, 0),
+        "Essence Font": new Action("Essence Font", 0, 1),
 
-    //bar2
-    "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
-    "Tiger Palm": new Action("Tiger Palm", 2, 1),
-    "Blackout Kick": new Action("Blackout Kick", 2, 2),
+        //bar2
+        "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
+        "Tiger Palm": new Action("Tiger Palm", 2, 1),
+        "Blackout Kick": new Action("Blackout Kick", 2, 2),
+    }
+}
+
+if (player.spec==="restorationShaman") {
+    actions = {
+        //bar1
+        "Healing Surge": new Action("Healing Surge", 1, 8),
+
+    }
+
 }
 

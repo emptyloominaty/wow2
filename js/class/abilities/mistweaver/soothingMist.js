@@ -20,11 +20,15 @@ class SoothingMist extends Ability {
         this.effectValue = 0
     }
 
+    getTooltip() {
+        return "Heals the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  over 8 sec.  While channeling, Enveloping Mist and Vivify may be cast instantly on the target"
+    }
+
     run(caster) {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting  && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}

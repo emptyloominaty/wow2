@@ -45,6 +45,18 @@ class Ai {
             }
 
 
+        } else if (this.creature.spec==="restorationShaman") { //---------------------------------------------------resto shaman
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                if ((friendlyTargets[i].health/friendlyTargets[i].maxHealth)<0.5) {
+                    if (this.creature.gcd<=0) {
+                        this.creature.targetObj = friendlyTargets[i]
+                        this.creature.castTarget = friendlyTargets[i]
+                        this.creature.target = friendlyTargets[i].name
+                        this.creature.abilities["Healing Surge"].startCast(this.creature)
+                    }
+                }
+            }
+
         } else if (!this.creature.enemy) { //---------------------------------------------------friendly default
             //no target
             if (Object.keys(this.creature.targetObj).length === 0)  {

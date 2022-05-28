@@ -33,5 +33,7 @@ let iconsPath = {
     "Teachings of the Monastery":"img/monk/TeachingsOfTheMonastery.jpg",
 
 
-    //
+    //Shaman
+    "Healing Surge":"img/shaman/healingSurge.jpg",
+
 }

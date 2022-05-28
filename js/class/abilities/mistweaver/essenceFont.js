@@ -11,7 +11,7 @@ class EssenceFont extends Ability {
         let casting = false
         let canMove = true
         let school = "nature"
-        let range = 40
+        let range = 30
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.472
@@ -21,6 +21,10 @@ class EssenceFont extends Ability {
         this.effect = ""
         this.effectValue = 0
         this.last6bolts = []
+    }
+
+    getTooltip() {
+        return "Unleashes a rapid twirl of healing bolts at up to 6 allies within 30 yds, every 1.0 sec for 3 sec. Each bolt heals a target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" plus an additional "+((player.stats.primary * this.hotSpellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" over 8 sec. Gust of Mists will heal affected targets twice"
     }
 
     run(caster) {
@@ -51,16 +55,17 @@ class EssenceFont extends Ability {
             let no = friendlyTargets.length
             let t = Math.floor(Math.random()*no)
             if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth && this.last6bolts.indexOf(t)===-1 || k>120)) {
-                this.last6bolts.push(t)
-                if (this.last6bolts.length>5) {
-                    this.last6bolts = []
+                if (this.checkDistance(caster,friendlyTargets[t])) {
+                    this.last6bolts.push(t)
+                    if (this.last6bolts.length>5) {
+                        this.last6bolts = []
+                    }
+                    doHeal(caster,friendlyTargets[t],this)
+                    applyHot(caster,friendlyTargets[t],this,undefined,undefined,this.hotSpellPower)
+                    j++
                 }
-                doHeal(caster,friendlyTargets[t],this)
-                applyHot(caster,friendlyTargets[t],this,undefined,undefined,this.hotSpellPower)
-                j++
             }
         }
-        //TODO:RANGE
     }
 
     runBuff() {

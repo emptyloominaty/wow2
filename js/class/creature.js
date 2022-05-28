@@ -89,6 +89,7 @@ class Creature {
             this.role = "tank"
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
             this.class = "Shaman"
+            this.abilities = new RestoSham_abilities()
             this.melee = false
             this.role = "healer"
         } else if (spec==="elemental") {//----------------------------------------Elemental

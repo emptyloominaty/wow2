@@ -11,7 +11,7 @@ class ManaTea extends Ability {
         let casting = false
         let canMove = false
         let school = "physical"
-        let range = 40
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0
@@ -19,6 +19,11 @@ class ManaTea extends Ability {
         this.effectValue = 0.5
         this.duration = 10
     }
+
+    getTooltip() {
+        return "Reduces the mana cost of your spells by 50% for 10 sec."
+    }
+
 
     run(caster) {
     }

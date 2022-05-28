@@ -19,6 +19,11 @@ class Revival extends Ability {
         this.effectValue = 0
     }
 
+    getTooltip() {
+        return "Heals all party and raid members within 40 yards for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" and clears them of all harmful Magical, Poison, and Disease effects. Causes a Gust of Mists on all targets."
+    }
+
+
     run(caster) {
     }
 
@@ -29,8 +34,10 @@ class Revival extends Ability {
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             for (let i = 0; i<friendlyTargets.length; i++) {
-                doHeal(caster,friendlyTargets[i],this)
-                caster.abilities["Gust of Mists"].heal(caster,friendlyTargets[i])
+                if (this.checkDistance(caster,friendlyTargets[i])) {
+                    doHeal(caster,friendlyTargets[i],this)
+                    caster.abilities["Gust of Mists"].heal(caster,friendlyTargets[i])
+                }
             }
             //TODO DISPEL
             this.cd = 0

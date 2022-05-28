@@ -11,7 +11,7 @@ class Roll extends Ability {
         let casting = false
         let canMove = false
         let school = "physical"
-        let range = 40
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0
@@ -20,6 +20,10 @@ class Roll extends Ability {
         this.duration = 0.8
 
         this.rollCd = 0
+    }
+
+    getTooltip() {
+        return "Roll a short distance."
     }
 
     run(caster) {

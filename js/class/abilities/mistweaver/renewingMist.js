@@ -21,11 +21,15 @@ class RenewingMist extends Ability {
         this.jumpRange = 20
     }
 
+    getTooltip() {
+        return "Surrounds the target with healing mists, restoring "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" health over 20 sec. If Renewing Mist heals a target past maximum health, it will travel to another injured ally within 20 yds. "
+    }
+
     run(caster) {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)  ) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
@@ -50,7 +54,6 @@ class RenewingMist extends Ability {
         } else {
             applyHot(caster,caster.castTarget,this)
             caster.abilities["Gust of Mists"].heal(caster)
-            //TODO:RANGE
         }
         caster.useEnergy(this.cost)
     }
@@ -59,13 +62,15 @@ class RenewingMist extends Ability {
         //Jump
         if(target.health>=target.maxHealth) {
             for (let i = 0; i<friendlyTargets.length; i++) {
-                //TODO:RANGE
                 if (friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
                     let a = 0
                     for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
                         if (friendlyTargets[i].buffs[j].name === buff.name && friendlyTargets[i].buffs[j].caster === buff.caster) {
                             a = 1
                         }
+                    }
+                    if (!this.checkDistance(target,friendlyTargets[i],this.jumpRange)) {
+                        a = 1
                     }
                     if (a===0) {
                         applyHot(buff.caster,friendlyTargets[i],buff.ability,buff.duration,buff.extendedDuration)

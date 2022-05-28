@@ -1,5 +1,6 @@
 class Ability {
     hasteCd = false
+    range = 5
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges) {
         this.name = name
         this.cost = cost
@@ -54,8 +55,11 @@ class Ability {
         return false
     }
 
-    checkDistance(caster,target) {
-        if (getDistance(caster,target)>this.range) {
+    checkDistance(caster,target,range = 0) {
+        if (range===0) {
+            range = this.range
+        }
+        if (getDistance(caster,target)>range) {
             if (caster===player) {
                 _message.update("Out of range", 2, colors.error)
             }

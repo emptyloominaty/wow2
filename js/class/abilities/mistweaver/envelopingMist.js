@@ -20,11 +20,16 @@ class EnvelopingMist extends Ability {
         this.effectValue = 0.3
     }
 
+    getTooltip() {
+        return "Wraps the target in healing mists, healing for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" over 6 sec and increasing healing received from your other spells by 30%"
+    }
+
+
     run(caster) {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 ) {
+        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
@@ -62,7 +67,6 @@ class EnvelopingMist extends Ability {
         } else {
             applyHot(caster,caster.castTarget,this)
             caster.abilities["Gust of Mists"].heal(caster)
-            //TODO:RANGE
         }
         caster.useEnergy(this.cost)
     }
