@@ -24,11 +24,11 @@ class EnvelopingMist extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 && !caster.targetObj.isDead) {
+        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 ) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
-                    caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+                    this.setGcd(caster,1.5)
                     return
                 } else {
                     this.isChanneling = false
@@ -56,7 +56,7 @@ class EnvelopingMist extends Ability {
             this.effectValue = 0.3
         }
         caster.isCasting = false
-        if (caster.target==="" || caster.castTarget.enemy) {
+        if (caster.target==="" || caster.castTarget.enemy || caster.targetObj.isDead) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)
         } else {

@@ -16,10 +16,22 @@ class Ability {
         this.maxCharges = charges
     }
 
-    setGcd(caster) {
-       caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+    getTooltip() {
+        return ""
+    }
+
+    setGcd(caster,gcd = 0) {
+        if (gcd===0) {
+            caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+        } else {
+            caster.gcd = gcd / (1 + (caster.stats.haste / 100))
+        }
         if (caster===player) {
-            bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+            if (gcd===0) {
+                bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
+            } else {
+                bars.playerCast.setMaxVal(gcd / (1 + (caster.stats.haste / 100)))
+            }
         }
         if (caster.gcd<0.75) {
             caster.gcd = 0.75

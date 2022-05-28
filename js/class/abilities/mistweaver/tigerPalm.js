@@ -39,6 +39,7 @@ class TigerPalm extends Ability {
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
+                    document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {

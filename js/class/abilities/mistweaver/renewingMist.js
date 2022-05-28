@@ -25,7 +25,7 @@ class RenewingMist extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)  && !caster.targetObj.isDead) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)  ) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
@@ -44,7 +44,7 @@ class RenewingMist extends Ability {
             this.cd = 0
         }
         this.charges--
-        if (caster.target==="" || caster.castTarget.enemy) {
+        if (caster.target==="" || caster.castTarget.enemy || caster.castTarget.isDead) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)
         } else {

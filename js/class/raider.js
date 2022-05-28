@@ -13,5 +13,11 @@ let raiders = [
     new Raider("raider6",50000,100,150,200,0,"havoc"),
     new Raider("raider7",50000,100,320,200,0,"windwalker"),
     new Raider("raider8",50000,100,300,150,0,"assassination"),
-    new Raider("raider9",75000,100,300,10,0,"brewmaster"),
+    new Raider("raider9",50000,100,-150,200,0,"havoc"),
+    new Raider("raider10",50000,100,-320,200,0,"windwalker"),
+    new Raider("raider11",50000,100,-300,150,0,"assassination"),
+    new Raider("raider12",50000,100,-150,200,0,"havoc"),
+    new Raider("raider13",50000,100,-320,200,0,"windwalker"),
+    new Raider("raider14",50000,100,-300,150,0,"assassination"),
+    new Raider("raider15",75000,100,300,10,0,"brewmaster"),
 ]

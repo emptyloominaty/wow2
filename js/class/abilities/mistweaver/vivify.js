@@ -24,11 +24,11 @@ class Vivify extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 && !caster.targetObj.isDead) {
+        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
-                    caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+                    this.setGcd(caster)
                     bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
                     return
                 } else {
@@ -46,7 +46,7 @@ class Vivify extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (caster.target==="" || caster.castTarget.enemy) {
+        if (caster.target==="" || caster.castTarget.enemy || caster.castTarget.isDead) {
             //heal self
             doHeal(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)

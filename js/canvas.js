@@ -28,6 +28,20 @@ class Canvas {
         this.canvas.restore()
     }
 
+    drawTargetDirection(x,y,length,width,color,direction) {
+        this.canvas.save()
+        this.canvas.beginPath()
+        this.canvas.translate(x, y)
+        this.canvas.rotate(((360-direction)+225) * Math.PI / 180)
+        this.canvas.moveTo(0, 0)
+        this.canvas.lineTo(length, length)
+        this.canvas.lineWidth = width
+        this.canvas.strokeStyle = color
+        this.canvas.stroke()
+        this.canvas.closePath()
+        this.canvas.restore()
+    }
+
     drawRect(x,y,w,h,color) {
         this.canvas.fillStyle = color
         this.canvas.fillRect(x,y,w,h)

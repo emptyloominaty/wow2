@@ -55,6 +55,7 @@ if (0===0) {
         //TODO:DEBUFFS
         raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'>" +
             " <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
+            "<div class='raidFrame_health2'>.</div>" +
             " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span>" +
             " <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> " +
             "<img class='raidFrame_role_icon' id='raidFrame_role_icon"+i+"'>" +
@@ -110,6 +111,7 @@ function draw(progress) {
             }
             game2d.drawText((game2d.canvasW/2)+x, ((game2d.canvasH/2)+y)-(size+5),(health*100).toFixed(0)+"%","14px Consolas",healthColor,"center")
             game2d.drawCircle((game2d.canvasW/2)+x, (game2d.canvasH/2)+y, size, color)
+            game2d.drawTargetDirection((game2d.canvasW/2)+x, (game2d.canvasH/2)+y, size-5, 3, "#9f5c5d", creatures[i].direction)
         }
     }
 
@@ -207,6 +209,8 @@ function draw(progress) {
 
             document.getElementById("raidFrame_health"+i).style.width = ((raidFrameTarget.health/raidFrameTarget.maxHealth)*100)+"%"
             document.getElementById("raidFrame_health"+i).style.backgroundColor = colors[raidFrameTarget.class]
+
+            document.getElementById("raidFrame_name"+i).textContent = raidFrameTarget.name
 
             if (raidFrameTarget.health<raidFrameTarget.maxHealth) {
                 document.getElementById("raidFrame_healthLost"+i).textContent = "-"+(raidFrameTarget.maxHealth-raidFrameTarget.health).toFixed(0)

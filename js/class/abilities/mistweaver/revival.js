@@ -3,7 +3,7 @@ class Revival extends Ability {
         let name = "Revival"
         let cost = 4.374 //% mana
         let gcd = 1.5
-        let castTime = 1.5
+        let castTime = 0
         let cd = 180
         let charges = 1
         let maxCharges = 1

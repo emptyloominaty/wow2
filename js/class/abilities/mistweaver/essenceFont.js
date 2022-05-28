@@ -20,6 +20,7 @@ class EssenceFont extends Ability {
         this.bolts = 18
         this.effect = ""
         this.effectValue = 0
+        this.last6bolts = []
     }
 
     run(caster) {
@@ -36,6 +37,7 @@ class EssenceFont extends Ability {
             this.setGcd(caster)
             this.cd = 0
             caster.useEnergy(this.cost)
+            this.last6bolts = []
         } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
         }
@@ -48,7 +50,11 @@ class EssenceFont extends Ability {
             k++
             let no = friendlyTargets.length
             let t = Math.floor(Math.random()*no)
-            if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth || k>50)) {
+            if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth && this.last6bolts.indexOf(t)===-1 || k>120)) {
+                this.last6bolts.push(t)
+                if (this.last6bolts.length>5) {
+                    this.last6bolts = []
+                }
                 doHeal(caster,friendlyTargets[t],this)
                 applyHot(caster,friendlyTargets[t],this,undefined,undefined,this.hotSpellPower)
                 j++

@@ -24,7 +24,7 @@ class SoothingMist extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting  &&  !caster.targetObj.isDead) {
+        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
@@ -38,7 +38,7 @@ class SoothingMist extends Ability {
     }
 
     cast(caster) {
-        if (caster.target==="" || caster.castTarget.enemy) {
+        if (caster.target==="" || caster.castTarget.enemy || caster.castTarget.isDead) {
             //heal self
             doHeal(caster,caster,this)
             let masteryRng = Math.floor(Math.random()*7)

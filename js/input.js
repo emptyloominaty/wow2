@@ -83,14 +83,15 @@ let keybinds = {
 
 
 }
-let keyLoop = () => {
-    let pressAbility = function(bar,slot){
-        if (actionBars[bar].abilities[slot] !== undefined) {
-            player.abilities[actionBars[bar].abilities[slot]].startCast(player)
-            actions[actionBars[bar].abilities[slot]].pressStart()
-        }
-    }
 
+let pressAbility = function(bar,slot){
+    if (actionBars[bar].abilities[slot] !== undefined) {
+        player.abilities[actionBars[bar].abilities[slot]].startCast(player)
+        actions[actionBars[bar].abilities[slot]].pressStart()
+    }
+}
+
+let keyLoop = () => {
     let modPressed = function(name) {
         if (keybinds[name].mod === "") {
             return !(keyPressed["ShiftLeft"] || keyPressed["ControlLeft"])
@@ -364,8 +365,11 @@ let keyLoop = () => {
 
     if (keyPressed["Tab"]) {
         let target = findNearestEnemy(player)
-        player.targetObj = target
-        player.target = target.name
+        if (target!==false) {
+            document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+            player.targetObj = target
+            player.target = target.name
+        }
     }
 
 

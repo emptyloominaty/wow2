@@ -23,6 +23,12 @@ class RisingSunKick extends Ability {
         this.effect = ""
         this.effectValue = 0
         this.hasteCd = true
+
+
+    }
+
+    getTooltip() {
+        return "Kick upwards, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage"
     }
 
     run(caster) {
@@ -40,6 +46,7 @@ class RisingSunKick extends Ability {
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
+                    document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
