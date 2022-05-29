@@ -27,6 +27,9 @@ function update(progress) {
             creatures[i].run()
         }
 
+        if (creatures[i]!==player) {
+            creatures[i].castTarget = creatures[i].targetObj
+        }
     }
     //floating texts
     for (let i = 0; i<floatingTexts.length; i++) {

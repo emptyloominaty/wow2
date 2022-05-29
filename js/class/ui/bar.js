@@ -1,5 +1,5 @@
 class Bar {
-    constructor(width,height,val,maxVal,x,y,color,backgroundColor,id) {
+    constructor(width,height,val,maxVal,x,y,color,backgroundColor,id,fontsize = 16,borderColor = "#111111") {
         this.x = x
         this.y = y
         this.width = width
@@ -17,7 +17,7 @@ class Bar {
         div.style.width = width+"px"
         div.style.height = height+"px"
         div.style.backgroundColor = backgroundColor
-        div.style.border = "2px solid #111111"
+        div.style.border = "2px solid "+borderColor
         div.style.borderRadius = "1px"
         div.id = id+"_bg"
 
@@ -37,12 +37,13 @@ class Bar {
         span.style.width = width+"px"
         span.style.height = height+"px"
         span.style.textAlign = "center"
+        span.style.fontSize = fontsize+"px"
+        span.style.textShadow = "-1px -1px 1px rgba(0,0,0,0.8), 1px -1px 1px rgba(0,0,0,0.8), -1px 1px 1px #000, 1px 1px 1px rgba(0,0,0,0.8)"
         span.id = id+"_text"
 
-
-        elements.ui.appendChild(div)
-        elements.ui.appendChild(div2)
-        elements.ui.appendChild(span)
+        elements.creatureBars.appendChild(div)
+        elements.creatureBars.appendChild(div2)
+        elements.creatureBars.appendChild(span)
     }
 
     setVal(val) {
@@ -65,7 +66,21 @@ class Bar {
             document.getElementById(this.id+"_bg").style.display = "inline-block"
             document.getElementById(this.id+"_text").style.display = "inline-block"
         }
+    }
 
+    setPosition(x,y,center = false) {
+        if (center) {
+            x-= this.width/2
+            y-= this.height/2
+        }
+        document.getElementById(this.id).style.top = (y+2)+"px"
+        document.getElementById(this.id).style.left = (x+2)+"px"
+
+        document.getElementById(this.id+"_text").style.top = (y+2)+"px"
+        document.getElementById(this.id+"_text").style.left = x+"px"
+
+        document.getElementById(this.id+"_bg").style.top = y+"px"
+        document.getElementById(this.id+"_bg").style.left = x+"px"
     }
 }
 

@@ -58,7 +58,7 @@ class BlackoutKick extends Ability {
         if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)) {
             let done = false
             let _y = 0
-            if (caster.target!=="" && caster.castTarget.enemy) {
+            if (caster.target!=="" && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.targetObj.isDead) {
                     doDamage(caster, caster.targetObj, this)
                     this.risingSunKickReset(caster,_y)

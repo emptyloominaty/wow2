@@ -42,7 +42,7 @@ class SoothingMist extends Ability {
     }
 
     cast(caster) {
-        if (caster.target==="" || caster.castTarget.enemy || caster.castTarget.isDead) {
+        if (caster.target==="" || this.isEnemy(caster)  || caster.castTarget.isDead) {
             //heal self
             doHeal(caster,caster,this)
             let masteryRng = Math.floor(Math.random()*7)

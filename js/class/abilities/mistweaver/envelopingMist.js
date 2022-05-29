@@ -61,7 +61,7 @@ class EnvelopingMist extends Ability {
             this.effectValue = 0.3
         }
         caster.isCasting = false
-        if (caster.target==="" || caster.castTarget.enemy || caster.targetObj.isDead) {
+        if (caster.target==="" || this.isEnemy(caster)  || caster.targetObj.isDead) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster)
         } else {
