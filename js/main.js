@@ -42,4 +42,8 @@ function update(progress) {
         actions[key].run()
     })
 
+    //details
+    detailsDamage.run()
+    detailsHealing.run()
+
 }

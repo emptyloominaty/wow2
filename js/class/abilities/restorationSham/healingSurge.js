@@ -42,12 +42,15 @@ class HealingSurge extends Ability {
 
     endCast(caster) { //TODO:MASTERY,tidal waves,undulation,unleash life
         caster.isCasting = false
+
         if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead) {
+            let spellPower = this.spellPower * getRestoShamMastery(caster,caster)
             //heal self
-            doHeal(caster,caster,this)
+            doHeal(caster,caster,this,0,spellPower)
         } else {
             //heal target
-            doHeal(caster,caster.castTarget,this)
+            let spellPower = this.spellPower * getRestoShamMastery(caster,caster.castTarget)
+            doHeal(caster,caster.castTarget,this,0,spellPower)
         }
         caster.useEnergy(this.cost)
     }

@@ -83,7 +83,7 @@ if (player.spec==="mistweaver") {
         //bar0
         "Revival": new Action("Revival", 0, 0),
         "Essence Font": new Action("Essence Font", 0, 1),
-
+        "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
         //bar2
         "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
         "Tiger Palm": new Action("Tiger Palm", 2, 1),

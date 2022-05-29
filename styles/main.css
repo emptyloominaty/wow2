@@ -25,3 +25,8 @@ img {
     left:48%;
 }
 
+@font-face {
+    font-family: Oswald-Medium;
+    src: url(/fonts/Oswald-Medium.tff);
+}
+

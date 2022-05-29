@@ -43,6 +43,9 @@ class Creature {
     damageDone = 0
     aggroMultiplier = 1
 
+    damageReduction = 0
+    healthIncreased = 0
+
     constructor(name,enemy,health,energy,x,y,direction,spec) {
         this.id = creatures.length
         creatures.push(this)
@@ -50,6 +53,7 @@ class Creature {
         this.name = name
         this.health = health
         this.maxHealth = health
+        this.baseHealth = health
         this.energy = energy
         this.maxEnergy = energy
         this.direction = direction
@@ -165,7 +169,6 @@ class Creature {
                     this.channeling.timer = 0
                     this.abilities[this.channeling.name].cast(this)
                 }
-
             } else {
                 this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 this.isChanneling = false

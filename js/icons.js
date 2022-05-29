@@ -3,6 +3,24 @@ let iconsPath = {
     "dps":"img/roles/role_dps.png",
     "healer":"img/roles/role_healer.png",
     "tank":"img/roles/role_tank.png",
+    //specs
+    specs: {
+        "mistweaver":"img/specs/monk/mistweaver.png",
+        "windwalker":"img/specs/monk/windwalker.png",
+        "brewmaster":"img/specs/monk/brewmaster.png",
+        "restorationShaman":"img/specs/shaman/restoration.png",
+        "elemental":"img/specs/shaman/elemental.png",
+        "assassination":"img/specs/rogue/assassination.png",
+        "restorationDruid":"img/specs/druid/restoration.png",
+        "balance":"img/specs/druid/balance.png",
+        "arcane":"img/specs/mage/arcane.png",
+        "havoc":"img/specs/demonhunter/havoc.jpg",
+    },
+
+    //classes
+    classes: {
+
+    },
     //Monk
     "Vivify":"img/monk/Vivify.jpg",
     "Renewing Mist":"img/monk/RenewingMist.jpg",
@@ -16,7 +34,7 @@ let iconsPath = {
     "Enveloping Mist":"img/monk/EnvelopingMist.jpg",
     "Essence Font":"img/monk/EssenceFont.jpg",
     "Expel Harm":"img/monk/ExpelHarm.jpg",
-    "Fortifying Brew":"img/monk/FortifyingBrew.jpg",
+    "Fortifying Brew":"img/monk/FortifyingBrew2.jpg",
     "Gust of Mists":"img/monk/GustofMists.jpg",
     "Life Cocoon":"img/monk/LifeCocoon.jpg",
     "Refreshing Jade Wind":"img/monk/RefreshingJadeWind.jpg",

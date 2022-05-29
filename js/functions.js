@@ -72,7 +72,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset, damage, "damage", crit, ability.name, floatingTextIdx))
         }
 
-
+        damage = damage * (1-target.damageReduction)
         details.doDamage(caster, damage, ability)
         target.health -= damage
         if (target.health < 0) {
@@ -194,5 +194,15 @@ let details = { //TODO
     },
     takeDamage: function() {
 
+    }
+}
+
+let getNumberString = function(number) {
+    if (number>999999) {
+        return (number/1000000).toFixed(1)+"M"
+    } else if (number>999) {
+        return (number/1000).toFixed(1)+"K"
+    } else {
+        return (number).toFixed(0)
     }
 }

@@ -11,5 +11,6 @@ class Mw_abilities {
     "Tiger Palm" = new TigerPalm()
     "Blackout Kick" = new BlackoutKick()
     "Rising Sun Kick" = new RisingSunKick()
+    "Fortifying Brew" = new FortifyingBrew()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
