@@ -57,6 +57,47 @@ class Ai {
                 }
             }
 
+        } else if (this.creature.spec==="windwalker") { //---------------------------------------------------windwalker
+
+            //no target
+            if (Object.keys(this.creature.targetObj).length === 0)  {
+                let newTarget = findNearestEnemy(this.creature)
+                this.creature.targetObj = newTarget
+                this.creature.target = newTarget.name
+            } else {
+                let b = this.creature
+                this.creature.direction = getDirection(b,b.targetObj)
+
+                let dist = getDistance(b,b.targetObj)
+                let distNeed = 30
+                if (b.melee) {
+                    distNeed = 4
+                }
+                if (dist>distNeed) {
+                    b.move(1)
+                } else {
+                    if (b.melee) {
+                        b.abilities["Auto Attack"].startCast(b)
+                    }
+                    for (let i = 0; i<enemyTargets.length; i++) {
+                        if (this.creature.gcd<=0) {
+                            this.creature.targetObj = enemyTargets[i]
+                            this.creature.castTarget = enemyTargets[i]
+                            this.creature.target = enemyTargets[i].name
+                            if (this.creature.secondaryResource<2) {
+                                this.creature.abilities["Tiger Palm"].startCast(this.creature)
+                            } else {
+                                this.creature.abilities["Rising Sun Kick"].startCast(this.creature)
+                                this.creature.abilities["Blackout Kick"].startCast(this.creature)
+                            }
+                        }
+                    }
+
+                    if (this.creature.gcd<=0) {
+
+                    }
+                }
+            }
         } else if (!this.creature.enemy) { //---------------------------------------------------friendly default
             //no target
             if (Object.keys(this.creature.targetObj).length === 0)  {
@@ -82,9 +123,6 @@ class Ai {
                     if (this.creature.gcd<=0) {
 
                     }
-
-
-
                 }
             }
 

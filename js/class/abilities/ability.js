@@ -1,6 +1,8 @@
 class Ability {
     hasteCd = false
+    hasteGcd = true
     range = 5
+    secCost = 0
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges) {
         this.name = name
         this.cost = cost
@@ -22,11 +24,20 @@ class Ability {
     }
 
     setGcd(caster,gcd = 0) {
-        if (gcd===0) {
-            caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+        if (this.hasteGcd) {
+            if (gcd===0) {
+                caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+            } else {
+                caster.gcd = gcd / (1 + (caster.stats.haste / 100))
+            }
         } else {
-            caster.gcd = gcd / (1 + (caster.stats.haste / 100))
+            if (gcd===0) {
+                caster.gcd = this.gcd
+            } else {
+                caster.gcd = gcd
+            }
         }
+
         if (caster===player) {
             if (gcd===0) {
                 bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
@@ -71,7 +82,18 @@ class Ability {
 
     checkCost(caster) {
         if (caster.energy>this.cost) {
-            return true
+            if (this.secCost>0 && caster.maxSecondaryResource>0) {
+                if (caster.secondaryResource>this.secCost) {
+                    return true
+                } else {
+                    if (caster===player) {
+                        _message.update("Not enough chi", 2, colors.error)
+                    }
+                    return false
+                }
+            } else {
+                return true
+            }
         } else {
             if (caster===player) {
                 _message.update("Not enough mana", 2, colors.error)

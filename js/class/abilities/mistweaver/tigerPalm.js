@@ -1,7 +1,8 @@
 class TigerPalm extends Ability {
-    constructor() {
+    constructor(ww = false) {
         let name = "Tiger Palm"
         let cost = 0 //% mana
+
         let gcd = 1.5
         let castTime = 0
         let cd = 0
@@ -23,6 +24,13 @@ class TigerPalm extends Ability {
         this.maxStacks = 3
         this.duration = 20
         this.buffName = "Teachings of the Monastery"
+
+        if (ww) {
+            this.secCost = -2 //chi
+            this.gcd = 1
+            this.hasteGcd = false
+            //TODO: Tiger Palm has an 8% chance to make your next Blackout Kick cost no Chi.
+        }
     }
 
     getTooltip() {
@@ -43,7 +51,9 @@ class TigerPalm extends Ability {
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
-                    document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
@@ -60,6 +70,7 @@ class TigerPalm extends Ability {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
+                caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
             }
 

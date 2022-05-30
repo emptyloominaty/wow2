@@ -1,5 +1,5 @@
 class BlackoutKick extends Ability {
-    constructor() {
+    constructor(ww = false) {
         let name = "Blackout Kick"
         let cost = 0 //% mana
         let gcd = 1.5
@@ -21,6 +21,14 @@ class BlackoutKick extends Ability {
 
         this.hasteCd = true
 
+        if (ww) {
+            this.secCost = 1 //chi
+            this.spellPower = 0.565 *2
+            this.cd = 0
+            this.gcd = 1
+            this.hasteGcd = false
+            //TODO:Reduces the cooldown of Rising Sun Kick and Fists of Fury by 1.0 sec when used.
+        }
     }
 
     getTooltip() {
@@ -61,18 +69,25 @@ class BlackoutKick extends Ability {
             if (caster.target!=="" && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.targetObj.isDead) {
                     doDamage(caster, caster.targetObj, this)
-                    this.risingSunKickReset(caster,_y)
+                    if (caster.spec === "mistweaver") {
+                        this.risingSunKickReset(caster,_y)
+                    }
+
                     done = true
                 }
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
-                    document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster,caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster, caster.targetObj, this)
-                        this.risingSunKickReset(caster,_y)
+                        if (caster.spec === "mistweaver") {
+                            this.risingSunKickReset(caster, _y)
+                        }
                         done = true
                     }
                 }
@@ -83,6 +98,7 @@ class BlackoutKick extends Ability {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
+                caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
             }
 

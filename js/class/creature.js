@@ -7,6 +7,8 @@ class Creature {
     maxHealth = 0
     energy = 0 //mana
     maxEnergy = 0
+    secondaryResource = 0
+    maxSecondaryResource = 0
     energyRegen = 0.8 // 1sec
 
     stats = {primary:2000, haste:25, crit:15, vers:0, mastery:50, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
@@ -85,8 +87,11 @@ class Creature {
             this.role = "healer"
         } else if (spec==="windwalker") {//----------------------------------------Windwalker
             this.class = "Monk"
+            this.abilities = new Ww_abilities()
             this.melee = true
             this.role = "dps"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 5
         } else if (spec==="brewmaster") {//----------------------------------------Brewmaster
             this.class = "Monk"
             this.melee = true
@@ -217,7 +222,14 @@ class Creature {
         }
     }
 
-    useEnergy(val) {
+    useSec(val) {
+        this.secondaryResource -= val
+        if (this.secondaryResource>this.maxSecondaryResource) {
+            this.secondaryResource = this.maxSecondaryResource
+        }
+    }
+
+    useEnergy(val,val2 = 0) {
         let reduceEnergyCost = 1
         for (let i = 0; i<this.buffs.length; i++) {
             if (this.buffs[i].effect === "reduceEnergyCost") {
@@ -225,6 +237,9 @@ class Creature {
             }
         }
         this.energy -= val * reduceEnergyCost
+        if (val2!==0 && this.maxSecondaryResource>0) {
+            this.useSec(val2)
+        }
     }
 
     move(val,strafe = 0) { //val -0.5 - 1

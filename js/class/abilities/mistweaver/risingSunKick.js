@@ -1,7 +1,8 @@
 class RisingSunKick extends Ability {
-    constructor() {
+    constructor(ww = false) {
         let name = "Rising Sun Kick"
         let cost = 1.5 //% mana
+
         let gcd = 1.5
         let castTime = 0
         let cd = 12
@@ -15,7 +16,6 @@ class RisingSunKick extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = (1.438/1.12)*1.7  //-12% mw aura    rank2:+70%
-
         this.spellPowerRisingMist = 0.28
         this.extendRisingMist = 4 //sec
         this.maxExtendRisingMist = 1 //100%
@@ -23,6 +23,15 @@ class RisingSunKick extends Ability {
         this.effect = ""
         this.effectValue = 0
         this.hasteCd = true
+
+
+        if (ww) {
+            this.secCost = 2 //chi
+            this.spellPower = (0.959 * 2)*1.7
+            this.gcd = 1
+            this.hasteGcd = false
+
+        }
 
 
     }
@@ -46,7 +55,9 @@ class RisingSunKick extends Ability {
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
-                    document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
@@ -57,7 +68,7 @@ class RisingSunKick extends Ability {
             }
             if (done) {
                 this.cd = 0
-                caster.useEnergy(this.cost)
+                caster.useEnergy(this.cost,this.secCost)
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
@@ -65,7 +76,7 @@ class RisingSunKick extends Ability {
                 this.setGcd(caster)
 
                 //rising mist
-                if (caster.talents.RisingMist) {
+                if (caster.spec === "mistweaver" && caster.talents.RisingMist) {
                     for (let i = 0; i<friendlyTargets.length; i++) {
                         Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
                             if ((friendlyTargets[i].buffs[key].name === "Enveloping Mist" || friendlyTargets[i].buffs[key].name === "Renewing Mist" || friendlyTargets[i].buffs[key].name === "Essence Font") && friendlyTargets[i].buffs[key].caster === caster) {
