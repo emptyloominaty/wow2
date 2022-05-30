@@ -1,5 +1,7 @@
 let fps = 60
 let time = 0
+let combatTime = 0
+let inCombat = true
 let progressInSec = 0.016
 let avgFPS = 60
 let avgFPSlastSec = []
@@ -7,6 +9,22 @@ let avgFPSlastSec = []
 function update(progress) {
     fps = 1/progress*1000
     progressInSec = progress/1000
+
+    //Combat Timer
+    let enemiesAlive = 0
+    for (let i = 0; i<enemies.length; i++) {
+        if (!enemies[i].isDead) {
+            enemiesAlive++
+        }
+    }
+    if (enemiesAlive===0) {
+        inCombat = false
+    }
+    if (inCombat) {
+        combatTime += progressInSec
+    }
+
+
     //AvgFPS Sec---------------------------------------------
     avgFPSlastSec.push(fps)
     if (avgFPSlastSec.length===60) {

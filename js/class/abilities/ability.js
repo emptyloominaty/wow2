@@ -24,6 +24,7 @@ class Ability {
     }
 
     setGcd(caster,gcd = 0) {
+        details.castAbility(caster,this)
         if (this.hasteGcd) {
             if (gcd===0) {
                 caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
@@ -87,7 +88,7 @@ class Ability {
                     return true
                 } else {
                     if (caster===player) {
-                        _message.update("Not enough chi", 2, colors.error)
+                        _message.update("Not enough "+caster.secondaryResourceName, 2, colors.error)
                     }
                     return false
                 }

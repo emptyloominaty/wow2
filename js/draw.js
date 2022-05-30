@@ -85,7 +85,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-        elements.test.innerHTML = "Time:"+getTime(time)+" FPS: "+avgFPS.toFixed(0)+"<br> HPS: "+(player.healingDone/time/1000).toFixed(1)+"k<br> DPS: "+(player.damageDone/time/1000).toFixed(1)+"k"
+        elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)
 
     //---------------2d---------------
     //reset
@@ -122,7 +122,7 @@ function draw(progress) {
             let x2d = (game2d.canvasW/2)+x
             let y2d = (game2d.canvasH/2)+y
             let y2dH = y2d-12-size
-            let y2dC = y2d-6-size
+            let y2dC = y2d-4-size
 
             if (creatures[i]!==player) {
                 bars["creature"+i+"Health"].setPosition(x2d,y2dH,true)

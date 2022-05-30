@@ -11,8 +11,9 @@
 
 .detailsWindow_bar {
     height:22px;
+    width:0%;
     margin:2px 0px;
-    padding:3px;
+    /*padding:3px;*/
 
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
     position:relative;
@@ -28,6 +29,7 @@
 }
 
 .detailsWindow_icon {
+    padding-top:2px;
     max-height:22px;
     min-height:22px;
     min-width: 22px
@@ -36,7 +38,7 @@
 .detailsWindow_text {
     position:absolute;
     left:35px;
-    margin-top:7px;
+    margin-top:1px;
     width:80%;
     display:flex;
     justify-content: space-between;

@@ -56,8 +56,97 @@ class Ai {
                     }
                 }
             }
+            for (let i = 0; i<enemyTargets.length; i++) {
+                if (this.creature.gcd<=0) {
+                    this.creature.targetObj = enemyTargets[i]
+                    this.creature.castTarget = enemyTargets[i]
+                    this.creature.target = enemyTargets[i].name
+                    this.creature.direction = getDirection(this.creature.targetObj,this.creature.targetObj.targetObj)
+                    let castFlameShock = true
+                    for (let i = 0; i<this.creature.targetObj.debuffs.length; i++) {
+                        if (this.creature.targetObj.debuffs[i].name==="Flame Shock" && this.creature.targetObj.debuffs[i].caster === this.creature) {
+                            castFlameShock = false
+                        }
+                    }
+                    if (castFlameShock) {
+                        this.creature.abilities["Flame Shock"].startCast(this.creature)
+                    }
+                    this.creature.abilities["Lava Burst"].startCast(this.creature)
+                    this.creature.abilities["Lightning Bolt"].startCast(this.creature)
+                }
+            }
 
-        } else if (this.creature.spec==="windwalker") { //---------------------------------------------------windwalker
+
+        } else if (this.creature.spec==="arcane") { //---------------------------------------------------windwalker
+            //no target
+            if (Object.keys(this.creature.targetObj).length === 0)  {
+                let newTarget = findNearestEnemy(this.creature)
+                this.creature.targetObj = newTarget
+                this.creature.target = newTarget.name
+            } else {
+                let b = this.creature
+                this.creature.direction = getDirection(b,b.targetObj)
+
+                let dist = getDistance(b,b.targetObj)
+                let distNeed = 30
+                if (dist>distNeed) {
+                    b.move(1)
+                } else {
+                    if (b.melee) {
+                        b.abilities["Auto Attack"].startCast(b)
+                    }
+                    for (let i = 0; i<enemyTargets.length; i++) {
+                        if (this.creature.gcd<=0) {
+                            this.creature.targetObj = enemyTargets[i]
+                            this.creature.castTarget = enemyTargets[i]
+                            this.creature.target = enemyTargets[i].name
+                            this.creature.abilities["Arcane Blast"].startCast(this.creature)
+                        }
+                    }
+
+                    if (this.creature.gcd<=0) {
+
+                    }
+                }
+            }
+        } else if (this.creature.spec==="brewmaster") { //---------------------------------------------------windwalker
+
+            //no target
+            if (Object.keys(this.creature.targetObj).length === 0)  {
+                let newTarget = findNearestEnemy(this.creature)
+                this.creature.targetObj = newTarget
+                this.creature.target = newTarget.name
+            } else {
+                let b = this.creature
+                this.creature.direction = getDirection(b,b.targetObj)
+
+                let dist = getDistance(b,b.targetObj)
+                let distNeed = 30
+                if (b.melee) {
+                    distNeed = 4
+                }
+                if (dist>distNeed) {
+                    b.move(1)
+                } else {
+                    if (b.melee) {
+                        b.abilities["Auto Attack"].startCast(b)
+                    }
+                    for (let i = 0; i<enemyTargets.length; i++) {
+                        if (this.creature.gcd<=0) {
+                            this.creature.targetObj = enemyTargets[i]
+                            this.creature.castTarget = enemyTargets[i]
+                            this.creature.target = enemyTargets[i].name
+                            this.creature.abilities["Blackout Kick"].startCast(this.creature)
+                            this.creature.abilities["Tiger Palm"].startCast(this.creature)
+                        }
+                    }
+
+                    if (this.creature.gcd<=0) {
+
+                    }
+                }
+            }
+        }  else if (this.creature.spec==="windwalker") { //---------------------------------------------------windwalker
 
             //no target
             if (Object.keys(this.creature.targetObj).length === 0)  {

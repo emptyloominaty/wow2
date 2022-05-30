@@ -171,7 +171,7 @@ let findNearestEnemy = function(target1) {
     return false
 }
 
-let  getTime = function(time) {
+let getTime = function(time) {
     let minutes = Math.floor(time / 60)
     let seconds = time % 60
 
@@ -181,19 +181,85 @@ let  getTime = function(time) {
     return minutes+":"+seconds
 }
 
-let details = { //TODO
-    doHealing: function(caster,val,ability,overhealing) {
-        if (overhealing>0) {
-            caster.healingDone+=val-overhealing
+let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spellPowerDot = 0) {
+    if (!target.isDead) {
+        for (let i = 0; i<target.debuffs.length; i++) {
+            if (target.debuffs[i].name === ability.name && target.debuffs[i].caster === caster) {
+                target.debuffs[i].duration += ability.duration
+                target.debuffs[i].extendedDuration += 0
+                if (target.debuffs[i].duration>ability.duration*1.3) { //30%
+                    target.debuffs[i].duration = ability.duration*1.3
+                }
+                return true
+            }
+        }
+        let spellPower = ability.spellPower
+        if (spellPowerDot!==0) {
+            spellPower = spellPowerDot
+        }
+        if (duration === 0) {
+            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
         } else {
-            caster.healingDone+=val
+            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+        }
+    }
+}
+
+
+
+let details = { //TODO
+    combatIdx: 0,
+    combats: [[],[],[],[]],
+    doHealing: function(caster,val,ability,overhealing) {
+        if (this.combats[this.combatIdx][caster.id2]===undefined) {
+            this.combats[this.combatIdx][caster.id2] = {}
+        }
+
+        if(this.combats[this.combatIdx][caster.id2][ability.name]===undefined) {
+            this.combats[this.combatIdx][caster.id2][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+        }
+
+        if (inCombat) {
+            if (overhealing>0) {
+                caster.healingDone+=val-overhealing
+                this.combats[this.combatIdx][caster.id2][ability.name].heal += val-overhealing
+            } else {
+                this.combats[this.combatIdx][caster.id2][ability.name].heal += val
+                caster.healingDone+=val
+            }
         }
     },
     doDamage: function(caster,val,ability) {
-        caster.damageDone+=val
+        if (inCombat) {
+            if (this.combats[this.combatIdx][caster.id2]===undefined) {
+                this.combats[this.combatIdx][caster.id2] = {}
+            }
+
+            if(this.combats[this.combatIdx][caster.id2][ability.name]===undefined) {
+                this.combats[this.combatIdx][caster.id2][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+            }
+
+            if (inCombat) {
+                this.combats[this.combatIdx][caster.id2][ability.name].damage += val
+                caster.damageDone += val
+            }
+        }
     },
     takeDamage: function() {
 
+    },
+    castAbility: function(caster,ability) {
+        if (inCombat) {
+            if (this.combats[this.combatIdx][caster.id2]===undefined) {
+                this.combats[this.combatIdx][caster.id2] = {}
+            }
+
+            if(this.combats[this.combatIdx][caster.id2][ability.name]===undefined) {
+                this.combats[this.combatIdx][caster.id2][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+            }
+
+            this.combats[this.combatIdx][caster.id2][ability.name].casts++
+        }
     }
 }
 

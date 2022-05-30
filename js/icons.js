@@ -19,8 +19,22 @@ let iconsPath = {
 
     //classes
     classes: {
-
+        "Death Knight":"img/classes/deathknight.png",
+        "Demon Hunter":"img/classes/demonhunter.jpg",
+        "Druid":"img/classes/druid.png",
+        "Hunter":"img/classes/hunter.png",
+        "Mage":"img/classes/mage.png",
+        "Monk":"img/classes/monk.png",
+        "Paladin":"img/classes/paladin.png",
+        "Priest":"img/classes/priest.png",
+        "Rogue":"img/classes/rogue.png",
+        "Shaman":"img/classes/shaman.png",
+        "Warlock":"img/classes/warlock.png",
+        "Warrior":"img/classes/warrior.png",
     },
+    //Mage
+    "Arcane Blast":"img/monk/ArcaneBlast.jpg",
+
     //Monk
     "Vivify":"img/monk/Vivify.jpg",
     "Renewing Mist":"img/monk/RenewingMist.jpg",
@@ -50,8 +64,10 @@ let iconsPath = {
     "Yu'Lon":"img/monk/Yu'Lon.jpg",
     "Teachings of the Monastery":"img/monk/TeachingsOfTheMonastery.jpg",
 
-
     //Shaman
-    "Healing Surge":"img/shaman/healingSurge.jpg",
+    "Healing Surge":"img/shaman/HealingSurge.jpg",
+    "Flame Shock":"img/shaman/FlameShock.jpg",
+    "Lightning Bolt":"img/shaman/LightningBolt.jpg",
+    "Lava Burst":"img/shaman/LavaBurst.jpg",
 
 }

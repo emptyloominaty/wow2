@@ -53,14 +53,14 @@ class DetailsWindow {
         for (let i = 0; i<this.vals.length; i++) {
             document.getElementById(this.id+"_name"+i).textContent = this.vals[i].name
             if (this.type==="HPS" || this.type==="DPS") {
-                document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val/time)
+                document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val/combatTime)
             } else {
-                document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)+" ("+getNumberString(this.vals[i].val/time)+")"
+                document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)+" ("+getNumberString(this.vals[i].val/combatTime)+")"
             }
 
 
             document.getElementById(this.id+"_bar"+i).style.backgroundColor = this.vals[i].color
-            document.getElementById(this.id+"_bar"+i).style.width = (this.vals[i].val/this.maxVal*this.width-34)+"px"
+            document.getElementById(this.id+"_bar"+i).style.width = (this.vals[i].val/this.maxVal*(this.width-34))+"px"
             document.getElementById(this.id+"_icon"+i).src = iconsPath.specs[this.vals[i].target.spec]
 
         }

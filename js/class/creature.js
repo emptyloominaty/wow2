@@ -9,6 +9,7 @@ class Creature {
     maxEnergy = 0
     secondaryResource = 0
     maxSecondaryResource = 0
+    secondaryResourceName = "Combo"
     energyRegen = 0.8 // 1sec
 
     stats = {primary:2000, haste:25, crit:15, vers:0, mastery:50, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
@@ -90,10 +91,12 @@ class Creature {
             this.abilities = new Ww_abilities()
             this.melee = true
             this.role = "dps"
+            this.secondaryResourceName = "Chi"
             this.secondaryResource = 0
             this.maxSecondaryResource = 5
         } else if (spec==="brewmaster") {//----------------------------------------Brewmaster
             this.class = "Monk"
+            this.abilities = new Bm_abilities()
             this.melee = true
             this.role = "tank"
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
@@ -119,8 +122,12 @@ class Creature {
             this.role = "dps"
         } else if (spec==="arcane") {//----------------------------------------Arcane
             this.class = "Mage"
+            this.abilities = new Arcane_abilities()
             this.melee = false
             this.role = "dps"
+            this.secondaryResourceName = "Arcane Charges"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 4
         } else if (spec==="havoc") {//----------------------------------------Havoc
             this.class = "Demon Hunter"
             this.melee = true
@@ -135,7 +142,7 @@ class Creature {
         this.abilities["Auto Attack"] = new AutoAttack()
 
         if (this.role==="tank") {
-            this.aggroMultiplier = 10
+            this.aggroMultiplier = 20
         }
     }
 
@@ -180,7 +187,7 @@ class Creature {
             }
         }
 
-        //buffs / debuffs
+        //buffs
         this.healingIncrease = 1
         for (let i = 0; i<this.buffs.length; i++) {
             if (this.buffs[i].type==="hot") {
@@ -208,6 +215,26 @@ class Creature {
                 i--
             } else {
                 this.buffs[i].ability.runBuff(this,this.buffs[i],i)
+            }
+        }
+        //debuffs
+        for (let i = 0; i<this.debuffs.length; i++) {
+            if (this.debuffs[i].type==="dot") {
+                if (this.debuffs[i].timer<1) {
+                    this.debuffs[i].timer+= (progressInSec)*(1 + (this.debuffs[i].caster.stats.haste / 100))
+                } else {
+                    doDamage(this.debuffs[i].caster,this,this.debuffs[i])
+                    this.debuffs[i].timer = 0
+                }
+            }
+
+            this.debuffs[i].duration -= progressInSec
+            if (this.debuffs[i].duration<0) {
+                this.debuffs[i].ability.endBuff(this)
+                this.debuffs.splice(i,1)
+                i--
+            } else {
+                this.debuffs[i].ability.runBuff(this,this.debuffs[i],i)
             }
         }
 
