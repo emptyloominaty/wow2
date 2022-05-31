@@ -50,11 +50,14 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
     }
 }
 
-let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true) {
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false) {
     if (!target.isDead) {
         let crit = critChance(caster)
-        if (!canCrit) {
+        if (!canCrit) { //0% crit chance
             crit = 1
+        }
+        if (crit100) { //100% crit chance
+            crit = 2
         }
         let damage = 0
         if (spellPower === 0) {
@@ -205,63 +208,6 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     }
 }
 
-
-
-let details = { //TODO
-    combatIdx: 0,
-    combats: [[],[],[],[]],
-    doHealing: function(caster,val,ability,overhealing) {
-        if (this.combats[this.combatIdx][caster.id]===undefined) {
-            this.combats[this.combatIdx][caster.id] = {}
-        }
-
-        if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
-            this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
-        }
-
-        if (inCombat) {
-            if (overhealing>0) {
-                caster.healingDone+=val-overhealing
-                this.combats[this.combatIdx][caster.id][ability.name].heal += val-overhealing
-            } else {
-                this.combats[this.combatIdx][caster.id][ability.name].heal += val
-                caster.healingDone+=val
-            }
-        }
-    },
-    doDamage: function(caster,val,ability) {
-        if (inCombat) {
-            if (this.combats[this.combatIdx][caster.id]===undefined) {
-                this.combats[this.combatIdx][caster.id] = {}
-            }
-
-            if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
-                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
-            }
-
-            if (inCombat) {
-                this.combats[this.combatIdx][caster.id][ability.name].damage += val
-                caster.damageDone += val
-            }
-        }
-    },
-    takeDamage: function() {
-
-    },
-    castAbility: function(caster,ability) {
-        if (inCombat) {
-            if (this.combats[this.combatIdx][caster.id]===undefined) {
-                this.combats[this.combatIdx][caster.id] = {}
-            }
-
-            if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
-                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
-            }
-
-            this.combats[this.combatIdx][caster.id][ability.name].casts++
-        }
-    }
-}
 
 let getNumberString = function(number) {
     if (number>999999) {

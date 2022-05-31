@@ -47,14 +47,14 @@ if (0===0) {
     let buffHTML = "<div id='top_buff'>"
     let debuffHTML = "<div id='top_debuff'>"
     for (let i = 0; i<8; i++) {
-        buffHTML += "<div class='buff_div' id='buff_"+i+"'><img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span> <span class='buff_stacks' id='buff_"+i+"_stacks'></span> </div>"
-        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> <span class='buff_stacks' id='debuff_"+i+"_stacks'></span> </div>"
+        buffHTML += "<div class='buff_div' id='buff_"+i+"'><img onerror=\"this.src='img/none.png'\" id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span> <span class='buff_stacks' id='buff_"+i+"_stacks'></span> </div>"
+        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img onerror=\"this.src='img/none.png'\" id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span> <span class='buff_stacks' id='debuff_"+i+"_stacks'></span> </div>"
     }
     buffHTML += "</div><div id='bottom_buff'>"
     debuffHTML += "</div><div id='bottom_debuff'>"
     for (let i = 8; i<16; i++) {
-        buffHTML += "<div class='buff_div' id='buff_"+i+"'> <img id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span>  <span class='buff_stacks' id='buff_"+i+"_stacks'></span> </div>"
-        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span>  <span class='buff_stacks' id='debuff_"+i+"_stacks'></span> </div>"
+        buffHTML += "<div class='buff_div' id='buff_"+i+"'> <img onerror=\"this.src='img/none.png'\" id='buff_"+i+"_image'> <span id='buff_"+i+"_text'></span>  <span class='buff_stacks' id='buff_"+i+"_stacks'></span> </div>"
+        debuffHTML += "<div class='debuff_div' id='debuff_"+i+"'><img onerror=\"this.src='img/none.png'\" id='debuff_"+i+"_image'> <span id='debuff_"+i+"_text'></span>  <span class='buff_stacks' id='debuff_"+i+"_stacks'></span> </div>"
     }
     elements.buffsDebuffs_parent.innerHTML = "<div id='buff_bar'>" + buffHTML + "</div></div> <div id='debuff_barr'>" + debuffHTML + "</div></div>"
 
@@ -66,14 +66,14 @@ if (0===0) {
             "<div class='raidFrame_health2'>.</div>" +
             " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span>" +
             " <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> " +
-            "<img class='raidFrame_role_icon' id='raidFrame_role_icon"+i+"'>" +
-            "<img class='raidFrame_buff_bottomRight' id='raidFrame_buff_bottomRight"+i+"'>" +
+            "<img onerror=\"this.src='img/none.png'\" class='raidFrame_role_icon' id='raidFrame_role_icon"+i+"'>" +
+            "<img onerror=\"this.src='img/none.png'\" class='raidFrame_buff_bottomRight' id='raidFrame_buff_bottomRight"+i+"'>" +
             "<span class='raidFrame_buff_bottomRight_duration' id='raidFrame_buff_bottomRight_duration"+i+"'></span>" +
-            "<img class='raidFrame_buff_bottomRight2' id='raidFrame_buff_bottomRight2"+i+"'>" +
+            "<img onerror=\"this.src='img/none.png'\" class='raidFrame_buff_bottomRight2' id='raidFrame_buff_bottomRight2"+i+"'>" +
             "<span class='raidFrame_buff_bottomRight2_duration' id='raidFrame_buff_bottomRight2_duration"+i+"'></span>" +
-            "<img class='raidFrame_buff_bottomCentre' id='raidFrame_buff_bottomCentre"+i+"'>" +
+            "<img onerror=\"this.src='img/none.png'\" class='raidFrame_buff_bottomCentre' id='raidFrame_buff_bottomCentre"+i+"'>" +
             "<span class='raidFrame_buff_bottomCentre_duration' id='raidFrame_buff_bottomCentre_duration"+i+"'></span>" +
-            "<img class='raidFrame_buff_centreRight' id='raidFrame_buff_centreRight"+i+"'>" +
+            "<img onerror=\"this.src='img/none.png'\" class='raidFrame_buff_centreRight' id='raidFrame_buff_centreRight"+i+"'>" +
             "<span class='raidFrame_buff_centreRight_duration' id='raidFrame_buff_centreRight_duration"+i+"'></span>" +
             "</div>"
     }

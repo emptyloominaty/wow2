@@ -5,6 +5,7 @@ let inCombat = true
 let progressInSec = 0.016
 let avgFPS = 60
 let avgFPSlastSec = []
+let combatLog = []
 
 function update(progress) {
     fps = 1/progress*1000
@@ -63,5 +64,5 @@ function update(progress) {
     //details
     detailsDamage.run()
     detailsHealing.run()
-
+    detailsAbilities.run()
 }

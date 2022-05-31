@@ -13,4 +13,19 @@ let colors = {
     "Warrior":"#C69B6D",
     "":"#b900a5",
     "error":"#ff7d66",
+
+    details:{
+        "physical":"#888833",
+        "arcane":"#888833",
+        "fire":"#888833",
+        "frost":"#888833",
+        "nature":"#888833",
+        "shadow":"#888833",
+        "holy":"#888833",
+        "astral":"#888833",
+        "chaos":"#888833",
+        "divine":"#888833",
+        "plague":"#888833",
+        "radiant":"#888833",
+    }
 }

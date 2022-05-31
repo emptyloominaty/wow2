@@ -32,9 +32,12 @@ let iconsPath = {
         "Warlock":"img/classes/warlock.png",
         "Warrior":"img/classes/warrior.png",
     },
+
+    "Auto Attack":"img/AutoAttack.jpg",
+
     //Mage
-    "Arcane Blast":"img/monk/ArcaneBlast.jpg",
-    "Arcane Barrage":"img/monk/ArcaneBarrage.jpg",
+    "Arcane Blast":"img/mage/ArcaneBlast.jpg",
+    "Arcane Barrage":"img/mage/ArcaneBarrage.jpg",
     //Monk
     "Vivify":"img/monk/Vivify.jpg",
     "Renewing Mist":"img/monk/RenewingMist.jpg",

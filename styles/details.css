@@ -51,6 +51,10 @@
 
 }
 
+#details_abilitiesWindow {
+    background-color: rgba(0,0,0,0.7);
+    overflow:hidden;
+}
 
 
 

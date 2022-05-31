@@ -68,7 +68,13 @@ class LavaBurst extends Ability {
     endCast(caster) {
         if (caster.target!=="" && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                doDamage(caster,caster.targetObj,this)
+                let crit = false
+                for (let i = 0; i<caster.castTarget.debuffs.length; i++) {
+                    if (caster.castTarget.debuffs[i].name==="Flame Shock" && caster.castTarget.debuffs[i].caster === caster) {
+                        crit = true
+                    }
+                }
+                doDamage(caster,caster.targetObj,this,undefined,undefined,undefined,crit)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }
