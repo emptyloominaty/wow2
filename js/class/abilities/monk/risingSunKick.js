@@ -88,7 +88,7 @@ class RisingSunKick extends Ability {
                                     friendlyTargets[i].buffs[key].duration += extend
                                     friendlyTargets[i].buffs[key].extendedDuration += extend
                                 }
-                                doHeal(caster,friendlyTargets[i],this,0,this.spellPowerRisingMist)
+                                doHeal(caster,friendlyTargets[i],this,0,this.spellPowerRisingMist,undefined,undefined,"Rising Mist")
                             }
                         })
                     }

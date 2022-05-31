@@ -12,7 +12,7 @@ class Creature {
     secondaryResourceName = "Combo"
     energyRegen = 0.8 // 1sec
 
-    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:50, leech:0, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
+    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:50, leech:1, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -140,6 +140,7 @@ class Creature {
 
 
         this.abilities["Auto Attack"] = new AutoAttack()
+        this.abilities["Leech"] = new Leech()
 
         if (this.role==="tank") {
             this.aggroMultiplier = 20

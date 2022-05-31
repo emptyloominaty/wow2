@@ -11,6 +11,7 @@ class DetailsWindow {
         this.type = type
         this.id = id
         this.data = data
+        this.hide = hide
 
         this.html()
 
@@ -20,11 +21,11 @@ class DetailsWindow {
     }
 
     html() {
-        let detailsHTML = "<div class='detailsWindow' id='"+this.id+"'> "+this.type
+        let detailsHTML = "<div class='detailsWindow' id='"+this.id+"'> <span id='details_type"+this.id+"'>"+this.type+"</span>"
         let a = 0
         for (let i = 0; i<friendlyTargets.length; i++) {
             detailsHTML += "<div id='detailsWindow_Row"+this.id+i+"' data-id='"+i+"' class='detailsWindow_Row' onmouseenter='details.mouseEnter("+i+",\""+this.type+"\")' onmouseleave='details.mouseOut("+i+",\""+this.type+"\")'  onmousemove='details.mouseMove()' >" +
-                " <img class='detailsWindow_icon' onerror=\"this.src='img/none.png'\" id='"+this.id+"_icon"+i+"'>" +
+                " <img class='detailsWindow_icon' id='"+this.id+"_icon"+i+"'>" +
                 " <div class='detailsWindow_bar'  id='"+this.id+"_bar"+i+"'></div>" +
                 " <div class='detailsWindow_text'><span>"+(i+1)+".</span><span class='detailsWindow_name' id='"+this.id+"_name"+i+"'>" +
                 "</span>  <span class='detailsWindow_val'  id='"+this.id+"_val"+i+"'></span></div> </div>"
@@ -49,15 +50,18 @@ class DetailsWindow {
     toggle(id,type) {
         if (type==="HPS" || type==="Healing Done") {
             this.data = Number(document.getElementById("detailsWindow_Row"+"details_healingWindow"+id).dataset.id)
+            document.getElementById("details_type"+this.id).textContent = "Abilities Healing"
             this.type = "Abilities Healing"
         } else if (type==="DPS" || type==="Damage Done") {
             this.data = Number(document.getElementById("detailsWindow_Row"+"details_damageWindow"+id).dataset.id)
+            document.getElementById("details_type"+this.id).textContent = "Abilities Damage"
             this.type = "Abilities Damage"
         } else {
             return
         }
         if (document.getElementById(this.id).style.display === "none") {
             document.getElementById(this.id).style.display = "inline"
+            this.hide = false
             this.changePosition(mousePosition.x+25,mousePosition.y)
             for (let i = 0; i<this.elements; i++) {
                 document.getElementById(this.id+"_name"+i).textContent = ""
@@ -67,6 +71,7 @@ class DetailsWindow {
                 document.getElementById(this.id+"_bar"+i).style.width = "0px"
             }
         } else {
+            this.hide = true
             document.getElementById(this.id).style.display = "none"
         }
     }
@@ -79,73 +84,75 @@ class DetailsWindow {
     }
 
     run() {
-        this.vals = []
-        for (let i = 0; i<friendlyTargets.length; i++) {
-            if (this.type==="DPS" || this.type==="Damage Done") {
-                if (friendlyTargets[i].damageDone>this.maxVal) {
-                    this.maxVal = friendlyTargets[i].damageDone
-                }
-                this.vals.push({id:i, val:friendlyTargets[i].damageDone, color:colors[friendlyTargets[i].class], name:friendlyTargets[i].name, target:friendlyTargets[i]})
-            } else if (this.type==="HPS" || this.type==="Healing Done") {
-                if (friendlyTargets[i].healingDone>this.maxVal) {
-                    this.maxVal = friendlyTargets[i].healingDone
-                }
-                this.vals.push({id:i, val:friendlyTargets[i].healingDone, color:colors[friendlyTargets[i].class], name:friendlyTargets[i].name, target:friendlyTargets[i]})
-            }
-        }
-        if (this.type==="Abilities Healing") {
-            if (details.combats[details.combatIdx][this.data]) {
-                let i = 0
-                let obj = details.combats[details.combatIdx][this.data]
-                Object.keys(obj).forEach((key) => {
-                    if (obj[key].heal > this.maxVal) {
-                        this.maxVal = obj[key].heal
+        if (!this.hide) {
+            this.vals = []
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                if (this.type==="DPS" || this.type==="Damage Done") {
+                    if (friendlyTargets[i].damageDone>this.maxVal) {
+                        this.maxVal = friendlyTargets[i].damageDone
                     }
-                    this.vals.push({id: i, val: obj[key].heal, color: colors[obj[key].school], name: obj[key].name})
-                    i++
-                })
-            }
-        } else if (this.type==="Abilities Damage") {
-            if (details.combats[details.combatIdx][this.data]) {
-                let i = 0
-                let obj = details.combats[details.combatIdx][this.data]
-                Object.keys(obj).forEach((key) => {
-                    if (obj[key].heal > this.maxVal) {
-                        this.maxVal = obj[key].damage
+                    this.vals.push({id:i, val:friendlyTargets[i].damageDone, color:colors[friendlyTargets[i].class], name:friendlyTargets[i].name, target:friendlyTargets[i]})
+                } else if (this.type==="HPS" || this.type==="Healing Done") {
+                    if (friendlyTargets[i].healingDone>this.maxVal) {
+                        this.maxVal = friendlyTargets[i].healingDone
                     }
-                    this.vals.push({id: i, val: obj[key].damage, color: colors[obj[key].school], name: obj[key].name})
-                    i++
-                })
-            }
-        }
-        this.vals = this.vals.sort((a, b) => a.val < b.val ? 1 : -1)
-
-        let vals = 0
-        for (let i = 0; i<this.vals.length; i++) {
-            if (this.vals[i].val!==0) {
-                document.getElementById(this.id+"_name"+i).textContent = this.vals[i].name
-                if (this.type==="HPS" || this.type==="DPS") {
-                    document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val/combatTime)
-                    document.getElementById(this.id+"_icon"+i).src = iconsPath.specs[this.vals[i].target.spec]
-                    document.getElementById("detailsWindow_Row"+this.id+i).dataset.id = this.vals[i].target.id
-                } else if (this.type==="Healing Done" || this.type==="Damage Done") {
-                    document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)+" ("+getNumberString(this.vals[i].val/combatTime)+")"
-                    document.getElementById(this.id+"_icon"+i).src = iconsPath.specs[this.vals[i].target.spec]
-                    document.getElementById("detailsWindow_Row"+this.id+i).dataset.id = this.vals[i].target.id
-
-                } else if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
-                    document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)
-                    document.getElementById(this.id+"_icon"+i).src = iconsPath[this.vals[i].name]
+                    this.vals.push({id:i, val:friendlyTargets[i].healingDone, color:colors[friendlyTargets[i].class], name:friendlyTargets[i].name, target:friendlyTargets[i]})
                 }
-                vals++
-
-                document.getElementById(this.id+"_bar"+i).style.backgroundColor = this.vals[i].color
-                document.getElementById(this.id+"_bar"+i).style.width = (this.vals[i].val/this.maxVal*(this.width-34))+"px"
             }
-        }
+            if (this.type==="Abilities Healing") {
+                if (details.combats[details.combatIdx][this.data]) {
+                    let i = 0
+                    let obj = details.combats[details.combatIdx][this.data]
+                    Object.keys(obj).forEach((key) => {
+                        if (obj[key].heal > this.maxVal) {
+                            this.maxVal = obj[key].heal
+                        }
+                        this.vals.push({id: i, val: obj[key].heal, color: colors.details[obj[key].school], name: obj[key].name})
+                        i++
+                    })
+                }
+            } else if (this.type==="Abilities Damage") {
+                if (details.combats[details.combatIdx][this.data]) {
+                    let i = 0
+                    let obj = details.combats[details.combatIdx][this.data]
+                    Object.keys(obj).forEach((key) => {
+                        if (obj[key].damage > this.maxVal) {
+                            this.maxVal = obj[key].damage
+                        }
+                        this.vals.push({id: i, val: obj[key].damage, color:colors.details[obj[key].school], name: obj[key].name})
+                        i++
+                    })
+                }
+            }
+            this.vals = this.vals.sort((a, b) => a.val < b.val ? 1 : -1)
 
-        if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
-            document.getElementById(this.id).style.height = 22+(vals*26)+"px"
+            let vals = 0
+            for (let i = 0; i<this.vals.length; i++) {
+                if (this.vals[i].val!==0) {
+                    document.getElementById(this.id+"_name"+i).textContent = this.vals[i].name
+                    if (this.type==="HPS" || this.type==="DPS") {
+                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val/combatTime)
+                        document.getElementById(this.id+"_icon"+i).src = iconsPath.specs[this.vals[i].target.spec]
+                        document.getElementById("detailsWindow_Row"+this.id+i).dataset.id = this.vals[i].target.id
+                    } else if (this.type==="Healing Done" || this.type==="Damage Done") {
+                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)+" ("+getNumberString(this.vals[i].val/combatTime)+")"
+                        document.getElementById(this.id+"_icon"+i).src = iconsPath.specs[this.vals[i].target.spec]
+                        document.getElementById("detailsWindow_Row"+this.id+i).dataset.id = this.vals[i].target.id
+
+                    } else if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
+                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)
+                        document.getElementById(this.id+"_icon"+i).src = iconsPath[this.vals[i].name]
+                    }
+                    vals++
+
+                    document.getElementById(this.id+"_bar"+i).style.backgroundColor = this.vals[i].color
+                    document.getElementById(this.id+"_bar"+i).style.width = (this.vals[i].val/this.maxVal*(this.width-34))+"px"
+                }
+            }
+
+            if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
+                document.getElementById(this.id).style.height = 22+(vals*26)+"px"
+            }
         }
     }
 
@@ -164,21 +171,24 @@ let detailsAbilities = new DetailsWindow(20,640,250,200,"Abilities Damage","deta
 let details = {
     combatIdx: 0,
     combats: [[],[],[],[]],
-    doHealing: function(caster,val,ability,overhealing) {
+    doHealing: function(caster,val,ability,overhealing,name) {
+        if (name==="") {
+          name = ability.name
+        }
         if (this.combats[this.combatIdx][caster.id]===undefined) {
             this.combats[this.combatIdx][caster.id] = {}
         }
 
-        if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
-            this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+        if(this.combats[this.combatIdx][caster.id][name]===undefined) {
+            this.combats[this.combatIdx][caster.id][name] = {heal:0,damage:0,name:name,casts:0,school:ability.school}
         }
 
         if (inCombat) {
             if (overhealing>0) {
                 caster.healingDone+=val-overhealing
-                this.combats[this.combatIdx][caster.id][ability.name].heal += val-overhealing
+                this.combats[this.combatIdx][caster.id][name].heal += val-overhealing
             } else {
-                this.combats[this.combatIdx][caster.id][ability.name].heal += val
+                this.combats[this.combatIdx][caster.id][name].heal += val
                 caster.healingDone+=val
             }
         }
@@ -190,7 +200,7 @@ let details = {
             }
 
             if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
-                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0,school:ability.school}
             }
 
             if (inCombat) {

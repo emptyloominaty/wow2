@@ -1,6 +1,6 @@
 let settings = {
-    showFloatingAbilityName:true,
-    showFloatingAbility:true,
+    showFloatingAbilityName:false,
+    showFloatingAbility:false,
     mouseSensitivity:2.4,
 }
 

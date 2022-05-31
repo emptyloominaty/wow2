@@ -20,9 +20,15 @@ let critChance = function(caster) {
     return 1
 }
 
-let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
+let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,name = "",val = 0) {
     if (!target.isDead) {
         let crit = critChance(caster)
+        if (!canCrit) { //0% crit chance
+            crit = 1
+        }
+        if (crit100) { //100% crit chance
+            crit = 2
+        }
         let heal = 0
         if (spellPower === 0) {
             heal = (caster.stats.primary * ability.spellPower) * (1 + (caster.stats.vers / 100)) * crit
@@ -31,6 +37,10 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
         }
         //TODO????
         heal = heal * target.healingIncrease
+
+        if (val!==0) {
+            heal = val
+        }
 
         if (caster === player && settings.showFloatingAbility) {
             if (floatingTextIdx < 1000) {
@@ -42,7 +52,11 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0) {
         }
 
         let overhealing = (target.health + heal) - target.maxHealth
-        details.doHealing(caster, heal, ability, overhealing)
+        details.doHealing(caster, heal, ability, overhealing,name)
+        //leech
+        if (caster.stats.leech>0 && ability.name!=="Leech") {
+            caster.abilities["Leech"].startCast(caster,heal)
+        }
         target.health += heal
         if (target.health > target.maxHealth) {
             target.health = target.maxHealth
@@ -77,6 +91,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
 
         damage = damage * (1-target.damageReduction)
         details.doDamage(caster, damage, ability)
+        //leech
+        if (caster.stats.leech>0) {
+            caster.abilities["Leech"].startCast(caster,damage)
+        }
         target.health -= damage
         if (target.health < 0) {
             target.health = 0

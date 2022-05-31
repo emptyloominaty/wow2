@@ -34,6 +34,7 @@ let iconsPath = {
     },
 
     "Auto Attack":"img/AutoAttack.jpg",
+    "Leech":"img/Leech.jpg",
 
     //Mage
     "Arcane Blast":"img/mage/ArcaneBlast.jpg",
