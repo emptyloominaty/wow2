@@ -81,8 +81,11 @@ class Ability {
         }
     }
 
-    checkCost(caster) {
-        if (caster.energy>this.cost) {
+    checkCost(caster,cost = 9999) {
+        if (cost===9999) {
+            cost = this.cost
+        }
+        if (caster.energy>cost) {
             if (this.secCost>0 && caster.maxSecondaryResource>0) {
                 if (caster.secondaryResource>this.secCost) {
                     return true

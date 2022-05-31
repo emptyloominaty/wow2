@@ -1,21 +1,24 @@
-class LavaBurst extends Ability {
+class ArcaneBarrage extends Ability {
     constructor() {
-        let name = "Lava Burst"
-        let cost = 0.5 //% mana
+        let name = "Arcane Barrage"
+        let cost = -2 //% mana
 
         let gcd = 1.5
-        let castTime = 2
-        let cd = 8
+        let castTime = 0
+        let cd = 3
         let charges = 1
         let maxCharges = 1
         let channeling = false
         let casting = true
         let canMove = false
-        let school = "fire"
+        let school = "arcane"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.972
+        this.spellPower = 0.728
+        this.secCost = "all" //TODO
+
+
 
         this.effect = ""
         this.effectValue = 0
@@ -25,14 +28,15 @@ class LavaBurst extends Ability {
     }
 
     getTooltip() {
-        return "Hurls molten lava at the target, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Fire damage. Lava Burst will always critically strike if the target is affected by Flame Shock"
+        return "Launches bolts of arcane energy at the enemy target, causing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Arcane damage. For each Arcane Charge, deals 30% additional damage"
     }
 
     run(caster) {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCd(caster) && this.checkCost(caster) && !caster.isCasting) {
+        let cost = this.cost * (1 + (caster.secondaryResource))
+        if (caster.gcd<=0 && this.checkCd(caster) && this.checkCost(caster,cost) && !caster.isCasting) {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
@@ -68,8 +72,11 @@ class LavaBurst extends Ability {
     endCast(caster) {
         if (caster.target!=="" && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                doDamage(caster,caster.targetObj,this)
-                caster.useEnergy(this.cost,this.secCost)
+                let spellPower = this.spellPower * (1 + (caster.secondaryResource*0.3))
+                doDamage(caster,caster.targetObj,this,undefined,spellPower)
+                //TODO ADDITIONAL TARGETS  (1 per charge 40%)
+                let cost = this.cost * caster.secondaryResource
+                caster.useEnergy(cost,this.secCost)
                 this.cd = 0
             }
         }

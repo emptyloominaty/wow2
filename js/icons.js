@@ -34,7 +34,7 @@ let iconsPath = {
     },
     //Mage
     "Arcane Blast":"img/monk/ArcaneBlast.jpg",
-
+    "Arcane Barrage":"img/monk/ArcaneBarrage.jpg",
     //Monk
     "Vivify":"img/monk/Vivify.jpg",
     "Renewing Mist":"img/monk/RenewingMist.jpg",

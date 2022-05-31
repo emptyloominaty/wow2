@@ -12,7 +12,7 @@ class LightningBolt extends Ability {
         let casting = true
         let canMove = false
         let school = "nature"
-        let range = 40 //melee
+        let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.95
@@ -34,21 +34,18 @@ class LightningBolt extends Ability {
     startCast(caster) {
         if (caster.gcd<=0 && this.checkCd(caster) && this.checkCost(caster) && !caster.isCasting) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) ) {
-                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.targetObj,this)
-                    done = true
-                }
+            if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                done = true
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
-                    if (caster===player) {
-                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    if (caster === player) {
+                        document.getElementById("raidFrame" + targetSelect).style.outline = "0px solid #fff"
                     }
                     caster.targetObj = newTarget
+                    caster.castTarget = newTarget
                     caster.target = newTarget.name
-                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
+                    if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                         done = true
                     }
                 }
@@ -60,9 +57,7 @@ class LightningBolt extends Ability {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
-                caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
-                this.cd = 0
             }
 
         } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
@@ -71,6 +66,13 @@ class LightningBolt extends Ability {
     }
 
     endCast(caster) {
+        if (caster.target!=="" && this.isEnemy(caster)) {
+            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                doDamage(caster,caster.targetObj,this)
+                caster.useEnergy(this.cost,this.secCost)
+                this.cd = 0
+            }
+        }
     }
 
     runBuff() {

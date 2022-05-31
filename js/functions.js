@@ -211,36 +211,36 @@ let details = { //TODO
     combatIdx: 0,
     combats: [[],[],[],[]],
     doHealing: function(caster,val,ability,overhealing) {
-        if (this.combats[this.combatIdx][caster.id2]===undefined) {
-            this.combats[this.combatIdx][caster.id2] = {}
+        if (this.combats[this.combatIdx][caster.id]===undefined) {
+            this.combats[this.combatIdx][caster.id] = {}
         }
 
-        if(this.combats[this.combatIdx][caster.id2][ability.name]===undefined) {
-            this.combats[this.combatIdx][caster.id2][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+        if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
+            this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
         }
 
         if (inCombat) {
             if (overhealing>0) {
                 caster.healingDone+=val-overhealing
-                this.combats[this.combatIdx][caster.id2][ability.name].heal += val-overhealing
+                this.combats[this.combatIdx][caster.id][ability.name].heal += val-overhealing
             } else {
-                this.combats[this.combatIdx][caster.id2][ability.name].heal += val
+                this.combats[this.combatIdx][caster.id][ability.name].heal += val
                 caster.healingDone+=val
             }
         }
     },
     doDamage: function(caster,val,ability) {
         if (inCombat) {
-            if (this.combats[this.combatIdx][caster.id2]===undefined) {
-                this.combats[this.combatIdx][caster.id2] = {}
+            if (this.combats[this.combatIdx][caster.id]===undefined) {
+                this.combats[this.combatIdx][caster.id] = {}
             }
 
-            if(this.combats[this.combatIdx][caster.id2][ability.name]===undefined) {
-                this.combats[this.combatIdx][caster.id2][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+            if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
+                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
             }
 
             if (inCombat) {
-                this.combats[this.combatIdx][caster.id2][ability.name].damage += val
+                this.combats[this.combatIdx][caster.id][ability.name].damage += val
                 caster.damageDone += val
             }
         }
@@ -250,15 +250,15 @@ let details = { //TODO
     },
     castAbility: function(caster,ability) {
         if (inCombat) {
-            if (this.combats[this.combatIdx][caster.id2]===undefined) {
-                this.combats[this.combatIdx][caster.id2] = {}
+            if (this.combats[this.combatIdx][caster.id]===undefined) {
+                this.combats[this.combatIdx][caster.id] = {}
             }
 
-            if(this.combats[this.combatIdx][caster.id2][ability.name]===undefined) {
-                this.combats[this.combatIdx][caster.id2][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
+            if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
+                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0}
             }
 
-            this.combats[this.combatIdx][caster.id2][ability.name].casts++
+            this.combats[this.combatIdx][caster.id][ability.name].casts++
         }
     }
 }

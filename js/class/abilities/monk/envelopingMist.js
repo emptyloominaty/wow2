@@ -61,12 +61,12 @@ class EnvelopingMist extends Ability {
             this.effectValue = 0.3
         }
         caster.isCasting = false
-        if (caster.target==="" || this.isEnemy(caster)  || caster.targetObj.isDead) {
+        if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             applyHot(caster,caster,this)
-            caster.abilities["Gust of Mists"].heal(caster)
+            caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {
             applyHot(caster,caster.castTarget,this)
-            caster.abilities["Gust of Mists"].heal(caster)
+            caster.abilities["Gust of Mists"].heal(caster,caster.castTarget)
         }
         caster.useEnergy(this.cost)
     }

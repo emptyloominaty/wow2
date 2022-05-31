@@ -250,10 +250,15 @@ class Creature {
     }
 
     useSec(val) {
-        this.secondaryResource -= val
-        if (this.secondaryResource>this.maxSecondaryResource) {
-            this.secondaryResource = this.maxSecondaryResource
+        if (val==="all") {
+            this.secondaryResource = 0
+        } else {
+            this.secondaryResource -= val
+            if (this.secondaryResource>this.maxSecondaryResource) {
+                this.secondaryResource = this.maxSecondaryResource
+            }
         }
+
     }
 
     useEnergy(val,val2 = 0) {

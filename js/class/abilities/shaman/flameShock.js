@@ -12,7 +12,7 @@ class FlameShock extends Ability {
         let casting = false
         let canMove = true
         let school = "fire"
-        let range = 40 //melee
+        let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.195
@@ -27,7 +27,7 @@ class FlameShock extends Ability {
     }
 
     getTooltip() {
-        return "Sears the target with fire, causing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Fire damage and then an additional "+((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100))).toFixed(0)+" Fire damage over 18 sec."
+        return "Sears the target with fire, causing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Fire damage and then an additional "+((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" Fire damage over 18 sec."
     }
 
     run(caster) {

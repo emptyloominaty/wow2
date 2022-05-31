@@ -43,7 +43,7 @@ class HealingSurge extends Ability {
     endCast(caster) { //TODO:tidal waves,undulation,unleash life
         caster.isCasting = false
 
-        if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead) {
+        if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             let spellPower = this.spellPower * getRestoShamMastery(caster,caster)
             //heal self
             doHeal(caster,caster,this,0,spellPower)

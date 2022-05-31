@@ -77,7 +77,7 @@ class Ai {
             }
 
 
-        } else if (this.creature.spec==="arcane") { //---------------------------------------------------windwalker
+        } else if (this.creature.spec==="arcane") { //---------------------------------------------------arcane
             //no target
             if (Object.keys(this.creature.targetObj).length === 0)  {
                 let newTarget = findNearestEnemy(this.creature)
@@ -100,6 +100,9 @@ class Ai {
                             this.creature.targetObj = enemyTargets[i]
                             this.creature.castTarget = enemyTargets[i]
                             this.creature.target = enemyTargets[i].name
+                            if (this.creature.energy<20) {
+                                this.creature.abilities["Arcane Barrage"].startCast(this.creature)
+                            }
                             this.creature.abilities["Arcane Blast"].startCast(this.creature)
                         }
                     }
