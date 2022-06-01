@@ -27,10 +27,7 @@ class Leech extends Ability {
     }
 
     startCast(caster,val) {
-        if (this.checkDistance(caster,caster.targetObj)) {
-            doHeal(caster, caster, this,undefined,undefined,false,undefined,undefined,val * (caster.stats.leech / 100))
-        }
-
+        doHeal(caster, caster, this,undefined,undefined,false,undefined,undefined,val * (caster.stats.leech / 100))
     }
 
     endCast(caster) {

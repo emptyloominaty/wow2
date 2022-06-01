@@ -97,7 +97,7 @@ class RisingSunKick extends Ability {
 
             }
 
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
     }

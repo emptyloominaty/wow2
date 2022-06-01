@@ -1,5 +1,6 @@
 let strafing = false
 let mousePosition = {x:0,y:0}
+let mousePosition2d = {x:0,y:0}
 
 let keyPressed = {}
 
@@ -440,6 +441,9 @@ let onMouseUpdate = function(e) {
     }
     mousePosition.x = e.pageX
     mousePosition.y = e.pageY
+
+    mousePosition2d.x = e.pageX-(game2d.canvasW/2)
+    mousePosition2d.y = e.pageY-(game2d.canvasH/2)
 }
 
 document.addEventListener('mousemove', onMouseUpdate)

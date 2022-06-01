@@ -65,4 +65,12 @@ function update(progress) {
     detailsDamage.run()
     detailsHealing.run()
     detailsAbilities.run()
+
+    //areas
+    for (let i = 0; i<areas.length; i++) {
+        if (areas[i]!==undefined) {
+            areas[i].run()
+        }
+    }
+
 }

@@ -102,7 +102,7 @@ class BlackoutKick extends Ability {
                 this.setGcd(caster)
             }
 
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
     }

@@ -37,7 +37,7 @@ class RenewingMist extends Ability {
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
             this.setGcd(caster)
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
     }

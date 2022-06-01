@@ -94,6 +94,13 @@ function draw(progress) {
     game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15, "#6c746f")
     game2d.drawPlayerDirection(0, 0, 10, 3, "#999f9a", player.direction)
 
+    //areas
+    for (let i = 0; i<areas.length; i++) {
+        if (areas[i]!==undefined) {
+            areas[i].draw()
+        }
+    }
+
     for (let i = 0; i<creatures.length; i++) {
         if (creatures[i].name!=="player") {
             let x = creatures[i].x - player.x

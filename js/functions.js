@@ -43,7 +43,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
         }
 
         if (caster === player && settings.showFloatingAbility) {
-            if (floatingTextIdx < 1000) {
+            if (floatingTextIdx < 40) {
                 floatingTextIdx++
             } else {
                 floatingTextIdx = 0
@@ -81,7 +81,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
 
         if (caster === player && settings.showFloatingAbility) {
-            if (floatingTextIdx < 1000) {
+            if (floatingTextIdx < 40) {
                 floatingTextIdx++
             } else {
                 floatingTextIdx = 0
@@ -155,7 +155,7 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
     }
 }
 
-let getDistance = function(target1,target2) { //TODO IN ABILITIES
+let getDistance = function(target1,target2) {
     let a = target1.x - target2.x
     let b = target1.y - target2.y
     return (Math.sqrt( a*a + b*b))/22  //22 = px per meter

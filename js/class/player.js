@@ -5,4 +5,4 @@ class Player extends Creature {
     }
 }
 
-let player = new Player("player",50500,100,0,0,0,"mistweaver")
+let player = new Player("player",50500,100,0,0,0,"restorationShaman") //"mistweaver"

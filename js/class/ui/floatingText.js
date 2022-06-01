@@ -3,11 +3,19 @@ class FloatingText {
     maxDuration = 3
     speed = 1.4
     constructor(x,y,val,type,crit,name,id,targetText = false) {
+
+
+
         this.x = x
         this.y = y
         this.number = val
         this.type = type
         this.id = id
+
+        if (floatingTexts[this.id]!==undefined) {
+            let el = document.getElementById(this.id+"_floatText")
+            el.remove()
+        }
 
         if (targetText) {
             this.maxDuration = 2

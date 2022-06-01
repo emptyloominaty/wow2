@@ -81,6 +81,10 @@ class Ability {
         }
     }
 
+    canSpellQueue(caster) {
+        return (caster===player && caster.gcd<spellQueueWindow && (caster.gcd>0 || caster.isCasting))
+    }
+
     checkCost(caster,cost = 9999) {
         if (cost===9999) {
             cost = this.cost
