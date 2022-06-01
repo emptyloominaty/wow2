@@ -228,6 +228,84 @@ class Ai {
         }
     }
 
+    getNumberOfInjuredTargets() {
+        let no = 0
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            if (!friendlyTargets[i].isDead) {
+                if (friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
+                    no++
+                }
+            }
+        }
+        return no
+    }
+
+    //TODO:DODGE DMG AREAS
+
+    //TODO:TRY TO MOVE TO HEAL AREAS
+
+    getLowestHpEnemy() {
+
+    }
+
+    getRaidMissingHealth() {
+        let missingHealth = 0
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            if (!friendlyTargets[i].isDead) {
+                missingHealth += friendlyTargets[i].maxHealth-friendlyTargets[i].health
+            }
+        }
+        return missingHealth
+    }
+
+    getRaidAvgHealth() {
+        let no = 0
+        let health = 0
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            if (!friendlyTargets[i].isDead) {
+                no++
+                health += friendlyTargets[i].health/friendlyTargets[i].maxHealth
+            }
+        }
+        return (health/no)
+    }
+
+    getMostInjuredTarget() {
+        let lowestVal = 1
+        let id = false
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            if (!friendlyTargets[i].isDead) {
+                if ((friendlyTargets[i].health/friendlyTargets[i].maxHealth)<lowestVal) {
+                    lowestVal = (friendlyTargets[i].health/friendlyTargets[i].maxHealth)
+                    id = i
+                }
+            }
+        }
+        return id
+    }
+
+    getManaTarget() {
+
+    }
+
+    checkBuff(caster,target,buffName) {
+
+    }
+
+    checkDebuff(caster,target,buffName) {
+
+    }
+
+    countBuffs(caster,buffName) {
+        let no = 0
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            if (!friendlyTargets[i].isDead) {
+                //TODO:CHECK BUFF
+            }
+        }
+        return no
+    }
+
     getNewTarget() {
         let newTarget = findNearestEnemy(this.creature)
         this.creature.targetObj = newTarget

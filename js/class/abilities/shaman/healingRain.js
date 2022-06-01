@@ -32,7 +32,7 @@ class HealingRain extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0) {
+        if (caster.gcd<=0 && this.checkCd() && this.checkCost(caster) && !caster.isCasting) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
@@ -50,8 +50,7 @@ class HealingRain extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        //TODO:
-        areas.push(new Area(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius))
+        addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
         this.cd = 0
         caster.useEnergy(this.cost)
     }

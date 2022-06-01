@@ -15,9 +15,8 @@ class HealingTideTotem extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.35
-        //TODO:all targets
 
-        this.area = {type:"circle", radius:40, duration:12,data:{type:"hot", maxTargets:"all", spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.1)"}}
+        this.area = {type:"circle", radius:40, duration:12,data:{type:"hot", maxTargets:"all", spellPower:0.35, timer:2/*sec*/,color:"#82fffd",color2:"rgba(167,255,171,0.05)"}}
 
         this.effect = ""
         this.effectValue = 0
@@ -26,23 +25,23 @@ class HealingTideTotem extends Ability {
     }
 
     getTooltip() {
-        return "Blanket the target area in healing rains, restoring "+(((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))*5).toFixed(0)+" health to up to 6 allies over 10 sec."
+        return "Summons a totem at your feet for 12 sec, which pulses every 2 sec, healing all party or raid members within 40 yards for "+(((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))*6).toFixed(0)+" total. "
     }
 
     run(caster) {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0) {
+        if (caster.gcd<=0 && this.checkCd() && this.checkCost(caster) && !caster.isCasting) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
-            this.castPosition.x = mousePosition2d.x
-            this.castPosition.y = mousePosition2d.y
 
-            caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
+
+            this.cd = 0
+            caster.useEnergy(this.cost)
             this.setGcd(caster)
         } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
@@ -50,10 +49,5 @@ class HealingTideTotem extends Ability {
     }
 
     endCast(caster) {
-        caster.isCasting = false
-        //TODO:
-        areas.push(new Area(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius))
-        this.cd = 0
-        caster.useEnergy(this.cost)
     }
 }

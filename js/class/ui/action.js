@@ -96,6 +96,7 @@ if (player.spec==="restorationShaman") {
         //bar1
         "Healing Surge": new Action("Healing Surge", 1, 8),
         //bar0
+        "Healing Tide Totem": new Action("Healing Tide Totem", 0, 0),
         "Healing Rain": new Action("Healing Rain", 0, 1),
         //bar2
         "Flame Shock": new Action("Flame Shock", 2, 0),

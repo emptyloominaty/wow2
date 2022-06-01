@@ -22,7 +22,6 @@ class Area {
 
         this.data = data
         this.drawArea = drawArea
-
         this.maxTargets = this.data.maxTargets
         if (this.maxTargets==="all") {
             this.maxTargets = 999
@@ -84,7 +83,7 @@ class Area {
             if (i===this.maxTargets) {
                 break
             }
-            doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val)*getRestoShamMastery(this.caster,targets[i]))
+            doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val)*getRestoShamMastery(this.caster,targets[i])) // TODO:ONLY SHAMAN
         }
     }
 
@@ -100,3 +99,13 @@ class Area {
 }
 
 let areas = []
+
+let addArea = function(id,caster,ability,type,duration,data,x,y,drawArea,radius = 0,width = 0,height = 0) {
+    for (let i = 0; i < areas.length; i++) {
+        if (areas[i] === undefined) {
+            areas[i] = new Area(i, caster, ability, type, duration, data, x, y, drawArea, radius, width, height)
+            return true
+        }
+    }
+    areas.push(new Area(id, caster, ability, type, duration, data, x, y, drawArea, radius, width, height))
+}
