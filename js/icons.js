@@ -74,5 +74,5 @@ let iconsPath = {
     "Lightning Bolt":"img/shaman/LightningBolt.jpg",
     "Lava Burst":"img/shaman/LavaBurst.jpg",
     "Healing Rain":"img/shaman/HealingRain.jpg",
-
+    "Healing Tide Totem":"img/shaman/HealingTideTotem.jpg",
 }

@@ -1,22 +1,23 @@
-class HealingRain extends Ability {
+class HealingTideTotem extends Ability {
     constructor() {
-        let name = "Healing Rain"
+        let name = "Healing Tide Totem"
         let cost = 4.32 //% mana
-        let gcd = 1.5
-        let castTime = 2
-        let cd = 10
+        let gcd = 1
+        let castTime = 0
+        let cd = 180
         let charges = 1
         let maxCharges = 1
         let channeling = false
-        let casting = true
+        let casting = false
         let canMove = false
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.265
+        this.spellPower = 0.35
+        //TODO:all targets
 
-        this.area = {type:"circle", radius:10, duration: 10,data:{type:"hot", maxTargets:6, spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.1)"}}
+        this.area = {type:"circle", radius:40, duration:12,data:{type:"hot", maxTargets:"all", spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.1)"}}
 
         this.effect = ""
         this.effectValue = 0

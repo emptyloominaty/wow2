@@ -2,7 +2,7 @@ class Area {
     time = 0
     timer = 0
 
-    constructor(id,caster,ability,type,duration,data,x,y,radius = 0,width = 0,height = 0) {
+    constructor(id,caster,ability,type,duration,data,x,y,drawArea,radius = 0,width = 0,height = 0) {
         this.id = id
         this.caster = caster
         this.ability = ability
@@ -21,6 +21,12 @@ class Area {
         this.height = height
 
         this.data = data
+        this.drawArea = drawArea
+
+        this.maxTargets = this.data.maxTargets
+        if (this.maxTargets==="all") {
+            this.maxTargets = 999
+        }
 
         this.start()
     }
@@ -30,7 +36,7 @@ class Area {
         if (this.type==="circle") {
             for (let i = 0; i<creatures.length; i++) {
                 let distance = getDistance(creatures[i],this)
-                if (distance<this.radius || !creatures[i].isEnemy) { //TODO:ENEMY
+                if (distance<this.radius && !creatures[i].isEnemy && creatures[i].health<creatures[i].maxHealth) { //TODO:ENEMY
                     inside.push(creatures[i])
                 }
             }
@@ -58,18 +64,27 @@ class Area {
     }
 
     draw() {
-        let x2d = (game2d.canvasW/2)+this.x
-        let y2d = (game2d.canvasH/2)+this.y
-        game2d.drawCircleStroke(x2d,y2d,this.radius*22,this.data.color,2)
+        if (this.drawArea) {
+            let x = this.x - player.x
+            let y = this.y - player.y
+            let x2d = (game2d.canvasW/2)+x
+            let y2d = (game2d.canvasH/2)+y
+            if (this.type==="circle") {
+                // game2d.drawCircleStroke(x2d,y2d,this.radius*22,this.data.color,2)
+                game2d.drawCircle(x2d,y2d,this.radius*22,this.data.color2)
+            }
+        }
     }
 
     doTimer(val = 1) {
         let targets = this.findAllCreaturesInside()
+        //targets = targets.sort(() => 0.5 - Math.random()) //randomise
+        targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
         for (let i = 0; i<targets.length;i++) {
-            if (i===6) {
+            if (i===this.maxTargets) {
                 break
             }
-            doHeal(this.caster,targets[i],this.ability,undefined,this.ability.spellPower*val)
+            doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val)*getRestoShamMastery(this.caster,targets[i]))
         }
     }
 

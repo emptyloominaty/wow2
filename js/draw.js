@@ -90,9 +90,6 @@ function draw(progress) {
     //---------------2d---------------
     //reset
     game2d.reset()
-    //player
-    game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15, "#6c746f")
-    game2d.drawPlayerDirection(0, 0, 10, 3, "#999f9a", player.direction)
 
     //areas
     for (let i = 0; i<areas.length; i++) {
@@ -100,6 +97,10 @@ function draw(progress) {
             areas[i].draw()
         }
     }
+
+    //player
+    game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15, "#6c746f")
+    game2d.drawPlayerDirection(0, 0, 10, 3, "#999f9a", player.direction)
 
     for (let i = 0; i<creatures.length; i++) {
         if (creatures[i].name!=="player") {
