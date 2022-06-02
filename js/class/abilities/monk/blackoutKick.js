@@ -100,11 +100,12 @@ class BlackoutKick extends Ability {
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
+                return true
             }
-
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {

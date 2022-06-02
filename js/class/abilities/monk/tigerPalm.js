@@ -26,6 +26,7 @@ class TigerPalm extends Ability {
         this.buffName = "Teachings of the Monastery"
 
         if (ww) {
+            this.cost = 50
             this.secCost = -2 //chi
             this.gcd = 1
             this.hasteGcd = false
@@ -72,11 +73,12 @@ class TigerPalm extends Ability {
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
+                return true
             }
-
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {

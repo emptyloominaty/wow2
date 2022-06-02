@@ -43,9 +43,11 @@ class HealingTideTotem extends Ability {
             this.cd = 0
             caster.useEnergy(this.cost)
             this.setGcd(caster)
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+            return true
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {

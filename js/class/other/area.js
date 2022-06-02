@@ -35,7 +35,7 @@ class Area {
         if (this.type==="circle") {
             for (let i = 0; i<creatures.length; i++) {
                 let distance = getDistance(creatures[i],this)
-                if (distance<this.radius && !creatures[i].isEnemy && creatures[i].health<creatures[i].maxHealth) { //TODO:ENEMY
+                if (distance<this.radius && !isEnemy(this.caster,creatures[i])) {
                     inside.push(creatures[i])
                 }
             }
@@ -83,7 +83,12 @@ class Area {
             if (i===this.maxTargets) {
                 break
             }
-            doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val)*getRestoShamMastery(this.caster,targets[i])) // TODO:ONLY SHAMAN
+            if (this.caster.spec==="restorationShaman") {
+                doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val)*getRestoShamMastery(this.caster,targets[i]))
+            } else {
+                doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val))
+            }
+
         }
     }
 

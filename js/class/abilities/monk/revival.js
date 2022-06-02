@@ -43,9 +43,11 @@ class Revival extends Ability {
             this.cd = 0
             this.setGcd(caster)
             caster.useEnergy(this.cost)
+            return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast() {

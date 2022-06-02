@@ -33,7 +33,9 @@ class ManaTea extends Ability {
             this.cd = 0
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
+            return true
         }
+        return false
     }
 
     runBuff(target,buff) {

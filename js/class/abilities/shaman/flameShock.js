@@ -65,11 +65,13 @@ class FlameShock extends Ability {
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.cd = 0
+                return true
             }
 
         } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {

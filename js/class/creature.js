@@ -5,6 +5,7 @@ class Creature {
     name = ""
     health = 0
     maxHealth = 0
+    resourceName = "Mana"
     energy = 0 //mana
     maxEnergy = 0
     secondaryResource = 0
@@ -19,6 +20,7 @@ class Creature {
     y = 0
     direction = 0
     enemy = false
+    mousePos = {x:0,y:0}
 
     //-------
     isStunned = false
@@ -26,6 +28,7 @@ class Creature {
     isMoving = false
     isCasting = false
     isChanneling = false
+    canMoveWhileCasting = false
     channeling = {name:"", time:0, time2:0}
     isRolling = false
     casting = {name:"", time:0, time2:0}
@@ -91,6 +94,10 @@ class Creature {
             this.abilities = new Ww_abilities()
             this.melee = true
             this.role = "dps"
+
+            this.energyRegen = 10
+            this.resourceName = "Energy"
+
             this.secondaryResourceName = "Chi"
             this.secondaryResource = 0
             this.maxSecondaryResource = 5
@@ -99,6 +106,9 @@ class Creature {
             this.abilities = new Bm_abilities()
             this.melee = true
             this.role = "tank"
+
+            this.energyRegen = 10
+            this.resourceName = "Energy"
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
             this.class = "Shaman"
             this.abilities = new RestoSham_abilities()
@@ -148,7 +158,12 @@ class Creature {
     }
 
     run() {
-        this.energy += this.energyRegen/fps
+        if (this.resourceName==="Energy" || this.resourceName==="Focus") {
+            this.energy += (this.energyRegen*(1+(this.stats.haste/100)))/fps
+        } else if (this.resourceName==="Mana") {
+            this.energy += this.energyRegen/fps
+        } //TODO:RUNES
+
         if (this.energy>this.maxEnergy) {
             this.energy = this.maxEnergy
         }
@@ -183,6 +198,9 @@ class Creature {
                     this.abilities[this.channeling.name].cast(this)
                 }
             } else {
+                if (this.abilities[this.channeling.name].endChanneling) {
+                    this.abilities[this.channeling.name].endChanneling(this)
+                }
                 this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 this.isChanneling = false
             }
@@ -250,6 +268,11 @@ class Creature {
         }
     }
 
+    setMousePos(x,y) {
+        this.mousePos.x = x
+        this.mousePos.y = y
+    }
+
     useSec(val) {
         if (val==="all") {
             this.secondaryResource = 0
@@ -289,12 +312,12 @@ class Creature {
         let vx = Math.sin(angleInRadian) * speed
         let vy = Math.cos(angleInRadian) * speed
 
-        if (this.isCasting) {
+        if (this.isCasting && !this.canMoveWhileCasting) {
             this.isCasting = false
             this.gcd = 0
             this.casting = {name:"", time:0, time2:0}
         }
-        if (this.isChanneling) {
+        if (this.isChanneling && !this.canMoveWhileCasting) {
             this.isChanneling = false
             this.channeling = {name:"", time:0, time2:0}
         }

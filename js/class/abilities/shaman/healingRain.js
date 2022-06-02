@@ -16,7 +16,7 @@ class HealingRain extends Ability {
 
         this.spellPower = 0.265
 
-        this.area = {type:"circle", radius:10, duration: 10,data:{type:"hot", maxTargets:6, spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.1)"}}
+        this.area = {type:"circle", radius:10, duration: 10,data:{type:"hot", maxTargets:6, spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.05)"}}
 
         this.effect = ""
         this.effectValue = 0
@@ -37,15 +37,23 @@ class HealingRain extends Ability {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
-            this.castPosition.x = mousePosition2d.x
-            this.castPosition.y = mousePosition2d.y
+
+            if (caster===player) {
+                this.castPosition.x = mousePosition2d.x
+                this.castPosition.y = mousePosition2d.y
+            } else {
+                this.castPosition.x = caster.mousePos.x
+                this.castPosition.y = caster.mousePos.y
+            }
 
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
             this.setGcd(caster)
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+            return true
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {

@@ -63,10 +63,11 @@ class ArcaneBlast extends Ability {
                 }
                 this.setGcd(caster)
             }
-
+            return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {

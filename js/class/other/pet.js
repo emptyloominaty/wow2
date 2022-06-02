@@ -56,5 +56,15 @@ class Pet {
 
     }
 }
-
+//TODO:
 let pets = []
+
+let addPet = function() {
+    for (let i = 0; i < pets.length; i++) {
+        if (pets[i] === undefined) {
+            pets[i] = new Pet()
+            return true
+        }
+    }
+    pets.push(new Pet())
+}

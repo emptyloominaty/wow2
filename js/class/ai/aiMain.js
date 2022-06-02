@@ -85,36 +85,41 @@ class Ai {
 
         },
         "restorationShaman":() => { //--------------------------------------------------------------------------------------------------Resto Sham
+            let c = this.creature
+            c.direction = getDirection(c,enemies[0])
             let casted = false
-            for (let i = 0; i<friendlyTargets.length; i++) {
-                if ((friendlyTargets[i].health/friendlyTargets[i].maxHealth)<0.5 && !friendlyTargets[i].isDead) {
-                    if (this.creature.gcd<=0) {
-                        this.creature.targetObj = friendlyTargets[i]
-                        this.creature.castTarget = friendlyTargets[i]
-                        this.creature.target = friendlyTargets[i].name
-                        this.creature.abilities["Healing Surge"].startCast(this.creature)
-                        casted = true
+            let raidAvgHealth = this.getRaidAvgHealth()
+
+            if (!c.isCasting && !c.isChanneling && c.gcd<=0) {
+                if (!casted && raidAvgHealth<0.98) {
+                    c.setMousePos(enemies[0].x,enemies[0].y) //TODO
+                    casted = c.abilities["Healing Rain"].startCast(c)
+                }
+
+                if (!casted && raidAvgHealth<0.8) {
+                    casted = c.abilities["Healing Tide Totem"].startCast(c)
+                }
+
+                if (!casted) {
+                    let target = this.checkTargetsIfHealth(0.5)
+                    if (target) {
+                        setTargetAi(c,target)
+                        casted = c.abilities["Healing Surge"].startCast(c)
                     }
                 }
-            }
-            if (!casted) {
-                for (let i = 0; i<enemyTargets.length; i++) {
-                    if (this.creature.gcd<=0) {
-                        this.creature.targetObj = enemyTargets[i]
-                        this.creature.castTarget = enemyTargets[i]
-                        this.creature.target = enemyTargets[i].name
-                        this.creature.direction = getDirection(this.creature.targetObj,this.creature.targetObj.targetObj)
-                        let castFlameShock = true
-                        for (let i = 0; i<this.creature.targetObj.debuffs.length; i++) {
-                            if (this.creature.targetObj.debuffs[i].name==="Flame Shock" && this.creature.targetObj.debuffs[i].caster === this.creature) {
-                                castFlameShock = false
-                            }
-                        }
-                        if (castFlameShock) {
-                            this.creature.abilities["Flame Shock"].startCast(this.creature)
-                        }
-                        this.creature.abilities["Lava Burst"].startCast(this.creature)
-                        this.creature.abilities["Lightning Bolt"].startCast(this.creature)
+                if (!casted) {
+                    let target = this.getLowestHpEnemy()
+                    setTargetAi(c,target)
+                    c.direction = getDirection(c,c.targetObj)
+
+                    if (!this.checkDebuff(c,target,"Flame Shock")) {
+                        casted = c.abilities["Flame Shock"].startCast(c)
+                    }
+                    if (!casted) {
+                        casted = c.abilities["Lava Burst"].startCast(c)
+                    }
+                    if (!casted) {
+                        casted = c.abilities["Lightning Bolt"].startCast(c)
                     }
                 }
             }
@@ -141,7 +146,7 @@ class Ai {
                             this.creature.targetObj = enemyTargets[i]
                             this.creature.castTarget = enemyTargets[i]
                             this.creature.target = enemyTargets[i].name
-                            if (this.creature.energy<20) {
+                            if (this.creature.energy<10) { //&& this.creature.secondaryResource>2 ???
                                 this.creature.abilities["Arcane Barrage"].startCast(this.creature)
                             }
                             this.creature.abilities["Arcane Blast"].startCast(this.creature)
@@ -240,11 +245,45 @@ class Ai {
         return no
     }
 
-    //TODO:DODGE DMG AREAS
+    moveToSoak() {
 
-    //TODO:TRY TO MOVE TO HEAL AREAS
+    }
+
+    dodgeDmgAreas() {
+
+    }
+
+    tryToMoveToHealAreas() {
+
+    }
+
+
+    moveCloserToEnemy() {
+
+    }
 
     getLowestHpEnemy() {
+        let e = []
+        for (let i = 0; i<enemyTargets.length; i++) {
+            e.push(enemyTargets[i])
+        }
+        e = e.sort((a, b) => a.health > b.health ? 1 : -1) //most injured targets
+        return e[0]
+    }
+
+    checkTargetsIfHealth(val) {
+        let t = []
+        for (let i = 0; i < friendlyTargets.length; i++) {
+            if ((friendlyTargets[i].health / friendlyTargets[i].maxHealth) < val && !friendlyTargets[i].isDead) {
+                t.push(friendlyTargets[i])
+            }
+        }
+        if (t.length>0) {
+            t = t.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+            return t[0]
+        } else {
+            return false
+        }
 
     }
 
@@ -293,7 +332,11 @@ class Ai {
     }
 
     checkDebuff(caster,target,buffName) {
-
+        for (let i = 0; i<target.debuffs.length; i++) {
+            if (target.debuffs[i].name===buffName && this.creature.targetObj.debuffs[i].caster === caster) {
+                return true
+            }
+        }
     }
 
     countBuffs(caster,buffName) {

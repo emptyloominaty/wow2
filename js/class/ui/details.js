@@ -59,6 +59,7 @@ class DetailsWindow {
         } else {
             return
         }
+        this.maxVal = 1
         if (document.getElementById(this.id).style.display === "none") {
             document.getElementById(this.id).style.display = "inline"
             this.hide = false

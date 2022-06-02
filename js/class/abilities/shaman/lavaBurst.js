@@ -58,11 +58,13 @@ class LavaBurst extends Ability {
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.setGcd(caster)
+                return true
             }
 
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {

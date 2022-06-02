@@ -35,7 +35,9 @@ class AoeTest extends Ability {
             this.cd = 0
             this.setGcd(caster)
             caster.useEnergy(this.cost)
+            return true
         }
+        return false
     }
 
     endCast(caster) {

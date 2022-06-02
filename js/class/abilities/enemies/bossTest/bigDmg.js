@@ -49,9 +49,10 @@ class BigDmg extends Ability {
                 }
                 this.cd = 0
                 this.setGcd(caster)
+                return true
             }
-
         }
+        return false
     }
 
     endCast(caster) {

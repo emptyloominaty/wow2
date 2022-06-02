@@ -226,6 +226,30 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     }
 }
 
+let setTargetAi = function(caster,target) {
+    caster.targetObj = target
+    caster.castTarget = target
+    caster.target = target.name
+    console.log(caster.target)
+}
+
+let setTarget = function(caster,target) {
+    caster.targetObj = target
+    caster.target = target.name
+}
+
+let isEnemy = function(caster,target) {
+    if (caster.enemy) {
+        if (!target.enemy) {
+            return true
+        }
+    } else {
+        if (target.enemy) {
+            return true
+        }
+    }
+    return false
+}
 
 let getNumberString = function(number) {
     if (number>999999) {

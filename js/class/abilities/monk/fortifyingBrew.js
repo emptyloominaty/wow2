@@ -42,9 +42,10 @@ class FortifyingBrew extends Ability {
             caster.maxHealth *= 1+this.effect2Value
             let b = caster.maxHealth
             caster.health += b-a
-
             caster.useEnergy(this.cost)
+            return true
         }
+        return false
     }
 
     runBuff(target,buff) {

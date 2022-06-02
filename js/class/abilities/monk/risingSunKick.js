@@ -72,6 +72,7 @@ class RisingSunKick extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+
                 }
                 this.setGcd(caster)
 
@@ -93,13 +94,13 @@ class RisingSunKick extends Ability {
                         })
                     }
                 }
-
-
+                return true
             }
 
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
+        return false
     }
 
     endCast(caster) {
