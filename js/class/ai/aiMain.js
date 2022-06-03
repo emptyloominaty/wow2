@@ -114,16 +114,76 @@ class Ai {
 
                     if (!this.checkDebuff(c,target,"Flame Shock")) {
                         casted = c.abilities["Flame Shock"].startCast(c)
-                    }
-                    if (!casted) {
+                    } else if (!casted) {
                         casted = c.abilities["Lava Burst"].startCast(c)
-                    }
-                    if (!casted) {
+                    } else if (!casted) {
                         casted = c.abilities["Lightning Bolt"].startCast(c)
                     }
                 }
             }
 
+        },
+        "restorationDruid":() => { //--------------------------------------------------------------------------------------------------Resto Druid
+            let c = this.creature
+            c.direction = getDirection(c,enemies[0])
+            let casted = false
+            let raidAvgHealth = this.getRaidAvgHealth()
+
+            if (!c.isCasting && !c.isChanneling && c.gcd<=0) {
+                if (!casted && raidAvgHealth<0.98) {
+                    casted = c.abilities["Wild Growth"].startCast(c)
+                }
+
+                if (!casted) {
+                    let target = this.checkTargetsIfHealth(0.8)
+                    if (target) {
+                        setTargetAi(c,target)
+                        casted = c.abilities["Rejuvenation"].startCast(c)
+                    }
+                }
+
+                if (!casted) {
+                    let target = this.checkTargetsIfHealth(0.5)
+                    if (target) {
+                        setTargetAi(c,target)
+                        casted = c.abilities["Regrowth"].startCast(c)
+                    }
+                }
+                if (!casted) {
+                    let target = this.getLowestHpEnemy()
+                    setTargetAi(c,target)
+                    c.direction = getDirection(c,c.targetObj)
+
+                    if (!this.checkDebuff(c,target,"Moonfire")) {
+                        casted = c.abilities["Moonfire"].startCast(c)
+                    } else if (!casted && !this.checkDebuff(c,target,"Sunfire")) {
+                        casted = c.abilities["Sunfire"].startCast(c)
+                    } else if (!casted) {
+                        casted = c.abilities["Wrath"].startCast(c)
+                    }
+                }
+            }
+        },
+        "balance":() => { //--------------------------------------------------------------------------------------------------Balance Druid
+            let c = this.creature
+            c.direction = getDirection(c,enemies[0])
+            let casted = false
+
+            if (!c.isCasting && !c.isChanneling && c.gcd<=0) {
+                if (!casted) {
+                    let target = this.getLowestHpEnemy()
+                    setTargetAi(c,target)
+                    c.direction = getDirection(c,c.targetObj)
+
+                    if (!this.checkDebuff(c,target,"Moonfire")) {
+                        casted = c.abilities["Moonfire"].startCast(c)
+                    } else if (!casted && !this.checkDebuff(c,target,"Sunfire")) {
+                        casted = c.abilities["Sunfire"].startCast(c)
+                    } else if (!casted) {
+                        casted = c.abilities["Wrath"].startCast(c)
+                    }
+                }
+            }
         },
         "arcane":() => { //--------------------------------------------------------------------------------------------------arcane
             //no target

@@ -9,14 +9,14 @@ let spellQueueWindow = 0.3 //sec
 let raidFramesBuffs = {
     "mistweaver": {
         bottomRight:"Renewing Mist",
-        bottomRight2:"Soothing Mist",  //TODO:Life cocoon??
+        bottomRight2:"Life Cocoon",
         centreRight:"Enveloping Mist",
         bottomCentre:"Essence Font",
     },
     "restorationDruid": {
         bottomRight:"Rejuvenation",
         bottomRight2:"Regrowth",
-        centreRight:"Enveloping Mist",  //TODO:
+        centreRight:"Lifebloom",
         bottomCentre:"Wild Growth",
     },
     "restorationShaman": {

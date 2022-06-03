@@ -245,8 +245,8 @@ class Creature {
                 if (this.debuffs[i].timer<1) {
                     this.debuffs[i].timer+= (progressInSec)*(1 + (this.debuffs[i].caster.stats.haste / 100))
                 } else {
-                    doDamage(this.debuffs[i].caster,this,this.debuffs[i])
                     this.debuffs[i].timer = 0
+                    doDamage(this.debuffs[i].caster,this,this.debuffs[i])
                 }
             }
 

@@ -43,6 +43,10 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             heal = val
         }
 
+        if (caster.spec==="restorationDruid") {
+            heal=heal*getRestoDruidMastery(caster,target)
+        }
+
         if (caster === player && settings.showFloatingAbility) {
             if (floatingTextIdx < 40) {
                 floatingTextIdx++
