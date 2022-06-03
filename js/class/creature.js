@@ -263,9 +263,15 @@ class Creature {
 
         //death
         if (this.health<0) {
-            this.health = 0
-            this.isDead = true
+            this.die()
         }
+    }
+
+    die() {
+        this.health = 0
+        this.isDead = true
+        this.debuffs = []
+        this.buffs = []
     }
 
     setMousePos(x,y) {

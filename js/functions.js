@@ -97,8 +97,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
         target.health -= damage
         if (target.health < 0) {
-            target.health = 0
-            target.isDead = true
+            target.die()
         }
         if (target.enemy) {
             target.aggroInc(caster.id2, damage * caster.aggroMultiplier)
@@ -230,7 +229,6 @@ let setTargetAi = function(caster,target) {
     caster.targetObj = target
     caster.castTarget = target
     caster.target = target.name
-    console.log(caster.target)
 }
 
 let setTarget = function(caster,target) {

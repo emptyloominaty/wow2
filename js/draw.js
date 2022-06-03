@@ -16,6 +16,18 @@ for (let i = 0; i<creatures.length; i++) {
     }
     bars["creature"+i+"Cast"] = new Bar(60,8,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",7,"rgba(0,0,0,0.5")
     bars["creature"+i+"Cast"].setVisibility(false)
+
+    if (creatures[i].enemy) {
+        let div = document.createElement("div")
+        div.id = "creature"+i+"debuffs"
+        //div.classList.add("creature_bar_debuffs")
+        div.style.position = "fixed"
+        div.style.width = "200px"
+        div.style.height = "20px"
+        div.style.display = "flex"
+        div.style.justifyContent = "center"
+        elements.creatureBars.appendChild(div)
+    }
 }
 
 let gameScaling = 1 //TODO
@@ -80,6 +92,7 @@ if (0===0) {
     elements.raidFrames_parent.innerHTML = raidFramesHTML
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function draw(progress) {
     //---------------test---------------
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
@@ -155,7 +168,23 @@ function draw(progress) {
                     bars["creature"+i+"Cast"].setVisibility(false)
                 }
 
-                //TODO: ENEMY DEBUFF bar
+                //debuffs "bar"
+                let debuffsHTML = ""
+                if (creatures[i].enemy) {
+                    for (let j = 0; j<creatures[i].debuffs.length; j++) {
+                        if (creatures[i].debuffs[j].caster===player) { //TODO:OR STUN + buff?
+                            debuffsHTML += "<div class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].debuffs[j].name]+"'> <span>"+creatures[i].debuffs[j].duration.toFixed(0)+"</span></div>"
+                        }
+                    }
+                }
+
+                let el = document.getElementById("creature"+i+"debuffs")
+                if (el) {
+                    el.style.left = (x2d-100)+"px"
+                    el.style.top = (y2d-35-size)+"px"
+                    el.innerHTML = debuffsHTML
+                }
+
             }
 
 
