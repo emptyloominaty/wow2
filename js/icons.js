@@ -36,6 +36,16 @@ let iconsPath = {
     "Auto Attack":"img/AutoAttack.jpg",
     "Leech":"img/Leech.jpg",
 
+    //Druid
+    "Moonkin Form":"img/druid/MookinFrom.jpg",
+    "Regrowth":"img/druid/Regrowth.jpg",
+    "Rejuvenation":"img/druid/Rejuvenation.jpg",
+    "Moonfire":"img/druid/Moonfire.jpg",
+    "Starfire":"img/druid/Starfire.jpg",
+    "Sunfire":"img/druid/Sunfire.jpg",
+    "Wild Growth":"img/druid/WildGrowth.jpg",
+    "Wrath":"img/druid/Wrath.jpg",
+
     //Mage
     "Arcane Blast":"img/mage/ArcaneBlast.jpg",
     "Arcane Barrage":"img/mage/ArcaneBarrage.jpg",

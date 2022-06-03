@@ -124,11 +124,14 @@ class Creature {
             this.role = "dps"
         } else if (spec==="restorationDruid") { //----------------------------------------Resto Druid
             this.class = "Druid"
+            this.abilities = new restoDruid_abilities()
             this.melee = false
             this.role = "healer"
         } else if (spec==="balance") {//----------------------------------------Balance
             this.class = "Druid"
+            this.abilities = new balanceDruid_abilities()
             this.melee = false
+            this.resourceName = "Astral Power"
             this.role = "dps"
         } else if (spec==="arcane") {//----------------------------------------Arcane
             this.class = "Mage"

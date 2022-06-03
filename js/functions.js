@@ -12,17 +12,18 @@ let playerNewTarget = function(id,enemy) {
     player.target = player.targetObj.name
 }
 
-let critChance = function(caster) {
+let critChance = function(caster,incCrit) {
     let critChance = (Math.random()*100)
-    if (critChance < caster.stats.crit) {
+    let crit = caster.stats.crit+incCrit
+    if (critChance < crit) {
         return 2
     }
     return 1
 }
 
-let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,name = "",val = 0) {
+let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,name = "",val = 0,incCrit = 0) {
     if (!target.isDead) {
-        let crit = critChance(caster)
+        let crit = critChance(caster,incCrit)
         if (!canCrit) { //0% crit chance
             crit = 1
         }
