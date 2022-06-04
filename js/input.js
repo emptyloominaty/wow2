@@ -442,12 +442,26 @@ let onMouseUpdate = function(e) {
     mousePosition.x = e.pageX
     mousePosition.y = e.pageY
 
-    mousePosition2d.x = e.pageX-(game2d.canvasW/2)
-    mousePosition2d.y = e.pageY-(game2d.canvasH/2)
+    mousePosition2d.x = (e.pageX-(game2d.canvasW/2))/gameScaling
+    mousePosition2d.y = (e.pageY-(game2d.canvasH/2))/gameScaling
 }
 
 document.addEventListener('mousemove', onMouseUpdate)
 
+//------------------------------------------------------------------------
+let zoom = function(event) {
+    event.preventDefault()
+    let val = event.deltaY * -0.001 * gameScaling
+    gameScaling += val
+    if (gameScaling < 0.5) {
+        gameScaling = 0.5
+    } else if (gameScaling>5) {
+        gameScaling = 5
+    }
+
+}
+
+document.body.onwheel = zoom
 //-------------------------------
 let resetInputs = function() {
     Object.keys(keyPressed).forEach(key => {

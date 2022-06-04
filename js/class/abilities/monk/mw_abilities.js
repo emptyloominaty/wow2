@@ -12,5 +12,6 @@ class Mw_abilities {
     "Blackout Kick" = new BlackoutKick()
     "Rising Sun Kick" = new RisingSunKick()
     "Fortifying Brew" = new FortifyingBrew()
+    "Tiger's Lust" = new TigersLust()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

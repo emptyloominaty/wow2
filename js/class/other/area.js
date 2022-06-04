@@ -64,13 +64,13 @@ class Area {
 
     draw() {
         if (this.drawArea) {
-            let x = this.x - player.x
-            let y = this.y - player.y
+            let x = (this.x - player.x)*gameScaling
+            let y = (this.y - player.y)*gameScaling
             let x2d = (game2d.canvasW/2)+x
             let y2d = (game2d.canvasH/2)+y
             if (this.type==="circle") {
                 // game2d.drawCircleStroke(x2d,y2d,this.radius*22,this.data.color,2)
-                game2d.drawCircle(x2d,y2d,this.radius*22,this.data.color2)
+                game2d.drawCircle(x2d,y2d,this.radius*22*gameScaling,this.data.color2)
             }
         }
     }

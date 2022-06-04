@@ -14,7 +14,7 @@ class AutoAttack extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.15 //TODO:
+        this.spellPower = 0.23 //TODO:
 
         this.effect = ""
         this.effectValue = 0

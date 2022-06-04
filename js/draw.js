@@ -10,14 +10,16 @@ bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetM
 bars.targetCast = new Bar(120,20,1.5,1.5,170,85,"#bbbbbb","#555555","bar_targetCast")
 
 for (let i = 0; i<creatures.length; i++) {
-    bars["creature"+i+"Health"] = new Bar(60,3,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
-    if (creatures[i]===player) {
-        bars["creature"+i+"Health"].setVisibility(false)
-    }
-    bars["creature"+i+"Cast"] = new Bar(60,8,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",7,"rgba(0,0,0,0.5")
-    bars["creature"+i+"Cast"].setVisibility(false)
 
-    if (creatures[i].enemy) {
+
+    if (!creatures[i].enemy) {
+        bars["creature"+i+"Health"] = new Bar(60,3,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Cast"] = new Bar(60,8,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",7,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Cast"].setVisibility(false)
+    } else {
+        bars["creature"+i+"Health"] = new Bar(100,12,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Cast"] = new Bar(100,12,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",9,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Cast"].setVisibility(false)
         let div = document.createElement("div")
         div.id = "creature"+i+"debuffs"
         //div.classList.add("creature_bar_debuffs")
@@ -27,6 +29,13 @@ for (let i = 0; i<creatures.length; i++) {
         div.style.display = "flex"
         div.style.justifyContent = "center"
         elements.creatureBars.appendChild(div)
+    }
+
+
+
+
+    if (creatures[i]===player) {
+        bars["creature"+i+"Health"].setVisibility(false)
     }
 }
 
@@ -98,7 +107,8 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-        elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)
+        elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"S: "+gameScaling.toFixed(1)+"<br>" /*+
+            "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 
     //---------------2d---------------
     //reset
@@ -112,15 +122,15 @@ function draw(progress) {
     }
 
     //player
-    game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15, "#6c746f")
-    game2d.drawPlayerDirection(0, 0, 10, 3, "#999f9a", player.direction)
+    game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15*gameScaling, "#6c746f")
+    game2d.drawPlayerDirection(0, 0, 10*gameScaling, 3, "#999f9a", player.direction)
 
     for (let i = 0; i<creatures.length; i++) {
         if (creatures[i].name!=="player") {
-            let x = creatures[i].x - player.x
-            let y = creatures[i].y - player.y
+            let x = (creatures[i].x - player.x)*gameScaling
+            let y = (creatures[i].y - player.y)*gameScaling
             let color
-            let size = 15
+            let size = 15*gameScaling
             let healthColor = "#FFFFFFF"
             let health = creatures[i].health/creatures[i].maxHealth
             if (health>0.5) {
@@ -134,7 +144,7 @@ function draw(progress) {
             }
             if (creatures[i].enemy) {
                 color = "#d78080"
-                size = 25
+                size = 25*gameScaling
             } else {
                 color = colors[creatures[i].class]
             }
@@ -149,7 +159,10 @@ function draw(progress) {
                 bars["creature"+i+"Health"].setPosition(x2d,y2dH,true)
                 bars["creature"+i+"Health"].setVal(creatures[i].health)
                 bars["creature"+i+"Health"].setMaxVal(creatures[i].maxHealth)
-                //bars["creature"+i+"Health"].setText((health*100).toFixed(0)+"%")
+
+                if (creatures[i].enemy) {
+                    bars["creature"+i+"Health"].setText(getNumberString(creatures[i].health)+" "+(health*100).toFixed(0)+"%")
+                }
 
                 if (creatures[i].isCasting) {
                     bars["creature"+i+"Cast"].setVisibility(true)
@@ -181,17 +194,13 @@ function draw(progress) {
                 let el = document.getElementById("creature"+i+"debuffs")
                 if (el) {
                     el.style.left = (x2d-100)+"px"
-                    el.style.top = (y2d-35-size)+"px"
+                    el.style.top = (y2d-41-size)+"px"
                     el.innerHTML = debuffsHTML
                 }
-
             }
 
-
-
-
             game2d.drawCircle(x2d, y2d, size, color)
-            game2d.drawTargetDirection(x2d, y2d, size-5, 3, "#9f5c5d", creatures[i].direction)
+            game2d.drawTargetDirection(x2d, y2d, (size-(5*gameScaling)), 3, "#9f5c5d", creatures[i].direction)
         }
     }
 
@@ -248,10 +257,26 @@ function draw(progress) {
         bars.targetMana.setMaxVal(player.targetObj.maxEnergy)
         bars.targetMana.setText(player.targetObj.energy.toFixed(0)+"/"+player.targetObj.maxEnergy.toFixed(0))
 
+
+        if (player.targetObj.isCasting || player.targetObj.isChanneling) {
+            bars.targetCast.setVisibility(true)
+            if (player.targetObj.isCasting) {
+                bars.targetCast.setMaxVal(player.targetObj.casting.time2)
+                bars.targetCast.setVal(player.targetObj.casting.time2-player.targetObj.casting.time)
+                bars.targetCast.setText((player.targetObj.casting.time2-player.targetObj.casting.time).toFixed(1)+"s "+player.targetObj.casting.name)
+            } else if (player.targetObj.isChanneling) {
+                bars.targetCast.setMaxVal(player.targetObj.channeling.time2)
+                bars.targetCast.setVal(player.targetObj.channeling.time2-player.targetObj.channeling.time)
+                bars.targetCast.setText((player.targetObj.channeling.time2-player.targetObj.channeling.time).toFixed(1)+"s "+player.targetObj.channeling.name)
+            }
+        } else {
+            bars.targetCast.setVisibility(false)
+        }
+
+
         bars.targetName.setVisibility(true)
         bars.targetHealth.setVisibility(true)
         bars.targetMana.setVisibility(true)
-        bars.targetCast.setVisibility(false) //TODO
     } else {
         bars.targetName.setVisibility(false)
         bars.targetHealth.setVisibility(false)
@@ -271,16 +296,22 @@ function draw(progress) {
         document.getElementById("buff_"+i+"_stacks").textContent = ""
     }
 
+    let ii = 0
     for (let i = 0; i<player.buffs.length; i++) {
         if (i<16) {
+            ii++
             document.getElementById("buff_"+i+"_image").src = iconsPath[player.buffs[i].name]
             document.getElementById("buff_"+i+"_text").textContent = player.buffs[i].duration.toFixed(0)+"s"
             if (player.buffs[i].stacks>1) {
                 document.getElementById("buff_"+i+"_stacks").textContent = player.buffs[i].stacks
             }
         }
-        //player.buffs[i].name
-        //player.buffs[i].duration
+    }
+    if (player.form!=="") {
+        ii++
+        if (ii<16) {
+            document.getElementById("buff_"+ii+"_image").src = iconsPath[player.form]
+        }
     }
 
     //raidframes
@@ -312,21 +343,42 @@ function draw(progress) {
                     bottomRight = 1
                     document.getElementById("raidFrame_buff_bottomRight"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight]
                     document.getElementById("raidFrame_buff_bottomRight_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
+                        document.getElementById("raidFrame_buff_bottomRight_duration"+i).style.color = colors.textRed
+                    } else {
+                        document.getElementById("raidFrame_buff_bottomRight_duration"+i).style.color = colors.text
+                    }
                 }
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomRight2 && raidFrameTarget.buffs[j].caster === player) {
                     bottomRight2 = 1
                     document.getElementById("raidFrame_buff_bottomRight2"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight2]
                     document.getElementById("raidFrame_buff_bottomRight2_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
+                        document.getElementById("raidFrame_buff_bottomRight2_duration"+i).style.color = colors.textRed
+                    } else {
+                        document.getElementById("raidFrame_buff_bottomRight2_duration"+i).style.color = colors.text
+                    }
                 }
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomCentre && raidFrameTarget.buffs[j].caster === player) {
                     bottomCentre = 1
                     document.getElementById("raidFrame_buff_bottomCentre"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomCentre]
                     document.getElementById("raidFrame_buff_bottomCentre_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
+                        document.getElementById("raidFrame_buff_bottomCentre_duration"+i).style.color = colors.textRed
+                    } else {
+                        document.getElementById("raidFrame_buff_bottomCentre_duration"+i).style.color = colors.text
+                    }
                 }
+
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].centreRight && raidFrameTarget.buffs[j].caster === player) {
                     centreRight = 1
                     document.getElementById("raidFrame_buff_centreRight"+i).src = iconsPath[raidFramesBuffs[player.spec].centreRight]
                     document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
+                        document.getElementById("raidFrame_buff_centreRight_duration"+i).style.color = colors.textRed
+                    } else {
+                        document.getElementById("raidFrame_buff_centreRight_duration"+i).style.color = colors.text
+                    }
                 }
             }
             if (!bottomRight) {

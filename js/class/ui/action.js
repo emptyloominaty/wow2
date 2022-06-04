@@ -88,12 +88,16 @@ if (player.spec==="mistweaver") {
         "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
         "Tiger Palm": new Action("Tiger Palm", 2, 1),
         "Blackout Kick": new Action("Blackout Kick", 2, 2),
+
+        "Tiger's Lust": new Action("Tiger's Lust", 2, 11),
     }
 }
 
 if (player.spec==="restorationShaman") {
     actions = {
         //bar1
+        "Ghost Wolf": new Action("Ghost Wolf",1,3),
+
         "Healing Surge": new Action("Healing Surge", 1, 8),
         //bar0
         "Healing Tide Totem": new Action("Healing Tide Totem", 0, 0),

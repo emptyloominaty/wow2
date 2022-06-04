@@ -13,6 +13,8 @@ let colors = {
     "Warrior":"#C69B6D",
     "":"#b900a5",
     "error":"#ff7d66",
+    "textRed":"#ff3331",
+    "text":"#d1d1d1",
 
     details:{
         "physical":"#888833",
@@ -29,3 +31,4 @@ let colors = {
         "radiant":"#888833",
     }
 }
+

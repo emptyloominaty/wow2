@@ -26,6 +26,7 @@ class TigerPalm extends Ability {
         this.buffName = "Teachings of the Monastery"
 
         if (ww) {
+            this.spellPower = 0.27027
             this.cost = 50
             this.secCost = -2 //chi
             this.gcd = 1

@@ -155,7 +155,18 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
                 return true
             }
         }
-        target.buffs.push({name:buffName, type:"buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+        target.buffs.push({name:buffName, type: "buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+    }
+}
+
+
+let changeForm = function (caster,ability) {
+    if (caster.form!==ability.name) {
+        caster.form = ability.name
+        caster.formEffects = ability.effects
+    } else {
+        caster.form = ""
+        caster.formEffects = []
     }
 }
 
@@ -261,5 +272,15 @@ let getNumberString = function(number) {
         return (number/1000).toFixed(1)+"K"
     } else {
         return (number).toFixed(0)
+    }
+}
+
+let getTime2 = function(number) {
+    if (number>3600) {
+        return (number/3600).toFixed(1)+"h"
+    } else if (number>60) {
+        return (number/60).toFixed(1)+"m"
+    } else {
+        return (number).toFixed(0)+"s"
     }
 }

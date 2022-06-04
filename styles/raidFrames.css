@@ -55,14 +55,16 @@
 
 .raidFrame_buff_bottomRight {
     position:absolute;
-    max-width:16px;
+    max-width:22px;
     right:0;
     bottom:0;
 }
 
 .raidFrame_buff_bottomRight_duration {
     position:absolute;
-    font-size: 12px;
+    text-align:center;
+    width:22px;
+    font-size: 15px;
     right:0;
     bottom:0;
     text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
@@ -72,14 +74,16 @@
 .raidFrame_buff_bottomRight2 {
     position:absolute;
     max-width:16px;
-    right:16px;
+    right:22px;
     bottom:0;
 }
 
 .raidFrame_buff_bottomRight2_duration {
     position:absolute;
+    text-align:center;
+    width:16px;
     font-size: 12px;
-    right:16px;
+    right:22px;
     bottom:0;
     text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
 }
@@ -88,14 +92,16 @@
     position:absolute;
     max-width:16px;
     right:0;
-    bottom:15px;
+    bottom:22px;
 }
 
 .raidFrame_buff_centreRight_duration {
     position:absolute;
+    text-align:center;
+    width:16px;
     font-size: 12px;
     right:0;
-    bottom:15px;
+    bottom:22px;
     text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5);
 }
 
@@ -108,6 +114,8 @@
 
 .raidFrame_buff_bottomCentre_duration {
     position:absolute;
+    text-align:center;
+    width:16px;
     font-size: 12px;
     right:50px;
     bottom:0;

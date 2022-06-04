@@ -114,9 +114,11 @@ class Ai {
 
                     if (!this.checkDebuff(c,target,"Flame Shock")) {
                         casted = c.abilities["Flame Shock"].startCast(c)
-                    } else if (!casted) {
+                    }
+                    if (!casted) {
                         casted = c.abilities["Lava Burst"].startCast(c)
-                    } else if (!casted) {
+                    }
+                    if (!casted) {
                         casted = c.abilities["Lightning Bolt"].startCast(c)
                     }
                 }
@@ -156,9 +158,11 @@ class Ai {
 
                     if (!this.checkDebuff(c,target,"Moonfire")) {
                         casted = c.abilities["Moonfire"].startCast(c)
-                    } else if (!casted && !this.checkDebuff(c,target,"Sunfire")) {
+                    }
+                    if (!casted && !this.checkDebuff(c,target,"Sunfire")) {
                         casted = c.abilities["Sunfire"].startCast(c)
-                    } else if (!casted) {
+                    }
+                    if (!casted) {
                         casted = c.abilities["Wrath"].startCast(c)
                     }
                 }
@@ -177,9 +181,11 @@ class Ai {
 
                     if (!this.checkDebuff(c,target,"Moonfire")) {
                         casted = c.abilities["Moonfire"].startCast(c)
-                    } else if (!casted && !this.checkDebuff(c,target,"Sunfire")) {
+                    }
+                    if (!casted && !this.checkDebuff(c,target,"Sunfire")) {
                         casted = c.abilities["Sunfire"].startCast(c)
-                    } else if (!casted) {
+                    }
+                    if (!casted) {
                         casted = c.abilities["Wrath"].startCast(c)
                     }
                 }

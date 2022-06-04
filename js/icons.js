@@ -74,6 +74,7 @@ let iconsPath = {
     "Spinning Crane Kick":"img/monk/SpinningCraneKick.jpg",
     "Thunder Focus Tea":"img/monk/ThunderFocusTea.jpg",
     "Tiger Palm":"img/monk/TigerPalm.jpg",
+    "Tiger's Lust":"img/monk/TigersLust.jpg",
     "Touch Of Death":"img/monk/TouchOfDeath.jpg",
     "Yu'Lon":"img/monk/Yu'Lon.jpg",
     "Teachings of the Monastery":"img/monk/TeachingsOfTheMonastery.jpg",
@@ -85,4 +86,5 @@ let iconsPath = {
     "Lava Burst":"img/shaman/LavaBurst.jpg",
     "Healing Rain":"img/shaman/HealingRain.jpg",
     "Healing Tide Totem":"img/shaman/HealingTideTotem.jpg",
+    "Ghost Wolf":"img/shaman/GhostWolf.jpg",
 }

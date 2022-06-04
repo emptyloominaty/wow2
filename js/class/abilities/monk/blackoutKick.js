@@ -27,7 +27,6 @@ class BlackoutKick extends Ability {
             this.cd = 0
             this.gcd = 1
             this.hasteGcd = false
-            //TODO:Reduces the cooldown of Rising Sun Kick and Fists of Fury by 1.0 sec when used.
         }
     }
 
@@ -59,6 +58,9 @@ class BlackoutKick extends Ability {
                     break
                 }
             }
+        } else if (caster.spec === "windwalker") {
+            caster.abilities["Rising Sun Kick"].cd -= 1
+            //TODO:caster.abilities["Fists of Fury"].cd -= 1
         }
     }
 
@@ -85,9 +87,7 @@ class BlackoutKick extends Ability {
                     caster.target = newTarget.name
                     if (this.checkDistance(caster,caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster, caster.targetObj, this)
-                        if (caster.spec === "mistweaver") {
-                            this.risingSunKickReset(caster, _y)
-                        }
+                        this.risingSunKickReset(caster, _y)
                         done = true
                     }
                 }

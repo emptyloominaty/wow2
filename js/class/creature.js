@@ -35,11 +35,14 @@ class Creature {
     isDead = false
     playerCharacter = false
     gcd = 0
+    form = ""
+    formEffects = []
 
     buffs = []
     debuffs = []
 
     healingIncrease = 1
+    moveSpeedIncrease = 1
 
     target = ""
     targetObj = {}
@@ -209,8 +212,20 @@ class Creature {
             }
         }
 
-        //buffs
+
+
+
         this.healingIncrease = 1
+        this.moveSpeedIncrease = 1
+
+        //forms
+        for (let i = 0; i<this.formEffects.length; i++) {
+            if (this.formEffects[i].name==="moveSpeed") {
+                this.moveSpeedIncrease += this.formEffects[i].val
+            }
+        }
+
+        //buffs
         for (let i = 0; i<this.buffs.length; i++) {
             if (this.buffs[i].type==="hot") {
                 if (this.buffs[i].timer<1) {
@@ -221,12 +236,15 @@ class Creature {
                 }
             } else if (this.buffs[i].type==="buff") {
 
+            } else if (this.buffs[i].type==="form") {
+
             }
             if (this.buffs[i].effect==="move") {
                 this.move((this.buffs[i].effectValue*40)/fps)
-            }
-            if (this.buffs[i].effect==="healingIncrease") {
+            } else if (this.buffs[i].effect==="healingIncrease") {
                 this.healingIncrease += this.buffs[i].effectValue
+            } else if (this.buffs[i].effect === "moveSpeed") {
+                this.moveSpeedIncrease += this.buffs[i].effectValue
             }
 
 
@@ -247,6 +265,9 @@ class Creature {
                 } else {
                     this.debuffs[i].timer = 0
                     doDamage(this.debuffs[i].caster,this,this.debuffs[i])
+                    if (this.isDead) {
+                        break
+                    }
                 }
             }
 
@@ -307,8 +328,11 @@ class Creature {
         }
     }
 
-    move(val,strafe = 0) { //val -0.5 - 1
-        let speed = val * this.moveSpeed
+    move(val,strafe = 0, forceVal = 0) { //val -0.5 - 1
+        let speed = val * this.moveSpeed * this.moveSpeedIncrease
+        if (forceVal!==0) {
+            speed = forceVal
+        }
         let angleInRadian = 0
         if (strafe===0) {
             angleInRadian = (this.direction-180) / 180 * Math.PI
