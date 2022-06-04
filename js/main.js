@@ -66,6 +66,9 @@ function update(progress) {
     detailsHealing.run()
     detailsAbilities.run()
 
+    //combat log
+    timelineCombatLog.run()
+
     //areas
     for (let i = 0; i<areas.length; i++) {
         if (areas[i]!==undefined) {

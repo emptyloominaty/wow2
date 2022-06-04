@@ -70,10 +70,11 @@ class Creature {
         this.y = y
 
         if (!enemy) {
+            this.floatingTexts = new FloatingText2(x,y,"","heal","creature"+this.id)
             this.id2 = friendlyTargets.length
             friendlyTargets.push(this)
-
         } else {
+            this.floatingTexts = new FloatingText2(x,y,"","damage","creature"+this.id)
             this.id2 = enemyTargets.length
             enemyTargets.push(this)
         }
@@ -164,6 +165,8 @@ class Creature {
     }
 
     run() {
+        this.floatingTexts.run()
+
         if (this.resourceName==="Energy" || this.resourceName==="Focus") {
             this.energy += (this.energyRegen*(1+(this.stats.haste/100)))/fps
         } else if (this.resourceName==="Mana") {
@@ -292,6 +295,7 @@ class Creature {
     }
 
     die() {
+        this.floatingTexts.removeAll()
         this.health = 0
         this.isDead = true
         this.debuffs = []

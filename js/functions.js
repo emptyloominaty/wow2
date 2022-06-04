@@ -55,8 +55,13 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             }
             floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset, heal, "heal", crit, ability.name, floatingTextIdx))
         }
-
+        if (caster===player && settings.showTargetFloatingHealing) {
+            target.floatingTexts.addText(heal,"heal",crit)
+        }
         let overhealing = (target.health + heal) - target.maxHealth
+        if (inCombat) {
+            timelineCombatLog.heal(caster,target,ability,heal,overhealing)
+        }
         details.doHealing(caster, heal, ability, overhealing,name)
         //leech
         if (caster.stats.leech>0 && ability.name!=="Leech") {
@@ -84,6 +89,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         } else {
             damage = (caster.stats.primary * spellPower) * (1 + (caster.stats.vers / 100)) * crit
         }
+        damage = damage * (1-target.damageReduction)
 
         if (caster === player && settings.showFloatingAbility) {
             if (floatingTextIdx < 40) {
@@ -93,9 +99,13 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
             floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset, damage, "damage", crit, ability.name, floatingTextIdx))
         }
-
-        damage = damage * (1-target.damageReduction)
+        if (inCombat) {
+            timelineCombatLog.damage(caster,target,ability,damage)
+        }
         details.doDamage(caster, damage, ability)
+        if (caster===player && settings.showTargetFloatingDamage) {
+            target.floatingTexts.addText(damage,"damage",crit)
+        }
         //leech
         if (caster.stats.leech>0) {
             caster.abilities["Leech"].startCast(caster,damage)

@@ -39,8 +39,6 @@ for (let i = 0; i<creatures.length; i++) {
     }
 }
 
-let gameScaling = 1 //TODO
-
 let orderRaidFrames = function() {
     let tanks = []
     let healers = []
@@ -154,6 +152,11 @@ function draw(progress) {
             let y2d = (game2d.canvasH/2)+y
             let y2dH = y2d-12-size
             let y2dC = y2d-4-size
+
+            //if (!creatures[i].floatingTexts.hide) {
+            creatures[i].floatingTexts.setPosition(x2d,y2d)
+            //}
+
 
             if (creatures[i]!==player) {
                 bars["creature"+i+"Health"].setPosition(x2d,y2dH,true)

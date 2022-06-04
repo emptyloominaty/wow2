@@ -1,6 +1,9 @@
 let settings = {
-    showFloatingAbilityName:true,
-    showFloatingAbility:true,
+    showFloatingAbilityName:false,
+    showFloatingAbility:false,
+    showTargetFloatingHealing:true,
+    reduceTargetFlaotingHealingFont:true,
+    showTargetFloatingDamage:true,
     mouseSensitivity:2.4,
 }
 

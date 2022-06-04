@@ -204,10 +204,9 @@ let details = {
                 this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0,school:ability.school}
             }
 
-            if (inCombat) {
-                this.combats[this.combatIdx][caster.id][ability.name].damage += val
-                caster.damageDone += val
-            }
+            this.combats[this.combatIdx][caster.id][ability.name].damage += val
+            caster.damageDone += val
+
         }
     },
     takeDamage: function() {

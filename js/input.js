@@ -1,6 +1,7 @@
 let strafing = false
 let mousePosition = {x:0,y:0}
 let mousePosition2d = {x:0,y:0}
+let gameScaling = 1
 
 let keyPressed = {}
 
@@ -450,11 +451,11 @@ document.addEventListener('mousemove', onMouseUpdate)
 
 //------------------------------------------------------------------------
 let zoom = function(event) {
-    event.preventDefault()
+    //event.preventDefault()
     let val = event.deltaY * -0.001 * gameScaling
     gameScaling += val
-    if (gameScaling < 0.5) {
-        gameScaling = 0.5
+    if (gameScaling < 0.9) {
+        gameScaling = 0.9
     } else if (gameScaling>5) {
         gameScaling = 5
     }
