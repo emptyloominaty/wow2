@@ -99,7 +99,7 @@ class Ai {
                     casted = c.abilities["Healing Rain"].startCast(c)
                 }
 
-                if (!casted && raidAvgHealth<0.98) {
+                if (!casted) {
                     let target = this.checkTargetsIfHealth(0.95,true)
                     if (target) {
                         for (let i = 0; i<target.length; i++) {
@@ -200,6 +200,45 @@ class Ai {
                     }
                 }
             }
+        },
+        "assassination":() => { //--------------------------------------------------------------------------------------------------Balance Druid
+            let c = this.creature
+            //no target
+            let casted = false
+            let target = this.getLowestHpEnemy()
+            setTargetAi(c,target)
+            c.direction = getDirection(c,c.targetObj)
+            setTargetAi(c,target)
+            let dist = getDistance(c,c.targetObj)
+            let distNeed = 30
+            if (c.melee) {
+                distNeed = 4
+            }
+            if (dist>distNeed) {
+                c.move(1)
+            } else {
+
+                if (!this.checkBuff(c,c,"Deadly Poison")) {
+                    casted = c.abilities["Deadly Poison"].startCast(c)
+                }
+                if (!this.checkBuff(c,c,"Slice And Dice")) {
+                    casted = c.abilities["Slice And Dice"].startCast(c)
+                }
+                if (!this.checkDebuff(c,target,"Garrote")) {
+                    casted = c.abilities["Garrote"].startCast(c)
+                }
+                if (!casted && !this.checkDebuff(c,target,"Rupture")) {
+                    casted = c.abilities["Rupture"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Mutilate"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Envenom"].startCast(c)
+                }
+
+            }
+
         },
         "arcane":() => { //--------------------------------------------------------------------------------------------------arcane
             //no target
