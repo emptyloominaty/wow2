@@ -32,6 +32,7 @@ class ManaTea extends Ability {
         if (caster.energy>this.cost && this.checkCd(caster)) {
             this.cd = 0
             applyBuff(caster,caster,this)
+            this.setGcd(caster)
             caster.useEnergy(this.cost)
             return true
         }

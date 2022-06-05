@@ -138,7 +138,7 @@ class Ai {
 
                 if (!casted) {
                     let target = this.checkTargetsIfHealth(0.8)
-                    if (target) {
+                    if (target && !this.checkBuff(c,target,"Rejuvenation")) {
                         setTargetAi(c,target)
                         casted = c.abilities["Rejuvenation"].startCast(c)
                     }
@@ -261,6 +261,9 @@ class Ai {
                     b.abilities["Auto Attack"].startCast(b)
                     if (b.gcd<=0) {
                         b.abilities["Big Dmg"].startCast(b)
+                    }
+                    if (b.gcd<=0) {
+                        b.abilities["Big Rng Dmg"].startCast(b)
                     }
                 }
             }
@@ -394,12 +397,16 @@ class Ai {
     }
 
     checkBuff(caster,target,buffName) {
-
+        for (let i = 0; i<target.buffs.length; i++) {
+            if (target.buffs[i].name===buffName && target.buffs[i].caster === caster) {
+                return true
+            }
+        }
     }
 
     checkDebuff(caster,target,buffName) {
         for (let i = 0; i<target.debuffs.length; i++) {
-            if (target.debuffs[i].name===buffName && this.creature.targetObj.debuffs[i].caster === caster) {
+            if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
                 return true
             }
         }

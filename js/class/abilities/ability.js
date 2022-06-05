@@ -25,6 +25,7 @@ class Ability {
 
     setGcd(caster,gcd = 0) {
         details.castAbility(caster,this)
+        castCombatLog.cast(caster,this)
         if (this.hasteGcd) {
             if (gcd===0) {
                 caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))

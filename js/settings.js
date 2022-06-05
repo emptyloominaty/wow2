@@ -1,5 +1,5 @@
 let settings = {
-    showFloatingAbilityName:false,
+    showFloatingAbilityName:true,
     showFloatingAbility:false,
     showTargetFloatingHealing:true,
     reduceTargetFlaotingHealingFont:true,

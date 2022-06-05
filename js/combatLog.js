@@ -36,6 +36,7 @@ let timelineCombatLog = {
         this.timer+=progressInSec
         if (this.timer>=this.timerNext) {
             //----------------------------------------------------------------DAMAGE
+            let yOffset = 0
             for (let i = 0; i<this.damageThisSec.length;i++) {
                 if (this.damageThisSec[i]===undefined) {
                     continue
@@ -56,6 +57,17 @@ let timelineCombatLog = {
                     for (let j = 0; j<this.damageThisSec[i][key].length;j++) {
                         this.damageTimeline[i][key][Math.floor(this.timer)] += this.damageThisSec[i][key][j].val
                     }
+
+                    if (i === 0 && settings.showFloatingAbility) {
+                        if (floatingTextIdx < 40) {
+                            floatingTextIdx++
+                        } else {
+                            floatingTextIdx = 0
+                        }
+                        floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset, this.damageTimeline[i][key][Math.floor(this.timer)], "damage", 1, key, floatingTextIdx))
+                        yOffset+=15
+                    }
+
                 })
             }
             this.damageThisSec = []
@@ -76,8 +88,23 @@ let timelineCombatLog = {
                         this.healTimeline[i][key][Math.floor(this.timer)] = 0
                     }
                     for (let j = 0; j<this.healThisSec[i][key].length;j++) {
-                        this.healTimeline[i][key][Math.floor(this.timer)] += this.healThisSec[i][key][j].val //TODO OVERHEAL
+                        if (this.healThisSec[i][key][j].overheal>0) {
+                            this.healTimeline[i][key][Math.floor(this.timer)] += this.healThisSec[i][key][j].val-this.healThisSec[i][key][j].overheal
+                        } else {
+                            this.healTimeline[i][key][Math.floor(this.timer)] += this.healThisSec[i][key][j].val
+                        }
                     }
+
+                    if (i === 0 && settings.showFloatingAbility) {
+                        if (floatingTextIdx < 40) {
+                            floatingTextIdx++
+                        } else {
+                            floatingTextIdx = 0
+                        }
+                        floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset,this.healTimeline[i][key][Math.floor(this.timer)], "heal", 1, key, floatingTextIdx))
+                        yOffset+=15
+                    }
+
                 })
             }
             this.healThisSec = []
@@ -98,5 +125,11 @@ timelineCombatLog.start()
 
 let castCombatLog = {
     castsTimeline:[],
-    cast:()=>{},
+    cast:function(caster,ability) {
+        if (this.castsTimeline[caster.id]===undefined) {
+            this.castsTimeline[caster.id] = []
+        }
+        this.castsTimeline[caster.id].push({ability:ability.name,time:combatTime})
+
+    },
 }

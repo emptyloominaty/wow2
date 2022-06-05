@@ -47,14 +47,6 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             heal=heal*getRestoDruidMastery(caster,target)
         }
 
-        if (caster === player && settings.showFloatingAbility) {
-            if (floatingTextIdx < 40) {
-                floatingTextIdx++
-            } else {
-                floatingTextIdx = 0
-            }
-            floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset, heal, "heal", crit, ability.name, floatingTextIdx))
-        }
         if (caster===player && settings.showTargetFloatingHealing) {
             target.floatingTexts.addText(heal,"heal",crit)
         }
@@ -91,14 +83,6 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
         damage = damage * (1-target.damageReduction)
 
-        if (caster === player && settings.showFloatingAbility) {
-            if (floatingTextIdx < 40) {
-                floatingTextIdx++
-            } else {
-                floatingTextIdx = 0
-            }
-            floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset, damage, "damage", crit, ability.name, floatingTextIdx))
-        }
         if (inCombat) {
             timelineCombatLog.damage(caster,target,ability,damage)
         }
