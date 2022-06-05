@@ -3,10 +3,12 @@ class Bar {
         this.x = x
         this.y = y
         this.width = width
+        this.width2 = width
         this.height = height
         this.val = val
         this.maxVal = maxVal
         this.color = color
+        this.fontSize = fontsize
         this.backgroundColor = backgroundColor
         this.id = id
 
@@ -70,8 +72,8 @@ class Bar {
 
     setPosition(x,y,center = false) {
         if (center) {
-            x-= this.width/2
-            y-= this.height/2
+            x-= (this.width*gameScaling)/2
+            y-= (this.height*gameScaling)/2
         }
         document.getElementById(this.id).style.top = (y+2)+"px"
         document.getElementById(this.id).style.left = (x+2)+"px"
@@ -81,6 +83,19 @@ class Bar {
 
         document.getElementById(this.id+"_bg").style.top = y+"px"
         document.getElementById(this.id+"_bg").style.left = x+"px"
+    }
+
+    updateSize() {
+
+        this.width2 = this.width*gameScaling
+        document.getElementById(this.id+"_text").style.fontSize = (this.fontSize*gameScaling)+"px"
+
+        document.getElementById(this.id+"_text").style.width = (this.width*gameScaling)+"px"
+        document.getElementById(this.id+"_bg").style.width = (this.width*gameScaling)+"px"
+
+        document.getElementById(this.id).style.height = (this.height*gameScaling)+"px"
+        document.getElementById(this.id+"_text").style.height = (this.height*gameScaling)+"px"
+        document.getElementById(this.id+"_bg").style.height = (this.height*gameScaling)+"px"
     }
 }
 

@@ -11,7 +11,18 @@ class Enemy extends Creature {
         if (this.aggro[id]===undefined) {
             this.aggro[id] = 0
         }
+        if (this.targetObj.id2===id) {
+            val = val * 1.5
+        }
         this.aggro[id] += val
+    }
+
+    aggroRun() {
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            if (this.aggro[i]!==undefined) {
+                this.aggro[i] = this.aggro[i]/1.001
+            }
+        }
     }
 }
 

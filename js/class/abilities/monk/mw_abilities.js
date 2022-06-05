@@ -13,5 +13,6 @@ class Mw_abilities {
     "Rising Sun Kick" = new RisingSunKick()
     "Fortifying Brew" = new FortifyingBrew()
     "Tiger's Lust" = new TigersLust()
+    "Provoke" = new Provoke()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

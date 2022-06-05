@@ -21,9 +21,6 @@ class Ai {
                 if (dist>distNeed) {
                     b.move(1)
                 } else {
-                    if (b.melee) {
-                        b.abilities["Auto Attack"].startCast(b)
-                    }
                     for (let i = 0; i<enemyTargets.length; i++) {
                         if (this.creature.gcd<=0) {
                             this.creature.targetObj = enemyTargets[i]
@@ -54,6 +51,10 @@ class Ai {
                 let b = this.creature
                 this.creature.direction = getDirection(b,b.targetObj)
 
+                if (combatTime<7) { //TODO:?
+                    b.abilities["Provoke"].startCast(b)
+                }
+
                 let dist = getDistance(b,b.targetObj)
                 let distNeed = 30
                 if (b.melee) {
@@ -62,9 +63,6 @@ class Ai {
                 if (dist>distNeed) {
                     b.move(1)
                 } else {
-                    if (b.melee) {
-                        b.abilities["Auto Attack"].startCast(b)
-                    }
                     for (let i = 0; i<enemyTargets.length; i++) {
                         if (this.creature.gcd<=0) {
                             this.creature.targetObj = enemyTargets[i]
@@ -91,13 +89,25 @@ class Ai {
             let raidAvgHealth = this.getRaidAvgHealth()
 
             if (!c.isCasting && !c.isChanneling && c.gcd<=0) {
+
+                if (!casted && raidAvgHealth<0.8) {
+                    casted = c.abilities["Healing Tide Totem"].startCast(c)
+                }
+
                 if (!casted && raidAvgHealth<0.98) {
                     c.setMousePos(enemies[0].x,enemies[0].y) //TODO
                     casted = c.abilities["Healing Rain"].startCast(c)
                 }
 
-                if (!casted && raidAvgHealth<0.8) {
-                    casted = c.abilities["Healing Tide Totem"].startCast(c)
+                if (!casted && raidAvgHealth<0.98) {
+                    let target = this.checkTargetsIfHealth(0.95,true)
+                    if (target) {
+                        for (let i = 0; i<target.length; i++) {
+                            if (!this.checkBuff(c,target[i],"Riptide")) {
+                                casted = c.abilities["Riptide"].startCast(c)
+                            }
+                        }
+                    }
                 }
 
                 if (!casted) {
@@ -204,9 +214,6 @@ class Ai {
                 if (dist>distNeed) {
                     b.move(1)
                 } else {
-                    if (b.melee) {
-                        b.abilities["Auto Attack"].startCast(b)
-                    }
                     for (let i = 0; i<enemyTargets.length; i++) {
                         if (this.creature.gcd<=0) {
                             this.creature.targetObj = enemyTargets[i]
@@ -258,7 +265,6 @@ class Ai {
                 if (dist>4) {
                     b.move(1)
                 } else {
-                    b.abilities["Auto Attack"].startCast(b)
                     if (b.gcd<=0) {
                         b.abilities["Big Dmg"].startCast(b)
                     }
@@ -290,10 +296,6 @@ class Ai {
                     }
                     if (dist>distNeed) {
                         b.move(1)
-                    } else {
-                        if (b.melee || b.class === "Hunter") {
-                            b.abilities["Auto Attack"].startCast(b)
-                        }
                     }
                 }
             } else if (this.creature.enemy) {//---------------------------------------------------enemy default
@@ -340,7 +342,7 @@ class Ai {
         return e[0]
     }
 
-    checkTargetsIfHealth(val) {
+    checkTargetsIfHealth(val,array = false) {
         let t = []
         for (let i = 0; i < friendlyTargets.length; i++) {
             if ((friendlyTargets[i].health / friendlyTargets[i].maxHealth) < val && !friendlyTargets[i].isDead) {
@@ -349,7 +351,12 @@ class Ai {
         }
         if (t.length>0) {
             t = t.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
-            return t[0]
+            if (array) {
+                return t
+            } else {
+                return t[0]
+            }
+
         } else {
             return false
         }

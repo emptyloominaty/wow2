@@ -27,10 +27,13 @@ class AutoAttack extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkCd(caster)) {
+        if (this.checkCd(caster,true)) {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) && !caster.targetObj.isDead ) {
-                if (this.checkDistance(caster,caster.targetObj)) {
+                if (this.checkDistance(caster,caster.targetObj,undefined,true)) {
+                    if (caster.spec==="assassination") {
+                        checkAndApplyRoguePoison(caster,caster.targetObj)
+                    }
                     doDamage(caster, caster.targetObj, this)
                     done = true
                 }
@@ -39,7 +42,10 @@ class AutoAttack extends Ability {
                 if (newTarget!==false) {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
-                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                    if (this.checkDistance(caster, caster.targetObj,undefined,true) && !caster.targetObj.isDead) {
+                        if (caster.spec==="assassination") {
+                            checkAndApplyRoguePoison(caster,caster.targetObj)
+                        }
                         doDamage(caster, caster.targetObj, this)
                         done = true
                     }
@@ -47,6 +53,7 @@ class AutoAttack extends Ability {
             }
             if (done) {
                 this.cd = 0
+                this.maxCd = (2.6/caster.attackSpeed) / (1 + (caster.stats.haste / 100))
             }
 
         }

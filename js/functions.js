@@ -12,6 +12,14 @@ let playerNewTarget = function(id,enemy) {
     player.target = player.targetObj.name
 }
 
+let getChance = function(chance) {
+    let rng = (Math.random()*100)
+    if (rng < chance) {
+        return true
+    }
+    return false
+}
+
 let critChance = function(caster,incCrit) {
     let critChance = (Math.random()*100)
     let crit = caster.stats.crit+incCrit
@@ -45,6 +53,8 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
 
         if (caster.spec==="restorationDruid") {
             heal=heal*getRestoDruidMastery(caster,target)
+        } else if (caster.spec==="restorationShaman") {
+            heal = heal * getRestoShamMastery(caster,target)
         }
 
         if (caster===player && settings.showTargetFloatingHealing) {
@@ -82,6 +92,12 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             damage = (caster.stats.primary * spellPower) * (1 + (caster.stats.vers / 100)) * crit
         }
         damage = damage * (1-target.damageReduction)
+
+        if (caster.spec==="assassination") {
+            if (ability.poison || ability.bleed) {
+                damage = damage * (1 + (caster.stats.mastery / 100))
+            }
+        } //else if
 
         if (inCombat) {
             timelineCombatLog.damage(caster,target,ability,damage)
@@ -211,14 +227,17 @@ let getTime = function(time) {
     return minutes+":"+seconds
 }
 
-let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spellPowerDot = 0) {
+let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spellPowerDot = 0,duration2 = 0) {
+    if (duration2===0) {
+        duration2 = ability.duration
+    }
     if (!target.isDead) {
         for (let i = 0; i<target.debuffs.length; i++) {
             if (target.debuffs[i].name === ability.name && target.debuffs[i].caster === caster) {
-                target.debuffs[i].duration += ability.duration
+                target.debuffs[i].duration += duration2
                 target.debuffs[i].extendedDuration += 0
-                if (target.debuffs[i].duration>ability.duration*1.3) { //30%
-                    target.debuffs[i].duration = ability.duration*1.3
+                if (target.debuffs[i].duration>duration2*1.3) { //30%
+                    target.debuffs[i].duration = duration2*1.3
                 }
                 return true
             }
@@ -228,9 +247,9 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
             spellPower = spellPowerDot
         }
         if (duration === 0) {
-            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration2, maxDuration:duration2, extendedDuration:0, spellPower:spellPower/duration2, caster:caster,ability:ability })
         } else {
-            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:duration2, extendedDuration:extDuration, spellPower:spellPower/duration2, caster:caster,ability:ability })
         }
     }
 }
@@ -271,9 +290,9 @@ let getNumberString = function(number) {
 
 let getTime2 = function(number) {
     if (number>3600) {
-        return (number/3600).toFixed(1)+"h"
+        return (number/3600).toFixed(0)+"h"
     } else if (number>60) {
-        return (number/60).toFixed(1)+"m"
+        return (number/60).toFixed(0)+"m"
     } else {
         return (number).toFixed(0)+"s"
     }

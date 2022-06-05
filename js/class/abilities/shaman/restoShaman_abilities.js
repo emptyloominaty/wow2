@@ -6,5 +6,6 @@ class RestoSham_abilities {
     "Healing Rain" = new HealingRain()
     "Healing Tide Totem" = new HealingTideTotem()
     "Ghost Wolf" = new GhostWolf()
+    "Riptide" = new Riptide()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

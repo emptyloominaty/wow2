@@ -13,7 +13,7 @@ class Creature {
     secondaryResourceName = "Combo"
     energyRegen = 0.8 // 1sec
 
-    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:50, leech:1, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
+    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -124,8 +124,14 @@ class Creature {
             this.role = "dps"
         } else if (spec==="assassination") { //----------------------------------------Assa
             this.class = "Rogue"
+            this.abilities = new assassination_abilities()
             this.melee = true
             this.role = "dps"
+            this.energyRegen = 10
+            this.resourceName = "Energy"
+            this.secondaryResourceName = "Combo Points"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 5
         } else if (spec==="restorationDruid") { //----------------------------------------Resto Druid
             this.class = "Druid"
             this.abilities = new restoDruid_abilities()
@@ -160,7 +166,7 @@ class Creature {
         this.abilities["Leech"] = new Leech()
 
         if (this.role==="tank") {
-            this.aggroMultiplier = 20
+            this.aggroMultiplier = 10
         }
     }
 
@@ -215,11 +221,20 @@ class Creature {
             }
         }
 
+        //autoattack
+        if (this.melee || this.class === "Hunter") {
+            this.abilities["Auto Attack"].startCast(this)
+        }
 
+        //aggro
+        if (this.enemy) {
+            this.aggroRun()
+        }
 
 
         this.healingIncrease = 1
         this.moveSpeedIncrease = 1
+        this.attackSpeed = 1
 
         //forms
         for (let i = 0; i<this.formEffects.length; i++) {
@@ -248,6 +263,8 @@ class Creature {
                 this.healingIncrease += this.buffs[i].effectValue
             } else if (this.buffs[i].effect === "moveSpeed") {
                 this.moveSpeedIncrease += this.buffs[i].effectValue
+            } else if (this.buffs[i].effect === "incAttackSpeed") {
+                this.attackSpeed *= (1+this.buffs[i].effectValue)
             }
 
 
@@ -267,7 +284,7 @@ class Creature {
                     this.debuffs[i].timer+= (progressInSec)*(1 + (this.debuffs[i].caster.stats.haste / 100))
                 } else {
                     this.debuffs[i].timer = 0
-                    doDamage(this.debuffs[i].caster,this,this.debuffs[i])
+                    doDamage(this.debuffs[i].caster,this,this.debuffs[i].ability,undefined,this.debuffs[i].spellPower)
                     if (this.isDead) {
                         break
                     }

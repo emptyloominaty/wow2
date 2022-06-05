@@ -65,6 +65,7 @@ let iconsPath = {
     "Fortifying Brew":"img/monk/FortifyingBrew2.jpg",
     "Gust of Mists":"img/monk/GustofMists.jpg",
     "Life Cocoon":"img/monk/LifeCocoon.jpg",
+    "Provoke":"img/monk/Provoke.jpg",
     "Refreshing Jade Wind":"img/monk/RefreshingJadeWind.jpg",
     "Revival":"img/monk/Revival.jpg",
     "Rising Mist":"img/monk/RisingMist.jpg",
@@ -79,6 +80,14 @@ let iconsPath = {
     "Yu'Lon":"img/monk/Yu'Lon.jpg",
     "Teachings of the Monastery":"img/monk/TeachingsOfTheMonastery.jpg",
 
+    //Rogue
+    "Garrote":"img/rogue/Garrote.jpg",
+    "Mutilate":"img/rogue/Mutilate.jpg",
+    "Rupture":"img/rogue/Rupture.jpg",
+    "Slice And Dice":"img/rogue/SliceAndDice.jpg",
+    "Envenom":"img/rogue/Envenom.jpg",
+    "Deadly Poison":"img/rogue/DeadlyPoison.jpg",
+
     //Shaman
     "Healing Surge":"img/shaman/HealingSurge.jpg",
     "Flame Shock":"img/shaman/FlameShock.jpg",
@@ -87,4 +96,5 @@ let iconsPath = {
     "Healing Rain":"img/shaman/HealingRain.jpg",
     "Healing Tide Totem":"img/shaman/HealingTideTotem.jpg",
     "Ghost Wolf":"img/shaman/GhostWolf.jpg",
+    "Riptide":"img/shaman/Riptide.jpg",
 }

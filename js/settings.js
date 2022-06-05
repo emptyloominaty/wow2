@@ -28,4 +28,40 @@ let raidFramesBuffs = {
         centreRight:"Regrowth", //TODO:
         bottomCentre:"Wild Growth", //TODO:
     },
+    "assassination": {
+        bottomRight:"Riptide",
+        bottomRight2:"hhh",
+        centreRight:"Regrowth",
+        bottomCentre:"Wild Growth",
+    },
+    "balance": {
+        bottomRight:"Riptide",
+        bottomRight2:"hhh",
+        centreRight:"Regrowth",
+        bottomCentre:"Wild Growth",
+    },
+    "arcane": {
+        bottomRight:"Riptide",
+        bottomRight2:"hhh",
+        centreRight:"Regrowth",
+        bottomCentre:"Wild Growth",
+    },
+    "havoc": {
+        bottomRight:"Riptide",
+        bottomRight2:"hhh",
+        centreRight:"Regrowth",
+        bottomCentre:"Wild Growth",
+    },
+    "windwalker": {
+        bottomRight:"Renewing Mist",
+        bottomRight2:"Life Cocoon",
+        centreRight:"Enveloping Mist",
+        bottomCentre:"Essence Font",
+    },
+    "brewmaster": {
+        bottomRight:"Renewing Mist",
+        bottomRight2:"Life Cocoon",
+        centreRight:"Enveloping Mist",
+        bottomCentre:"Essence Font",
+    },
 }

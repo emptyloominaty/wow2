@@ -141,6 +141,7 @@ class DetailsWindow {
                         document.getElementById("detailsWindow_Row"+this.id+i).dataset.id = this.vals[i].target.id
 
                     } else if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
+
                         document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)
                         document.getElementById(this.id+"_icon"+i).src = iconsPath[this.vals[i].name]
                     }

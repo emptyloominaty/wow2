@@ -46,13 +46,11 @@ class HealingSurge extends Ability {
         caster.isCasting = false
 
         if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
-            let spellPower = this.spellPower * getRestoShamMastery(caster,caster)
             //heal self
-            doHeal(caster,caster,this,0,spellPower)
+            doHeal(caster,caster,this,0)
         } else {
             //heal target
-            let spellPower = this.spellPower * getRestoShamMastery(caster,caster.castTarget)
-            doHeal(caster,caster.castTarget,this,0,spellPower)
+            doHeal(caster,caster.castTarget,this,0)
         }
         caster.useEnergy(this.cost)
     }

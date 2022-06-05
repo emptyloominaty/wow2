@@ -86,7 +86,7 @@ class FloatingText2 {
             span.style.fontSize = (fontCrit*gameScaling)+"px"
         }
 
-        elements.ui.appendChild(span)
+        elements.floatingText2.appendChild(span)
         let element = document.getElementById(this.id+"_floatText2"+idd)
         this.texts.push({element:element,time:0,val:val,crit:crit,type:type,animationData:{}})
 

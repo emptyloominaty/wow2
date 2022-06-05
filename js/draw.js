@@ -1,8 +1,10 @@
 bars.playerName = new Bar(120,20,100,100,10,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_playerName")
 bars.playerHealth = new Bar(120,20,100,100,10,30,"#4b9539","#555555","bar_playerHealth")
 bars.playerMana = new Bar(120,20,100,100,10,55,"#63a0dd","#555555","bar_playerMana")
-bars.playerCast = new Bar(120,20,1.5,1.5,10,85,"#bbbbbb","#555555","bar_playerCast")
+bars.playerSecondaryResource = new Bar(120,20,0,5,10,80,"#ddda63","#555555","bar_playerSecondaryResource")
+bars.playerCast = new Bar(120,20,1.5,1.5,10,105,"#bbbbbb","#555555","bar_playerCast")
 bars.playerCast2 = new Bar(240,20,1.5,1.5,840,85,"#1e1e1e","#555555","bar_playerCast2")
+
 
 bars.targetName = new Bar(120,20,100,100,170,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_targetName")
 bars.targetHealth = new Bar(120,20,100,100,170,30,"#4b9539","#555555","bar_targetHealth")
@@ -13,7 +15,7 @@ for (let i = 0; i<creatures.length; i++) {
 
 
     if (!creatures[i].enemy) {
-        bars["creature"+i+"Health"] = new Bar(60,3,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Health"] = new Bar(60,3,1.5,1.5,0,0,colors[creatures[i].class],"rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
         bars["creature"+i+"Cast"] = new Bar(60,8,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",7,"rgba(0,0,0,0.5")
         bars["creature"+i+"Cast"].setVisibility(false)
     } else {
@@ -123,35 +125,31 @@ function draw(progress) {
     game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15*gameScaling, "#6c746f")
     game2d.drawPlayerDirection(0, 0, 10*gameScaling, 3, "#999f9a", player.direction)
 
+    if (player.maxSecondaryResource>0) {
+        bars.playerSecondaryResource.setText(player.secondaryResource+"/"+player.maxSecondaryResource)
+        bars.playerSecondaryResource.setVal(player.secondaryResource)
+        bars.playerSecondaryResource.setMaxVal(player.maxSecondaryResource)
+    }
+
     for (let i = 0; i<creatures.length; i++) {
         if (creatures[i].name!=="player") {
             let x = (creatures[i].x - player.x)*gameScaling
             let y = (creatures[i].y - player.y)*gameScaling
             let color
             let size = 15*gameScaling
-            let healthColor = "#FFFFFFF"
             let health = creatures[i].health/creatures[i].maxHealth
-            if (health>0.5) {
-                healthColor = "#FFFFFF"
-            } else if (health>0.1) {
-                healthColor = "#feff7e"
-            } else if (health>0) {
-                healthColor = "#ff6b6f"
-            } else {
-                healthColor = "#000000"
-            }
             if (creatures[i].enemy) {
                 color = "#d78080"
                 size = 25*gameScaling
             } else {
                 color = colors[creatures[i].class]
             }
-            //game2d.drawText((game2d.canvasW/2)+x, ((game2d.canvasH/2)+y)-(size+5),(health*100).toFixed(0)+"%","14px Consolas",healthColor,"center")
 
             let x2d = (game2d.canvasW/2)+x
             let y2d = (game2d.canvasH/2)+y
-            let y2dH = y2d-12-size
-            let y2dC = y2d-4-size
+
+            let y2dH = y2d-(20*gameScaling)-size
+            let y2dC = y2d-(14*gameScaling)-size
 
             //if (!creatures[i].floatingTexts.hide) {
             creatures[i].floatingTexts.setPosition(x2d,y2d)
@@ -162,6 +160,7 @@ function draw(progress) {
                 bars["creature"+i+"Health"].setPosition(x2d,y2dH,true)
                 bars["creature"+i+"Health"].setVal(creatures[i].health)
                 bars["creature"+i+"Health"].setMaxVal(creatures[i].maxHealth)
+                bars["creature"+i+"Health"].updateSize()
 
                 if (creatures[i].enemy) {
                     bars["creature"+i+"Health"].setText(getNumberString(creatures[i].health)+" "+(health*100).toFixed(0)+"%")
@@ -173,13 +172,14 @@ function draw(progress) {
                     bars["creature"+i+"Cast"].setMaxVal(creatures[i].casting.time2)
                     bars["creature"+i+"Cast"].setVal(creatures[i].casting.time2-creatures[i].casting.time)
                     bars["creature"+i+"Cast"].setText(creatures[i].casting.name)
+                    bars["creature"+i+"Cast"].updateSize()
                 } else if (creatures[i].isChanneling) {
                     bars["creature"+i+"Cast"].setVisibility(true)
                     bars["creature"+i+"Cast"].setPosition(x2d,y2dC,true)
                     bars["creature"+i+"Cast"].setMaxVal(creatures[i].channeling.time2)
                     bars["creature"+i+"Cast"].setVal(creatures[i].channeling.time2-creatures[i].channeling.time)
                     bars["creature"+i+"Cast"].setText(creatures[i].channeling.name)
-
+                    bars["creature"+i+"Cast"].updateSize()
                 } else {
                     bars["creature"+i+"Cast"].setVisibility(false)
                 }
@@ -242,7 +242,7 @@ function draw(progress) {
     }
 
     Object.keys(bars).forEach(key => {
-        document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width)+"px"
+        document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width2)+"px"
     })
 
     bars.playerName.setText(player.name)
@@ -304,7 +304,7 @@ function draw(progress) {
         if (i<16) {
             ii++
             document.getElementById("buff_"+i+"_image").src = iconsPath[player.buffs[i].name]
-            document.getElementById("buff_"+i+"_text").textContent = player.buffs[i].duration.toFixed(0)+"s"
+            document.getElementById("buff_"+i+"_text").textContent = getTime2(player.buffs[i].duration)
             if (player.buffs[i].stacks>1) {
                 document.getElementById("buff_"+i+"_stacks").textContent = player.buffs[i].stacks
             }

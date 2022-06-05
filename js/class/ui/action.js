@@ -96,6 +96,7 @@ if (player.spec==="mistweaver") {
 if (player.spec==="restorationShaman") {
     actions = {
         //bar1
+        "Riptide": new Action("Riptide", 1, 1),
         "Ghost Wolf": new Action("Ghost Wolf",1,3),
 
         "Healing Surge": new Action("Healing Surge", 1, 8),
@@ -124,4 +125,19 @@ if (player.spec==="restorationDruid") {
         //"Starfire": new Action("Starfire", 2, 2),
     }
 
+}
+
+if (player.spec==="assassination") {
+    actions = {
+        //bar1
+        "Rupture": new Action("Rupture", 1, 0),
+        "Garrote": new Action("Garrote", 1, 1),
+        "Slice And Dice": new Action("Slice And Dice", 1, 2),
+
+
+        "Mutilate": new Action("Mutilate", 1, 8),
+        "Envenom": new Action("Envenom", 1, 9),
+
+        "Deadly Poison": new Action("Deadly Poison", 2, 2),
+    }
 }

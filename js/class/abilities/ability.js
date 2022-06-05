@@ -3,6 +3,9 @@ class Ability {
     hasteGcd = true
     range = 5
     secCost = 0
+
+    poison = false
+    bleed = false
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges) {
         this.name = name
         this.cost = cost
@@ -68,12 +71,12 @@ class Ability {
         return false
     }
 
-    checkDistance(caster,target,range = 0) {
+    checkDistance(caster,target,range = 0,dontShow = false) {
         if (range===0) {
             range = this.range
         }
         if (getDistance(caster,target)>range) {
-            if (caster===player) {
+            if (caster===player && !dontShow) {
                 _message.update("Out of range", 2, colors.error)
             }
             return false
@@ -105,18 +108,18 @@ class Ability {
             }
         } else {
             if (caster===player) {
-                _message.update("Not enough mana", 2, colors.error)
+                _message.update("Not enough "+caster.resourceName, 2, colors.error)
             }
             return false
         }
     }
 
-    checkCd(caster) {
+    checkCd(caster,dontShow = false) {
         if (this.maxCharges>1) {
             if (this.charges>0) {
                 return true
             } else {
-                if (caster===player) {
+                if (caster===player && !dontShow) {
                     _message.update("Ability is not ready yet",2,colors.error)
                 }
                 return false
@@ -125,7 +128,7 @@ class Ability {
             if (this.cd>=this.maxCd) {
                 return true
             } else {
-                if (caster===player) {
+                if (caster===player && !dontShow) {
                     _message.update("Ability is not ready yet",2,colors.error)
                 }
                 return false

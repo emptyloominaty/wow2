@@ -78,7 +78,15 @@ class LavaBurst extends Ability {
                 }
                 doDamage(caster,caster.targetObj,this,undefined,undefined,undefined,crit)
                 caster.useEnergy(this.cost,this.secCost)
-                this.cd = 0
+                if (this.maxCharges>1) {
+                    if (this.charges===this.maxCharges) {
+                        this.cd = 0
+                    }
+                    this.charges--
+                } else {
+                    this.cd = 0
+                }
+
             }
         }
     }

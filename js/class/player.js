@@ -4,5 +4,5 @@ class Player extends Creature {
         this.playerCharacter = true
     }
 }
-
-let player = new Player("player",50500,100,0,0,0,"mistweaver" ) //"mistweaver" , "restorationShaman" , "restorationDruid"
+//"mistweaver" , "restorationShaman" , "restorationDruid" , "assassination" ,
+let player = new Player("player",50500,100,0,0,0,"assassination" )

@@ -83,12 +83,7 @@ class Area {
             if (i===this.maxTargets) {
                 break
             }
-            if (this.caster.spec==="restorationShaman") {
-                doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val)*getRestoShamMastery(this.caster,targets[i]))
-            } else {
-                doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val))
-            }
-
+            doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val))
         }
     }
 
