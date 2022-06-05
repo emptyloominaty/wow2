@@ -35,18 +35,51 @@ let timelineCombatLog = {
     run:function(){
         this.timer+=progressInSec
         if (this.timer>=this.timerNext) {
+            //----------------------------------------------------------------DAMAGE
+            for (let i = 0; i<this.damageThisSec.length;i++) {
+                if (this.damageThisSec[i]===undefined) {
+                    continue
+                }
 
-            let damageThisSec = this.damageThisSec
-            Object.keys(this.damageThisSec).forEach(function(key) {
-                console.log(key, damageThisSec[key])
-            })
+                if (this.damageTimeline[i]===undefined) {
+                    this.damageTimeline[i] = {}
+                }
+
+                Object.keys(this.damageThisSec[i]).forEach((key)=> {
+                    if (this.damageTimeline[i][key]===undefined) {
+                        this.damageTimeline[i][key] = []
+                    }
+                    if (this.damageTimeline[i][key][Math.floor(this.timer)]===undefined) {
+                        this.damageTimeline[i][key][Math.floor(this.timer)] = 0
+                    }
+
+                    for (let j = 0; j<this.damageThisSec[i][key].length;j++) {
+                        this.damageTimeline[i][key][Math.floor(this.timer)] += this.damageThisSec[i][key][j].val
+                    }
+                })
+            }
             this.damageThisSec = []
 
-            let healThisSec = this.healThisSec
-            Object.keys(this.healThisSec).forEach(function(key) {
-                console.log(key, healThisSec[key])
-
-            })
+            //----------------------------------------------------------------HEAL
+            for (let i = 0; i<this.healThisSec.length;i++) {
+                if (this.healThisSec[i]===undefined) {
+                    continue
+                }
+                if (this.healTimeline[i]===undefined) {
+                    this.healTimeline[i] = {}
+                }
+                Object.keys(this.healThisSec[i]).forEach((key) => {
+                    if (this.healTimeline[i][key]===undefined) {
+                        this.healTimeline[i][key] = []
+                    }
+                    if (this.healTimeline[i][key][Math.floor(this.timer)]===undefined) {
+                        this.healTimeline[i][key][Math.floor(this.timer)] = 0
+                    }
+                    for (let j = 0; j<this.healThisSec[i][key].length;j++) {
+                        this.healTimeline[i][key][Math.floor(this.timer)] += this.healThisSec[i][key][j].val //TODO OVERHEAL
+                    }
+                })
+            }
             this.healThisSec = []
 
             this.timerNext++
@@ -55,8 +88,8 @@ let timelineCombatLog = {
 
     start:function(){
         for (let i = 0; i<creatures.length; i++) {
-            this.healAll.push({})
-            this.damageAll.push({})
+            this.healTimeline.push({})
+            this.damageTimeline.push({})
         }
     }
 }

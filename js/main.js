@@ -67,7 +67,9 @@ function update(progress) {
     detailsAbilities.run()
 
     //combat log
-    timelineCombatLog.run()
+    if (inCombat) {
+        timelineCombatLog.run()
+    }
 
     //areas
     for (let i = 0; i<areas.length; i++) {
