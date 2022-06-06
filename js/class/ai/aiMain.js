@@ -201,7 +201,7 @@ class Ai {
                 }
             }
         },
-        "assassination":() => { //--------------------------------------------------------------------------------------------------Balance Druid
+        "assassination":() => { //--------------------------------------------------------------------------------------------------Assassination Rogue
             let c = this.creature
             //no target
             let casted = false
@@ -233,7 +233,7 @@ class Ai {
                 if (!casted) {
                     casted = c.abilities["Mutilate"].startCast(c)
                 }
-                if (!casted) {
+                if (!casted && c.secondaryResource>4) {
                     casted = c.abilities["Envenom"].startCast(c)
                 }
 

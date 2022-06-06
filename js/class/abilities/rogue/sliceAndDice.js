@@ -28,11 +28,11 @@ class SliceAndDice extends Ability {
     }
 
     getTooltip() {
-        return "Finishing move that consumes combo points to increase attack speed by 50%. Lasts longer per combo point.   1 point  : 12 seconds " +
-            "2 points: 18 seconds" +
-            "3 points: 24 seconds" +
-            "4 points: 30 seconds" +
-            "5 points: 36 seconds"
+        return "Finishing move that consumes combo points to increase attack speed by 50%. Lasts longer per combo point. <br>   1 point  : 12 seconds " +
+            "<br>2 points: 18 seconds" +
+            "<br>3 points: 24 seconds" +
+            "<br>4 points: 30 seconds" +
+            "<br>5 points: 36 seconds"
     }
 
     run(caster) {

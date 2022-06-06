@@ -42,6 +42,7 @@ class DeadlyPoison extends Ability {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
+            this.setGcd(caster)
             return true
         } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
@@ -52,7 +53,7 @@ class DeadlyPoison extends Ability {
     endCast(caster) {
         this.cd = 0
         applyBuff(caster,caster,this)
-        this.setGcd(caster)
+
         caster.useEnergy(this.cost,this.secCost)
         caster.isCasting = false
     }

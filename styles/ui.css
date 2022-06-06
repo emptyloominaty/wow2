@@ -155,5 +155,6 @@
     top:0;
     left:0;
     font-size: 12px;
+    color:#ffffff;
     text-shadow: -1px -1px 1px rgba(0,0,0,0.8), 1px -1px 1px rgba(0,0,0,0.8), -1px 1px 1px #000, 1px 1px 1px rgba(0,0,0,0.8);
 }

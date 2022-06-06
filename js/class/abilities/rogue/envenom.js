@@ -32,11 +32,11 @@ class Envenom extends Ability {
     getTooltip() {
         let spellPower = ((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))
         return "Finishing move that drives your poisoned blades in deep, dealing instant Nature damage and increasing your poison application chance by 30%. Damage and duration increased per combo point. " +
-            "1 point :"+(spellPower).toFixed(0)+" over 8 sec " +
-            "2 points :"+(spellPower*2).toFixed(0)+" over 12 sec " +
-            "3 points :"+(spellPower*3).toFixed(0)+" over 16 sec " +
-            "4 points :"+(spellPower*4).toFixed(0)+" over 20 sec " +
-            "5 points :"+(spellPower*5).toFixed(0)+" over 24 sec "
+            "<br>1 point: "+(spellPower).toFixed(0)+"  damage " +
+            "<br>2 points: "+(spellPower*2).toFixed(0)+"  damage " +
+            "<br>3 points: "+(spellPower*3).toFixed(0)+"  damage " +
+            "<br>4 points: "+(spellPower*4).toFixed(0)+"  damage " +
+            "<br>5 points: "+(spellPower*5).toFixed(0)+"  damage "
     }
 
     run(caster) {

@@ -20,7 +20,7 @@ let getChance = function(chance) {
     return false
 }
 
-let critChance = function(caster,incCrit) {
+let critChance = function(caster,incCrit = 0) {
     let critChance = (Math.random()*100)
     let crit = caster.stats.crit+incCrit
     if (critChance < crit) {
@@ -104,7 +104,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
         details.doDamage(caster, damage, ability)
         if (caster===player && settings.showTargetFloatingDamage) {
-            target.floatingTexts.addText(damage,"damage",crit)
+            target.floatingTexts.addText(damage,"damage",crit,ability.name)
         }
         //leech
         if (caster.stats.leech>0) {

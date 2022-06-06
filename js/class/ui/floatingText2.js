@@ -51,7 +51,7 @@ class FloatingText2 {
         this.element.style.left = (x)+"px"
     }
 
-    addText(val,type,crit = 1) {
+    addText(val,type,crit,name) {
         if(this.x<50 || this.y<50 || this.x>(game2d.canvasW-50) || this.y>(game2d.canvasH-50) ) {
             return false
         }
@@ -67,17 +67,21 @@ class FloatingText2 {
         span.style.overflow = "visible"
         span.style.textShadow = "-1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 #000, 1px 1px 0 rgba(0,0,0,0.5)"
         if (type==="heal") {
-            span.style.color = "#79ff74"
+            span.style.color = "#32ff32"
         } else if (type==="damage") {
-            span.style.color = "#e8e299"
+            span.style.color = "#f8e81d"
+        }
+
+        if (name==="Auto Attack") {
+            span.style.color = "#e6e6e6"
         }
 
         let font = 12
-        let fontCrit = 18
+        let fontCrit = 20
 
         if (settings.reduceTargetFlaotingHealingFont && type==="heal") {
             font = 6
-            fontCrit = 8
+            fontCrit = 10
         }
 
         if (crit===1) {

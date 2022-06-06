@@ -154,6 +154,7 @@ class Creature {
         } else if (spec==="havoc") {//----------------------------------------Havoc
             this.class = "Demon Hunter"
             this.melee = true
+            this.resourceName = "Fury"
             this.role = "dps"
         } else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"

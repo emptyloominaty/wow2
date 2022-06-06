@@ -456,8 +456,8 @@ let zoom = function(event) {
     gameScaling += val
     if (gameScaling < 0.9) {
         gameScaling = 0.9
-    } else if (gameScaling>5) {
-        gameScaling = 5
+    } else if (gameScaling>2.8) {
+        gameScaling = 2.8
     }
 
 }

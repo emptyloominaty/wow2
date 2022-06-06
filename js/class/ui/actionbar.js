@@ -71,7 +71,7 @@ let showSpellTooltip = function(i,j) {
         elements.ui.insertAdjacentHTML("beforeend", htmlTooltip)
 
         document.getElementById("spellTooltip").style.left = mousePosition.x+30 + "px"
-        document.getElementById("spellTooltip").style.top = mousePosition.y-200 + "px"
+        document.getElementById("spellTooltip").style.top = mousePosition.y-(document.getElementById("spellTooltip").clientHeight+15) + "px"
     }
 }
 

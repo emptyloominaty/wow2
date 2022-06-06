@@ -33,11 +33,11 @@ class Rupture extends Ability {
     getTooltip() {
         let spellPower = ((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))
         return "Finishing move that tears open the target, dealing Bleed damage over time. Lasts longer per combo point. " +
-            "1 point :"+(spellPower*2).toFixed(0)+" over 8 sec " +
-            "2 points :"+(spellPower*3).toFixed(0)+" over 12 sec " +
-            "3 points :"+(spellPower*4).toFixed(0)+" over 16 sec " +
-            "4 points :"+(spellPower*5).toFixed(0)+" over 20 sec " +
-            "5 points :"+(spellPower*6).toFixed(0)+" over 24 sec "
+            "<br>1 point: "+(spellPower*2).toFixed(0)+" over 8 sec " +
+            "<br>2 points: "+(spellPower*3).toFixed(0)+" over 12 sec " +
+            "<br>3 points: "+(spellPower*4).toFixed(0)+" over 16 sec " +
+            "<br>4 points: "+(spellPower*5).toFixed(0)+" over 20 sec " +
+            "<br>5 points: "+(spellPower*6).toFixed(0)+" over 24 sec "
     }
 
     run(caster) {

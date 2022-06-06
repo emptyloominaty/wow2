@@ -186,16 +186,34 @@ function draw(progress) {
                 if (creatures[i].enemy) {
                     for (let j = 0; j<creatures[i].debuffs.length; j++) {
                         if (creatures[i].debuffs[j].caster===player) { //TODO:OR STUN + buff?
-                            debuffsHTML += "<div class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].debuffs[j].name]+"'> <span>"+creatures[i].debuffs[j].duration.toFixed(0)+"</span></div>"
+                            debuffsHTML += "<div id='debuffs_"+i+"_"+j+"' class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].debuffs[j].name]+"'> <span id='debuffs_"+i+"_"+j+"duration' >"+creatures[i].debuffs[j].duration.toFixed(0)+"</span></div>"
                         }
                     }
                 }
 
                 let el = document.getElementById("creature"+i+"debuffs")
                 if (el) {
-                    el.style.left = (x2d-100)+"px"
-                    el.style.top = (y2d-41-size)+"px"
+                    let width = (200*gameScaling)
+                    let height = (20*gameScaling)
+                    let fontSize = (14*gameScaling)
+
+                    el.style.left = (x2d-(width/2))+"px"
+                    el.style.top = (y2d-(50*gameScaling)-size)+"px"
+                    el.style.width = width+"px"
+                    el.style.height = height+"px"
                     el.innerHTML = debuffsHTML
+
+
+                    for (let j = 0; j<creatures[i].debuffs.length; j++){
+                        if (creatures[i].debuffs[j].caster===player) {
+                            document.getElementById("debuffs_" + i + "_" + j).style.width = height + "px"
+                            document.getElementById("debuffs_" + i + "_" + j).style.height = height + "px"
+
+                            document.getElementById("debuffs_" + i + "_" + j+"duration").style.width = height + "px"
+                            document.getElementById("debuffs_" + i + "_" + j+"duration").style.height = height + "px"
+                            document.getElementById("debuffs_" + i + "_" + j+"duration").style.fontSize = fontSize + "px"
+                        }
+                    }
                 }
             }
 
