@@ -99,6 +99,23 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         } //else if
 
+        if (ability.school==="physical") {
+            damage = damage * (1-(target.stats.armor/100))
+            for (let i = 0; i<target.debuffs.length; i++) {
+                if (target.debuffs[i].name==="Mystic Touch") {
+                    damage = damage*1.05
+                    break
+                }
+            }
+        } else {
+            for (let i = 0; i<target.debuffs.length; i++) {
+                if (target.debuffs[i].name==="Chaos Brand") {
+                    damage = damage*1.05
+                    break
+                }
+            }
+        }
+
         if (inCombat) {
             timelineCombatLog.damage(caster,target,ability,damage)
         }

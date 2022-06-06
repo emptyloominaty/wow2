@@ -13,7 +13,10 @@ class Creature {
     secondaryResourceName = "Combo"
     energyRegen = 0.8 // 1sec
 
-    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:100, speed:0, stamina:100}
+    //        plate-mail-leather-cloth
+    //armor:  108 -  72 -  49  -  28
+    //        1  - 0.66 - 0.45 - 0.25
+    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -54,6 +57,7 @@ class Creature {
 
     damageReduction = 0
     healthIncreased = 0
+    magicDamageReduction = 0
 
     constructor(name,enemy,health,energy,x,y,direction,spec) {
         this.id = creatures.length
@@ -110,7 +114,7 @@ class Creature {
             this.abilities = new Bm_abilities()
             this.melee = true
             this.role = "tank"
-
+            this.stats.armor = 95 //TEST
             this.energyRegen = 10
             this.resourceName = "Energy"
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
@@ -168,6 +172,10 @@ class Creature {
 
         if (this.role==="tank") {
             this.aggroMultiplier = 10
+        }
+
+        if (this.enemy) {
+            this.stats.armor = 0
         }
     }
 

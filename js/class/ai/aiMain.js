@@ -203,28 +203,23 @@ class Ai {
         },
         "assassination":() => { //--------------------------------------------------------------------------------------------------Assassination Rogue
             let c = this.creature
-            //no target
             let casted = false
             let target = this.getLowestHpEnemy()
             setTargetAi(c,target)
             c.direction = getDirection(c,c.targetObj)
-            setTargetAi(c,target)
             let dist = getDistance(c,c.targetObj)
-            let distNeed = 30
-            if (c.melee) {
-                distNeed = 4
-            }
+            let distNeed = 4
             if (dist>distNeed) {
                 c.move(1)
             } else {
 
-                if (!this.checkBuff(c,c,"Deadly Poison")) {
+                if (!casted && !this.checkBuff(c,c,"Deadly Poison")) {
                     casted = c.abilities["Deadly Poison"].startCast(c)
                 }
-                if (!this.checkBuff(c,c,"Slice And Dice")) {
+                if (!casted && !this.checkBuff(c,c,"Slice And Dice")) {
                     casted = c.abilities["Slice And Dice"].startCast(c)
                 }
-                if (!this.checkDebuff(c,target,"Garrote")) {
+                if (!casted && !this.checkDebuff(c,target,"Garrote")) {
                     casted = c.abilities["Garrote"].startCast(c)
                 }
                 if (!casted && !this.checkDebuff(c,target,"Rupture")) {
