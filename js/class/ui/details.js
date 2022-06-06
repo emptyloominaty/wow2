@@ -128,6 +128,22 @@ class DetailsWindow {
             this.vals = this.vals.sort((a, b) => a.val < b.val ? 1 : -1)
 
             let vals = 0
+
+            let valsPercentages = []
+            let valsTotal = 0
+
+            if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
+                for (let i = 0; i < this.vals.length; i++) {
+                    valsTotal += this.vals[i].val
+                }
+
+                for (let i = 0; i < this.vals.length; i++) {
+                    valsPercentages[i] = (this.vals[i].val/valsTotal)*100
+                }
+            }
+
+
+
             for (let i = 0; i<this.vals.length; i++) {
                 if (this.vals[i].val!==0) {
                     document.getElementById(this.id+"_name"+i).textContent = this.vals[i].name
@@ -142,7 +158,7 @@ class DetailsWindow {
 
                     } else if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
 
-                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)
+                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)+" ("+(valsPercentages[i].toFixed(1))+"%)"
                         document.getElementById(this.id+"_icon"+i).src = iconsPath[this.vals[i].name]
                     }
                     vals++
@@ -163,12 +179,7 @@ class DetailsWindow {
 let detailsDamage = new DetailsWindow(20,200,250,200,"Damage Done","details_damageWindow")
 let detailsHealing = new DetailsWindow(20,420,250,200,"Healing Done","details_healingWindow")
 
-let detailsAbilities = new DetailsWindow(20,640,250,200,"Abilities Damage","details_abilitiesWindow",true)
-
-
-
-
-
+let detailsAbilities = new DetailsWindow(20,640,350,200,"Abilities Damage","details_abilitiesWindow",true)
 
 let details = {
     combatIdx: 0,

@@ -33,9 +33,6 @@ for (let i = 0; i<creatures.length; i++) {
         elements.creatureBars.appendChild(div)
     }
 
-
-
-
     if (creatures[i]===player) {
         bars["creature"+i+"Health"].setVisibility(false)
     }
