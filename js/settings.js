@@ -26,7 +26,7 @@ let raidFramesBuffs = {
         bottomRight:"Riptide",
         bottomRight2:"hhh", //TODO:
         centreRight:"Regrowth", //TODO:
-        bottomCentre:"Wild Growth", //TODO:
+        bottomCentre:"Ancestral Vigor",
     },
     "assassination": {
         bottomRight:"Riptide",
