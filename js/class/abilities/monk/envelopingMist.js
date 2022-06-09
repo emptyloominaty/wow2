@@ -34,7 +34,7 @@ class EnvelopingMist extends Ability {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
                     this.setGcd(caster,1.5)
-                    return
+                    return true
                 } else {
                     this.isChanneling = false
                     this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}

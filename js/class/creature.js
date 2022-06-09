@@ -103,10 +103,8 @@ class Creature {
             this.abilities = new Ww_abilities()
             this.melee = true
             this.role = "dps"
-
             this.energyRegen = 10
             this.resourceName = "Energy"
-
             this.secondaryResourceName = "Chi"
             this.secondaryResource = 0
             this.maxSecondaryResource = 5

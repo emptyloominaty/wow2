@@ -34,7 +34,7 @@ class Vivify extends Ability {
                     this.endCast(caster)
                     this.setGcd(caster)
                     bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
-                    return
+                    return true
                 } else {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
