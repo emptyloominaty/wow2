@@ -29,7 +29,7 @@ let critChance = function(caster,incCrit = 0) {
     return 1
 }
 
-let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,name = "",val = 0,incCrit = 0) {
+let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,name = "",val = 0,incCrit = 0,t = "hot") {
     if (!target.isDead) {
         let crit = critChance(caster,incCrit)
         if (!canCrit) { //0% crit chance
@@ -58,7 +58,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
         }
 
         if (caster===player && settings.showTargetFloatingHealing) {
-            target.floatingTexts.addText(heal,"heal",crit)
+            target.floatingTexts.addText(heal,"heal",crit,t)
         }
         let overhealing = (target.health + heal) - target.maxHealth
         if (inCombat) {
@@ -76,7 +76,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
     }
 }
 
-let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false) {
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "") {
     if (!target.isDead) {
         let crit = critChance(caster)
         if (!canCrit) { //0% crit chance
@@ -121,7 +121,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
         details.doDamage(caster, damage, ability)
         if (caster===player && settings.showTargetFloatingDamage) {
-            target.floatingTexts.addText(damage,"damage",crit,ability.name)
+            target.floatingTexts.addText(damage,"damage",crit,ability.name,t)
         }
         //leech
         if (caster.stats.leech>0) {

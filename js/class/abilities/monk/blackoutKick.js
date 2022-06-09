@@ -53,7 +53,6 @@ class BlackoutKick extends Ability {
                     if (resetChance < 15 + (stacks * 15)) {
                         caster.abilities["Rising Sun Kick"].cd = caster.abilities["Rising Sun Kick"].maxCd
                     }
-
                     caster.buffs.splice(i, 1)
                     break
                 }

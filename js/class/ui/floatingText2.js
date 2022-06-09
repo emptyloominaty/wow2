@@ -2,6 +2,7 @@ class FloatingText2 {
     duration = 0
     maxDuration = 2.5
     speed = 0.7
+    t = ""
     constructor(x,y,val,type,id) {
         this.x = x
         this.y = y
@@ -51,7 +52,9 @@ class FloatingText2 {
         this.element.style.left = (x)+"px"
     }
 
-    addText(val,type,crit,name) {
+    addText(val,type,crit,name,t) {
+        this.t = t
+
         if(this.x<50 || this.y<50 || this.x>(game2d.canvasW-50) || this.y>(game2d.canvasH-50) ) {
             return false
         }
@@ -102,15 +105,17 @@ class FloatingText2 {
             let text = this.texts[i]
             text.time += progressInSec
 
-            if (text.time<0.1) {
-                let size = 1+(text.time*6)
-                text.element.style.transform = "scale("+size+", "+size+")"
-            } else if (text.time>0.1 && text.time<0.2) {
-                let size = 2.2-(text.time*6)
-                text.element.style.transform = "scale("+size+", "+size+")"
-            } else if (text.time>1) {
-                text.element.style.opacity = 2.5-(text.time*2)
-            }
+            //if (this.t==="") {
+                if (text.time<0.1) {
+                    let size = 1+(text.time*6)
+                    text.element.style.transform = "scale("+size+", "+size+")"
+                } else if (text.time>0.1 && text.time<0.2) {
+                    let size = 2.2-(text.time*6)
+                    text.element.style.transform = "scale("+size+", "+size+")"
+                } else if (text.time>1) {
+                    text.element.style.opacity = 2.5-(text.time*2)
+                }
+            //}
             if (text.time>0.1) {
                 let y = parseInt(text.element.style.top, 10)
                 text.element.style.top = (y-(0.005*gameScaling))+"px"

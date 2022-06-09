@@ -40,6 +40,7 @@ class Creature {
     gcd = 0
     form = ""
     formEffects = []
+    spellHistory = []
 
     buffs = []
     debuffs = []
@@ -258,7 +259,7 @@ class Creature {
                 if (this.buffs[i].timer<1) {
                     this.buffs[i].timer+= (progressInSec)*(1 + (this.buffs[i].caster.stats.haste / 100))
                 } else {
-                    doHeal(this.buffs[i].caster,this,this.buffs[i])
+                    doHeal(this.buffs[i].caster,this,this.buffs[i],undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                     this.buffs[i].timer = 0
                 }
             } else if (this.buffs[i].type==="buff") {
@@ -293,7 +294,7 @@ class Creature {
                     this.debuffs[i].timer+= (progressInSec)*(1 + (this.debuffs[i].caster.stats.haste / 100))
                 } else {
                     this.debuffs[i].timer = 0
-                    doDamage(this.debuffs[i].caster,this,this.debuffs[i].ability,undefined,this.debuffs[i].spellPower)
+                    doDamage(this.debuffs[i].caster,this,this.debuffs[i].ability,undefined,this.debuffs[i].spellPower,undefined,undefined,true)
                     if (this.isDead) {
                         break
                     }
