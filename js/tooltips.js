@@ -1,5 +1,4 @@
 tooltips = {
-
     getTooltip:function(ability) {
         if (ability!==undefined && this.text[ability.name]!==undefined) {
             let tooltipArray = this.text[ability.name]

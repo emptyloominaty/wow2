@@ -26,12 +26,12 @@ class TigerPalm extends Ability {
         this.buffName = "Teachings of the Monastery"
 
         if (ww) {
-            this.spellPower = 0.27027
+            this.spellPower = 0.27027*1.55
             this.cost = 50
             this.secCost = -2 //chi
             this.gcd = 1
             this.hasteGcd = false
-            //TODO: Tiger Palm has an 8% chance to make your next Blackout Kick cost no Chi.
+            this.chanceReset = 8
         }
     }
 
@@ -67,6 +67,11 @@ class TigerPalm extends Ability {
             if (done) {
                 if (caster.spec === "mistweaver") {
                     applyBuff(caster,caster,this,1,true, this.buffName)
+                } else if (caster.spec === "windwalker") {
+                    if (getChance(this.chanceReset)) {
+                        this.duration = 20
+                        applyBuff(caster, caster, this, 1, false, "Blackout Kick")
+                    }
                 }
                 if (caster.isChanneling) {
                     caster.isChanneling = false

@@ -16,7 +16,7 @@ class Garrote extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 1.08
+        this.spellPower = 1.08*1.51
         this.duration = 18
 
         this.effect = ""

@@ -27,7 +27,7 @@ class RisingSunKick extends Ability {
 
         if (ww) {
             this.secCost = 2 //chi
-            this.spellPower = (0.959 * 2)*1.7
+            this.spellPower = ((0.959 * 2)*1.7)*1.67
             this.gcd = 1
             this.hasteGcd = false
 

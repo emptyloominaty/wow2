@@ -18,6 +18,8 @@ class ManaTea extends Ability {
         this.effect = "reduceEnergyCost"
         this.effectValue = 0.5
         this.duration = 10
+
+        this.noGcd = true
     }
 
     getTooltip() {

@@ -73,7 +73,11 @@ class ArcaneBlast extends Ability {
     endCast(caster) {
         if (caster.target!=="" && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                let spellPower = this.spellPower * (1 + (caster.secondaryResource*0.6))
+                let spellPower = this.spellPower
+                for (let i = 0; i<caster.secondaryResource; i++) {
+                    spellPower = spellPower * (1.6)
+                }
+
                 let cost = this.cost * (1 + (caster.secondaryResource))
 
                 doDamage(caster,caster.targetObj,this,undefined,spellPower)

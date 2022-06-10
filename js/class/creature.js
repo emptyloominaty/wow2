@@ -152,6 +152,11 @@ class Creature {
             this.abilities = new Arcane_abilities()
             this.melee = false
             this.role = "dps"
+
+            this.energyRegen = 0.8 * (1 + (this.stats.mastery / 100))
+            this.energy = 100 * (1 + (this.stats.mastery / 100))
+            this.maxEnergy = 100 * (1 + (this.stats.mastery / 100))
+
             this.secondaryResourceName = "Arcane Charges"
             this.secondaryResource = 0
             this.maxSecondaryResource = 4

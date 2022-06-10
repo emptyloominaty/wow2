@@ -22,7 +22,7 @@ class Ai {
                     b.move(1)
                 } else {
                     for (let i = 0; i<enemyTargets.length; i++) {
-                        if (this.creature.gcd<=0) {
+                        if (this.creature.gcd<=0 && !enemyTargets[i].isDead) {
                             this.creature.targetObj = enemyTargets[i]
                             this.creature.castTarget = enemyTargets[i]
                             this.creature.target = enemyTargets[i].name
@@ -64,7 +64,7 @@ class Ai {
                     b.move(1)
                 } else {
                     for (let i = 0; i < enemyTargets.length; i++) {
-                        if (this.creature.gcd <= 0) {
+                        if (this.creature.gcd <= 0 && !enemyTargets[i].isDead) {
                             this.creature.targetObj = enemyTargets[i]
                             this.creature.castTarget = enemyTargets[i]
                             this.creature.target = enemyTargets[i].name
@@ -245,7 +245,7 @@ class Ai {
                     b.move(1)
                 } else {
                     for (let i = 0; i<enemyTargets.length; i++) {
-                        if (this.creature.gcd<=0) {
+                        if (this.creature.gcd<=0 && !enemyTargets[i].isDead) {
                             this.creature.targetObj = enemyTargets[i]
                             this.creature.castTarget = enemyTargets[i]
                             this.creature.target = enemyTargets[i].name

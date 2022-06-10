@@ -44,7 +44,7 @@ class SoothingMist extends Ability {
     }
 
     cast(caster) {
-        if (caster.target==="" || this.isEnemy(caster)  || caster.castTarget.isDead) {
+        if (caster.target==="" || this.isEnemy(caster)  || caster.castTarget.isDead || !this.checkDistance(caster,caster.castTarget)) {
             //heal self
             doHeal(caster,caster,this)
             let masteryRng = Math.floor(Math.random()*7)
@@ -58,7 +58,6 @@ class SoothingMist extends Ability {
             if (masteryRng===0) {
                 caster.abilities["Gust of Mists"].heal(caster)
             }
-            //TODO:RANGE
         }
         caster.useEnergy(this.cost)
     }

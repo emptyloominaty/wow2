@@ -22,6 +22,7 @@ class FortifyingBrew extends Ability {
         this.effect2Value = 0.2 //20%
 
         this.duration = 15
+        this.noGcd = true
     }
 
     getTooltip() {

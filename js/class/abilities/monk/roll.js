@@ -19,7 +19,6 @@ class Roll extends Ability {
         this.effectValue = 7
         this.duration = 0.8
 
-        this.rollCd = 0
     }
 
     getTooltip() {
@@ -27,9 +26,6 @@ class Roll extends Ability {
     }
 
     run(caster) {
-        if (this.rollCd>0) {
-            this.rollCd += progressInSec
-        }
     }
 
     startCast(caster) {

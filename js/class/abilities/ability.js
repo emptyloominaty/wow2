@@ -7,9 +7,10 @@ class Ability {
 
     poison = false
     bleed = false
-    tooltip = ""
     spellPower = 0
     duration = 0
+
+
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
                 poison = false, bleed = false,) {
@@ -34,31 +35,10 @@ class Ability {
         this.secCost = secCost
         this.poison = poison
         this.bleed = bleed
-
-
-        if (effects.length>0) {
-            this.spellPower = effects[0].val
-            if (effects[0].type==="applyDot" || effects[0].type==="applyHot" || effects[0].type==="applyBuff" || effects[0].type==="applyBuffSelf" || effects[0].type==="applyDebuff" || effects[0].type==="roll" || effects[0].type==="essenceFont" || effects[0].type==="tauntAndBuff") {
-                this.duration = effects[0].duration
-            }
-        }
-
-        this.values = values
-        if (values.duration) {
-            this.duration = values.duration
-        }
-        if (values.spellPower) {
-            this.spellPower = values.spellPower
-        }
-        if (values.effect) {
-            this.effect = values.effect
-        }
-
     }
 
     getTooltip() {
         return tooltips.getTooltip(this)
-        //return this.tooltip
     }
 
     doEffect = {
@@ -256,7 +236,38 @@ class Ability {
             }
             return false
         },
-        //SPEC-------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------------------------SPECS
+        //--------------------------------------MAGE
+        "arcaneBlast":(caster,_i)=> {
+            if (caster.target!=="" && this.isEnemy(caster)) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    let spellPower = this.spellPower
+                    for (let i = 0; i<caster.secondaryResource; i++) {
+                        spellPower = spellPower * (1.6)
+                    }
+
+                    let cost = this.cost * (1 + (caster.secondaryResource))
+
+                    doDamage(caster,caster.targetObj,this,undefined,spellPower)
+                    caster.useEnergy(cost,this.secCost)
+                    this.cd = 0
+                    return true
+                }
+            }
+            return false
+        },
+        "arcaneBarrage":(caster,_i)=> {
+            if (caster.target!=="" && this.isEnemy(caster)) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    let spellPower = this.spellPower * (1 + (caster.secondaryResource*0.3))
+                    doDamage(caster,caster.targetObj,this,undefined,spellPower)
+                    //TODO ADDITIONAL TARGETS  (1 per charge 40%)
+                    let cost = this.values.cost * caster.secondaryResource
+                    caster.useEnergy(cost,this.secCost)
+                    this.cd = 0
+                }
+            }
+        },
         //--------------------------------------MONK
         "roll":(caster,_i)=> {
             applyBuff(caster,caster,this)
@@ -268,7 +279,7 @@ class Ability {
                 let spellPower = caster.stats.mastery/100
                 if (caster.target==="" || caster.castTarget.enemy) {
                     Object.keys(caster.buffs).forEach((key)=> {
-                        if (caster.buffs[key].name === "Essence Font" && caster.castTarget.buffs[key].caster === caster) {
+                        if (caster.buffs[key].name === "Essence Font" && caster.buffs[key].caster === caster) {
                             doHeal(caster,caster,caster.abilities["Gust of Mists"],undefined,spellPower)
                         }
                     })
@@ -370,147 +381,18 @@ class Ability {
             }
             return false
         },
-        //--------------------------------------
-    }
-//----------------------------------------------------------------------------------------------------------RunBuff
-    runBuffFunctions = {
-        "Renewing Mist": (target,buff,id)=> {
-            if(target.health>=target.maxHealth) {
-                for (let i = 0; i<friendlyTargets.length; i++) {
-                    if (friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
-                        let a = 0
-                        for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
-                            if (friendlyTargets[i].buffs[j].name === buff.name && friendlyTargets[i].buffs[j].caster === buff.caster) {
-                                a = 1
-                            }
-                        }
-                        if (!this.checkDistance(target,friendlyTargets[i],this.values.jumpRange)) {
-                            a = 1
-                        }
-                        if (a===0) {
-                            applyHot(buff.caster,friendlyTargets[i],buff.ability,buff.duration,buff.extendedDuration)
-                            target.buffs.splice(id,1)
-                            return
-                        }
-                    }
-                }
-            }
-        }
-    }
-//----------------------------------------------------------------------------------------------------------Channeling
-    channelFunctions = {
-        "Soothing Mist": (caster)=> {
-            if (caster.target==="" || this.isEnemy(caster)  || caster.castTarget.isDead || !this.checkDistance(caster,caster.castTarget)) {
-                //heal self
-                doHeal(caster,caster,this,undefined,this.values.spellPower)
-                let masteryRng = Math.floor(Math.random()*7)
-                if (masteryRng===0) {
-                    this.doEffect["gustOfMistMainTarget"](caster,0)
-                }
-            } else {
-                //heal target
-                doHeal(caster,caster.castTarget,this,undefined,this.values.spellPower)
-                let masteryRng = Math.floor(Math.random()*7)
-                if (masteryRng===0) {
-                    this.doEffect["gustOfMistMainTarget"](caster,0)
-                }
-            }
-            caster.useEnergy(this.cost,this.secCost)
-        },
-        "Essence Font": (caster)=> {
-            let j = 0
-            let k = 0
-            while(j===0) {
-                k++
-                let no = friendlyTargets.length
-                let t = Math.floor(Math.random()*no)
-                if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth && this.values.last6bolts.indexOf(t)===-1 || k>120)) {
-                    if (this.checkDistance(caster,friendlyTargets[t])) {
-                        this.values.last6bolts.push(t)
-                        if (this.values.last6bolts.length>5) {
-                            this.values.last6bolts.shift()
-                        }
-                        doHeal(caster,friendlyTargets[t],this)
-                        applyHot(caster,friendlyTargets[t],this,undefined,undefined,this.values.hotSpellPower)
-                        j++
-                    }
-                }
-            }
-        }
-    }
-
-    startCast(caster) {
-        if ((caster.gcd<=0 || this.noGcd) && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster) && this.checkDistance(caster,caster.castTarget)) {
-            if (this.stopChanneling(caster)) {
-                return true
-            }
-
-            if (this.channeling) {
-                this.setChanneling(caster)
-                for (let i = 0; i<this.effects.length; i++ ) {
-                    this.doEffect[this.effects[i].type](caster,i)
-                }
-            } else {
-                this.setCasting(caster)
-            }
-            this.setGcd(caster)
-            return true
-        } else if (this.canSpellQueue(caster)) {
-            spellQueue.add(this,caster.gcd)
-        }
-        return false
-    }
-
-    endCast(caster) {
-        caster.isCasting = false
-        let done = false
-        for (let i = 0; i<this.effects.length; i++ ) {
-            done = this.doEffect[this.effects[i].type](caster,i,done)
-        }
-
-        if (done) {
-            //cd
-            if (this.maxCharges>1) {
-                if (this.charges===this.maxCharges) {
-                    this.cd = 0
-                }
-                this.charges--
-            } else {
-                this.cd = 0
-            }
-
-            caster.useEnergy(this.cost,this.secCost)
-        } else {
-            this.gcd = 0
-        }
     }
 
     cast(caster) {
-        this.channelFunctions[this.name](caster)
     }
 
     runBuff(target,buff,id = 0) {
-        if (this.runBuffFunctions[buff.name]!==undefined) {
-            this.runBuffFunctions[buff.name](target,buff,id)
-        }
     }
 
     endBuff(target) {
-        if (this.name==="Roll") {
-            target.isRolling = false
-        } else if (this.name==="Fortifying Brew") {
-            target.healthIncreased -= this.effects[0].val
-            target.maxHealth /= 1+this.effects[0].val
-            if (target.health>target.maxHealth) {
-                target.health = target.maxHealth
-            }
-        }
     }
 
     endChanneling(caster) {
-        if (this.canMove) {
-            caster.canMoveWhileCasting = false
-        }
     }
 
     run(caster) {
@@ -536,13 +418,22 @@ class Ability {
 
     setCasting(caster) {
         caster.isCasting = true
-        caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+        if (this.name!=="Arcane Blast") {
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+        } else {
+            caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100))}
+        }
+
     }
 
 
     setGcd(caster,gcd = 0) {
         details.castAbility(caster,this)
         castCombatLog.cast(caster,this)
+        caster.spellHistory.unshift(this.name)
+        if (caster.spellHistory.length>3) {
+            caster.spellHistory.pop()
+        }
         if (this.hasteGcd) {
             if (gcd===0) {
                 caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))

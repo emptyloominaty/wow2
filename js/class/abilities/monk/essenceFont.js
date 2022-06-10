@@ -65,7 +65,7 @@ class EssenceFont extends Ability {
                 if (this.checkDistance(caster,friendlyTargets[t])) {
                     this.last6bolts.push(t)
                     if (this.last6bolts.length>5) {
-                        this.last6bolts = []
+                        this.last6bolts.shift()
                     }
                     doHeal(caster,friendlyTargets[t],this)
                     applyHot(caster,friendlyTargets[t],this,undefined,undefined,this.hotSpellPower)

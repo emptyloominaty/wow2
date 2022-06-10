@@ -23,7 +23,7 @@ class BlackoutKick extends Ability {
 
         if (ww) {
             this.secCost = 1 //chi
-            this.spellPower = 0.565 *2
+            this.spellPower = (0.565 *2)*0.93
             this.cd = 0
             this.gcd = 1
             this.hasteGcd = false
@@ -31,13 +31,11 @@ class BlackoutKick extends Ability {
     }
 
     getTooltip() {
-        return "Kick with a blast of Chi energy, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage"
+        return "Kick with a blast of Chi energy, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage"
     }
 
     run(caster) {
-
     }
-
 
     risingSunKickReset(caster,_y) {
         if (caster.spec === "mistweaver") {
@@ -58,6 +56,12 @@ class BlackoutKick extends Ability {
                 }
             }
         } else if (caster.spec === "windwalker") {
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name==="Blackout Kick") {
+                    caster.secondaryResource++
+                    caster.buffs.splice(i, 1)
+                }
+            }
             caster.abilities["Rising Sun Kick"].cd -= 1
             //TODO:caster.abilities["Fists of Fury"].cd -= 1
         }

@@ -15,10 +15,10 @@ class Rupture extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.2505
+        this.spellPower = 0.2505*1.51
         this.duration = 8
 
-        this.spellPowerC = [0.501, 0.752, 1.002, 1.253, 1.504, 1.754]
+        this.spellPowerC = [0.501*1.51, 0.752*1.51, 1.002*1.51, 1.253*1.51, 1.504*1.51, 1.754*1.51]
 
         this.effect = ""
         this.effectValue = 0

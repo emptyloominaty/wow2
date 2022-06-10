@@ -15,10 +15,10 @@ class Envenom extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.16
+        this.spellPower = 0.16*1.51
         this.duration = 8
 
-        this.spellPowerC = [0.16, 0.32, 0.48, 0.64, 0.8, 0.96]
+        this.spellPowerC = [0.16*1.51, 0.32*1.51, 0.48*1.51, 0.64*1.51, 0.8*1.51, 0.96*1.51]
 
         this.effect = ""
         this.effectValue = 0

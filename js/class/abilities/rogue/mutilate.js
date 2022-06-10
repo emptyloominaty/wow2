@@ -15,7 +15,7 @@ class Mutilate extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.525
+        this.spellPower = 0.525*1.51
 
         this.effect = ""
         this.effectValue = 0

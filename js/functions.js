@@ -97,7 +97,13 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (ability.poison || ability.bleed) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }
-        } //else if
+        } else if (caster.spec==="windwalker") {
+            if (caster.spellHistory[0]!==ability.name) {
+                damage = damage * (1 + (caster.stats.mastery / 100))
+            }
+        } else if (caster.spec==="arcane") { //TODO?
+            damage = damage * ((1 + (caster.stats.mastery / 100))/1.2)
+        }
 
         if (ability.school==="physical") {
             damage = damage * (1-(target.stats.armor/100))
@@ -313,4 +319,12 @@ let getTime2 = function(number) {
     } else {
         return (number).toFixed(0)+"s"
     }
+}
+
+let spellPowerToNumber = function(val) {
+    return ((player.stats.primary * val) * (1 + (player.stats.vers / 100))).toFixed(0)
+}
+
+let spellPowerHotToNumber = function(val) {
+    return ((player.stats.primary * val) * (1 + (player.stats.vers / 100))* (1 + (player.stats.haste / 100))).toFixed(0)
 }

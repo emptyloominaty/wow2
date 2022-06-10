@@ -26,12 +26,17 @@ class Action {
             }
         }
         //gcd
-        if (player.gcd>0) {
-            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = ((bars.playerCast.val/bars.playerCast.maxVal)*100)+"%"
-            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.borderBottom = "1px Solid #FFF"
+        if (player.abilities[this.name].checkCost(player)) {
+            if (player.gcd > 0 && !player.abilities[this.name].noGcd) {
+                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.height = ((bars.playerCast.val / bars.playerCast.maxVal) * 100) + "%"
+                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.borderBottom = "1px Solid #FFF"
+            } else {
+                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.height = "0%"
+                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.borderBottom = "0px Solid #FFF"
+            }
         } else {
-            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.height = "0%"
-            document.getElementById("action_gcd_"+this.bar+"_"+this.slot+"").style.borderBottom = "0px Solid #FFF"
+            document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.height =  "100%"
+            document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.borderBottom = "0px Solid #FFF"
         }
         //cd
         if (player.abilities[this.name].cd<player.abilities[this.name].maxCd) {
