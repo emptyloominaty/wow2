@@ -96,7 +96,7 @@ class Creature {
         this.role = ""
         if (spec==="mistweaver") { //----------------------------------------Mistweaver
             this.class = "Monk"
-            this.abilities = new Mw_abilities()
+            this.abilities = new Mw_Abilities()
             this.melee = true
             this.role = "healer"
         } else if (spec==="windwalker") {//----------------------------------------Windwalker
@@ -163,9 +163,16 @@ class Creature {
         } else if (spec==="havoc") {//----------------------------------------Havoc
             this.class = "Demon Hunter"
             this.melee = true
+            this.abilities = new Havoc_Abilities()
             this.resourceName = "Fury"
             this.role = "dps"
-        } else if (spec==="bossTest") {//----------------------------------------Boss Test
+        } else if (spec==="fury") {//----------------------------------------Fury
+            this.class = "Warrior"
+            this.melee = true
+            this.abilities = new Fury_Abilities()
+            this.resourceName = "Rage"
+            this.role = "dps"
+        }  else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"
             this.abilities = new BossTestAbilities()
             this.melee = true
@@ -308,10 +315,8 @@ class Creature {
             }
 
 
-
-
             this.buffs[i].duration -= progressInSec
-            if (this.buffs[i].duration<0) {
+            if (this.buffs[i].duration<0 || this.buffs[i].stacks<=0) {
                 this.buffs[i].ability.endBuff(this)
                 this.buffs.splice(i,1)
                 i--
@@ -383,6 +388,9 @@ class Creature {
         this.energy -= val * this.reduceEnergyCost
         if (val2!==0 && this.maxSecondaryResource>0) {
             this.useSec(val2)
+        }
+        if (this.spec==="arcane") {
+            this.abilities["Clearcasting"].spendMana(this,val)
         }
     }
 

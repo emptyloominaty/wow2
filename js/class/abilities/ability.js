@@ -10,6 +10,9 @@ class Ability {
     spellPower = 0
     duration = 0
 
+    passive = false
+
+
 
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
@@ -398,34 +401,18 @@ class Ability {
     run(caster) {
     }
 
-    stopChanneling(caster) {
-        if ((this.name ==="Vivify" || this.name ==="Enveloping Mist") && caster.channeling.name==="Soothing Mist") {
-            this.endCast(caster)
-            this.setGcd(caster)
-            bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
-            return true
+
+    setCd() {
+        //cd
+        if (this.maxCharges>1) {
+            if (this.charges===this.maxCharges) {
+                this.cd = 0
+            }
+            this.charges--
         } else {
-            caster.isChanneling = false
-            caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
-            return false
+            this.cd = 0
         }
     }
-
-    setChanneling(caster) {
-        caster.isChanneling = true
-        caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1/(1 + (caster.stats.haste / 100))}
-    }
-
-    setCasting(caster) {
-        caster.isCasting = true
-        if (this.name!=="Arcane Blast") {
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
-        } else {
-            caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100))}
-        }
-
-    }
-
 
     setGcd(caster,gcd = 0) {
         details.castAbility(caster,this)

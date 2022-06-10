@@ -328,3 +328,19 @@ let spellPowerToNumber = function(val) {
 let spellPowerHotToNumber = function(val) {
     return ((player.stats.primary * val) * (1 + (player.stats.vers / 100))* (1 + (player.stats.haste / 100))).toFixed(0)
 }
+
+let checkBuff = function(caster,target,buffName) {
+    for (let i = 0; i<target.buffs.length; i++) {
+        if (target.buffs[i].name===buffName && target.buffs[i].caster === caster) {
+            return true
+        }
+    }
+}
+
+let checkDebuff= function(caster,target,buffName) {
+    for (let i = 0; i<target.debuffs.length; i++) {
+        if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
+            return true
+        }
+    }
+}

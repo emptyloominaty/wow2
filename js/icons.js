@@ -15,6 +15,7 @@ let iconsPath = {
         "balance":"img/specs/druid/balance.png",
         "arcane":"img/specs/mage/arcane.png",
         "havoc":"img/specs/demonhunter/havoc.jpg",
+        "fury":"img/specs/warrior/fury.png",
     },
 
     //classes
@@ -493,6 +494,7 @@ let iconsPath = {
     "Cauterize":"img/mage/Cauterize.jpg",
     "Cold Snap":"img/mage/ColdSnap.jpg",
     "Combustion":"img/mage/Combustion.jpg",
+    "Clearcasting(Mage)":"img/druid/Clearcasting.jpg",
     "Comet Storm":"img/mage/CometStorm.jpg",
     "Cone of Cold":"img/mage/ConeofCold.jpg",
     "Conflagration":"img/mage/Conflagration.jpg",

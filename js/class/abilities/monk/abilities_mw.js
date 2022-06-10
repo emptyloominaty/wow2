@@ -1,4 +1,4 @@
-class Mw_abilities {
+class Mw_Abilities {
     "Vivify" = new Vivify()
     "Renewing Mist" = new RenewingMist()
     "Gust of Mists" = new GustOfMists()

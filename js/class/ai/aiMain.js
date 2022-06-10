@@ -212,13 +212,13 @@ class Ai {
                 if (!casted && !this.checkBuff(c,c,"Deadly Poison")) {
                     casted = c.abilities["Deadly Poison"].startCast(c)
                 }
-                if (!casted && !this.checkBuff(c,c,"Slice And Dice")) {
+                if (!casted && !this.checkBuff(c,c,"Slice And Dice") && c.secondaryResource>2) {
                     casted = c.abilities["Slice And Dice"].startCast(c)
                 }
                 if (!casted && !this.checkDebuff(c,target,"Garrote")) {
                     casted = c.abilities["Garrote"].startCast(c)
                 }
-                if (!casted && !this.checkDebuff(c,target,"Rupture")) {
+                if (!casted && !this.checkDebuff(c,target,"Rupture") && c.secondaryResource>2) {
                     casted = c.abilities["Rupture"].startCast(c)
                 }
                 if (!casted) {
@@ -228,6 +228,53 @@ class Ai {
                     casted = c.abilities["Envenom"].startCast(c)
                 }
 
+            }
+
+        },
+        "havoc":() => { //--------------------------------------------------------------------------------------------------Havoc DH
+            let c = this.creature
+            let casted = false
+            let target = this.getLowestHpEnemy()
+            setTargetAi(c,target)
+            c.direction = getDirection(c,c.targetObj)
+            let dist = getDistance(c,c.targetObj)
+            let distNeed = 4
+            if (dist>distNeed) {
+                c.move(1)
+            } else {
+                if (!casted) {
+                    casted = c.abilities["Chaos Strike"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Demon's Bite"].startCast(c)
+                }
+
+            }
+
+        },
+        "fury":() => { //--------------------------------------------------------------------------------------------------Fury Warrior
+            let c = this.creature
+            let casted = false
+            let target = this.getLowestHpEnemy()
+            setTargetAi(c,target)
+            c.direction = getDirection(c,c.targetObj)
+            let dist = getDistance(c,c.targetObj)
+            let distNeed = 4
+            if (dist>distNeed) {
+                c.move(1)
+            } else {
+                if (!casted) {
+                    casted = c.abilities["Execute"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Rampage"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Raging Blow"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Bloodthirst"].startCast(c)
+                }
             }
 
         },
@@ -249,10 +296,16 @@ class Ai {
                             this.creature.targetObj = enemyTargets[i]
                             this.creature.castTarget = enemyTargets[i]
                             this.creature.target = enemyTargets[i].name
-                            if (this.creature.energy<10) { //&& this.creature.secondaryResource>2 ???
+                            let casted = false
+                            if (!casted && checkBuff(b,b,"Clearcasting(Mage)")) {
+                                casted = this.creature.abilities["Arcane Missiles"].startCast(this.creature)
+                            }
+                            if (!casted && this.creature.energy<10) { //&& this.creature.secondaryResource>2 ???
                                 this.creature.abilities["Arcane Barrage"].startCast(this.creature)
                             }
-                            this.creature.abilities["Arcane Blast"].startCast(this.creature)
+                            if (!casted) {
+                                this.creature.abilities["Arcane Blast"].startCast(this.creature)
+                            }
                         }
                     }
 

@@ -157,3 +157,13 @@ if (player.spec==="windwalker") {
         "Provoke": new Action("Provoke", 2, 2),
     }
 }
+
+if (player.spec==="arcane") {
+    actions = {
+        //bar1
+        "Arcane Barrage": new Action("Arcane Barrage", 1, 0),
+
+        "Arcane Blast": new Action("Arcane Blast", 1, 8),
+        "Arcane Missiles": new Action("Arcane Missiles", 1, 9),
+    }
+}
