@@ -1,13 +1,18 @@
 class Ability {
     hasteCd = false
     hasteGcd = true
+
     range = 5
     secCost = 0
 
     poison = false
     bleed = false
     tooltip = ""
-    constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {}) {
+    spellPower = 0
+    duration = 0
+    constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
+                noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
+                poison = false, bleed = false,) {
         this.name = name
         this.cost = cost
         this.gcd = gcd
@@ -22,10 +27,18 @@ class Ability {
         this.charges = charges
         this.maxCharges = charges
         this.effects = effects
+        this.noGcd = noGcd
+
+        this.hasteCd = hasteCd
+        this.hasteGcd = hasteGcd
+        this.secCost = secCost
+        this.poison = poison
+        this.bleed = bleed
+
 
         if (effects.length>0) {
             this.spellPower = effects[0].val
-            if (effects[0].type==="applyDot" || effects[0].type==="applyHot") {
+            if (effects[0].type==="applyDot" || effects[0].type==="applyHot" || effects[0].type==="applyBuff" || effects[0].type==="applyBuffSelf" || effects[0].type==="applyDebuff" || effects[0].type==="roll" || effects[0].type==="essenceFont" || effects[0].type==="tauntAndBuff") {
                 this.duration = effects[0].duration
             }
         }
@@ -37,11 +50,15 @@ class Ability {
         if (values.spellPower) {
             this.spellPower = values.spellPower
         }
+        if (values.effect) {
+            this.effect = values.effect
+        }
 
     }
 
     getTooltip() {
-        return this.tooltip
+        return tooltips.getTooltip(this)
+        //return this.tooltip
     }
 
     doEffect = {
@@ -62,12 +79,79 @@ class Ability {
             }
         },
         "damage": (caster,_i)=> {
+            let done = false
+            if (caster.target!=="" && this.isEnemy(caster) ) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.targetObj.isDead) {
+                    doDamage(caster, caster.castTarget, this)
+                    done = true
+                }
+            } else {
+                let newTarget = findNearestEnemy(caster)
+                if (newTarget!==false) {
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
+                    caster.targetObj = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster,caster.targetObj) && !caster.targetObj.isDead) {
+                        doDamage(caster, caster.targetObj, this)
+                        done = true
+                    }
+                }
+            }
+            return done
         },
         "taunt": (caster,_i)=> {
+            if (caster.target!=="" && this.isEnemy(caster) && Object.keys(caster.castTarget).length !== 0) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    taunt(caster,caster.castTarget)
+                    return true
+                }
+            } else { //TODO:IDK?
+                let newTarget = findNearestEnemy(caster)
+                if (newTarget!==false) {
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
+                    caster.targetObj = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                        taunt(caster,caster.targetObj)
+                        return true
+                    }
+                }
+            }
+            return false
+        },
+        "tauntAndBuff": (caster,_i)=> {
+            if (caster.target!=="" && this.isEnemy(caster) && Object.keys(caster.castTarget).length !== 0) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    applyBuff(caster,caster.castTarget,this)
+                    taunt(caster,caster.castTarget)
+                    return true
+                }
+            } else { //TODO:IDK?
+                let newTarget = findNearestEnemy(caster)
+                if (newTarget!==false) {
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
+                    caster.targetObj = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                        applyBuff(caster,caster.targetObj,this)
+                        taunt(caster,caster.targetObj)
+                        return true
+                    }
+                }
+            }
+            return false
         },
         "interrupt": (caster,_i)=> {
+            return true
         },
         "dispel": (caster,_i)=> {
+            return true
         },
         "applyHot": (caster,_i)=> {
             if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0 || !this.checkDistance(caster,caster.castTarget)) {
@@ -75,36 +159,116 @@ class Ability {
             } else {
                 applyHot(caster,caster.castTarget,this)
             }
+            return true
         },
         "applyDot": (caster,_i)=> {
+            return true
         },
         "aoeDamage": (caster,_i)=> {
+            return true
         },
         "cleaveDamage": (caster,_i)=> {
+            return true
         },
         "aoeHeal": (caster,_i)=> {
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                if (this.checkDistance(caster,friendlyTargets[i])) {
+                    doHeal(caster,friendlyTargets[i],this)
+                }
+            }
+            return true
         },
         "createHealingArea": (caster,_i)=> {
+            return true
         },
         "createDanageArea": (caster,_i)=> {
+            return true
         },
-        "move": (caster,_i)=> { //roll
+        "move": (caster,_i)=> {
+            return true
         },
         "applyBuff": (caster,_i)=> {
+            let stackable = false
+            let stacks = 1
+            let name = this.name
+            if (this.effects[_i].stacks!==undefined) {
+                stackable = true
+                stacks = this.effects[_i].stacks
+            }
+            if (this.effects[_i].name!==undefined) {
+                name = this.effects[_i].name
+            }
+            if (this.effects[_i].maxStacks!==undefined) {
+                this.maxStacks = this.effects[_i].maxStacks
+            }
+            if (caster.target==="" || this.isEnemy(caster) || !(this.checkDistance(caster,caster.castTarget)) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+                applyBuff(caster,caster,this,stacks,stackable, name)
+            } else {
+                applyBuff(caster,caster.castTarget,this,stacks,stackable, name)
+            }
+            return true
+        },
+        "applyBuffSelf": (caster,_i,done)=> {
+            if (done) {
+                let stackable = false
+                let stacks = 1
+                let name = this.name
+                if (this.effects[_i].stacks !== undefined) {
+                    stackable = true
+                    stacks = this.effects[_i].stacks
+                }
+                if (this.effects[_i].name !== undefined) {
+                    name = this.effects[_i].name
+                }
+                if (this.effects[_i].maxStacks !== undefined) {
+                    this.maxStacks = this.effects[_i].maxStacks
+                }
+                applyBuff(caster, caster, this, stacks, stackable, name)
+
+                return true
+            }
+            return false
         },
         "applyDebuff": (caster,_i)=> {
+            return true
         },
         "increaseDuration": (caster,_i)=> {
+            return true
         },
         "increaseHealing": (caster,_i)=> {
+            return true
+        },
+        "increaseHealthSelf": (caster,_i)=> {
+            caster.healthIncreased += this.effects[_i].val
+            let a = caster.maxHealth
+            caster.maxHealth *= 1+this.effects[_i].val
+            let b = caster.maxHealth
+            caster.health += b-a
+            return true
+        },
+        "chanceBuffSelf": (caster,_i,done)=> {
+            if (done) {
+                if (getChance(this.effects[_i].chance)) {
+                    this.duration = 20
+                    applyBuff(caster, caster, this, 1, false, this.effects[_i].buffName)
+                }
+                return true
+            }
+            return false
         },
         //SPEC-------------------------------------------------------------------------------------------------------------
+        //--------------------------------------MONK
+        "roll":(caster,_i)=> {
+            applyBuff(caster,caster,this)
+            caster.isRolling = true
+            return true
+        },
         "gustOfMistMainTarget": (caster,_i)=> {
             if (caster.spec==="mistweaver") {
                 let spellPower = caster.stats.mastery/100
                 if (caster.target==="" || caster.castTarget.enemy) {
                     Object.keys(caster.buffs).forEach((key)=> {
-                        if (caster.buffs[key].name === "Essence Font") {
+                        if (caster.buffs[key].name === "Essence Font" && caster.castTarget.buffs[key].caster === caster) {
                             doHeal(caster,caster,caster.abilities["Gust of Mists"],undefined,spellPower)
                         }
                     })
@@ -112,7 +276,7 @@ class Ability {
                     doHeal(caster,caster,this,undefined,spellPower)
                 } else {
                     Object.keys(caster.castTarget.buffs).forEach((key)=> {
-                        if (caster.castTarget.buffs[key].name === "Essence Font") {
+                        if (caster.castTarget.buffs[key].name === "Essence Font" && caster.castTarget.buffs[key].caster === caster) {
                             doHeal(caster,caster.castTarget,caster.abilities["Gust of Mists"],undefined,spellPower)
                         }
                     })
@@ -120,7 +284,93 @@ class Ability {
                     doHeal(caster,caster.castTarget,caster.abilities["Gust of Mists"],undefined,spellPower)
                 }
             }
+            return true
         },
+        "gustOfMistAoe": (caster,_i)=> {
+            let spellPower = caster.stats.mastery/100
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                if (this.checkDistance(caster,friendlyTargets[i])) {
+                    Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
+                        if (friendlyTargets[i].buffs[key].name === "Essence Font" && friendlyTargets[i].buffs[key].caster === caster) {
+                            doHeal(caster,friendlyTargets[i],caster.abilities["Gust of Mists"],undefined,spellPower)
+                        }
+                    })
+                    doHeal(caster,friendlyTargets[i],caster.abilities["Gust of Mists"],undefined,spellPower)
+                }
+            }
+            return true
+        },
+        "essenceFont": (caster,_i)=> {
+            this.cd = 0
+            this.values.last6bolts = []
+            caster.useEnergy(this.cost,this.secCost)
+            caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))/6}
+            caster.canMoveWhileCasting = this.canMove
+            return true
+        },
+        "blackoutKick": (caster,_i,done)=> {
+            if (done) {
+                if (caster.spec === "mistweaver") {
+                    for (let i = 0; i < caster.buffs.length; i++) {
+                        if (caster.buffs[i].name === "Teachings of the Monastery" && caster.buffs[i].caster === caster) {
+                            for (let j = 0; j < caster.buffs[i].stacks; j++) {
+                                doDamage(caster, caster.targetObj, this)
+                            }
+                            //Rising Sun Kick Reset
+                            let stacks = caster.buffs[i].stacks
+                            let resetChance = (Math.random()) * 100
+                            if (resetChance < this.values.resetChance + (stacks * this.values.resetChance)) {
+                                caster.abilities["Rising Sun Kick"].cd = caster.abilities["Rising Sun Kick"].maxCd
+                            }
+                            caster.buffs.splice(i, 1)
+                            break
+                        }
+                    }
+                } else if (caster.spec === "windwalker") {
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Blackout Kick") {
+                            caster.secondaryResource++
+                            caster.buffs.splice(i, 1)
+                        }
+                    }
+                    caster.abilities["Rising Sun Kick"].cd -= 1
+                    //TODO:caster.abilities["Fists of Fury"].cd -= 1
+                }
+                return true
+            }
+            return false
+        },
+        "risingMist":(caster,_i,done)=> {
+            //extend:4,spellPower:0.28,maxExtendRisingMist:1
+            if (done) {
+                let maxExtendRisingMist = this.values.maxExtendRisingMist
+                let extendRisingMist = this.values.extendRM
+                let spellPowerRisingMist = this.values.spellPower
+
+                if (caster.spec === "mistweaver" && caster.talents.RisingMist) {
+                    for (let i = 0; i<friendlyTargets.length; i++) {
+                        Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
+                            if ((friendlyTargets[i].buffs[key].name === "Enveloping Mist" || friendlyTargets[i].buffs[key].name === "Renewing Mist" || friendlyTargets[i].buffs[key].name === "Essence Font") && friendlyTargets[i].buffs[key].caster === caster) {
+                                if (friendlyTargets[i].buffs[key].extendedDuration+extendRisingMist < friendlyTargets[i].buffs[key].maxDuration * maxExtendRisingMist) {
+                                    friendlyTargets[i].buffs[key].duration += extendRisingMist
+                                    friendlyTargets[i].buffs[key].extendedDuration += extendRisingMist
+                                } else if (friendlyTargets[i].buffs[key].extendedDuration < friendlyTargets[i].buffs[key].maxDuration * maxExtendRisingMist) {
+                                    let extend = (friendlyTargets[i].buffs[key].maxDuration*maxExtendRisingMist ) - friendlyTargets[i].buffs[key].extendedDuration
+                                    friendlyTargets[i].buffs[key].duration += extend
+                                    friendlyTargets[i].buffs[key].extendedDuration += extend
+                                }
+                                doHeal(caster,friendlyTargets[i],this,0,spellPowerRisingMist,undefined,undefined,"Rising Mist")
+                            }
+                        })
+                    }
+                }
+
+
+                return true
+            }
+            return false
+        },
+        //--------------------------------------
     }
 //----------------------------------------------------------------------------------------------------------RunBuff
     runBuffFunctions = {
@@ -165,22 +415,44 @@ class Ability {
                     this.doEffect["gustOfMistMainTarget"](caster,0)
                 }
             }
+            caster.useEnergy(this.cost,this.secCost)
+        },
+        "Essence Font": (caster)=> {
+            let j = 0
+            let k = 0
+            while(j===0) {
+                k++
+                let no = friendlyTargets.length
+                let t = Math.floor(Math.random()*no)
+                if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth && this.values.last6bolts.indexOf(t)===-1 || k>120)) {
+                    if (this.checkDistance(caster,friendlyTargets[t])) {
+                        this.values.last6bolts.push(t)
+                        if (this.values.last6bolts.length>5) {
+                            this.values.last6bolts.shift()
+                        }
+                        doHeal(caster,friendlyTargets[t],this)
+                        applyHot(caster,friendlyTargets[t],this,undefined,undefined,this.values.hotSpellPower)
+                        j++
+                    }
+                }
+            }
         }
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster) && this.checkDistance(caster,caster.castTarget)) {
-
+        if ((caster.gcd<=0 || this.noGcd) && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (this.stopChanneling(caster)) {
                 return true
             }
 
             if (this.channeling) {
                 this.setChanneling(caster)
+                for (let i = 0; i<this.effects.length; i++ ) {
+                    this.doEffect[this.effects[i].type](caster,i)
+                }
             } else {
                 this.setCasting(caster)
             }
-
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -191,22 +463,26 @@ class Ability {
 
     endCast(caster) {
         caster.isCasting = false
-
+        let done = false
         for (let i = 0; i<this.effects.length; i++ ) {
-                this.doEffect[this.effects[i].type](caster,i)
+            done = this.doEffect[this.effects[i].type](caster,i,done)
         }
 
-        //cd
-        if (this.maxCharges>1) {
-            if (this.charges===this.maxCharges) {
+        if (done) {
+            //cd
+            if (this.maxCharges>1) {
+                if (this.charges===this.maxCharges) {
+                    this.cd = 0
+                }
+                this.charges--
+            } else {
                 this.cd = 0
             }
-            this.charges--
-        } else {
-            this.cd = 0
-        }
 
-        caster.useEnergy(this.cost,this.secCost)
+            caster.useEnergy(this.cost,this.secCost)
+        } else {
+            this.gcd = 0
+        }
     }
 
     cast(caster) {
@@ -220,12 +496,24 @@ class Ability {
     }
 
     endBuff(target) {
-
+        if (this.name==="Roll") {
+            target.isRolling = false
+        } else if (this.name==="Fortifying Brew") {
+            target.healthIncreased -= this.effects[0].val
+            target.maxHealth /= 1+this.effects[0].val
+            if (target.health>target.maxHealth) {
+                target.health = target.maxHealth
+            }
+        }
     }
 
+    endChanneling(caster) {
+        if (this.canMove) {
+            caster.canMoveWhileCasting = false
+        }
+    }
 
     run(caster) {
-
     }
 
     stopChanneling(caster) {
@@ -321,7 +609,7 @@ class Ability {
         }
         if (caster.energy>cost) {
             if (this.secCost>0 && caster.maxSecondaryResource>0) {
-                if (caster.secondaryResource>this.secCost) {
+                if (caster.secondaryResource>=this.secCost) {
                     return true
                 } else {
                     if (caster===player) {

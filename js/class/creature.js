@@ -59,6 +59,7 @@ class Creature {
     damageReduction = 0
     healthIncreased = 0
     magicDamageReduction = 0
+    reduceEnergyCost = 1
 
     constructor(name,enemy,health,energy,x,y,direction,spec) {
         this.id = creatures.length
@@ -240,9 +241,12 @@ class Creature {
         }
 
 
+        //---------------------------------------------------
         this.healingIncrease = 1
         this.moveSpeedIncrease = 1
         this.attackSpeed = 1
+        this.reduceEnergyCost = 1
+        this.damageReduction = 0
 
         //forms
         for (let i = 0; i<this.formEffects.length; i++) {
@@ -265,15 +269,40 @@ class Creature {
             } else if (this.buffs[i].type==="form") {
 
             }
-            if (this.buffs[i].effect==="move") {
-                this.move((this.buffs[i].effectValue*40)/fps)
-            } else if (this.buffs[i].effect==="healingIncrease") {
-                this.healingIncrease += this.buffs[i].effectValue
-            } else if (this.buffs[i].effect === "moveSpeed") {
-                this.moveSpeedIncrease += this.buffs[i].effectValue
-            } else if (this.buffs[i].effect === "incAttackSpeed") {
-                this.attackSpeed *= (1+this.buffs[i].effectValue)
+
+            if (Array.isArray(this.buffs[i].effect)) {
+                //NEW
+                for (let j = 0; j<this.buffs[i].effect.length; j++) {
+                    if (this.buffs[i].effect[j].name === "move") {
+                        this.move((this.buffs[i].effect[j].val*40)/fps)
+                    } else if (this.buffs[i].effect[j].name === "healingIncrease") {
+                        this.healingIncrease += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "moveSpeed") {
+                        this.moveSpeedIncrease += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "incAttackSpeed") {
+                        this.attackSpeed *= (1+this.buffs[i].effect[j].val)
+                    } else if (this.buffs[i].effect[j].name === "reduceEnergyCost") {
+                        this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
+                    } else if (this.buffs[i].effect[j].name === "damageReduction") {
+                        this.damageReduction += this.buffs[i].effect[j].val
+                    }
+                }
+            } else {
+                //OLD
+                if (this.buffs[i].effect==="move") {
+                    this.move((this.buffs[i].effectValue*40)/fps)
+                } else if (this.buffs[i].effect==="healingIncrease") {
+                    this.healingIncrease += this.buffs[i].effectValue
+                } else if (this.buffs[i].effect === "moveSpeed") {
+                    this.moveSpeedIncrease += this.buffs[i].effectValue
+                } else if (this.buffs[i].effect === "incAttackSpeed") {
+                    this.attackSpeed *= (1+this.buffs[i].effectValue)
+                } else if (this.buffs[i].effect === "reduceEnergyCost") {
+                    this.reduceEnergyCost -= this.buffs[i].effectValue
+                }
             }
+
+
 
 
             this.buffs[i].duration -= progressInSec
@@ -345,13 +374,8 @@ class Creature {
     }
 
     useEnergy(val,val2 = 0) {
-        let reduceEnergyCost = 1
-        for (let i = 0; i<this.buffs.length; i++) {
-            if (this.buffs[i].effect === "reduceEnergyCost") {
-                reduceEnergyCost = this.buffs[i].effectValue
-            }
-        }
-        this.energy -= val * reduceEnergyCost
+        if (this.reduceEnergyCost<0) {this.reduceEnergyCost=0}
+        this.energy -= val * this.reduceEnergyCost
         if (val2!==0 && this.maxSecondaryResource>0) {
             this.useSec(val2)
         }
@@ -374,7 +398,7 @@ class Creature {
         let vx = Math.sin(angleInRadian) * speed
         let vy = Math.cos(angleInRadian) * speed
 
-        if (this.isCasting && !this.canMoveWhileCasting) {
+        if (this.isCasting && this.abilities[this.casting.name].castTime>0 && !this.canMoveWhileCasting) {
             this.isCasting = false
             this.gcd = 0
             this.casting = {name:"", time:0, time2:0}

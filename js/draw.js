@@ -163,7 +163,7 @@ function draw(progress) {
                     bars["creature"+i+"Health"].setText(getNumberString(creatures[i].health)+" "+(health*100).toFixed(0)+"%")
                 }
 
-                if (creatures[i].isCasting) {
+                if (creatures[i].isCasting && creatures[i].abilities[creatures[i].casting.name].castTime>0) {
                     bars["creature"+i+"Cast"].setVisibility(true)
                     bars["creature"+i+"Cast"].setPosition(x2d,y2dC,true)
                     bars["creature"+i+"Cast"].setMaxVal(creatures[i].casting.time2)

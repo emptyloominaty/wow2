@@ -141,3 +141,14 @@ if (player.spec==="assassination") {
         "Deadly Poison": new Action("Deadly Poison", 2, 2),
     }
 }
+if (player.spec==="windwalker") {
+    actions = {
+        //bar1
+        "Rising Sun Kick": new Action("Rising Sun Kick", 1, 0),
+
+        "Tiger Palm": new Action("Tiger Palm", 1, 8),
+        "Blackout Kick": new Action("Blackout Kick", 1, 9),
+
+        "Provoke": new Action("Provoke", 2, 2),
+    }
+}

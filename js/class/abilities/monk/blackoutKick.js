@@ -73,7 +73,6 @@ class BlackoutKick extends Ability {
                     if (caster.spec === "mistweaver") {
                         this.risingSunKickReset(caster,_y)
                     }
-
                     done = true
                 }
             } else {

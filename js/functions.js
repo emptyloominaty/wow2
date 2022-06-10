@@ -62,7 +62,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
         }
         let overhealing = (target.health + heal) - target.maxHealth
         if (inCombat) {
-            timelineCombatLog.heal(caster,target,ability,heal,overhealing)
+            timelineCombatLog.heal(caster,target,ability,heal,overhealing) //TODO:NAME | if name!==""
         }
         details.doHealing(caster, heal, ability, overhealing,name)
         //leech

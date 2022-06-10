@@ -1,6 +1,6 @@
 let settings = {
     showFloatingAbilityName:true,
-    showFloatingAbility:false,
+    showFloatingAbility:true,
     showTargetFloatingHealing:true,
     reduceTargetFlaotingHealingFont:true,
     showTargetFloatingDamage:true,

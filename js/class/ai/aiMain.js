@@ -63,18 +63,14 @@ class Ai {
                 if (dist>distNeed) {
                     b.move(1)
                 } else {
-                    for (let i = 0; i<enemyTargets.length; i++) {
-                        if (this.creature.gcd<=0) {
+                    for (let i = 0; i < enemyTargets.length; i++) {
+                        if (this.creature.gcd <= 0) {
                             this.creature.targetObj = enemyTargets[i]
                             this.creature.castTarget = enemyTargets[i]
                             this.creature.target = enemyTargets[i].name
                             this.creature.abilities["Blackout Kick"].startCast(this.creature)
                             this.creature.abilities["Tiger Palm"].startCast(this.creature)
                         }
-                    }
-
-                    if (this.creature.gcd<=0) {
-
                     }
                 }
             }
