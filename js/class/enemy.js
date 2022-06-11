@@ -26,4 +26,7 @@ class Enemy extends Creature {
     }
 }
 
-enemies.push(new Enemy("Test1",1800000,100,0,-150,180,"bossTest","boss"))
+enemies.push(new Enemy("Test1",1500000,100,0,-150,180,"bossTest","boss"))
+enemies.push(new Enemy("Test2",650000,100,50,-170,180,"addTest","add"))
+enemies.push(new Enemy("Test3",650000,100,-50,-170,180,"addTest","add"))
+enemies.push(new Enemy("Test4",650000,100,100,-180,180,"addTest","add"))

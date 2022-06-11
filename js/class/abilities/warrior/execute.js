@@ -37,7 +37,8 @@ class Execute extends Ability {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.targetObj,this)
+                    doDamage(caster,caster.castTarget,this)
+                    caster.abilities["WhirlwindBuff"].startCast(caster,caster.castTarget,this)
                     done = true
                 }
             } else {
@@ -50,6 +51,7 @@ class Execute extends Ability {
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster, caster.targetObj, this)
+                        caster.abilities["WhirlwindBuff"].startCast(caster,caster.targetObj,this)
                         done = true
                     }
                 }

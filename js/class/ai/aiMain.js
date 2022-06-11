@@ -20,7 +20,7 @@ class Ai {
                 c.move(1)
             } else {
 
-                if (enemies.length>2) {
+                if (this.getNumberOfEnemies()>2) {
                     casted = c.abilities["Spinning Crane Kick"].startCast(c)
                 }
                 if (!casted) {
@@ -53,7 +53,7 @@ class Ai {
                 c.move(1)
             } else {
 
-                if (enemies.length>2) {
+                if (this.getNumberOfEnemies()>1) {
                     casted = c.abilities["Spinning Crane Kick"].startCast(c)
                 }
                 if (!casted) {
@@ -93,6 +93,7 @@ class Ai {
                     if (target) {
                         for (let i = 0; i<target.length; i++) {
                             if (!this.checkBuff(c,target[i],"Riptide")) {
+                                setTargetAi(c,target[i])
                                 casted = c.abilities["Riptide"].startCast(c)
                             }
                         }
@@ -353,6 +354,40 @@ class Ai {
                     }
                 }
             }
+        }, "addTest":() => { //------------------------------------------------------------------------------------ add Test
+            //no target
+            if (Object.keys(this.creature.targetObj).length === 0)  {
+                let newTarget = findNearestEnemy(this.creature)
+                if (newTarget!==false) {
+                    this.creature.targetObj = newTarget
+                    this.creature.target = newTarget.name
+                }
+            } else {
+                let b = this.creature
+                for (let i = 0; i<b.aggro.length; i++) {
+                    let currentAggro = b.aggro[b.targetObj.id2]
+                    if (currentAggro===undefined) {
+                        currentAggro = 0
+                    }
+                    if (b.targetObj.id2.isDead) {
+                        b.aggro[b.targetObj.id2] = 0
+                    }
+                    if (currentAggro<b.aggro[i]) {
+                        b.targetObj = friendlyTargets[i]
+                        b.target = friendlyTargets[i].name
+                        b.castTarget = friendlyTargets[i]
+                    }
+                }
+
+                this.creature.direction = getDirection(b,b.targetObj)
+
+                let dist = getDistance(b,b.targetObj)
+                if (dist>4) {
+                    b.move(1)
+                } else {
+                    //ABILITIES
+                }
+            }
         },
     }
 
@@ -382,6 +417,16 @@ class Ai {
 
             }
         }
+    }
+
+    getNumberOfEnemies() {
+        let no = 0
+        for (let i = 0; i<enemies.length; i++) {
+            if (!enemies[i].isDead) {
+                no++
+            }
+        }
+        return no
     }
 
     getNumberOfInjuredTargets() {
@@ -416,7 +461,10 @@ class Ai {
     getLowestHpEnemy() {
         let e = []
         for (let i = 0; i<enemyTargets.length; i++) {
-            e.push(enemyTargets[i])
+            if (!enemyTargets[i].isDead) {
+                e.push(enemyTargets[i])
+            }
+
         }
         e = e.sort((a, b) => a.health > b.health ? 1 : -1) //most injured targets
         return e[0]
@@ -484,19 +532,24 @@ class Ai {
     }
 
     checkBuff(caster,target,buffName) {
-        for (let i = 0; i<target.buffs.length; i++) {
-            if (target.buffs[i].name===buffName && target.buffs[i].caster === caster) {
-                return true
+        if (target) {
+            for (let i = 0; i<target.buffs.length; i++) {
+                if (target.buffs[i].name===buffName && target.buffs[i].caster === caster) {
+                    return true
+                }
             }
         }
     }
 
     checkDebuff(caster,target,buffName) {
-        for (let i = 0; i<target.debuffs.length; i++) {
-            if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
-                return true
+        if (target) {
+            for (let i = 0; i<target.debuffs.length; i++) {
+                if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
+                    return true
+                }
             }
         }
+
     }
 
     countBuffs(caster,buffName) {

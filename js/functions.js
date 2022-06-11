@@ -282,9 +282,11 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
 }
 
 let setTargetAi = function(caster,target) {
-    caster.targetObj = target
-    caster.castTarget = target
-    caster.target = target.name
+    if (target) {
+        caster.targetObj = target
+        caster.castTarget = target
+        caster.target = target.name
+    }
 }
 
 let setTarget = function(caster,target) {

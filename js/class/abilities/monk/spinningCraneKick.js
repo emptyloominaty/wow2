@@ -23,6 +23,7 @@ class SpinningCraneKick extends Ability {
 
         if (ww) {
             this.secCost = 2 //chi
+            this.cost = 0
             //this.spellPower = (0.565 *2)*0.93  //148? idk   // [4 * (10% of Attack power) * [(Attack power * 0.98)][((Attack power + Offhand attack power) * 2 / 3)
             this.cd = 0
             this.gcd = 1

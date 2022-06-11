@@ -116,6 +116,7 @@ class Creature {
             this.melee = true
             this.role = "tank"
             this.stats.armor = 95 //TEST
+            this.statsBup.armor = 95 //TEST
             this.energyRegen = 10
             this.resourceName = "Energy"
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
@@ -176,6 +177,10 @@ class Creature {
             this.role = "dps"
         }  else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"
+            this.abilities = new BossTestAbilities()
+            this.melee = true
+        } else if (spec==="addTest") {//----------------------------------------Add Test
+            this.class = "Add"
             this.abilities = new BossTestAbilities()
             this.melee = true
         }

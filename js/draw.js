@@ -216,6 +216,10 @@ function draw(progress) {
                     }
                 }
             }
+            if (creatures[i].isDead) {
+                bars["creature"+i+"Health"].setVisibility(false)
+                bars["creature"+i+"Cast"].setVisibility(false)
+            }
 
             game2d.drawCircle(x2d, y2d, size, color)
             game2d.drawTargetDirection(x2d, y2d, (size-(5*gameScaling)), 3, "#9f5c5d", creatures[i].direction)

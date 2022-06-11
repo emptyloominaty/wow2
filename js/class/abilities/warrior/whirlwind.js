@@ -18,8 +18,15 @@ class Whirlwind extends Ability {
         this.spellPower = (0.083+0.089+(2*0.083)+0.089)
         //TODO Causes your next 2 single-target melee attacks to strike up to 4 additional targets for 45% damage
 
-
         this.hasteCd = true
+
+        this.duration = 20
+        this.stacks = 2
+        this.maxStacks = 2
+        this.targets = 4
+        this.cleaveDamage = 0.45
+
+
 
         this.effect = ""
         this.effectValue = 0
@@ -27,7 +34,7 @@ class Whirlwind extends Ability {
     }
 
     getTooltip() {
-        return "Unleashes a whirlwind of steel, striking all nearby enemies for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage."
+        return "Unleashes a whirlwind of steel, striking all nearby enemies for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage. Causes your next 2 single-target melee attacks to strike up to 4 additional targets for 45% damage."
     }
 
     run(caster) {
@@ -56,8 +63,8 @@ class Whirlwind extends Ability {
 
             caster.useEnergy(cost,this.secCost)
             this.setGcd(caster)
+            applyBuff(caster,caster,this,this.stacks,true)
             return true
-
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
