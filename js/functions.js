@@ -103,6 +103,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         } else if (caster.spec==="arcane") { //TODO?
             damage = damage * ((1 + (caster.stats.mastery / 100))/1.2)
+        } else if (caster.spec==="fury") {
+            if (checkBuff(caster,caster,"Enrage")) {
+                damage = damage * (1 + (caster.stats.mastery / 100))
+            }
         }
 
         if (ability.school==="physical") {

@@ -1,19 +1,14 @@
 class Ability {
     hasteCd = false
     hasteGcd = true
-
     range = 5
     secCost = 0
-
     poison = false
     bleed = false
     spellPower = 0
     duration = 0
 
     passive = false
-
-
-
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
                 poison = false, bleed = false,) {
@@ -481,7 +476,7 @@ class Ability {
         return (caster===player && caster.gcd<spellQueueWindow && (caster.gcd>0 || caster.isCasting))
     }
 
-    checkCost(caster,cost = 9999) {
+    checkCost(caster,cost = 9999,showMessage = true) {
         if (cost===9999) {
             cost = this.cost
         }
@@ -490,7 +485,7 @@ class Ability {
                 if (caster.secondaryResource>=this.secCost) {
                     return true
                 } else {
-                    if (caster===player) {
+                    if (caster===player && showMessage) {
                         _message.update("Not enough "+caster.secondaryResourceName, 2, colors.error)
                     }
                     return false
@@ -499,7 +494,7 @@ class Ability {
                 return true
             }
         } else {
-            if (caster===player) {
+            if (caster===player && showMessage) {
                 _message.update("Not enough "+caster.resourceName, 2, colors.error)
             }
             return false
@@ -530,10 +525,24 @@ class Ability {
 
     incCd(caster) {
         if (this.hasteCd) {
-            //cd haste
-            if (this.cd<this.maxCd) {
-                this.cd += progressInSec * (1 + (caster.stats.haste / 100))
+            if (this.maxCharges>1) {
+                //charges haste
+                if (this.cd<this.maxCd) {
+                    this.cd += progressInSec * (1 + (caster.stats.haste / 100))
+                    if (this.cd>=this.maxCd) {
+                        this.charges++
+                        if (this.charges!==this.maxCharges) {
+                            this.cd=0
+                        }
+                    }
+                }
+            } else {
+                //cd haste
+                if (this.cd<this.maxCd) {
+                    this.cd += progressInSec * (1 + (caster.stats.haste / 100))
+                }
             }
+
         } else {
             if (this.maxCharges>1) {
                 //charges

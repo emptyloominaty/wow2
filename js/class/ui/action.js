@@ -26,7 +26,7 @@ class Action {
             }
         }
         //gcd
-        if (player.abilities[this.name].checkCost(player)) {
+        if (player.abilities[this.name].checkCost(player,undefined,false)) {
             if (player.gcd > 0 && !player.abilities[this.name].noGcd) {
                 document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.height = ((bars.playerCast.val / bars.playerCast.maxVal) * 100) + "%"
                 document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.borderBottom = "1px Solid #FFF"
@@ -88,6 +88,7 @@ if (player.spec==="mistweaver") {
         //bar0
         "Revival": new Action("Revival", 0, 0),
         "Essence Font": new Action("Essence Font", 0, 1),
+        "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
         //bar2
         "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
@@ -165,5 +166,28 @@ if (player.spec==="arcane") {
 
         "Arcane Blast": new Action("Arcane Blast", 1, 8),
         "Arcane Missiles": new Action("Arcane Missiles", 1, 9),
+    }
+}
+
+
+if (player.spec==="fury") {
+    actions = {
+        //bar1
+
+        //    "Execute" = new Execute()
+        //     "Rampage" = new Rampage()
+        //     "Raging Blow" = new RagingBlow()
+        //     "Bloodthirst" = new Bloodthirst()
+        //     "Whirlwind" = new Whirlwind()
+
+
+        "Raging Blow": new Action("Raging Blow", 1, 0),
+        "Bloodthirst": new Action("Bloodthirst", 1, 1),
+        "Charge": new Action("Charge", 1, 3),
+
+        "Whirlwind": new Action("Whirlwind", 1, 8),
+        "Rampage": new Action("Rampage", 1, 9),
+
+        "Execute": new Action("Execute", 2, 0),
     }
 }

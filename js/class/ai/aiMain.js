@@ -5,76 +5,69 @@ class Ai {
     }
 
     ai = {
-        "windwalker": () => {//--------------------------------------------------------------------------------------------------Windwalker
-            //no target
-            if (Object.keys(this.creature.targetObj).length === 0)  {
-                this.getNewTarget()
+        "windwalker":() => { //--------------------------------------------------------------------------------------------------Windwalker
+            let c = this.creature
+            let casted = false
+            let target = this.getLowestHpEnemy()
+            setTargetAi(c,target)
+            c.direction = getDirection(c,c.targetObj)
+            let dist = getDistance(c,c.targetObj)
+            let distNeed = 4
+            if (dist>distNeed) {
+                if (dist>12) {
+                    c.abilities["Roll"].startCast(c)
+                }
+                c.move(1)
             } else {
-                let b = this.creature
-                this.creature.direction = getDirection(b,b.targetObj)
 
-                let dist = getDistance(b,b.targetObj)
-                let distNeed = 30
-                if (b.melee) {
-                    distNeed = 4
+                if (enemies.length>2) {
+                    casted = c.abilities["Spinning Crane Kick"].startCast(c)
                 }
-                if (dist>distNeed) {
-                    b.move(1)
-                } else {
-                    for (let i = 0; i<enemyTargets.length; i++) {
-                        if (this.creature.gcd<=0 && !enemyTargets[i].isDead) {
-                            this.creature.targetObj = enemyTargets[i]
-                            this.creature.castTarget = enemyTargets[i]
-                            this.creature.target = enemyTargets[i].name
-
-                            if (this.creature.secondaryResource<2) {
-                                this.creature.abilities["Tiger Palm"].startCast(this.creature)
-                            } else {
-                                this.creature.abilities["Rising Sun Kick"].startCast(this.creature)
-                                this.creature.abilities["Blackout Kick"].startCast(this.creature)
-                            }
-                        }
-                    }
-
-                    if (this.creature.gcd<=0) {
-
-                    }
+                if (!casted) {
+                    casted = c.abilities["Rising Sun Kick"].startCast(c)
                 }
+                if (!casted) {
+                    casted = c.abilities["Blackout Kick"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Tiger Palm"].startCast(c)
+                }
+
             }
 
         },
-        "brewmaster":() => {//--------------------------------------------------------------------------------------------------Brewmaster
-            //no target
-            if (Object.keys(this.creature.targetObj).length === 0)  {
-                this.getNewTarget()
-            } else {
-                let b = this.creature
-                this.creature.direction = getDirection(b,b.targetObj)
+        "brewmaster":() => { //--------------------------------------------------------------------------------------------------Brewmaster
+            let c = this.creature
+            let casted = false
+            let target = this.getLowestHpEnemy()
+            setTargetAi(c,target)
 
-                if (combatTime<7) { //TODO:?
-                    b.abilities["Provoke"].startCast(b)
-                }
-
-                let dist = getDistance(b,b.targetObj)
-                let distNeed = 30
-                if (b.melee) {
-                    distNeed = 4
-                }
-                if (dist>distNeed) {
-                    b.move(1)
-                } else {
-                    for (let i = 0; i < enemyTargets.length; i++) {
-                        if (this.creature.gcd <= 0 && !enemyTargets[i].isDead) {
-                            this.creature.targetObj = enemyTargets[i]
-                            this.creature.castTarget = enemyTargets[i]
-                            this.creature.target = enemyTargets[i].name
-                            this.creature.abilities["Blackout Kick"].startCast(this.creature)
-                            this.creature.abilities["Tiger Palm"].startCast(this.creature)
-                        }
-                    }
-                }
+            if (combatTime<7) { //TODO:?
+                c.abilities["Provoke"].startCast(c)
             }
+
+            c.direction = getDirection(c,c.targetObj)
+            let dist = getDistance(c,c.targetObj)
+            let distNeed = 4
+            if (dist>distNeed) {
+                c.move(1)
+            } else {
+
+                if (enemies.length>2) {
+                    casted = c.abilities["Spinning Crane Kick"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Blackout Kick"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Tiger Palm"].startCast(c)
+                }
+
+            }
+
         },
+
+
         "mistweaver":() => {//--------------------------------------------------------------------------------------------------TODO:Mistweaver
 
         },
@@ -261,6 +254,7 @@ class Ai {
             let dist = getDistance(c,c.targetObj)
             let distNeed = 4
             if (dist>distNeed) {
+                c.abilities["Charge"].startCast(c)
                 c.move(1)
             } else {
                 if (!casted) {
@@ -274,6 +268,9 @@ class Ai {
                 }
                 if (!casted) {
                     casted = c.abilities["Bloodthirst"].startCast(c)
+                }
+                if (!casted) {
+                    casted = c.abilities["Whirlwind"].startCast(c)
                 }
             }
 

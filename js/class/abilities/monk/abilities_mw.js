@@ -14,6 +14,6 @@ class Mw_Abilities {
     "Fortifying Brew" = new FortifyingBrew()
     "Tiger's Lust" = new TigersLust()
     "Provoke" = new Provoke()
-
+    "Spinning Crane Kick" = new SpinningCraneKick()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

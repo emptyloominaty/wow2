@@ -3,7 +3,7 @@ class Bloodthirst extends Ability {
         let name = "Bloodthirst"
         let cost = -8
 
-        let gcd = 1
+        let gcd = 1.5
         let castTime = 0
         let cd = 4.5
         let charges = 1
@@ -27,7 +27,7 @@ class Bloodthirst extends Ability {
     }
 
     getTooltip() {
-        return "A mighty blow with both weapons that deals a total of "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage."
+        return "Assault the target in a bloodthirsty craze, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage and restoring 3% of your health."
     }
 
     run(caster) {
@@ -61,10 +61,13 @@ class Bloodthirst extends Ability {
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,caster.maxHealth*this.heal)
-
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
+
+                if (getChance(30)) {
+                    caster.abilities["Enrage"].startCast(caster)
+                }
                 return true
             }
         } else if (this.canSpellQueue(caster)) {

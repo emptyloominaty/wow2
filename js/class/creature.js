@@ -17,6 +17,7 @@ class Creature {
     //armor:  108 -  72 -  49  -  28
     //        1  - 0.66 - 0.45 - 0.25
     stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:100}
+    statsBup = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:100}
 
     moveSpeed = 1
     x = 0
@@ -171,6 +172,7 @@ class Creature {
             this.melee = true
             this.abilities = new Fury_Abilities()
             this.resourceName = "Rage"
+            this.energy = 0
             this.role = "dps"
         }  else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"
@@ -259,6 +261,7 @@ class Creature {
         this.attackSpeed = 1
         this.reduceEnergyCost = 1
         this.damageReduction = 0
+        this.stats = JSON.parse(JSON.stringify(this.statsBup))
 
         //forms
         for (let i = 0; i<this.formEffects.length; i++) {
@@ -297,6 +300,16 @@ class Creature {
                         this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "damageReduction") {
                         this.damageReduction += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "increaseStat") {
+                        this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "moveToTarget") {
+                        if (this.buffs[i].effect[j]._end===undefined) {
+                            this.direction = getDirection(this,this.buffs[i].effect[j].target)
+                            this.move((this.buffs[i].effect[j].val*40)/fps)
+                            if (getDistance(this,this.buffs[i].effect[j].target)<3) {
+                                this.buffs[i].effect[j]._end = true
+                            }
+                        }
                     }
                 }
             } else {
@@ -314,7 +327,6 @@ class Creature {
                 }
             }
 
-
             this.buffs[i].duration -= progressInSec
             if (this.buffs[i].duration<0 || this.buffs[i].stacks<=0) {
                 this.buffs[i].ability.endBuff(this)
@@ -323,6 +335,8 @@ class Creature {
             } else {
                 this.buffs[i].ability.runBuff(this,this.buffs[i],i)
             }
+
+
         }
         //debuffs
         for (let i = 0; i<this.debuffs.length; i++) {

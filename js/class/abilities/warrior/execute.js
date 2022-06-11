@@ -3,7 +3,7 @@ class Execute extends Ability {
         let name = "Execute"
         let cost = -20
 
-        let gcd = 1
+        let gcd = 1.5
         let castTime = 0
         let cd = 6
         let charges = 1

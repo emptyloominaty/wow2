@@ -3,7 +3,7 @@ class RagingBlow extends Ability {
         let name = "Raging Blow"
         let cost = -12
 
-        let gcd = 1
+        let gcd = 1.5
         let castTime = 0
         let cd = 8
         let charges = 2
@@ -61,10 +61,10 @@ class RagingBlow extends Ability {
 
                 //20% cd reset chance
                 if (getChance(80)) {
-                    this.setCd()
+                    this.setCd(caster)
                 }
-                caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
+                caster.useEnergy(this.cost,this.secCost)
                 return true
             }
         } else if (this.canSpellQueue(caster)) {

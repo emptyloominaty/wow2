@@ -72,8 +72,8 @@ class BlackoutKick extends Ability {
             let done = false
             let _y = 0
             if (caster.target!=="" && this.isEnemy(caster) ) {
-                if (this.checkDistance(caster,caster.castTarget)  && !caster.targetObj.isDead) {
-                    doDamage(caster, caster.targetObj, this)
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    doDamage(caster, caster.castTarget, this)
                     if (caster.spec === "mistweaver") {
                         this.risingSunKickReset(caster,_y)
                     }

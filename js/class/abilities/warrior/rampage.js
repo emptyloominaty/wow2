@@ -3,7 +3,7 @@ class Rampage extends Ability {
         let name = "Rampage"
         let cost = 80
 
-        let gcd = 1
+        let gcd = 1.5
         let castTime = 0
         let cd = 0
         let charges = 1
@@ -62,6 +62,7 @@ class Rampage extends Ability {
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
+                caster.abilities["Enrage"].startCast(caster)
                 return true
             }
         } else if (this.canSpellQueue(caster)) {
