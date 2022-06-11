@@ -172,15 +172,6 @@ if (player.spec==="arcane") {
 
 if (player.spec==="fury") {
     actions = {
-        //bar1
-
-        //    "Execute" = new Execute()
-        //     "Rampage" = new Rampage()
-        //     "Raging Blow" = new RagingBlow()
-        //     "Bloodthirst" = new Bloodthirst()
-        //     "Whirlwind" = new Whirlwind()
-
-
         "Raging Blow": new Action("Raging Blow", 1, 0),
         "Bloodthirst": new Action("Bloodthirst", 1, 1),
         "Charge": new Action("Charge", 1, 3),
@@ -189,5 +180,27 @@ if (player.spec==="fury") {
         "Rampage": new Action("Rampage", 1, 9),
 
         "Execute": new Action("Execute", 2, 0),
+    }
+}
+
+if (player.spec==="holyPriest") {
+    actions = {
+        "Holy Word: Serenity": new Action("Holy Word: Serenity", 1, 0),
+        "Renew": new Action("Renew", 1, 1),
+        "Holy Word: Sanctify": new Action("Holy Word: Sanctify", 1, 2),
+
+        "Flash Heal": new Action("Flash Heal", 1, 8),
+        "Heal": new Action("Heal", 1, 9),
+        "Holy Word: Chastise": new Action("Holy Word: Chastise", 1, 10),
+
+        "Divine Hymn": new Action("Divine Hymn", 0, 0),
+        "Circle of Healing": new Action("Circle of Healing", 0, 1),
+        "Holy Nova": new Action("Holy Nova", 0, 6),
+
+        //bar2
+        "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
+        "Holy Fire": new Action("Holy Fire", 2, 1),
+        "Smite": new Action("Smite", 2, 2),
+
     }
 }

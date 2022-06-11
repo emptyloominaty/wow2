@@ -16,6 +16,8 @@ let iconsPath = {
         "arcane":"img/specs/mage/arcane.png",
         "havoc":"img/specs/demonhunter/havoc.jpg",
         "fury":"img/specs/warrior/fury.png",
+        "holyPriest":"img/specs/priest/holy.png",
+        "discPriest":"img/specs/priest/discipline.png",
     },
 
     //classes
@@ -871,7 +873,7 @@ let iconsPath = {
     "Shadow Mend":"img/priest/ShadowMend.jpg",
     "Shadow Weaving":"img/priest/ShadowWeaving.jpg",
     "Shadow Word: Death":"img/priest/ShadowWordDeath.jpg",
-    "ShadowWord: Pain":"img/priest/ShadowWordPain.jpg",
+    "Shadow Word: Pain":"img/priest/ShadowWordPain.jpg",
     "Shadowy Apparitions":"img/priest/ShadowyApparitions.jpg",
     "Shield Discipline":"img/priest/ShieldDiscipline.jpg",
     "Shining Force":"img/priest/ShiningForce.jpg",

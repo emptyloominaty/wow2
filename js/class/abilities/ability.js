@@ -7,6 +7,8 @@ class Ability {
     bleed = false
     spellPower = 0
     duration = 0
+    effect = []
+    effectValue = 0
 
     passive = false
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
@@ -477,6 +479,9 @@ class Ability {
     }
 
     checkCost(caster,cost = 9999,showMessage = true) {
+        if (caster.isStunned) {
+            return false
+        }
         if (cost===9999) {
             cost = this.cost
         }

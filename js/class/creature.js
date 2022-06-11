@@ -52,6 +52,7 @@ class Creature {
     target = ""
     targetObj = {}
     castTarget = {}
+    tabIdx = 0
 
     healingDone = 0
     damageDone = 0
@@ -122,6 +123,11 @@ class Creature {
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
             this.class = "Shaman"
             this.abilities = new RestoSham_abilities()
+            this.melee = false
+            this.role = "healer"
+        } else if (spec==="holyPriest") {//----------------------------------------Holy Priest
+            this.class = "Priest"
+            this.abilities = new HolyPriest_abilities()
             this.melee = false
             this.role = "healer"
         } else if (spec==="elemental") {//----------------------------------------Elemental
@@ -221,6 +227,14 @@ class Creature {
             this.abilities[key].incCd(this)
         })
 
+        if (this.isStunned) {
+            this.casting = {name:"", time:0, time2:0}
+            this.isCasting = false
+            this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
+            this.isChanneling = false
+            this.gcd = 0
+        }
+
         //casting ability
         if (this.isCasting) {
             if (this.casting.time<this.casting.time2) {
@@ -250,7 +264,7 @@ class Creature {
         }
 
         //autoattack
-        if (this.melee || this.class === "Hunter") {
+        if (this.melee || this.class === "Hunter" && !this.isStunned) {
             this.abilities["Auto Attack"].startCast(this)
         }
 

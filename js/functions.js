@@ -217,17 +217,21 @@ let getDirection = function(target1,target2) {
     return 360-(Math.atan2(target2.y - target1.y, target2.x - target1.x)* (180 / Math.PI)+90)
 }
 
-let findNearestEnemy = function(target1) {
+let findNearestEnemy = function(target1,_id  = 0) {
     if (!target1.enemy) {
         let distances = []
         for (let i = 0; i<enemyTargets.length; i++) {
-            if (!enemyTargets[0].isDead) {
+            if (!enemyTargets[i].isDead) {
                 distances.push({val:getDistance(target1,enemyTargets[i]),id:i})
             }
         }
         distances = distances.sort((a, b) => a.val > b.val ? 1 : -1)
         if (distances.length>0) {
-            return enemyTargets[distances[0].id]
+            if (_id>=distances.length) {
+                _id = 0
+                target1.tabIdx = 0
+            }
+            return enemyTargets[distances[_id].id]
         }
     } else {
         let distances = []

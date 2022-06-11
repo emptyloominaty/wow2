@@ -193,7 +193,11 @@ let details = {
         }
 
         if(this.combats[this.combatIdx][caster.id][name]===undefined) {
-            this.combats[this.combatIdx][caster.id][name] = {heal:0,damage:0,name:name,casts:0,school:ability.school}
+            let school = ability.school
+            if (ability.school===undefined) {
+                school = "physical"
+            }
+            this.combats[this.combatIdx][caster.id][name] = {heal:0,damage:0,name:name,casts:0,school:school}
         }
 
         if (inCombat) {

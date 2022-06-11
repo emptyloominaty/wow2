@@ -45,6 +45,11 @@ class Ai {
             if (combatTime<7) { //TODO:?
                 c.abilities["Provoke"].startCast(c)
             }
+            let tauntTargets = this.checkTargetsAggroTank(c)
+            if (tauntTargets.length>0) {
+                setTargetAi(c,tauntTargets[0])
+                c.abilities["Provoke"].startCast(c)
+            }
 
             c.direction = getDirection(c,c.targetObj)
             let dist = getDistance(c,c.targetObj)
@@ -456,6 +461,23 @@ class Ai {
 
     moveCloserToEnemy() {
 
+    }
+
+    checkTargetsAggroTank(c) {
+        let tauntThis = []
+        for (let i = 0; i<enemies.length; i++) {
+            let myAggro = enemies[i].aggro[c.id2]
+            for (let j = 0; j < enemies[i].aggro.length; j++) {
+                if (enemies[i].aggro[j]) {
+                    if (enemies[i].aggro[j] > myAggro) {
+                        if (friendlyTargets[j].role !== "tank") {
+                            tauntThis.push(enemies[i])
+                        }
+                    }
+                }
+            }
+        }
+        return tauntThis
     }
 
     getLowestHpEnemy() {

@@ -366,12 +366,14 @@ let keyLoop = () => {
     }
 
     if (keyPressed["Tab"]) {
-        let target = findNearestEnemy(player)
-        if (target!==false) {
-            document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
-            player.targetObj = target
-            player.target = target.name
-        }
+        let target = findNearestEnemy(player,player.tabIdx)
+            if (target!==false) {
+                document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                player.targetObj = target
+                player.target = target.name
+                player.tabIdx++
+            }
+        keyPressed["Tab"] = false
     }
 
 

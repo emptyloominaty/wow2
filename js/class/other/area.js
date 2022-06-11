@@ -27,6 +27,8 @@ class Area {
             this.maxTargets = 999
         }
 
+        this.done = false
+
         this.start()
     }
 
@@ -53,7 +55,12 @@ class Area {
                 this.doTimer()
             }
         }
-
+        if (this.data.type==="heal" || this.data.type==="damage") {
+            if (!this.done) {
+                this.doTimer()
+                this.done = true
+            }
+        }
 
         this.time += progressInSec
         if (this.time>this.duration) {
@@ -84,6 +91,9 @@ class Area {
                 break
             }
             doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val))
+            if (this.data.cast) {
+                this.caster.abilities[this.data.castName].startCast(this.caster,targets[i],this.ability)
+            }
         }
     }
 

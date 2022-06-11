@@ -1,38 +1,35 @@
-class HealingRain extends Ability {
+class HolyWordSanctify extends Ability {
     constructor() {
-        let name = "Healing Rain"
-        let cost = 4.32 //% mana
+        let name = "Holy Word: Sanctify"
+        let cost = 3.5 //% mana
         let gcd = 1.5
-        let castTime = 2
-        let cd = 10
+        let castTime = 0
+        let cd = 60
         let charges = 1
         let maxCharges = 1
         let channeling = false
-        let casting = true
+        let casting = false
         let canMove = false
-        let school = "nature"
+        let school = "holy"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.265
+        this.spellPower = 2.45
 
-        this.area = {type:"circle", radius:10, duration: 10,data:{type:"hot", maxTargets:6, spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.05)"},cast:false}
-
-        this.effect = ""
-        this.effectValue = 0
+        this.area = {type:"circle", radius:10, duration: 0.5,data:{type:"heal", maxTargets:6, spellPower:2.45,color:"#f8ff81",color2:"rgba(255,255,97,0.05)",cast:true,castName:"Echo of Light",}}
 
         this.castPosition = {x:0,y:0}
     }
 
     getTooltip() {
-        return "Blanket the target area in healing rains, restoring "+(((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))*5).toFixed(0)+" health to up to 6 allies over 10 sec."
+        return "Heals the target and 4 injured allies within 30 yards of the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+""
     }
 
     run(caster) {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCd() && this.checkCost(caster) && !caster.isCasting) {
+        if (!caster.isCasting && caster.gcd<=0 && this.checkCost(caster) && this.checkCd(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}

@@ -24,10 +24,17 @@ let raidFramesBuffs = {
     },
     "restorationShaman": {
         bottomRight:"Riptide",
-        bottomRight2:"hhh", //TODO:
+        bottomRight2:"none", //TODO:
         centreRight:"Regrowth", //TODO:
         bottomCentre:"Ancestral Vigor",
     },
+    "holyPriest": {
+        bottomRight:"Renew",
+        bottomRight2:"Prayer of Mending",
+        centreRight:"Echo of Light",
+        bottomCentre:"none", //TODO:
+    },
+
     "assassination": {
         bottomRight:"none",
         bottomRight2:"none",

@@ -1,7 +1,7 @@
 class EssenceFont extends Ability {
     constructor() {
         let name = "Essence Font"
-        let cost = 7.2 //% mana every sec
+        let cost = 7.2
         let gcd = 1.5
         let castTime = 3
         let cd = 12
