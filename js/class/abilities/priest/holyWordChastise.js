@@ -16,7 +16,8 @@ class HolyWordChastise extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 1.4*1.44
-        //TODO STUN 4sec
+        this.effect = [{name:"stun"}]
+        this.duration = 4
 
     }
 
@@ -68,6 +69,7 @@ class HolyWordChastise extends Ability {
         if (caster.target!=="" && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 doDamage(caster, caster.castTarget, this)
+                applyDebuff(caster,caster.castTarget,this,"stun")
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }

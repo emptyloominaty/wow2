@@ -185,7 +185,7 @@ function draw(progress) {
                 let debuffsHTML = ""
                 if (creatures[i].enemy) {
                     for (let j = 0; j<creatures[i].debuffs.length; j++) {
-                        if (creatures[i].debuffs[j].caster===player) { //TODO:OR STUN + buff?
+                        if (creatures[i].debuffs[j].caster===player || creatures[i].debuffs[j].type==="stun") {
                             debuffsHTML += "<div id='debuffs_"+i+"_"+j+"' class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].debuffs[j].name]+"'> <span id='debuffs_"+i+"_"+j+"duration' >"+creatures[i].debuffs[j].duration.toFixed(0)+"</span></div>"
                         }
                     }
@@ -205,7 +205,7 @@ function draw(progress) {
 
 
                     for (let j = 0; j<creatures[i].debuffs.length; j++){
-                        if (creatures[i].debuffs[j].caster===player) {
+                        if (creatures[i].debuffs[j].caster===player || creatures[i].debuffs[j].type==="stun") {
                             document.getElementById("debuffs_" + i + "_" + j).style.width = height + "px"
                             document.getElementById("debuffs_" + i + "_" + j).style.height = height + "px"
 

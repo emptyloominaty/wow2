@@ -171,7 +171,7 @@ let applyHot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     }
 }
 
-let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "") {
+let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0) {
     if (!target.isDead) {
         let buffName = ability.name
         if (name!=="") {
@@ -192,10 +192,38 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
                 return true
             }
         }
-        target.buffs.push({name:buffName, type: "buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+        if (duration === 0) {
+            duration = ability.duration
+        }
+
+        target.buffs.push({name:buffName, type: "buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
     }
 }
 
+let applyDebuff = function (caster,target,ability,type = "debuff",stacks = 1, stackable = false,name = "") {
+    if (!target.isDead) {
+        let debuffName = ability.name
+        if (name!=="") {
+            debuffName = name
+        }
+
+        for (let i = 0; i<target.debuffs.length; i++) {
+            if (target.debuffs[i].name === debuffName && target.debuffs[i].caster === caster) {
+                target.debuffs[i].duration = ability.duration
+                if (stackable) {
+                    if (ability.maxStacks>target.debuffs[i].stacks) {
+                        target.debuffs[i].stacks += stacks
+                        if (ability.maxStacks<target.debuffs[i].stacks) {
+                            target.debuffs[i].stacks = ability.maxStacks
+                        }
+                    }
+                }
+                return true
+            }
+        }
+        target.debuffs.push({name:debuffName, type: type, effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+    }
+}
 
 let changeForm = function (caster,ability) {
     if (caster.form!==ability.name) {
@@ -347,10 +375,26 @@ let checkBuff = function(caster,target,buffName) {
     }
 }
 
-let checkDebuff= function(caster,target,buffName) {
+let checkDebuff = function(caster,target,buffName) {
     for (let i = 0; i<target.debuffs.length; i++) {
         if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
             return true
         }
     }
+}
+
+let getRandomFriendlyTargetNear = function(caster,range,buffName,buffCaster) {
+    let array = []
+    for (let i = 0; i<friendlyTargets.length; i++) {
+        if (!friendlyTargets[i].isDead && getDistance(caster,friendlyTargets[i])<range && !checkBuff(buffCaster,friendlyTargets[i],buffName)) {
+            array.push(friendlyTargets[i])
+        }
+    }
+    if (array.length>0) {
+        let rng = Math.floor(Math.random()*array.length)
+        if (rng<0) {rng=0}
+        return array[rng]
+    }
+
+    return false
 }

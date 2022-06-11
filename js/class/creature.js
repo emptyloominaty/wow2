@@ -28,6 +28,7 @@ class Creature {
 
     //-------
     isStunned = false
+    isStunnable = true
     isRooted = false
     isMoving = false
     isCasting = false
@@ -184,6 +185,7 @@ class Creature {
         }  else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"
             this.abilities = new BossTestAbilities()
+            this.isStunnable = false
             this.melee = true
         } else if (spec==="addTest") {//----------------------------------------Add Test
             this.class = "Add"
@@ -281,6 +283,8 @@ class Creature {
         this.reduceEnergyCost = 1
         this.damageReduction = 0
         this.stats = JSON.parse(JSON.stringify(this.statsBup))
+        this.isStunned = false
+        this.isRooted = false
 
         //forms
         for (let i = 0; i<this.formEffects.length; i++) {
@@ -329,6 +333,29 @@ class Creature {
                                 this.buffs[i].effect[j]._end = true
                             }
                         }
+                    } else if (this.buffs[i].effect[j].name === "stun") {
+                        if (this.isStunnable) {
+                            this.isStunned = true
+                        }
+                    } else if (this.buffs[i].effect[j].name === "root") {
+                        this.isRooted = true
+                    } else if (this.buffs[i].effect[j].name === "prayerofMending") {
+                        let buffPoM = this.buffs[i].effect[j]
+                        let buff = this.buffs[i]
+                        buffPoM.healthA = this.health
+                        if (buffPoM.healthA<buffPoM.healthB && buff.duration+1<buffPoM.lastTime ) {
+                            doHeal(buff.caster,this,buff.caster.abilities["Prayer of Mending"])
+                            buffPoM.lastTime = buff.duration
+                            buffPoM.val--
+                            if (buffPoM.val>0) {
+                                let target = getRandomFriendlyTargetNear(this,20,"Prayer of Mending",buff.caster)
+                                if (target!==false) {
+                                    applyBuff(buff.caster,target,buff.caster.abilities["Prayer of Mending"],buffPoM.vals,true,undefined,(buff.duration+0.1))
+                                }
+                            }
+                            buff.duration = -1
+                        }
+                        buffPoM.healthB = this.health
                     }
                 }
             } else {
@@ -370,6 +397,18 @@ class Creature {
                     }
                 }
             }
+            if (Array.isArray(this.debuffs[i].effect)) {
+                for (let j = 0; j < this.debuffs[i].effect.length; j++) {
+                    if (this.debuffs[i].effect[j].name === "stun") {
+                        if (this.isStunnable) {
+                            this.isStunned = true
+                        }
+                    } else if (this.debuffs[i].effect[j].name === "root") {
+                        this.isRooted = true
+                    }
+                }
+            }
+
 
             this.debuffs[i].duration -= progressInSec
             if (this.debuffs[i].duration<0) {

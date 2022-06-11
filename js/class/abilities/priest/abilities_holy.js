@@ -11,6 +11,8 @@ class HolyPriest_abilities {
     "Circle of Healing" = new CircleofHealing()
     "Holy Word: Sanctify" = new HolyWordSanctify()
     "Holy Word: Chastise" = new HolyWordChastise()
+    "Prayer of Healing" = new PrayerofHealing()
+    "Prayer of Mending" = new PrayerofMending()
 
     //passive
     "Echo of Light" = new EchoofLight()

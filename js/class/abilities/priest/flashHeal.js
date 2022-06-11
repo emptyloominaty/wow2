@@ -53,6 +53,8 @@ class FlashHeal extends Ability {
             doHeal(caster,caster.castTarget,this,0)
             caster.abilities["Echo of Light"].startCast(caster,caster.castTarget,this)
         }
+
+        caster.abilities["Holy Word: Serenity"].reduceCd(6)
         caster.useEnergy(this.cost)
     }
 }

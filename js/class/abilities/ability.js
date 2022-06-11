@@ -569,4 +569,8 @@ class Ability {
         }
     }
 
+    reduceCd(val) {
+        this.cd += val
+    }
+
 }

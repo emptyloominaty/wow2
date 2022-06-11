@@ -195,12 +195,16 @@ if (player.spec==="holyPriest") {
 
         "Divine Hymn": new Action("Divine Hymn", 0, 0),
         "Circle of Healing": new Action("Circle of Healing", 0, 1),
+        "Prayer of Healing": new Action("Prayer of Healing", 0, 2),
+
         "Holy Nova": new Action("Holy Nova", 0, 6),
 
         //bar2
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
         "Holy Fire": new Action("Holy Fire", 2, 1),
         "Smite": new Action("Smite", 2, 2),
+
+        "Prayer of Mending": new Action("Prayer of Mending", 2, 7),
 
     }
 }

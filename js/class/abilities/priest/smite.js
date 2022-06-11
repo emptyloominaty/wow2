@@ -75,7 +75,7 @@ class Smite extends Ability {
                 if (getChance(this.resetChance)) {
                     caster.abilities["Holy Fire"].cd = caster.abilities["Holy Fire"].maxCd
                 }
-
+                caster.abilities["Holy Word: Chastise"].reduceCd(4)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }
