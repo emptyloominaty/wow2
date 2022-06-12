@@ -10,6 +10,7 @@ class Ability {
     effect = []
     effectValue = 0
 
+    talent = false
     passive = false
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,

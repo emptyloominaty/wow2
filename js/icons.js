@@ -267,6 +267,7 @@ let iconsPath = {
     "Cyclone":"img/druid/Cyclone.jpg",
     "Dash":"img/druid/Dash.jpg",
     "Earthwarden":"img/druid/Earthwarden.jpg",
+    "Eclipse":"img/druid/Eclipse(Lunar).jpg",
     "Eclipse (Lunar)":"img/druid/Eclipse(Lunar).jpg",
     "Eclipse (Solar)":"img/druid/Eclipse(Solar).jpg",
     "Efflorescence":"img/druid/Efflorescence.jpg",
