@@ -45,10 +45,10 @@ class HolyNova extends Ability {
                     ttd++
                 }
             }
-            if (ttd>3) {
+            if (ttd>2) {
                 for (let i = 0; i<enemies.length ;i++) {
                     if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {
-                        doDamage(caster, enemies[i], this)
+                        doDamage(caster, enemies[i], this,undefined,this.spellPower/2)
                     }
                 }
             }
@@ -58,6 +58,9 @@ class HolyNova extends Ability {
             for (let i = 0; i<friendlyTargets.length ;i++) {
                 if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i])) {
                     doHeal(caster, friendlyTargets[i], this)
+                    if (ttd>2) {
+                        doHeal(caster, friendlyTargets[i], this,undefined,this.spellPower/2)
+                    }
                     tth++
                 }
                 if (tth>this.targetsHeal) {

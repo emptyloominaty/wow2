@@ -19,5 +19,7 @@ let raiders = [
     new Raider("raider12",50000,100,-150,200,0,"havoc"),
     new Raider("raider13",50000,100,-320,200,0,"windwalker"),
     new Raider("raider14",50000,100,-300,150,0,"fury"),
-    new Raider("raider15",75000,100,300,10,0,"brewmaster"),
+    new Raider("raider15",75000,100,0,-40,0,"brewmaster"),
+    new Raider("raider16",50000,100,300,30,0,"holyPriest"),
+    new Raider("raider17",50000,100,100,30,0,"mistweaver"),
 ]

@@ -1,26 +1,11 @@
-bars.playerName = new Bar(120,20,100,100,10,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_playerName")
-bars.playerHealth = new Bar(120,20,100,100,10,30,"#4b9539","#555555","bar_playerHealth")
-bars.playerMana = new Bar(120,20,100,100,10,55,"#63a0dd","#555555","bar_playerMana")
-bars.playerSecondaryResource = new Bar(120,20,0,5,10,80,"#ddda63","#555555","bar_playerSecondaryResource")
-bars.playerCast = new Bar(120,20,1.5,1.5,10,105,"#bbbbbb","#555555","bar_playerCast")
-bars.playerCast2 = new Bar(240,20,1.5,1.5,840,85,"#1e1e1e","#555555","bar_playerCast2")
-
-
-bars.targetName = new Bar(120,20,100,100,170,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_targetName")
-bars.targetHealth = new Bar(120,20,100,100,170,30,"#4b9539","#555555","bar_targetHealth")
-bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetMana")
-bars.targetCast = new Bar(120,20,1.5,1.5,170,85,"#bbbbbb","#555555","bar_targetCast")
-
 for (let i = 0; i<creatures.length; i++) {
-
-
     if (!creatures[i].enemy) {
-        bars["creature"+i+"Health"] = new Bar(60,3,1.5,1.5,0,0,colors[creatures[i].class],"rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
-        bars["creature"+i+"Cast"] = new Bar(60,8,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",7,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Health"] = new Bar(60,2,1.5,1.5,0,0,colors[creatures[i].class],"rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Cast"] = new Bar(60,5,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",4,"rgba(0,0,0,0.5")
         bars["creature"+i+"Cast"].setVisibility(false)
     } else {
         bars["creature"+i+"Health"] = new Bar(100,12,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
-        bars["creature"+i+"Cast"] = new Bar(100,12,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",9,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Cast"] = new Bar(100,12,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",8,"rgba(0,0,0,0.5")
         bars["creature"+i+"Cast"].setVisibility(false)
         let div = document.createElement("div")
         div.id = "creature"+i+"debuffs"
@@ -37,6 +22,20 @@ for (let i = 0; i<creatures.length; i++) {
         bars["creature"+i+"Health"].setVisibility(false)
     }
 }
+
+bars.playerName = new Bar(120,20,100,100,10,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_playerName")
+bars.playerHealth = new Bar(120,20,100,100,10,30,"#4b9539","#555555","bar_playerHealth")
+bars.playerMana = new Bar(120,20,100,100,10,55,"#63a0dd","#555555","bar_playerMana")
+bars.playerSecondaryResource = new Bar(120,20,0,5,10,80,"#ddda63","#555555","bar_playerSecondaryResource")
+bars.playerCast = new Bar(120,20,1.5,1.5,10,105,"#bbbbbb","#555555","bar_playerCast")
+bars.playerCast2 = new Bar(240,20,1.5,1.5,840,85,"#1e1e1e","#555555","bar_playerCast2")
+bars.playerCast2.setZIndex(20)
+
+bars.targetName = new Bar(120,20,100,100,170,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_targetName")
+bars.targetHealth = new Bar(120,20,100,100,170,30,"#4b9539","#555555","bar_targetHealth")
+bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetMana")
+bars.targetCast = new Bar(120,20,1.5,1.5,170,85,"#bbbbbb","#555555","bar_targetCast")
+
 
 let orderRaidFrames = function() {
     let tanks = []
@@ -104,7 +103,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-        elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"S: "+gameScaling.toFixed(1)+"<br>" /*+
+        elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePositionScreen.x+" y:"+mousePositionScreen.y+"<br>" /*+
             "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 
     //---------------2d---------------
@@ -119,8 +118,8 @@ function draw(progress) {
     }
 
     //player
-    game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 15*gameScaling, "#6c746f")
-    game2d.drawPlayerDirection(0, 0, 10*gameScaling, 3, "#999f9a", player.direction)
+    game2d.drawCircle(game2d.canvasW/2, game2d.canvasH/2, 8*gameScaling, "#6c746f")
+    game2d.drawPlayerDirection(0, 0, 6*gameScaling, 3, "#999f9a", player.direction)
 
     if (player.maxSecondaryResource>0) {
         bars.playerSecondaryResource.setText(player.secondaryResource+"/"+player.maxSecondaryResource)
@@ -133,20 +132,26 @@ function draw(progress) {
             let x = (creatures[i].x - player.x)*gameScaling
             let y = (creatures[i].y - player.y)*gameScaling
             let color
-            let size = 15*gameScaling
+            let size = creatures[i].size*gameScaling
             let health = creatures[i].health/creatures[i].maxHealth
             if (creatures[i].enemy) {
                 color = "#d78080"
-                size = 25*gameScaling
             } else {
                 color = colors[creatures[i].class]
+            }
+
+            if (creatures[i].isDead) {
+                color = pSBC( -0.45, color, false, true )
             }
 
             let x2d = (game2d.canvasW/2)+x
             let y2d = (game2d.canvasH/2)+y
 
-            let y2dH = y2d-(20*gameScaling)-size
+            let y2dH = y2d-(18*gameScaling)-size
             let y2dC = y2d-(14*gameScaling)-size
+
+            creatures[i].screenPosition.x = x2d
+            creatures[i].screenPosition.y = y2d
 
             //if (!creatures[i].floatingTexts.hide) {
             creatures[i].floatingTexts.setPosition(x2d,y2d)
@@ -154,6 +159,21 @@ function draw(progress) {
 
 
             if (creatures[i]!==player) {
+
+                if (creatures[i]===player.targetObj) {
+                    bars["creature"+i+"Health"].setZIndex(10)
+                    bars["creature"+i+"Cast"].setZIndex(10)
+                    if (creatures[i].isEnemy) {
+                        bars["creature"+i+"Health"].changeColor(colors["barHealthSelect"])
+                    }
+                } else {
+                    bars["creature"+i+"Health"].setZIndex(0)
+                    bars["creature"+i+"Cast"].setZIndex(0)
+                    if (creatures[i].isEnemy) {
+                        bars["creature" + i + "Health"].changeColor(colors["barHealth"])
+                    }
+                }
+
                 bars["creature"+i+"Health"].setPosition(x2d,y2dH,true)
                 bars["creature"+i+"Health"].setVal(creatures[i].health)
                 bars["creature"+i+"Health"].setMaxVal(creatures[i].maxHealth)
@@ -198,11 +218,16 @@ function draw(progress) {
                     let fontSize = (14*gameScaling)
 
                     el.style.left = (x2d-(width/2))+"px"
-                    el.style.top = (y2d-(50*gameScaling)-size)+"px"
+                    el.style.top = (y2d-(45*gameScaling)-size)+"px"
                     el.style.width = width+"px"
                     el.style.height = height+"px"
                     el.innerHTML = debuffsHTML
 
+                    if (creatures[i]===player.targetObj) {
+                        el.style.zIndex = "10"
+                    } else {
+                        el.style.zIndex = "0"
+                    }
 
                     for (let j = 0; j<creatures[i].debuffs.length; j++){
                         if (creatures[i].debuffs[j].caster===player || creatures[i].debuffs[j].type==="stun") {
@@ -222,7 +247,7 @@ function draw(progress) {
             }
 
             game2d.drawCircle(x2d, y2d, size, color)
-            game2d.drawTargetDirection(x2d, y2d, (size-(5*gameScaling)), 3, "#9f5c5d", creatures[i].direction)
+            game2d.drawTargetDirection(x2d, y2d, (size-(3*gameScaling)), 3, "#9f5c5d", creatures[i].direction)
         }
     }
 
@@ -231,7 +256,7 @@ function draw(progress) {
     //bars
     bars.playerHealth.setVal(player.health)
     bars.playerHealth.setMaxVal(player.maxHealth)
-    bars.playerHealth.setText(player.health.toFixed(0)+"/"+player.maxHealth.toFixed(0))
+    bars.playerHealth.setText(getNumberString(player.health)+"/"+getNumberString(player.maxHealth))
 
     bars.playerMana.setVal(player.energy)
     bars.playerMana.setMaxVal(player.maxEnergy)
@@ -272,8 +297,7 @@ function draw(progress) {
 
         bars.targetHealth.setVal(player.targetObj.health)
         bars.targetHealth.setMaxVal(player.targetObj.maxHealth)
-        bars.targetHealth.setText(player.targetObj.health.toFixed(0)+"/"+player.targetObj.maxHealth.toFixed(0))
-
+        bars.targetHealth.setText(getNumberString(player.targetObj.health)+"/"+getNumberString(player.targetObj.maxHealth))
 
         bars.targetMana.setVal(player.targetObj.energy)
         bars.targetMana.setMaxVal(player.targetObj.maxEnergy)

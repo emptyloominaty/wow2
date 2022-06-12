@@ -9,7 +9,7 @@ class DivineHymn extends Ability {
         let maxCharges = 1
         let channeling = true
         let casting = false
-        let canMove = true
+        let canMove = false
         let school = "holy"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
@@ -17,15 +17,14 @@ class DivineHymn extends Ability {
         this.spellPower = 0.375 // every sec
         this.hotSpellPower = 0.168
 
-
+        this.effect = [{name:"healingIncrease",val:0.02}]
         this.maxStacks = 8
         this.duration = 15
 
-        //TODO:STACKING BUFF HEALING INC
     }
 
     getTooltip() {
-        return "Heals all party or raid members within 40 yards for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" plus an additional "+((player.stats.primary * this.hotSpellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" over 8 sec. Each heal increases all targets' healing taken by 4% for 15 sec, stacking."
+        return "Heals all party or raid members within 40 yards for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" over 8 sec. Each heal increases all targets' healing taken by 4% for 15 sec, stacking."
     }
 
     run(caster) {
@@ -37,9 +36,8 @@ class DivineHymn extends Ability {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
-            caster.canMoveWhileCasting = this.canMove
             caster.isChanneling = true
-            caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))}
+            caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))-0.1}
             this.setGcd(caster)
             this.cd = 0
             caster.useEnergy(this.cost)
@@ -51,7 +49,6 @@ class DivineHymn extends Ability {
     }
 
     endChanneling(caster) {
-        caster.canMoveWhileCasting = false
     }
 
     cast(caster) {
@@ -59,6 +56,7 @@ class DivineHymn extends Ability {
             if (!friendlyTargets[i].isDead && this.checkDistance(caster, friendlyTargets[i])) {
                 doHeal(caster, friendlyTargets[i], this)
                 caster.abilities["Echo of Light"].startCast(caster,friendlyTargets[i],this)
+                applyBuff(caster,friendlyTargets[i],this,1,true)
             }
         }
     }

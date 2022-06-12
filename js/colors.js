@@ -29,6 +29,9 @@ let colors = {
         "divine":"#888833",
         "plague":"#888833",
         "radiant":"#888833",
-    }
+    },
+
+    "barHealth":"rgba(85,187,63,0.5)",
+    "barHealthSelect":"rgba(27,138,187,0.5)",
 }
 

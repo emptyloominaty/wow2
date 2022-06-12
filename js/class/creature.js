@@ -22,6 +22,8 @@ class Creature {
     moveSpeed = 1
     x = 0
     y = 0
+    size = 8
+    screenPosition = {x:0,y:0}
     direction = 0
     enemy = false
     mousePos = {x:0,y:0}
@@ -187,10 +189,12 @@ class Creature {
             this.abilities = new BossTestAbilities()
             this.isStunnable = false
             this.melee = true
+            this.size = 15
         } else if (spec==="addTest") {//----------------------------------------Add Test
             this.class = "Add"
             this.abilities = new BossTestAbilities()
             this.melee = true
+            this.size = 11
         }
 
 
@@ -314,7 +318,7 @@ class Creature {
                     if (this.buffs[i].effect[j].name === "move") {
                         this.move((this.buffs[i].effect[j].val*40)/fps)
                     } else if (this.buffs[i].effect[j].name === "healingIncrease") {
-                        this.healingIncrease += this.buffs[i].effect[j].val
+                        this.healingIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
                     } else if (this.buffs[i].effect[j].name === "moveSpeed") {
                         this.moveSpeedIncrease += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "incAttackSpeed") {

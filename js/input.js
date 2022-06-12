@@ -1,6 +1,7 @@
 let strafing = false
 let mousePosition = {x:0,y:0}
 let mousePosition2d = {x:0,y:0}
+let mousePositionScreen = {x:0,y:0}
 let gameScaling = 1
 
 let keyPressed = {}
@@ -450,6 +451,14 @@ let onMouseUpdate = function(e) {
 }
 
 document.addEventListener('mousemove', onMouseUpdate)
+
+//mouse position
+let onMouseUpdate2 = function(e) {
+    mousePositionScreen.x = e.pageX
+    mousePositionScreen.y = e.pageY
+}
+
+game2d.canvasElement.addEventListener('mousemove', onMouseUpdate2)
 
 //------------------------------------------------------------------------
 let zoom = function(event) {

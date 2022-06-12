@@ -32,7 +32,7 @@ let raidFramesBuffs = {
         bottomRight:"Renew",
         bottomRight2:"Prayer of Mending",
         centreRight:"Echo of Light",
-        bottomCentre:"none", //TODO:
+        bottomCentre:"Divine Hymn",
     },
 
     "assassination": {

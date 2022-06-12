@@ -85,6 +85,16 @@ class Bar {
         document.getElementById(this.id+"_bg").style.left = x+"px"
     }
 
+    setZIndex(val) {
+        document.getElementById(this.id).style.zIndex = val
+        document.getElementById(this.id+"_text").style.zIndex = val
+        document.getElementById(this.id+"_bg").style.zIndex = val
+    }
+
+    changeColor(color) {
+        document.getElementById(this.id).style.backgroundColor = color
+    }
+
     updateSize() {
 
         this.width2 = this.width*gameScaling
