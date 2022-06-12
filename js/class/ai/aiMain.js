@@ -354,6 +354,11 @@ class Ai {
                     setTargetAi(c,target)
                     c.direction = getDirection(c,c.targetObj)
 
+
+                    if (!casted) {
+                        casted = c.abilities["Celestial Alignment"].startCast(c)
+                    }
+
                     if (!casted && this.getNumberOfEnemies(c,40)>2) {
                         casted = c.abilities["Starfall"].startCast(c)
                     }
@@ -369,13 +374,14 @@ class Ai {
                         casted = c.abilities["Sunfire"].startCast(c)
                     }
 
+                    if (!casted && this.checkBuff(c,c,"Eclipse (Lunar)")) {
+                        casted = c.abilities["Starfire"].startCast(c)
+                    }
+
                     if (!casted && this.checkBuff(c,c,"Eclipse (Solar)")) {
                         casted = c.abilities["Wrath"].startCast(c)
                     }
 
-                    if (!casted && this.checkBuff(c,c,"Eclipse (Lunar)")) {
-                        casted = c.abilities["Starfire"].startCast(c)
-                    }
 
                     if (!casted && c.abilities["Eclipse"].next==="solar") {
                         casted = c.abilities["Starfire"].startCast(c)

@@ -346,7 +346,7 @@ function draw(progress) {
 
 
     //stats
-    elements.stats_parent.innerHTML = "Primary: "+player.stats.primary + "<br>Crit: "+player.stats.crit+ " <br>Haste: "+player.stats.haste+ " <br>Mastery: "+player.stats.mastery+ " <br>Vers: "+player.stats.vers+" "
+    //elements.stats_parent.innerHTML = "Primary: "+player.stats.primary + "<br>Crit: "+player.stats.crit+ " <br>Haste: "+player.stats.haste+ " <br>Mastery: "+player.stats.mastery+ " <br>Vers: "+player.stats.vers+" "
 
     //buffs
     //reset
@@ -368,10 +368,10 @@ function draw(progress) {
         }
     }
     if (player.form!=="") {
-        ii++
         if (ii<16) {
             document.getElementById("buff_"+ii+"_image").src = iconsPath[player.form]
         }
+        ii++
     }
 
     //raidframes

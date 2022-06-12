@@ -91,7 +91,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         } else {
             damage = (caster.stats.primary * spellPower) * (1 + (caster.stats.vers / 100)) * crit
         }
+
         damage = damage * (1-target.damageReduction)
+        damage = damage * (1-((target.stats.vers/100)/2))
+        damage = damage * (caster.damageIncrease)
 
         if (caster.spec==="assassination") {
             if (ability.poison || ability.bleed) {

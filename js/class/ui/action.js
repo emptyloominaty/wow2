@@ -139,11 +139,13 @@ if (player.spec==="balance") {
         "Wrath": new Action("Wrath", 1, 8),
         "Starfire": new Action("Starfire", 1, 9),
         //bar0
+        "Celestial Alignment": new Action("Celestial Alignment", 0, 0),
         "Starfall": new Action("Starfall", 0, 1),
         "Sunfire": new Action("Sunfire", 0, 6),
         //bar2
         "Moonfire": new Action("Moonfire", 2, 0),
         "Regrowth": new Action("Regrowth", 2, 2),
+        "Moonkin Form": new Action("Moonkin Form", 2, 3),
     }
 
 }

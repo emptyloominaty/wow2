@@ -9,4 +9,5 @@ let elements = {
     _message: document.getElementById("_message"),
     creatureBars: document.getElementById("creatureBars"),
     floatingText2: document.getElementById("floatingText2"),
+    window: document.getElementById("window"),
 }

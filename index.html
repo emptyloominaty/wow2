@@ -10,9 +10,11 @@
     <link rel="stylesheet" type="text/css" href="styles/raidFrames.css">
     <link rel="stylesheet" type="text/css" href="styles/spellTooltip.css">
     <link rel="stylesheet" type="text/css" href="styles/details.css">
+    <link rel="stylesheet" type="text/css" href="styles/windows.css">
     <!------------------------------------------------>
     <!--Start-->
     <script src="js/settings.js" defer></script>
+    <script src="js/specs.js" defer></script>
     <script src="js/colors.js" defer></script>
     <script src="js/icons.js" defer></script>
     <script src="js/sounds.js" defer></script>
@@ -62,6 +64,8 @@
     <script src="js/class/abilities/druid/starfire.js" defer></script>
     <script src="js/class/abilities/druid/starsurge.js" defer></script>
     <script src="js/class/abilities/druid/starfall.js" defer></script>
+    <script src="js/class/abilities/druid/moonkinForm.js" defer></script>
+    <script src="js/class/abilities/druid/celestialAlignment.js" defer></script>
 
     <script src="js/class/abilities/druid/abilities_restoDruid.js" defer></script>
     <script src="js/class/abilities/druid/abilities_balanceDruid.js" defer></script>
@@ -170,6 +174,10 @@
     <script src="js/class/ui/message.js" defer></script>
     <script src="js/class/ui/details.js" defer></script>
 
+    <script src="js/windows/character.js" defer></script>
+    <script src="js/windows/talents.js" defer></script>
+    <script src="js/windows/spellbook.js" defer></script>
+
     <script src="js/tooltips.js" defer></script>
     <script src="js/combatLog.js" defer></script>
     <!--Main-->
@@ -204,6 +212,15 @@
             </div>
             <div id="raidFrames_parent">
                 
+            </div>
+            <div id="micromenu">
+                <img src="img/character.png" onclick="open_character()">
+                <img src="img/spellbook.png" onclick="open_spellbook()">
+                <img src="img/talents.png" onclick="open_talents()">
+            </div>
+            <div id="chat">
+            </div>
+            <div id="window">
             </div>
         </div>
         <span id="_message">

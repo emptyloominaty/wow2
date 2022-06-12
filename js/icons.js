@@ -1,5 +1,10 @@
 let iconsPath = {
     //
+    ui: {
+        "spellbook":"img/spellbook.png"
+    },
+
+    //
     "dps":"img/roles/role_dps.png",
     "healer":"img/roles/role_healer.png",
     "tank":"img/roles/role_tank.png",
@@ -234,7 +239,7 @@ let iconsPath = {
     "Void Reaver":"img/demonHunter/VoidReaver.jpg",
 
     //Druid
-    "Moonkin Form":"img/druid/MookinFrom.jpg",
+    "Moonkin Form":"img/druid/MoonkinForm.jpg",
     "Regrowth":"img/druid/Regrowth.jpg",
     "Rejuvenation":"img/druid/Rejuvenation.jpg",
     "Moonfire":"img/druid/Moonfire.jpg",

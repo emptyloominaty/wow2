@@ -6,6 +6,9 @@ class balanceDruid_abilities {
     "Starfire" = new Starfire()
     "Starsurge" = new Starsurge()
     "Starfall" = new Starfall()
+    "Moonkin Form" = new MoonkinForm()
+    "Celestial Alignment" = new CelestialAlignment()
+
     //passive
     "Eclipse" = new Eclipse()
     "Shooting Stars" = new ShootingStars()
@@ -65,6 +68,8 @@ class Eclipse extends Ability {
         this.solarStacks = 0
         this.lunarStacks = 0
         this.next = "none"
+        this.solar = false
+        this.lunar = false
 
         this.time = 0
         this.buffed = 0
@@ -74,6 +79,9 @@ class Eclipse extends Ability {
     run(caster) {
         if (this.time>0) {
             this.time -= progressInSec
+        } else {
+            this.lunar = false
+            this.solar = false
         }
     }
 
@@ -125,12 +133,14 @@ class Eclipse extends Ability {
 
         if(this.solarStacks===2)  {
             applyBuff(caster, caster, this,undefined,undefined,"Eclipse (Solar)")
+            this.solar = true
             this.solarStacks = 0
             this.next = "lunar"
             this.time = this.duration
             this.buffed = 0
         } else if (this.lunarStacks===2) {
             applyBuff(caster, caster, this,undefined,undefined,"Eclipse (Lunar)")
+            this.lunar = true
             this.lunarStacks = 0
             this.next = "solar"
             this.time = this.duration

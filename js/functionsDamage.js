@@ -1,7 +1,7 @@
 let damageFunctions = {
     "Wrath":(caster,target,damage,ability)=> {
         if (caster.spec==="balance") {
-            if (caster.abilities["Eclipse"].next==="lunar" && caster.abilities["Eclipse"].time>0) {
+            if (caster.abilities["Eclipse"].solar && caster.abilities["Eclipse"].time>0) {
                 return damage * (1 + (caster.stats.mastery / 100))
             }
         }
@@ -10,7 +10,7 @@ let damageFunctions = {
     "Sunfire":(caster,target,damage,ability)=> {
         if (caster.spec==="balance") {
             caster.abilities["Shooting Stars"].proc(caster,target)
-            if (caster.abilities["Eclipse"].next==="lunar" && caster.abilities["Eclipse"].time>0) {
+            if (caster.abilities["Eclipse"].solar && caster.abilities["Eclipse"].time>0) {
                 return damage * (1 + (caster.stats.mastery / 100))
             }
         }
@@ -19,7 +19,7 @@ let damageFunctions = {
     "Moonfire":(caster,target,damage,ability)=> {
         if (caster.spec==="balance") {
             caster.abilities["Shooting Stars"].proc(caster,target)
-            if (caster.abilities["Eclipse"].next==="solar" && caster.abilities["Eclipse"].time>0) {
+            if (caster.abilities["Eclipse"].lunar && caster.abilities["Eclipse"].time>0) {
                 return damage * (1 + (caster.stats.mastery / 100))
             }
         }
@@ -35,7 +35,7 @@ let damageFunctions = {
     },
     "Starfire":(caster,target,damage,ability)=> {
         if (caster.spec==="balance") {
-            if (caster.abilities["Eclipse"].next==="solar" && caster.abilities["Eclipse"].time>0) {
+            if (caster.abilities["Eclipse"].lunar && caster.abilities["Eclipse"].time>0) {
                 return damage * (1 + (caster.stats.mastery / 100))
             }
         }
@@ -43,7 +43,7 @@ let damageFunctions = {
     },
     "Shooting Stars":(caster,target,damage,ability)=> {
         if (caster.spec==="balance") {
-            if (caster.abilities["Eclipse"].next==="solar" && caster.abilities["Eclipse"].time>0) {
+            if (caster.abilities["Eclipse"].time>0) {
                 return damage * (1 + (caster.stats.mastery / 100))
             }
         }

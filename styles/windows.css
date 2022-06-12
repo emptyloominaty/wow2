@@ -1,0 +1,10 @@
+#window {
+    position:fixed;
+    z-index: 100;
+    top:50px;
+    left:50px;
+    background-color: #342b1b;
+    color:#FFF;
+    overflow:auto;
+    border-radius:3px;
+}

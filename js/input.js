@@ -28,6 +28,8 @@ let keybindsD = {
     "KeyY":"Z",
     "KeyG":"G",
     "KeyV":"V",
+    "KeyC":"C",
+    "KeyN":"N",
     "Backquote":";",
     "F1":"F1",
     "F2":"F2",
@@ -39,6 +41,10 @@ let keybindsD = {
 let keybinds = {
     keyListening:0,
     keyDone:true,
+    "Character Info":{mod:"",key:"KeyC"},
+    "Spellbook":{mod:"",key:"KeyP"},
+    "Talents":{mod:"",key:"KeyN"},
+
     "Move Up":{mod:"",key:"KeyW"},
     "Move Down":{mod:"",key:"KeyS"},
     "Move Left":{mod:"",key:"KeyA"},
@@ -348,6 +354,40 @@ let keyLoop = () => {
             pressAbility(2,11)
         }
     }
+
+    if (keyPressed[keybinds["Character Info"].key]) {
+        if ((modPressed("Character Info"))) {
+            if (currentWindow!=="character") {
+                open_character()
+            } else {
+                close_window()
+            }
+            keyPressed[keybinds["Character Info"].key] = false
+        }
+    }
+
+    if (keyPressed[keybinds["Spellbook"].key]) {
+        if ((modPressed("Spellbook"))) {
+            if (currentWindow!=="spellbook") {
+                open_spellbook()
+            } else {
+                close_window()
+            }
+            keyPressed[keybinds["Spellbook"].key] = false
+        }
+    }
+
+    if (keyPressed[keybinds["Talents"].key]) {
+        if ((modPressed("Talents"))) {
+            if (currentWindow !== "talents") {
+                open_talents()
+            } else {
+                close_window()
+            }
+        }
+            keyPressed[keybinds["Talents"].key] = false
+    }
+
 
 
     if (keyPressed["Escape"]) {

@@ -18,6 +18,7 @@ class Creature {
     //        1  - 0.66 - 0.45 - 0.25
     stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:100}
     statsBup = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:100}
+    itemLevel = 270
 
     moveSpeed = 1
     x = 0
@@ -50,6 +51,7 @@ class Creature {
     debuffs = []
 
     healingIncrease = 1
+    damageIncrease = 1
     moveSpeedIncrease = 1
 
     target = ""
@@ -287,6 +289,7 @@ class Creature {
         this.attackSpeed = 1
         this.reduceEnergyCost = 1
         this.damageReduction = 0
+        this.damageIncrease = 1
         this.stats = JSON.parse(JSON.stringify(this.statsBup))
         this.isStunned = false
         this.isRooted = false
@@ -295,6 +298,10 @@ class Creature {
         for (let i = 0; i<this.formEffects.length; i++) {
             if (this.formEffects[i].name==="moveSpeed") {
                 this.moveSpeedIncrease += this.formEffects[i].val
+            } else if (this.formEffects[i].name==="increaseDamage") {
+                this.damageIncrease += this.formEffects[i].val
+            } else if (this.formEffects[i].name==="increaseArmor") {
+                this.stats.armor = this.stats.armor*(1+this.formEffects[i].val)
             }
         }
 
