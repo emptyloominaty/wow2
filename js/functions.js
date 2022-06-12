@@ -76,9 +76,9 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
     }
 }
 
-let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "") {
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "",incCrit = 0) {
     if (!target.isDead) {
-        let crit = critChance(caster)
+        let crit = critChance(caster,incCrit)
         if (!canCrit) { //0% crit chance
             crit = 1
         }
@@ -107,6 +107,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (checkBuff(caster,caster,"Enrage")) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }
+        }
+
+        if (damageFunctions[ability.name]) {
+            damage = damageFunctions[ability.name](caster,target,damage,ability)
         }
 
         if (ability.school==="physical") {

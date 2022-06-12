@@ -130,8 +130,24 @@ if (player.spec==="restorationDruid") {
         "Wrath": new Action("Wrath", 2, 1),
         //"Starfire": new Action("Starfire", 2, 2),
     }
+}
+
+if (player.spec==="balance") {
+    actions = {
+        //bar1
+        "Starsurge": new Action("Starsurge", 1, 0),
+        "Wrath": new Action("Wrath", 1, 8),
+        "Starfire": new Action("Starfire", 1, 9),
+        //bar0
+        "Starfall": new Action("Starfall", 0, 1),
+        "Sunfire": new Action("Sunfire", 0, 6),
+        //bar2
+        "Moonfire": new Action("Moonfire", 2, 0),
+        "Regrowth": new Action("Regrowth", 2, 2),
+    }
 
 }
+
 
 if (player.spec==="assassination") {
     actions = {

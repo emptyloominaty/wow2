@@ -68,7 +68,7 @@ class LavaBurst extends Ability {
     }
 
     endCast(caster) {
-        if (caster.target!=="" && this.isEnemy(caster)) {
+        if (caster.target!=="" && this.isEnemy(caster,caster.castTarget)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 let crit = false
                 for (let i = 0; i<caster.castTarget.debuffs.length; i++) {
@@ -76,7 +76,7 @@ class LavaBurst extends Ability {
                         crit = true
                     }
                 }
-                doDamage(caster,caster.targetObj,this,undefined,undefined,undefined,crit)
+                doDamage(caster,caster.castTarget,this,undefined,undefined,undefined,crit)
                 caster.useEnergy(this.cost,this.secCost)
                 if (this.maxCharges>1) {
                     if (this.charges===this.maxCharges) {

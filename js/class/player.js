@@ -5,4 +5,4 @@ class Player extends Creature {
     }
 }
 //"mistweaver" , "restorationShaman" , "restorationDruid" , "assassination" , "holyPriest" ,
-let player = new Player("player",50500,100,0,0,0,"holyPriest" )
+let player = new Player("player",50500,100,0,0,0,"balance" )

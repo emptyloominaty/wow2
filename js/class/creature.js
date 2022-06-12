@@ -157,6 +157,7 @@ class Creature {
             this.abilities = new balanceDruid_abilities()
             this.melee = false
             this.resourceName = "Astral Power"
+            this.energy = 0
             this.role = "dps"
         } else if (spec==="arcane") {//----------------------------------------Arcane
             this.class = "Mage"
@@ -360,6 +361,17 @@ class Creature {
                             buff.duration = -1
                         }
                         buffPoM.healthB = this.health
+                    } else if (this.buffs[i].effect[j].name === "starfall") {
+                        this.buffs[i].effect[j].timer += progressInSec
+                        if (this.buffs[i].effect[j].timer>1) {
+                            for (let i = 0; i<enemies.length ;i++) {
+                                if (!enemies[i].isDead && getDistance(this, enemies[i])<40 ) {
+                                    doDamage(this, enemies[i], this.abilities["Starfall"])
+                                }
+                            }
+                            this.buffs[i].effect[j].timer=0
+                        }
+
                     }
                 }
             } else {

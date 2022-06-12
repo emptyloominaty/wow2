@@ -18,6 +18,7 @@ class Sunfire extends Ability {
         this.spellPower = 0.2
         this.spellPowerDot = 1.044
         this.duration = 16
+        this.spreadRange = 8
 
         this.effect = ""
         this.effectValue = 0
@@ -28,9 +29,6 @@ class Sunfire extends Ability {
             this.duration+=6
             this.cost = -3
         }
-
-        //TODO:spread to target (8m)
-
     }
 
     getTooltip() {
@@ -55,6 +53,7 @@ class Sunfire extends Ability {
                     if (caster===player) {
                         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
                     }
+                    caster.castTarget = newTarget
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
@@ -65,6 +64,13 @@ class Sunfire extends Ability {
                 }
             }
             if (done) {
+                for (let i = 0; i<enemies.length ;i++) {
+                    if (!enemies[i].isDead && this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange) ) {
+                        doDamage(caster, enemies[i], this)
+                        applyDot(caster,enemies[i],this,undefined,undefined,this.spellPowerDot)
+                    }
+                }
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}

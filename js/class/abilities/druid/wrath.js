@@ -21,7 +21,7 @@ class Wrath extends Ability {
         this.effectValue = 0
 
         if (balance) {
-            cost = -6
+            this.cost = -6
             this.spellPower = 0.6
         }
 
@@ -29,7 +29,7 @@ class Wrath extends Ability {
     }
 
     getTooltip() {
-        return "Hurl a ball of energy at the target, dealing   "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  Nature damage."
+        return "Hurl a ball of energy at the target, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  Nature damage."
     }
 
     run(caster) {
@@ -56,12 +56,18 @@ class Wrath extends Ability {
             }
             if (done) {
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+                let castTime = this.castTime
+                this.setGcd(caster)
+                if (caster.spec==="balance") {
+                    castTime = castTime*caster.abilities["Eclipse"].getCastTime(caster,this)
+                    caster.gcd = castTime / (1 + (caster.stats.haste / 100))
+                }
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100))}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
-                this.setGcd(caster)
+
                 return true
             }
 
@@ -72,9 +78,14 @@ class Wrath extends Ability {
     }
 
     endCast(caster) {
-        if (caster.target!=="" && this.isEnemy(caster)) {
+        if (caster.target!=="" && this.isEnemy(caster,caster.castTarget)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                doDamage(caster,caster.targetObj,this)
+                let spellPower = this.spellPower
+                if (caster.spec==="balance") {
+                    caster.abilities["Eclipse"].startCast(caster,this)
+                    spellPower = spellPower*caster.abilities["Eclipse"].getDamage(caster,this)
+                }
+                doDamage(caster,caster.castTarget,this,undefined,spellPower)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }

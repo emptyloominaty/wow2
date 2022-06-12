@@ -1,31 +1,35 @@
-class LightningBolt extends Ability {
-    constructor() {
-        let name = "Lightning Bolt"
-        let cost = 0.25 //% mana
+class Starsurge extends Ability {
+    constructor(balance = false) {
+        let name = "Starsurge"
+        let cost = 30
 
         let gcd = 1.5
-        let castTime = 2.5
+        let castTime = 0
         let cd = 0
         let charges = 1
         let maxCharges = 1
         let channeling = false
-        let casting = true
+        let casting = false
         let canMove = false
-        let school = "nature"
+        let school = "arcane"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.95
+        this.spellPower = 2.07
 
         this.effect = ""
         this.effectValue = 0
 
+        if (balance) {
+            this.cost = -6
+            this.spellPower = 0.6
+        }
 
 
     }
 
     getTooltip() {
-        return "Hurls a bolt of lightning at the target, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  Nature damage."
+        return "Launch a surge of stellar energies at the target, dealing"+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  Astral damage, and empowering the damage bonus of any active Eclipse for its duration."
     }
 
     run(caster) {
@@ -53,11 +57,12 @@ class LightningBolt extends Ability {
             if (done) {
                 caster.isCasting = true
                 caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+                this.setGcd(caster)
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
-                this.setGcd(caster)
+
                 return true
             }
 
@@ -70,6 +75,9 @@ class LightningBolt extends Ability {
     endCast(caster) {
         if (caster.target!=="" && this.isEnemy(caster,caster.castTarget)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                if (caster.spec==="balance") {
+                    caster.abilities["Eclipse"].incBuff()
+                }
                 doDamage(caster,caster.castTarget,this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0

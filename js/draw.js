@@ -143,7 +143,7 @@ function draw(progress) {
             }
 
             if (creatures[i].isDead) {
-                color = pSBC( -0.45, color, false, true )
+                color = pSBC( -0.6, color, false, true )
             }
 
             let x2d = (game2d.canvasW/2)+x

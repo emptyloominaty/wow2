@@ -354,13 +354,38 @@ class Ai {
                     setTargetAi(c,target)
                     c.direction = getDirection(c,c.targetObj)
 
-                    if (!this.checkDebuff(c,target,"Moonfire")) {
+                    if (!casted && this.getNumberOfEnemies(c,40)>2) {
+                        casted = c.abilities["Starfall"].startCast(c)
+                    }
+
+                    if (!casted && this.getNumberOfEnemies(c,40)<=2 ) {
+                        casted = c.abilities["Starsurge"].startCast(c)
+                    }
+
+                    if (!casted && !this.checkDebuff(c,target,"Moonfire")) {
                         casted = c.abilities["Moonfire"].startCast(c)
                     }
                     if (!casted && !this.checkDebuff(c,target,"Sunfire")) {
                         casted = c.abilities["Sunfire"].startCast(c)
                     }
-                    if (!casted) {
+
+                    if (!casted && this.checkBuff(c,c,"Eclipse (Solar)")) {
+                        casted = c.abilities["Wrath"].startCast(c)
+                    }
+
+                    if (!casted && this.checkBuff(c,c,"Eclipse (Lunar)")) {
+                        casted = c.abilities["Starfire"].startCast(c)
+                    }
+
+                    if (!casted && c.abilities["Eclipse"].next==="solar") {
+                        casted = c.abilities["Starfire"].startCast(c)
+                    }
+
+                    if (!casted && c.abilities["Eclipse"].next==="lunar") {
+                        casted = c.abilities["Wrath"].startCast(c)
+                    }
+
+                    if (!casted && c.abilities["Eclipse"].next==="none") {
                         casted = c.abilities["Wrath"].startCast(c)
                     }
                 }

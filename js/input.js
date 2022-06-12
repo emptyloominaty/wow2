@@ -444,9 +444,11 @@ let onMouseUpdate = function(e) {
     }
     mousePosition.x = e.pageX
     mousePosition.y = e.pageY
-    
+
     mousePosition2d.x = ((player.x+((e.pageX)-(game2d.canvasW/2))/gameScaling))
     mousePosition2d.y = ((player.y+((e.pageY)-(game2d.canvasH/2))/gameScaling))
+
+
 }
 
 document.addEventListener('mousemove', onMouseUpdate)

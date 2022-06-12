@@ -447,13 +447,13 @@ class Ability {
         }
     }
 
-    isEnemy(caster) {
+    isEnemy(caster,target = caster.targetObj) {
         if (caster.enemy) {
-            if (!caster.targetObj.enemy) {
+            if (!target.enemy) {
                 return true
             }
         } else {
-            if (caster.targetObj.enemy) {
+            if (target.enemy) {
                 return true
             }
         }
@@ -479,7 +479,7 @@ class Ability {
     }
 
     checkCost(caster,cost = 9999,showMessage = true) {
-        if (caster.isStunned) {
+        if (caster.isStunned || caster.isDead) {
             return false
         }
         if (cost===9999) {
@@ -507,6 +507,9 @@ class Ability {
     }
 
     checkCd(caster,dontShow = false) {
+        if (caster.isStunned || caster.isDead) {
+            return false
+        }
         if (this.maxCharges>1) {
             if (this.charges>0) {
                 return true
