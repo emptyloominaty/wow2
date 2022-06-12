@@ -71,7 +71,7 @@ class Ai {
             }
 
         },
-        "mistweaver":() => {//--------------------------------------------------------------------------------------------------TODO:Mistweaver
+        "mistweaver":() => {//--------------------------------------------------------------------------------------------------Mistweaver
             let c = this.creature
             let casted = false
             let raidAvgHealth = this.getRaidAvgHealth()
@@ -79,7 +79,7 @@ class Ai {
             if (!c.isCasting && !c.isChanneling && c.gcd<=0) {
 
                 if (!casted && raidAvgHealth < 0.75) {
-                    casted = c.abilities["revival"].startCast(c)
+                    casted = c.abilities["Revival"].startCast(c)
                 }
 
                 if (!casted) {

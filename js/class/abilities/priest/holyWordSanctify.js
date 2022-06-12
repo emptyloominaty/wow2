@@ -4,7 +4,7 @@ class HolyWordSanctify extends Ability {
         let cost = 3.5 //% mana
         let gcd = 1.5
         let castTime = 0
-        let cd = 60
+        let cd = 1
         let charges = 1
         let maxCharges = 1
         let channeling = false

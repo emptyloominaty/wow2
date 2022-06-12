@@ -1,10 +1,12 @@
 for (let i = 0; i<creatures.length; i++) {
     if (!creatures[i].enemy) {
-        bars["creature"+i+"Health"] = new Bar(60,2,1.5,1.5,0,0,colors[creatures[i].class],"rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Name"] = new Bar(60,5,100,100,0,0,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_creature"+i+"Name",4,"rgba(0,0,0,0")
+        bars["creature"+i+"Health"] = new Bar(60,2,1.5,1.5,0,0,colors[creatures[i].class],"rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5",true,i)
         bars["creature"+i+"Cast"] = new Bar(60,5,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",4,"rgba(0,0,0,0.5")
         bars["creature"+i+"Cast"].setVisibility(false)
     } else {
-        bars["creature"+i+"Health"] = new Bar(100,12,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5")
+        bars["creature"+i+"Name"] = new Bar(100,10,100,100,0,0,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_creature"+i+"Name",8,"rgba(0,0,0,0")
+        bars["creature"+i+"Health"] = new Bar(100,12,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5",true,i)
         bars["creature"+i+"Cast"] = new Bar(100,12,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",8,"rgba(0,0,0,0.5")
         bars["creature"+i+"Cast"].setVisibility(false)
         let div = document.createElement("div")
@@ -15,6 +17,7 @@ for (let i = 0; i<creatures.length; i++) {
         div.style.height = "20px"
         div.style.display = "flex"
         div.style.justifyContent = "center"
+        div.style.pointerEvents= "none"
         elements.creatureBars.appendChild(div)
     }
 
@@ -77,7 +80,6 @@ if (0===0) {
 
     let raidFramesHTML = ""
     for (let i = 0; i<friendlyTargets.length; i++) {
-        //TODO:DEBUFFS
         raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'>" +
             " <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
             "<div class='raidFrame_health2'>.</div>" +
@@ -103,7 +105,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-        elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePositionScreen.x+" y:"+mousePositionScreen.y+"<br>" /*+
+        elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePosition2d.x.toFixed(0)+" y:"+mousePosition2d.y.toFixed(0)+"<br>"+"R: x: "+player.x.toFixed(0)+" y:"+player.y.toFixed(0)+"<br>"  /*+
             "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 
     //---------------2d---------------
@@ -147,6 +149,7 @@ function draw(progress) {
             let x2d = (game2d.canvasW/2)+x
             let y2d = (game2d.canvasH/2)+y
 
+            let y2dN = y2d-(22*gameScaling)-size
             let y2dH = y2d-(18*gameScaling)-size
             let y2dC = y2d-(14*gameScaling)-size
 
@@ -163,16 +166,26 @@ function draw(progress) {
                 if (creatures[i]===player.targetObj) {
                     bars["creature"+i+"Health"].setZIndex(10)
                     bars["creature"+i+"Cast"].setZIndex(10)
-                    if (creatures[i].isEnemy) {
+                    bars["creature"+i+"Name"].setZIndex(10)
+                    if (creatures[i].enemy) {
                         bars["creature"+i+"Health"].changeColor(colors["barHealthSelect"])
                     }
                 } else {
                     bars["creature"+i+"Health"].setZIndex(0)
                     bars["creature"+i+"Cast"].setZIndex(0)
-                    if (creatures[i].isEnemy) {
+                    bars["creature"+i+"Name"].setZIndex(0)
+                    if (creatures[i].enemy) {
                         bars["creature" + i + "Health"].changeColor(colors["barHealth"])
                     }
                 }
+
+                if (creatures[i].enemy) {
+                    y2dN = y2dN + 15*gameScaling
+                }
+
+                bars["creature"+i+"Name"].setPosition(x2d,y2dN,true)
+                bars["creature"+i+"Name"].setText(creatures[i].name)
+                bars["creature"+i+"Name"].updateSize()
 
                 bars["creature"+i+"Health"].setPosition(x2d,y2dH,true)
                 bars["creature"+i+"Health"].setVal(creatures[i].health)
@@ -215,7 +228,7 @@ function draw(progress) {
                 if (el) {
                     let width = (200*gameScaling)
                     let height = (20*gameScaling)
-                    let fontSize = (14*gameScaling)
+                    let fontSize = (16*gameScaling)
 
                     el.style.left = (x2d-(width/2))+"px"
                     el.style.top = (y2d-(45*gameScaling)-size)+"px"
@@ -242,6 +255,7 @@ function draw(progress) {
                 }
             }
             if (creatures[i].isDead) {
+                bars["creature"+i+"Name"].setVisibility(false)
                 bars["creature"+i+"Health"].setVisibility(false)
                 bars["creature"+i+"Cast"].setVisibility(false)
             }

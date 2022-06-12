@@ -8,6 +8,7 @@ let settings = {
 }
 
 let spellQueueWindow = 0.3 //sec
+let pxToMeter = 11
 
 let raidFramesBuffs = {
     "mistweaver": {

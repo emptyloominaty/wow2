@@ -1,5 +1,5 @@
 class Bar {
-    constructor(width,height,val,maxVal,x,y,color,backgroundColor,id,fontsize = 16,borderColor = "#111111") {
+    constructor(width,height,val,maxVal,x,y,color,backgroundColor,id,fontsize = 16,borderColor = "#111111",onClick = false,cId = 0) {
         this.x = x
         this.y = y
         this.width = width
@@ -11,6 +11,7 @@ class Bar {
         this.fontSize = fontsize
         this.backgroundColor = backgroundColor
         this.id = id
+        this.cId = cId
 
         let div = document.createElement("div")
         div.style.position = "fixed"
@@ -21,6 +22,11 @@ class Bar {
         div.style.backgroundColor = backgroundColor
         div.style.border = "2px solid "+borderColor
         div.style.borderRadius = "1px"
+        div.style.pointerEvents= "none"
+        if (onClick) {
+            div.style.pointerEvents = "auto"
+        }
+
         div.id = id+"_bg"
 
         let div2 = document.createElement("div")
@@ -30,9 +36,10 @@ class Bar {
         div2.style.width = width+"px"
         div2.style.height = height+"px"
         div2.style.backgroundColor = color
+        div2.style.pointerEvents= "none"
         div2.id = id
 
-        let span = document.createElement("span")
+        let span = document.createElement("div")
         span.style.position = "fixed"
         span.style.top = (y+2)+"px"
         span.style.left = (x)+"px"
@@ -40,12 +47,24 @@ class Bar {
         span.style.height = height+"px"
         span.style.textAlign = "center"
         span.style.fontSize = fontsize+"px"
+        span.style.pointerEvents= "none"
         span.style.textShadow = "-1px -1px 1px rgba(0,0,0,0.8), 1px -1px 1px rgba(0,0,0,0.8), -1px 1px 1px #000, 1px 1px 1px rgba(0,0,0,0.8)"
         span.id = id+"_text"
 
         elements.creatureBars.appendChild(div)
         elements.creatureBars.appendChild(div2)
         elements.creatureBars.appendChild(span)
+
+        let click = (e)=> {
+            console.log(this.cId)
+            player.targetObj = creatures[this.cId]
+            player.target = creatures[this.cId].name
+            document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"  //TODO FIX!!!!
+        }
+
+        if (onClick) {
+            document.getElementById(id+"_bg").addEventListener('click', click)
+        }
     }
 
     setVal(val) {

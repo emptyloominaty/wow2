@@ -496,7 +496,7 @@ class Creature {
             this.isChanneling = false
             this.channeling = {name:"", time:0, time2:0}
         }
-        if (!this.isStunned && !this.isRooted) {
+        if (!this.isStunned && !this.isRooted && !this.isDead) {
             this.x += vx
             this.y += vy
         }

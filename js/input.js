@@ -1,8 +1,7 @@
 let strafing = false
 let mousePosition = {x:0,y:0}
 let mousePosition2d = {x:0,y:0}
-let mousePositionScreen = {x:0,y:0}
-let gameScaling = 1
+let gameScaling = 1.8
 
 let keyPressed = {}
 
@@ -128,7 +127,7 @@ let keyLoop = () => {
     }
     if (keyPressed[keybinds["Move Down"].key]) {
         //if ((modPressed("Move Down"))) {
-            player.move(-0.5)
+            player.move(-0.357)
         //}
     }
     if (keyPressed[keybinds["Bar1 Ability0"].key]) {
@@ -445,20 +444,28 @@ let onMouseUpdate = function(e) {
     }
     mousePosition.x = e.pageX
     mousePosition.y = e.pageY
-
-    mousePosition2d.x = (e.pageX-(game2d.canvasW/2))/gameScaling
-    mousePosition2d.y = (e.pageY-(game2d.canvasH/2))/gameScaling
+    
+    mousePosition2d.x = ((player.x+((e.pageX)-(game2d.canvasW/2))/gameScaling))
+    mousePosition2d.y = ((player.y+((e.pageY)-(game2d.canvasH/2))/gameScaling))
 }
 
 document.addEventListener('mousemove', onMouseUpdate)
 
 //mouse position
-let onMouseUpdate2 = function(e) {
-    mousePositionScreen.x = e.pageX
-    mousePositionScreen.y = e.pageY
+let onMouseClick = function(e) {
+//check targets
+    for (let i = 0; i<creatures.length; i++) {
+        let creatureSize = creatures[i].size*gameScaling
+        if (getDistance(mousePosition,creatures[i].screenPosition)<creatureSize/pxToMeter) {
+            player.targetObj = creatures[i]
+            player.target = creatures[i].name
+            document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+        }
+    }
+
 }
 
-game2d.canvasElement.addEventListener('mousemove', onMouseUpdate2)
+document.addEventListener('click', onMouseClick)
 
 //------------------------------------------------------------------------
 let zoom = function(event) {
@@ -467,8 +474,8 @@ let zoom = function(event) {
     gameScaling += val
     if (gameScaling < 0.9) {
         gameScaling = 0.9
-    } else if (gameScaling>2.8) {
-        gameScaling = 2.8
+    } else if (gameScaling>4) { //2.8
+        gameScaling = 4  //2.8
     }
 
 }

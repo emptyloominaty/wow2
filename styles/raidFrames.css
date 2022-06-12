@@ -9,7 +9,7 @@
     width:700px;
     align-content: flex-start;
     flex-wrap:wrap;
-
+    z-index:30
 }
 
 .raidFrame {

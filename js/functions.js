@@ -238,7 +238,7 @@ let changeForm = function (caster,ability) {
 let getDistance = function(target1,target2) {
     let a = target1.x - target2.x
     let b = target1.y - target2.y
-    return (Math.sqrt( a*a + b*b))/22  //22 = px per meter
+    return (Math.sqrt( a*a + b*b))/pxToMeter
 }
 
 let getDirection = function(target1,target2) {

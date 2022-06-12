@@ -77,7 +77,7 @@ class Area {
             let y2d = (game2d.canvasH/2)+y
             if (this.type==="circle") {
                 // game2d.drawCircleStroke(x2d,y2d,this.radius*22,this.data.color,2)
-                game2d.drawCircle(x2d,y2d,this.radius*22*gameScaling,this.data.color2)
+                game2d.drawCircle(x2d,y2d,this.radius*pxToMeter*gameScaling,this.data.color2)
             }
         }
     }

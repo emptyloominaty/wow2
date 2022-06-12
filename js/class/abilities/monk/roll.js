@@ -16,7 +16,7 @@ class Roll extends Ability {
 
         this.spellPower = 0
         this.effect = "move"
-        this.effectValue = 7
+        this.effectValue = 0.318*pxToMeter
         this.duration = 0.8
 
     }
