@@ -67,9 +67,11 @@ class ExpelHarm extends Ability {
             for (let i = 0; i<caster.buffs.length; i++) {
                 if (caster.buffs[i].name==="Healing Sphere" && caster.buffs[i].caster === caster) {
                     healingSpheres = caster.buffs[i].stacks
+                    caster.buffs[i].stacks = 0
                     caster.buffs[i].duration = -1
                 }
             }
+
             caster.abilities["Gift of the Ox"].heal(caster,healingSpheres)
         }
         let spellPower = this.spellPower + (1.5*healingSpheres)

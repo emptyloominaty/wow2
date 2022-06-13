@@ -57,6 +57,12 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             heal = heal * getRestoShamMastery(caster,target)
         }
 
+        if (target.spec==="brewmaster") {
+            if (ability.name!=="Leech" && ability.name!=="Celestial Fortune") {
+                target.abilities["Celestial Fortune"].heal(target,heal)
+            }
+        }
+
         if (caster===player && settings.showTargetFloatingHealing) {
             target.floatingTexts.addText(heal,"heal",crit,t)
         }
@@ -66,7 +72,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
         }
         details.doHealing(caster, heal, ability, overhealing,name)
         //leech
-        if (caster.stats.leech>0 && ability.name!=="Leech") {
+        if (caster.stats.leech>0 && ability.name!=="Leech" && ability.name!=="Celestial Fortune") {
             caster.abilities["Leech"].startCast(caster,heal)
         }
         target.health += heal

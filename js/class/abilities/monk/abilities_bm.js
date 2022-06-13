@@ -12,6 +12,7 @@ class Bm_abilities {
     "Shuffle" = new Shuffle()
     "Gift of the Ox" = new GiftoftheOx()
     "Brewmaster's Balance" = new BrewmastersBalance()
+    "Celestial Fortune" = new CelestialFortune()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -146,12 +147,12 @@ class BrewmastersBalance extends Ability {
 
 class GiftoftheOx extends Ability {
     constructor() {
-        super("Gift of the Ox", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        super("Gift of the Ox", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
         this.passive = true
         //this.permanentBuff = true
         this.duration = 30
         this.maxStacks = 100
-        this.spellPower = 1.5
+        this.spellPower = 0
     }
 
     spawnSphere(caster,damage) {
@@ -161,7 +162,21 @@ class GiftoftheOx extends Ability {
     }
 
     heal(caster,healingSpheres) {
-        doHeal(caster,caster,this,undefined,this.spellPower*healingSpheres)
+        doHeal(caster,caster,this,undefined,1.5*healingSpheres)
+    }
+}
+
+
+class CelestialFortune extends Ability {
+    constructor() {
+        super("Celestial Fortune", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+    }
+
+    heal(caster,heal) {
+        if (getChance(caster.stats.crit)) {
+            doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,heal*0.65)
+        }
     }
 }
 
