@@ -99,6 +99,23 @@ if (player.spec==="mistweaver") {
     }
 }
 
+if (player.spec==="brewmaster") {
+    actions = {
+        //bar1
+        "Provoke": new Action("Provoke", 1, 0),
+
+        "Roll": new Action("Roll", 1, 3),
+        "Tiger Palm": new Action("Tiger Palm", 1, 8),
+        "Blackout Kick": new Action("Blackout Kick", 1, 9),
+
+        //bar0
+        "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
+        "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
+
+        //bar2
+    }
+}
+
 if (player.spec==="restorationShaman") {
     actions = {
         //bar1

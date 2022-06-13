@@ -37,7 +37,8 @@ bars.playerCast2.setZIndex(20)
 bars.targetName = new Bar(120,20,100,100,170,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_targetName")
 bars.targetHealth = new Bar(120,20,100,100,170,30,"#4b9539","#555555","bar_targetHealth")
 bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetMana")
-bars.targetCast = new Bar(120,20,1.5,1.5,170,85,"#bbbbbb","#555555","bar_targetCast")
+bars.targetSecondaryResource = new Bar(120,20,0,5,170,80,"#ddda63","#555555","bar_targetSecondaryResource")
+bars.targetCast = new Bar(120,20,1.5,1.5,170,105,"#bbbbbb","#555555","bar_targetCast")
 
 
 let orderRaidFrames = function() {
@@ -124,7 +125,7 @@ function draw(progress) {
     game2d.drawPlayerDirection(0, 0, 6*gameScaling, 3, "#999f9a", player.direction)
 
     if (player.maxSecondaryResource>0) {
-        bars.playerSecondaryResource.setText(player.secondaryResource+"/"+player.maxSecondaryResource)
+        bars.playerSecondaryResource.setText(getNumberString(player.secondaryResource)+"/"+getNumberString(player.maxSecondaryResource))
         bars.playerSecondaryResource.setVal(player.secondaryResource)
         bars.playerSecondaryResource.setMaxVal(player.maxSecondaryResource)
     }
@@ -317,6 +318,13 @@ function draw(progress) {
         bars.targetMana.setMaxVal(player.targetObj.maxEnergy)
         bars.targetMana.setText(player.targetObj.energy.toFixed(0)+"/"+player.targetObj.maxEnergy.toFixed(0))
 
+        if (player.targetObj.maxSecondaryResource>0) {
+            bars.targetSecondaryResource.setText(getNumberString(player.targetObj.secondaryResource)+"/"+getNumberString(player.targetObj.maxSecondaryResource))
+            bars.targetSecondaryResource.setVal(player.targetObj.secondaryResource)
+            bars.targetSecondaryResource.setMaxVal(player.targetObj.maxSecondaryResource)
+            bars.targetSecondaryResource.setVisibility(true)
+        }
+
 
         if (player.targetObj.isCasting || player.targetObj.isChanneling) {
             bars.targetCast.setVisibility(true)
@@ -342,6 +350,7 @@ function draw(progress) {
         bars.targetHealth.setVisibility(false)
         bars.targetMana.setVisibility(false)
         bars.targetCast.setVisibility(false)
+        bars.targetSecondaryResource.setVisibility(false)
     }
 
 
@@ -354,24 +363,49 @@ function draw(progress) {
         document.getElementById("buff_"+i+"_image").src = ""
         document.getElementById("buff_"+i+"_text").textContent = ""
         document.getElementById("buff_"+i+"_stacks").textContent = ""
+        document.getElementById("debuff_"+i+"_image").src = ""
+        document.getElementById("debuff_"+i+"_text").textContent = ""
+        document.getElementById("debuff_"+i+"_stacks").textContent = ""
     }
 
     let ii = 0
     for (let i = 0; i<player.buffs.length; i++) {
-        if (i<16) {
-            ii++
-            document.getElementById("buff_"+i+"_image").src = iconsPath[player.buffs[i].name]
-            document.getElementById("buff_"+i+"_text").textContent = getTime2(player.buffs[i].duration)
-            if (player.buffs[i].stacks>1) {
-                document.getElementById("buff_"+i+"_stacks").textContent = player.buffs[i].stacks
+        if (ii<15) {
+            if (!player.buffs[i].ability.hiddenBuff) {
+                document.getElementById("buff_"+ii+"_image").src = iconsPath[player.buffs[i].name]
+                if (!player.buffs[i].ability.permanentBuff) {
+                    document.getElementById("buff_"+ii+"_text").textContent = getTime2(player.buffs[i].duration)
+                }
+                if (player.buffs[i].stacks>1) {
+                    document.getElementById("buff_"+ii+"_stacks").textContent = player.buffs[i].stacks
+                }
+                ii++
             }
         }
     }
     if (player.form!=="") {
-        if (ii<16) {
+        if (ii<15) {
             document.getElementById("buff_"+ii+"_image").src = iconsPath[player.form]
         }
         ii++
+    }
+
+    ii = 0
+    for (let i = 0; i<player.debuffs.length; i++) {
+        if (ii<15) {
+            if (!player.debuffs[i].ability.hiddenBuff) {
+                document.getElementById("debuff_"+ii+"_image").src = iconsPath[player.debuffs[i].name]
+                if (!player.debuffs[i].ability.permanentBuff) {
+                    document.getElementById("debuff_"+ii+"_text").textContent = getTime2(player.debuffs[i].duration)
+                } else if (player.debuffs[i].type==="stagger") {
+                    document.getElementById("debuff_"+ii+"_text").textContent = getNumberString(player.debuffs[i].effect[0].val)
+                }
+                if (player.debuffs[i].stacks>1) {
+                    document.getElementById("debuff_"+ii+"_stacks").textContent = player.debuffs[i].stacks
+                }
+                ii++
+            }
+        }
     }
 
     //raidframes

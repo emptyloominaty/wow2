@@ -8,3 +8,9 @@
     overflow:auto;
     border-radius:3px;
 }
+
+.windowHeader {
+    padding:5px;
+    display:flex;
+    justify-content: space-between;
+}

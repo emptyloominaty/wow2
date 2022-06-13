@@ -31,6 +31,8 @@ class SpinningCraneKick extends Ability {
         }
         if (bm) {
             this.cost = 40 //energy
+            this.gcd = 1
+            this.hasteGcd = false
         }
 
     }
@@ -53,6 +55,9 @@ class SpinningCraneKick extends Ability {
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(0.8/(1 + (caster.stats.haste / 100)))/2}
             caster.useEnergy(this.cost,this.secCost)
+            if (caster.spec==="brewmaster") {
+                caster.abilities["Shuffle"].incBuff(caster,this)
+            }
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

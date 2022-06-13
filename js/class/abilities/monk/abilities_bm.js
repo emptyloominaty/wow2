@@ -1,8 +1,141 @@
 class Bm_abilities {
-    "Tiger Palm" =  new TigerPalm()
-    "Blackout Kick" =  new BlackoutKick()
+    "Tiger Palm" =  new TigerPalm(false,true)
+    "Blackout Kick" =  new BlackoutKick(false,true)
     "Provoke" =  new Provoke()
     "Spinning Crane Kick" = new SpinningCraneKick(false,true)
     "Roll" = new Roll()
+    "Fortifying Brew" = new FortifyingBrew(true)
+
+    //passive
+    "Stagger" = new Stagger()
+    "Shuffle" = new Shuffle()
+    "Brewmaster's Balance" = new BrewmastersBalance()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
+}
+
+
+class Stagger extends Ability {
+    constructor() {
+        let name = "Stagger"
+        let cost = 0
+        let gcd = 0
+        let castTime = 0
+        let cd = 0
+        let charges = 1
+        let maxCharges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "physical"
+        let range = 5
+        super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
+        this.spellPower = 0
+        this.passive = true
+        this.permanentBuff = true
+        this.duration = 10
+
+        this.physDamageReduce = 0.4
+        this.magicDamageReduce = 0.35 // 0.4*0.35
+
+        this.effect = [{val:0,dotVal:0,time:0,time2:0.5}]
+    }
+
+    reduceDamage(caster,target,ability,damage) {
+        let duration = this.duration
+        let dr = this.physDamageReduce
+        let staggeredDamage = 0
+        //Shuffle
+        if (checkBuff(target,target,"Shuffle")) {
+            dr = dr * 2
+        }
+        //Fortifying Brew
+        if (checkBuff(target,target,"Fortifying Brew")) {
+            dr = dr * 1.1
+        }
+
+        if (ability.school!=="physical") {
+            dr = dr * this.magicDamageReduce
+        }
+
+        let drDot = dr
+        if (drDot>1) {
+            drDot = 1
+        }
+
+        dr = (1-dr)
+        if (dr<0) {
+            dr = 0
+        }
+
+        staggeredDamage = damage * drDot
+        damage = damage * dr
+
+        let done = false
+        for (let i = 0; i<target.debuffs.length; i++) {
+            if (target.debuffs[i].type==="stagger") {
+                target.debuffs[i].effect[0].val += staggeredDamage
+                if (target.debuffs[i].effect[0].val > target.maxHealth*0.6) {
+                    target.debuffs[i].name = "Heavy Stagger"
+                } else if (target.debuffs[i].effect[0].val > target.maxHealth*0.3) {
+                    target.debuffs[i].name = "Moderate Stagger"
+                } else {
+                    target.debuffs[i].name = "Light Stagger"
+                }
+                done = true
+            }
+        }
+        if (!done) {
+            this.effect[0].val = staggeredDamage
+            applyDebuff(target,target,this,"stagger")
+        }
+        this.effect[0].dotVal = this.effect[0].val/this.duration
+        return damage
+
+    }
+}
+
+class Shuffle extends Ability {
+    constructor() {
+        let name = "Shuffle"
+        let cost = 0
+        let gcd = 0
+        let castTime = 0
+        let cd = 0
+        let charges = 1
+        let maxCharges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "physical"
+        let range = 5
+        super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
+        this.spellPower = 0
+        this.passive = true
+        this.duration = 1
+    }
+
+    incBuff(caster,ability) {
+        if (ability.name==="Blackout Kick") {
+            applyBuff(caster,caster,this,undefined,undefined,undefined,3,true)
+        } else if (ability.name==="Spinning Crane Kick") {
+            applyBuff(caster,caster,this,undefined,undefined,undefined,1,true)
+        } else if (ability.name==="Keg Smash") {
+            applyBuff(caster,caster,this,undefined,undefined,undefined,5,true)
+        }
+    }
+
+}
+
+class BrewmastersBalance extends Ability {
+    constructor() {
+        super("Brewmaster's Balance", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.permanentBuff = true
+        this.hiddenBuff = true
+        this.effect = [{name:"increaseStat",stat:"armor",val:25},{name:"increaseStat",stat:"stamina",val:30,percent:true},{name:"damageReduction",val:0.1}]
+    }
+
+    apply(caster){
+        applyBuff(caster,caster,this)
+    }
 }

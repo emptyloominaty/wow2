@@ -1,5 +1,5 @@
 class BlackoutKick extends Ability {
-    constructor(ww = false) {
+    constructor(ww = false,bm = false) {
         let name = "Blackout Kick"
         let cost = 0 //% mana
         let gcd = 1.5
@@ -28,6 +28,10 @@ class BlackoutKick extends Ability {
             this.gcd = 1
             this.hasteGcd = false
         }
+        if (bm) {
+            this.gcd = 1
+            this.hasteGcd = false
+        }
     }
 
     getTooltip() {
@@ -37,13 +41,12 @@ class BlackoutKick extends Ability {
     run(caster) {
     }
 
-    risingSunKickReset(caster,_y) {
+    risingSunKickReset(caster,target) {
         if (caster.spec === "mistweaver") {
             for (let i = 0; i < caster.buffs.length; i++) {
                 if (caster.buffs[i].name === "Teachings of the Monastery" && caster.buffs[i].caster === caster) {
                     for (let j = 0; j < caster.buffs[i].stacks; j++) {
-                        _y += 15
-                        doDamage(caster, caster.targetObj, this, _y)
+                        doDamage(caster, target, this)
                     }
                     //Rising Sun Kick Reset
                     let stacks = caster.buffs[i].stacks
@@ -64,19 +67,18 @@ class BlackoutKick extends Ability {
             }
             caster.abilities["Rising Sun Kick"].cd -= 1
             //TODO:caster.abilities["Fists of Fury"].cd -= 1
+        } else if (caster.spec==="brewmaster") {
+            caster.abilities["Shuffle"].incBuff(caster,this)
         }
     }
 
     startCast(caster) {
         if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)) {
             let done = false
-            let _y = 0
-            if (caster.target!=="" && this.isEnemy(caster) ) {
+            if (caster.target!=="" && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster, caster.castTarget, this)
-                    if (caster.spec === "mistweaver") {
-                        this.risingSunKickReset(caster,_y)
-                    }
+                    this.risingSunKickReset(caster,caster.castTarget)
                     done = true
                 }
             } else {
@@ -89,7 +91,7 @@ class BlackoutKick extends Ability {
                     caster.target = newTarget.name
                     if (this.checkDistance(caster,caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster, caster.targetObj, this)
-                        this.risingSunKickReset(caster, _y)
+                        this.risingSunKickReset(caster,caster.targetObj)
                         done = true
                     }
                 }

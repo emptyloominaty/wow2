@@ -16,8 +16,8 @@ class Creature {
     //        plate-mail-leather-cloth
     //armor:  108 -  72 -  49  -  28
     //        1  - 0.66 - 0.45 - 0.25
-    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:100}
-    statsBup = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:100}
+    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:2500}
+
     itemLevel = 270
 
     moveSpeed = 1
@@ -68,7 +68,9 @@ class Creature {
     magicDamageReduction = 0
     reduceEnergyCost = 1
 
-    constructor(name,enemy,health,energy,x,y,direction,spec) {
+    constructor(name,enemy,health,energy,x,y,direction,spec,stats) {
+        this.stats = stats
+
         this.id = creatures.length
         creatures.push(this)
         this.enemy = enemy
@@ -121,10 +123,14 @@ class Creature {
             this.abilities = new Bm_abilities()
             this.melee = true
             this.role = "tank"
-            this.stats.armor = 95 //TEST
-            this.statsBup.armor = 95 //TEST
+
+            this.abilities["Brewmaster's Balance"].apply(this)
+
             this.energyRegen = 10
             this.resourceName = "Energy"
+            this.secondaryResourceName = "Stagger"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = this.maxHealth*10
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
             this.class = "Shaman"
             this.abilities = new RestoSham_abilities()
@@ -211,6 +217,12 @@ class Creature {
         if (this.enemy) {
             this.stats.armor = 0
         }
+
+
+        this.health = this.stats.stamina*20
+        this.maxHealth = this.stats.stamina*20
+
+        this.statsBup = JSON.parse(JSON.stringify(this.stats))
     }
 
     run() {
@@ -284,13 +296,17 @@ class Creature {
 
 
         //---------------------------------------------------
+        this.maxHealth = this.stats.stamina*20
+
         this.healingIncrease = 1
         this.moveSpeedIncrease = 1
         this.attackSpeed = 1
         this.reduceEnergyCost = 1
         this.damageReduction = 0
         this.damageIncrease = 1
+        let dodge = this.stats.crit
         this.stats = JSON.parse(JSON.stringify(this.statsBup))
+        this.stats.dodge = dodge
         this.isStunned = false
         this.isRooted = false
 
@@ -314,11 +330,11 @@ class Creature {
                     doHeal(this.buffs[i].caster,this,this.buffs[i],undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                     this.buffs[i].timer = 0
                 }
-            } else if (this.buffs[i].type==="buff") {
+            }/* else if (this.buffs[i].type==="buff") {
 
             } else if (this.buffs[i].type==="form") {
 
-            }
+            }*/
 
             if (Array.isArray(this.buffs[i].effect)) {
                 //NEW
@@ -336,7 +352,15 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "damageReduction") {
                         this.damageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "increaseStat") {
-                        this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val
+                        if (this.buffs[i].effect[j].percent) {
+                            this.stats[this.buffs[i].effect[j].stat] *= 1+(this.buffs[i].effect[j].val/100)
+                        } else {
+                            this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val
+                        }
+
+                    } else if (this.buffs[i].effect[j].name === "increaseHealth") {
+                        //TODO!
+
                     } else if (this.buffs[i].effect[j].name === "moveToTarget") {
                         if (this.buffs[i].effect[j]._end===undefined) {
                             this.direction = getDirection(this,this.buffs[i].effect[j].target)
@@ -396,13 +420,15 @@ class Creature {
                 }
             }
 
-            this.buffs[i].duration -= progressInSec
-            if (this.buffs[i].duration<0 || this.buffs[i].stacks<=0) {
-                this.buffs[i].ability.endBuff(this)
-                this.buffs.splice(i,1)
-                i--
-            } else {
-                this.buffs[i].ability.runBuff(this,this.buffs[i],i)
+            if (!this.buffs[i].ability.permanentBuff) {
+                this.buffs[i].duration -= progressInSec
+                if (this.buffs[i].duration < 0 || this.buffs[i].stacks <= 0) {
+                    this.buffs[i].ability.endBuff(this)
+                    this.buffs.splice(i, 1)
+                    i--
+                } else {
+                    this.buffs[i].ability.runBuff(this, this.buffs[i], i)
+                }
             }
 
 
@@ -419,7 +445,23 @@ class Creature {
                         break
                     }
                 }
+            } else if (this.debuffs[i].type==="stagger") {
+                if (this.debuffs[i].effect[0].time<this.debuffs[i].effect[0].time2) {
+                    this.debuffs[i].effect[0].time+=progressInSec
+                } else if (this.debuffs[i].effect[0].val>0) {
+                    this.debuffs[i].effect[0].time = 0
+                    doDamage(this,this,this.abilities["Stagger"],undefined,undefined,undefined,undefined,undefined,undefined,this.debuffs[i].effect[0].dotVal)
+                    if (this.isDead) {
+                        break
+                    }
+                    this.debuffs[i].effect[0].val -= this.debuffs[i].effect[0].dotVal
+                    if (this.debuffs[i].effect[0].val<0) {
+                        this.debuffs[i].effect[0].val = 0
+                    }
+                    this.secondaryResource = Math.round(this.debuffs[i].effect[0].val)
+                }
             }
+
             if (Array.isArray(this.debuffs[i].effect)) {
                 for (let j = 0; j < this.debuffs[i].effect.length; j++) {
                     if (this.debuffs[i].effect[j].name === "stun") {
@@ -432,14 +474,15 @@ class Creature {
                 }
             }
 
-
-            this.debuffs[i].duration -= progressInSec
-            if (this.debuffs[i].duration<0) {
-                this.debuffs[i].ability.endBuff(this)
-                this.debuffs.splice(i,1)
-                i--
-            } else {
-                this.debuffs[i].ability.runBuff(this,this.debuffs[i],i)
+            if (!this.debuffs[i].ability.permanentBuff) {
+                this.debuffs[i].duration -= progressInSec
+                if (this.debuffs[i].duration < 0) {
+                    this.debuffs[i].ability.endBuff(this)
+                    this.debuffs.splice(i, 1)
+                    i--
+                } else {
+                    this.debuffs[i].ability.runBuff(this, this.debuffs[i], i)
+                }
             }
         }
 
@@ -555,21 +598,27 @@ class Creature {
         MistWrap:false,
         ChiWave:false,
         ChiBurst:false,
+
         Celerity:false,
         ChiTorpedo:false,
         TigersLust:false,
+
         Lifecycles:false,
         SpiritoftheCrane:false,
         ManaTea:false,
+
         TigerTailSweep:false,
         SongofChiji:false,
         RingofPeace:false,
+
         HealingElixir:false,
         DiffuseMagic:false,
         DampenHarm:false,
+
         SummonJadeSerpentStatue:false,
         RefreshingJadeWind:false,
         InvokeChijitheRedCrane:false,
+
         FocusedThunder:false,
         Upwelling:false,
         RisingMist:true,

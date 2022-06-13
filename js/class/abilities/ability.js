@@ -12,6 +12,8 @@ class Ability {
 
     talent = false
     passive = false
+    hiddenBuff = false
+    permanentBuff = false
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
                 poison = false, bleed = false,) {

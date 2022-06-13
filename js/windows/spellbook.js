@@ -1,6 +1,6 @@
 let open_spellbook = function() {
     currentWindow = "spellbook"
-    let html = "<div style='display:flex;padding:5px;justify-content: space-between'><span>Spellbook</span> <div onclick='close_window()'>x</div></div>  <div style='display:flex;flex-direction: column;flex-wrap:wrap; padding:15px;'>"
+    let html = "<div class='windowHeader'><span>Spellbook</span> <div onclick='close_window()'>x</div></div>  <div style='display:flex;flex-direction: column;flex-wrap:wrap; padding:15px;'>"
 
     Object.keys(player.abilities).forEach(function(key) {
         if (player.abilities[key].name!==undefined && player.abilities[key].name!=="Leech") {

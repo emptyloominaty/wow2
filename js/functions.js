@@ -76,7 +76,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
     }
 }
 
-let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "",incCrit = 0) {
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "",incCrit = 0,val = 0) {
     if (!target.isDead) {
         let crit = critChance(caster,incCrit)
         if (!canCrit) { //0% crit chance
@@ -86,10 +86,15 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             crit = 2
         }
         let damage = 0
+
         if (spellPower === 0) {
             damage = (caster.stats.primary * ability.spellPower) * (1 + (caster.stats.vers / 100)) * crit
         } else {
             damage = (caster.stats.primary * spellPower) * (1 + (caster.stats.vers / 100)) * crit
+        }
+
+        if (val!==0) {
+            damage =  val
         }
 
         damage = damage * (1-target.damageReduction)
@@ -117,7 +122,18 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
 
         if (ability.school==="physical") {
+
+            //dodge
+            if (ability.range<8 && ability.castTime===0) {
+                if (getChance(target.stats.dodge)) {
+                    damage = 0
+                }
+            }
+
+            //armor
             damage = damage * (1-(target.stats.armor/100))
+
+            //mystic touch
             for (let i = 0; i<target.debuffs.length; i++) {
                 if (target.debuffs[i].name==="Mystic Touch") {
                     damage = damage*1.05
@@ -125,6 +141,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             }
         } else {
+            //chaos brand
             for (let i = 0; i<target.debuffs.length; i++) {
                 if (target.debuffs[i].name==="Chaos Brand") {
                     damage = damage*1.05
@@ -133,16 +150,23 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         }
 
-        if (inCombat) {
-            timelineCombatLog.damage(caster,target,ability,damage)
+        if (target.spec==="brewmaster" && ability.name!=="Stagger") {
+            damage = target.abilities["Stagger"].reduceDamage(caster,target,ability,damage)
         }
-        details.doDamage(caster, damage, ability)
-        if (caster===player && settings.showTargetFloatingDamage) {
-            target.floatingTexts.addText(damage,"damage",crit,ability.name,t)
-        }
-        //leech
-        if (caster.stats.leech>0) {
-            caster.abilities["Leech"].startCast(caster,damage)
+
+        if (ability.name!=="Stagger") {
+            if (inCombat) {
+                timelineCombatLog.damage(caster, target, ability, damage)
+            }
+            details.doDamage(caster, damage, ability)
+            if (caster === player && settings.showTargetFloatingDamage) {
+                target.floatingTexts.addText(damage, "damage", crit, ability.name, t)
+            }
+
+            //leech
+            if (caster.stats.leech>0) {
+                caster.abilities["Leech"].startCast(caster,damage)
+            }
         }
         target.health -= damage
         if (target.health < 0) {
@@ -178,16 +202,23 @@ let applyHot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     }
 }
 
-let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0) {
+let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0,extend = false) {
     if (!target.isDead) {
         let buffName = ability.name
         if (name!=="") {
             buffName = name
         }
 
+        if (duration === 0) {
+            duration = ability.duration
+        }
+
         for (let i = 0; i<target.buffs.length; i++) {
             if (target.buffs[i].name === buffName && target.buffs[i].caster === caster) {
-                target.buffs[i].duration = ability.duration
+                if (extend) {
+                    duration = duration + target.buffs[i].duration
+                }
+                target.buffs[i].duration = duration
                 if (stackable) {
                     if (ability.maxStacks>target.buffs[i].stacks) {
                         target.buffs[i].stacks += stacks
@@ -199,9 +230,7 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
                 return true
             }
         }
-        if (duration === 0) {
-            duration = ability.duration
-        }
+
 
         target.buffs.push({name:buffName, type: "buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
     }

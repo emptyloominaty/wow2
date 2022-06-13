@@ -1,5 +1,5 @@
 class FortifyingBrew extends Ability {
-    constructor() {
+    constructor(bm = false) {
         let name = "Fortifying Brew"
         let cost = 0 //% mana
         let gcd = 0
@@ -15,14 +15,16 @@ class FortifyingBrew extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0
-        this.effect = "damageReduction"
-        this.effectValue = 0.2 //20%
+        this.effect = [{name:"damageReduction",val:0.2},{name:"increaseHealth",val:0.2,percent:true}]
 
-        this.effect2 = "healthIncreased"
-        this.effect2Value = 0.2 //20%
+        this.effect2Value = 0.2 //20% health
 
         this.duration = 15
         this.noGcd = true
+
+        if (bm) {
+            this.cd = 420
+        }
     }
 
     getTooltip() {

@@ -1,5 +1,5 @@
 class TigerPalm extends Ability {
-    constructor(ww = false) {
+    constructor(ww = false,bm = false) {
         let name = "Tiger Palm"
         let cost = 0 //% mana
 
@@ -32,6 +32,11 @@ class TigerPalm extends Ability {
             this.gcd = 1
             this.hasteGcd = false
             this.chanceReset = 8
+        }
+        if (bm) {
+            this.cost = 25
+            this.gcd = 1
+            this.hasteGcd = false
         }
     }
 

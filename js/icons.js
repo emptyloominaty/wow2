@@ -617,6 +617,7 @@ let iconsPath = {
     "Yu'Lon":"img/monk/Yu'Lon.jpg",
     "Teachings of the Monastery":"img/monk/TeachingsOfTheMonastery.jpg",
     "Mystic Touch":"img/monk/MysticTouch.jpg",
+    "Brewmaster's Balance":"img/monk/Brewmaster'sBalance.jpg",
     "Stagger":"img/monk/Stagger.jpg",
     "Light Stagger":"img/monk/LightStagger.jpg",
     "Moderate Stagger":"img/monk/ModerateStagger.jpg",
