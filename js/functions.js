@@ -96,10 +96,15 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         if (val!==0) {
             damage =  val
         }
+        damage = damage * (caster.damageIncrease)
+
+        if (target.spec==="brewmaster") {
+            target.abilities["Gift of the Ox"].spawnSphere(target,damage)
+        }
 
         damage = damage * (1-target.damageReduction)
         damage = damage * (1-((target.stats.vers/100)/2))
-        damage = damage * (caster.damageIncrease)
+
 
         if (caster.spec==="assassination") {
             if (ability.poison || ability.bleed) {

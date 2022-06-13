@@ -113,6 +113,7 @@ if (player.spec==="brewmaster") {
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
 
         //bar2
+        "Expel Harm": new Action("Expel Harm", 2, 7),
     }
 }
 

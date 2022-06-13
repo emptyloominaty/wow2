@@ -5,10 +5,12 @@ class Bm_abilities {
     "Spinning Crane Kick" = new SpinningCraneKick(false,true)
     "Roll" = new Roll()
     "Fortifying Brew" = new FortifyingBrew(true)
+    "Expel Harm" = new ExpelHarm(false,true)
 
     //passive
     "Stagger" = new Stagger()
     "Shuffle" = new Shuffle()
+    "Gift of the Ox" = new GiftoftheOx()
     "Brewmaster's Balance" = new BrewmastersBalance()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
@@ -137,5 +139,29 @@ class BrewmastersBalance extends Ability {
 
     apply(caster){
         applyBuff(caster,caster,this)
+        setTimeout(()=>{caster.updateHealth()},30)
+
     }
 }
+
+class GiftoftheOx extends Ability {
+    constructor() {
+        super("Gift of the Ox", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        //this.permanentBuff = true
+        this.duration = 30
+        this.maxStacks = 100
+        this.spellPower = 1.5
+    }
+
+    spawnSphere(caster,damage) {
+        if (getChance(((0.75*damage)/caster.maxHealth)*(3-2*(caster.health/caster.maxHealth))*100)) {
+            applyBuff(caster,caster,this,1,true,"Healing Sphere")
+        }
+    }
+
+    heal(caster,healingSpheres) {
+        doHeal(caster,caster,this,undefined,this.spellPower*healingSpheres)
+    }
+}
+

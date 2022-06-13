@@ -50,6 +50,7 @@ class Creature {
     buffs = []
     debuffs = []
 
+    increaseHealth = 1
     healingIncrease = 1
     damageIncrease = 1
     moveSpeedIncrease = 1
@@ -64,7 +65,6 @@ class Creature {
     aggroMultiplier = 1
 
     damageReduction = 0
-    healthIncreased = 0
     magicDamageReduction = 0
     reduceEnergyCost = 1
 
@@ -113,6 +113,9 @@ class Creature {
             this.abilities = new Ww_abilities()
             this.melee = true
             this.role = "dps"
+
+            this.stats.crit += 5
+
             this.energyRegen = 10
             this.resourceName = "Energy"
             this.secondaryResourceName = "Chi"
@@ -125,6 +128,7 @@ class Creature {
             this.role = "tank"
 
             this.abilities["Brewmaster's Balance"].apply(this)
+            this.stats.crit += 5
 
             this.energyRegen = 10
             this.resourceName = "Energy"
@@ -296,8 +300,9 @@ class Creature {
 
 
         //---------------------------------------------------
-        this.maxHealth = this.stats.stamina*20
+        this.maxHealth = (this.stats.stamina*20) * this.increaseHealth
 
+        this.increaseHealth = 1
         this.healingIncrease = 1
         this.moveSpeedIncrease = 1
         this.attackSpeed = 1
@@ -307,6 +312,7 @@ class Creature {
         let dodge = this.stats.crit
         this.stats = JSON.parse(JSON.stringify(this.statsBup))
         this.stats.dodge = dodge
+        if (this.enemy) {this.stats.dodge = 0}
         this.isStunned = false
         this.isRooted = false
 
@@ -357,10 +363,8 @@ class Creature {
                         } else {
                             this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val
                         }
-
                     } else if (this.buffs[i].effect[j].name === "increaseHealth") {
-                        //TODO!
-
+                        this.increaseHealth += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "moveToTarget") {
                         if (this.buffs[i].effect[j]._end===undefined) {
                             this.direction = getDirection(this,this.buffs[i].effect[j].target)
@@ -429,9 +433,13 @@ class Creature {
                 } else {
                     this.buffs[i].ability.runBuff(this, this.buffs[i], i)
                 }
+            } else {
+                if (this.buffs[i].duration===-1) {
+                    this.buffs[i].ability.endBuff(this)
+                    this.buffs.splice(i, 1)
+                    i--
+                }
             }
-
-
         }
         //debuffs
         for (let i = 0; i<this.debuffs.length; i++) {
@@ -519,6 +527,10 @@ class Creature {
             }
         }
 
+    }
+
+    updateHealth() {
+        this.health = (this.stats.stamina*20) * this.increaseHealth
     }
 
     useEnergy(val,val2 = 0) {
