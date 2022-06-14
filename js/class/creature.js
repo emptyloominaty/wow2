@@ -50,6 +50,7 @@ class Creature {
     buffs = []
     debuffs = []
 
+    absorb = 0
     increaseHealth = 1
     healingIncrease = 1
     damageIncrease = 1
@@ -302,6 +303,8 @@ class Creature {
         //---------------------------------------------------
         this.maxHealth = (this.stats.stamina*20) * this.increaseHealth
 
+        this.absorbsBuffId = []
+        this.absorb = 0
         this.increaseHealth = 1
         this.healingIncrease = 1
         this.moveSpeedIncrease = 1
@@ -357,7 +360,10 @@ class Creature {
                         this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "damageReduction") {
                         this.damageReduction += this.buffs[i].effect[j].val
-                    } else if (this.buffs[i].effect[j].name === "increaseStat") {
+                    } else if (this.buffs[i].effect[j].name === "absorb") {
+                        this.absorb += this.buffs[i].effect[j].val
+                        this.absorbsBuffId.push(i)
+                    }  else if (this.buffs[i].effect[j].name === "increaseStat") {
                         if (this.buffs[i].effect[j].percent) {
                             this.stats[this.buffs[i].effect[j].stat] *= 1+(this.buffs[i].effect[j].val/100)
                         } else {

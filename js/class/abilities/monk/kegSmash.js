@@ -1,18 +1,18 @@
-class TigerPalm extends Ability {
-    constructor(ww = false,bm = false) {
-        let name = "Tiger Palm"
-        let cost = 0 //% mana
+class KegSmash extends Ability {
+    constructor() {
+        let name = "Keg Smash"
+        let cost = 40
 
         let gcd = 1.5
         let castTime = 0
-        let cd = 0
+        let cd = 15
         let charges = 1
         let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
         let school = "physical"
-        let range = 5 //melee
+        let range = 15
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.27027*1.1 //27.027%   +10% mw aura

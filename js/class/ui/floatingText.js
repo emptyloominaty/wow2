@@ -3,9 +3,6 @@ class FloatingText {
     maxDuration = 3
     speed = 1.4
     constructor(x,y,val,type,crit,name,id,targetText = false) {
-
-
-
         this.x = x
         this.y = y
         this.number = val

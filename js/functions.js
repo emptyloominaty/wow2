@@ -135,8 +135,16 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         if (ability.school==="physical") {
 
             //dodge
-            if (ability.range<8 && ability.castTime===0) {
-                if (getChance(target.stats.dodge)) {
+            if (ability.range<8) {
+                let dodgeChance = getChance(target.stats.dodge)
+                if (target.spec==="brewmaster" && ability.name!=="Stagger") {
+                    if (!dodgeChance) {
+                        target.abilities["Elusive Brawler"].hit(target)
+                    } else {
+                        target.abilities["Elusive Brawler"].resetStacks(target)
+                    }
+                }
+                if (dodgeChance) {
                     damage = 0
                 }
             }
@@ -179,7 +187,37 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 caster.abilities["Leech"].startCast(caster,damage)
             }
         }
+
+        //absorb
+        if (target.absorb>0) {
+            let absorbed = damage
+
+            damage = damage - target.absorb
+            if (damage<0) {damage = 0}
+
+            for (let b = 0; b<target.absorbsBuffId.length; b++) {
+                if (target.buffs[target.absorbsBuffId[b]] && target.buffs[target.absorbsBuffId[b]].effect[0] && target.buffs[target.absorbsBuffId[b]].effect[0].name==="absorb") {
+                    if (inCombat) {
+                        timelineCombatLog.heal(target,target,target.buffs[target.absorbsBuffId[b]].ability,absorbed,0)
+                    }
+                    details.doHealing(target, absorbed, target.buffs[target.absorbsBuffId[b]].ability, 0,target.buffs[target.absorbsBuffId[b]].name)
+                    if (target.buffs[target.absorbsBuffId[b]].effect[0].val>absorbed) {
+                        target.buffs[target.absorbsBuffId[b]].effect[0].val -= absorbed
+                        break
+                    } else {
+                        absorbed -= target.buffs[target.absorbsBuffId[b]].effect[0].val
+                        target.buffs[target.absorbsBuffId[b]].effect[0].val = 0
+                    }
+                }
+            }
+
+
+
+        }
+
+        //damage
         target.health -= damage
+
         if (target.health < 0) {
             target.die()
         }

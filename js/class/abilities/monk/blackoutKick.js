@@ -69,6 +69,7 @@ class BlackoutKick extends Ability {
             //TODO:caster.abilities["Fists of Fury"].cd -= 1
         } else if (caster.spec==="brewmaster") {
             caster.abilities["Shuffle"].incBuff(caster,this)
+            caster.abilities["Elusive Brawler"].hit(caster)
         }
     }
 

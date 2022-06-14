@@ -6,8 +6,11 @@ class Bm_abilities {
     "Roll" = new Roll()
     "Fortifying Brew" = new FortifyingBrew(true)
     "Expel Harm" = new ExpelHarm(false,true)
+    "Celestial Brew" = new CelestialBrew()
+    "Purifying Brew" = new PurifyingBrew()
 
     //passive
+    "Elusive Brawler" = new ElusiveBrawler()
     "Stagger" = new Stagger()
     "Shuffle" = new Shuffle()
     "Gift of the Ox" = new GiftoftheOx()
@@ -16,22 +19,10 @@ class Bm_abilities {
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Stagger extends Ability {
     constructor() {
-        let name = "Stagger"
-        let cost = 0
-        let gcd = 0
-        let castTime = 0
-        let cd = 0
-        let charges = 1
-        let maxCharges = 1
-        let channeling = false
-        let casting = false
-        let canMove = false
-        let school = "physical"
-        let range = 5
-        super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
+        super("Stagger", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.spellPower = 0
         this.passive = true
         this.permanentBuff = true
@@ -96,22 +87,10 @@ class Stagger extends Ability {
 
     }
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Shuffle extends Ability {
     constructor() {
-        let name = "Shuffle"
-        let cost = 0
-        let gcd = 0
-        let castTime = 0
-        let cd = 0
-        let charges = 1
-        let maxCharges = 1
-        let channeling = false
-        let casting = false
-        let canMove = false
-        let school = "physical"
-        let range = 5
-        super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
+        super("Shuffle", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.spellPower = 0
         this.passive = true
         this.duration = 1
@@ -128,7 +107,7 @@ class Shuffle extends Ability {
     }
 
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class BrewmastersBalance extends Ability {
     constructor() {
         super("Brewmaster's Balance", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
@@ -144,12 +123,11 @@ class BrewmastersBalance extends Ability {
 
     }
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class GiftoftheOx extends Ability {
     constructor() {
         super("Gift of the Ox", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
         this.passive = true
-        //this.permanentBuff = true
         this.duration = 30
         this.maxStacks = 100
         this.spellPower = 0
@@ -165,8 +143,7 @@ class GiftoftheOx extends Ability {
         doHeal(caster,caster,this,undefined,1.5*healingSpheres)
     }
 }
-
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class CelestialFortune extends Ability {
     constructor() {
         super("Celestial Fortune", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
@@ -178,5 +155,40 @@ class CelestialFortune extends Ability {
             doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,heal*0.65)
         }
     }
+}
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+class ElusiveBrawler extends Ability {
+    constructor() {
+        super("Elusive Brawler", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.permanentBuff = true
+        this.duration = 10
+        this.maxStacks = 10
+        this.effect = [{name:"increaseStat",stat:"primary",val:8,percent:true},{name:"increaseStat",stat:"dodge",val:0,percent:true}]
+    }
+
+    hit(target) {
+        let done = false
+        for (let i = 0; i<target.debuffs.length; i++) {
+            if (target.debuffs[i].name==="Elusive Brawler") {
+                target.debuffs[i].effect[1].val += target.stats.mastery
+                done = true
+            }
+        }
+        if (!done) {
+            this.effect[0].val = target.stats.mastery
+            this.effect[1].val = target.stats.mastery
+            applyBuff(target,target,this)
+        }
+    }
+
+    resetStacks(target) {
+        for (let i = 0; i<target.debuffs.length; i++) {
+            if (target.debuffs[i].name==="Elusive Brawler") {
+                target.debuffs[i].effect[1].val = 0
+            }
+        }
+    }
+
 }
 

@@ -1,6 +1,7 @@
 let timelineCombatLog = {
     timer:0,
     timerNext:1,
+    prevOffset: 0,
 
     healThisSec:[],
     damageThisSec:[],
@@ -37,6 +38,9 @@ let timelineCombatLog = {
         if (this.timer>=this.timerNext) {
             //----------------------------------------------------------------DAMAGE
             let yOffset = 0
+            if (this.prevOffset>75) {
+                yOffset= this.prevOffset-75
+            }
             for (let i = 0; i<this.damageThisSec.length;i++) {
                 if (this.damageThisSec[i]===undefined) {
                     continue
@@ -107,8 +111,8 @@ let timelineCombatLog = {
 
                 })
             }
+            this.prevOffset = yOffset
             this.healThisSec = []
-
             this.timerNext++
         }
     },
