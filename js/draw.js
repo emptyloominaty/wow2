@@ -183,6 +183,7 @@ function draw(progress) {
 
                 if (creatures[i].enemy) {
                     y2dN = y2dN + 15*gameScaling
+                    y2dC = y2dC + 7*gameScaling
                 }
 
                 bars["creature"+i+"Name"].setPosition(x2d,y2dN,true)

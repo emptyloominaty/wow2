@@ -109,12 +109,14 @@ if (player.spec==="brewmaster") {
         "Blackout Kick": new Action("Blackout Kick", 1, 9),
 
         //bar0
+        "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
         "Celestial Brew": new Action("Celestial Brew", 0, 7),
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
 
         //bar2
         "Purifying Brew": new Action("Purifying Brew", 2, 1),
+        "Zen Meditation": new Action("Zen Meditation", 2, 4),
         "Expel Harm": new Action("Expel Harm", 2, 7),
     }
 }

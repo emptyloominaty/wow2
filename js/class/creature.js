@@ -33,7 +33,7 @@ class Creature {
     isStunned = false
     isStunnable = true
     isRooted = false
-    isMoving = false
+    isInterrupted = false
     isCasting = false
     isChanneling = false
     canMoveWhileCasting = false
@@ -318,6 +318,7 @@ class Creature {
         if (this.enemy) {this.stats.dodge = 0}
         this.isStunned = false
         this.isRooted = false
+        this.isInterrupted = false
 
         //forms
         for (let i = 0; i<this.formEffects.length; i++) {
@@ -486,6 +487,8 @@ class Creature {
                         this.isRooted = true
                     }  else if (this.debuffs[i].effect[j].name === "moveSpeed") {
                         this.moveSpeedIncrease -= this.debuffs[i].effect[j].val
+                    } else if (this.debuffs[i].effect[j].name === "interruptt") {
+                        this.isInterrupted = true
                     }
                 }
             }
@@ -552,6 +555,20 @@ class Creature {
         }
     }
 
+    interrupt() {
+        if (this.isChanneling) {
+            this.isChanneling = false
+            this.abilities[this.channeling.name].setCd()
+            return true
+        } else if (this.isCasting) {
+            this.isCasting = false
+            this.abilities[this.casting.name].setCd()
+            return true
+        }
+
+        return false
+    }
+
     move(val,strafe = 0, forceVal = 0) { //val -0.5 - 1
         let speed = val * this.moveSpeed * this.moveSpeedIncrease
         if (forceVal!==0) {
@@ -575,6 +592,9 @@ class Creature {
             this.casting = {name:"", time:0, time2:0}
         }
         if (this.isChanneling && !this.canMoveWhileCasting) {
+            if (this.abilities[this.channeling.name].endChanneling) {
+                this.abilities[this.channeling.name].endChanneling(this)
+            }
             this.isChanneling = false
             this.channeling = {name:"", time:0, time2:0}
         }

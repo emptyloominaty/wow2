@@ -552,11 +552,15 @@ class Ai {
                 if (dist>4) {
                     b.move(1)
                 } else {
-                    if (b.gcd<=0) {
-                        b.abilities["Big Dmg"].startCast(b)
-                    }
-                    if (b.gcd<=0) {
-                        b.abilities["Big Rng Dmg"].startCast(b)
+
+                    if (!b.isCasting) {
+                        b.abilities["Big Arcane Dmg"].startCast(b)
+                        if (b.gcd<=0) {
+                            b.abilities["Big Dmg"].startCast(b)
+                        }
+                        if (b.gcd<=0) {
+                            b.abilities["Big Rng Dmg"].startCast(b)
+                        }
                     }
                 }
             }

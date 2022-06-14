@@ -14,7 +14,7 @@ class BigDmg extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 20.5
+        this.spellPower = 25.5
 
         this.effect = ""
         this.effectValue = 0

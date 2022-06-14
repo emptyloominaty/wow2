@@ -5,5 +5,6 @@ class Ww_abilities {
     "Provoke" =  new Provoke()
     "Spinning Crane Kick" = new SpinningCraneKick(true)
     "Roll" = new Roll()
+    "Spear Hand Strike" = new SpearHandStrike()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

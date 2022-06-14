@@ -32,10 +32,6 @@ class EssenceFont extends Ability {
 
     startCast(caster) {
         if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting  && this.checkCd(caster)) {
-            if (caster.isChanneling) {
-                caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
-            }
             caster.canMoveWhileCasting = this.canMove
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))/6}

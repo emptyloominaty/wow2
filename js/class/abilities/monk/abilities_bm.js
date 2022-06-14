@@ -9,6 +9,8 @@ class Bm_abilities {
     "Celestial Brew" = new CelestialBrew()
     "Purifying Brew" = new PurifyingBrew()
     "Keg Smash" = new KegSmash()
+    "Spear Hand Strike" = new SpearHandStrike()
+    "Zen Meditation" = new ZenMeditation()
 
     //passive
     "Elusive Brawler" = new ElusiveBrawler()
@@ -169,9 +171,9 @@ class ElusiveBrawler extends Ability {
 
     hit(target) {
         let done = false
-        for (let i = 0; i<target.debuffs.length; i++) {
-            if (target.debuffs[i].name==="Elusive Brawler") {
-                target.debuffs[i].effect[1].val += target.stats.mastery
+        for (let i = 0; i<target.buffs.length; i++) {
+            if (target.buffs[i].name==="Elusive Brawler") {
+                target.buffs[i].effect[1].val += target.stats.mastery
                 done = true
             }
         }

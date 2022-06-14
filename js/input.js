@@ -391,6 +391,11 @@ let keyLoop = () => {
 
 
     if (keyPressed["Escape"]) {
+        if (player.isChanneling) {
+            if (this.abilities[this.channeling.name].endChanneling) {
+                this.abilities[this.channeling.name].endChanneling(this)
+            }
+        }
         if (player.isCasting || player.isChanneling) {
             player.isCasting = false
             player.casting = {name:"", time:0, time2:0}
@@ -399,7 +404,6 @@ let keyLoop = () => {
             player.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             player.castTarget = ""
         }
-
         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
         player.targetObj = {}
         player.target = ""

@@ -169,6 +169,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         }
 
+        if (damage<0) {
+            damage = 0
+        }
+
         if (target.spec==="brewmaster" && ability.name!=="Stagger") {
             damage = target.abilities["Stagger"].reduceDamage(caster,target,ability,damage)
         }
