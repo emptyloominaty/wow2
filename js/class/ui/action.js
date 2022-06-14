@@ -103,7 +103,7 @@ if (player.spec==="brewmaster") {
     actions = {
         //bar1
         "Provoke": new Action("Provoke", 1, 0),
-
+        "Keg Smash": new Action("Keg Smash", 1, 1),
         "Roll": new Action("Roll", 1, 3),
         "Tiger Palm": new Action("Tiger Palm", 1, 8),
         "Blackout Kick": new Action("Blackout Kick", 1, 9),

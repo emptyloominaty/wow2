@@ -15,6 +15,7 @@ let open_character = function() {
     html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Primary: </span> <span>"+player.stats.primary.toFixed(0)+"</span>  </div>"
     html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Stamina: </span> <span>"+player.stats.stamina.toFixed(0)+"</span>  </div>"
     html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Armor: </span>  <span>"+player.stats.armor.toFixed(0)+"%</span> </div>"
+    html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Dodge: </span>  <span>"+player.stats.dodge.toFixed(0)+"%</span> </div>"
 
     html += "<h4>Enhancements</h4>"
 

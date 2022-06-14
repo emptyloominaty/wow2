@@ -47,9 +47,9 @@ class RisingSunKick extends Ability {
     startCast(caster) {
         if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster)  && !caster.castTarget.isDead) {
+            if (caster.target!=="" && this.isEnemy(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 if (this.checkDistance(caster,caster.castTarget)) {
-                    doDamage(caster, caster.targetObj, this)
+                    doDamage(caster, caster.castTarget, this)
                     done = true
                 }
             } else {

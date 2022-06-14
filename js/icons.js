@@ -630,7 +630,7 @@ let iconsPath = {
     "Gift of the Ox":"img/monk/GiftOfTheOx.jpg",
     "Invoke Niuzao, the Black Ox":"img/monk/InvokeNiuzaotheBlackOx.jpg",
     "Elusive Brawler":"img/monk/ElusiveBrawler.jpg",
-    "KegSmash":"img/monk/KegSmash.jpg",
+    "Keg Smash":"img/monk/KegSmash.jpg",
     "Purifying Brew":"img/monk/PurifyingBrew.jpg",
     "Purified Chi":"img/monk/PurifyingBrew.jpg",
     "Shuffle":"img/monk/Shuffle.jpg",

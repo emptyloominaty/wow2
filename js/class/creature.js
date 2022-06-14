@@ -484,6 +484,8 @@ class Creature {
                         }
                     } else if (this.debuffs[i].effect[j].name === "root") {
                         this.isRooted = true
+                    }  else if (this.debuffs[i].effect[j].name === "moveSpeed") {
+                        this.moveSpeedIncrease -= this.debuffs[i].effect[j].val
                     }
                 }
             }

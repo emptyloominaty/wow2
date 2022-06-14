@@ -534,12 +534,12 @@ class Ability {
         }
     }
 
-    incCd(caster) {
-        if (this.hasteCd) {
+    incCd(caster, inc = progressInSec,hasteCd = this.hasteCd) {
+        if (hasteCd) {
             if (this.maxCharges>1) {
                 //charges haste
                 if (this.cd<this.maxCd) {
-                    this.cd += progressInSec * (1 + (caster.stats.haste / 100))
+                    this.cd += inc * (1 + (caster.stats.haste / 100))
                     if (this.cd>=this.maxCd) {
                         this.charges++
                         if (this.charges!==this.maxCharges) {
@@ -550,15 +550,14 @@ class Ability {
             } else {
                 //cd haste
                 if (this.cd<this.maxCd) {
-                    this.cd += progressInSec * (1 + (caster.stats.haste / 100))
+                    this.cd += inc * (1 + (caster.stats.haste / 100))
                 }
             }
-
         } else {
             if (this.maxCharges>1) {
                 //charges
                 if (this.cd<this.maxCd) {
-                    this.cd += progressInSec
+                    this.cd += inc
                     if (this.cd>=this.maxCd) {
                         this.charges++
                         if (this.charges!==this.maxCharges) {
@@ -569,7 +568,7 @@ class Ability {
             } else {
                 //cd
                 if (this.cd<this.maxCd) {
-                    this.cd += progressInSec
+                    this.cd += inc
                 }
             }
         }

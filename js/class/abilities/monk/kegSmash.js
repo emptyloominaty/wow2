@@ -5,7 +5,7 @@ class KegSmash extends Ability {
 
         let gcd = 1.5
         let castTime = 0
-        let cd = 15
+        let cd = 8
         let charges = 1
         let maxCharges = 1
         let channeling = false
@@ -14,34 +14,16 @@ class KegSmash extends Ability {
         let school = "physical"
         let range = 15
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.hasteCd = true
 
-        this.spellPower = 0.27027*1.1 //27.027%   +10% mw aura
-
-        this.effect = ""
-        this.effectValue = 0
-
-        //Teachings of the Monastery
-        this.maxStacks = 3
-        this.duration = 20
-        this.buffName = "Teachings of the Monastery"
-
-        if (ww) {
-            this.spellPower = 0.27027*1.55
-            this.cost = 50
-            this.secCost = -2 //chi
-            this.gcd = 1
-            this.hasteGcd = false
-            this.chanceReset = 8
-        }
-        if (bm) {
-            this.cost = 25
-            this.gcd = 1
-            this.hasteGcd = false
-        }
+        this.spellPower = 0.85995
+        this.cleaveRange = 8
+        this.effect = [{name:"moveSpeed",val:0.2}]
+        this.duration = 15
     }
 
     getTooltip() {
-        return "Strike with the palm of your hand, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage"
+        return "Smash a keg of brew on the target, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage to all enemies within 8 yds and reducing their movement speed by 20% for 15 sec. Grants Shuffle for 5 sec and reduces the remaining cooldown on your Brews by 3 sec."
     }
 
     run(caster) {
@@ -52,7 +34,6 @@ class KegSmash extends Ability {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.targetObj,this)
                     done = true
                 }
             } else {
@@ -61,33 +42,33 @@ class KegSmash extends Ability {
                     if (caster===player) {
                         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
                     }
+                    caster.castTarget = newTarget
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
                         done = true
                     }
                 }
             }
+
             if (done) {
-                if (caster.spec === "mistweaver") {
-                    applyBuff(caster,caster,this,1,true, this.buffName)
-                } else if (caster.spec === "windwalker") {
-                    if (getChance(this.chanceReset)) {
-                        this.duration = 20
-                        applyBuff(caster, caster, this, 1, false, "Blackout Kick")
+                for (let i = 0; i<enemies.length ;i++) {
+                    if (!enemies[i].isDead && this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange)) {
+                        doDamage(caster, enemies[i], this,undefined,this.spellPowerCleave)
                     }
-                } else if (caster.spec === "brewmaster") {
-                    caster.abilities["Celestial Brew"].cd +=1
-                    caster.abilities["Purifying Brew"].cd +=1
-                    caster.abilities["Fortifying Brew"].cd +=1
                 }
+                caster.useEnergy(this.cost,this.secCost)
+                this.setGcd(caster)
+                this.setCd()
+                caster.abilities["Celestial Brew"].cd +=3
+                caster.abilities["Purifying Brew"].incCd(caster,3,false)
+                caster.abilities["Fortifying Brew"].cd +=3
+                caster.abilities["Shuffle"].incBuff(caster,this)
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
-                caster.useEnergy(this.cost,this.secCost)
-                this.setGcd(caster)
                 return true
             }
         } else if (this.canSpellQueue(caster)) {

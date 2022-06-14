@@ -52,7 +52,7 @@ class TigerPalm extends Ability {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.targetObj,this)
+                    doDamage(caster,caster.castTarget,this)
                     done = true
                 }
             } else {
@@ -79,7 +79,7 @@ class TigerPalm extends Ability {
                     }
                 } else if (caster.spec === "brewmaster") {
                     caster.abilities["Celestial Brew"].cd +=1
-                    caster.abilities["Purifying Brew"].cd +=1
+                    caster.abilities["Purifying Brew"].incCd(caster,1,false)
                     caster.abilities["Fortifying Brew"].cd +=1
                 }
                 if (caster.isChanneling) {
