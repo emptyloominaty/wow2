@@ -46,7 +46,7 @@ class PrayerofMending extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             //heal self
             applyBuff(caster,caster,this,this.stacks,true)
         } else {

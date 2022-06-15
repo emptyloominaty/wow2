@@ -63,6 +63,7 @@ class Creature {
 
     healingDone = 0
     damageDone = 0
+    damageTaken = 0
     aggroMultiplier = 1
 
     damageReduction = 0

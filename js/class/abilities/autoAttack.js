@@ -29,7 +29,7 @@ class AutoAttack extends Ability {
     startCast(caster) {
         if (this.checkCd(caster,true)) {
             let done = false
-            if (Object.keys(caster.targetObj).length !== 0 && this.isEnemy(caster) && !caster.targetObj.isDead ) {
+            if (Object.keys(caster.targetObj).length !== 0 && this.isEnemy(caster,caster.castTarget) && !caster.targetObj.isDead ) {
                 if (this.checkDistance(caster,caster.targetObj,undefined,true)) {
                     if (caster.spec==="assassination") {
                         checkAndApplyRoguePoison(caster,caster.targetObj)
@@ -50,11 +50,5 @@ class AutoAttack extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

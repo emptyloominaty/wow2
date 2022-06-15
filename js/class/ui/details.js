@@ -197,7 +197,7 @@ let details = {
             if (ability.school===undefined) {
                 school = "physical"
             }
-            this.combats[this.combatIdx][caster.id][name] = {heal:0,damage:0,name:name,casts:0,school:school}
+            this.combats[this.combatIdx][caster.id][name] = {heal:0,damage:0,damageTaken:0,name:name,casts:0,school:school}
         }
 
         if (inCombat) {
@@ -217,7 +217,7 @@ let details = {
             }
 
             if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
-                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,name:ability.name,casts:0,school:ability.school}
+                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,damageTaken:0,name:ability.name,casts:0,school:ability.school}
             }
 
             this.combats[this.combatIdx][caster.id][ability.name].damage += val
@@ -225,8 +225,19 @@ let details = {
 
         }
     },
-    takeDamage: function() {
+    doDamageTaken: function(caster, target, val, ability) {
+        if (inCombat) {
+            if (this.combats[this.combatIdx][target.id]===undefined) {
+                this.combats[this.combatIdx][target.id] = {}
+            }
 
+            if(this.combats[this.combatIdx][target.id][ability.name]===undefined) {
+                this.combats[this.combatIdx][target.id][ability.name] = {heal:0,damage:0,damageTaken:0,name:ability.name,casts:0,school:ability.school}
+            }
+
+            this.combats[this.combatIdx][target.id][ability.name].damageTaken += val
+            target.damageTaken += val
+        }
     },
     castAbility: function(caster,ability) {
         if (inCombat) {

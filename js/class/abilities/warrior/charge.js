@@ -31,7 +31,7 @@ class Charge extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            if (Object.keys(caster.castTarget).length !== 0 && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget) && !this.checkDistance(caster,caster.castTarget,this.minRange)) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget) && !this.checkDistance(caster,caster.castTarget,this.minRange)) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }

@@ -35,7 +35,7 @@ class Execute extends Ability {
     startCast(caster) {
         if (this.checkStart(caster) && caster.castTarget.health/caster.castTarget.maxHealth<this.health) {
             let done = false
-            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
                     caster.abilities["WhirlwindBuff"].startCast(caster,caster.castTarget,this)

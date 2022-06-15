@@ -46,7 +46,7 @@ class Envenom extends Ability {
         if (this.checkStart(caster)) {
             this.duration = 4 + (4*caster.secondaryResource)
             let done = false
-            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this,undefined,this.spellPowerC[caster.secondaryResource])
                     done = true

@@ -5,12 +5,15 @@ let timelineCombatLog = {
 
     healThisSec:[],
     damageThisSec:[],
+    damageTakenThisSec:[],
 
     healTimeline:[],
     damageTimeline:[],
+    damageTakenTimeline:[],
 
     healAll:[], //TODO ? ? ?
     damageAll:[], //TODO ? ? ?
+    damageTakenAll:[],
 
 
     heal:function(caster,target,ability,val,overheal){
@@ -32,7 +35,15 @@ let timelineCombatLog = {
         }
         this.damageThisSec[caster.id][ability.name].push({val:val})
     },
-
+    takeDamage:function(caster,target,ability,val) {
+        if (this.damageTakenThisSec[target.id]===undefined) {
+            this.damageTakenThisSec[target.id] = {}
+        }
+        if (this.damageTakenThisSec[target.id][ability.name]===undefined) {
+            this.damageTakenThisSec[target.id][ability.name] = []
+        }
+        this.damageTakenThisSec[target.id][ability.name].push({val:val})
+    },
     run:function(){
         this.timer+=progressInSec
         if (this.timer>=this.timerNext) {
@@ -113,6 +124,34 @@ let timelineCombatLog = {
             }
             this.prevOffset = yOffset
             this.healThisSec = []
+            //----------------------------------------------------------------Damage Taken
+            for (let i = 0; i<this.damageTakenThisSec.length;i++) {
+                if (this.damageTakenThisSec[i]===undefined) {
+                    continue
+                }
+
+                if (this.damageTakenTimeline[i]===undefined) {
+                    this.damageTakenTimeline[i] = {}
+                }
+
+                Object.keys(this.damageTakenThisSec[i]).forEach((key)=> {
+                    if (this.damageTakenTimeline[i][key]===undefined) {
+                        this.damageTakenTimeline[i][key] = []
+                    }
+                    if (this.damageTakenTimeline[i][key][Math.floor(this.timer)]===undefined) {
+                        this.damageTakenTimeline[i][key][Math.floor(this.timer)] = 0
+                    }
+
+                    for (let j = 0; j<this.damageTakenThisSec[i][key].length;j++) {
+                        this.damageTakenTimeline[i][key][Math.floor(this.timer)] += this.damageTakenThisSec[i][key][j].val
+                    }
+
+                })
+            }
+            this.damageTakenThisSec = []
+
+
+
             this.timerNext++
         }
     },

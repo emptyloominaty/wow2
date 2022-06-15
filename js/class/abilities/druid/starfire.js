@@ -31,7 +31,7 @@ class Starfire extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
                 let newTarget = findNearestEnemy(caster)

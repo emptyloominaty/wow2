@@ -16,10 +16,11 @@ class HealingTideTotem extends Ability {
 
         this.spellPower = 0.35
 
+
         this.area = {type:"circle", radius:40, duration:12,data:{type:"hot", maxTargets:"all", spellPower:0.35, timer:2/*sec*/,color:"#82fffd",color2:"rgba(167,255,171,0.05)"}}
 
-        this.effect = ""
-        this.effectValue = 0
+        this.effect = []
+        this.duration = 12
 
         this.castPosition = {x:0,y:0}
     }
@@ -38,6 +39,7 @@ class HealingTideTotem extends Ability {
             }
 
             addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
+            applyBuff(caster,caster,this)
 
             this.setCd()
             caster.useEnergy(this.cost)

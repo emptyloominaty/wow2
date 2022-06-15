@@ -19,6 +19,9 @@ class Ability {
     permanentBuff = false
     dispellable = false // magic,disease,curse,poison //TODO
 
+    ignoreArmor = false
+    dontBreakStealth = false
+
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
                 poison = false, bleed = false,) {

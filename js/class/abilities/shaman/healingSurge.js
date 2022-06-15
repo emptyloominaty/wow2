@@ -44,7 +44,7 @@ class HealingSurge extends Ability {
     endCast(caster) { //TODO:tidal waves,undulation,unleash life
         caster.isCasting = false
 
-        if (this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             //heal self
             doHeal(caster,caster,this,0)
         } else {

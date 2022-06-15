@@ -49,7 +49,7 @@ class RenewingMist extends Ability {
             this.cd = 0
         }
         this.charges--
-        if (Object.keys(caster.castTarget).length === 0 || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {

@@ -31,7 +31,7 @@ class TigersLust extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            if (this.isEnemy(caster) || (this.checkDistance(caster,caster.castTarget))>this.range || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+            if (this.isEnemy(caster,caster.castTarget) || (this.checkDistance(caster,caster.castTarget))>this.range || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
                 //heal self
                 applyBuff(caster,caster,this)
             } else {

@@ -44,7 +44,7 @@ class Rejuvenation extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             applyHot(caster,caster,this)
         } else {
             applyHot(caster,caster.castTarget,this)

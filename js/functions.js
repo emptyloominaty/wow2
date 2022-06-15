@@ -192,6 +192,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         }
 
+        //combatlog
+        details.doDamageTaken(caster, target, damage, ability)
+        timelineCombatLog.takeDamage(caster, target, ability, damage)
+
         //absorb
         if (target.absorb>0) {
             let absorbed = damage

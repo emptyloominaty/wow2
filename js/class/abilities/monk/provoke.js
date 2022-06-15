@@ -33,7 +33,7 @@ class Provoke extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && Object.keys(caster.castTarget).length !== 0) {
+            if (this.isEnemy(caster,caster.castTarget) && Object.keys(caster.castTarget).length !== 0) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     taunt(caster,caster.castTarget)
                     applyBuff(caster,caster.castTarget,this)

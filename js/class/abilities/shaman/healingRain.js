@@ -18,8 +18,8 @@ class HealingRain extends Ability {
 
         this.area = {type:"circle", radius:10, duration: 10,data:{type:"hot", maxTargets:6, spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.05)"},cast:false}
 
-        this.effect = ""
-        this.effectValue = 0
+        this.effect = []
+        this.duration = 10
 
         this.castPosition = {x:0,y:0}
     }
@@ -58,6 +58,7 @@ class HealingRain extends Ability {
     endCast(caster) {
         caster.isCasting = false
         addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
+        applyBuff(caster,caster,this)
         this.setCd()
         caster.useEnergy(this.cost)
     }

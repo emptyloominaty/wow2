@@ -44,7 +44,7 @@ class PrayerofHealing extends Ability {
     endCast(caster) {
         caster.isCasting = false
         let target = caster
-        if (this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0 || !this.checkDistance(caster, caster.castTarget)) {
+        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || Object.keys(caster.castTarget).length === 0 || !this.checkDistance(caster, caster.castTarget)) {
             //heal self
             doHeal(caster,caster,this)
             caster.abilities["Echo of Light"].startCast(caster,caster,this)

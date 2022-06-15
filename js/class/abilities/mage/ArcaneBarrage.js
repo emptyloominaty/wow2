@@ -38,7 +38,7 @@ class ArcaneBarrage extends Ability {
         let cost = this.cost * (1 + (caster.secondaryResource))
         if (this.checkStart(caster,cost)) {
             let done = false
-            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
                 let newTarget = findNearestEnemy(caster)
@@ -70,7 +70,7 @@ class ArcaneBarrage extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster)) {
+        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 let spellPower = this.spellPower * (1 + (caster.secondaryResource*0.3))
                 doDamage(caster,caster.castTarget,this,undefined,spellPower)
