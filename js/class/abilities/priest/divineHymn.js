@@ -34,7 +34,6 @@ class DivineHymn extends Ability {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))-0.1}

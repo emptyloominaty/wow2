@@ -18,12 +18,8 @@ class ArcaneBlast extends Ability {
         this.spellPower = 0.457
         this.secCost = -1
 
-
-
         this.effect = ""
         this.effectValue = 0
-
-
 
     }
 
@@ -59,7 +55,6 @@ class ArcaneBlast extends Ability {
                 caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100))}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.setGcd(caster)
             }
@@ -80,7 +75,7 @@ class ArcaneBlast extends Ability {
 
                 let cost = this.cost * (1 + (caster.secondaryResource))
 
-                doDamage(caster,caster.targetObj,this,undefined,spellPower)
+                doDamage(caster,caster.castTarget,this,undefined,spellPower)
                 caster.useEnergy(cost,this.secCost)
                 this.cd = 0
             }

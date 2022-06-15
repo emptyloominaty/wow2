@@ -29,11 +29,6 @@ class CelestialAlignment extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            if (caster.isChanneling) {
-                caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
-            }
-
             caster.abilities["Eclipse"].solar = true
             caster.abilities["Eclipse"].lunar = true
             caster.abilities["Eclipse"].next = "none"
@@ -54,14 +49,5 @@ class CelestialAlignment extends Ability {
             spellQueue.add(this,caster.gcd)
         }
         return false
-    }
-
-    endChanneling(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

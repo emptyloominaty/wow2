@@ -69,7 +69,6 @@ class Rupture extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
@@ -84,11 +83,5 @@ class Rupture extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

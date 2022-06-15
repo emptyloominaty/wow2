@@ -80,10 +80,4 @@ class SpinningCraneKick extends Ability {
 
     endCast(caster) {
     }
-
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

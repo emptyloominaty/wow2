@@ -60,7 +60,6 @@ class Bloodthirst extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,caster.maxHealth*this.heal)
                 this.setCd()
@@ -79,11 +78,5 @@ class Bloodthirst extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

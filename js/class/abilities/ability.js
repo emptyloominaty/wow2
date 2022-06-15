@@ -14,6 +14,8 @@ class Ability {
     passive = false
     hiddenBuff = false
     permanentBuff = false
+    dispellable = false // magic,disease,curse,poison //TODO
+
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
                 poison = false, bleed = false,) {
@@ -63,6 +65,9 @@ class Ability {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
+        if(caster===player) {
+            console.log(this.checkGcd(caster),this.checkCost(caster,cost),this.checkCasting(caster),this.checkCd(caster))
+        }
         if (this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster)) {
             return true
         }
@@ -72,9 +77,9 @@ class Ability {
     checkGcd(caster) {
         if (!this.noGcd) {
             if (caster.gcd <= 0) {
-                return false
-            } else {
                 return true
+            } else {
+                return false
             }
         } else {
             return true

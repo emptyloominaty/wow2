@@ -41,7 +41,6 @@ class ExpelHarm extends Ability {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
@@ -71,7 +70,6 @@ class ExpelHarm extends Ability {
                     caster.buffs[i].duration = -1
                 }
             }
-
             caster.abilities["Gift of the Ox"].heal(caster,healingSpheres)
         }
         let spellPower = this.spellPower + (1.5*healingSpheres)

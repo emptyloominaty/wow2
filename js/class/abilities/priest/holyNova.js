@@ -83,10 +83,4 @@ class HolyNova extends Ability {
 
     endCast(caster) {
     }
-
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

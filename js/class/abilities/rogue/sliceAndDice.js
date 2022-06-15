@@ -58,10 +58,4 @@ class SliceAndDice extends Ability {
 
     endCast(caster) {
     }
-
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

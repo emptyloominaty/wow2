@@ -38,7 +38,7 @@ class TigersLust extends Ability {
                 //heal target
                 applyBuff(caster,caster.castTarget,this)
             }
-            this.cd = 0
+            this.setCd()
             caster.useEnergy(this.cost)
             this.setGcd(caster)
             return true

@@ -37,7 +37,6 @@ class EnvelopingMist extends Ability {
                     return true
                 } else {
                     this.isChanneling = false
-                    this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
 
             }
@@ -71,11 +70,5 @@ class EnvelopingMist extends Ability {
             caster.abilities["Gust of Mists"].heal(caster,caster.castTarget)
         }
         caster.useEnergy(this.cost)
-    }
-
-    runBuff(target,buff,id) {
-    }
-
-    endBuff(target) {
     }
 }

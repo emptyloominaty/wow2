@@ -43,8 +43,8 @@ class Sunfire extends Ability {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.targetObj,this)
-                    applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPowerDot)
+                    doDamage(caster,caster.castTarget,this)
+                    applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
                     done = true
                 }
             } else {
@@ -73,7 +73,6 @@ class Sunfire extends Ability {
 
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
@@ -88,11 +87,5 @@ class Sunfire extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

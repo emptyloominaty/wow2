@@ -35,7 +35,7 @@ class DemonsBite extends Ability {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.targetObj,this)
+                    doDamage(caster,caster.castTarget,this)
                     done = true
                 }
             } else {
@@ -55,7 +55,6 @@ class DemonsBite extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
 
 
@@ -70,11 +69,5 @@ class DemonsBite extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

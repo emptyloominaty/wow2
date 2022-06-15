@@ -63,7 +63,6 @@ class ShadowWordPain extends Ability {
                 }
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.setGcd(caster)
                 return true

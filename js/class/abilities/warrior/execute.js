@@ -59,7 +59,6 @@ class Execute extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
 
                 this.setCd()
@@ -74,11 +73,5 @@ class Execute extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

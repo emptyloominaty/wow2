@@ -15,6 +15,7 @@ class SpearHandStrike extends Ability {
 
         this.effect = [{name:"interrupt"}]
         this.duration = 4
+        this.noGcd = true
 
     }
 

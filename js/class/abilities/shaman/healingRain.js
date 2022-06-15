@@ -35,7 +35,6 @@ class HealingRain extends Ability {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
 
             if (caster===player) {

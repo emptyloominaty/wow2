@@ -64,7 +64,6 @@ class ArcaneMissiles extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 caster.isChanneling = true
                 caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:0.5/(1 + (caster.stats.haste / 100))}
@@ -96,7 +95,7 @@ class ArcaneMissiles extends Ability {
     cast(caster) {
         if (caster.target!=="" && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                doDamage(caster,caster.targetObj,this)
+                doDamage(caster,caster.castTarget,this)
                 this.cd = 0
             }
         }

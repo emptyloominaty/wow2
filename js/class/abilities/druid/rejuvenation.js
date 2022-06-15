@@ -31,7 +31,6 @@ class Rejuvenation extends Ability {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
@@ -51,11 +50,5 @@ class Rejuvenation extends Ability {
             applyHot(caster,caster.castTarget,this)
         }
         caster.useEnergy(this.cost)
-    }
-
-    runBuff(target,buff,id) {
-    }
-
-    endBuff(target) {
     }
 }

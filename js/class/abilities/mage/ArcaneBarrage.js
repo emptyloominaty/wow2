@@ -16,7 +16,7 @@ class ArcaneBarrage extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.728
-        this.secCost = "all" //TODO
+        this.secCost = "all"
 
 
 
@@ -59,7 +59,6 @@ class ArcaneBarrage extends Ability {
                 caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.setGcd(caster)
             }
@@ -74,8 +73,18 @@ class ArcaneBarrage extends Ability {
         if (caster.target!=="" && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 let spellPower = this.spellPower * (1 + (caster.secondaryResource*0.3))
-                doDamage(caster,caster.targetObj,this,undefined,spellPower)
-                //TODO ADDITIONAL TARGETS  (1 per charge 40%)
+                doDamage(caster,caster.castTarget,this,undefined,spellPower)
+                let ttd = 0
+                for (let i = 0; i<enemies.length ;i++) {
+                    if (!enemies[i].isDead && enemies[i]!==caster.castTarget &&this.checkDistance(caster.castTarget, enemies[i],10)) {
+                        doDamage(caster, enemies[i], this,undefined,spellPower*0.4)
+                        ttd++
+                    }
+                    if (ttd>caster.secondaryResource) {
+                        break
+                    }
+                }
+
                 let cost = this.cost * caster.secondaryResource
                 caster.useEnergy(cost,this.secCost)
                 this.cd = 0

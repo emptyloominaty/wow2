@@ -78,7 +78,7 @@ class Wrath extends Ability {
     }
 
     endCast(caster) {
-        if (caster.target!=="" && this.isEnemy(caster,caster.castTarget)) {
+        if (this.isEnemy(caster,caster.castTarget)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 let spellPower = this.spellPower
                 if (caster.spec==="balance") {

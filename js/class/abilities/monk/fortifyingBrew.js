@@ -24,6 +24,7 @@ class FortifyingBrew extends Ability {
 
         if (bm) {
             this.cd = 420
+            this.maxCd = 420
         }
     }
 

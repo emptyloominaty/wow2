@@ -46,9 +46,7 @@ class BigArcaneDmg extends Ability {
                 caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100))}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
-
                 return true
             }
 

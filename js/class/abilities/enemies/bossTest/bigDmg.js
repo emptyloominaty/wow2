@@ -30,7 +30,7 @@ class BigDmg extends Ability {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster)) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.targetObj.isDead) {
-                    doDamage(caster,caster.targetObj,this)
+                    doDamage(caster,caster.castTarget,this)
                     done = true
                 }
             } else {
@@ -45,7 +45,6 @@ class BigDmg extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.cd = 0
                 this.setGcd(caster)
@@ -56,11 +55,5 @@ class BigDmg extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

@@ -33,12 +33,9 @@ class Charge extends Ability {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget) && !this.checkDistance(caster,caster.castTarget,this.minRange)) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
-
                 if (caster.isCasting) {
                     caster.isCasting = false
-                    caster.casting = {name:"", time:0, timeleft:0}
                 }
                 caster.isRolling = true
                 this.setGcd(caster)
@@ -59,9 +56,7 @@ class Charge extends Ability {
     }
 
     endBuff(target) {
-
         doDamage(this.caster, this.effect[0].target, this)
-
         target.isRolling = false
     }
 }
