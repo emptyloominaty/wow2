@@ -91,6 +91,16 @@ class RisingSunKick extends Ability {
                             }
                         })
                     }
+                    //thunder focus tea
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Thunder Focus Tea") {
+
+                            this.cd = 9
+
+                            caster.abilities["Thunder Focus Tea"].cd = 0
+                            caster.buffs[i].duration = -1
+                        }
+                    }
                 }
                 return true
             }

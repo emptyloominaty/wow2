@@ -95,6 +95,8 @@ if (0===0) {
             "<span class='raidFrame_buff_bottomCentre_duration' id='raidFrame_buff_bottomCentre_duration"+i+"'></span>" +
             "<img class='raidFrame_buff_centreRight' id='raidFrame_buff_centreRight"+i+"'>" +
             "<span class='raidFrame_buff_centreRight_duration' id='raidFrame_buff_centreRight_duration"+i+"'></span>" +
+            "<img class='raidFrame_debuff_0' id='raidFrame_debuff_0"+i+"'>" +
+            "<img class='raidFrame_debuff_1' id='raidFrame_debuff_1"+i+"'>" +
             "</div>"
     }
     elements.raidFrames_parent.innerHTML = raidFramesHTML
@@ -438,6 +440,20 @@ function draw(progress) {
             let centreRight = false
             let bottomCentre = false
             let bottomRight2 = false
+
+            let debuffEl = [false,false,false,false]
+
+            let maxDebuffs = 2
+            let debuffs = 0
+            for (let j = 0; j<raidFrameTarget.debuffs.length; j++) {
+                document.getElementById("raidFrame_debuff_"+j+i).src = iconsPath[raidFrameTarget.debuffs[j].name]
+                debuffEl[j] = true
+                debuffs++
+                if (debuffs===maxDebuffs) {
+                    break
+                }
+            }
+
             for (let j = 0; j<raidFrameTarget.buffs.length; j++) {
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomRight && raidFrameTarget.buffs[j].caster === player) {
                     bottomRight = 1
@@ -496,6 +512,14 @@ function draw(progress) {
             if (!centreRight) {
                 document.getElementById("raidFrame_buff_centreRight"+i).src = ""
                 document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = ""
+            }
+
+            if (!debuffEl[0]) {
+                document.getElementById("raidFrame_debuff_0"+i).src = ""
+            }
+
+            if (!debuffEl[1]) {
+                document.getElementById("raidFrame_debuff_1"+i).src = ""
             }
         }
 

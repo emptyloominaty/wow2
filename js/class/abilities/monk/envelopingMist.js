@@ -62,13 +62,27 @@ class EnvelopingMist extends Ability {
             this.effectValue = 0.3
         }
         caster.isCasting = false
+        let tftTarget = caster
         if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {
+            tftTarget = caster.castTarget
             applyHot(caster,caster.castTarget,this)
             caster.abilities["Gust of Mists"].heal(caster,caster.castTarget)
         }
+
+        //thunder focus tea
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Thunder Focus Tea") {
+
+                doHeal(caster,tftTarget,this,undefined,2.8,undefined,undefined,"Thunder Focus Tea")
+
+                caster.abilities["Thunder Focus Tea"].cd = 0
+                caster.buffs[i].duration = -1
+            }
+        }
+
         caster.useEnergy(this.cost)
     }
 }

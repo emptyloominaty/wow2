@@ -15,5 +15,6 @@ class Mw_Abilities {
     "Tiger's Lust" = new TigersLust()
     "Provoke" = new Provoke()
     "Spinning Crane Kick" = new SpinningCraneKick()
+    "Thunder Focus Tea" = new ThunderFocusTea()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

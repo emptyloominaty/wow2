@@ -471,8 +471,8 @@ class Creature {
                         break
                     }
                     this.debuffs[i].effect[0].val -= this.debuffs[i].effect[0].dotVal
-                    if (this.debuffs[i].effect[0].val<0) {
-                        this.debuffs[i].effect[0].val = 0
+                    if (this.debuffs[i].effect[0].val<=0) {
+                        this.debuffs[i].duration = -1
                     }
                     this.secondaryResource = Math.round(this.debuffs[i].effect[0].val)
                 }
@@ -502,6 +502,12 @@ class Creature {
                     i--
                 } else {
                     this.debuffs[i].ability.runBuff(this, this.debuffs[i], i)
+                }
+            } else {
+                if (this.debuffs[i].duration===-1) {
+                    this.debuffs[i].ability.endBuff(this)
+                    this.debuffs.splice(i, 1)
+                    i--
                 }
             }
         }

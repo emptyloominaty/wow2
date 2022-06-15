@@ -45,15 +45,28 @@ class RenewingMist extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (this.charges===this.maxCharges) {
-            this.cd = 0
+        this.setCd()
+
+        let duration = this.duration
+        let spellPower = this.spellPower
+
+        //thunder focus tea
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Thunder Focus Tea") {
+
+                duration = duration * 1.5
+                spellPower = spellPower *1.5
+
+                caster.abilities["Thunder Focus Tea"].cd = 0
+                caster.buffs[i].duration = -1
+            }
         }
-        this.charges--
+
         if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
-            applyHot(caster,caster,this)
+            applyHot(caster,caster,this,duration,undefined,spellPower,duration)
             caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {
-            applyHot(caster,caster.castTarget,this)
+            applyHot(caster,caster.castTarget,this,duration,undefined,spellPower,duration)
             caster.abilities["Gust of Mists"].heal(caster,caster.castTarget)
         }
         caster.useEnergy(this.cost)
