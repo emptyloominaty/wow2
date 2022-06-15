@@ -27,7 +27,7 @@ class PurifyingBrew extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             let stacks = 0
             for (let i = 0; i<caster.debuffs.length; i++) {
                 if (caster.debuffs[i].type==="stagger") {

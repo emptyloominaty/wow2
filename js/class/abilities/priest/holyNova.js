@@ -35,7 +35,7 @@ class HolyNova extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCd(caster) &&this.checkCost(caster) && !caster.isCasting) {
+        if (this.checkStart(caster)) {
 
             //damage
             let ttd = 0

@@ -39,7 +39,7 @@ class SliceAndDice extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && caster.secondaryResource>0 && caster.energy>this.cost && this.checkCd(caster) && !caster.isCasting) {
+        if (this.checkStart(caster)) {
             this.duration = 12 + (6*caster.secondaryResource)
             this.cd = 0
             applyBuff(caster,caster,this)

@@ -59,6 +59,39 @@ class Ability {
     run(caster) {
     }
 
+    checkStart(caster,cost = 9999) {
+        if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
+            return false
+        }
+        if (this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster)) {
+            return true
+        }
+        return false
+    }
+
+    checkGcd(caster) {
+        if (!this.noGcd) {
+            if (caster.gcd <= 0) {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+    }
+
+    checkCasting(caster) {
+        if (!this.noGcd) {
+            if (caster.isCasting) {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+    }
 
     setCd() {
         //cd
@@ -140,9 +173,6 @@ class Ability {
     }
 
     checkCost(caster,cost = 9999,showMessage = true) {
-        if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
-            return false
-        }
         if (cost===9999) {
             cost = this.cost
         }
@@ -168,9 +198,6 @@ class Ability {
     }
 
     checkCd(caster,dontShow = false) {
-        if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
-            return false
-        }
         if (this.maxCharges>1) {
             if (this.charges>0) {
                 return true

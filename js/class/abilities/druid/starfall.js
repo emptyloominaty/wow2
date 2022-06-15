@@ -29,7 +29,7 @@ class Starfall extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting  && this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}

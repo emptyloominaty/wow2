@@ -28,7 +28,7 @@ class SoothingMist extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting  && this.checkDistance(caster,caster.castTarget)) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
                 caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}

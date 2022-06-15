@@ -28,7 +28,7 @@ class Vivify extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkCost(caster) && !caster.isCasting && caster.gcd<=0 && this.checkDistance(caster,caster.castTarget)) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)

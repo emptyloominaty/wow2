@@ -44,7 +44,7 @@ class Rupture extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCd(caster) && this.checkCost(caster) && caster.secondaryResource>0 && !caster.isCasting) {
+        if (this.checkStart(caster)) {
             this.duration = 4 + (4*caster.secondaryResource)
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) ) {

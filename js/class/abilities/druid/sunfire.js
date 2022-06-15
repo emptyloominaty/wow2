@@ -39,7 +39,7 @@ class Sunfire extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCd(caster) &&this.checkCost(caster) && !caster.isCasting) {
+        if (this.checkStart(caster)) {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {

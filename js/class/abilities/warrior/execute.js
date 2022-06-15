@@ -33,7 +33,7 @@ class Execute extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && this.checkCd(caster) && !caster.isCasting && caster.castTarget.health/caster.castTarget.maxHealth<this.health) {
+        if (this.checkStart(caster) && caster.castTarget.health/caster.castTarget.maxHealth<this.health) {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {

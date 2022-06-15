@@ -35,7 +35,7 @@ class DeadlyPoison extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && caster.energy>this.cost && this.checkCd(caster) && !caster.isCasting) {
+        if (this.checkStart(caster)) {
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
             if (caster.isChanneling) {

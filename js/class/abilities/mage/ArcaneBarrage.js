@@ -36,7 +36,7 @@ class ArcaneBarrage extends Ability {
 
     startCast(caster) {
         let cost = this.cost * (1 + (caster.secondaryResource))
-        if (caster.gcd<=0 && this.checkCd(caster) && this.checkCost(caster,cost) && !caster.isCasting) {
+        if (this.checkStart(caster,cost)) {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true

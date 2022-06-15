@@ -28,7 +28,7 @@ class ZenMeditation extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting  && this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             caster.canMoveWhileCasting = this.canMove
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:8}

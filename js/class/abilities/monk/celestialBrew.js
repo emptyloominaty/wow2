@@ -26,7 +26,7 @@ class CelestialBrew extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting && this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             let stacks = 0
             let stacksMul = 0.2
             for (let i = 0; i<caster.buffs.length; i++) {

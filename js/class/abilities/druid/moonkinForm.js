@@ -27,7 +27,7 @@ class MoonkinForm extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             this.cd = 0
             changeForm(caster,this)
             caster.useEnergy(this.cost)

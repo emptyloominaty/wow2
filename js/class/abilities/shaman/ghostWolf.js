@@ -27,7 +27,7 @@ class GhostWolf extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && caster.energy>this.cost && this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             this.cd = 0
             changeForm(caster,this)
             caster.useEnergy(this.cost)

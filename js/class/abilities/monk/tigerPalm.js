@@ -48,7 +48,7 @@ class TigerPalm extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting) {
+        if (this.checkStart(caster)) {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {

@@ -31,7 +31,7 @@ class Provoke extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkCd(caster) && caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting) {
+        if (this.checkStart(caster)) {
             let done = false
             if (caster.target!=="" && this.isEnemy(caster) && Object.keys(caster.castTarget).length !== 0) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {

@@ -45,7 +45,7 @@ class SpinningCraneKick extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && !caster.isCasting &&  this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             this.cd = 0
             if (caster.isChanneling) {
                 caster.isChanneling = false

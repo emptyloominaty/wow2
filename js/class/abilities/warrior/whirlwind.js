@@ -41,7 +41,7 @@ class Whirlwind extends Ability {
     }
 
     startCast(caster) {
-        if (caster.gcd<=0 && this.checkCost(caster) && this.checkCd(caster) && !caster.isCasting) {
+        if (this.checkStart(caster)) {
             let enemiesHit = 0
             for (let i = 0; i<enemies.length ;i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {

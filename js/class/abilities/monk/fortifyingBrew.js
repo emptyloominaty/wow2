@@ -36,7 +36,7 @@ class FortifyingBrew extends Ability {
     }
 
     startCast(caster) {
-        if (caster.energy>this.cost && this.checkCd(caster)) {
+        if (this.checkStart(caster)) {
             this.cd = 0
             applyBuff(caster,caster,this)
             caster.damageReduction += this.effectValue
