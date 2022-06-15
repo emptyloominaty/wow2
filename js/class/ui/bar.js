@@ -1,5 +1,5 @@
 class Bar {
-    constructor(width,height,val,maxVal,x,y,color,backgroundColor,id,fontsize = 16,borderColor = "#111111",onClick = false,cId = 0) {
+    constructor(width,height,val,maxVal,x,y,color,backgroundColor,id,fontsize = 16,borderColor = "#111111",onClick = false,cId = 0,updateS = true) {
         this.x = x
         this.y = y
         this.width = width
@@ -12,6 +12,7 @@ class Bar {
         this.backgroundColor = backgroundColor
         this.id = id
         this.cId = cId
+        this.updateS = updateS
 
         let div = document.createElement("div")
         div.style.position = "fixed"
@@ -55,6 +56,11 @@ class Bar {
         elements.creatureBars.appendChild(div2)
         elements.creatureBars.appendChild(span)
 
+        this.elements = {}
+        this.elements.el = document.getElementById(this.id)
+        this.elements.text =document.getElementById(this.id+"_text")
+        this.elements.bg = document.getElementById(this.id+"_bg")
+
         let click = (e)=> {
             console.log(this.cId)
             player.targetObj = creatures[this.cId]
@@ -75,17 +81,18 @@ class Bar {
     }
 
     setText(text) {
-        document.getElementById(this.id+"_text").innerText = text
+        this.elements.text.textContent = text
     }
+
     setVisibility(vis) {
         if (!vis) {
-            document.getElementById(this.id).style.display = "none"
-            document.getElementById(this.id+"_bg").style.display = "none"
-            document.getElementById(this.id+"_text").style.display = "none"
+            this.elements.el.style.display = "none"
+            this.elements.bg.style.display = "none"
+            this.elements.text.style.display = "none"
         } else {
-            document.getElementById(this.id).style.display = "inline-block"
-            document.getElementById(this.id+"_bg").style.display = "inline-block"
-            document.getElementById(this.id+"_text").style.display = "inline-block"
+            this.elements.el.style.display = "inline-block"
+            this.elements.bg.style.display = "inline-block"
+            this.elements.text.style.display = "inline-block"
         }
     }
 
@@ -94,37 +101,34 @@ class Bar {
             x-= (this.width*gameScaling)/2
             y-= (this.height*gameScaling)/2
         }
-        document.getElementById(this.id).style.top = (y+2)+"px"
-        document.getElementById(this.id).style.left = (x+2)+"px"
+        this.elements.el.style.transform = "translate("+x+"px,"+y+"px)"
+        this.elements.text.style.transform = "translate("+x+"px,"+y+"px)"
+        this.elements.bg.style.transform = "translate("+x+"px,"+y+"px)"
 
-        document.getElementById(this.id+"_text").style.top = (y+2)+"px"
-        document.getElementById(this.id+"_text").style.left = x+"px"
-
-        document.getElementById(this.id+"_bg").style.top = y+"px"
-        document.getElementById(this.id+"_bg").style.left = x+"px"
     }
 
     setZIndex(val) {
-        document.getElementById(this.id).style.zIndex = val
-        document.getElementById(this.id+"_text").style.zIndex = val
-        document.getElementById(this.id+"_bg").style.zIndex = val
+        this.elements.el.style.zIndex = val
+        this.elements.text.style.zIndex = val
+        this.elements.bg.style.zIndex = val
     }
 
     changeColor(color) {
-        document.getElementById(this.id).style.backgroundColor = color
+        this.elements.el.style.backgroundColor = color
     }
 
     updateSize() {
+        if (this.updateS) {
+            this.width2 = this.width*gameScaling
+            this.elements.text.style.fontSize = (this.fontSize*gameScaling)+"px"
 
-        this.width2 = this.width*gameScaling
-        document.getElementById(this.id+"_text").style.fontSize = (this.fontSize*gameScaling)+"px"
+            this.elements.text.style.width = (this.width*gameScaling)+"px"
+            this.elements.bg.style.width = (this.width*gameScaling)+"px"
 
-        document.getElementById(this.id+"_text").style.width = (this.width*gameScaling)+"px"
-        document.getElementById(this.id+"_bg").style.width = (this.width*gameScaling)+"px"
-
-        document.getElementById(this.id).style.height = (this.height*gameScaling)+"px"
-        document.getElementById(this.id+"_text").style.height = (this.height*gameScaling)+"px"
-        document.getElementById(this.id+"_bg").style.height = (this.height*gameScaling)+"px"
+            this.elements.el.style.height = (this.height*gameScaling)+"px"
+            this.elements.text.style.height = (this.height*gameScaling)+"px"
+            this.elements.bg.style.height = (this.height*gameScaling)+"px"
+        }
     }
 }
 

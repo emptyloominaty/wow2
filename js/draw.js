@@ -1,3 +1,11 @@
+let drawVars = {
+    raidFramesUpdated: false,
+    buffBarsIdx:0,
+    buffBarIdxMax:4,
+    raidFramesIdx:0,
+    raidFramesIdxMax:4,
+}
+
 for (let i = 0; i<creatures.length; i++) {
     if (!creatures[i].enemy) {
         bars["creature"+i+"Name"] = new Bar(60,5,100,100,0,0,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_creature"+i+"Name",4,"rgba(0,0,0,0")
@@ -9,9 +17,9 @@ for (let i = 0; i<creatures.length; i++) {
         bars["creature"+i+"Health"] = new Bar(100,12,1.5,1.5,0,0,"rgba(85,187,63,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Health",11,"rgba(0,0,0,0.5",true,i)
         bars["creature"+i+"Cast"] = new Bar(100,12,1.5,1.5,0,0,"rgba(187,187,187,0.5)","rgba(85,85,85,0.5)","bar_creature"+i+"Cast",8,"rgba(0,0,0,0.5")
         bars["creature"+i+"Cast"].setVisibility(false)
+        //enemy debuff bar
         let div = document.createElement("div")
         div.id = "creature"+i+"debuffs"
-        //div.classList.add("creature_bar_debuffs")
         div.style.position = "fixed"
         div.style.width = "200px"
         div.style.height = "20px"
@@ -19,6 +27,7 @@ for (let i = 0; i<creatures.length; i++) {
         div.style.justifyContent = "center"
         div.style.pointerEvents= "none"
         elements.creatureBars.appendChild(div)
+        elements["creature"+i+"debuffs"] = document.getElementById("creature"+i+"debuffs")
     }
 
     if (creatures[i]===player) {
@@ -26,19 +35,19 @@ for (let i = 0; i<creatures.length; i++) {
     }
 }
 
-bars.playerName = new Bar(120,20,100,100,10,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_playerName")
-bars.playerHealth = new Bar(120,20,100,100,10,30,"#4b9539","#555555","bar_playerHealth")
-bars.playerMana = new Bar(120,20,100,100,10,55,"#63a0dd","#555555","bar_playerMana")
-bars.playerSecondaryResource = new Bar(120,20,0,5,10,80,"#ddda63","#555555","bar_playerSecondaryResource")
-bars.playerCast = new Bar(120,20,1.5,1.5,10,105,"#bbbbbb","#555555","bar_playerCast")
-bars.playerCast2 = new Bar(240,20,1.5,1.5,840,85,"#1e1e1e","#555555","bar_playerCast2")
+bars.playerName = new Bar(120,20,100,100,10,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_playerName",undefined,undefined,undefined,undefined,false)
+bars.playerHealth = new Bar(120,20,100,100,10,30,"#4b9539","#555555","bar_playerHealth",undefined,undefined,undefined,undefined,false)
+bars.playerMana = new Bar(120,20,100,100,10,55,"#63a0dd","#555555","bar_playerMana",undefined,undefined,undefined,undefined,false)
+bars.playerSecondaryResource = new Bar(120,20,0,5,10,80,"#ddda63","#555555","bar_playerSecondaryResource",undefined,undefined,undefined,undefined,false)
+bars.playerCast = new Bar(120,20,1.5,1.5,10,105,"#bbbbbb","#555555","bar_playerCast",undefined,undefined,undefined,undefined,false)
+bars.playerCast2 = new Bar(240,20,1.5,1.5,840,85,"#1e1e1e","#555555","bar_playerCast2",undefined,undefined,undefined,undefined,false)
 bars.playerCast2.setZIndex(20)
 
-bars.targetName = new Bar(120,20,100,100,170,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_targetName")
-bars.targetHealth = new Bar(120,20,100,100,170,30,"#4b9539","#555555","bar_targetHealth")
-bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetMana")
-bars.targetSecondaryResource = new Bar(120,20,0,5,170,80,"#ddda63","#555555","bar_targetSecondaryResource")
-bars.targetCast = new Bar(120,20,1.5,1.5,170,105,"#bbbbbb","#555555","bar_targetCast")
+bars.targetName = new Bar(120,20,100,100,170,10,"rgba(0,0,0,0)","rgba(0,0,0,0)","bar_targetName",undefined,undefined,undefined,undefined,false)
+bars.targetHealth = new Bar(120,20,100,100,170,30,"#4b9539","#555555","bar_targetHealth",undefined,undefined,undefined,undefined,false)
+bars.targetMana = new Bar(120,20,100,100,170,55,"#63a0dd","#555555","bar_targetMana",undefined,undefined,undefined,undefined,false)
+bars.targetSecondaryResource = new Bar(120,20,0,5,170,80,"#ddda63","#555555","bar_targetSecondaryResource",undefined,undefined,undefined,undefined,false)
+bars.targetCast = new Bar(120,20,1.5,1.5,170,105,"#bbbbbb","#555555","bar_targetCast",undefined,undefined,undefined,undefined,false)
 
 
 let orderRaidFrames = function() {
@@ -100,6 +109,36 @@ if (0===0) {
             "</div>"
     }
     elements.raidFrames_parent.innerHTML = raidFramesHTML
+
+
+    //getElement -> elements
+    for (let i = 0; i<friendlyTargets.length; i++) {
+        //buffs/debuffs
+        elements["buff_"+i] = document.getElementById("buff_"+i)
+        elements["buff_"+i+"_image"] = document.getElementById("buff_"+i+"_image")
+        elements["buff_"+i+"_text"] = document.getElementById("buff_"+i+"_text")
+        elements["buff_"+i+"_stacks"] = document.getElementById("buff_"+i+"_stacks")
+        elements["debuff_"+i] = document.getElementById("debuff_"+i)
+        elements["debuff_"+i+"_image"] = document.getElementById("debuff_"+i+"_image")
+        elements["debuff_"+i+"_text"] = document.getElementById("debuff_"+i+"_text")
+        elements["debuff_"+i+"_stacks"] = document.getElementById("debuff_"+i+"_stacks")
+        //raid frames
+        elements["raidFrame_health"+i] = document.getElementById("raidFrame_health"+i)
+        elements["raidFrame_role_icon"+i] = document.getElementById("raidFrame_role_icon"+i)
+        elements["raidFrame_name"+i] = document.getElementById("raidFrame_name"+i)
+        elements["raidFrame_healthLost"+i] = document.getElementById("raidFrame_healthLost"+i)
+        elements["raidFrame_buff_bottomRight"+i] = document.getElementById("raidFrame_buff_bottomRight"+i)
+        elements["raidFrame_buff_bottomRight_duration"+i] = document.getElementById("raidFrame_buff_bottomRight_duration"+i)
+        elements["raidFrame_buff_bottomRight2"+i] = document.getElementById("raidFrame_buff_bottomRight2"+i)
+        elements["raidFrame_buff_bottomRight2_duration"+i] = document.getElementById("raidFrame_buff_bottomRight2_duration"+i)
+        elements["raidFrame_buff_bottomCentre"+i] = document.getElementById("raidFrame_buff_bottomCentre"+i)
+        elements["raidFrame_buff_bottomCentre_duration"+i] = document.getElementById("raidFrame_buff_bottomCentre_duration"+i)
+        elements["raidFrame_buff_centreRight"+i] = document.getElementById("raidFrame_buff_centreRight"+i)
+        elements["raidFrame_buff_centreRight_duration"+i] = document.getElementById("raidFrame_buff_centreRight_duration"+i)
+        elements["raidFrame_debuff_0"+i] = document.getElementById("raidFrame_debuff_0"+i)
+        elements["raidFrame_debuff_1"+i] = document.getElementById("raidFrame_debuff_1"+i)
+    }
+
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -108,7 +147,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-    elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+player.absorb.toFixed(0)+"<br>"
+    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+avgFPS.toFixed(0)+" | absorb: "+player.absorb.toFixed(0)+""
     /*elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePosition2d.x.toFixed(0)+" y:"+mousePosition2d.y.toFixed(0)+"<br>"+"R: x: "+player.x.toFixed(0)+" y:"+player.y.toFixed(0)+"<br>"  /*+
             "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 
@@ -190,12 +229,10 @@ function draw(progress) {
 
                 bars["creature"+i+"Name"].setPosition(x2d,y2dN,true)
                 bars["creature"+i+"Name"].setText(creatures[i].name)
-                bars["creature"+i+"Name"].updateSize()
 
                 bars["creature"+i+"Health"].setPosition(x2d,y2dH,true)
                 bars["creature"+i+"Health"].setVal(creatures[i].health)
                 bars["creature"+i+"Health"].setMaxVal(creatures[i].maxHealth)
-                bars["creature"+i+"Health"].updateSize()
 
                 if (creatures[i].enemy) {
                     bars["creature"+i+"Health"].setText(getNumberString(creatures[i].health)+" "+(health*100).toFixed(0)+"%")
@@ -207,14 +244,12 @@ function draw(progress) {
                     bars["creature"+i+"Cast"].setMaxVal(creatures[i].casting.time2)
                     bars["creature"+i+"Cast"].setVal(creatures[i].casting.time2-creatures[i].casting.time)
                     bars["creature"+i+"Cast"].setText(creatures[i].casting.name)
-                    bars["creature"+i+"Cast"].updateSize()
                 } else if (creatures[i].isChanneling) {
                     bars["creature"+i+"Cast"].setVisibility(true)
                     bars["creature"+i+"Cast"].setPosition(x2d,y2dC,true)
                     bars["creature"+i+"Cast"].setMaxVal(creatures[i].channeling.time2)
                     bars["creature"+i+"Cast"].setVal(creatures[i].channeling.time2-creatures[i].channeling.time)
                     bars["creature"+i+"Cast"].setText(creatures[i].channeling.name)
-                    bars["creature"+i+"Cast"].updateSize()
                 } else {
                     bars["creature"+i+"Cast"].setVisibility(false)
                 }
@@ -229,7 +264,7 @@ function draw(progress) {
                     }
                 }
 
-                let el = document.getElementById("creature"+i+"debuffs")
+                let el = elements["creature"+i+"debuffs"]
                 if (el) {
                     let width = (200*gameScaling)
                     let height = (20*gameScaling)
@@ -305,7 +340,7 @@ function draw(progress) {
     }
 
     Object.keys(bars).forEach(key => {
-        document.getElementById(bars[key].id).style.width = (bars[key].val/bars[key].maxVal*bars[key].width2)+"px"
+        bars[key].elements.el.style.width = (bars[key].val/bars[key].maxVal*bars[key].width2)+"px"
     })
 
     bars.playerName.setText(player.name)
@@ -362,78 +397,111 @@ function draw(progress) {
     //elements.stats_parent.innerHTML = "Primary: "+player.stats.primary + "<br>Crit: "+player.stats.crit+ " <br>Haste: "+player.stats.haste+ " <br>Mastery: "+player.stats.mastery+ " <br>Vers: "+player.stats.vers+" "
 
     //buffs
+    let maxii = (drawVars.buffBarsIdx+1)*(16/(drawVars.buffBarIdxMax+1))
+    let minii = (drawVars.buffBarsIdx)*(16/(drawVars.buffBarIdxMax+1))
+    drawVars.buffBarsIdx++
+    if (drawVars.buffBarsIdx>drawVars.buffBarIdxMax) {
+        drawVars.buffBarsIdx=0
+    }
     //reset
     for (let i = 0; i<16; i++) {
-        document.getElementById("buff_"+i+"_image").src = ""
-        document.getElementById("buff_"+i+"_text").textContent = ""
-        document.getElementById("buff_"+i+"_stacks").textContent = ""
-        document.getElementById("debuff_"+i+"_image").src = ""
-        document.getElementById("debuff_"+i+"_text").textContent = ""
-        document.getElementById("debuff_"+i+"_stacks").textContent = ""
+        if (i<=maxii && i>minii) {
+            elements["debuff_"+i+"_image"].src = ""
+            elements["debuff_"+i+"_text"].textContent = ""
+            elements["debuff_"+i+"_stacks"].textContent = ""
+
+            elements["buff_"+i+"_image"].src = ""
+            elements["buff_"+i+"_text"].textContent = ""
+            elements["buff_"+i+"_stacks"].textContent = ""
+        }
     }
 
-    let ii = 0
-    for (let i = 0; i<player.buffs.length; i++) {
-        if (ii<15) {
+    let ii = Math.ceil(minii)
+    for (let i = Math.ceil(minii); i<player.buffs.length; i++) {
+        if (ii<=maxii) {
+            if (player.form!=="") {
+                if (ii===0) {
+                    ii++
+                }
+            }
             if (!player.buffs[i].ability.hiddenBuff) {
-                //onmouseover='showSpellTooltip("+i+","+j+")' onmouseout='hideSpellTooltip()'
-                document.getElementById("buff_"+ii).onmouseover = ()=> {showBuffTooltip(player.buffs[i],player)}
-                document.getElementById("buff_"+ii).onmouseout = ()=> {hideBuffTooltip()}
+                elements["buff_"+ii].onmouseover = ()=> {showBuffTooltip(player.buffs[i],player)}
+                elements["buff_"+ii].onmouseout = ()=> {hideBuffTooltip()}
 
-                document.getElementById("buff_"+ii+"_image").src = iconsPath[player.buffs[i].name]
+                elements["buff_"+ii+"_image"].src = iconsPath[player.buffs[i].name]
+
                 if (!player.buffs[i].ability.permanentBuff) {
-                    document.getElementById("buff_"+ii+"_text").textContent = getTime2(player.buffs[i].duration)
+                    elements["buff_"+ii+"_text"].textContent = getTime2(player.buffs[i].duration)
                 }
                 if (player.buffs[i].stacks>1) {
-                    document.getElementById("buff_"+ii+"_stacks").textContent = player.buffs[i].stacks
+                    elements["buff_"+ii+"_stacks"].textContent = player.buffs[i].stacks
                 }
                 ii++
+                if (ii>15) {
+                    break
+                }
             }
         }
     }
     if (player.form!=="") {
-        if (ii<15) {
-            document.getElementById("buff_"+ii+"_image").src = iconsPath[player.form]
-        }
-        ii++
+        elements["buff_0_image"].src = iconsPath[player.form]
+        elements["buff_0_text"].textContent = ""
+        elements["buff_0_stacks"].textContent = ""
     }
 
-    ii = 0
-    for (let i = 0; i<player.debuffs.length; i++) {
-        if (ii<15) {
+    ii = Math.ceil(minii)
+    for (let i = Math.ceil(minii); i<player.debuffs.length; i++) {
+        if (ii<=maxii) {
             if (!player.debuffs[i].ability.hiddenBuff) {
-                document.getElementById("debuff_"+ii+"_image").src = iconsPath[player.debuffs[i].name]
+
+                elements["debuff_"+ii+"_image"].src = iconsPath[player.debuffs[i].name]
+
                 if (!player.debuffs[i].ability.permanentBuff) {
-                    document.getElementById("debuff_"+ii+"_text").textContent = getTime2(player.debuffs[i].duration)
+                    elements["debuff_"+ii+"_text"].textContent = getTime2(player.debuffs[i].duration)
                 } else if (player.debuffs[i].type==="stagger") {
-                    document.getElementById("debuff_"+ii+"_text").textContent = getNumberString(player.debuffs[i].effect[0].val)
+                    elements["debuff_"+ii+"_text"].textContent = getNumberString(player.debuffs[i].effect[0].val)
                 }
                 if (player.debuffs[i].stacks>1) {
-                    document.getElementById("debuff_"+ii+"_stacks").textContent = player.debuffs[i].stacks
+                    elements["debuff_"+ii+"_stacks"].textContent = player.debuffs[i].stacks
                 }
                 ii++
+                if (ii>15) {
+                    break
+                }
             }
         }
     }
 
     //raidframes
-        for (let i = 0; i<raidFramesTargets.length; i++) {
+    //     raidFramesIdx:0,
+    //     raidFramesIdxMax:4,
+        maxii = (drawVars.raidFramesIdx+1)*(16/(drawVars.raidFramesIdxMax+1))
+        minii = (drawVars.raidFramesIdx)*(16/(drawVars.raidFramesIdxMax+1))
+        drawVars.raidFramesIdx++
+        if (drawVars.raidFramesIdx>drawVars.raidFramesIdxMax) {
+            drawVars.raidFramesIdx=0
+        }
+        for (let i = Math.ceil(minii); i<raidFramesTargets.length; i++) {
+            if (i>maxii) {
+                break
+            }
             let raidFrameTarget = raidFramesTargets[i]
 
-            document.getElementById("raidFrame_health"+i).style.width = ((raidFrameTarget.health/raidFrameTarget.maxHealth)*100)+"%"
-            document.getElementById("raidFrame_health"+i).style.backgroundColor = colors[raidFrameTarget.class]
+            elements["raidFrame_health"+i].style.width = ((raidFrameTarget.health/raidFrameTarget.maxHealth)*100)+"%"
+            elements["raidFrame_health"+i].style.backgroundColor = colors[raidFrameTarget.class]
 
-            document.getElementById("raidFrame_name"+i).textContent = raidFrameTarget.name
+            if (!drawVars.raidFramesUpdated) {
+                elements["raidFrame_name"+i].textContent = raidFrameTarget.name
+                elements["raidFrame_role_icon"+i].src = iconsPath[raidFrameTarget.role]
+            }
 
             if (raidFrameTarget.health<raidFrameTarget.maxHealth) {
-                document.getElementById("raidFrame_healthLost"+i).textContent = "-"+(raidFrameTarget.maxHealth-raidFrameTarget.health).toFixed(0)
+                elements["raidFrame_healthLost"+i].textContent = "-"+(raidFrameTarget.maxHealth-raidFrameTarget.health).toFixed(0)
             } else if (raidFrameTarget.isDead) {
-                document.getElementById("raidFrame_healthLost"+i).textContent = "Dead"
+                elements["raidFrame_healthLost"+i].textContent = "Dead"
             } else {
-                document.getElementById("raidFrame_healthLost"+i).textContent = ""
+                elements["raidFrame_healthLost"+i].textContent = ""
             }
-            //role
-            document.getElementById("raidFrame_role_icon"+i).src = iconsPath[raidFrameTarget.role]
 
             //buffs debuffs
             let bottomRight = false
@@ -446,7 +514,7 @@ function draw(progress) {
             let maxDebuffs = 2
             let debuffs = 0
             for (let j = 0; j<raidFrameTarget.debuffs.length; j++) {
-                document.getElementById("raidFrame_debuff_"+j+i).src = iconsPath[raidFrameTarget.debuffs[j].name]
+                elements["raidFrame_debuff_"+j+i].src = iconsPath[raidFrameTarget.debuffs[j].name]
                 debuffEl[j] = true
                 debuffs++
                 if (debuffs===maxDebuffs) {
@@ -457,70 +525,71 @@ function draw(progress) {
             for (let j = 0; j<raidFrameTarget.buffs.length; j++) {
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomRight && raidFrameTarget.buffs[j].caster === player) {
                     bottomRight = 1
-                    document.getElementById("raidFrame_buff_bottomRight"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight]
-                    document.getElementById("raidFrame_buff_bottomRight_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    elements["raidFrame_buff_bottomRight"+i].src = iconsPath[raidFramesBuffs[player.spec].bottomRight]
+                    elements["raidFrame_buff_bottomRight_duration"+i].textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                     if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
-                        document.getElementById("raidFrame_buff_bottomRight_duration"+i).style.color = colors.textRed
+                        elements["raidFrame_buff_bottomRight_duration"+i].style.color = colors.textRed
                     } else {
-                        document.getElementById("raidFrame_buff_bottomRight_duration"+i).style.color = colors.text
+                        elements["raidFrame_buff_bottomRight_duration"+i].style.color = colors.text
                     }
                 }
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomRight2 && raidFrameTarget.buffs[j].caster === player) {
                     bottomRight2 = 1
-                    document.getElementById("raidFrame_buff_bottomRight2"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomRight2]
-                    document.getElementById("raidFrame_buff_bottomRight2_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    elements["raidFrame_buff_bottomRight2"+i].src = iconsPath[raidFramesBuffs[player.spec].bottomRight2]
+                    elements["raidFrame_buff_bottomRight2_duration"+i].textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                     if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
-                        document.getElementById("raidFrame_buff_bottomRight2_duration"+i).style.color = colors.textRed
+                        elements["raidFrame_buff_bottomRight2_duration"+i].style.color = colors.textRed
                     } else {
-                        document.getElementById("raidFrame_buff_bottomRight2_duration"+i).style.color = colors.text
+                        elements["raidFrame_buff_bottomRight2_duration"+i].style.color = colors.text
                     }
                 }
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomCentre && raidFrameTarget.buffs[j].caster === player) {
                     bottomCentre = 1
-                    document.getElementById("raidFrame_buff_bottomCentre"+i).src = iconsPath[raidFramesBuffs[player.spec].bottomCentre]
-                    document.getElementById("raidFrame_buff_bottomCentre_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    elements["raidFrame_buff_bottomCentre"+i].src = iconsPath[raidFramesBuffs[player.spec].bottomCentre]
+                    elements["raidFrame_buff_bottomCentre_duration"+i].textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                     if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
-                        document.getElementById("raidFrame_buff_bottomCentre_duration"+i).style.color = colors.textRed
+                        elements["raidFrame_buff_bottomCentre_duration"+i].style.color = colors.textRed
                     } else {
-                        document.getElementById("raidFrame_buff_bottomCentre_duration"+i).style.color = colors.text
+                        elements["raidFrame_buff_bottomCentre_duration"+i].style.color = colors.text
                     }
                 }
 
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].centreRight && raidFrameTarget.buffs[j].caster === player) {
                     centreRight = 1
-                    document.getElementById("raidFrame_buff_centreRight"+i).src = iconsPath[raidFramesBuffs[player.spec].centreRight]
-                    document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
+                    elements["raidFrame_buff_centreRight"+i].src = iconsPath[raidFramesBuffs[player.spec].centreRight]
+                    elements["raidFrame_buff_centreRight_duration"+i].textContent = raidFrameTarget.buffs[j].duration.toFixed(0)
                     if (raidFrameTarget.buffs[j].duration/raidFrameTarget.buffs[j].maxDuration<0.3) {
-                        document.getElementById("raidFrame_buff_centreRight_duration"+i).style.color = colors.textRed
+                        elements["raidFrame_buff_centreRight_duration"+i].style.color = colors.textRed
                     } else {
-                        document.getElementById("raidFrame_buff_centreRight_duration"+i).style.color = colors.text
+                        elements["raidFrame_buff_centreRight_duration"+i].style.color = colors.text
                     }
                 }
             }
             if (!bottomRight) {
-                document.getElementById("raidFrame_buff_bottomRight"+i).src = ""
-                document.getElementById("raidFrame_buff_bottomRight_duration"+i).textContent = ""
+                elements["raidFrame_buff_bottomRight"+i].src = ""
+                elements["raidFrame_buff_bottomRight_duration"+i].textContent = ""
             }
             if (!bottomRight2) {
-                document.getElementById("raidFrame_buff_bottomRight2"+i).src = ""
-                document.getElementById("raidFrame_buff_bottomRight2_duration"+i).textContent = ""
+                elements["raidFrame_buff_bottomRight2"+i].src = ""
+                elements["raidFrame_buff_bottomRight2_duration"+i].textContent = ""
             }
             if (!bottomCentre) {
-                document.getElementById("raidFrame_buff_bottomCentre"+i).src = ""
-                document.getElementById("raidFrame_buff_bottomCentre_duration"+i).textContent = ""
+                elements["raidFrame_buff_bottomCentre"+i].src = ""
+                elements["raidFrame_buff_bottomCentre_duration"+i].textContent = ""
             }
             if (!centreRight) {
-                document.getElementById("raidFrame_buff_centreRight"+i).src = ""
-                document.getElementById("raidFrame_buff_centreRight_duration"+i).textContent = ""
+                elements["raidFrame_buff_centreRight"+i].src = ""
+                elements["raidFrame_buff_centreRight_duration"+i].textContent = ""
             }
 
             if (!debuffEl[0]) {
-                document.getElementById("raidFrame_debuff_0"+i).src = ""
+                elements["raidFrame_debuff_0"+i].src = ""
             }
 
             if (!debuffEl[1]) {
-                document.getElementById("raidFrame_debuff_1"+i).src = ""
+                elements["raidFrame_debuff_1"+i].src = ""
             }
         }
+    //drawVars.raidFramesUpdated = true
 
 }

@@ -6,39 +6,12 @@ class FloatingText2 {
     constructor(x,y,val,type,id) {
         this.x = x
         this.y = y
-
         this.type = type
         this.id = id
         this.crit = false
         this.texts = []
 
-        /*if (floatingTexts[this.id]!==undefined) {
-            let el = document.getElementById(this.id+"_floatText")
-            el.remove()
-        }*/
-
         let html = "<div id='"+this.id+"_floatText2' style='position: fixed; top:"+y+"px; left:"+x+"px; overflow:visible;' ></div>"
-
-
-        //    html += "<span class='floatingText2_damage'>KEKW</span>"
-
-        /*let span = document.createElement("span")
-        span.style.position = "fixed"
-        span.style.top = (y+offsetY)+"px"
-        span.style.left = (x+offsetX)+"px"
-        span.style.textAlign = "center"
-        span.id = this.id+"_floatText2"
-        span.style.width = 100+"px"
-        span.style.overflow = "visible"
-
-
-        span.textContent = val
-        span.style.textShadow = "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000"
-
-
-
-        elements.ui.appendChild(span)
-         */
 
         elements.ui.insertAdjacentHTML("beforeend", html) //TODO: elements.floatingTexts
         this.element =  document.getElementById(this.id+"_floatText2")

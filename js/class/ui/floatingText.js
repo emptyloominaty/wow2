@@ -21,8 +21,8 @@ class FloatingText {
 
         let span = document.createElement("span")
         span.style.position = "fixed"
-        span.style.top = ((1-Math.random())*20)+y+"px"
-        span.style.left = ((1-Math.random())*20)+x+"px"
+        span.style.top = 350+"px"
+        span.style.left = ((1-Math.random())*20)+"px"
         span.style.textAlign = "center"
         span.id = this.id+"_floatText"
         span.textContent = val.toFixed(0)
@@ -49,7 +49,7 @@ class FloatingText {
     run() {
         this.duration += progressInSec
         this.y -= this.speed
-        this.element.style.top=this.y+"px"
+        this.element.style.transform = "translate("+this.x+"px,"+this.y+"px)"
         if (this.duration>this.maxDuration) {
             this.element.remove()
             floatingTexts[this.id]=undefined

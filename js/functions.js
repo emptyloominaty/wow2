@@ -434,11 +434,13 @@ let isEnemy = function(caster,target) {
 
 let getNumberString = function(number) {
     if (number>999999) {
-        return (number/1000000).toFixed(1)+"M"
+        return Math.round((number/1000000)*10)/10+"M"
+        //return (number/1000000).toFixed(1)+"M"
     } else if (number>999) {
-        return (number/1000).toFixed(1)+"K"
+        return Math.round((number/1000)*10)/10+"K"
+        //return (number/1000).toFixed(1)+"K"
     } else {
-        return (number).toFixed(0)
+        return Math.round(number)
     }
 }
 

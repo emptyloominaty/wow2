@@ -155,12 +155,15 @@ class Ability {
         if (caster===player) {
             bars.playerCast.setMaxVal(caster.gcd)
         }
-        if (caster.gcd<0.75) {
-            caster.gcd = 0.75
-            if (caster===player) {
-                bars.playerCast.setMaxVal(0.75)
+        if (this.gcd>=0.75) {
+            if (caster.gcd<0.75) {
+                caster.gcd = 0.75
+                if (caster===player) {
+                    bars.playerCast.setMaxVal(0.75)
+                }
             }
         }
+
     }
 
     isEnemy(caster,target = caster.targetObj) {

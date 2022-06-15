@@ -491,11 +491,13 @@ let onMouseUpdate = function(e) {
 
     mousePosition2d.x = ((player.x+((e.pageX)-(game2d.canvasW/2))/gameScaling))
     mousePosition2d.y = ((player.y+((e.pageY)-(game2d.canvasH/2))/gameScaling))
-
-
 }
 
-document.addEventListener('mousemove', onMouseUpdate)
+//input.js:492 Uncaught ReferenceError: player is not defined
+setTimeout( ()=> {
+    document.addEventListener('mousemove', onMouseUpdate)
+},150 )
+
 
 //mouse position
 let onMouseClick = function(e) {
@@ -524,6 +526,10 @@ let zoom = function(event) {
         gameScaling = 4  //2.8
     }
 
+    Object.keys(bars).forEach(function(key) {
+
+        bars[key].updateSize()
+    })
 }
 
 document.body.onwheel = zoom

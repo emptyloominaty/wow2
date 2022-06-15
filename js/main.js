@@ -6,6 +6,7 @@ let progressInSec = 0.016
 let avgFPS = 60
 let avgFPSlastSec = []
 let combatLog = []
+let detailsIdx = 0
 
 function update(progress) {
     fps = 1/progress*1000
@@ -62,9 +63,17 @@ function update(progress) {
     })
 
     //details
-    detailsDamage.run()
-    detailsHealing.run()
-    detailsAbilities.run()
+    if (detailsIdx===0) {
+        detailsDamage.run()
+    } else if (detailsIdx===1) {
+        detailsHealing.run()
+    } else {
+        detailsAbilities.run()
+    }
+    detailsIdx++
+    if (detailsIdx>4) {
+        detailsIdx=0
+    }
 
     //combat log
     if (inCombat) {

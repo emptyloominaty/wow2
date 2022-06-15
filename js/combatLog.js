@@ -79,7 +79,7 @@ let timelineCombatLog = {
                         } else {
                             floatingTextIdx = 0
                         }
-                        floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset, this.damageTimeline[i][key][Math.floor(this.timer)], "damage", 1, key, floatingTextIdx))
+                        floatingTexts[floatingTextIdx] = (new FloatingText(300, yOffset, this.damageTimeline[i][key][Math.floor(this.timer)], "damage", 1, key, floatingTextIdx))
                         yOffset+=15
                     }
 
@@ -116,7 +116,7 @@ let timelineCombatLog = {
                         } else {
                             floatingTextIdx = 0
                         }
-                        floatingTexts[floatingTextIdx] = (new FloatingText(300, 350 + yOffset,this.healTimeline[i][key][Math.floor(this.timer)], "heal", 1, key, floatingTextIdx))
+                        floatingTexts[floatingTextIdx] = (new FloatingText(300, yOffset,this.healTimeline[i][key][Math.floor(this.timer)], "heal", 1, key, floatingTextIdx))
                         yOffset+=15
                     }
 

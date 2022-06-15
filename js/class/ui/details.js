@@ -45,6 +45,18 @@ class DetailsWindow {
         document.getElementById(this.id).style.left = this.x+"px"
         document.getElementById(this.id).style.width = this.width+"px"
         document.getElementById(this.id).style.height = this.height+"px"
+
+
+        this.el = {}
+        this.el[this.id] =document.getElementById(this.id)
+        this.el["details_type"+this.id] = document.getElementById("details_type"+this.id)
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            this.el[this.id+"_name"+i] = document.getElementById(this.id+"_name"+i)
+            this.el[this.id+"_val"+i] = document.getElementById(this.id+"_val"+i)
+            this.el[this.id+"_icon"+i] = document.getElementById(this.id+"_icon"+i)
+            this.el["detailsWindow_Row"+this.id+i] = document.getElementById("detailsWindow_Row"+this.id+i)
+            this.el[this.id+"_bar"+i] = document.getElementById(this.id+"_bar"+i)
+        }
     }
 
     toggle(id,type) {
@@ -60,27 +72,27 @@ class DetailsWindow {
             return
         }
         this.maxVal = 1
-        if (document.getElementById(this.id).style.display === "none") {
-            document.getElementById(this.id).style.display = "inline"
+        if (this.el[this.id].style.display === "none") {
+            this.el[this.id].style.display = "inline"
             this.hide = false
             this.changePosition(mousePosition.x+25,mousePosition.y)
             for (let i = 0; i<this.elements; i++) {
-                document.getElementById(this.id+"_name"+i).textContent = ""
-                document.getElementById(this.id+"_val"+i).textContent = ""
-                document.getElementById(this.id+"_icon"+i).src = ""
-                document.getElementById(this.id+"_bar"+i).style.backgroundColor = "rgba(0,0,0,0)"
-                document.getElementById(this.id+"_bar"+i).style.width = "0px"
+                this.el[this.id+"_name"+i].textContent = ""
+                this.el[this.id+"_val"+i].textContent = ""
+                this.el[this.id+"_icon"+i].src = ""
+                this.el[this.id+"_bar"+i].style.backgroundColor = "rgba(0,0,0,0)"
+                this.el[this.id+"_bar"+i].style.width = "0px"
             }
         } else {
             this.hide = true
-            document.getElementById(this.id).style.display = "none"
+            this.el[this.id].style.display = "none"
         }
     }
 
     changePosition(x,y) {
-        if (document.getElementById(this.id)) {
-            document.getElementById(this.id).style.top = y+"px"
-            document.getElementById(this.id).style.left = x+"px"
+        if (this.el[this.id]) {
+            this.el[this.id].style.top = y+"px"
+            this.el[this.id].style.left = x+"px"
         }
     }
 
@@ -142,34 +154,32 @@ class DetailsWindow {
                 }
             }
 
-
-
             for (let i = 0; i<this.vals.length; i++) {
                 if (this.vals[i].val!==0) {
-                    document.getElementById(this.id+"_name"+i).textContent = this.vals[i].name
+                    this.el[this.id+"_name"+i].textContent = this.vals[i].name
                     if (this.type==="HPS" || this.type==="DPS") {
-                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val/combatTime)
-                        document.getElementById(this.id+"_icon"+i).src = iconsPath.specs[this.vals[i].target.spec]
-                        document.getElementById("detailsWindow_Row"+this.id+i).dataset.id = this.vals[i].target.id
+                        this.el[this.id+"_val"+i].textContent = getNumberString(this.vals[i].val/combatTime)
+                        this.el[this.id+"_icon"+i].src = iconsPath.specs[this.vals[i].target.spec]
+                        this.el["detailsWindow_Row"+this.id+i].dataset.id = this.vals[i].target.id
                     } else if (this.type==="Healing Done" || this.type==="Damage Done") {
-                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)+" ("+getNumberString(this.vals[i].val/combatTime)+")"
-                        document.getElementById(this.id+"_icon"+i).src = iconsPath.specs[this.vals[i].target.spec]
-                        document.getElementById("detailsWindow_Row"+this.id+i).dataset.id = this.vals[i].target.id
+                        this.el[this.id+"_val"+i].textContent = getNumberString(this.vals[i].val)+" ("+getNumberString(this.vals[i].val/combatTime)+")"
+                        this.el[this.id+"_icon"+i].src = iconsPath.specs[this.vals[i].target.spec]
+                        this.el["detailsWindow_Row"+this.id+i].dataset.id = this.vals[i].target.id
 
                     } else if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
 
-                        document.getElementById(this.id+"_val"+i).textContent = getNumberString(this.vals[i].val)+" ("+(valsPercentages[i].toFixed(1))+"%)"
-                        document.getElementById(this.id+"_icon"+i).src = iconsPath[this.vals[i].name]
+                        this.el[this.id+"_val"+i].textContent = getNumberString(this.vals[i].val)+" ("+(valsPercentages[i].toFixed(1))+"%)"
+                        this.el[this.id+"_icon"+i].src = iconsPath[this.vals[i].name]
                     }
                     vals++
 
-                    document.getElementById(this.id+"_bar"+i).style.backgroundColor = this.vals[i].color
-                    document.getElementById(this.id+"_bar"+i).style.width = (this.vals[i].val/this.maxVal*(this.width-34))+"px"
+                    this.el[this.id+"_bar"+i].style.backgroundColor = this.vals[i].color
+                   this.el[this.id+"_bar"+i].style.width = (this.vals[i].val/this.maxVal*(this.width-34))+"px"
                 }
             }
 
             if (this.type==="Abilities Healing" || this.type==="Abilities Damage") {
-                document.getElementById(this.id).style.height = 22+(vals*26)+"px"
+               this.el[this.id].style.height = 22+(vals*26)+"px"
             }
         }
     }

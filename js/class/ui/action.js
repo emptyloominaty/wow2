@@ -16,6 +16,13 @@ class Action {
 
 
         document.getElementById("action_"+bar+"_"+slot+"").innerHTML = "<div class='action_gcd' id='action_gcd_"+bar+"_"+slot+"'></div><div class='action_cd'  id='action_cd_"+bar+"_"+slot+"'></div><img src='"+iconsPath[ability]+"'> <span class='ab_keybind'>"+keybind+"</span> <span class='ab_charges'  id='action_charges_"+bar+"_"+slot+"'></span> </span> <span class='ab_cdText'  id='action_cdText_"+bar+"_"+slot+"'></span>"
+
+        this.elements = []
+        this.elements["action_"+bar+"_"+slot] = document.getElementById("action_"+bar+"_"+slot)
+        this.elements["action_gcd_"+bar+"_"+slot] = document.getElementById("action_gcd_"+bar+"_"+slot)
+        this.elements["action_cd_"+bar+"_"+slot] = document.getElementById("action_cd_"+bar+"_"+slot)
+        this.elements["action_charges_"+bar+"_"+slot] = document.getElementById("action_charges_"+bar+"_"+slot)
+        this.elements["action_cdText_"+bar+"_"+slot] = document.getElementById("action_cdText_"+bar+"_"+slot)
     }
 
     run() {
@@ -28,33 +35,33 @@ class Action {
         //gcd
         if (player.abilities[this.name].checkCost(player,undefined,false)) {
             if (player.gcd > 0 && !player.abilities[this.name].noGcd) {
-                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.height = ((bars.playerCast.val / bars.playerCast.maxVal) * 100) + "%"
-                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.borderBottom = "1px Solid #FFF"
+                this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.height = ((bars.playerCast.val / bars.playerCast.maxVal) * 100) + "%"
+                this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.borderBottom = "1px Solid #FFF"
             } else {
-                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.height = "0%"
-                document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.borderBottom = "0px Solid #FFF"
+                this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.height = "0%"
+                this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.borderBottom = "0px Solid #FFF"
             }
         } else {
-            document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.height =  "100%"
-            document.getElementById("action_gcd_" + this.bar + "_" + this.slot + "").style.borderBottom = "0px Solid #FFF"
+            this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.height =  "100%"
+            this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.borderBottom = "0px Solid #FFF"
         }
         //cd
         if (player.abilities[this.name].cd<player.abilities[this.name].maxCd) {
-            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.height = (100-((player.abilities[this.name].cd/player.abilities[this.name].maxCd)*100))+"%"
-            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "1px Solid #FFFF00"
+            this.elements["action_cd_"+this.bar+"_"+this.slot+""].style.height = (100-((player.abilities[this.name].cd/player.abilities[this.name].maxCd)*100))+"%"
+            this.elements["action_cd_"+this.bar+"_"+this.slot+""].style.borderBottom = "1px Solid #FFFF00"
 
             let cd = player.abilities[this.name].maxCd-player.abilities[this.name].cd
             if (player.abilities[this.name].hasteCd) {
                 cd = (player.abilities[this.name].maxCd-player.abilities[this.name].cd) / (1 + (player.stats.haste / 100))
             }
-            document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = (cd).toFixed(0)+"s"
+            this.elements["action_cdText_"+this.bar+"_"+this.slot+""].textContent = (cd).toFixed(0)+"s"
         } else {
-            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.height = "0%"
-            document.getElementById("action_cd_"+this.bar+"_"+this.slot+"").style.borderBottom = "0px Solid #FFFF00"
-            document.getElementById("action_cdText_"+this.bar+"_"+this.slot+"").textContent = ""
+            this.elements["action_cd_"+this.bar+"_"+this.slot+""].style.height = "0%"
+            this.elements["action_cd_"+this.bar+"_"+this.slot+""].style.borderBottom = "0px Solid #FFFF00"
+            this.elements["action_cdText_"+this.bar+"_"+this.slot+""].textContent = ""
         }
         if (player.abilities[this.name].maxCharges>1) {
-            document.getElementById("action_charges_"+this.bar+"_"+this.slot).textContent = player.abilities[this.name].charges
+            this.elements["action_charges_"+this.bar+"_"+this.slot].textContent = player.abilities[this.name].charges
 
         }
     }
@@ -64,12 +71,12 @@ class Action {
             player.castTarget = player.targetObj
         }
         this.press = 20+progress //ms
-        document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "1px solid #fff"
+        this.elements["action_"+this.bar+"_"+this.slot+""].style.outline = "1px solid #fff"
 
     }
 
     pressEnd() {
-        document.getElementById("action_"+this.bar+"_"+this.slot+"").style.outline = "0px solid #fff"
+        this.elements["action_"+this.bar+"_"+this.slot+""].style.outline = "0px solid #fff"
     }
 
 }

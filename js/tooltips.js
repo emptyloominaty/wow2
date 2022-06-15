@@ -63,18 +63,19 @@ let hideSpellTooltip = function() {
 
 
 let showBuffTooltip = function(buff,target) {
-    let ability = buff.ability
-    spellTooltip = true
+    if (buff) {
+        let ability = buff.ability
+        spellTooltip = true
 
-    let htmlTooltip = "<div class='buffTooltip' id='buffTooltip'><h4 class='buffTooltip_name'>" + buff.name + "</h4>"
+        let htmlTooltip = "<div class='buffTooltip' id='buffTooltip'><h4 class='buffTooltip_name'>" + buff.name + "</h4>"
 
-    htmlTooltip +="<p class='buffTooltip_info'>"+ability.getBuffTooltip(buff.caster,target,buff)+"</p></div>"
+        htmlTooltip += "<p class='buffTooltip_info'>" + ability.getBuffTooltip(buff.caster, target, buff) + "</p></div>"
 
-    elements.ui.insertAdjacentHTML("beforeend", htmlTooltip)
+        elements.ui.insertAdjacentHTML("beforeend", htmlTooltip)
 
-    document.getElementById("buffTooltip").style.left = mousePosition.x+30 + "px"
-    document.getElementById("buffTooltip").style.top = (mousePosition.y+15) + "px"
-
+        document.getElementById("buffTooltip").style.left = mousePosition.x + 30 + "px"
+        document.getElementById("buffTooltip").style.top = (mousePosition.y + 15) + "px"
+    }
 }
 
 
