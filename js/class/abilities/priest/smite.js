@@ -33,7 +33,7 @@ class Smite extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
                 let newTarget = findNearestEnemy(caster)
@@ -67,7 +67,7 @@ class Smite extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (caster.target!=="" && this.isEnemy(caster)) {
+        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 doDamage(caster, caster.castTarget, this)
 

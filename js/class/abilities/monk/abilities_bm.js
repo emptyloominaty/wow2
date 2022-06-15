@@ -83,7 +83,7 @@ class Stagger extends Ability {
         }
         if (!done) {
             this.effect[0].val = staggeredDamage
-            applyDebuff(target,target,this,"stagger")
+            applyDebuff(target,target,this,"stagger",undefined,undefined,"Light Stagger")
         }
         this.effect[0].dotVal = this.effect[0].val/this.duration
         return damage

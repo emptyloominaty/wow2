@@ -52,7 +52,7 @@ class Regrowth extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             let crit = 0
             for (let i = 0; i<caster.buffs.length; i++) {
                 if (caster.buffs[i].name==="Regrowth" && caster.buffs[i].caster === caster) {

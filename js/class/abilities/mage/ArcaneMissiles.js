@@ -45,7 +45,7 @@ class ArcaneMissiles extends Ability {
 
         if (this.checkStart(caster,cost)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
                 let newTarget = findNearestEnemy(caster)
@@ -79,6 +79,7 @@ class ArcaneMissiles extends Ability {
                         return true
                     }
                 }
+                this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
             }
             return true
@@ -93,18 +94,10 @@ class ArcaneMissiles extends Ability {
     }
 
     cast(caster) {
-        if (caster.target!=="" && this.isEnemy(caster)) {
+        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 doDamage(caster,caster.castTarget,this)
-                this.cd = 0
             }
         }
-    }
-
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

@@ -374,6 +374,10 @@ function draw(progress) {
     for (let i = 0; i<player.buffs.length; i++) {
         if (ii<15) {
             if (!player.buffs[i].ability.hiddenBuff) {
+                //onmouseover='showSpellTooltip("+i+","+j+")' onmouseout='hideSpellTooltip()'
+                document.getElementById("buff_"+ii).onmouseover = ()=> {showBuffTooltip(player.buffs[i],player)}
+                document.getElementById("buff_"+ii).onmouseout = ()=> {hideBuffTooltip()}
+
                 document.getElementById("buff_"+ii+"_image").src = iconsPath[player.buffs[i].name]
                 if (!player.buffs[i].ability.permanentBuff) {
                     document.getElementById("buff_"+ii+"_text").textContent = getTime2(player.buffs[i].duration)

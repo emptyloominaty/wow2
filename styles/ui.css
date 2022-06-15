@@ -96,6 +96,10 @@
     margin:4px;
 }
 
+#buff_bar {
+    margin-bottom:30px;
+}
+
 .buff_div,.debuff_div {
     position:relative;
     width:40px;

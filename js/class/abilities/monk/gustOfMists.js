@@ -25,7 +25,7 @@ class GustOfMists extends Ability {
         caster.isCasting = false
         this.spellPower = caster.stats.mastery/100
         if (Object.keys(target).length === 0) {
-            if (caster.target==="" || caster.castTarget.enemy) {
+            if (Object.keys(caster.castTarget).length === 0 || caster.castTarget.enemy) {
                 Object.keys(caster.buffs).forEach((key)=> {
                     if (caster.buffs[key].name === "Essence Font") {
                         doHeal(caster,caster,this,15)

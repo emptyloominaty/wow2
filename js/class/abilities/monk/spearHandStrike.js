@@ -29,7 +29,7 @@ class SpearHandStrike extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster,caster.castTarget) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     if (caster.castTarget.interrupt()) {
                         applyDebuff(caster,caster.castTarget,this)
@@ -55,7 +55,6 @@ class SpearHandStrike extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

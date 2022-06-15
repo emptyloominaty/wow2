@@ -39,7 +39,7 @@ class Moonfire extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster)) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster)) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
                     applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)

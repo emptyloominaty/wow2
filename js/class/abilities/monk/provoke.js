@@ -33,7 +33,7 @@ class Provoke extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) && Object.keys(caster.castTarget).length !== 0) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && Object.keys(caster.castTarget).length !== 0) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     taunt(caster,caster.castTarget)
                     applyBuff(caster,caster.castTarget,this)
@@ -57,7 +57,6 @@ class Provoke extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
@@ -71,11 +70,5 @@ class Provoke extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

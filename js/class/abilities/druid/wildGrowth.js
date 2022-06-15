@@ -47,7 +47,7 @@ class WildGrowth extends Ability {
     endCast(caster) {
         caster.isCasting = false
         this.cd = 0
-        if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             applyHot(caster,caster,this)
         } else {
             applyHot(caster,caster.castTarget,this)

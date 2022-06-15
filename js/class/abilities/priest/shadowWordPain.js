@@ -36,7 +36,7 @@ class ShadowWordPain extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
                 let newTarget = findNearestEnemy(caster)
@@ -53,7 +53,7 @@ class ShadowWordPain extends Ability {
                 }
             }
             if (done && Object.keys(caster.castTarget).length !== 0) {
-                if (caster.target!=="" && this.isEnemy(caster)) {
+                if (this.isEnemy(caster)) {
                     if (this.checkDistance(caster,caster.castTarget) && !caster.castTarget.isDead) {
                         doDamage(caster, caster.castTarget, this)
                         applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
@@ -75,11 +75,5 @@ class ShadowWordPain extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

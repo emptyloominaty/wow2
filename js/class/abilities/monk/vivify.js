@@ -37,7 +37,6 @@ class Vivify extends Ability {
                     return true
                 } else {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
             }
             caster.isCasting = true
@@ -52,7 +51,7 @@ class Vivify extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (Object.keys(caster.castTarget).length === 0 || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             //heal self
             doHeal(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster,caster)

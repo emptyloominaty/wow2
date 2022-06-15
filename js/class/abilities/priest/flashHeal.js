@@ -43,7 +43,7 @@ class FlashHeal extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (caster.target==="" || this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             //heal self
             doHeal(caster,caster,this,0)
             caster.abilities["Echo of Light"].startCast(caster,caster,this)

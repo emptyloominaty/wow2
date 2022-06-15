@@ -51,11 +51,4 @@ class PurifyingBrew extends Ability {
         }
         return false
     }
-
-    runBuff(target,buff) {
-    }
-
-    endBuff(target) {
-
-    }
 }

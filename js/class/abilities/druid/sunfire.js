@@ -41,7 +41,7 @@ class Sunfire extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
                     applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
@@ -65,7 +65,7 @@ class Sunfire extends Ability {
             }
             if (done) {
                 for (let i = 0; i<enemies.length ;i++) {
-                    if (!enemies[i].isDead && enemies[i]!==caster.castTarget &&this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange) ) {
+                    if (!enemies[i].isDead && enemies[i]!==caster.castTarget && this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange) ) {
                         doDamage(caster, enemies[i], this)
                         applyDot(caster,enemies[i],this,undefined,undefined,this.spellPowerDot)
                     }

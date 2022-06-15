@@ -19,6 +19,7 @@ class Charge extends Ability {
         this.duration = 2.5
         this.minRange = 8
         this.caster = {}
+        this.canCastWhileRooted = false
     }
 
     getTooltip() {
@@ -30,7 +31,7 @@ class Charge extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget) && !this.checkDistance(caster,caster.castTarget,this.minRange)) {
+            if (Object.keys(caster.castTarget).length !== 0 && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget) && !this.checkDistance(caster,caster.castTarget,this.minRange)) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }

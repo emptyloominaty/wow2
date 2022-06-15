@@ -34,7 +34,7 @@ class ArcaneBlast extends Ability {
         let cost = this.cost * (1 + (caster.secondaryResource))
         if (this.checkStart(caster,cost)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
                 let newTarget = findNearestEnemy(caster)
@@ -66,7 +66,7 @@ class ArcaneBlast extends Ability {
     }
 
     endCast(caster) {
-        if (caster.target!=="" && this.isEnemy(caster)) {
+        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 let spellPower = this.spellPower
                 for (let i = 0; i<caster.secondaryResource; i++) {
@@ -80,11 +80,5 @@ class ArcaneBlast extends Ability {
                 this.cd = 0
             }
         }
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

@@ -50,7 +50,7 @@ class DeadlyPoison extends Ability {
     }
 
     endCast(caster) {
-        this.cd = 0
+        this.setCd()
         applyBuff(caster,caster,this)
 
         caster.useEnergy(this.cost,this.secCost)

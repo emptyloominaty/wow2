@@ -47,7 +47,7 @@ class RisingSunKick extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 if (this.checkDistance(caster,caster.castTarget)) {
                     doDamage(caster, caster.castTarget, this)
                     done = true
@@ -71,8 +71,6 @@ class RisingSunKick extends Ability {
                 caster.useEnergy(this.cost,this.secCost)
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
-
                 }
                 this.setGcd(caster)
 
@@ -104,11 +102,5 @@ class RisingSunKick extends Ability {
     }
 
     endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

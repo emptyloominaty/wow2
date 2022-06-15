@@ -9,6 +9,9 @@ class Ability {
     duration = 0
     effect = []
     effectValue = 0
+    abilityCd = 0.4
+    abilityMaxCd = 0.4
+    canCastWhileRooted = true
 
     talent = false
     passive = false
@@ -43,7 +46,11 @@ class Ability {
     }
 
     getTooltip() {
-        return tooltips.getTooltip(this)
+        return "" //tooltips.getTooltip(this)
+    }
+
+    getBuffTooltip(caster,target,buff) {
+        return ""
     }
 
     cast(caster) {
@@ -65,13 +72,19 @@ class Ability {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
-        if(caster===player) {
-            console.log(this.checkGcd(caster),this.checkCost(caster,cost),this.checkCasting(caster),this.checkCd(caster))
-        }
-        if (this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster)) {
+        if (this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster)) {
             return true
         }
         return false
+    }
+
+    checkRooted(caster) {
+        if (!this.canCastWhileRooted) {
+            if (caster.isRooted) {
+                return false
+            }
+        }
+        return true
     }
 
     checkGcd(caster) {
@@ -111,6 +124,7 @@ class Ability {
     }
 
     setGcd(caster,gcd = 0) {
+        this.abilityCd = 0
         details.castAbility(caster,this)
         castCombatLog.cast(caster,this)
         caster.spellHistory.unshift(this.name)
@@ -225,6 +239,9 @@ class Ability {
     }
 
     incCd(caster, inc = progressInSec,hasteCd = this.hasteCd) {
+        if (this.abilityCd<this.abilityMaxCd) {
+            this.abilityCd += progressInSec
+        }
         if (hasteCd) {
             if (this.maxCharges>1) {
                 //charges haste

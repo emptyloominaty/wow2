@@ -47,7 +47,7 @@ class Rupture extends Ability {
         if (this.checkStart(caster)) {
             this.duration = 4 + (4*caster.secondaryResource)
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerC[caster.secondaryResource])
                     done = true
@@ -72,7 +72,7 @@ class Rupture extends Ability {
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
-                this.cd = 0
+                this.setCd()
                 return true
             }
 

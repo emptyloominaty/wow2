@@ -39,7 +39,7 @@ class HealingTideTotem extends Ability {
 
             addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
 
-            this.cd = 0
+            this.setCd()
             caster.useEnergy(this.cost)
             this.setGcd(caster)
             return true

@@ -38,7 +38,7 @@ class Starsurge extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
                 let newTarget = findNearestEnemy(caster)
@@ -72,7 +72,7 @@ class Starsurge extends Ability {
     }
 
     endCast(caster) {
-        if (caster.target!=="" && this.isEnemy(caster,caster.castTarget)) {
+        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 if (caster.spec==="balance") {
                     caster.abilities["Eclipse"].incBuff()

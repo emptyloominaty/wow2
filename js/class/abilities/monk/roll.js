@@ -18,7 +18,7 @@ class Roll extends Ability {
         this.effect = "move"
         this.effectValue = 0.318*pxToMeter
         this.duration = 0.8
-
+        this.canCastWhileRooted = false
     }
 
     getTooltip() {
@@ -32,7 +32,6 @@ class Roll extends Ability {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
 
             if (caster.isCasting) {
@@ -53,10 +52,6 @@ class Roll extends Ability {
         }
         return false
     }
-
-    runBuff(target,buff) {
-    }
-
     endBuff(target) {
         target.isRolling = false
     }

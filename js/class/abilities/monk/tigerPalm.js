@@ -50,7 +50,7 @@ class TigerPalm extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster,caster.castTarget) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
                     done = true
@@ -99,9 +99,4 @@ class TigerPalm extends Ability {
     endCast(caster) {
     }
 
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

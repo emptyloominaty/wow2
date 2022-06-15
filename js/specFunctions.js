@@ -21,7 +21,7 @@ let taunt = function(caster,target) {
             }
         }
     }
-    target.aggro[caster.id2] = highestAggro + 10000
+    target.aggro[caster.id2] = (highestAggro*2) + 20000
 }
 
 let checkAndApplyRoguePoison = function(caster,target) {

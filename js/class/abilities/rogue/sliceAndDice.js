@@ -41,17 +41,16 @@ class SliceAndDice extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             this.duration = 12 + (6*caster.secondaryResource)
-            this.cd = 0
+            this.setCd()
             applyBuff(caster,caster,this)
             this.setGcd(caster)
             caster.useEnergy(this.cost,this.secCost)
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
-            } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
-                spellQueue.add(this,caster.gcd)
             }
             return true
+        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+            spellQueue.add(this,caster.gcd)
         }
         return false
     }

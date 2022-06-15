@@ -40,7 +40,7 @@ class Garrote extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDot(caster,caster.castTarget,this)
                     done = true
@@ -65,11 +65,11 @@ class Garrote extends Ability {
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
-                this.cd = 0
+                this.setCd()
                 return true
             }
 
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue()) {
             spellQueue.add(this,caster.gcd)
         }
         return false

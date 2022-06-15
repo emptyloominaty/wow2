@@ -32,9 +32,6 @@ class DivineHymn extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            if (caster.isChanneling) {
-                caster.isChanneling = false
-            }
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))-0.1}
             this.setGcd(caster)
@@ -58,11 +55,5 @@ class DivineHymn extends Ability {
                 applyBuff(caster,friendlyTargets[i],this,1,true)
             }
         }
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

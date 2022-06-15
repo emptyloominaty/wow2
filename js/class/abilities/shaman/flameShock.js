@@ -36,7 +36,7 @@ class FlameShock extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            if (caster.target!=="" && this.isEnemy(caster) ) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.targetObj,this)
                     applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPowerDot)
@@ -63,7 +63,7 @@ class FlameShock extends Ability {
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
-                this.cd = 0
+                this.setCd()
                 return true
             }
 
