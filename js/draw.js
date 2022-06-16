@@ -1,9 +1,7 @@
 let drawVars = {
     raidFramesUpdated: false,
     buffBarsIdx:0,
-    buffBarIdxMax:settings.uiRefreshRate,
     raidFramesIdx:0,
-    raidFramesIdxMax:settings.uiRefreshRate,
 }
 
 
@@ -399,10 +397,10 @@ function draw(progress) {
     //elements.stats_parent.innerHTML = "Primary: "+player.stats.primary + "<br>Crit: "+player.stats.crit+ " <br>Haste: "+player.stats.haste+ " <br>Mastery: "+player.stats.mastery+ " <br>Vers: "+player.stats.vers+" "
 
     //buffs
-    let maxii = (drawVars.buffBarsIdx+1)*(16/(drawVars.buffBarIdxMax+1))
-    let minii = (drawVars.buffBarsIdx)*(16/(drawVars.buffBarIdxMax+1))
+    let maxii = (drawVars.buffBarsIdx+1)*(16/(settings.uiRefreshRate+1))
+    let minii = (drawVars.buffBarsIdx)*(16/(settings.uiRefreshRate+1))
     drawVars.buffBarsIdx++
-    if (drawVars.buffBarsIdx>drawVars.buffBarIdxMax) {
+    if (drawVars.buffBarsIdx>settings.uiRefreshRate) {
         drawVars.buffBarsIdx=0
     }
     //reset
@@ -477,10 +475,10 @@ function draw(progress) {
     //raidframes
     //     raidFramesIdx:0,
     //     raidFramesIdxMax:4,
-        maxii = (drawVars.raidFramesIdx+1)*(16/(drawVars.raidFramesIdxMax+1))
-        minii = (drawVars.raidFramesIdx)*(16/(drawVars.raidFramesIdxMax+1))
+        maxii = (drawVars.raidFramesIdx+1)*(friendlyTargets.length/(settings.uiRefreshRate+1))
+        minii = (drawVars.raidFramesIdx)*(friendlyTargets.length/(settings.uiRefreshRate+1))
         drawVars.raidFramesIdx++
-        if (drawVars.raidFramesIdx>drawVars.raidFramesIdxMax) {
+        if (drawVars.raidFramesIdx>settings.uiRefreshRate) {
             drawVars.raidFramesIdx=0
         }
         for (let i = Math.ceil(minii); i<raidFramesTargets.length; i++) {

@@ -7,11 +7,11 @@ class Canvas {
     }
 
     reset() {
-        this.canvasElement.width  = window.innerWidth;
-        this.canvasElement.height = window.innerHeight;
-        this.canvasW = this.canvasElement.getBoundingClientRect().width
-        this.canvasH = this.canvasElement.getBoundingClientRect().height
-        this.canvas.clearRect(0,0,2000,2000)
+        this.canvasW = window.innerWidth
+        this.canvasH = window.innerHeight
+        this.canvasElement.width  = this.canvasW
+        this.canvasElement.height = this.canvasH
+        this.canvas.clearRect(0,0,this.canvasW,this.canvasH)
     }
 
     drawPlayerDirection(x,y,length,width,color,direction) {

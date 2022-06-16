@@ -128,7 +128,9 @@ let keyLoop = () => {
     }
     if (keyPressed[keybinds["Move Up"].key]) {
         //if ((modPressed("Move Up"))) {
+        if (!player.isMoving) {
             player.move(1)
+        }
         //}
     }
     if (keyPressed[keybinds["Move Down"].key]) {
@@ -457,17 +459,26 @@ let keydown = (e)=> {
 document.addEventListener('keydown', keydown)
 document.addEventListener('keyup', keyup)
 
+let moveWithMouseButtons = [false,false]
+
 //right click
 let strafeStart = function(e) {
     //0=left, 1=middle, 2=right
     if (e.button===2) {
         strafing = true
+        moveWithMouseButtons[1] = true
+    } else if (e.button===0) {
+        moveWithMouseButtons[0] = true
     }
+
 }
 
 let strafeEnd = function(e) {
     if (e.button===2) {
         strafing = false
+        moveWithMouseButtons[1] = false
+    } else if (e.button===0) {
+        moveWithMouseButtons[0] = false
     }
 }
 
@@ -496,6 +507,12 @@ let onMouseUpdate = function(e) {
 //input.js:492 Uncaught ReferenceError: player is not defined
 setTimeout( ()=> {
     document.addEventListener('mousemove', onMouseUpdate)
+
+    //update bars size on start
+    Object.keys(bars).forEach(function(key) {
+        bars[key].updateSize()
+    })
+
 },150 )
 
 
@@ -527,7 +544,6 @@ let zoom = function(event) {
     }
 
     Object.keys(bars).forEach(function(key) {
-
         bars[key].updateSize()
     })
 }

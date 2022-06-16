@@ -36,6 +36,7 @@ class Creature {
     isInterrupted = false
     isCasting = false
     isChanneling = false
+    isMoving = false
     canMoveWhileCasting = false
     channeling = {name:"", time:0, time2:0}
     isRolling = false

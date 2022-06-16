@@ -1,13 +1,15 @@
 let settings = {
     showFloatingAbilityName:true,
     showFloatingAbility:true,
-    showTargetFloatingHealing:true,
     reduceTargetFlaotingHealingFont:true,
-    showTargetFloatingDamage:true,
+    showTargetFloatingText:true,
     mouseSensitivity:2.4,
 
+    uiScaling: 1,
+
+    spellVisuals:4, //0-off, 1-low, 2-medium, 3-high, 4-ultra
     uiRefreshRate:4,
-    detailsRefreshRate:5,
+    detailsRefreshRate:4,
 }
 
 let spellQueueWindow = 0.3 //sec

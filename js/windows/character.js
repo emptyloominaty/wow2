@@ -1,4 +1,8 @@
 let open_character = function() {
+    if (currentWindow === "character") {
+        close_window()
+        return
+    }
     currentWindow = "character"
     let html = "<div class='windowHeader'><span style='padding:10px 2px 10px 2px;color:"+colors[player.class]+";'>"+specsName[player.spec]+" "+player.class+"</span> <div style='padding:3px;font-size:20px;' onclick='close_window()'>x</div></div>"
     html += "<div style='display:flex;justify-content: space-between;width:350px;'>"

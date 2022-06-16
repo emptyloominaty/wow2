@@ -1,8 +1,8 @@
 #window {
     position:fixed;
     z-index: 100;
-    top:50px;
-    left:50px;
+    top:4.62vh;
+    left:2.6vw;
     background-color: #342b1b;
     color:#FFF;
     overflow:auto;
@@ -10,7 +10,46 @@
 }
 
 .windowHeader {
-    padding:5px;
+    font-size: 1.3vw;;
+    padding:0.3vw;
+    margin-bottom:0.5vw;
     display:flex;
     justify-content: space-between;
+}
+
+.windowBody {
+    font-size:0.72vw;
+    padding:0.5vw;
+}
+
+.window_settings_button {
+    background-color: rgba(255, 255, 255, 0);
+    font-size:0.72vw;
+    padding:2px 5px 2px 5px;
+    margin:0 3px 0 3px;
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius: 2px;
+    color:#FFF;
+}
+
+.window_settings_button_true {
+    border:1px solid rgba(255,255,255,1) ;
+    background-color: rgba(255, 255, 255, 0.2) ;
+}
+
+.window_settings_button:hover {
+    background-color: #444144;
+}
+
+.window_settings_flex {
+    display:flex;
+    justify-content: space-between;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+}
+
+.window_settings_category {
+    padding-top: 1vw;
+    padding-bottom: 0.2vw;
+    font-size: 1vw;
 }

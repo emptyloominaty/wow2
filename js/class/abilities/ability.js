@@ -75,10 +75,18 @@ class Ability {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
-        if (this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster)) {
+        if (this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster)) {
             return true
         }
         return false
+    }
+
+    checkShamanForm(caster) {
+        if (caster.form==="Ghost Wolf") {
+            caster.form = ""
+            caster.formEffects = []
+        }
+        return true
     }
 
     checkRooted(caster) {

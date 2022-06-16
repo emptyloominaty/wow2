@@ -63,7 +63,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             }
         }
 
-        if (caster===player && settings.showTargetFloatingHealing) {
+        if (caster===player && settings.showTargetFloatingText) {
             target.floatingTexts.addText(heal,"heal",crit,t)
         }
         let overhealing = (target.health + heal) - target.maxHealth
@@ -182,7 +182,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 timelineCombatLog.damage(caster, target, ability, damage)
             }
             details.doDamage(caster, damage, ability)
-            if (caster === player && settings.showTargetFloatingDamage) {
+            if (caster === player && settings.showTargetFloatingText) {
                 target.floatingTexts.addText(damage, "damage", crit, ability.name, t)
             }
 

@@ -1,4 +1,8 @@
 let open_spellbook = function() {
+    if (currentWindow === "spellbook") {
+        close_window()
+        return
+    }
     currentWindow = "spellbook"
     let html = "<div class='windowHeader'><span>Spellbook</span> <div onclick='close_window()'>x</div></div>  <div style='display:flex;flex-direction: column;flex-wrap:wrap; padding:15px;'>"
 
