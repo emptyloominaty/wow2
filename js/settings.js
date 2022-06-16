@@ -5,6 +5,9 @@ let settings = {
     reduceTargetFlaotingHealingFont:true,
     showTargetFloatingDamage:true,
     mouseSensitivity:2.4,
+
+    uiRefreshRate:4,
+    detailsRefreshRate:5,
 }
 
 let spellQueueWindow = 0.3 //sec

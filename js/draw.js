@@ -1,10 +1,12 @@
 let drawVars = {
     raidFramesUpdated: false,
     buffBarsIdx:0,
-    buffBarIdxMax:4,
+    buffBarIdxMax:settings.uiRefreshRate,
     raidFramesIdx:0,
-    raidFramesIdxMax:4,
+    raidFramesIdxMax:settings.uiRefreshRate,
 }
+
+
 
 for (let i = 0; i<creatures.length; i++) {
     if (!creatures[i].enemy) {
@@ -591,5 +593,4 @@ function draw(progress) {
             }
         }
     //drawVars.raidFramesUpdated = true
-
 }

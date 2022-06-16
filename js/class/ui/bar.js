@@ -105,6 +105,13 @@ class Bar {
         this.elements.text.style.transform = "translate("+x+"px,"+y+"px)"
         this.elements.bg.style.transform = "translate("+x+"px,"+y+"px)"
 
+        /*this.elements.el.style.top = (y+2)+"px"
+        this.elements.el.style.left = (x+2)+"px"
+        this.elements.text.style.top = (y+2)+"px"
+        this.elements.text.style.left = x+"px"
+        this.elements.bg.style.top = y+"px"
+        this.elements.bg.style.left = x+"px"*/
+
     }
 
     setZIndex(val) {

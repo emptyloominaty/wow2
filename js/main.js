@@ -71,7 +71,7 @@ function update(progress) {
         detailsAbilities.run()
     }
     detailsIdx++
-    if (detailsIdx>4) {
+    if (detailsIdx>settings.detailsRefreshRate) {
         detailsIdx=0
     }
 
