@@ -38,8 +38,8 @@ class FlameShock extends Ability {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.targetObj,this)
-                    applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPowerDot)
+                    doDamage(caster,caster.castTarget,this)
+                    applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
                     done = true
                 }
             } else {

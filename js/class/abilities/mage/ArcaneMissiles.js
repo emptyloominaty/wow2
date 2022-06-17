@@ -24,6 +24,7 @@ class ArcaneMissiles extends Ability {
         this.effect = ""
         this.effectValue = 0
 
+        this.polygonData = {x1:-4,y1:0,x2:0,y2:-7,x3:4,y3:0,x4:0,y4:7}
 
 
     }
@@ -70,7 +71,7 @@ class ArcaneMissiles extends Ability {
                 this.setGcd(caster)
                 for (let i = 0; i<caster.buffs.length; i++) {
                     if (caster.buffs[i].name==="Clearcasting(Mage)") {
-                        caster.channeling = {name:this.name, time:0, time2:(this.castTime/(1 + (caster.stats.haste / 100)))/1.2, timer:0, timer2:(0.5/(1 + (caster.stats.haste / 100)))/1.44}
+                        caster.channeling = {name:this.name, time:0, time2:(this.castTime/(1 + (caster.stats.haste / 100)))/1.2, timer:0, timer2:(0.4/(1 + (caster.stats.haste / 100)))/1.70}
                         if (caster.buffs[i].stacks>0) {
                             caster.buffs[i].stacks--
                         } else {
@@ -97,6 +98,18 @@ class ArcaneMissiles extends Ability {
         if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
             if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 doDamage(caster,caster.castTarget,this)
+
+                let missilePosition = [
+                    {x:0,y:0},
+                    {x:Math.cos(caster.direction)*5,y:Math.sin(caster.direction)*5},
+                    {x:Math.cos(caster.direction)*(-5),y:Math.sin(caster.direction)*(-5)}
+                ]
+
+                for (let i = 0; i<3; i++) {
+                    addSpellVisualEffects(caster.x+missilePosition[i].x,caster.y+missilePosition[i].y,getDirection(caster,caster.castTarget),"projectile",
+                        {size:4,speed:40,target:caster.castTarget,color:"#bb4eff",onEnd:{},onRun:{name:"fire",color1:"rgba(197,72,255,0.7)",color2:"rgba(241,173,255,0.7)",life:0.35},quadrilateral:true,polygonData:this.polygonData})
+                }
+
             }
         }
     }

@@ -94,8 +94,8 @@ let keybinds = {
 
 let pressAbility = function(bar,slot){
     if (actionBars[bar].abilities[slot] !== undefined) {
-        player.abilities[actionBars[bar].abilities[slot]].startCast(player)
         actions[actionBars[bar].abilities[slot]].pressStart()
+        player.abilities[actionBars[bar].abilities[slot]].startCast(player)
     }
 }
 

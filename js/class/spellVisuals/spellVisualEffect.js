@@ -23,23 +23,21 @@ class SpellVisualEffect {
                 let x2d = (game2d.canvasW/2)+x
                 let y2d = (game2d.canvasH/2)+y
 
-                game2d.drawCircle(x2d,y2d,this.data.size,this.data.color)
+                if (this.data.quadrilateral) {
+                    let d = this.data.polygonData
+                    game2d.drawQuadrilateral(x2d,y2d,d.x1,d.y1,d.x2,d.y2,d.x3,d.y3,d.x4,d.y4,this.data.color,this.direction)
+                } else {
+                    game2d.drawCircle(x2d,y2d,this.data.size,this.data.color)
+                }
+
+
 
                 if (settings.spellVisuals>1) {
                     if (this.data.onRun.name==="fire") {
+                        let life = this.data.onRun.life
                         for (let i = 0; i<settings.spellVisuals-1; i++) {
-                            addSpellParticle(this.x-(this.data.size/2)+(Math.random()*(this.data.size)), this.y-(this.data.size/2)+(Math.random()*(this.data.size)), (this.direction-(182-(Math.random()*4))),
-                                "fire", {size:this.data.size/3,speed:-this.data.speed,life:0.3,color:Math.random(),color1:this.data.onRun.color1, color2:this.data.onRun.color2})
-                        }
-                    } else if (this.data.onRun.name==="lava") {
-                        for (let i = 0; i<settings.spellVisuals-1; i++) {
-                            addSpellParticle(this.x-(this.data.size/2)+(Math.random()*(this.data.size)), this.y-(this.data.size/2)+(Math.random()*(this.data.size)), (this.direction-(182-(Math.random()*4))),
-                                "lava", {size:this.data.size/3,speed:-this.data.speed,life:0.34,color:Math.random(),color1:this.data.onRun.color1, color2:this.data.onRun.color2})
-                        }
-                    } else if (this.data.onRun.name==="yellowFire") {
-                        for (let i = 0; i<settings.spellVisuals-1; i++) {
-                            addSpellParticle(this.x-(this.data.size/2)+(Math.random()*(this.data.size)), this.y-(this.data.size/2)+(Math.random()*(this.data.size)), (this.direction-(182-(Math.random()*4))),
-                                "yellowFire", {size:this.data.size/3,speed:-this.data.speed,life:0.4,color:Math.random()})
+                            addSpellParticle(this.x-(this.data.size/4)+(Math.random()*(this.data.size/2)), this.y-(this.data.size/2)+(Math.random()*(this.data.size)), (this.direction-(182-(Math.random()*4))),
+                                "fire", {size:this.data.size/4,speed:-this.data.speed,life:life,color:Math.random(),color1:this.data.onRun.color1, color2:this.data.onRun.color2})
                         }
                     }
                 }
@@ -60,7 +58,7 @@ class SpellVisualEffect {
                     let y2 = this.y + (this.y-y)/3
 
                     addSpellParticle(x, y, 0,
-                        "rain", {size: 3, speed: this.data.speed, life: 0.3,maxLife:0.3, color: 1,centre:{x:x2 ,y:y2 }})
+                        "rain", {size: 3, speed: this.data.speed, life: 0.3,maxLife:0.3, color: this.data.color,centre:{x:x2 ,y:y2 }})
                 }
                 this.duration -= progressInSec
                 if (this.duration<=0) {
@@ -75,11 +73,11 @@ class SpellVisualEffect {
     }
 
     end() {
-        if (settings.spellVisuals>1) {
-            if (this.data.onEnd==="explode") {
+        //if (settings.spellVisuals>1) {
+            //if (this.data.onEnd==="explode") {
 
-            }
-        }
+            //}
+        //}
     }
 
     move() {

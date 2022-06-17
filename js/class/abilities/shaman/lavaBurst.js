@@ -73,7 +73,8 @@ class LavaBurst extends Ability {
                         crit = true
                     }
                 }
-                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",{size:10,speed:50,target:caster.castTarget,color:"#FF0000",onEnd:{name:"explode",size:1},onRun:{name:"fire",color1:"rgba(182,0,2,0.89)",color2:"rgba(255,59,0,0.89)",size:5}})
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
+                    {size:10,speed:50,target:caster.castTarget,color:"#FF0000",onEnd:{},onRun:{name:"fire",color1:"rgba(182,0,2,0.7)",color2:"rgba(255,59,0,0.7)",life:0.35}})
                 doDamage(caster,caster.castTarget,this,undefined,undefined,undefined,crit)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()

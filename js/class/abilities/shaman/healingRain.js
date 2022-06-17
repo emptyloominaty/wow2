@@ -17,7 +17,7 @@ class HealingRain extends Ability {
         this.spellPower = 0.265
 
         this.area = {type:"circle", radius:10, duration: 10,data:{type:"hot", maxTargets:6, spellPower:0.265, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.05)",
-            visualEffect:{name:"rain",data:{size:10*pxToMeter,speed:40,duration:10,target:{},color:"rgba(133,255,251,0.3)",onEnd:{name:"",size:1},onRun:{name:"",size:5}}}},cast:false}
+            visualEffect:{name:"rain",data:{size:10*pxToMeter,speed:40,duration:10,target:{},color:"rgba(56,191,187,0.52)",onEnd:{name:"",size:1},onRun:{name:"",size:5}}}},cast:false}
 
         this.effect = []
         this.duration = 10

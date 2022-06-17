@@ -7,11 +7,13 @@ class SpellParticle {
         this.type = type
         this.data = data
         this.id = id
+        if (this.data.life) {
+            this.maxLife = this.data.life
+        }
     }
 
 
     run() {
-        // ,"fire",{speed:0.5,life:0.8})
         let color
         if (this.type==="fire") {
             color = this.data.color1
@@ -19,9 +21,25 @@ class SpellParticle {
                 color = this.data.color2
             }
         } else if (this.type === "rain") {
-            color = "rgba(56,191,187,0.52)"
+            color = this.data.color
             this.direction = getDirection(this,this.data.centre)
             this.data.size = this.data.life*10
+        } else if (this.type === "blast") {
+
+        } else if (this.type === "dot") {
+
+        } else if (this.type === "hot") {
+
+        } else if (this.type === "lightning") {
+
+        } else if (this.type === "healHoly") {
+
+        } else if (this.type === "healDruid") {
+
+        } else if (this.type === "healShaman") {
+
+        } else if (this.type === "healMonk") {
+
         }
 
         this.move()
@@ -35,7 +53,7 @@ class SpellParticle {
         if (this.type!=="rain") {
             //opacity
             if (this.data.life<0.2) {
-                color = pSBC ( 1-(this.data.life*3), color, "rgba(0,0,0,0)", true );
+                color = pSBC ( 1-(this.data.life*2.8), color, "rgba(100,100,100,0)", true );
             }
             game2d.drawCircle(x2d, y2d, this.data.size, color)
             this.data.speed -= this.data.speed / 10

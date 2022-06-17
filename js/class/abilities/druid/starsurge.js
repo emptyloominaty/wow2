@@ -77,6 +77,8 @@ class Starsurge extends Ability {
                 if (caster.spec==="balance") {
                     caster.abilities["Eclipse"].incBuff()
                 }
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
+                    {size:10,speed:30,target:caster.castTarget,color:"#ace7ff",onEnd:{},onRun:{name:"fire",color1:"rgba(158,253,255,0.7)",color2:"rgba(255,188,243,0.7)",life:0.4}})
                 doDamage(caster,caster.castTarget,this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0

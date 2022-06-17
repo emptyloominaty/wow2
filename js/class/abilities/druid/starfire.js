@@ -80,6 +80,8 @@ class Starfire extends Ability {
                     caster.abilities["Eclipse"].startCast(caster,this)
                     critInc = caster.abilities["Eclipse"].getCrit(caster,this)
                 }
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
+                    {size:5,speed:30,target:caster.castTarget,color:"#ace7ff",onEnd:{},onRun:{name:"fire",color1:"rgba(158,253,255,0.7)",color2:"rgba(255,188,243,0.7)",life:0.4}})
 
                 doDamage(caster,caster.castTarget,this,undefined,this.spellPower,undefined,undefined,undefined,critInc)
                 caster.useEnergy(this.cost,this.secCost)

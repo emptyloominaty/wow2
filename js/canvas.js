@@ -42,6 +42,21 @@ class Canvas {
         this.canvas.restore()
     }
 
+    drawQuadrilateral(x,y,x1,y1,x2,y2,x3,y3,x4,y4,color,angle) {
+        this.canvas.fillStyle = color
+        this.canvas.save()
+        this.canvas.beginPath()
+        this.canvas.translate(x, y)
+        this.canvas.rotate(((360-angle)+180) * Math.PI / 180)
+        this.canvas.moveTo(x1, y1)
+        this.canvas.lineTo(x2,y2)
+        this.canvas.lineTo(x3, y3)
+        this.canvas.lineTo(x4, y4)
+        this.canvas.closePath()
+        this.canvas.fill()
+        this.canvas.restore()
+    }
+
     drawRect(x,y,w,h,color) {
         this.canvas.fillStyle = color
         this.canvas.fillRect(x,y,w,h)
