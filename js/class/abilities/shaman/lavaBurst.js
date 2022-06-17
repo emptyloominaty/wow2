@@ -49,8 +49,15 @@ class LavaBurst extends Ability {
                 }
             }
             if (done) {
+                let castTime = this.castTime
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Lava Surge") {
+                        caster.buffs[i].duration = -1
+                        castTime = 0
+                    }
+                }
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -65,17 +72,19 @@ class LavaBurst extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
                 let crit = false
-                for (let i = 0; i<caster.castTarget.debuffs.length; i++) {
-                    if (caster.castTarget.debuffs[i].name==="Flame Shock" && caster.castTarget.debuffs[i].caster === caster) {
+                for (let i = 0; i<target.debuffs.length; i++) {
+                    if (target.debuffs[i].name==="Flame Shock" && target.debuffs[i].caster === caster) {
                         crit = true
                     }
                 }
-                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
-                    {size:10,speed:50,target:caster.castTarget,color:"#FF0000",onEnd:{},onRun:{name:"fire",color1:"rgba(182,0,2,0.7)",color2:"rgba(255,59,0,0.7)",life:0.35}})
-                doDamage(caster,caster.castTarget,this,undefined,undefined,undefined,crit)
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+                    {size:10,speed:50,target:target,color:"#FF0000",onEnd:{},onRun:{name:"fire",color1:"rgba(182,0,2,0.7)",color2:"rgba(255,59,0,0.7)",life:0.35}})
+                doDamage(caster,target,this,undefined,undefined,undefined,crit)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
 

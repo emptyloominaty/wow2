@@ -41,7 +41,7 @@ class Regrowth extends Ability {
                 caster.isChanneling = false
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -52,7 +52,8 @@ class Regrowth extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        let target = caster.casting.target
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             let crit = 0
             for (let i = 0; i<caster.buffs.length; i++) {
                 if (caster.buffs[i].name==="Regrowth" && caster.buffs[i].caster === caster) {
@@ -64,14 +65,14 @@ class Regrowth extends Ability {
             applyHot(caster,caster,this,undefined,undefined,this.spellPowerHot)
         } else {
             let crit = 0
-            for (let i = 0; i<caster.castTarget.buffs.length; i++) {
-                if (caster.castTarget.buffs[i].name==="Regrowth" && caster.castTarget.buffs[i].caster === caster) {
+            for (let i = 0; i<target.buffs.length; i++) {
+                if (target.buffs[i].name==="Regrowth" && target.buffs[i].caster === caster) {
                     crit = this.crit
                 }
             }
             //heal target
-            doHeal(caster,caster.castTarget,this)
-            applyHot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerHot)
+            doHeal(caster,target,this)
+            applyHot(caster,target,this,undefined,undefined,this.spellPowerHot)
         }
         caster.useEnergy(this.cost)
     }

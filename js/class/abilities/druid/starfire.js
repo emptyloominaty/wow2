@@ -53,7 +53,7 @@ class Starfire extends Ability {
                 if (caster.spec==="balance") {
                     castTime = castTime*caster.abilities["Eclipse"].getCastTime(caster,this)
                 }
-                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -68,10 +68,12 @@ class Starfire extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
                 for (let i = 0; i<enemies.length ;i++) {
-                    if (!enemies[i].isDead && this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange) ) {
+                    if (!enemies[i].isDead && this.checkDistance(target, enemies[i],this.cleaveRange) ) {
                         doDamage(caster, enemies[i], this,undefined,this.spellPowerCleave)
                     }
                 }
@@ -80,10 +82,10 @@ class Starfire extends Ability {
                     caster.abilities["Eclipse"].startCast(caster,this)
                     critInc = caster.abilities["Eclipse"].getCrit(caster,this)
                 }
-                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
-                    {size:5,speed:30,target:caster.castTarget,color:"#ace7ff",onEnd:{},onRun:{name:"fire",color1:"rgba(158,253,255,0.7)",color2:"rgba(255,188,243,0.7)",life:0.4}})
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+                    {size:5,speed:30,target:target,color:"#ace7ff",onEnd:{},onRun:{name:"fire",color1:"rgba(158,253,255,0.7)",color2:"rgba(255,188,243,0.7)",life:0.4}})
 
-                doDamage(caster,caster.castTarget,this,undefined,this.spellPower,undefined,undefined,undefined,critInc)
+                doDamage(caster,target,this,undefined,this.spellPower,undefined,undefined,undefined,critInc)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }

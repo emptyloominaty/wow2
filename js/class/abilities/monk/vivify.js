@@ -33,6 +33,7 @@ class Vivify extends Ability {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
                     this.setGcd(caster)
+                    caster.casting.target = caster.channeling.target
                     bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
                     return true
                 } else {
@@ -40,7 +41,7 @@ class Vivify extends Ability {
                 }
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -51,14 +52,15 @@ class Vivify extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        let target = caster.casting.target
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
             doHeal(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {
             //heal target
-            doHeal(caster,caster.castTarget,this)
-            caster.abilities["Gust of Mists"].heal(caster,caster.castTarget)
+            doHeal(caster,target,this)
+            caster.abilities["Gust of Mists"].heal(caster,target)
         }
         //renewingMist
         for (let i = 0; i<friendlyTargets.length; i++) {

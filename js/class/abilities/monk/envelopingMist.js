@@ -34,6 +34,7 @@ class EnvelopingMist extends Ability {
                 if (caster.channeling.name==="Soothing Mist") {
                     this.endCast(caster)
                     this.setGcd(caster,1.5)
+                    caster.casting.target = caster.channeling.target
                     return true
                 } else {
                     this.isChanneling = false
@@ -41,7 +42,7 @@ class EnvelopingMist extends Ability {
 
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
             return true
@@ -62,14 +63,15 @@ class EnvelopingMist extends Ability {
             this.effectValue = 0.3
         }
         caster.isCasting = false
+        let target = caster.casting.target
         let tftTarget = caster
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {
-            tftTarget = caster.castTarget
-            applyHot(caster,caster.castTarget,this)
-            caster.abilities["Gust of Mists"].heal(caster,caster.castTarget)
+            tftTarget = target
+            applyHot(caster,target,this)
+            caster.abilities["Gust of Mists"].heal(caster,target)
         }
 
         //thunder focus tea

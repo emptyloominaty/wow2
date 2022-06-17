@@ -56,7 +56,7 @@ class ArcaneBarrage extends Ability {
             }
             if (done) {
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -70,19 +70,21 @@ class ArcaneBarrage extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
                 let spellPower = this.spellPower * (1 + (caster.secondaryResource*0.3))
-                doDamage(caster,caster.castTarget,this,undefined,spellPower)
-                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
-                    {size:7,speed:24,target:caster.castTarget,color:"#b068ff",onEnd:{},onRun:{name:"fire",color1:"rgba(139,236,255,0.7)",color2:"rgba(213,120,255,0.7)",life:0.4}})
+                doDamage(caster,target,this,undefined,spellPower)
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+                    {size:7,speed:24,target:target,color:"#b068ff",onEnd:{},onRun:{name:"fire",color1:"rgba(139,236,255,0.7)",color2:"rgba(213,120,255,0.7)",life:0.4}})
 
                 let ttd = 0
                 for (let i = 0; i<enemies.length ;i++) {
-                    if (!enemies[i].isDead && enemies[i]!==caster.castTarget &&this.checkDistance(caster.castTarget, enemies[i],10)) {
+                    if (!enemies[i].isDead && enemies[i]!==target &&this.checkDistance(target, enemies[i],10)) {
                         doDamage(caster, enemies[i], this,undefined,spellPower*0.4)
-                        addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
-                            {size:7,speed:24,target:caster.castTarget,color:"#b068ff",onEnd:{},onRun:{name:"fire",color1:"rgba(48,177,255,0.7)",color2:"rgba(213,120,255,0.7)",life:0.4}})
+                        addSpellVisualEffects(caster.x,caster.y,getDirection(caster,enemies[i]),"projectile",
+                            {size:7,speed:24,target:enemies[i],color:"#b068ff",onEnd:{},onRun:{name:"fire",color1:"rgba(48,177,255,0.7)",color2:"rgba(213,120,255,0.7)",life:0.4}})
 
                         ttd++
                     }

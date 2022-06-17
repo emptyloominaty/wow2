@@ -30,7 +30,7 @@ class SoothingMist extends Ability {
     startCast(caster) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             caster.isChanneling = true
-            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1/(1 + (caster.stats.haste / 100))}
+            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -40,7 +40,8 @@ class SoothingMist extends Ability {
     }
 
     cast(caster) {
-        if (Object.keys(caster.castTarget).length === 0 || this.isEnemy(caster,caster.castTarget)  || caster.castTarget.isDead || !this.checkDistance(caster,caster.castTarget)) {
+        let target = caster.channeling.target
+        if (Object.keys(target).length === 0 || this.isEnemy(caster,target)  || target.isDead || !this.checkDistance(caster,target)) {
             //heal self
             doHeal(caster,caster,this)
             let masteryRng = Math.floor(Math.random()*7)
@@ -49,7 +50,7 @@ class SoothingMist extends Ability {
             }
         } else {
             //heal target
-            doHeal(caster,caster.castTarget,this)
+            doHeal(caster,target,this)
             let masteryRng = Math.floor(Math.random()*7)
             if (masteryRng===0) {
                 caster.abilities["Gust of Mists"].heal(caster)

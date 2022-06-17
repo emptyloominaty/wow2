@@ -35,7 +35,7 @@ class PrayerofMending extends Ability {
                 caster.isChanneling = false
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -46,12 +46,13 @@ class PrayerofMending extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        let target = caster.casting.target
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
             applyBuff(caster,caster,this,this.stacks,true)
         } else {
             //heal target
-            applyBuff(caster,caster.castTarget,this,this.stacks,true)
+            applyBuff(caster,target,this,this.stacks,true)
         }
         this.setCd()
         caster.useEnergy(this.cost)

@@ -52,7 +52,7 @@ class ArcaneBlast extends Ability {
             }
             if (done) {
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -66,8 +66,10 @@ class ArcaneBlast extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
                 let spellPower = this.spellPower
                 for (let i = 0; i<caster.secondaryResource; i++) {
                     spellPower = spellPower * (1.6)
@@ -75,7 +77,7 @@ class ArcaneBlast extends Ability {
 
                 let cost = this.cost * (1 + (caster.secondaryResource))
 
-                doDamage(caster,caster.castTarget,this,undefined,spellPower)
+                doDamage(caster,target,this,undefined,spellPower)
                 caster.useEnergy(cost,this.secCost)
                 this.cd = 0
             }

@@ -56,7 +56,7 @@ class Starsurge extends Ability {
             }
             if (done) {
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 this.setGcd(caster)
                 if (caster.isChanneling) {
                     caster.isChanneling = false
@@ -72,14 +72,16 @@ class Starsurge extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
                 if (caster.spec==="balance") {
                     caster.abilities["Eclipse"].incBuff()
                 }
-                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
-                    {size:10,speed:30,target:caster.castTarget,color:"#ace7ff",onEnd:{},onRun:{name:"fire",color1:"rgba(158,253,255,0.7)",color2:"rgba(255,188,243,0.7)",life:0.4}})
-                doDamage(caster,caster.castTarget,this)
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+                    {size:10,speed:30,target:target,color:"#ace7ff",onEnd:{},onRun:{name:"fire",color1:"rgba(158,253,255,0.7)",color2:"rgba(255,188,243,0.7)",life:0.4}})
+                doDamage(caster,target,this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }

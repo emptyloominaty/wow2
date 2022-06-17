@@ -62,7 +62,7 @@ class Wrath extends Ability {
                     castTime = castTime*caster.abilities["Eclipse"].getCastTime(caster,this)
                     caster.gcd = castTime / (1 + (caster.stats.haste / 100))
                 }
-                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                     caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
@@ -78,16 +78,18 @@ class Wrath extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
                 let spellPower = this.spellPower
                 if (caster.spec==="balance") {
                     caster.abilities["Eclipse"].startCast(caster,this)
                     spellPower = spellPower*caster.abilities["Eclipse"].getDamage(caster,this)
                 }
-                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",
-                    {size:4,speed:20,target:caster.castTarget,color:"#fffc00",onEnd:{},onRun:{name:"fire",color1:"rgba(255,243,107,0.7)",color2:"rgba(255,255,0,0.7)",life:0.4}})
-                doDamage(caster,caster.castTarget,this,undefined,spellPower)
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+                    {size:4,speed:20,target:target,color:"#fffc00",onEnd:{},onRun:{name:"fire",color1:"rgba(255,243,107,0.7)",color2:"rgba(255,255,0,0.7)",life:0.4}})
+                doDamage(caster,target,this,undefined,spellPower)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }

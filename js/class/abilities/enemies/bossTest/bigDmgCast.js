@@ -43,7 +43,7 @@ class BigArcaneDmg extends Ability {
                 caster.isCasting = true
                 let castTime = this.castTime
                 this.setGcd(caster)
-                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -55,9 +55,11 @@ class BigArcaneDmg extends Ability {
     }
 
     endCast(caster) {
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                doDamage(caster,caster.castTarget,this)
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
+                doDamage(caster,target,this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }

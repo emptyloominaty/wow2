@@ -32,7 +32,7 @@ class PrayerofHealing extends Ability {
                 caster.isChanneling = false
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -43,16 +43,16 @@ class PrayerofHealing extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        let target = caster
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || Object.keys(caster.castTarget).length === 0 || !this.checkDistance(caster, caster.castTarget)) {
+        let target = caster.casting.target
+        if (this.isEnemy(caster,target) || target.isDead || Object.keys(target).length === 0 || !this.checkDistance(caster, target)) {
             //heal self
             doHeal(caster,caster,this)
+            target = caster
             caster.abilities["Echo of Light"].startCast(caster,caster,this)
         } else {
             //heal target
-            target = caster.castTarget
-            doHeal(caster,caster.castTarget,this)
-            caster.abilities["Echo of Light"].startCast(caster,caster.castTarget,this)
+            doHeal(caster,target,this)
+            caster.abilities["Echo of Light"].startCast(caster,target,this)
         }
         //cleave 4 targets
         //healing

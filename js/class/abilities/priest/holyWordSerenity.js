@@ -32,7 +32,7 @@ class HolyWordSerenity extends Ability {
                 caster.isChanneling = false
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -43,14 +43,15 @@ class HolyWordSerenity extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        let target = caster.casting.target
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
             doHeal(caster,caster,this,0)
             caster.abilities["Echo of Light"].startCast(caster,caster,this)
         } else {
             //heal target
-            doHeal(caster,caster.castTarget,this,0)
-            caster.abilities["Echo of Light"].startCast(caster,caster.castTarget,this)
+            doHeal(caster,target,this,0)
+            caster.abilities["Echo of Light"].startCast(caster,target,this)
         }
         this.setCd()
         caster.useEnergy(this.cost)

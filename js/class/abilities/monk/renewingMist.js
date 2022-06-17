@@ -34,7 +34,7 @@ class RenewingMist extends Ability {
                 caster.isChanneling = false
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -45,6 +45,7 @@ class RenewingMist extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
+        let target = caster.casting.target
         this.setCd()
 
         let duration = this.duration
@@ -62,12 +63,12 @@ class RenewingMist extends Ability {
             }
         }
 
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             applyHot(caster,caster,this,duration,undefined,spellPower,duration)
             caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {
-            applyHot(caster,caster.castTarget,this,duration,undefined,spellPower,duration)
-            caster.abilities["Gust of Mists"].heal(caster,caster.castTarget)
+            applyHot(caster,target,this,duration,undefined,spellPower,duration)
+            caster.abilities["Gust of Mists"].heal(caster,target)
         }
         caster.useEnergy(this.cost)
     }

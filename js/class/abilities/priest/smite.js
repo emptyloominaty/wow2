@@ -51,7 +51,7 @@ class Smite extends Ability {
             }
             if (done) {
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -67,9 +67,10 @@ class Smite extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
-            if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                doDamage(caster, caster.castTarget, this)
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
+                doDamage(caster, target, this)
 
                 if (getChance(this.resetChance)) {
                     caster.abilities["Holy Fire"].cd = caster.abilities["Holy Fire"].maxCd

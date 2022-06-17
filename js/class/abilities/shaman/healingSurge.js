@@ -32,7 +32,7 @@ class HealingSurge extends Ability {
                 caster.isChanneling = false
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -43,6 +43,7 @@ class HealingSurge extends Ability {
 
     endCast(caster) { //TODO:tidal waves,undulation,unleash life
         caster.isCasting = false
+        let target = caster.casting.target
 
         if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
             //heal self

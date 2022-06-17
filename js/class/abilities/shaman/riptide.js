@@ -34,7 +34,7 @@ class Riptide extends Ability {
                 caster.isChanneling = false
             }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -45,15 +45,16 @@ class Riptide extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
+        let target = caster.casting.target
 
         this.setCd()
 
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             applyHot(caster,caster,this,undefined,undefined,this.spellPowerHot)
             doHeal(caster,caster,this)
         } else {
-            applyHot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerHot)
-            doHeal(caster,caster.castTarget,this)
+            applyHot(caster,target,this,undefined,undefined,this.spellPowerHot)
+            doHeal(caster,target,this)
         }
         caster.useEnergy(this.cost)
     }
