@@ -31,9 +31,9 @@ class Vivify extends Ability {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
+                    caster.casting = {name:this.name, time:0, time2:0,target:caster.channeling.target}
                     this.endCast(caster)
                     this.setGcd(caster)
-                    caster.casting.target = caster.channeling.target
                     bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
                     return true
                 } else {

@@ -16,8 +16,10 @@ class EnvelopingMist extends Ability {
 
         this.spellPower = 3.6
         this.duration = 6
-        this.effect = "healingIncrease"
-        this.effectValue = 0.3
+        this.effect = [{name:"healingIncrease2",val:0.3}]
+
+        this.healingInc = 0.3
+        this.defaultDuration = 6
     }
 
     getTooltip() {
@@ -32,9 +34,9 @@ class EnvelopingMist extends Ability {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 if (caster.channeling.name==="Soothing Mist") {
+                    caster.casting = {name:this.name, time:0, time2:0,target:caster.channeling.target}
                     this.endCast(caster)
                     this.setGcd(caster,1.5)
-                    caster.casting.target = caster.channeling.target
                     return true
                 } else {
                     this.isChanneling = false
@@ -53,15 +55,12 @@ class EnvelopingMist extends Ability {
     }
 
     endCast(caster) {
-        if (player.talents.MistWrap) {
-            this.duration = 7
-            this.spellPower = 4.2
-            this.effectValue = 0.4
-        } else {
-            this.duration = 6
-            this.spellPower = 3.6
-            this.effectValue = 0.3
-        }
+        let duration = this.defaultDuration + caster.abilities["Mist Wrap"].getDuration()
+        let healingBonus = this.healingInc + caster.abilities["Mist Wrap"].getHealingInc()
+        this.duration = duration
+        this.spellPower = this.duration * 0.6
+        this.effect[0].val = healingBonus
+
         caster.isCasting = false
         let target = caster.casting.target
         let tftTarget = caster

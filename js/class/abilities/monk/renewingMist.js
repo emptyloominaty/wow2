@@ -84,7 +84,7 @@ class RenewingMist extends Ability {
                             a = 1
                         }
                     }
-                    if (!this.checkDistance(target,friendlyTargets[i],this.jumpRange)) {
+                    if (!this.checkDistance(target,friendlyTargets[i],this.jumpRange,true)) {
                         a = 1
                     }
                     if (a===0) {

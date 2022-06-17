@@ -45,12 +45,12 @@ class HealingSurge extends Ability {
         caster.isCasting = false
         let target = caster.casting.target
 
-        if (this.isEnemy(caster,caster.castTarget) || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
             doHeal(caster,caster,this,0)
         } else {
             //heal target
-            doHeal(caster,caster.castTarget,this,0)
+            doHeal(caster,target,this,0)
         }
         this.setCd()
         caster.useEnergy(this.cost)

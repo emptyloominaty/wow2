@@ -8,6 +8,7 @@ function loop(timestamp) {
         progress = 250
     }
 
+    player.moving = [false,false,false,false]
     keyLoop(progress)
     update(progress)
     draw(progress)

@@ -36,14 +36,10 @@ class Roll extends Ability {
 
             if (caster.isCasting) {
                 caster.isCasting = false
-                caster.casting = {name:"", time:0, timeleft:0}
             }
             caster.isRolling = true
             this.setGcd(caster)
-            if (this.charges===this.maxCharges) {
-                this.cd = 0
-            }
-            this.charges--
+            this.setCd()
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
             return true

@@ -109,6 +109,8 @@ class Creature {
         if (spec==="mistweaver") { //----------------------------------------Mistweaver
             this.class = "Monk"
             this.abilities = new Mw_Abilities()
+            _mistweaver_talents(this)
+
             this.melee = true
             this.role = "healer"
         } else if (spec==="windwalker") {//----------------------------------------Windwalker
@@ -212,7 +214,7 @@ class Creature {
             this.melee = true
             this.size = 11
         }
-
+//---------------------------------------------------------------------------------------
 
         this.abilities["Auto Attack"] = new AutoAttack()
         this.abilities["Leech"] = new Leech()
@@ -256,9 +258,7 @@ class Creature {
         })
 
         if (this.isStunned) {
-            this.casting = {name:"", time:0, time2:0}
             this.isCasting = false
-            this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             this.isChanneling = false
             this.gcd = 0
         }
@@ -269,7 +269,6 @@ class Creature {
                 this.casting.time += progressInSec
             } else {
                 this.abilities[this.casting.name].endCast(this)
-                this.casting = {name:"", time:0, time2:0}
                 this.isCasting = false
             }
         }
@@ -286,7 +285,6 @@ class Creature {
                 if (this.abilities[this.channeling.name].endChanneling) {
                     this.abilities[this.channeling.name].endChanneling(this)
                 }
-                this.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 this.isChanneling = false
             }
         }
@@ -355,6 +353,8 @@ class Creature {
                         this.move((this.buffs[i].effect[j].val*40)/fps)
                     } else if (this.buffs[i].effect[j].name === "healingIncrease") {
                         this.healingIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
+                    } else if (this.buffs[i].effect[j].name === "healingIncrease2") {
+                        this.healingIncrease += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "moveSpeed") {
                         this.moveSpeedIncrease += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "incAttackSpeed") {
@@ -597,7 +597,6 @@ class Creature {
         if (this.isCasting && this.abilities[this.casting.name].castTime>0 && !this.canMoveWhileCasting) {
             this.isCasting = false
             this.gcd = 0
-            this.casting = {name:"", time:0, time2:0}
         }
         if (this.isChanneling && !this.canMoveWhileCasting) {
             if (this.abilities[this.channeling.name].endChanneling) {

@@ -12,7 +12,6 @@ class Mw_Abilities {
     "Blackout Kick" = new BlackoutKick()
     "Rising Sun Kick" = new RisingSunKick()
     "Fortifying Brew" = new FortifyingBrew()
-    "Tiger's Lust" = new TigersLust()
     "Provoke" = new Provoke()
     "Spinning Crane Kick" = new SpinningCraneKick()
     "Thunder Focus Tea" = new ThunderFocusTea()

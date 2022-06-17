@@ -15,6 +15,7 @@ class SpellVisualEffect {
     run() {
         if (settings.spellVisuals!==0) {
             if (this.type==="projectile") { //--------------------------------------Projectile
+                let size = this.data.size * (gameScaling/1.8)
                 this.direction = getDirection(this,this.data.target)
                 this.move()
 
@@ -27,15 +28,17 @@ class SpellVisualEffect {
                     let d = this.data.polygonData
                     game2d.drawQuadrilateral(x2d,y2d,d.x1,d.y1,d.x2,d.y2,d.x3,d.y3,d.x4,d.y4,this.data.color,this.direction)
                 } else {
-                    game2d.drawCircle(x2d,y2d,this.data.size,this.data.color)
+                    game2d.drawCircle(x2d,y2d,size,this.data.color)
                 }
-
-
 
                 if (settings.spellVisuals>1) {
                     if (this.data.onRun.name==="fire") {
                         let life = this.data.onRun.life
                         for (let i = 0; i<settings.spellVisuals-1; i++) {
+
+
+
+
                             addSpellParticle(this.x-(this.data.size/4)+(Math.random()*(this.data.size/2)), this.y-(this.data.size/2)+(Math.random()*(this.data.size)), (this.direction-(182-(Math.random()*4))),
                                 "fire", {size:this.data.size/4,speed:-this.data.speed,life:life,color:Math.random(),color1:this.data.onRun.color1, color2:this.data.onRun.color2})
                         }
@@ -54,8 +57,8 @@ class SpellVisualEffect {
                     let x = this.x-Math.sqrt(pt_radius_sq) * Math.cos(pt_angle)
                     let y = this.y-Math.sqrt(pt_radius_sq) * Math.sin(pt_angle)
 
-                    let x2 = this.x + (this.x-x)/3
-                    let y2 = this.y + (this.y-y)/3
+                    let x2 = this.x //((x-this.x)/2)+this.x
+                    let y2 = this.y //((y-this.y)/2)+this.y
 
                     addSpellParticle(x, y, 0,
                         "rain", {size: 3, speed: this.data.speed, life: 0.3,maxLife:0.3, color: this.data.color,centre:{x:x2 ,y:y2 }})

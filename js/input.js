@@ -113,7 +113,8 @@ let keyLoop = () => {
             if (!strafing) {
                 player.rotate(player.direction+2)
             } else {
-                player.move(1,1)
+                player.moving[0] = true
+                player.move(1/player.getMoveSpeedPlayer(),1)
             }
         //}
     }
@@ -122,20 +123,23 @@ let keyLoop = () => {
             if (!strafing) {
                 player.rotate(player.direction - 2)
             } else {
-                player.move(1,2)
+                player.moving[1] = true
+                player.move(1/player.getMoveSpeedPlayer(),2)
             }
         //}
     }
     if (keyPressed[keybinds["Move Up"].key]) {
         //if ((modPressed("Move Up"))) {
         if (!player.isMoving) {
-            player.move(1)
+            player.moving[2] = true
+            player.move(1/player.getMoveSpeedPlayer())
         }
         //}
     }
     if (keyPressed[keybinds["Move Down"].key]) {
         //if ((modPressed("Move Down"))) {
-            player.move(-0.357)
+        player.moving[3] = true
+            player.move(-0.357/player.getMoveSpeedPlayer())
         //}
     }
     if (keyPressed[keybinds["Bar1 Ability0"].key]) {

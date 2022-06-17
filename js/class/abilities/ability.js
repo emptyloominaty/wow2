@@ -14,6 +14,7 @@ class Ability {
     canCastWhileRooted = true
 
     talent = false
+    talentSelect = false
     passive = false
     hiddenBuff = false
     permanentBuff = false
@@ -193,6 +194,7 @@ class Ability {
         }
         if (getDistance(caster,target)>range) {
             if (caster===player && !dontShow) {
+                console.log(this.name+"RANGE!")
                 _message.update("Out of range", 2, colors.error)
             }
             return false
@@ -297,6 +299,12 @@ class Ability {
 
     reduceCd(val) {
         this.cd += val
+    }
+
+    setTalent() {
+    }
+
+    unsetTalent() {
     }
 
 }

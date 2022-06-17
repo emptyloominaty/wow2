@@ -70,12 +70,11 @@ class HolyNova extends Ability {
 
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             caster.useEnergy(this.cost)
             this.setGcd(caster)
             return true
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue()) {
             spellQueue.add(this,caster.gcd)
         }
         return false
