@@ -304,6 +304,19 @@ function draw(progress) {
             game2d.drawTargetDirection(x2d, y2d, (size-(3*gameScaling)), 3, "#9f5c5d", creatures[i].direction)
         }
     }
+    //spell visuals
+    for (let i = 0; i<spellVisualEffects.length; i++) {
+        if (spellVisualEffects[i]!==undefined) {
+            spellVisualEffects[i].run()
+        }
+    }
+
+    //spell particles
+    for (let i = 0; i<spellParticles.length; i++) {
+        if (spellParticles[i]!==undefined) {
+            spellParticles[i].run()
+        }
+    }
 
     //---------------ui---------------
     _message.run()
@@ -362,6 +375,9 @@ function draw(progress) {
             bars.targetSecondaryResource.setVal(player.targetObj.secondaryResource)
             bars.targetSecondaryResource.setMaxVal(player.targetObj.maxSecondaryResource)
             bars.targetSecondaryResource.setVisibility(true)
+        } else {
+            bars.targetSecondaryResource.setVal(0)
+            bars.targetSecondaryResource.setText("")
         }
 
 
@@ -404,8 +420,8 @@ function draw(progress) {
         drawVars.buffBarsIdx=0
     }
     //reset
-    for (let i = 0; i<16; i++) {
-        if (i<=maxii && i>minii) {
+    for (let i = Math.ceil(minii); i<16; i++) {
+        if (i<=maxii) {
             elements["debuff_"+i+"_image"].src = ""
             elements["debuff_"+i+"_text"].textContent = ""
             elements["debuff_"+i+"_stacks"].textContent = ""

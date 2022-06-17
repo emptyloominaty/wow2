@@ -87,6 +87,7 @@ function update(progress) {
         }
     }
 
+    //
     if (moveWithMouseButtons[0] && moveWithMouseButtons[1]) {
         player.move(1)
         player.isMoving = true

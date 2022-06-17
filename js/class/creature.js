@@ -607,8 +607,8 @@ class Creature {
             this.channeling = {name:"", time:0, time2:0}
         }
         if (!this.isStunned && !this.isRooted && !this.isDead) {
-            this.x += vx
-            this.y += vy
+            this.x += vx * (60/fps)
+            this.y += vy * (60/fps)
         }
 
 /*TODO:

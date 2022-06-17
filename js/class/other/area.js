@@ -98,7 +98,9 @@ class Area {
     }
 
     start() {
-
+        if (this.data.visualEffect) {
+            addSpellVisualEffects(this.x,this.y,0,this.data.visualEffect.name,this.data.visualEffect.data)
+        }
     }
 
     end() {

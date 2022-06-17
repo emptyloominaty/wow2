@@ -85,6 +85,7 @@ class Wrath extends Ability {
                     caster.abilities["Eclipse"].startCast(caster,this)
                     spellPower = spellPower*caster.abilities["Eclipse"].getDamage(caster,this)
                 }
+                addSpellVisualEffects(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",{size:4,speed:30,target:caster.castTarget,color:"#fffc00",onEnd:{name:"",size:1},onRun:{name:"fire",color1:"rgba(255,243,107,0.89)",color2:"rgba(255,255,0,0.89)",size:5}})
                 doDamage(caster,caster.castTarget,this,undefined,spellPower)
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
