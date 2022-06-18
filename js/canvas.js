@@ -83,7 +83,6 @@ class Canvas {
         }
     }
 
-
     drawCircleStroke(x,y,radius,color,lineWidth = 1) {
         this.canvas.beginPath()
         this.canvas.strokeStyle = color

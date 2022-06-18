@@ -13,6 +13,8 @@ class Ability {
     abilityMaxCd = 0.4
     canCastWhileRooted = true
 
+    canUse = true
+
     talent = false
     talentSelect = false
     passive = false
@@ -76,7 +78,7 @@ class Ability {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
-        if (this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster)) {
+        if (this.canUse && this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster)) {
             return true
         }
         return false

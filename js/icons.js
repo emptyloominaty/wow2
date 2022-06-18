@@ -649,6 +649,7 @@ let iconsPath = {
     "Windwalking":"img/monk/Windwalking.jpg",
     "Resuscitate":"img/monk/Resuscitate.jpg",
     "Chi Torpedo":"img/monk/ChiTorpedo.jpg",
+    "Chi Torpedo ":"img/monk/ChiTorpedo.jpg",
     "Crackling Jade Lightning":"img/monk/CracklingJadeLightning.jpg",
     "Paralysis":"img/monk/Paralysis.jpg",
     "Transcendence":"img/monk/Transcendence.jpg",

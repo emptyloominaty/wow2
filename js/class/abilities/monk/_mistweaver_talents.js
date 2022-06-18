@@ -176,7 +176,10 @@ class ChiTorpedo extends Ability {
 
         this.spellPower = 0
 
-        this.effect = [{name:"move",val:0.795*pxToMeter},{name:"moveSpeed",val:0.3}]
+        this.effect = [{name:"move",val:0.795*pxToMeter}]
+
+        this.effects = [{name:"move",val:0.795*pxToMeter},{name:"moveSpeed",val:0.3}]
+        this.maxStacks = 10
 
         this.duration = 1.1
         this.canCastWhileRooted = false
@@ -197,6 +200,7 @@ class ChiTorpedo extends Ability {
             caster.isRolling = true
             this.setGcd(caster)
             this.setCd()
+            this.effect[0] = this.effects[0]
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
             return true
@@ -206,8 +210,19 @@ class ChiTorpedo extends Ability {
         return false
     }
     endBuff(target) {
+        this.effect[0] = this.effects[1]
+        applyBuff(target,target,this,1,true,"Chi Torpedo ",10)
         target.isRolling = false
     }
+
+    setTalent(caster) {
+        caster.abilities["Roll"].canUse = false
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Roll"].canUse = true
+    }
+
 }
 //------------------------------------------------
 class TigersLust extends Ability {

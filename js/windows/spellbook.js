@@ -10,11 +10,12 @@ let open_spellbook = function() {
 
         //       this.talent = true
         //         this.talentSelect = false
-        if (player.abilities[key].name!==undefined && player.abilities[key].name!=="Leech" && (player.abilities[key].talent===player.abilities[key].talentSelect )) {
+        if (player.abilities[key].name!==undefined && player.abilities[key].name!=="Leech" && player.abilities[key].name!=="Auto Attack" && (player.abilities[key].talent===player.abilities[key].talentSelect) && player.abilities[key].canUse) {
             html+= "<div  style='display:flex;flex-direction:row; justify-content: space-between' ><div style='display:flex;flex-direction:column;'><span>"+player.abilities[key].name+"</span> "
             if (player.abilities[key].passive) {
-                html += "<span style='color:#666666'>Passive</span>"
-            } else if (player.abilities[key].talent) {
+                html += "<span style='color:#666666'>Passive </span>"
+            }
+            if (player.abilities[key].talent) {
                 html += "<span style='color:#666666'>Talent</span>"
             }
 

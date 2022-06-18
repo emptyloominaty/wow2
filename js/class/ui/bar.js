@@ -64,7 +64,7 @@ class Bar {
         let click = (e)=> {
             player.targetObj = creatures[this.cId]
             player.target = creatures[this.cId].name
-            document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"  //TODO FIX!!!!
+            document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
         }
         if (onClick) {
             document.getElementById(id+"_bg").addEventListener('click', click)

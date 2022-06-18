@@ -72,6 +72,7 @@ class Creature {
     magicDamageReduction = 0
     reduceEnergyCost = 1
 
+    id3 = 99
     constructor(name,enemy,health,energy,x,y,direction,spec,stats) {
         this.stats = stats
 
@@ -357,7 +358,11 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "healingIncrease2") {
                         this.healingIncrease += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "moveSpeed") {
-                        this.moveSpeedIncrease += this.buffs[i].effect[j].val
+                        if (this.buffs[i].stacks>1) {
+                            this.moveSpeedIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
+                        } else {
+                            this.moveSpeedIncrease += this.buffs[i].effect[j].val
+                        }
                     } else if (this.buffs[i].effect[j].name === "incAttackSpeed") {
                         this.attackSpeed *= (1+this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "reduceEnergyCost") {

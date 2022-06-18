@@ -529,6 +529,10 @@ let onMouseClick = function(e) {
             player.targetObj = creatures[i]
             player.target = creatures[i].name
             document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+            if (!creatures[i].enemy) {
+                document.getElementById("raidFrame"+creatures[i].id3).style.outline = "1px solid #fff"
+                targetSelect=creatures[i].id3
+            }
         }
     }
 

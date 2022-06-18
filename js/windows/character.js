@@ -1,7 +1,9 @@
-let open_character = function() {
-    if (currentWindow === "character") {
+let open_character = function(reload = false) {
+    if (currentWindow === "character" && !reload) {
         close_window()
         return
+    } else {
+        elements.window.innerHTML = ""
     }
     currentWindow = "character"
     let html = "<div class='windowHeader'><span style='padding:10px 2px 10px 2px;color:"+colors[player.class]+";'>"+specsName[player.spec]+" "+player.class+"</span> <div style='padding:3px;font-size:20px;' onclick='close_window()'>x</div></div>"
@@ -36,7 +38,7 @@ let open_character = function() {
     //avoidance
     html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Avoidance: </span> <span>"+player.stats.avoidance.toFixed(0)+"%</span>  </div>"
     //speed
-    html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Speed: </span> <span>"+(player.stats.speed+100).toFixed(0)+"%</span>  </div>"
+    html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Speed: </span> <span>"+((player.stats.speed+((player.moveSpeedIncrease-1)*100))+100).toFixed(0)+"%</span>  </div>"
 
     html += "</div>"
     //-----------

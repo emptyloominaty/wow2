@@ -2,6 +2,8 @@ let drawVars = {
     raidFramesUpdated: false,
     buffBarsIdx:0,
     raidFramesIdx:0,
+    windowIdx:0,
+    windowMaxIdx:60,
 }
 
 
@@ -67,6 +69,7 @@ let orderRaidFrames = function() {
     let orderReturn = []
     for (let i = 0; i<order.length; i++) {
         orderReturn.push(friendlyTargets[order[i]])
+        friendlyTargets[order[i]].id3 = i
     }
     return orderReturn
 }
@@ -89,11 +92,11 @@ if (0===0) {
     elements.buffsDebuffs_parent.innerHTML = "<div id='buff_bar'>" + buffHTML + "</div></div> <div id='debuff_barr'>" + debuffHTML + "</div></div>"
 
     let raidFramesHTML = ""
-    for (let i = 0; i<friendlyTargets.length; i++) {
+    for (let i = 0; i<raidFramesTargets.length; i++) {
         raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'>" +
-            " <div style='background-color: "+colors[friendlyTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
+            " <div style='background-color: "+colors[raidFramesTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
             "<div class='raidFrame_health2'>.</div>" +
-            " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+friendlyTargets[i].name+"</span>" +
+            " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+raidFramesTargets[i].name+"</span>" +
             " <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> " +
             "<img class='raidFrame_role_icon' id='raidFrame_role_icon"+i+"'>" +
             "<img class='raidFrame_buff_bottomRight' id='raidFrame_buff_bottomRight"+i+"'>" +
@@ -112,7 +115,7 @@ if (0===0) {
 
 
     //getElement -> elements
-    for (let i = 0; i<friendlyTargets.length; i++) {
+    for (let i = 0; i<raidFramesTargets.length; i++) {
         //buffs/debuffs
         elements["buff_"+i] = document.getElementById("buff_"+i)
         elements["buff_"+i+"_image"] = document.getElementById("buff_"+i+"_image")
@@ -610,4 +613,11 @@ function draw(progress) {
             }
         }
     //drawVars.raidFramesUpdated = true
+    drawVars.windowIdx++
+    if (drawVars.windowIdx>=drawVars.windowMaxIdx) {
+        if (currentWindow === "character") {
+            open_character(true)
+        }
+        drawVars.windowIdx = 0
+    }
 }
