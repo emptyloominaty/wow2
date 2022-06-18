@@ -479,6 +479,7 @@ class Creature {
                     }
                     this.debuffs[i].effect[0].val -= this.debuffs[i].effect[0].dotVal
                     if (this.debuffs[i].effect[0].val<=0) {
+                        this.debuffs[i].effect[0].val = 0
                         this.debuffs[i].duration = -1
                     }
                     this.secondaryResource = Math.round(this.debuffs[i].effect[0].val)
@@ -588,7 +589,7 @@ class Creature {
         if (!noInc) {
             speed = val * this.moveSpeed * this.moveSpeedIncrease
         } else {
-            speed = val * this.moveSpeed
+            speed = val
         }
 
         if (forceVal!==0) {

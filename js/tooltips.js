@@ -1,10 +1,22 @@
 let spellTooltip = false
 let buffTooltip = false
 
-let showSpellTooltip = function(i,j) {
-    if (!spellTooltip && (actionBars[i].abilities[j] !== undefined)) {
+let showSpellTooltip = function(i,j,notActionBar = false,spellname = "") {
+    if (!spellTooltip) {
+        let ability
+        if (!notActionBar && actionBars[i].abilities[j] === undefined) {
+            return false
+        } else {
+            ability = player.abilities[actionBars[i].abilities[j]]
+        }
+        if (notActionBar) {
+            spellname = spellname.replace('€', '\'')
+            ability = player.abilities[spellname]
+        }
+        if (ability===undefined) {
+            return false
+        }
         spellTooltip = true
-        let ability = player.abilities[actionBars[i].abilities[j]]
 
         let range = ability.range
         if (range === 5) {

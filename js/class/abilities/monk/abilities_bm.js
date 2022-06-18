@@ -20,6 +20,22 @@ class Bm_abilities {
     "Brewmaster's Balance" = new BrewmastersBalance()
     "Celestial Fortune" = new CelestialFortune()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
+
+   /* "Test1" = new Test1()
+    "Test2" = new Test2()
+    "Test3" = new Test3()
+    "Test4" = new Test4()
+    "Test5" = new Test5()
+    "Test6" = new Test6()
+    "Test7" = new Test7()
+    "Test8" = new Test8()
+    "Test9" = new Test9()
+    "Test10" = new Test10()
+    "Test11" = new Test11()
+    "Test12" = new Test12()
+    "Test13" = new Test13()
+    "Test14" = new Test14()
+    "Test15" = new Test15()*/
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -194,3 +210,177 @@ class ElusiveBrawler extends Ability {
 
 }
 
+//----------------TEST
+
+class Test1 extends Ability {
+    constructor() {
+        super("Whirlwind", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    startCast(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test2"].test(caster)
+    }
+}
+
+class Test2 extends Ability {
+    constructor() {
+        super("Execute", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test3"].test(caster)
+    }
+}
+
+
+class Test3 extends Ability {
+    constructor() {
+        super("Vivify", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test4"].test(caster)
+    }
+}
+
+
+class Test4 extends Ability {
+    constructor() {
+        super("Moonfire", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test5"].test(caster)
+    }
+}
+
+
+class Test5 extends Ability {
+    constructor() {
+        super("Sunfire", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test6"].test(caster)
+    }
+}
+
+class Test6 extends Ability {
+    constructor() {
+        super("Revival", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test7"].test(caster)
+    }
+}
+
+class Test7 extends Ability {
+    constructor() {
+        super("Mana Tea", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test8"].test(caster)
+    }
+}
+
+
+class Test8 extends Ability {
+    constructor() {
+        super("Starfall", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test9"].test(caster)
+    }
+}
+
+
+class Test9 extends Ability {
+    constructor() {
+        super("Annihilation", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test10"].test(caster)
+    }
+}
+
+
+class Test10 extends Ability {
+    constructor() {
+        super("Clearcasting", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test11"].test(caster)
+    }
+}
+
+
+class Test11 extends Ability {
+    constructor() {
+        super("Rupture", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test12"].test(caster)
+    }
+}
+
+
+class Test12 extends Ability {
+    constructor() {
+        super("Envenom", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test13"].test(caster)
+    }
+}
+
+class Test13 extends Ability {
+    constructor() {
+        super("Garrote", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test14"].test(caster)
+    }
+}
+
+
+class Test14 extends Ability {
+    constructor() {
+        super("Mutilate", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Test15"].test(caster)
+    }
+}
+
+class Test15 extends Ability {
+    constructor() {
+        super("Slice And Dice", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.duration = 30+(Math.random()*30)
+    }
+    test(caster) {
+        applyBuff(caster,caster,this)
+    }
+}

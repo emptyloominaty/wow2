@@ -3,6 +3,7 @@ let movingSpellName = ""
 let movingSpellElement
 
 let moveFromSpellBook= function(spellname) {
+    spellname = spellname.replace('€', '\'')
     movingFromSpellbook = true
     movingSpellName = spellname
 
@@ -36,10 +37,13 @@ let open_spellbook = function() {
 
     Object.keys(player.abilities).forEach(function(key) {
 
+
+
+
         //       this.talent = true
         //         this.talentSelect = false
         if (player.abilities[key].name!==undefined && player.abilities[key].name!=="Leech" && player.abilities[key].name!=="Auto Attack" && (player.abilities[key].talent===player.abilities[key].talentSelect) && player.abilities[key].canUse) {
-            html+= "<div style='display:flex;flex-direction:row; justify-content: space-between' ><div style='display:flex;flex-direction:column;'><span>"+player.abilities[key].name+"</span> "
+            html+= "<div onmouseover='showSpellTooltip(0,0,true,\""+player.abilities[key].name.replace('\'', '€')+"\")' onmouseout='hideSpellTooltip()' style='display:flex;flex-direction:row; justify-content: space-between' ><div style='display:flex;flex-direction:column;'><span>"+player.abilities[key].name+"</span> "
             if (player.abilities[key].passive) {
                 html += "<span style='color:#666666'>Passive </span>"
             }
@@ -47,7 +51,7 @@ let open_spellbook = function() {
                 html += "<span style='color:#666666'>Talent</span>"
             }
 
-            html +=  "</div><img draggable='false' onmousedown='moveFromSpellBook(\""+player.abilities[key].name+"\")' src='"+iconsPath[player.abilities[key].name]+"'></div>"
+            html +=  "</div><img draggable='false' onmousedown='moveFromSpellBook(\""+player.abilities[key].name.replace('\'', '€')+"\")' src='"+iconsPath[player.abilities[key].name]+"'></div>"
         }
     })
 

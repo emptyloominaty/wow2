@@ -4,9 +4,9 @@ let drawVars = {
     raidFramesIdx:0,
     windowIdx:0,
     windowMaxIdx:60,
+    hiddenBuffs:0,
+    hiddenDebuffs:0,
 }
-
-
 
 for (let i = 0; i<creatures.length; i++) {
     if (!creatures[i].enemy) {
@@ -94,7 +94,7 @@ if (0===0) {
     let raidFramesHTML = ""
     for (let i = 0; i<raidFramesTargets.length; i++) {
         raidFramesHTML += "<div onclick='playerNewTarget("+i+",false)' class='raidFrame' id='raidFrame"+i+"'>" +
-            " <div style='background-color: "+colors[raidFramesTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div>" +
+            "<div class='raidFrame_health3'><div style='background-color: "+colors[raidFramesTargets[i].class]+"' class='raidFrame_health' id='raidFrame_health"+i+"'></div> <div style='background-color: "+colors.absorb+";overflow:hidden;' class='raidFrame_health' id='raidFrame_absorb"+i+"'></div> </div>" +
             "<div class='raidFrame_health2'>.</div>" +
             " <span class='raidFrame_name' id='raidFrame_name"+i+"'>"+raidFramesTargets[i].name+"</span>" +
             " <span class='raidFrame_healthLost' id='raidFrame_healthLost"+i+"'></span> " +
@@ -127,6 +127,7 @@ if (0===0) {
         elements["debuff_"+i+"_stacks"] = document.getElementById("debuff_"+i+"_stacks")
         //raid frames
         elements["raidFrame_health"+i] = document.getElementById("raidFrame_health"+i)
+        elements["raidFrame_absorb"+i] = document.getElementById("raidFrame_absorb"+i)
         elements["raidFrame_role_icon"+i] = document.getElementById("raidFrame_role_icon"+i)
         elements["raidFrame_name"+i] = document.getElementById("raidFrame_name"+i)
         elements["raidFrame_healthLost"+i] = document.getElementById("raidFrame_healthLost"+i)
@@ -150,7 +151,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+avgFPS.toFixed(0)+" | absorb: "+player.absorb.toFixed(0)+""
+    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+avgFPS.toFixed(0)+"("+fps.toFixed(0)+")"
     /*elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePosition2d.x.toFixed(0)+" y:"+mousePosition2d.y.toFixed(0)+"<br>"+"R: x: "+player.x.toFixed(0)+" y:"+player.y.toFixed(0)+"<br>"  /*+
             "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 
@@ -421,10 +422,8 @@ function draw(progress) {
     //buffs
     let maxii = (drawVars.buffBarsIdx+1)*(16/(settings.uiRefreshRate+1))
     let minii = (drawVars.buffBarsIdx)*(16/(settings.uiRefreshRate+1))
+
     drawVars.buffBarsIdx++
-    if (drawVars.buffBarsIdx>settings.uiRefreshRate) {
-        drawVars.buffBarsIdx=0
-    }
     //reset
     for (let i = Math.ceil(minii); i<16; i++) {
         if (i<=maxii) {
@@ -439,8 +438,11 @@ function draw(progress) {
     }
 
     let ii = Math.ceil(minii)
-    for (let i = Math.ceil(minii); i<player.buffs.length; i++) {
+    for (let i = Math.ceil(minii)+drawVars.hiddenBuffs; i<player.buffs.length; i++) {
         if (ii<=maxii) {
+            if (ii>15) {
+                break
+            }
             if (player.form!=="") {
                 if (ii===0) {
                     ii++
@@ -459,9 +461,8 @@ function draw(progress) {
                     elements["buff_"+ii+"_stacks"].textContent = player.buffs[i].stacks
                 }
                 ii++
-                if (ii>15) {
-                    break
-                }
+            } else {
+                drawVars.hiddenBuffs++
             }
         }
     }
@@ -472,7 +473,7 @@ function draw(progress) {
     }
 
     ii = Math.ceil(minii)
-    for (let i = Math.ceil(minii); i<player.debuffs.length; i++) {
+    for (let i = Math.ceil(minii)+drawVars.hiddenDebuffs; i<player.debuffs.length; i++) {
         if (ii<=maxii) {
             if (!player.debuffs[i].ability.hiddenBuff) {
 
@@ -490,8 +491,16 @@ function draw(progress) {
                 if (ii>15) {
                     break
                 }
+            } else {
+                drawVars.hiddenDebuffs++
             }
         }
+    }
+
+    if (drawVars.buffBarsIdx>settings.uiRefreshRate) {
+        drawVars.buffBarsIdx = 0
+        drawVars.hiddenBuffs = 0
+        drawVars.hiddenDebuffs = 0
     }
 
     //raidframes
@@ -511,6 +520,8 @@ function draw(progress) {
 
             elements["raidFrame_health"+i].style.width = ((raidFrameTarget.health/raidFrameTarget.maxHealth)*100)+"%"
             elements["raidFrame_health"+i].style.backgroundColor = colors[raidFrameTarget.class]
+
+            elements["raidFrame_absorb"+i].style.width = ((raidFrameTarget.absorb/raidFrameTarget.maxHealth)*100)+"%"
 
             if (!drawVars.raidFramesUpdated) {
                 elements["raidFrame_name"+i].textContent = raidFrameTarget.name
