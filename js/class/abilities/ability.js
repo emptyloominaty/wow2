@@ -144,9 +144,11 @@ class Ability {
             caster.spellHistory.pop()
         }
         if (caster===player) {
-        let bar = actions[this.name].bar
-        let ability = actions[this.name].slot
-            keyPressed[keybinds["Bar"+bar+" Ability"+ability+""].key] = false
+            if (actions[this.name]) {
+                let bar = actions[this.name].bar
+                let ability = actions[this.name].slot
+                keyPressed[keybinds["Bar"+bar+" Ability"+ability+""].key] = false
+            }
         }
         if (this.hasteGcd) {
             if (gcd===0) {

@@ -19,6 +19,7 @@ let open_settings = function(reload = false) {
         {name:"UI Refresh Rate",settingKey:"uiRefreshRate",options:[{name:"Very Low",val:30},{name:"Low",val:10},{name:"Medium",val:6},{name:"High",val:4},{name:"Ultra",val:2}]},
         {name:"Details Refresh Rate",settingKey:"detailsRefreshRate",options:[{name:"Very Low",val:30},{name:"Low",val:10},{name:"Medium",val:6},{name:"High",val:4},{name:"Ultra",val:2}]},
         {name:"Spell Visuals",settingKey:"spellVisuals",options:[{name:"Off",val:0},{name:"Low",val:1},{name:"Medium",val:2},{name:"High",val:3},{name:"Ultra",val:4}]},
+        {name:"Spell Glow",settingKey:"spellGlow",options:[{name:"Off",val:false},{name:"On",val:true}]},
 
         {name:"Sound",settingKey:"",options:[],category:true},
 

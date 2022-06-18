@@ -7,6 +7,17 @@ let _mistweaver_talents = function(caster) {
     caster.abilities["Celerity"] = new Celerity()
     caster.abilities["Tiger's Lust"] = new TigersLust()
 
+
+
+
+    caster.talents = [["Mist Wrap","Chi Wave","Chi Burst"],
+        ["Chi Torpedo","Celerity","Tiger's Lust"],
+        ["Lifecycles","Spirit of the Crane","Mana Tea"],
+        ["Tiger Tail Sweep","Song of Chi-Ji","Ring of Peace"],
+        ["Healing Elixir","Diffuse Magic","Dampen Harm"],
+        ["Summon Jade Serpent Statue","Refreshing Jade Wind","Invoke Chi-Ji, the Red Crane"],
+        ["Focused Thunder","Upwelling","Rising Mist"]
+    ]
 }
 //------------------------------------------------------------------------------------------------ROW1
 class MistWrap extends Ability {
@@ -175,7 +186,7 @@ class ChiTorpedo extends Ability {
         return "Torpedoes you forward a long distance and increases your movement speed by 30% for 10 sec, stacking up to 2 times."
     }
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
@@ -229,7 +240,7 @@ class TigersLust extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             if (this.isEnemy(caster,caster.castTarget) || (this.checkDistance(caster,caster.castTarget))>this.range || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
                 //heal self
                 applyBuff(caster,caster,this)

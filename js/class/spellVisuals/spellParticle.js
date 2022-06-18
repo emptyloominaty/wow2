@@ -59,13 +59,14 @@ class SpellParticle {
                 color = pSBC ( 1-(this.data.life*2.8), color, "rgba(100,100,100,0)", true );
             }
             if (!this.wait) {
+                game2d.setSpellGlow(2,color) //TODO:SIZE
                 game2d.drawCircle(x2d, y2d, size, color)
                 this.data.speed -= this.data.speed / 10
             }
         } else {
+            game2d.setSpellGlow(1.7,color)
             game2d.drawLineRotate(x2d,y2d,size/3,size,180-this.direction, color)
         }
-
 
         this.wait = false
 

@@ -47,6 +47,7 @@ class Creature {
     form = ""
     formEffects = []
     spellHistory = []
+    talents = []
 
     buffs = []
     debuffs = []
@@ -640,37 +641,30 @@ class Creature {
         }
     }
 
-    talents = {
-        //Mistweaver
-        MistWrap:false,
-        ChiWave:false,
-        ChiBurst:false,
 
-        Celerity:false,
-        ChiTorpedo:false,
-        TigersLust:false,
+    changeTalent(row,talentColumn) {
+        if (this.abilities[this.talents[row][0]].talentSelect) {
+            this.abilities[this.talents[row][0]].unsetTalent(this)
+        }
 
-        Lifecycles:false,
-        SpiritoftheCrane:false,
-        ManaTea:false,
+        if (this.abilities[this.talents[row][1]].talentSelect) {
+            this.abilities[this.talents[row][1]].unsetTalent(this)
+        }
 
-        TigerTailSweep:false,
-        SongofChiji:false,
-        RingofPeace:false,
+        if (this.abilities[this.talents[row][2]].talentSelect) {
+            this.abilities[this.talents[row][2]].unsetTalent(this)
+        }
+        this.abilities[this.talents[row][0]].talentSelect = false
+        this.abilities[this.talents[row][1]].talentSelect = false
+        this.abilities[this.talents[row][2]].talentSelect = false
 
-        HealingElixir:false,
-        DiffuseMagic:false,
-        DampenHarm:false,
-
-        SummonJadeSerpentStatue:false,
-        RefreshingJadeWind:false,
-        InvokeChijitheRedCrane:false,
-
-        FocusedThunder:false,
-        Upwelling:false,
-        RisingMist:true,
-        //
+        this.abilities[this.talents[row][talentColumn]].talentSelect = true
+        this.abilities[this.talents[row][talentColumn]].setTalent(this)
+        if (this===player) {
+            open_talents(true)
+        }
     }
+
 
 }
 

@@ -13,6 +13,8 @@ class ManaTea extends Ability {
         let school = "physical"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
 
         this.spellPower = 0
         this.effect = "reduceEnergyCost"
@@ -31,7 +33,7 @@ class ManaTea extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             this.cd = 0
             applyBuff(caster,caster,this)
             this.setGcd(caster)

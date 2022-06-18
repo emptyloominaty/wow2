@@ -26,7 +26,8 @@ class SpellVisualEffect {
 
                 if (this.data.quadrilateral) {
                     let d = this.data.polygonData
-                    game2d.drawQuadrilateral(x2d,y2d,d.x1,d.y1,d.x2,d.y2,d.x3,d.y3,d.x4,d.y4,this.data.color,this.direction)
+                    let g = (gameScaling/1.8)
+                    game2d.drawQuadrilateral(x2d,y2d,d.x1*g,d.y1*g,d.x2*g,d.y2*g,d.x3*g,d.y3*g,d.x4*g,d.y4*g,this.data.color,this.direction)
                 } else {
                     game2d.drawCircle(x2d,y2d,size,this.data.color)
                 }
@@ -35,10 +36,6 @@ class SpellVisualEffect {
                     if (this.data.onRun.name==="fire") {
                         let life = this.data.onRun.life
                         for (let i = 0; i<settings.spellVisuals-1; i++) {
-
-
-
-
                             addSpellParticle(this.x-(this.data.size/4)+(Math.random()*(this.data.size/2)), this.y-(this.data.size/2)+(Math.random()*(this.data.size)), (this.direction-(182-(Math.random()*4))),
                                 "fire", {size:this.data.size/4,speed:-this.data.speed,life:life,color:Math.random(),color1:this.data.onRun.color1, color2:this.data.onRun.color2})
                         }

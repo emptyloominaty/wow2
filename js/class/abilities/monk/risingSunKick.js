@@ -75,7 +75,7 @@ class RisingSunKick extends Ability {
                 this.setGcd(caster)
 
                 //rising mist
-                if (caster.spec === "mistweaver" && caster.talents.RisingMist) {
+                if (caster.spec === "mistweaver" /*&& caster.talents.RisingMist*/) {
                     for (let i = 0; i<friendlyTargets.length; i++) {
                         Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
                             if ((friendlyTargets[i].buffs[key].name === "Enveloping Mist" || friendlyTargets[i].buffs[key].name === "Renewing Mist" || friendlyTargets[i].buffs[key].name === "Essence Font") && friendlyTargets[i].buffs[key].caster === caster) {

@@ -304,6 +304,7 @@ function draw(progress) {
             game2d.drawTargetDirection(x2d, y2d, (size-(3*gameScaling)), 3, "#9f5c5d", creatures[i].direction)
         }
     }
+
     //spell visuals
     for (let i = 0; i<spellVisualEffects.length; i++) {
         if (spellVisualEffects[i]!==undefined) {
@@ -317,6 +318,8 @@ function draw(progress) {
             spellParticles[i].run()
         }
     }
+    game2d.canvas.shadowBlur = 0
+
 
     //---------------ui---------------
     _message.run()

@@ -76,6 +76,14 @@ class Canvas {
         this.canvas.closePath()
     }
 
+    setSpellGlow(blurSize,blurColor) {
+        if (settings.spellGlow) {
+            this.canvas.shadowColor = blurColor
+            this.canvas.shadowBlur = blurSize*gameScaling
+        }
+    }
+
+
     drawCircleStroke(x,y,radius,color,lineWidth = 1) {
         this.canvas.beginPath()
         this.canvas.strokeStyle = color
