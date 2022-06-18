@@ -84,6 +84,7 @@ class ChiWave extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            this.setCd()
             caster.useEnergy(this.cost,this.secCost)
             this.setGcd(caster)
             return true
@@ -121,6 +122,7 @@ class ChiBurst extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            this.setCd()
             caster.useEnergy(this.cost,this.secCost)
             this.setGcd(caster)
             return true

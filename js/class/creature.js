@@ -352,7 +352,7 @@ class Creature {
                 //NEW
                 for (let j = 0; j<this.buffs[i].effect.length; j++) {
                     if (this.buffs[i].effect[j].name === "move") {
-                        this.move((this.buffs[i].effect[j].val*40)/fps)
+                        this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
                     } else if (this.buffs[i].effect[j].name === "healingIncrease") {
                         this.healingIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
                     } else if (this.buffs[i].effect[j].name === "healingIncrease2") {
@@ -383,7 +383,7 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "moveToTarget") {
                         if (this.buffs[i].effect[j]._end===undefined) {
                             this.direction = getDirection(this,this.buffs[i].effect[j].target)
-                            this.move((this.buffs[i].effect[j].val*40)/fps)
+                            this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
                             if (getDistance(this,this.buffs[i].effect[j].target)<3) {
                                 this.buffs[i].effect[j]._end = true
                             }
@@ -427,7 +427,7 @@ class Creature {
             } else {
                 //OLD
                 if (this.buffs[i].effect==="move") {
-                    this.move((this.buffs[i].effectValue*40)/fps)
+                    this.move((this.buffs[i].effectValue*40)/fps,undefined,undefined,true)
                 } else if (this.buffs[i].effect==="healingIncrease") {
                     this.healingIncrease += this.buffs[i].effectValue
                 } else if (this.buffs[i].effect === "moveSpeed") {
@@ -583,8 +583,14 @@ class Creature {
         return false
     }
 
-    move(val,strafe = 0, forceVal = 0) { //val -0.5 - 1
-        let speed = val * this.moveSpeed * this.moveSpeedIncrease
+    move(val,strafe = 0, forceVal = 0,noInc = false) { //val -0.5 - 1
+        let speed
+        if (!noInc) {
+            speed = val * this.moveSpeed * this.moveSpeedIncrease
+        } else {
+            speed = val * this.moveSpeed
+        }
+
         if (forceVal!==0) {
             speed = forceVal
         }

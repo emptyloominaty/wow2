@@ -613,6 +613,14 @@ function draw(progress) {
             }
         }
     //drawVars.raidFramesUpdated = true
+
+    if (movingFromSpellbook) {
+        if (movingSpellElement) {
+            movingSpellElement.style.left = mousePosition.x + 10 + "px"
+            movingSpellElement.style.top = mousePosition.y + 10 + "px"
+        }
+    }
+
     drawVars.windowIdx++
     if (drawVars.windowIdx>=drawVars.windowMaxIdx) {
         if (currentWindow === "character") {
