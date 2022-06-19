@@ -58,7 +58,7 @@ class SpellVisualEffect {
                     let y2 = this.y //((y-this.y)/2)+this.y
 
                     addSpellParticle(x, y, 0,
-                        "rain", {size: 3, speed: this.data.speed, life: 0.3,maxLife:0.3, color: this.data.color,centre:{x:x2 ,y:y2 }})
+                        "rain", {size: 3, speed: this.data.speed/11, life: 0.3,maxLife:0.3, color: this.data.color,centre:{x:x2 ,y:y2 }})
                 }
                 this.duration -= progressInSec
                 if (this.duration<=0) {

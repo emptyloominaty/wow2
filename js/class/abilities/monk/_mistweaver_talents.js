@@ -107,7 +107,8 @@ class ChiBurst extends Ability {
         }
         this.spellPower = 0.46 //dmg
         this.spellPowerHeal = 0.945 //heal
-        this.healTargets = 6
+        this.area = {type:"circle", radius:8, duration:2,data:{type:"damage", maxTargets:"all", spellPower:this.spellPower,moving:true,speed:20,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
+        this.area2 = {type:"circle", radius:8, duration:2,data:{type:"heal", maxTargets:6, spellPower:this.spellPowerHeal,moving:true,speed:20,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
     }
 
     getTooltip() {
@@ -117,7 +118,10 @@ class ChiBurst extends Ability {
     startCast(caster) {
         if (this.checkStart(caster) && this.talentSelect) {
 
-            //TODO
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
+            addArea(areas.length,caster,this,this.area2.type,this.area2.duration,this.area2.data,caster.x,caster.y,false,this.area2.radius)
+           // addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+           //     {size:5,speed:20,target:/*TODO: 40+yd dir */,color:"#704fff",onEnd:{},onRun:{name:"fire",color1:"rgba(80,87,255,0.7)",color2:"rgba(82,175,255,0.7)",life:0.4}})
 
             if (caster.isChanneling) {
                 caster.isChanneling = false

@@ -8,6 +8,9 @@ class Area {
         this.ability = ability
         this.type = type //circle / rectangle
         this.duration = duration
+        this.direction = 0
+        this.speed = 0
+        this.moving = false
 
         //centre
         this.x = x
@@ -26,6 +29,19 @@ class Area {
         if (this.maxTargets==="all") {
             this.maxTargets = 999
         }
+        if (this.data.direction) {
+            this.direction = this.data.direction
+        }
+        if (this.data.speed) {
+            this.speed = this.data.speed
+        }
+        if (this.data.moving) {
+            this.moving = this.data.moving
+        }
+
+        this.totalTargetHealed = 0
+        this.damagedTargets = []
+        this.healedTargets = []
 
         this.done = false
 
@@ -45,6 +61,19 @@ class Area {
         return inside
     }
 
+    findAllCreaturesInsideEnemy() {
+        let inside = []
+        if (this.type==="circle") {
+            for (let i = 0; i<creatures.length; i++) {
+                let distance = getDistance(creatures[i],this)
+                if (distance<this.radius && isEnemy(this.caster,creatures[i])) {
+                    inside.push(creatures[i])
+                }
+            }
+        }
+        return inside
+    }
+
 
     run() {
         if (this.data.type==="hot" || this.data.type==="dot") {
@@ -56,10 +85,29 @@ class Area {
             }
         }
         if (this.data.type==="heal" || this.data.type==="damage") {
-            if (!this.done) {
-                this.doTimer()
-                this.done = true
+            let targets = this.findAllCreaturesInsideEnemy()
+            targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+            for (let i = 0; i<targets.length;i++) {
+                if (i===this.maxTargets || (this.totalTargetHealed>=this.maxTargets && this.maxTargets!=="all" ) ) {
+                    break
+                }
+                if (this.data.type==="heal") {
+                    if (this.healedTargets.indexOf(targets[i].id)===-1) {
+                        doHeal(this.caster,targets[i],this.ability,undefined,(this.data.spellPower))
+                        this.healedTargets.push(targets[i].id)
+                        this.totalTargetHealed++
+                    }
+                } else {
+                    if (this.damagedTargets.indexOf(targets[i].id)===-1) {  //
+                        doDamage(this.caster, targets[i], this.ability, undefined, (this.data.spellPower))
+                        this.damagedTargets.push(targets[i].id)
+                        this.totalTargetHealed++
+                    }
+                }
             }
+        }
+        if (this.moving) {
+            this.move()
         }
 
         this.time += progressInSec
@@ -67,6 +115,17 @@ class Area {
             this.end()
             areas[this.id] = undefined
         }
+    }
+
+    move() {
+        let speed = (this.speed*pxToMeter) * progressInSec
+        let angleInRadian = (this.direction-180) / 180 * Math.PI
+
+        let vx = Math.sin(angleInRadian) * speed
+        let vy = Math.cos(angleInRadian) * speed
+
+        this.x += vx
+        this.y += vy
     }
 
     draw() {

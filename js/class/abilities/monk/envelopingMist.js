@@ -16,7 +16,7 @@ class EnvelopingMist extends Ability {
 
         this.spellPower = 3.6
         this.duration = 6
-        this.effect = [{name:"healingIncrease2",val:0.3}]
+        this.effect = [{name:"healingIncreaseMistweaver",val:0.3}]
 
         this.healingInc = 0.3
         this.defaultDuration = 6

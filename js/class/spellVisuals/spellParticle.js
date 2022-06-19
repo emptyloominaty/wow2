@@ -77,7 +77,7 @@ class SpellParticle {
     }
 
     move() {
-        let speed = this.data.speed * progressInSec
+        let speed = (this.data.speed*pxToMeter) * progressInSec
         let angleInRadian = (this.direction-180) / 180 * Math.PI
 
 

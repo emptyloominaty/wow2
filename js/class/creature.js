@@ -12,6 +12,7 @@ class Creature {
     maxSecondaryResource = 0
     secondaryResourceName = "Combo"
     energyRegen = 0.8 // 1sec
+    creatureType = "Humanoid" //Aberration, Beast, Demon, Dragonkin, Elemental, Giant, Humanoid, Mechanical, Undead
 
     //        plate-mail-leather-cloth
     //armor:  108 -  72 -  49  -  28
@@ -313,6 +314,7 @@ class Creature {
         this.attackSpeed = 1
         this.reduceEnergyCost = 1
         this.damageReduction = 0
+        this.magicDamageReduction = 0
         this.damageIncrease = 1
         let dodge = this.stats.crit
         this.stats = JSON.parse(JSON.stringify(this.statsBup))

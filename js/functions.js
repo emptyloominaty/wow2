@@ -52,9 +52,17 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
         }
 
         if (caster.spec==="restorationDruid") {
-            heal=heal*getRestoDruidMastery(caster,target)
+            heal = heal * getRestoDruidMastery(caster,target)
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
+        } else if (caster.spec==="mistweaver") {
+            if (ability.name!=="Enveloping Mist" || ability.name!=="Enveloping Breath") {
+                for (let i = 0; i<target.buffs.length; i++) {
+                    if ((target.buffs[i].name === "Enveloping Mist" || target.buffs[i].name === "Enveloping Breath" ) && target.buffs[i].caster === caster) {
+                        heal = heal * (1+target.buffs[i].effect[0].val)
+                    }
+                }
+            }
         }
 
         if (target.spec==="brewmaster") {
@@ -160,6 +168,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             }
         } else {
+            damage = damage * (1-target.magicDamageReduction)
             //chaos brand
             for (let i = 0; i<target.debuffs.length; i++) {
                 if (target.debuffs[i].name==="Chaos Brand") {
