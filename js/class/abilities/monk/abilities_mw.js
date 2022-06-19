@@ -4,7 +4,6 @@ class Mw_Abilities {
     "Gust of Mists" = new GustOfMists()
     "Enveloping Mist" = new EnvelopingMist()
     "Soothing Mist" = new SoothingMist()
-    "Mana Tea" = new ManaTea()
     "Roll" = new Roll()
     "Revival" = new Revival()
     "Essence Font" = new EssenceFont()

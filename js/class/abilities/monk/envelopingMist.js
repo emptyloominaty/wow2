@@ -73,6 +73,12 @@ class EnvelopingMist extends Ability {
             caster.abilities["Gust of Mists"].heal(caster,target)
         }
 
+        let cost = this.cost
+        //Lifecycles
+        if (caster.spec==="mistweaver") {
+            cost =  cost * (1-caster.abilities["Lifecycles"].check(caster,this))
+        }
+
         //thunder focus tea
         for (let i = 0; i<caster.buffs.length; i++) {
             if (caster.buffs[i].name==="Thunder Focus Tea") {
@@ -84,6 +90,6 @@ class EnvelopingMist extends Ability {
             }
         }
 
-        caster.useEnergy(this.cost)
+        caster.useEnergy(cost)
     }
 }

@@ -7,7 +7,9 @@ let _mistweaver_talents = function(caster) {
     caster.abilities["Celerity"] = new Celerity()
     caster.abilities["Tiger's Lust"] = new TigersLust()
 
-
+    caster.abilities["Lifecycles"] = new Lifecycles()
+    caster.abilities["Spirit of the Crane"] = new SpiritoftheCrane()
+    caster.abilities["Mana Tea"] = new ManaTea()
 
 
     caster.talents = [["Mist Wrap","Chi Wave","Chi Burst"],
@@ -50,8 +52,10 @@ class ChiWave extends Ability {
     constructor(spec) {
         super("Chi Wave", 0, 1, 0, 15, false, false, false, "nature", 40, 1)
         this.talent = true
+        this.hasteGcd = false
         if(spec==="mistweaver") {
             this.gcd = 1.5
+            this.hasteGcd = true
         }
         this.jumpRange = 25
         this.targets = 7
@@ -99,16 +103,19 @@ class ChiBurst extends Ability {
     constructor(spec) {
         super("Chi Burst", 0, 1.5, 1, 30, false, true, false, "nature", 40, 1)
         this.talent = true
+        this.talentSelect = true
         if (spec==="windwalker") {
             this.secCost = -1 //per target
             this.gcd = 1
+            this.hasteGcd = false
         } else if (spec==="brewmaster") {
             this.gcd = 1
+            this.hasteGcd = false
         }
         this.spellPower = 0.46 //dmg
         this.spellPowerHeal = 0.945 //heal
-        this.area = {type:"circle", radius:8, duration:2,data:{type:"damage", maxTargets:"all", spellPower:this.spellPower,moving:true,speed:20,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
-        this.area2 = {type:"circle", radius:8, duration:2,data:{type:"heal", maxTargets:6, spellPower:this.spellPowerHeal,moving:true,speed:20,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
+        this.area = {type:"circle", radius:8, duration:1,data:{type:"damage", maxTargets:"all", spellPower:this.spellPower,moving:true,speed:40,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
+        this.area2 = {type:"circle", radius:8, duration:1,data:{type:"heal", maxTargets:6, spellPower:this.spellPowerHeal,moving:true,speed:40,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
     }
 
     getTooltip() {
@@ -117,23 +124,33 @@ class ChiBurst extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster) && this.talentSelect) {
-
-            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
-            addArea(areas.length,caster,this,this.area2.type,this.area2.duration,this.area2.data,caster.x,caster.y,false,this.area2.radius)
-           // addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
-           //     {size:5,speed:20,target:/*TODO: 40+yd dir */,color:"#704fff",onEnd:{},onRun:{name:"fire",color1:"rgba(80,87,255,0.7)",color2:"rgba(82,175,255,0.7)",life:0.4}})
-
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
-            this.setCd()
-            caster.useEnergy(this.cost,this.secCost)
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue()) {
             spellQueue.add(this,caster.gcd)
         }
         return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+
+        addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
+        addArea(areas.length,caster,this,this.area2.type,this.area2.duration,this.area2.data,caster.x,caster.y,false,this.area2.radius)
+
+        let target = getPointTarget(caster,40,caster.direction)
+
+        addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+            {size:10,speed:40,target:target,color:"#704fff",onEnd:{},onRun:{name:"fire",color1:"rgba(80,87,255,0.7)",color2:"rgba(82,175,255,0.7)",life:0.4}})
+
+        this.setCd()
+        caster.useEnergy(this.cost,this.secCost)
     }
 }
 //------------------------------------------------------------------------------------------------ROW2
@@ -278,9 +295,110 @@ class TigersLust extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW3
+class Lifecycles extends Ability {
+    constructor() {
+        super("Lifecycles", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 15
+    }
+
+    check(caster,ability) {
+        if (this.talentSelect) {
+            if (ability.name === "Enveloping Mist") {
+                for (let i = 0; i < caster.buffs.length; i++) {
+                    if (caster.buffs[i].name === "Lifecycles (Enveloping Mist)") {
+                        caster.buffs[i].duration = -1
+                        applyBuff(caster, caster, this, undefined, undefined, "Lifecycles (Vivify)")
+                        return 0.25
+                    }
+                }
+                applyBuff(caster, caster, this, undefined, undefined, "Lifecycles (Vivify)")
+            } else if (ability.name === "Vivify") {
+                for (let i = 0; i < caster.buffs.length; i++) {
+                    if (caster.buffs[i].name === "Lifecycles (Vivify)") {
+                        caster.buffs[i].duration = -1
+                        applyBuff(caster, caster, this, undefined, undefined, "Lifecycles (Enveloping Mist)")
+                        return 0.25
+                    }
+                }
+            }
+            applyBuff(caster, caster, this, undefined, undefined, "Lifecycles (Enveloping Mist)")
+        }
+        return 0
+    }
+
+    getTooltip() {
+        return "Enveloping Mist reduces the mana cost of your next Vivify by 25%.\n" +
+            "\n" +
+            "Vivify reduces the mana cost of your next Enveloping Mist by 25%."
+    }
+}
 //------------------------------------------------
+class SpiritoftheCrane extends Ability {
+    constructor() {
+        super("Spirit of the Crane", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    restoreMana(caster,stacks) {
+        if (this.talentSelect) {
+            caster.useEnergy(stacks*(-0.65))
+        }
+    }
+
+    getTooltip() {
+        return "Teachings of the Monastery causes each additional Blackout Kick to restore 0.65% mana."
+    }
+}
 //------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW4
+class ManaTea extends Ability {
+    constructor() {
+        let name = "Mana Tea"
+        let cost = 0 //% mana
+        let gcd = 0
+        let castTime = 0
+        let cd = 90
+        let charges = 1
+        let maxCharges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "physical"
+        let range = 5
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+
+        this.spellPower = 0
+        this.effect = "reduceEnergyCost"
+        this.effectValue = 0.5
+        this.duration = 10
+
+        this.noGcd = true
+    }
+
+    getTooltip() {
+        return "Reduces the mana cost of your spells by 50% for 10 sec."
+    }
+
+
+    run(caster) {
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            this.cd = 0
+            applyBuff(caster,caster,this)
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}
+//TODO:------------------------------------------------------------------------------------------------ROW4
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW5

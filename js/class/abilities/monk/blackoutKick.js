@@ -48,8 +48,12 @@ class BlackoutKick extends Ability {
                     for (let j = 0; j < caster.buffs[i].stacks; j++) {
                         doDamage(caster, target, this)
                     }
-                    //Rising Sun Kick Reset
                     let stacks = caster.buffs[i].stacks
+
+                    //Spirit of the Crane
+                    caster.abilities["Spirit of the Crane"].restoreMana(caster,stacks)
+
+                    //Rising Sun Kick Reset
                     let resetChance = (Math.random()) * 100
                     if (resetChance < 15 + (stacks * 15)) {
                         caster.abilities["Rising Sun Kick"].cd = caster.abilities["Rising Sun Kick"].maxCd

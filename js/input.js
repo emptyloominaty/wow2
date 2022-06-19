@@ -89,6 +89,9 @@ let keybinds = {
     "Bar2 Ability10":{mod:"ControlLeft",key:"Digit9"},
     "Bar2 Ability11":{mod:"",key:"KeyV"},
 
+    "Bar3 Ability0":{mod:"",key:"Digit5"},
+    "Bar3 Ability1":{mod:"",key:"Digit6"},
+
 
 }
 
@@ -358,6 +361,19 @@ let keyLoop = () => {
     if (keyPressed[keybinds["Bar2 Ability11"].key]) {
         if ((modPressed("Bar2 Ability11"))) {
             pressAbility(2,11)
+        }
+    }
+
+    //Bar 3
+    if (keyPressed[keybinds["Bar3 Ability0"].key]) {
+        if ((modPressed("Bar3 Ability0"))) {
+            pressAbility(3,0)
+
+        }
+    }
+    if (keyPressed[keybinds["Bar3 Ability1"].key]) {
+        if ((modPressed("Bar3 Ability1"))) {
+            pressAbility(3,1)
         }
     }
 

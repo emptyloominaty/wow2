@@ -503,8 +503,17 @@ let getRandomFriendlyTargetNear = function(caster,range,buffName,buffCaster) {
     return false
 }
 
+let getPointTarget = function(caster,distance,direction) {
+    let x = caster.x
+    let y = caster.y
 
+    let angleInRadian = (direction-180) / 180 * Math.PI
 
+    x += Math.sin(angleInRadian) * distance*pxToMeter
+    y += Math.cos(angleInRadian) * distance*pxToMeter
+
+    return {x:x, y:y}
+}
 
 
 

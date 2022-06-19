@@ -104,6 +104,9 @@ if (player.spec==="mistweaver") {
 
         "Thunder Focus Tea": new Action("Thunder Focus Tea", 2, 7),
         "Tiger's Lust": new Action("Tiger's Lust", 2, 11),
+
+        //bar 3
+        "Chi Burst": new Action("Chi Burst", 3, 0),
     }
 }
 

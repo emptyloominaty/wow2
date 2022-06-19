@@ -66,7 +66,7 @@ class Area {
         if (this.type==="circle") {
             for (let i = 0; i<creatures.length; i++) {
                 let distance = getDistance(creatures[i],this)
-                if (distance<this.radius && isEnemy(this.caster,creatures[i])) {
+                if (distance<this.radius && isEnemy(this.caster,creatures[i]) && !creatures[i].isDead) {
                     inside.push(creatures[i])
                 }
             }
@@ -85,10 +85,17 @@ class Area {
             }
         }
         if (this.data.type==="heal" || this.data.type==="damage") {
-            let targets = this.findAllCreaturesInsideEnemy()
+
+            let targets = []
+            if (this.data.type==="damage") {
+                targets = this.findAllCreaturesInsideEnemy()
+            } else {
+                targets = this.findAllCreaturesInside()
+            }
+
             targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
             for (let i = 0; i<targets.length;i++) {
-                if (i===this.maxTargets || (this.totalTargetHealed>=this.maxTargets && this.maxTargets!=="all" ) ) {
+                if ((this.totalTargetHealed>=this.maxTargets && this.maxTargets!=="all" ) ) {
                     break
                 }
                 if (this.data.type==="heal") {
