@@ -32,6 +32,20 @@ class EssenceFont extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            if (caster.abilities["Upwelling"].talentSelect) {
+                this.duration = 12
+                this.castTime = 3 + (caster.abilities["Upwelling"].upwellingStacks/6)
+                caster.abilities["Upwelling"].upwellingStacks = 0
+                for (let i = 0; i < caster.buffs.length; i++) {
+                    if (caster.buffs[i].name === "Upwelling") {
+                        caster.buffs[i].duration = -1
+                        caster.buffs[i].stacks = 0
+                    }
+                }
+            } else {
+                this.duration = 8
+                this.castTime = 3
+            }
             caster.canMoveWhileCasting = this.canMove
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))/6}
@@ -58,7 +72,7 @@ class EssenceFont extends Ability {
             let no = friendlyTargets.length
             let t = Math.floor(Math.random()*no)
             if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth && this.last6bolts.indexOf(t)===-1 || k>120)) {
-                if (this.checkDistance(caster,friendlyTargets[t])) {
+                if (this.checkDistance(caster,friendlyTargets[t],undefined,true)) {
                     this.last6bolts.push(t)
                     if (this.last6bolts.length>5) {
                         this.last6bolts.shift()
@@ -69,11 +83,5 @@ class EssenceFont extends Ability {
                 }
             }
         }
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

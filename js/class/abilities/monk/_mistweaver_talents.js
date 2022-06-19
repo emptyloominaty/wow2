@@ -11,6 +11,14 @@ let _mistweaver_talents = function(caster) {
     caster.abilities["Spirit of the Crane"] = new SpiritoftheCrane()
     caster.abilities["Mana Tea"] = new ManaTea()
 
+    caster.abilities["Healing Elixir"] = new HealingElixir()
+    caster.abilities["Diffuse Magic"] = new DiffuseMagic()
+    caster.abilities["Dampen Harm"] = new DampenHarm()
+
+    caster.abilities["Focused Thunder"] = new FocusedThunder()
+    caster.abilities["Upwelling"] = new Upwelling()
+    caster.abilities["Rising Mist"] = new RisingMist()
+
 
     caster.talents = [["Mist Wrap","Chi Wave","Chi Burst"],
         ["Chi Torpedo","Celerity","Tiger's Lust"],
@@ -356,7 +364,7 @@ class SpiritoftheCrane extends Ability {
 class ManaTea extends Ability {
     constructor() {
         let name = "Mana Tea"
-        let cost = 0 //% mana
+        let cost = 0
         let gcd = 0
         let castTime = 0
         let cd = 90
@@ -382,11 +390,6 @@ class ManaTea extends Ability {
     getTooltip() {
         return "Reduces the mana cost of your spells by 50% for 10 sec."
     }
-
-
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster) && this.talentSelect) {
             this.cd = 0
@@ -402,9 +405,170 @@ class ManaTea extends Ability {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW5
+class HealingElixir extends Ability {
+    constructor() {
+        let name = "Healing Elixir"
+        let cost = 0
+        let gcd = 0
+        let castTime = 0
+        let cd = 30
+        let charges = 2
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 5
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.noGcd = true
+    }
+
+    getTooltip() {
+        return "Drink a healing elixir, healing you for 15% of your maximum health."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            this.setCd()
+            doHeal(caster,caster,this,undefined,undefined,false,undefined,undefined,caster.maxHealth*0.15)
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}
 //------------------------------------------------
+class DiffuseMagic extends Ability {
+    constructor() {
+        let name = "Diffuse Magic"
+        let cost = 0
+        let gcd = 0
+        let castTime = 0
+        let cd = 90
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "physical"
+        let range = 5
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.effect = [{name:"magicDamageReduction",val:0.6}]
+        this.duration = 6
+
+        this.noGcd = true
+    }
+
+    getTooltip() {
+        return "Reduces magic damage you take by 60% for 6 sec, and transfers all currently active harmful magical effects on you back to their original caster if possible."
+    }
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            this.setCd()
+            //TODO:transfers all currently active harmful magical effects on you back to their original caster if possible.
+            applyBuff(caster,caster,this)
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}
 //------------------------------------------------
+class DampenHarm extends Ability {
+    constructor() {
+        let name = "Dampen Harm"
+        let cost = 0
+        let gcd = 0
+        let castTime = 0
+        let cd = 120
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "physical"
+        let range = 5
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.effect = [{name:"damageReduction",val:0.5}] //TODO:20% to 50%
+        this.duration = 10
+        this.noGcd = true
+    }
+
+    getTooltip() {
+        return "Reduces all damage you take by 20% to 50% for 10 sec, with larger attacks being reduced by more."
+    }
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            this.setCd()
+            applyBuff(caster,caster,this)
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}
 //------------------------------------------------------------------------------------------------ROW6
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+class FocusedThunder extends Ability {
+    constructor() {
+        super("Focused Thunder", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Thunder Focus Tea now empowers your next 2 spells."
+    }
+}
+//------------------------------------------------
+class Upwelling extends Ability {
+    constructor() {
+        super("Upwelling", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.permanentBuff = true
+        this.maxStacks = 18
+        this.passive = true
+        this.talent = true
+        this.upwellingStacks = 0
+        this.timer = 0
+        this.timer2 = 1
+    }
+
+    run(caster) {
+        if (this.talentSelect) {
+            if (caster.abilities["Essence Font"].cd>=caster.abilities["Essence Font"].maxCd) {
+                if (this.timer<this.timer2) {
+                    this.timer += progressInSec
+                } else {
+                    if (this.upwellingStacks<18) {
+                        this.upwellingStacks ++
+                        applyBuff(caster,caster,this,1,true)
+                    }
+                    this.timer = 0
+                }
+            }
+        }
+    }
+
+    getTooltip() {
+        return "For every 6 sec Essence Font spends off cooldown, your next Essence Font may be channeled for 1 additional second. The duration of Essence Font's heal over time is increased by 4 sec."
+    }
+}
+//------------------------------------------------
+class RisingMist extends Ability {
+    constructor() {
+        super("Rising Mist", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Rising Sun Kick heals all allies with your Renewing Mist, Enveloping Mist, or Essence Font for (28% of Spell power), and extends those effects by 4 sec, up to 100% of their original duration."
+    }
+}

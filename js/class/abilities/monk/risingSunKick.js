@@ -75,7 +75,7 @@ class RisingSunKick extends Ability {
                 this.setGcd(caster)
 
                 //rising mist
-                if (caster.spec === "mistweaver" /*&& caster.talents.RisingMist*/) {
+                if (caster.spec === "mistweaver" && caster.abilities["Rising Mist"].talentSelect) {
                     for (let i = 0; i<friendlyTargets.length; i++) {
                         Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
                             if ((friendlyTargets[i].buffs[key].name === "Enveloping Mist" || friendlyTargets[i].buffs[key].name === "Renewing Mist" || friendlyTargets[i].buffs[key].name === "Essence Font") && friendlyTargets[i].buffs[key].caster === caster) {
@@ -97,8 +97,12 @@ class RisingSunKick extends Ability {
 
                             this.cd = 9
 
-                            caster.abilities["Thunder Focus Tea"].cd = 0
-                            caster.buffs[i].duration = -1
+                            if (caster.buffs[i].stacks>1) {
+                                caster.buffs[i].stacks--
+                            } else {
+                                caster.buffs[i].duration = -1
+                                caster.abilities["Thunder Focus Tea"].cd = 0
+                            }
                         }
                     }
                 }

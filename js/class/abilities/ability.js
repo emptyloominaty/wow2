@@ -74,6 +74,14 @@ class Ability {
     run(caster) {
     }
 
+    startCast(caster = {}) {
+        return false
+    }
+
+    endCast(caster = {}) {
+        return false
+    }
+
     checkStart(caster,cost = 9999) {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false

@@ -96,6 +96,7 @@ if (player.spec==="mistweaver") {
         "Revival": new Action("Revival", 0, 0),
         "Essence Font": new Action("Essence Font", 0, 1),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
+        "Healing Elixir": new Action("Healing Elixir", 0, 7),
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
         //bar2
         "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),

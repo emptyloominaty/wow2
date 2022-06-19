@@ -85,8 +85,12 @@ class EnvelopingMist extends Ability {
 
                 doHeal(caster,tftTarget,this,undefined,2.8,undefined,undefined,"Thunder Focus Tea")
 
-                caster.abilities["Thunder Focus Tea"].cd = 0
-                caster.buffs[i].duration = -1
+                if (caster.buffs[i].stacks>1) {
+                    caster.buffs[i].stacks--
+                } else {
+                    caster.buffs[i].duration = -1
+                    caster.abilities["Thunder Focus Tea"].cd = 0
+                }
             }
         }
 

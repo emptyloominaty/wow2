@@ -17,6 +17,7 @@ class ThunderFocusTea extends Ability {
         this.spellPower = 0
         this.effect = []
         this.duration = 30
+        this.maxStacks = 2
 
         this.noGcd = true
     }
@@ -36,7 +37,11 @@ class ThunderFocusTea extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             this.setCd()
-            applyBuff(caster,caster,this)
+            let stacks = 1
+            if (caster.abilities["Focused Thunder"].talentSelect) {
+                stacks = 2
+            }
+            applyBuff(caster,caster,this,stacks,true)
             this.setGcd(caster)
             caster.useEnergy(this.cost)
             return true

@@ -83,8 +83,12 @@ class Vivify extends Ability {
 
                 cost = 0
 
-                caster.abilities["Thunder Focus Tea"].cd = 0
-                caster.buffs[i].duration = -1
+                if (caster.buffs[i].stacks>1) {
+                    caster.buffs[i].stacks--
+                } else {
+                    caster.buffs[i].duration = -1
+                    caster.abilities["Thunder Focus Tea"].cd = 0
+                }
             }
         }
 

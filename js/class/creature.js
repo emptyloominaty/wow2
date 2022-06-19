@@ -371,6 +371,8 @@ class Creature {
                         this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "damageReduction") {
                         this.damageReduction += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "magicDamageReduction") {
+                        this.magicDamageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "absorb") {
                         this.absorb += this.buffs[i].effect[j].val
                         this.absorbsBuffId.push(i)
