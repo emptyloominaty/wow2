@@ -21,7 +21,7 @@ class SoothingMist extends Ability {
     }
 
     getTooltip() {
-        return "Heals the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  over 8 sec.  While channeling, Enveloping Mist and Vivify may be cast instantly on the target"
+        return "Heals the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" over 8 sec. While channeling, Enveloping Mist and Vivify may be cast instantly on the target"
     }
 
     run(caster) {
@@ -35,10 +35,12 @@ class SoothingMist extends Ability {
             //statue
             if (!pet) {
                 for (let i = 0; i<caster.pets.length; i++) {
-                    if (caster.pets[i].name==="Jade Serpent Statue") {
-                        caster.pets[i].abilities["Soothing Mist"].startCast(caster.pets[i],true) //.pets[i]
-                        caster.pets[i].targetObj = caster.castTarget
-                        break
+                    if (caster.pets[i]!==undefined) {
+                        if (caster.pets[i].name === "Jade Serpent Statue") {
+                            caster.pets[i].abilities["Soothing Mist"].startCast(caster.pets[i], true)
+                            caster.pets[i].targetObj = caster.castTarget
+                            break
+                        }
                     }
                 }
             }
@@ -56,7 +58,7 @@ class SoothingMist extends Ability {
         if (Object.keys(target).length === 0 || this.isEnemy(caster,target)  || target.isDead || !this.checkDistance(caster,target)) {
             //heal self
             if (caster.spec === "pet") {
-                doHeal(caster.caster,caster.targetObj,this)
+                doHeal(caster.caster,caster.targetObj,this,undefined,this.spellPower/2)
             } else {
                 doHeal(caster,caster,this)
                 let masteryRng = Math.floor(Math.random()*7)

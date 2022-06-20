@@ -19,7 +19,7 @@ let pxToMeter = 11
 let raidFramesBuffs = {
     "mistweaver": {
         bottomRight:"Renewing Mist",
-        bottomRight2:"Life Cocoon",
+        bottomRight2:"Enveloping Breath", //"Life Cocoon"
         centreRight:"Enveloping Mist",
         bottomCentre:"Essence Font",
     },

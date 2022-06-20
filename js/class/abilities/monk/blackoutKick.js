@@ -53,6 +53,17 @@ class BlackoutKick extends Ability {
                     //Spirit of the Crane
                     caster.abilities["Spirit of the Crane"].restoreMana(caster,stacks)
 
+                    //chiji
+                    for (let i = 0; i<caster.pets.length; i++) {
+                        if (caster.pets[i]!==undefined) {
+                            if (caster.pets[i].name==="Chi-Ji") {
+                                for (let k = 0; k<stacks+1; k++) {
+                                    caster.abilities["Gust of Mists (Chi-Ji)"].heal(caster)
+                                }
+                            }
+                        }
+                    }
+
                     //Rising Sun Kick Reset
                     let resetChance = (Math.random()) * 100
                     if (resetChance < 15 + (stacks * 15)) {

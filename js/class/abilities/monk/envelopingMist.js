@@ -41,10 +41,29 @@ class EnvelopingMist extends Ability {
                 } else {
                     this.isChanneling = false
                 }
-
             }
+
+            //chiji
+            let stacks = 0
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name === "Invoke Chi-Ji, the Red Crane") {
+                    stacks = caster.buffs[i].stacks
+                    caster.buffs[i].duration = -1
+                }
+            }
+            let castTime = this.castTime
+            let cost = this.cost
+            if (stacks>0) {
+                castTime = castTime * (1-(stacks*0.33))
+                cost = cost * (1-(stacks*0.33))
+                if (castTime<0.1) {
+                    castTime = 0
+                }
+            }
+
+
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget,cost:cost}
             this.setGcd(caster)
             bars.playerCast.setMaxVal(this.gcd / (1 + (caster.stats.haste / 100)))
             return true
@@ -65,6 +84,7 @@ class EnvelopingMist extends Ability {
         let target = caster.casting.target
         let tftTarget = caster
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
+            target = caster
             applyHot(caster,caster,this)
             caster.abilities["Gust of Mists"].heal(caster,caster)
         } else {
@@ -73,7 +93,7 @@ class EnvelopingMist extends Ability {
             caster.abilities["Gust of Mists"].heal(caster,target)
         }
 
-        let cost = this.cost
+        let cost = caster.casting.cost
         //Lifecycles
         if (caster.spec==="mistweaver") {
             cost =  cost * (1-caster.abilities["Lifecycles"].check(caster,this))
@@ -90,6 +110,15 @@ class EnvelopingMist extends Ability {
                 } else {
                     caster.buffs[i].duration = -1
                     caster.abilities["Thunder Focus Tea"].cd = 0
+                }
+            }
+        }
+
+        //yulon/chiji
+        for (let i = 0; i<caster.pets.length; i++) {
+            if (caster.pets[i]!==undefined) {
+                if (caster.pets[i].name==="Yu'lon" || caster.pets[i].name==="Chi-Ji") {
+                    caster.abilities["Enveloping Breath"].cast(caster,target)
                 }
             }
         }

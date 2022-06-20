@@ -528,8 +528,9 @@ class SummonJadeSerpentStatue extends Ability {
             abilities:{"Soothing Mist":new SoothingMist(), "Gust of Mists": new GustOfMists()},
             color:"#76ff78",
             size:6,
+            do:[]
         }
-        this.petDuration = 30
+        this.petDuration = 900
     }
 
     startCast(caster) {
@@ -618,15 +619,62 @@ class InvokeChiJitheRedCrane extends Ability {
     constructor() {
         super("Invoke Chi-Ji, the Red Crane", 5, 1.5, 0, 180, false, false, false, "nature", 40, 1)
         this.talent = true
+        this.duration = 20
+        this.maxStacks = 3
+        this.petData = {
+            name:"Chi-Ji",
+            abilities:{},
+            color:"#ff8a3a",
+            size:6,
+            do:[], //TODO:AUTOATTACK
+        }
+        this.petDuration = 25
     }
 
     startCast(caster) {
         if (this.checkStart(caster) && this.talentSelect) {
-
+            if (caster.pets.length===0) {
+                caster.pets.push(new Pet(caster.pets.length,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20))
+            } else {
+                let undefinedV = false
+                let statue = false
+                for (let i = 0; i<caster.pets.length; i++) {
+                    if (caster.pets[i]!==undefined) {
+                        if (caster.pets[i].name==="Chi-Ji") {
+                            statue = i
+                        }
+                        if (caster.pets[i]===undefinedV) {
+                            undefinedV = i
+                        }
+                    }
+                }
+                if (statue!==false){
+                    caster.pets[statue] = new Pet(statue,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20)
+                } else if (undefinedV!==false) {
+                    caster.pets[undefinedV] = new Pet(undefinedV,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20)
+                } else {
+                    caster.pets.push(new Pet(caster.pets.length,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20))
+                }
+            }
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
         }
     }
 
-    getTooltip() {
+    applyBuff(caster) {
+        applyBuff(caster,caster,this,1,true)
+    }
+
+    setTalent(caster) {
+        caster.abilities["Invoke Yu'lon, the Jade Serpent"].canUse = false
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Invoke Yu'lon, the Jade Serpent"].canUse = true
+    }
+
+    getTooltip() { //TODO:MASTERY
         return "Summon an effigy of Chi-Ji that kicks up a Gust of Mist when you Blackout Kick, Rising Sun Kick, or Spinning Crane Kick, healing up to 2 allies for (0.1% of Spell power), and reducing the cost and cast time of your next Enveloping Mist by 33%, stacking. Chi-Ji's presence makes you immune to movement impairing effects."
     }
 }

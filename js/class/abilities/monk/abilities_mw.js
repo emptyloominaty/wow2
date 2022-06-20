@@ -14,5 +14,10 @@ class Mw_Abilities {
     "Provoke" = new Provoke()
     "Spinning Crane Kick" = new SpinningCraneKick()
     "Thunder Focus Tea" = new ThunderFocusTea()
+    "Invoke Yu'lon, the Jade Serpent" = new Yulon()
+    "Gust of Mists (Chi-Ji)" = new GustOfMistsChiJi()
+
+    //pasive
+    "Enveloping Breath" = new EnvelopingBreath()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

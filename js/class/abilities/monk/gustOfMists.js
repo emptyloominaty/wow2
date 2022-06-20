@@ -13,16 +13,14 @@ class GustOfMists extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
+        this.pasive = true
         this.spellPower = 0.34
-        this.effect = ""
     }
 
     run(caster) {
     }
 
     heal(caster,target = {}) {
-        caster.isCasting = false
         this.spellPower = caster.stats.mastery/100
         if (Object.keys(target).length === 0) {
             if (Object.keys(caster.castTarget).length === 0 || caster.castTarget.enemy) {
@@ -53,3 +51,54 @@ class GustOfMists extends Ability {
 
     }
 }
+
+
+//---------------------------------------------------------------------------------------------------------------------
+class GustOfMistsChiJi extends Ability {
+    constructor() {
+        let name = "Gust of Mists (Chi-Ji)"
+        let cost = 0 //% mana
+        let gcd = 0
+        let castTime = 0
+        let cd = 0
+        let charges = 1
+        let maxCharges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.pasive = true
+
+        this.spellPower = 0.34
+        this.effect = ""
+        this.targets = 2
+    }
+
+    run(caster) {
+    }
+
+    heal(caster) {
+        this.spellPower = caster.stats.mastery/100
+        caster.abilities["Invoke Chi-Ji, the Red Crane"].applyBuff(caster)
+
+        let tt = 0
+        //TODO: 2 RANDOM TARGETS
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i])) {
+                Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
+                    if (friendlyTargets[i].buffs[key].name === "Essence Font") {
+                        doHeal(caster,friendlyTargets[i],this)
+                    }
+                })
+                doHeal(caster, friendlyTargets[i], this)
+                tt++
+                if (tt >= this.targets) {
+                    break
+                }
+            }
+        }
+    }
+}
+

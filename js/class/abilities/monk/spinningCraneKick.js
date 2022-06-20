@@ -58,6 +58,14 @@ class SpinningCraneKick extends Ability {
             if (caster.spec==="brewmaster") {
                 caster.abilities["Shuffle"].incBuff(caster,this)
             }
+            //chiji
+            for (let i = 0; i<caster.pets.length; i++) {
+                if (caster.pets[i]!==undefined) {
+                    if (caster.pets[i].name==="Chi-Ji") {
+                        caster.abilities["Gust of Mists (Chi-Ji)"].heal(caster)
+                    }
+                }
+            }
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

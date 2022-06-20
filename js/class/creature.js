@@ -243,7 +243,9 @@ class Creature {
 
         //pets
         for (let i = 0; i<this.pets.length; i++) {
-            this.pets[i].run()
+            if (this.pets[i]!==undefined) {
+                this.pets[i].run()
+            }
         }
 
         if (this.resourceName==="Energy" || this.resourceName==="Focus") {

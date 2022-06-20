@@ -31,7 +31,6 @@ class Revival extends Ability {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
-                caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
             }
             for (let i = 0; i<friendlyTargets.length; i++) {
                 if (this.checkDistance(caster,friendlyTargets[i])) {
@@ -40,7 +39,7 @@ class Revival extends Ability {
                 }
             }
             //TODO DISPEL
-            this.cd = 0
+            this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)
             return true

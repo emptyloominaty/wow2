@@ -314,7 +314,10 @@ function draw(progress) {
 
         //pets
         for (let i = 0; i<creatures[i].pets.length; i++) {
-            creatures[i].pets[i].draw()
+            if (creatures[i].pets[i]!==undefined) {
+                creatures[i].pets[i].draw()
+            }
+
         }
 
     }

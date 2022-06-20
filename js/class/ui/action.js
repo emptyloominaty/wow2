@@ -103,6 +103,8 @@ if (player.spec==="mistweaver") {
         "Tiger Palm": new Action("Tiger Palm", 2, 1),
         "Blackout Kick": new Action("Blackout Kick", 2, 2),
 
+
+        "Invoke Yu'lon, the Jade Serpent": new Action("Invoke Yu'lon, the Jade Serpent", 2, 6),
         "Thunder Focus Tea": new Action("Thunder Focus Tea", 2, 7),
         "Tiger's Lust": new Action("Tiger's Lust", 2, 11),
 

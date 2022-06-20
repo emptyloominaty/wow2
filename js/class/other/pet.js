@@ -158,6 +158,13 @@ class Pet {
             }
         }
 
+        for (let i = 0; i<this.data.do.length;i++ ) {
+            if (this.data.do[i].name==="cast") {
+                this.abilities[this.data.do[i].ability].startCast(this)
+            }
+        }
+
+
 
         if (this.timer<this.timer2) {
             this.timer += progressInSec
@@ -169,7 +176,7 @@ class Pet {
         this.time += progressInSec
         if (this.time>this.duration) {
             this.end()
-            areas[this.id] = undefined
+            this.caster.pets[this.id] = undefined
         }
     }
 

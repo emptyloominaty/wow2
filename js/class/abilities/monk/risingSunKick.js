@@ -75,33 +75,43 @@ class RisingSunKick extends Ability {
                 this.setGcd(caster)
 
                 //rising mist
-                if (caster.spec === "mistweaver" && caster.abilities["Rising Mist"].talentSelect) {
-                    for (let i = 0; i<friendlyTargets.length; i++) {
-                        Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
-                            if ((friendlyTargets[i].buffs[key].name === "Enveloping Mist" || friendlyTargets[i].buffs[key].name === "Renewing Mist" || friendlyTargets[i].buffs[key].name === "Essence Font") && friendlyTargets[i].buffs[key].caster === caster) {
-                                if (friendlyTargets[i].buffs[key].extendedDuration+this.extendRisingMist < friendlyTargets[i].buffs[key].maxDuration * this.maxExtendRisingMist) {
-                                    friendlyTargets[i].buffs[key].duration += this.extendRisingMist
-                                    friendlyTargets[i].buffs[key].extendedDuration += this.extendRisingMist
-                                } else if (friendlyTargets[i].buffs[key].extendedDuration < friendlyTargets[i].buffs[key].maxDuration * this.maxExtendRisingMist) {
-                                    let extend = (friendlyTargets[i].buffs[key].maxDuration*this.maxExtendRisingMist ) - friendlyTargets[i].buffs[key].extendedDuration
-                                    friendlyTargets[i].buffs[key].duration += extend
-                                    friendlyTargets[i].buffs[key].extendedDuration += extend
+                if (caster.spec === "mistweaver") {
+                    if (caster.abilities["Rising Mist"].talentSelect) {
+                        for (let i = 0; i < friendlyTargets.length; i++) {
+                            Object.keys(friendlyTargets[i].buffs).forEach((key) => {
+                                if ((friendlyTargets[i].buffs[key].name === "Enveloping Mist" || friendlyTargets[i].buffs[key].name === "Renewing Mist" || friendlyTargets[i].buffs[key].name === "Essence Font") && friendlyTargets[i].buffs[key].caster === caster) {
+                                    if (friendlyTargets[i].buffs[key].extendedDuration + this.extendRisingMist < friendlyTargets[i].buffs[key].maxDuration * this.maxExtendRisingMist) {
+                                        friendlyTargets[i].buffs[key].duration += this.extendRisingMist
+                                        friendlyTargets[i].buffs[key].extendedDuration += this.extendRisingMist
+                                    } else if (friendlyTargets[i].buffs[key].extendedDuration < friendlyTargets[i].buffs[key].maxDuration * this.maxExtendRisingMist) {
+                                        let extend = (friendlyTargets[i].buffs[key].maxDuration * this.maxExtendRisingMist) - friendlyTargets[i].buffs[key].extendedDuration
+                                        friendlyTargets[i].buffs[key].duration += extend
+                                        friendlyTargets[i].buffs[key].extendedDuration += extend
+                                    }
+                                    doHeal(caster, friendlyTargets[i], this, 0, this.spellPowerRisingMist, undefined, undefined, "Rising Mist")
                                 }
-                                doHeal(caster,friendlyTargets[i],this,0,this.spellPowerRisingMist,undefined,undefined,"Rising Mist")
+                            })
+                        }
+                        //thunder focus tea
+                        for (let i = 0; i < caster.buffs.length; i++) {
+                            if (caster.buffs[i].name === "Thunder Focus Tea") {
+
+                                this.cd = 9
+
+                                if (caster.buffs[i].stacks > 1) {
+                                    caster.buffs[i].stacks--
+                                } else {
+                                    caster.buffs[i].duration = -1
+                                    caster.abilities["Thunder Focus Tea"].cd = 0
+                                }
                             }
-                        })
-                    }
-                    //thunder focus tea
-                    for (let i = 0; i<caster.buffs.length; i++) {
-                        if (caster.buffs[i].name==="Thunder Focus Tea") {
-
-                            this.cd = 9
-
-                            if (caster.buffs[i].stacks>1) {
-                                caster.buffs[i].stacks--
-                            } else {
-                                caster.buffs[i].duration = -1
-                                caster.abilities["Thunder Focus Tea"].cd = 0
+                        }
+                        //chiji
+                        for (let i = 0; i<caster.pets.length; i++) {
+                            if (caster.pets[i]!==undefined) {
+                                if (caster.pets[i].name==="Chi-Ji") {
+                                    caster.abilities["Gust of Mists (Chi-Ji)"].heal(caster)
+                                }
                             }
                         }
                     }
