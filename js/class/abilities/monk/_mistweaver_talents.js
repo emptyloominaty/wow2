@@ -521,11 +521,57 @@ class SummonJadeSerpentStatue extends Ability {
     constructor() {
         super("Summon Jade Serpent Statue", 0, 1.5, 0, 10, false, false, false, "nature", 40, 1)
         this.talent = true
+        this.talentSelect = true
+        this.castPosition = {x:0,y:0}
+        this.petData = {
+            name:"Jade Serpent Statue",
+            abilities:{"Soothing Mist":new SoothingMist(), "Gust of Mists": new GustOfMists()},
+            color:"#76ff78",
+            size:6,
+        }
+        this.petDuration = 30
     }
 
     startCast(caster) {
-        if (this.checkStart(caster) && this.talentSelect) {
+        if (this.checkStart(caster)) {
+            if (this.talentSelect) {
 
+                if (caster===player) {
+                    this.castPosition.x = mousePosition2d.x
+                    this.castPosition.y = mousePosition2d.y
+                } else {
+                    this.castPosition.x = caster.mousePos.x
+                    this.castPosition.y = caster.mousePos.y
+                }
+
+                if (caster.pets.length===0) {
+                    caster.pets.push(new Pet(caster.pets.length,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y))
+                } else {
+                    let undefined = false
+                    let statue = false
+                    for (let i = 0; i<caster.pets.length; i++) {
+                        if (caster.pets[i].name==="Jade Serpent Statue") {
+                            statue = i
+                        }
+                        if (caster.pets[i]===undefined) {
+                            undefined = i
+                        }
+                    }
+                    if (statue!==false){
+                        caster.pets[statue] = new Pet(statue,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y)
+                    } else if (undefined!==false) {
+                        caster.pets[undefined] = new Pet(undefined,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y)
+                    } else {
+                        caster.pets.push(new Pet(caster.pets.length,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y))
+                    }
+                }
+
+                this.setCd()
+                caster.useEnergy(this.cost)
+                this.setGcd(caster)
+            }
+        } else if (this.canSpellQueue()) {
+            spellQueue.add(this,caster.gcd)
         }
     }
 

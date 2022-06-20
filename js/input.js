@@ -414,8 +414,8 @@ let keyLoop = () => {
 
     if (keyPressed["Escape"]) {
         if (player.isChanneling) {
-            if (this.abilities[this.channeling.name].endChanneling) {
-                this.abilities[this.channeling.name].endChanneling(this)
+            if (player.abilities[player.channeling.name].endChanneling) {
+                player.abilities[player.channeling.name].endChanneling(player)
             }
         }
         if (player.isCasting || player.isChanneling) {

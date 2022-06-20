@@ -311,6 +311,12 @@ function draw(progress) {
             game2d.drawCircle(x2d, y2d, size, color)
             game2d.drawTargetDirection(x2d, y2d, (size-(3*gameScaling)), 3, "#9f5c5d", creatures[i].direction)
         }
+
+        //pets
+        for (let i = 0; i<creatures[i].pets.length; i++) {
+            creatures[i].pets[i].draw()
+        }
+
     }
 
     //spell visuals

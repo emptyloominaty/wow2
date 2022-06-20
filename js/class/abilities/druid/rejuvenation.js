@@ -28,7 +28,7 @@ class Rejuvenation extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }

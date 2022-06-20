@@ -57,12 +57,9 @@ class Pet {
     melee = true
     role = "dps"
 
-
-
-    constructor(id,caster,ability,type,duration,data,x,y) {
+    constructor(id,caster,type,duration,data,x,y) {
         this.id = id
         this.caster = caster
-        this.ability = ability
         this.type = type //pet / guardian / totem
         if (this.type==="totem") {
             this.melee = false
@@ -73,6 +70,7 @@ class Pet {
         this.y = y
 
         this.data = data
+        this.name = this.data.name
         this.abilities = this.data.abilities
         this.abilities["Auto Attack"] = new AutoAttack()
         this.abilities["Leech"] = new Leech()
@@ -176,13 +174,11 @@ class Pet {
     }
 
     draw() {
-        let x = this.x - player.x
-        let y = this.y - player.y
+        let x = (this.x - player.x)*gameScaling
+        let y = (this.y - player.y)*gameScaling
         let x2d = (game2d.canvasW/2)+x
         let y2d = (game2d.canvasH/2)+y
-        game2d.drawCircle(x2d,y2d,12,this.data.color)
-
-
+        game2d.drawCircle(x2d,y2d,this.data.size*gameScaling,this.data.color)
     }
 
     start() {
@@ -233,16 +229,4 @@ class Pet {
     }
 
 
-}
-//TODO:
-let pets = []
-
-let addPet = function() {
-    for (let i = 0; i < pets.length; i++) {
-        if (pets[i] === undefined) {
-            pets[i] = new Pet()
-            return true
-        }
-    }
-    pets.push(new Pet())
 }

@@ -27,10 +27,22 @@ class SoothingMist extends Ability {
     run(caster) {
     }
 
-    startCast(caster) {
+    startCast(caster,pet = false) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             caster.isChanneling = true
-            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1/(1 + (caster.stats.haste / 100)),target:caster.castTarget,pet:pet}
+
+            //statue
+            if (!pet) {
+                for (let i = 0; i<caster.pets.length; i++) {
+                    if (caster.pets[i].name==="Jade Serpent Statue") {
+                        caster.pets[i].abilities["Soothing Mist"].startCast(caster.pets[i],true) //.pets[i]
+                        caster.pets[i].targetObj = caster.castTarget
+                        break
+                    }
+                }
+            }
+
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -43,10 +55,14 @@ class SoothingMist extends Ability {
         let target = caster.channeling.target
         if (Object.keys(target).length === 0 || this.isEnemy(caster,target)  || target.isDead || !this.checkDistance(caster,target)) {
             //heal self
-            doHeal(caster,caster,this)
-            let masteryRng = Math.floor(Math.random()*7)
-            if (masteryRng===0) {
-                caster.abilities["Gust of Mists"].heal(caster)
+            if (caster.spec === "pet") {
+                doHeal(caster.caster,caster.targetObj,this)
+            } else {
+                doHeal(caster,caster,this)
+                let masteryRng = Math.floor(Math.random()*7)
+                if (masteryRng===0) {
+                    caster.abilities["Gust of Mists"].heal(caster)
+                }
             }
         } else {
             //heal target

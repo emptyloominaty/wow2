@@ -50,6 +50,8 @@ class Creature {
     spellHistory = []
     talents = []
 
+    pets = []
+
     buffs = []
     debuffs = []
 
@@ -238,6 +240,11 @@ class Creature {
 
     run() {
         this.floatingTexts.run()
+
+        //pets
+        for (let i = 0; i<this.pets.length; i++) {
+            this.pets[i].run()
+        }
 
         if (this.resourceName==="Energy" || this.resourceName==="Focus") {
             this.energy += (this.energyRegen*(1+(this.stats.haste/100)))/fps
