@@ -160,31 +160,32 @@ class Ability {
                 keyPressed[keybinds["Bar"+bar+" Ability"+ability+""].key] = false
             }
         }
-        if (this.hasteGcd) {
-            if (gcd===0) {
-                caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+        if (this.gcd>0 || gcd>0) {
+            if (this.hasteGcd) {
+                if (gcd===0) {
+                    caster.gcd = this.gcd / (1 + (caster.stats.haste / 100))
+                } else {
+                    caster.gcd = gcd / (1 + (caster.stats.haste / 100))
+                }
             } else {
-                caster.gcd = gcd / (1 + (caster.stats.haste / 100))
+                if (gcd===0) {
+                    caster.gcd = this.gcd
+                } else {
+                    caster.gcd = gcd
+                }
             }
-        } else {
-            if (gcd===0) {
-                caster.gcd = this.gcd
-            } else {
-                caster.gcd = gcd
+            if (caster===player) {
+                bars.playerCast.setMaxVal(caster.gcd)
             }
-        }
-        if (caster===player) {
-            bars.playerCast.setMaxVal(caster.gcd)
-        }
-        if (this.gcd>=0.75) {
-            if (caster.gcd<0.75) {
-                caster.gcd = 0.75
-                if (caster===player) {
-                    bars.playerCast.setMaxVal(0.75)
+            if (this.gcd>=0.75) {
+                if (caster.gcd<0.75) {
+                    caster.gcd = 0.75
+                    if (caster===player) {
+                        bars.playerCast.setMaxVal(0.75)
+                    }
                 }
             }
         }
-
     }
 
     isEnemy(caster,target = caster.targetObj) {

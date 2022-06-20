@@ -141,6 +141,10 @@ if (0===0) {
         elements["raidFrame_buff_centreRight_duration"+i] = document.getElementById("raidFrame_buff_centreRight_duration"+i)
         elements["raidFrame_debuff_0"+i] = document.getElementById("raidFrame_debuff_0"+i)
         elements["raidFrame_debuff_1"+i] = document.getElementById("raidFrame_debuff_1"+i)
+
+        let raidFrameTarget = raidFramesTargets[i]
+        elements["raidFrame_name"+i].textContent = raidFrameTarget.name
+        elements["raidFrame_role_icon"+i].src = iconsPath[raidFrameTarget.role]
     }
 
 }
@@ -151,7 +155,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+avgFPS.toFixed(0)+"("+fps.toFixed(0)+")"
+    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+Math.round(avgFPS)+"("+Math.round(fps)+")"
     /*elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePosition2d.x.toFixed(0)+" y:"+mousePosition2d.y.toFixed(0)+"<br>"+"R: x: "+player.x.toFixed(0)+" y:"+player.y.toFixed(0)+"<br>"  /*+
             "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 
@@ -523,13 +527,8 @@ function draw(progress) {
 
             elements["raidFrame_absorb"+i].style.width = ((raidFrameTarget.absorb/raidFrameTarget.maxHealth)*100)+"%"
 
-            if (!drawVars.raidFramesUpdated) {
-                elements["raidFrame_name"+i].textContent = raidFrameTarget.name
-                elements["raidFrame_role_icon"+i].src = iconsPath[raidFrameTarget.role]
-            }
-
             if (raidFrameTarget.health<raidFrameTarget.maxHealth) {
-                elements["raidFrame_healthLost"+i].textContent = "-"+(raidFrameTarget.maxHealth-raidFrameTarget.health).toFixed(0)
+                elements["raidFrame_healthLost"+i].textContent = "-"+Math.round(raidFrameTarget.maxHealth-raidFrameTarget.health)
             } else if (raidFrameTarget.isDead) {
                 elements["raidFrame_healthLost"+i].textContent = "Dead"
             } else {

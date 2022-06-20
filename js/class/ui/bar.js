@@ -13,6 +13,8 @@ class Bar {
         this.id = id
         this.cId = cId
         this.updateS = updateS
+        this.zIndex = 0
+        this.text = ""
 
         let div = document.createElement("div")
         div.style.position = "fixed"
@@ -79,7 +81,10 @@ class Bar {
     }
 
     setText(text) {
-        this.elements.text.textContent = text
+        if (this.text!==text) {
+            this.text = text
+            this.elements.text.textContent = text
+        }
     }
 
     setVisibility(vis) {
@@ -95,27 +100,32 @@ class Bar {
     }
 
     setPosition(x,y,center = false) {
-        if (center) {
-            x-= (this.width*gameScaling)/2
-            y-= (this.height*gameScaling)/2
+        if (this.x!==x || this.y!==y) {
+            this.x = x
+            this.y = y
+            if (center) {
+                x-= (this.width*gameScaling)/2
+                y-= (this.height*gameScaling)/2
+            }
+            this.elements.el.style.transform = "translate("+x+"px,"+y+"px)"
+            this.elements.text.style.transform = "translate("+x+"px,"+y+"px)"
+            this.elements.bg.style.transform = "translate("+x+"px,"+y+"px)"
+
+            /*this.elements.el.style.top = (y+2)+"px"
+            this.elements.el.style.left = (x+2)+"px"
+            this.elements.text.style.top = (y+2)+"px"
+            this.elements.text.style.left = x+"px"
+            this.elements.bg.style.top = y+"px"
+            this.elements.bg.style.left = x+"px"*/
         }
-        this.elements.el.style.transform = "translate("+x+"px,"+y+"px)"
-        this.elements.text.style.transform = "translate("+x+"px,"+y+"px)"
-        this.elements.bg.style.transform = "translate("+x+"px,"+y+"px)"
-
-        /*this.elements.el.style.top = (y+2)+"px"
-        this.elements.el.style.left = (x+2)+"px"
-        this.elements.text.style.top = (y+2)+"px"
-        this.elements.text.style.left = x+"px"
-        this.elements.bg.style.top = y+"px"
-        this.elements.bg.style.left = x+"px"*/
-
     }
 
     setZIndex(val) {
-        this.elements.el.style.zIndex = val
-        this.elements.text.style.zIndex = val
-        this.elements.bg.style.zIndex = val
+        if (val!==this.zIndex) {
+            this.elements.el.style.zIndex = val
+            this.elements.text.style.zIndex = val
+            this.elements.bg.style.zIndex = val
+        }
     }
 
     changeColor(color) {

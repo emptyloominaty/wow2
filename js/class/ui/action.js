@@ -54,7 +54,7 @@ class Action {
             if (player.abilities[this.name].hasteCd) {
                 cd = (player.abilities[this.name].maxCd-player.abilities[this.name].cd) / (1 + (player.stats.haste / 100))
             }
-            this.elements["action_cdText_"+this.bar+"_"+this.slot+""].textContent = (cd).toFixed(0)+"s"
+            this.elements["action_cdText_"+this.bar+"_"+this.slot+""].textContent = Math.round(cd)+"s"
         } else {
             this.elements["action_cd_"+this.bar+"_"+this.slot+""].style.height = "0%"
             this.elements["action_cd_"+this.bar+"_"+this.slot+""].style.borderBottom = "0px Solid #FFFF00"
@@ -107,7 +107,8 @@ if (player.spec==="mistweaver") {
         "Tiger's Lust": new Action("Tiger's Lust", 2, 11),
 
         //bar 3
-        "Chi Burst": new Action("Chi Burst", 3, 0),
+        "Refreshing Jade Wind": new Action("Refreshing Jade Wind", 3, 0),
+        "Chi Burst": new Action("Chi Burst", 3, 1),
     }
 }
 

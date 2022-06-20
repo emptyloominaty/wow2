@@ -15,6 +15,11 @@ let _mistweaver_talents = function(caster) {
     caster.abilities["Diffuse Magic"] = new DiffuseMagic()
     caster.abilities["Dampen Harm"] = new DampenHarm()
 
+    caster.abilities["Summon Jade Serpent Statue"] = new SummonJadeSerpentStatue()
+    caster.abilities["Refreshing Jade Wind"] = new RefreshingJadeWind()
+    caster.abilities["Invoke Chi-Ji, the Red Crane"] = new InvokeChiJitheRedCrane()
+
+
     caster.abilities["Focused Thunder"] = new FocusedThunder()
     caster.abilities["Upwelling"] = new Upwelling()
     caster.abilities["Rising Mist"] = new RisingMist()
@@ -512,8 +517,73 @@ class DampenHarm extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW6
+class SummonJadeSerpentStatue extends Ability {
+    constructor() {
+        super("Summon Jade Serpent Statue", 0, 1.5, 0, 10, false, false, false, "nature", 40, 1)
+        this.talent = true
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+
+        }
+    }
+
+    getTooltip() {
+        return "Summons a Jade Serpent Statue at the target location. When you channel Soothing Mist, the statue will also begin to channel Soothing Mist on your target, healing for (220% of Spell power) over 8 sec."
+    }
+}
 //------------------------------------------------
+class RefreshingJadeWind extends Ability {
+    constructor() {
+        super("Refreshing Jade Wind", 3.5, 1.5, 0, 9, false, false, false, "nature", 10, 1)
+        this.hasteCd = true
+        this.talent = true
+        this.spellPower = 1.508/9
+        this.effect = [{name:"RJWHeal",val:this.spellPower,targets:6,timer:0,timer2:1}]
+        this.durationB = 9
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            this.duration = this.durationB / (1+(caster.stats.haste/100))
+            this.effect[0].timer2 = 1 / (1+(caster.stats.haste/100))
+
+            applyBuff(caster,caster,this)
+            this.setCd()
+            caster.useEnergy(this.cost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue()) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    getTooltip() {
+        return "Summon a whirling tornado around you, causing "+spellPowerToNumber(this.spellPower*9)+" healing over 9 sec to up to 6 allies within 10 yards."
+    }
+}
 //------------------------------------------------
+class InvokeChiJitheRedCrane extends Ability {
+    constructor() {
+        super("Invoke Chi-Ji, the Red Crane", 5, 1.5, 0, 180, false, false, false, "nature", 40, 1)
+        this.talent = true
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+
+        }
+    }
+
+    getTooltip() {
+        return "Summon an effigy of Chi-Ji that kicks up a Gust of Mist when you Blackout Kick, Rising Sun Kick, or Spinning Crane Kick, healing up to 2 allies for (0.1% of Spell power), and reducing the cost and cast time of your next Enveloping Mist by 33%, stacking. Chi-Ji's presence makes you immune to movement impairing effects."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
 class FocusedThunder extends Ability {
     constructor() {

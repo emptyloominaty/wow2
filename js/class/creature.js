@@ -83,7 +83,6 @@ class Creature {
         this.name = name
         this.health = health
         this.maxHealth = health
-        this.baseHealth = health
         this.energy = energy
         this.maxEnergy = energy
         this.direction = direction
@@ -344,11 +343,7 @@ class Creature {
                     doHeal(this.buffs[i].caster,this,this.buffs[i],undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                     this.buffs[i].timer = 0
                 }
-            }/* else if (this.buffs[i].type==="buff") {
-
-            } else if (this.buffs[i].type==="form") {
-
-            }*/
+            }
 
             if (Array.isArray(this.buffs[i].effect)) {
                 //NEW
@@ -425,7 +420,21 @@ class Creature {
                             }
                             this.buffs[i].effect[j].timer=0
                         }
-
+                    } else if (this.buffs[i].effect[j].name === "RJWHeal") {
+                        this.buffs[i].effect[j].timer += progressInSec
+                        if (this.buffs[i].effect[j].timer>this.buffs[i].effect[j].timer2) {
+                            let t = 0
+                            for (let ft = 0; ft<friendlyTargets.length ;ft++) {
+                                if (!friendlyTargets[ft].isDead && getDistance(this, friendlyTargets[ft])<this.abilities["Refreshing Jade Wind"].range) {
+                                    doHeal(this, friendlyTargets[ft], this.abilities["Refreshing Jade Wind"])
+                                    t++
+                                    if (t>this.buffs[i].effect[j].targets) {
+                                        break
+                                    }
+                                }
+                            }
+                            this.buffs[i].effect[j].timer=0
+                        }
                     }
                 }
             } else {
