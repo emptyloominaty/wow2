@@ -1,7 +1,7 @@
 class Mw_Abilities {
     "Vivify" = new Vivify()
     "Renewing Mist" = new RenewingMist()
-    "Gust of Mists" = new GustOfMists()
+
     "Enveloping Mist" = new EnvelopingMist()
     "Soothing Mist" = new SoothingMist()
     "Roll" = new Roll()
@@ -15,9 +15,12 @@ class Mw_Abilities {
     "Spinning Crane Kick" = new SpinningCraneKick()
     "Thunder Focus Tea" = new ThunderFocusTea()
     "Invoke Yu'lon, the Jade Serpent" = new Yulon()
-    "Gust of Mists (Chi-Ji)" = new GustOfMistsChiJi()
+    "Life Cocoon" = new LifeCocoon()
 
     //pasive
     "Enveloping Breath" = new EnvelopingBreath()
+    "Gust of Mists" = new GustOfMists()
+    "Gust of Mists (Chi-Ji)" = new GustOfMistsChiJi()
+
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

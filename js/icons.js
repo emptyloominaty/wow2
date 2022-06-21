@@ -661,6 +661,7 @@ let iconsPath = {
     "Focused Thunder":"img/monk/focusedThunder.jpg",
     "Chi of the Crane":"img/monk/chiofthecrane.jpg",
     "Summon Jade Serpent Statue":"img/monk/jadestatue.jpg",
+    "Jade Serpent Statue":"img/monk/jadestatue.jpg",
     "Lifecycles":"img/monk/lifecycles.jpg",
     "Lifecycles (Vivify)":"img/monk/lifecycles.jpg",
     "Lifecycles (Enveloping Mist)":"img/monk/lifecycles.jpg",

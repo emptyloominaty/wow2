@@ -32,17 +32,6 @@ class EnvelopingMist extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
-            if (caster.isChanneling) {
-                if (caster.channeling.name==="Soothing Mist") {
-                    caster.casting = {name:this.name, time:0, time2:0,target:caster.channeling.target}
-                    this.endCast(caster)
-                    this.setGcd(caster,1.5)
-                    return true
-                } else {
-                    this.isChanneling = false
-                }
-            }
-
             //chiji
             let stacks = 0
             for (let i = 0; i<caster.buffs.length; i++) {
@@ -61,6 +50,16 @@ class EnvelopingMist extends Ability {
                 }
             }
 
+            if (caster.isChanneling) {
+                if (caster.channeling.name==="Soothing Mist") {
+                    caster.casting = {name:this.name, time:0, time2:0,target:caster.channeling.target,cost:cost}
+                    this.endCast(caster)
+                    this.setGcd(caster,1.5)
+                    return true
+                } else {
+                    this.isChanneling = false
+                }
+            }
 
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget,cost:cost}

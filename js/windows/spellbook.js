@@ -13,6 +13,7 @@ let moveFromSpellBook= function(spellname) {
     img.style.position = "fixed"
     img.style.left = mousePosition.x + 10 + "px"
     img.style.top = mousePosition.y + 10 + "px"
+    img.style.zIndex = 150
     elements.ui.appendChild(img)
     movingSpellElement = document.getElementById("spellBook_img_moving_to_actionbar")
 }
@@ -33,17 +34,13 @@ let open_spellbook = function() {
         return
     }
     currentWindow = "spellbook"
-    let html = "<div class='windowHeader'><span>Spellbook</span> <div onclick='close_window()'>x</div></div>  <div style='display:flex;flex-direction: column;flex-wrap:wrap;overflow:auto;height:75vh;width:30vw; padding:15px;'>"
+    let html = "<div class='windowHeader'><span>Spellbook</span> <div onclick='close_window()'>x</div></div>  " +
+        "<div style='display:flex;flex-direction: column;flex-wrap:wrap;align-content: flex-start;overflow:auto;height:75vh;width:40vw; padding:15px;'>"
 
     Object.keys(player.abilities).forEach(function(key) {
-
-
-
-
-        //       this.talent = true
-        //         this.talentSelect = false
         if (player.abilities[key].name!==undefined && player.abilities[key].name!=="Leech" && player.abilities[key].name!=="Auto Attack" && (player.abilities[key].talent===player.abilities[key].talentSelect) && player.abilities[key].canUse) {
-            html+= "<div onmouseover='showSpellTooltip(0,0,true,\""+player.abilities[key].name.replace('\'', '€')+"\")' onmouseout='hideSpellTooltip()' style='display:flex;flex-direction:row; justify-content: space-between' ><div style='display:flex;flex-direction:column;'><span>"+player.abilities[key].name+"</span> "
+            html+= "<div class='window_spellbook_div' onmouseover='showSpellTooltip(0,0,true,\""+player.abilities[key].name.replace('\'', '€')+"\")' onmouseout='hideSpellTooltip()' " +
+                "style='display:flex;flex-direction:row; justify-content: space-between; width:11vw;' ><div style='display:flex;flex-direction:column;'><span>"+player.abilities[key].name+"</span> "
             if (player.abilities[key].passive) {
                 html += "<span style='color:#666666'>Passive </span>"
             }

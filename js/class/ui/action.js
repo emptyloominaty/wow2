@@ -104,6 +104,9 @@ if (player.spec==="mistweaver") {
         "Blackout Kick": new Action("Blackout Kick", 2, 2),
 
 
+
+        "Life Cocoon": new Action("Life Cocoon", 2, 4),
+
         "Invoke Yu'lon, the Jade Serpent": new Action("Invoke Yu'lon, the Jade Serpent", 2, 6),
         "Thunder Focus Tea": new Action("Thunder Focus Tea", 2, 7),
         "Tiger's Lust": new Action("Tiger's Lust", 2, 11),

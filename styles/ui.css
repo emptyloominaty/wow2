@@ -168,14 +168,22 @@
     height:100%;
 }
 
+
+#pets {
+    position:fixed;
+    display:flex;
+    flex-direction: row;
+    top:140px;
+    left:10px;
+}
+
 .pets {
     width:26px;
     height:40px;
-    position:fixed;
     display:flex;
     flex-direction: column;
-    top:140px;
-    left:10px;
+    margin-left:5px;
+    margin-right:5px;
 }
 
 .pets img {

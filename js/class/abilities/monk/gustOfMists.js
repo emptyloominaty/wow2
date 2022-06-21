@@ -13,7 +13,7 @@ class GustOfMists extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.pasive = true
+        this.passive = true
         this.spellPower = 0.34
     }
 
@@ -69,7 +69,7 @@ class GustOfMistsChiJi extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.pasive = true
+        this.passive = true
 
         this.spellPower = 0.34
         this.effect = ""
