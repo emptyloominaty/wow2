@@ -13,7 +13,7 @@ class LifeCocoon extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        
+
         this.duration = 12
         this.effect = [{name:"healingIncreaseMistweaver",val:0.5},{name:"absorb",val:0}]
     }

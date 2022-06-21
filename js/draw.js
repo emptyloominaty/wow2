@@ -384,7 +384,7 @@ function draw(progress) {
     }
 
     Object.keys(bars).forEach(key => {
-        bars[key].elements.el.style.width = (bars[key].val/bars[key].maxVal*bars[key].width2)+"px"
+        bars[key].elements.el.style.width = ((bars[key].val/bars[key].maxVal*bars[key].width2))+"px"
     })
 
     bars.playerName.setText(player.name)
@@ -654,6 +654,13 @@ function draw(progress) {
             elements["pets"+i+"_text"].textContent = ""
         }
 
+    }
+    if (spellTooltip) {
+        document.getElementById("spellTooltip").style.left = mousePosition.x+30 + "px"
+        document.getElementById("spellTooltip").style.top = mousePosition.y-(document.getElementById("spellTooltip").clientHeight+15) + "px"
+    } else if ( buffTooltip) {
+        document.getElementById("buffTooltip").style.left = mousePosition.x + 30 + "px"
+        document.getElementById("buffTooltip").style.top = (mousePosition.y + 15) + "px"
     }
 
 

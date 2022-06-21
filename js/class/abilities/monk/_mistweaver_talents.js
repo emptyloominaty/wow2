@@ -733,6 +733,6 @@ class RisingMist extends Ability {
     }
 
     getTooltip() {
-        return "Rising Sun Kick heals all allies with your Renewing Mist, Enveloping Mist, or Essence Font for (28% of Spell power), and extends those effects by 4 sec, up to 100% of their original duration."
+        return "Rising Sun Kick heals all allies with your Renewing Mist, Enveloping Mist, or Essence Font for "+spellPowerToNumber(0.28)+", and extends those effects by 4 sec, up to 100% of their original duration."
     }
 }

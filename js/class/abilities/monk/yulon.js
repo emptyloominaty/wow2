@@ -153,7 +153,7 @@ class EnvelopingBreath extends Ability {
         let tt = 0
         let array = createArrayAndShuffle(friendlyTargets.length)
         for (let i = 0; i<friendlyTargets.length; i++) {
-            if (!friendlyTargets[array[i]].isDead && friendlyTargets[i].health<friendlyTargets[array[i]].maxHealth && this.checkDistance(target, friendlyTargets[array[i]])) {
+            if (!friendlyTargets[array[i]].isDead  && this.checkDistance(target, friendlyTargets[array[i]])) {
                 applyHot(caster, friendlyTargets[array[i]], this)
                 tt++
                 if (tt >= this.targets) {

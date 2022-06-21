@@ -16,52 +16,53 @@ class Bar {
         this.zIndex = 0
         this.text = ""
 
-        let div = document.createElement("div")
-        div.style.position = "fixed"
-        div.style.top = y+"px"
-        div.style.left = x+"px"
-        div.style.width = width+"px"
-        div.style.height = height+"px"
-        div.style.backgroundColor = backgroundColor
-        div.style.border = "2px solid "+borderColor
-        div.style.borderRadius = "1px"
-        div.style.pointerEvents= "none"
+        let mainDiv = document.createElement("div")
+        mainDiv.style.position = "fixed"
+        mainDiv.style.top = y+"px"
+        mainDiv.style.left = x+"px"
+        mainDiv.style.width = width+"px"
+        mainDiv.style.height = height+"px"
+        mainDiv.style.backgroundColor = backgroundColor
+        mainDiv.style.border = "2px solid "+borderColor
+        mainDiv.style.borderRadius = "1px"
+        mainDiv.style.pointerEvents = "none"
         if (onClick) {
-            div.style.pointerEvents = "auto"
+            mainDiv.style.pointerEvents = "auto"
         }
+        mainDiv.id = id+"_main"
 
-        div.id = id+"_bg"
+        elements.creatureBars.appendChild(mainDiv)
+        elements[id+"_main"] = document.getElementById(id+"_main")
 
         let div2 = document.createElement("div")
-        div2.style.position = "fixed"
-        div2.style.top = (y+2)+"px"
-        div2.style.left = (x+2)+"px"
-        div2.style.width = width+"px"
-        div2.style.height = height+"px"
+        div2.style.position = "absolute"
+        div2.style.top = "0px"
+        div2.style.left = "0px"
+        div2.style.width = "0%"
+        div2.style.height =  "100%"
+        div2.style.overflow = "visible"
         div2.style.backgroundColor = color
         div2.style.pointerEvents= "none"
         div2.id = id
 
         let span = document.createElement("div")
-        span.style.position = "fixed"
-        span.style.top = (y+2)+"px"
-        span.style.left = (x)+"px"
-        span.style.width = width+"px"
-        span.style.height = height+"px"
+        span.style.position = "relative"
+        span.style.width = "100%"
+        span.style.height = "100%"
         span.style.textAlign = "center"
         span.style.fontSize = fontsize+"px"
         span.style.pointerEvents= "none"
         span.style.textShadow = "-1px -1px 1px rgba(0,0,0,0.8), 1px -1px 1px rgba(0,0,0,0.8), -1px 1px 1px #000, 1px 1px 1px rgba(0,0,0,0.8)"
         span.id = id+"_text"
 
-        elements.creatureBars.appendChild(div)
-        elements.creatureBars.appendChild(div2)
-        elements.creatureBars.appendChild(span)
+
+        elements[id+"_main"].appendChild(div2)
+        elements[id+"_main"].appendChild(span)
 
         this.elements = {}
         this.elements.el = document.getElementById(this.id)
         this.elements.text =document.getElementById(this.id+"_text")
-        this.elements.bg = document.getElementById(this.id+"_bg")
+        this.elements.main = elements[id+"_main"]
 
         let click = (e)=> {
             player.targetObj = creatures[this.cId]
@@ -69,7 +70,7 @@ class Bar {
             document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
         }
         if (onClick) {
-            document.getElementById(id+"_bg").addEventListener('click', click)
+            document.getElementById(id+"_main").addEventListener('click', click)
         }
     }
 
@@ -89,13 +90,9 @@ class Bar {
 
     setVisibility(vis) {
         if (!vis) {
-            this.elements.el.style.display = "none"
-            this.elements.bg.style.display = "none"
-            this.elements.text.style.display = "none"
+            this.elements.main.style.display = "none"
         } else {
-            this.elements.el.style.display = "inline-block"
-            this.elements.bg.style.display = "inline-block"
-            this.elements.text.style.display = "inline-block"
+            this.elements.main.style.display = "inline-block"
         }
     }
 
@@ -107,24 +104,14 @@ class Bar {
                 x-= (this.width*gameScaling)/2
                 y-= (this.height*gameScaling)/2
             }
-            this.elements.el.style.transform = "translate("+x+"px,"+y+"px)"
-            this.elements.text.style.transform = "translate("+x+"px,"+y+"px)"
-            this.elements.bg.style.transform = "translate("+x+"px,"+y+"px)"
-
-            /*this.elements.el.style.top = (y+2)+"px"
-            this.elements.el.style.left = (x+2)+"px"
-            this.elements.text.style.top = (y+2)+"px"
-            this.elements.text.style.left = x+"px"
-            this.elements.bg.style.top = y+"px"
-            this.elements.bg.style.left = x+"px"*/
+            this.elements.main.style.transform = "translate("+x+"px,"+y+"px)"
         }
     }
 
     setZIndex(val) {
         if (val!==this.zIndex) {
-            this.elements.el.style.zIndex = val
-            this.elements.text.style.zIndex = val
-            this.elements.bg.style.zIndex = val
+            this.elements.main.style.zIndex = val
+            this.zIndex = val
         }
     }
 
@@ -137,12 +124,8 @@ class Bar {
             this.width2 = this.width*gameScaling
             this.elements.text.style.fontSize = (this.fontSize*gameScaling)+"px"
 
-            this.elements.text.style.width = (this.width*gameScaling)+"px"
-            this.elements.bg.style.width = (this.width*gameScaling)+"px"
-
-            this.elements.el.style.height = (this.height*gameScaling)+"px"
-            this.elements.text.style.height = (this.height*gameScaling)+"px"
-            this.elements.bg.style.height = (this.height*gameScaling)+"px"
+            this.elements.main.style.width = (this.width2)+"px"
+            this.elements.main.style.height = (this.height*gameScaling)+"px"
         }
     }
 }

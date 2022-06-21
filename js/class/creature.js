@@ -677,23 +677,19 @@ class Creature {
 
 
     changeTalent(row,talentColumn) {
-        if (this.abilities[this.talents[row][0]].talentSelect) {
-            this.abilities[this.talents[row][0]].unsetTalent(this)
-        }
 
-        if (this.abilities[this.talents[row][1]].talentSelect) {
-            this.abilities[this.talents[row][1]].unsetTalent(this)
+        for (let i = 0; i<3; i++) {
+            if (this.abilities[this.talents[row][i]]!==undefined) {
+                if (this.abilities[this.talents[row][i]].talentSelect) {
+                    this.abilities[this.talents[row][i]].unsetTalent(this)
+                }
+                this.abilities[this.talents[row][i]].talentSelect = false
+            }
         }
-
-        if (this.abilities[this.talents[row][2]].talentSelect) {
-            this.abilities[this.talents[row][2]].unsetTalent(this)
+        if (this.abilities[this.talents[row][talentColumn]]!==undefined) {
+            this.abilities[this.talents[row][talentColumn]].talentSelect = true
+            this.abilities[this.talents[row][talentColumn]].setTalent(this)
         }
-        this.abilities[this.talents[row][0]].talentSelect = false
-        this.abilities[this.talents[row][1]].talentSelect = false
-        this.abilities[this.talents[row][2]].talentSelect = false
-
-        this.abilities[this.talents[row][talentColumn]].talentSelect = true
-        this.abilities[this.talents[row][talentColumn]].setTalent(this)
         if (this===player) {
             open_talents(true)
         }

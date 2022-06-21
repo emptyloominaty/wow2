@@ -37,7 +37,7 @@ let open_spellbook = function() {
     let html = "<div class='windowHeader'><span>Spellbook</span> <div onclick='close_window()'>x</div></div>  " +
         "<div style='display:flex;flex-direction: column;flex-wrap:wrap;align-content: flex-start;overflow:auto;height:75vh;width:40vw; padding:15px;'>"
 
-    Object.keys(player.abilities).forEach(function(key) {
+    Object.keys(player.abilities).sort().forEach(function(key) {
         if (player.abilities[key].name!==undefined && player.abilities[key].name!=="Leech" && player.abilities[key].name!=="Auto Attack" && (player.abilities[key].talent===player.abilities[key].talentSelect) && player.abilities[key].canUse) {
             html+= "<div class='window_spellbook_div' onmouseover='showSpellTooltip(0,0,true,\""+player.abilities[key].name.replace('\'', '€')+"\")' onmouseout='hideSpellTooltip()' " +
                 "style='display:flex;flex-direction:row; justify-content: space-between; width:11vw;' ><div style='display:flex;flex-direction:column;'><span>"+player.abilities[key].name+"</span> "
