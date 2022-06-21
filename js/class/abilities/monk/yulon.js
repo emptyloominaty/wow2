@@ -81,7 +81,7 @@ class SoothingBreath extends Ability {
     constructor() {
         let name = "Soothing Breath"
         let cost = 0
-        let gcd = 1
+        let gcd = 4.5
         let castTime = 1
         let cd = 4.5
         let charges = 1
@@ -91,7 +91,7 @@ class SoothingBreath extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
+        this.hasteGcd = false
         this.spellPower = 0.2625
         this.duration = 4.5
         this.targets = 2
@@ -99,9 +99,23 @@ class SoothingBreath extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            console.log(performance.now())
             caster.isChanneling = true
-            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
 
+            let targets = []
+            let tt = 0
+            let array = createArrayAndShuffle(friendlyTargets.length)
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                if (!friendlyTargets[array[i]].isDead && friendlyTargets[array[i]].health<friendlyTargets[array[i]].maxHealth && this.checkDistance(caster, friendlyTargets[array[i]])) {
+                    targets.push(friendlyTargets[array[i]])
+                  tt++
+                    if (tt >= this.targets) {
+                        break
+                    }
+                }
+            }
+
+            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:1/(1 + (caster.stats.haste / 100)), timer2:1/(1 + (caster.stats.haste / 100)),target:targets}
             this.setGcd(caster)
             return true
         }
@@ -109,17 +123,16 @@ class SoothingBreath extends Ability {
     }
 
     cast(caster) {
-        let tt = 0
-        let array = createArrayAndShuffle(friendlyTargets.length)
-        for (let i = 0; i<friendlyTargets.length; i++) {
-            if (!friendlyTargets[array[i]].isDead && friendlyTargets[array[i]].health<friendlyTargets[array[i]].maxHealth && this.checkDistance(caster, friendlyTargets[array[i]])) {
-                doHeal(caster.caster, friendlyTargets[array[i]], this)
-                tt++
-                if (tt > this.targets) {
-                    break
-                }
-            }
+        for (let i = 0; i<caster.channeling.target.length ;i++) {
+            let target = caster.channeling.target[i]
+            if (!target.isDead && target.health<target.maxHealth && this.checkDistance(caster, target)) {
+            let time = 1/(1 + (caster.stats.haste / 100))
+            doHeal(caster.caster, target, this)
+            addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"soothingMist",
+                {size:4,speed:18,target:target,color:"rgba(108,255,135,0.3)",onEnd:{},onRun:{name:"fire",color1:"rgba(108,255,135,0.2)",color2:"rgba(88,255,135,0.2)",life:time},time2:time},)
+}
         }
+
     }
 }
 //--------------------------------------------------------------------

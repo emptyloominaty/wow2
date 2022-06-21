@@ -42,6 +42,11 @@ class SpellParticle {
 
         } else if (this.type === "healMonk") {
 
+        } else if (this.type==="soothingMist") {
+            color = this.data.color1
+            if (this.data.color > 0.5) {
+                color = this.data.color2
+            }
         }
 
         if (!this.wait) {
@@ -53,10 +58,18 @@ class SpellParticle {
         let x2d = (game2d.canvasW / 2) + x
         let y2d = (game2d.canvasH / 2) + y
 
-        if (this.type!=="rain") {
+        if (this.type==="soothingMist") {
+            //opacity
+            /*if (this.data.life<0.2) {
+                color = pSBC ( 1-(this.data.life*2.8), color, "rgba(100,100,100,0)", true )
+            }*/
+            game2d.setSpellGlow(2,color) //TODO:SIZE
+            game2d.drawCircle(x2d, y2d, size, color)
+
+        } else if (this.type!=="rain") {
             //opacity
             if (this.data.life<0.2) {
-                color = pSBC ( 1-(this.data.life*2.8), color, "rgba(100,100,100,0)", true );
+                color = pSBC ( 1-(this.data.life*2.8), color, "rgba(100,100,100,0)", true )
             }
             if (!this.wait) {
                 game2d.setSpellGlow(2,color) //TODO:SIZE

@@ -10,10 +10,12 @@ class SpellVisualEffect {
         if (data.duration) {
             this.duration = data.duration
         }
+        this.timer =0
     }
 //(caster.x,caster.y,getDirection(caster,caster.castTarget),"projectile",{size:10,speed:50,target:caster.castTarget,color:"#FF0000",onEnd:{name:"explode",size:1},onRun:{name:"fire",size:0.8}})
     run() {
         if (settings.spellVisuals!==0) {
+            this.timer += progressInSec
             if (this.type==="projectile") { //--------------------------------------Projectile
                 let size = this.data.size * (gameScaling/1.8)
                 this.direction = getDirection(this,this.data.target)
@@ -63,6 +65,37 @@ class SpellVisualEffect {
                 this.duration -= progressInSec
                 if (this.duration<=0) {
                     spellVisualEffects[this.id] = undefined
+                }
+            } else if (this.type==="soothingMist") {//--------------------------------------Soothing Mist
+                let size = this.data.size * (gameScaling/1.8)
+                this.direction = getDirection(this,this.data.target)
+
+                let x = (this.x - player.x)*gameScaling
+                let y = (this.y - player.y)*gameScaling
+                let x2 = (this.data.target.x - player.x)*gameScaling
+                let y2 = (this.data.target.y - player.y)*gameScaling
+
+                let x2d = (game2d.canvasW/2)+x
+                let y2d = (game2d.canvasH/2)+y
+
+                x2 = (game2d.canvasW/2)+x2
+                y2 = (game2d.canvasH/2)+y2
+                game2d.setSpellGlow(size*2,this.data.color)
+                game2d.drawLine(x2d,y2d,x2,y2,size,this.data.color)
+                //(x1,y1,x2,y2,lineWidth,color)
+                if (this.timer>this.data.time2) {
+                    this.end()
+                    spellVisualEffects[this.id] = undefined
+                }
+                if (settings.spellVisuals>4) { //3?
+                    //let life = this.data.onRun.life
+                    let distance = getDistance(this,this.data.target)
+                    let life = distance/this.data.speed
+                    //for (let i = 0; i<settings.spellVisuals-1; i++) {
+                        addSpellParticle(this.x+(Math.random()*2), this.y-(Math.random()*2), (this.direction-(180)),
+                            "soothingMist", {size:this.data.size,speed:-this.data.speed,life:life,color:Math.random(),color1:this.data.onRun.color1, color2:this.data.onRun.color2})
+                    //}
+
                 }
             }
             //-----------------------------------------------------------End

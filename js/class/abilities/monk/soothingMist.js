@@ -30,7 +30,7 @@ class SoothingMist extends Ability {
     startCast(caster,pet = false) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             caster.isChanneling = true
-            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0, timer2:1/(1 + (caster.stats.haste / 100)),target:caster.castTarget,pet:pet}
+            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:1/(1 + (caster.stats.haste / 100)), timer2:1/(1 + (caster.stats.haste / 100)),target:caster.castTarget,pet:pet}
 
             //statue
             if (!pet) {
@@ -54,11 +54,18 @@ class SoothingMist extends Ability {
     }
 
     cast(caster) {
+        let visuals = (caster,target)=> {
+            let time = 1/(1 + (caster.stats.haste / 100))
+            addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"soothingMist",
+                {size:7,speed:18,target:target,color:"rgba(108,255,135,0.3)",onEnd:{},onRun:{name:"fire",color1:"rgba(108,255,135,0.2)",color2:"rgba(88,255,135,0.2)",life:time},time2:time},)
+        }
+
         let target = caster.channeling.target
         if (Object.keys(target).length === 0 || this.isEnemy(caster,target)  || target.isDead || !this.checkDistance(caster,target)) {
             //heal self
             if (caster.spec === "pet") {
                 doHeal(caster.caster,caster.targetObj,this,undefined,this.spellPower/2)
+                visuals(caster,caster.targetObj)
             } else {
                 doHeal(caster,caster,this)
                 let masteryRng = Math.floor(Math.random()*7)
@@ -69,6 +76,7 @@ class SoothingMist extends Ability {
         } else {
             //heal target
             doHeal(caster,target,this)
+            visuals(caster,target)
             let masteryRng = Math.floor(Math.random()*7)
             if (masteryRng===0) {
                 caster.abilities["Gust of Mists"].heal(caster)

@@ -331,6 +331,7 @@ class Creature {
         this.isStunned = false
         this.isRooted = false
         this.isInterrupted = false
+        this.buffMoved = false //Chi torpedo Fix
 
         //forms
         for (let i = 0; i<this.formEffects.length; i++) {
@@ -358,11 +359,16 @@ class Creature {
                 //NEW
                 for (let j = 0; j<this.buffs[i].effect.length; j++) {
                     if (this.buffs[i].effect[j].name === "move") {
-                        this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
+                        if (!this.buffMoved) {
+                            this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
+                            this.buffMoved = true
+                        }
                     } else if (this.buffs[i].effect[j].name === "healingIncrease") {
                         this.healingIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
                     } else if (this.buffs[i].effect[j].name === "healingIncrease2") {
                         this.healingIncrease += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "increaseDamage") {
+                        this.damageIncrease += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "moveSpeed") {
                         if (this.buffs[i].stacks>1) {
                             this.moveSpeedIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks

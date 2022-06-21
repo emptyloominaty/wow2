@@ -40,7 +40,9 @@ class ExpelHarm extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
-                caster.isChanneling = false
+                if (caster.channeling.name !== "Soothing Mist") {
+                    caster.isChanneling = false
+                }
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
@@ -62,6 +64,12 @@ class ExpelHarm extends Ability {
         let healingSpheres = 0
         if (caster.spec==="mistweaver") {
             caster.abilities["Gust of Mists"].heal(caster,caster)
+            if (caster.isChanneling) {
+                if (caster.channeling.name === "Soothing Mist") {
+                    caster.abilities["Gust of Mists"].heal(caster,caster.channeling.target)
+                    doHeal(caster,caster.channeling.target,this,undefined,this.spellPower)
+                }
+            }
         } else if (caster.spec==="brewmaster") {
             for (let i = 0; i<caster.buffs.length; i++) {
                 if (caster.buffs[i].name==="Healing Sphere" && caster.buffs[i].caster === caster) {

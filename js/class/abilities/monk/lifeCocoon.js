@@ -15,7 +15,7 @@ class LifeCocoon extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.duration = 12
-        this.effect = [{name:"healingIncreaseMistweaver",val:0.5},{name:"absorb",val:0}]
+        this.effect = [{name:"absorb",val:0},{name:"healingIncreaseMistweaver",val:0.5}]
     }
 
     getTooltip() {
@@ -26,7 +26,7 @@ class LifeCocoon extends Ability {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             caster.isChanneling = false
 
-            this.effect[1].val = ((player.maxHealth*0.6)) * (1 + (player.stats.vers / 100))
+            this.effect[0].val = ((player.maxHealth*0.6)) * (1 + (player.stats.vers / 100))
 
             let target = caster.castTarget
             if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {

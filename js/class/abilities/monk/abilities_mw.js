@@ -1,7 +1,7 @@
 class Mw_Abilities {
     "Vivify" = new Vivify()
     "Renewing Mist" = new RenewingMist()
-
+    "Expel Harm" = new ExpelHarm()
     "Enveloping Mist" = new EnvelopingMist()
     "Soothing Mist" = new SoothingMist()
     "Roll" = new Roll()
@@ -16,6 +16,7 @@ class Mw_Abilities {
     "Thunder Focus Tea" = new ThunderFocusTea()
     "Invoke Yu'lon, the Jade Serpent" = new Yulon()
     "Life Cocoon" = new LifeCocoon()
+    "Touch of Death" = new TouchofDeath()
 
     //pasive
     "Enveloping Breath" = new EnvelopingBreath()

@@ -11,6 +11,7 @@ class Bm_abilities {
     "Keg Smash" = new KegSmash()
     "Spear Hand Strike" = new SpearHandStrike()
     "Zen Meditation" = new ZenMeditation()
+    "Touch of Death" = new TouchofDeath(false,true)
 
     //passive
     "Elusive Brawler" = new ElusiveBrawler()

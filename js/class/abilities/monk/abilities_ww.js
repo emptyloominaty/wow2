@@ -6,5 +6,6 @@ class Ww_abilities {
     "Spinning Crane Kick" = new SpinningCraneKick(true)
     "Roll" = new Roll()
     "Spear Hand Strike" = new SpearHandStrike()
+    "Touch of Death" = new TouchofDeath(true)
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

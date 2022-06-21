@@ -215,7 +215,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             for (let b = 0; b<target.absorbsBuffId.length; b++) {
                 if (target.buffs[target.absorbsBuffId[b]] && target.buffs[target.absorbsBuffId[b]].effect[0] && target.buffs[target.absorbsBuffId[b]].effect[0].name==="absorb") {
                     if (inCombat) {
-                        timelineCombatLog.heal(target,target,target.buffs[target.absorbsBuffId[b]].ability,absorbed,0)
+                        timelineCombatLog.heal(target.buffs[target.absorbsBuffId[b]].caster,target,target.buffs[target.absorbsBuffId[b]].ability,absorbed,0)
                     }
                     details.doHealing(target, absorbed, target.buffs[target.absorbsBuffId[b]].ability, 0,target.buffs[target.absorbsBuffId[b]].name)
                     if (target.buffs[target.absorbsBuffId[b]].effect[0].val>absorbed) {

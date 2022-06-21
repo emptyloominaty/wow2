@@ -55,7 +55,6 @@ class Bar {
         span.style.textShadow = "-1px -1px 1px rgba(0,0,0,0.8), 1px -1px 1px rgba(0,0,0,0.8), -1px 1px 1px #000, 1px 1px 1px rgba(0,0,0,0.8)"
         span.id = id+"_text"
 
-
         elements[id+"_main"].appendChild(div2)
         elements[id+"_main"].appendChild(span)
 

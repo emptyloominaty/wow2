@@ -236,7 +236,7 @@ class ChiTorpedo extends Ability {
             caster.isRolling = true
             this.setGcd(caster)
             this.setCd()
-            this.effect[0] = this.effects[0]
+            this.effect[0] = this.effects[0]  //TODO FIX!!!!
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
             return true
@@ -715,6 +715,15 @@ class Upwelling extends Ability {
                     }
                     this.timer = 0
                 }
+            }
+        }
+    }
+
+    unsetTalent(caster) {
+        for (let i = 0; i < caster.buffs.length; i++) {
+            if (caster.buffs[i].name === "Upwelling") {
+                caster.buffs[i].duration = -1
+                caster.buffs[i].stacks = 0
             }
         }
     }
