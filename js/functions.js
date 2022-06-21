@@ -515,7 +515,22 @@ let getPointTarget = function(caster,distance,direction) {
     return {x:x, y:y}
 }
 
+let createArrayAndShuffle = function(length) {
+     let shuffle =  function(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a
+    }
 
+    let array = []
+    for (let i = 0; i<length; i++) {
+        array.push(i)
+    }
+    array = shuffle(array)
+    return array
+}
 
 
 //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors

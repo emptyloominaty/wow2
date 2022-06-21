@@ -674,8 +674,8 @@ class InvokeChiJitheRedCrane extends Ability {
         caster.abilities["Invoke Yu'lon, the Jade Serpent"].canUse = true
     }
 
-    getTooltip() { //TODO:MASTERY
-        return "Summon an effigy of Chi-Ji that kicks up a Gust of Mist when you Blackout Kick, Rising Sun Kick, or Spinning Crane Kick, healing up to 2 allies for (0.1% of Spell power), and reducing the cost and cast time of your next Enveloping Mist by 33%, stacking. Chi-Ji's presence makes you immune to movement impairing effects."
+    getTooltip() {
+        return "Summon an effigy of Chi-Ji that kicks up a Gust of Mist when you Blackout Kick, Rising Sun Kick, or Spinning Crane Kick, healing up to 2 allies for "+spellPowerToNumber(player.stats.mastery/100)+", and reducing the cost and cast time of your next Enveloping Mist by 33%, stacking. Chi-Ji's presence makes you immune to movement impairing effects."
     }
 }
 //------------------------------------------------------------------------------------------------ROW7

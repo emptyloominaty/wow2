@@ -67,11 +67,12 @@ class EssenceFont extends Ability {
     cast(caster) {
         let j = 0
         let k = 0
+        //TODO:let array = createArrayAndShuffle(friendlyTargets.length) ???
         while(j===0) {
             k++
             let no = friendlyTargets.length
             let t = Math.floor(Math.random()*no)
-            if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth && this.last6bolts.indexOf(t)===-1 || k>120)) {
+            if (!friendlyTargets[t].isDead && (friendlyTargets[t].health<friendlyTargets[t].maxHealth && this.last6bolts.indexOf(t)===-1 || k>80)) {
                 if (this.checkDistance(caster,friendlyTargets[t],undefined,true)) {
                     this.last6bolts.push(t)
                     if (this.last6bolts.length>5) {

@@ -84,15 +84,15 @@ class GustOfMistsChiJi extends Ability {
         caster.abilities["Invoke Chi-Ji, the Red Crane"].applyBuff(caster)
 
         let tt = 0
-        //TODO: 2 RANDOM TARGETS
+        let array = createArrayAndShuffle(friendlyTargets.length)
         for (let i = 0; i<friendlyTargets.length; i++) {
-            if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i])) {
-                Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
-                    if (friendlyTargets[i].buffs[key].name === "Essence Font") {
-                        doHeal(caster,friendlyTargets[i],this)
+            if (!friendlyTargets[array[i]].isDead && friendlyTargets[array[i]].health<friendlyTargets[array[i]].maxHealth && this.checkDistance(caster, friendlyTargets[array[i]])) {
+                Object.keys(friendlyTargets[array[i]].buffs).forEach((key)=> {
+                    if (friendlyTargets[array[i]].buffs[key].name === "Essence Font") {
+                        doHeal(caster,friendlyTargets[array[i]],this)
                     }
                 })
-                doHeal(caster, friendlyTargets[i], this)
+                doHeal(caster, friendlyTargets[array[i]], this)
                 tt++
                 if (tt >= this.targets) {
                     break

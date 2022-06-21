@@ -10,4 +10,5 @@ let elements = {
     creatureBars: document.getElementById("creatureBars"),
     floatingText2: document.getElementById("floatingText2"),
     window: document.getElementById("window"),
+    pets: document.getElementById("pets"),
 }

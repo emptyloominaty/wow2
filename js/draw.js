@@ -147,6 +147,17 @@ if (0===0) {
         elements["raidFrame_role_icon"+i].src = iconsPath[raidFrameTarget.role]
     }
 
+    let petsHtml = ""
+    //pets
+    for (let i = 0; i<4; i++) {
+        petsHtml += "<div class='pets'><img id='pets"+i+"_img'><span id='pets"+i+"_text'></span></div>"
+    }
+    elements["pets"].innerHTML = petsHtml
+    for (let i = 0; i<4; i++) {
+        elements["pets"+i+"_img"] = document.getElementById("pets"+i+"_img")
+        elements["pets"+i+"_text"] = document.getElementById("pets"+i+"_text")
+    }
+
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -632,6 +643,19 @@ function draw(progress) {
             }
         }
     //drawVars.raidFramesUpdated = true
+
+    for (let i = 0; i<4; i++) {
+        if (player.pets[i]!==undefined) {
+            elements["pets"+i+"_img"].src = iconsPath[player.pets[i].name]
+            //if (player.pets[i].duration!=="")
+            elements["pets"+i+"_text"].textContent = Math.round(player.pets[i].duration-player.pets[i].time)+"s"
+        } else {
+            elements["pets"+i+"_img"].src = ""
+            elements["pets"+i+"_text"].textContent = ""
+        }
+
+    }
+
 
     if (movingFromSpellbook) {
         if (movingSpellElement) {

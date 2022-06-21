@@ -110,10 +110,10 @@ class SoothingBreath extends Ability {
 
     cast(caster) {
         let tt = 0
-        //TODO: 2 RANDOM TARGETS
+        let array = createArrayAndShuffle(friendlyTargets.length)
         for (let i = 0; i<friendlyTargets.length; i++) {
-            if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i])) {
-                doHeal(caster.caster, friendlyTargets[i], this)
+            if (!friendlyTargets[array[i]].isDead && friendlyTargets[array[i]].health<friendlyTargets[array[i]].maxHealth && this.checkDistance(caster, friendlyTargets[array[i]])) {
+                doHeal(caster.caster, friendlyTargets[array[i]], this)
                 tt++
                 if (tt > this.targets) {
                     break
@@ -151,10 +151,10 @@ class EnvelopingBreath extends Ability {
 
     cast(caster,target) {
         let tt = 0
-        //TODO: 6 RANDOM TARGETS
+        let array = createArrayAndShuffle(friendlyTargets.length)
         for (let i = 0; i<friendlyTargets.length; i++) {
-            if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(target, friendlyTargets[i])) {
-                applyHot(caster, friendlyTargets[i], this)
+            if (!friendlyTargets[array[i]].isDead && friendlyTargets[i].health<friendlyTargets[array[i]].maxHealth && this.checkDistance(target, friendlyTargets[array[i]])) {
+                applyHot(caster, friendlyTargets[array[i]], this)
                 tt++
                 if (tt >= this.targets) {
                     break
