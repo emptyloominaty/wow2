@@ -95,6 +95,7 @@ if (player.spec==="mistweaver") {
         //bar0
         "Revival": new Action("Revival", 0, 0),
         "Essence Font": new Action("Essence Font", 0, 1),
+        "Touch of Death": new Action("Touch of Death", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
         "Healing Elixir": new Action("Healing Elixir", 0, 7),
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
@@ -102,6 +103,7 @@ if (player.spec==="mistweaver") {
         "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
         "Tiger Palm": new Action("Tiger Palm", 2, 1),
         "Blackout Kick": new Action("Blackout Kick", 2, 2),
+        "Crackling Jade Lightning": new Action("Crackling Jade Lightning", 2, 3),
 
         "Life Cocoon": new Action("Life Cocoon", 2, 4),
         "Expel Harm": new Action("Expel Harm", 2, 5),

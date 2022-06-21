@@ -17,6 +17,7 @@ class Mw_Abilities {
     "Invoke Yu'lon, the Jade Serpent" = new Yulon()
     "Life Cocoon" = new LifeCocoon()
     "Touch of Death" = new TouchofDeath()
+    "Crackling Jade Lightning" = new CracklingJadeLightning()
 
     //pasive
     "Enveloping Breath" = new EnvelopingBreath()
