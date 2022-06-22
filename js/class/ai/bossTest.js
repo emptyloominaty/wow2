@@ -35,7 +35,13 @@ let _ai_bossTest = function(creature) {
         } else {
 
             if (!b.isCasting) {
-                b.abilities["Big Arcane Dmg"].startCast(b)
+                if (b.gcd<=0) {
+                    b.abilities["Magic Dot"].startCast(b)
+                }
+                if (b.gcd<=0) {
+                    b.abilities["Big Arcane Dmg"].startCast(b)
+                }
+
                 if (b.gcd<=0) {
                     b.abilities["Big Dmg"].startCast(b)
                 }

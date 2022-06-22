@@ -36,9 +36,9 @@ class Revival extends Ability {
                 if (this.checkDistance(caster,friendlyTargets[i])) {
                     doHeal(caster,friendlyTargets[i],this)
                     caster.abilities["Gust of Mists"].heal(caster,friendlyTargets[i])
+                    dispel(caster,friendlyTargets[i],"magic")
                 }
             }
-            //TODO DISPEL
             this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)

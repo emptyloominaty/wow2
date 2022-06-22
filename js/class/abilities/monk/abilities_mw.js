@@ -21,6 +21,9 @@ class Mw_Abilities {
     "Leg Sweep" = new LegSweep()
     "Reawaken" = new Reawaken()
     "Resuscitate" = new Resuscitate()
+    "Detox" = new Detox()
+    "Transcendence" = new Transcendence()
+    "Transcendence: Transfer" = new TranscendenceTransfer()
 
     //pasive
     "Mystic Touch" = new MysticTouch()

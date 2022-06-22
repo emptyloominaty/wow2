@@ -547,6 +547,20 @@ let createArrayAndShuffle = function(length) {
 }
 
 
+let dispel = function (caster,target,dispelType1 = false,dispelType2 = false,dispelType3 = false) {
+    let d = 0
+    for (let i = 0; i<target.debuffs.length; i++) {
+        if (target.debuffs[i].ability.dispellable!==false && (target.debuffs[i].ability.dispellable===dispelType1 || target.debuffs[i].ability.dispellable===dispelType2 || target.debuffs[i].ability.dispellable===dispelType3 )) {
+            target.debuffs[i].duration = -1
+        }
+    }
+    if (d>0) {
+        return true
+    }
+    return false
+}
+
+
 //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
 const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";

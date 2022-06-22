@@ -48,6 +48,9 @@ let iconsPath = {
     "Block":"img/Block.jpg",
     "Parry":"img/Parry.jpg",
 
+    //TEST
+    "Magic Dot":"img/monk/SongofChi-Ji.jpg",
+
     //Death Knight
     "All Will Serve":"img/deathKnight/AllWillServe.jpg",
     "Blooddrinker":"img/deathKnight/Blooddrinker.jpg",

@@ -89,6 +89,10 @@ if (player.spec==="mistweaver") {
         "Renewing Mist": new Action("Renewing Mist", 1, 1),
         "Mana Tea": new Action("Mana Tea", 1, 2),
         "Roll": new Action("Roll", 1, 3),
+
+        "Transcendence: Transfer": new Action("Transcendence: Transfer", 1, 5),
+        "Transcendence": new Action("Transcendence", 1, 6),
+
         "Soothing Mist": new Action("Soothing Mist", 1, 8),
         "Enveloping Mist": new Action("Enveloping Mist", 1, 9),
         "Leg Sweep": new Action("Leg Sweep", 1, 10),
@@ -96,6 +100,7 @@ if (player.spec==="mistweaver") {
         //bar0
         "Revival": new Action("Revival", 0, 0),
         "Essence Font": new Action("Essence Font", 0, 1),
+        "Detox": new Action("Detox", 0, 4),
         "Touch of Death": new Action("Touch of Death", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
         "Healing Elixir": new Action("Healing Elixir", 0, 7),
