@@ -7,5 +7,8 @@ class Ww_abilities {
     "Roll" = new Roll()
     "Spear Hand Strike" = new SpearHandStrike()
     "Touch of Death" = new TouchofDeath(true)
+
+    //passive
+    "Mystic Touch" = new MysticTouch()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

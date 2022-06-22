@@ -36,10 +36,10 @@ class TouchofDeath extends Ability {
     }
 
     checkHealth(caster,target) {
-        if (target.health/target.maxHealth<0.15) {
-            return caster.maxHealth * 0.35
-        } else if (target.health<caster.maxHealth) {
+        if (target.health<caster.maxHealth) {
             return caster.maxHealth
+        } else if (target.health/target.maxHealth<0.15) {
+            return caster.maxHealth * 0.35
         }
         return 0
     }

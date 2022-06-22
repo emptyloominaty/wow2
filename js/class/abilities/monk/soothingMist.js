@@ -44,7 +44,7 @@ class SoothingMist extends Ability {
                     }
                 }
             }
-
+            caster.canMoveWhileCasting = false
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

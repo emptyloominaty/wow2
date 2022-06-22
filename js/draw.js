@@ -278,7 +278,11 @@ function draw(progress) {
                 if (creatures[i].enemy) {
                     for (let j = 0; j<creatures[i].debuffs.length; j++) {
                         if (creatures[i].debuffs[j].caster===player || creatures[i].debuffs[j].type==="stun") {
-                            debuffsHTML += "<div id='debuffs_"+i+"_"+j+"' class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].debuffs[j].name]+"'> <span id='debuffs_"+i+"_"+j+"duration' >"+creatures[i].debuffs[j].duration.toFixed(0)+"</span></div>"
+                            let duration = ""
+                            if (!creatures[i].debuffs[j].ability.permanentBuff) {
+                                duration = Math.round(creatures[i].debuffs[j].duration)
+                            }
+                            debuffsHTML += "<div id='debuffs_"+i+"_"+j+"' class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].debuffs[j].name]+"'> <span id='debuffs_"+i+"_"+j+"duration' >"+duration+"</span></div>"
                         }
                     }
                 }

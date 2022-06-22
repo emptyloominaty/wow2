@@ -19,7 +19,9 @@ class Mw_Abilities {
     "Touch of Death" = new TouchofDeath()
     "Crackling Jade Lightning" = new CracklingJadeLightning()
 
+
     //pasive
+    "Mystic Touch" = new MysticTouch()
     "Enveloping Breath" = new EnvelopingBreath()
     "Gust of Mists" = new GustOfMists()
     "Gust of Mists (Chi-Ji)" = new GustOfMistsChiJi()

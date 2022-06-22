@@ -14,6 +14,7 @@ class Bm_abilities {
     "Touch of Death" = new TouchofDeath(false,true)
 
     //passive
+    "Mystic Touch" = new MysticTouch()
     "Elusive Brawler" = new ElusiveBrawler()
     "Stagger" = new Stagger()
     "Shuffle" = new Shuffle()
