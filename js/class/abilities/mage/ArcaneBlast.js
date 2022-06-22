@@ -18,8 +18,6 @@ class ArcaneBlast extends Ability {
         this.spellPower = 0.457
         this.secCost = -1
 
-        this.effect = ""
-        this.effectValue = 0
 
     }
 

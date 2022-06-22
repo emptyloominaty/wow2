@@ -99,7 +99,6 @@ class SoothingBreath extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            console.log(performance.now())
             caster.isChanneling = true
 
             let targets = []

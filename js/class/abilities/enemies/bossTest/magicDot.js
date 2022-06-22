@@ -5,7 +5,7 @@ class MagicDot extends Ability {
 
         let gcd = 1.5
         let castTime = 0
-        let cd = 10
+        let cd = 30
         let charges = 1
         let channeling = false
         let casting = false
@@ -16,8 +16,8 @@ class MagicDot extends Ability {
 
         this.dispellable = "magic"
         this.spellPower = 2
-        this.spellPowerDot = 20
-        this.duration = 20
+        this.spellPowerDot = 90
+        this.duration = 30
 
     }
     startCast(caster) {

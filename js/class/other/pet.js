@@ -50,6 +50,7 @@ class Pet {
     damageReduction = 0
     magicDamageReduction = 0
     reduceEnergyCost = 1
+    attackSpeed = 1
     gcd = 0
     id3 = 99
     spec = "pet"
@@ -71,11 +72,12 @@ class Pet {
 
         this.data = data
         this.name = this.data.name
+        this.stats = JSON.parse(JSON.stringify(caster.stats))
+
+
         this.abilities = this.data.abilities
         this.abilities["Auto Attack"] = new AutoAttack()
         this.abilities["Leech"] = new Leech()
-
-        this.stats = JSON.parse(JSON.stringify(caster.stats))
 
         this.start()
     }
@@ -161,10 +163,21 @@ class Pet {
         for (let i = 0; i<this.data.do.length;i++ ) {
             if (this.data.do[i].name==="cast") {
                 this.abilities[this.data.do[i].ability].startCast(this)
+            } else if (this.data.do[i].name==="goMelee") { //TODO
+                let newTarget = findNearestEnemy(this)
+                if (newTarget!==false) {
+                    this.targetObj = newTarget
+                    this.target = newTarget.name
+                }
+                this.direction = getDirection(this,this.targetObj)
+                let dist = getDistance(this,this.targetObj)
+                if (dist>4) {
+                    this.move(1)
+                } else {
+                    //ABILITIES //TODO
+                }
             }
         }
-
-
 
         if (this.timer<this.timer2) {
             this.timer += progressInSec

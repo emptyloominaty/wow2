@@ -18,10 +18,6 @@ class RagingBlow extends Ability {
         this.spellPower = (0.611+0.611)*1.29
 
         this.hasteCd = true
-
-        this.effect = ""
-        this.effectValue = 0
-
     }
 
     getTooltip() {

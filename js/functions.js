@@ -200,6 +200,12 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             damage = target.abilities["Stagger"].reduceDamage(caster,target,ability,damage)
         }
 
+        //PET
+        if (caster.spec==="pet") {
+            caster = caster.caster
+        }
+
+
         if (ability.name!=="Stagger") {
             if (inCombat) {
                 timelineCombatLog.damage(caster, target, ability, damage)
@@ -212,6 +218,18 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             //leech
             if (caster.stats.leech>0) {
                 caster.abilities["Leech"].startCast(caster,damage)
+            }
+        }
+
+        if (target.isIncapacitated) {
+            target.isStunned = false
+            target.isIncapacitated = false
+            for (let i = 0; i<target.debuffs.length; i++) {
+                for (let j = 0; j < target.debuffs[i].effect.length; j++) {
+                    if (target.debuffs[i].effect[j].name === "incapacitate") {
+                        target.debuffs[i].duration = -1
+                    }
+                }
             }
         }
 

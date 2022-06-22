@@ -83,9 +83,7 @@ class Area {
                 this.timer = 0
                 this.doTimer()
             }
-        }
-        if (this.data.type==="heal" || this.data.type==="damage") {
-
+        } else if (this.data.type==="heal" || this.data.type==="damage") {
             let targets = []
             if (this.data.type==="damage") {
                 targets = this.findAllCreaturesInsideEnemy()
@@ -112,7 +110,19 @@ class Area {
                     }
                 }
             }
+        } else if (this.data.type==="ringofPeace") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                targets[i].move(-5)
+            }
+        } else if (this.data.type==="songofChiJi") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                applyDebuff(this.caster,targets[i],this.ability)
+            }
         }
+
+
         if (this.moving) {
             this.move()
         }
@@ -182,8 +192,9 @@ let addArea = function(id,caster,ability,type,duration,data,x,y,drawArea,radius 
     for (let i = 0; i < areas.length; i++) {
         if (areas[i] === undefined) {
             areas[i] = new Area(i, caster, ability, type, duration, data, x, y, drawArea, radius, width, height)
-            return true
+            return i
         }
     }
     areas.push(new Area(id, caster, ability, type, duration, data, x, y, drawArea, radius, width, height))
+    return id
 }

@@ -19,6 +19,7 @@ class Transcendence extends Ability {
             this.gcd = 1
             this.hasteGcd = false
         }
+        this.area = {type:"circle", radius:0.8, duration: this.duration,data:{type:"none",color:"rgba(155,255,162,0.81)",color2:"rgba(150,255,181,0.18)"},cast:false}
     }
 
     getTooltip() {
@@ -33,6 +34,12 @@ class Transcendence extends Ability {
             this.effect[0].x = caster.x+0.1
             this.effect[0].y = caster.y+0.1
             applyBuff(caster,caster,this)
+
+            if (areas[this.areaId]) {
+                areas[this.areaId].duration = -1
+            }
+
+            this.areaId = addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,true,this.area.radius)
 
             this.setCd()
             this.setGcd(caster)
@@ -76,10 +83,22 @@ class TranscendenceTransfer extends Ability {
 
             for (let i = 0; i<caster.buffs.length; i++) {
                 if (caster.buffs[i].name==="Transcendence") {
-                    caster.buffs[i].duration = -1
+                    caster.buffs[i].duration = caster.abilities["Transcendence"].duration-0.1
+
+                    if (areas[caster.abilities["Transcendence"].areaId]) {
+                        areas[caster.abilities["Transcendence"].areaId].duration = -1
+                    }
+                    let tr = caster.abilities["Transcendence"]
+                    tr.areaId = addArea(areas.length,caster,tr,tr.area.type,tr.area.duration,tr.area.data,caster.x,caster.y,true,tr.area.radius)
+
                     done = true
-                    caster.x = caster.buffs[i].effect[0].x
-                    caster.y = caster.buffs[i].effect[0].y
+                    let xx = caster.buffs[i].effect[0].x-0.1
+                    let yy = caster.buffs[i].effect[0].y-0.1
+                    caster.buffs[i].effect[0].x = caster.x+0.1
+                    caster.buffs[i].effect[0].y = caster.y+0.1
+                    caster.x = xx+0.01
+                    caster.y = yy+0.01
+
                 }
             }
             if (done) {

@@ -17,8 +17,6 @@ class Riptide extends Ability {
         this.spellPower = 1.7
         this.spellPowerHot = 1.32
         this.duration = 18
-        this.effect = ""
-        this.effectValue = 0
     }
 
     getTooltip() {

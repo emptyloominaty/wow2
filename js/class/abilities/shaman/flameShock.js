@@ -18,12 +18,6 @@ class FlameShock extends Ability {
         this.spellPower = 0.195
         this.spellPowerDot = 1.044
         this.duration = 18
-
-        this.effect = ""
-        this.effectValue = 0
-
-
-
     }
 
     getTooltip() {

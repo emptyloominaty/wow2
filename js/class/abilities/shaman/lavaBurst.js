@@ -17,9 +17,6 @@ class LavaBurst extends Ability {
 
         this.spellPower = 0.972
 
-        this.effect = ""
-        this.effectValue = 0
-
     }
 
     getTooltip() {

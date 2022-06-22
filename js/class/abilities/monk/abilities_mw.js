@@ -24,6 +24,8 @@ class Mw_Abilities {
     "Detox" = new Detox()
     "Transcendence" = new Transcendence()
     "Transcendence: Transfer" = new TranscendenceTransfer()
+    "Paralysis" = new Paralysis()
+
 
     //pasive
     "Mystic Touch" = new MysticTouch()

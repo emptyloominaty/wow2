@@ -17,8 +17,6 @@ class WildGrowth extends Ability {
         this.spellPower = 0.98
         this.healTargets = 6
         this.duration = 7
-        this.effect = ""
-        this.effectValue = 0
     }
 
     getTooltip() {

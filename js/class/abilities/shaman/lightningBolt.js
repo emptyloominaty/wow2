@@ -17,8 +17,6 @@ class LightningBolt extends Ability {
 
         this.spellPower = 0.95
 
-        this.effect = ""
-        this.effectValue = 0
 
     }
 

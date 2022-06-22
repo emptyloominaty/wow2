@@ -11,6 +11,11 @@ let _mistweaver_talents = function(caster) {
     caster.abilities["Spirit of the Crane"] = new SpiritoftheCrane()
     caster.abilities["Mana Tea"] = new ManaTea()
 
+
+    caster.abilities["Tiger Tail Sweep"] = new TigerTailSweep()
+    caster.abilities["Song of Chi-Ji"] = new SongofChiJi()
+    caster.abilities["Ring of Peace"] = new RingofPeace()
+
     caster.abilities["Healing Elixir"] = new HealingElixir()
     caster.abilities["Diffuse Magic"] = new DiffuseMagic()
     caster.abilities["Dampen Harm"] = new DampenHarm()
@@ -175,17 +180,17 @@ class Celerity extends Ability {
     }
 
     setTalent(caster) {
-        caster.abilities["Roll"].cd = 15
-        caster.abilities["Roll"].maxCd = 15
-        caster.abilities["Roll"].charges = 3
-        caster.abilities["Roll"].maxCharges = 3
+        caster.abilities["Roll"].cd -= 5
+        caster.abilities["Roll"].maxCd -= 5
+        caster.abilities["Roll"].charges += 1
+        caster.abilities["Roll"].maxCharges += 1
     }
 
     unsetTalent(caster) {
-        caster.abilities["Roll"].cd = 20
-        caster.abilities["Roll"].maxCd = 20
-        caster.abilities["Roll"].charges = 2
-        caster.abilities["Roll"].maxCharges = 2
+        caster.abilities["Roll"].cd += 5
+        caster.abilities["Roll"].maxCd += 5
+        caster.abilities["Roll"].charges -= 1
+        caster.abilities["Roll"].maxCharges -= 1
     }
 
     getTooltip() {
@@ -236,7 +241,7 @@ class ChiTorpedo extends Ability {
             caster.isRolling = true
             this.setGcd(caster)
             this.setCd()
-            this.effect[0] = this.effects[0]  //TODO FIX!!!!
+            this.effect[0] = this.effects[0]
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
             return true
@@ -283,7 +288,7 @@ class TigersLust extends Ability {
         this.effect = "moveSpeed"
         this.effectValue = 0.7
         this.duration = 6
-        //TODO: REMOVE ROOTS AND SNARES
+        //TODO: REMOVE SNARES
     }
 
     getTooltip() {
@@ -292,12 +297,28 @@ class TigersLust extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster) && this.talentSelect) {
+
+            let removeRoots = (caster,target)=> {
+                if (target.isRooted) {
+                    target.isRooted = false
+                    for (let i = 0; i<target.debuffs.length; i++) {
+                        for (let j = 0; j < target.debuffs[i].effect.length; j++) {
+                            if (target.debuffs[i].effect[j].name === "root") {
+                                target.debuffs[i].duration = -1
+                            }
+                        }
+                    }
+                }
+            }
+
             if (this.isEnemy(caster,caster.castTarget) || (this.checkDistance(caster,caster.castTarget))>this.range || caster.castTarget.isDead || caster.castTarget==="" || Object.keys(caster.castTarget).length === 0) {
                 //heal self
                 applyBuff(caster,caster,this)
+                removeRoots(caster,caster)
             } else {
                 //heal target
                 applyBuff(caster,caster.castTarget,this)
+                removeRoots(caster,caster.castTarget)
             }
             this.setCd()
             caster.useEnergy(this.cost)
@@ -406,9 +427,98 @@ class ManaTea extends Ability {
         return false
     }
 }
-//TODO:------------------------------------------------------------------------------------------------ROW4
+//------------------------------------------------------------------------------------------------ROW4
+class TigerTailSweep extends Ability {
+    constructor() {
+        super("Tiger Tail Sweep", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    setTalent(caster) {
+        caster.abilities["Leg Sweep"].cd -= 10
+        caster.abilities["Leg Sweep"].maxCd -= 10
+        caster.abilities["Leg Sweep"].range += 2
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Leg Sweep"].cd += 10
+        caster.abilities["Leg Sweep"].maxCd += 10
+        caster.abilities["Leg Sweep"].range -= 2
+    }
+
+    getTooltip() {
+        return "Increases the range of Leg Sweep by 2 yds and reduces its cooldown by 10 sec."
+    }
+}
 //------------------------------------------------
+class SongofChiJi extends Ability {
+    constructor() {
+        super("Song of Chi-Ji", 0, 1.5, 1.8, 30, false, true, false, "nature", 5, 1)
+        this.talent = true
+        this.area = {type:"circle", radius:8, duration: 5,data:{type:"songofChiJi", maxTargets:"all",moving:true,speed:8, timer:0.15/*sec*/,color:"#ff747c",color2:"rgba(255,98,108,0.05)"},cast:false}
+        this.effect = [{name:"incapacitate"}]
+        this.duration = 20
+    }
+
+    getTooltip() {
+        return "Conjures a cloud of hypnotic mist that slowly travels forward. Enemies touched by the mist fall asleep, Disoriented for 20 sec."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            this.setGcd(caster)
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            return true
+        }
+        return false
+    }
+
+    endCast(caster) {
+        this.setCd()
+        addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,true,this.area.radius)
+
+        caster.useEnergy(this.cost)
+    }
+}
 //------------------------------------------------
+class RingofPeace extends Ability {
+    constructor() {
+        super("Ring of Peace", 0, 1.5, 0, 45, false, false, false, "nature", 40, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.area = {type:"circle", radius:8, duration: 5,data:{type:"ringofPeace", maxTargets:"all", timer:0.15/*sec*/,color:"#94ffa5",color2:"rgba(108,255,152,0.05)"},cast:false}
+        this.castPosition = {x:0,y:0}
+    }
+
+    getTooltip() {
+        return "Form a Ring of Peace at the target location for 5 sec. Enemies that enter will be ejected from the Ring."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            this.setCd()
+
+            if (caster===player) {
+                this.castPosition.x = mousePosition2d.x
+                this.castPosition.y = mousePosition2d.y
+            } else {
+                this.castPosition.x = caster.mousePos.x
+                this.castPosition.y = caster.mousePos.y
+            }
+
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}
 //------------------------------------------------------------------------------------------------ROW5
 class HealingElixir extends Ability {
     constructor() {
@@ -626,7 +736,7 @@ class InvokeChiJitheRedCrane extends Ability {
             abilities:{},
             color:"#ff8a3a",
             size:6,
-            do:[], //TODO:AUTOATTACK
+            do:[{name:"goMelee"}/*,{name:"cast",ability:"Auto Attack"}*/],
         }
         this.petDuration = 25
     }

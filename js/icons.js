@@ -48,6 +48,15 @@ let iconsPath = {
     "Block":"img/Block.jpg",
     "Parry":"img/Parry.jpg",
 
+
+
+
+    //dispel icons
+    "magic dispel":"img/magic_dispel.png",
+    "curse dispel":"img/curse_dispel.png",
+    "disease dispel":"img/disease_dispel.png",
+    "poison dispel":"img/poison_dispel.png",
+
     //TEST
     "Magic Dot":"img/monk/SongofChi-Ji.jpg",
 

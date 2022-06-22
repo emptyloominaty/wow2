@@ -17,8 +17,6 @@ class Starsurge extends Ability {
 
         this.spellPower = 2.07
 
-        this.effect = ""
-        this.effectValue = 0
 
         if (balance) {
             this.cost = -6

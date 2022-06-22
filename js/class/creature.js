@@ -33,6 +33,7 @@ class Creature {
     //-------
     isStunned = false
     isStunnable = true
+    isIncapacitated = false
     isRooted = false
     isInterrupted = false
     isCasting = false
@@ -341,6 +342,7 @@ class Creature {
         if (this.enemy) {this.stats.dodge = 0}
         this.isStunned = false
         this.isRooted = false
+        this.isIncapacitated = false
         this.isInterrupted = false
         this.buffMoved = false //Chi torpedo Fix
 
@@ -534,10 +536,19 @@ class Creature {
                     if (this.debuffs[i].effect[j].name === "stun") {
                         if (this.isStunnable) {
                             this.isStunned = true
+                        } else {
+                            this.debuffs[i].duration = -1
                         }
                     } else if (this.debuffs[i].effect[j].name === "root") {
                         this.isRooted = true
-                    }  else if (this.debuffs[i].effect[j].name === "moveSpeed") {
+                    } else if (this.debuffs[i].effect[j].name === "incapacitate") {
+                        if (this.isStunnable) {
+                            this.isStunned = true
+                            this.isIncapacitated = true
+                        } else {
+                            this.debuffs[i].duration = -1
+                        }
+                    } else if (this.debuffs[i].effect[j].name === "moveSpeed") {
                         this.moveSpeedIncrease -= this.debuffs[i].effect[j].val
                     } else if (this.debuffs[i].effect[j].name === "interruptt") {
                         this.isInterrupted = true

@@ -20,9 +20,6 @@ class Sunfire extends Ability {
         this.duration = 16
         this.spreadRange = 8
 
-        this.effect = ""
-        this.effectValue = 0
-
 
         if (balance) {
             this.spellPowerDot = 1.566

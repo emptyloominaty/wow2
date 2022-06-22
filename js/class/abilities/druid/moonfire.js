@@ -19,9 +19,6 @@ class Moonfire extends Ability {
         this.spellPowerDot = 1.392
         this.duration = 16
 
-        this.effect = ""
-        this.effectValue = 0
-
         if (balance) {
             this.cost = -2
         }

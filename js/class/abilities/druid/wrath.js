@@ -17,9 +17,6 @@ class Wrath extends Ability {
 
         this.spellPower = 0.5775
 
-        this.effect = ""
-        this.effectValue = 0
-
         if (balance) {
             this.cost = -6
             this.spellPower = 0.6

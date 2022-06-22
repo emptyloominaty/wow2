@@ -109,6 +109,7 @@ if (0===0) {
             "<span class='raidFrame_buff_centreRight_duration' id='raidFrame_buff_centreRight_duration"+i+"'></span>" +
             "<img class='raidFrame_debuff_0' id='raidFrame_debuff_0"+i+"'>" +
             "<img class='raidFrame_debuff_1' id='raidFrame_debuff_1"+i+"'>" +
+            "<img class='raidFrame_dispel' id='raidFrame_dispel"+i+"'>" +
             "</div>"
     }
     elements.raidFrames_parent.innerHTML = raidFramesHTML
@@ -141,6 +142,7 @@ if (0===0) {
         elements["raidFrame_buff_centreRight_duration"+i] = document.getElementById("raidFrame_buff_centreRight_duration"+i)
         elements["raidFrame_debuff_0"+i] = document.getElementById("raidFrame_debuff_0"+i)
         elements["raidFrame_debuff_1"+i] = document.getElementById("raidFrame_debuff_1"+i)
+        elements["raidFrame_dispel"+i] = document.getElementById("raidFrame_dispel"+i)
 
         let raidFrameTarget = raidFramesTargets[i]
         elements["raidFrame_name"+i].textContent = raidFrameTarget.name
@@ -569,14 +571,21 @@ function draw(progress) {
 
             let maxDebuffs = 2
             let debuffs = 0
+            let dispelIcon = ""
             for (let j = 0; j<raidFrameTarget.debuffs.length; j++) {
                 elements["raidFrame_debuff_"+j+i].src = iconsPath[raidFrameTarget.debuffs[j].name]
                 debuffEl[j] = true
+                if (raidFrameTarget.debuffs[j].ability.dispellable!==false) {
+                    dispelIcon = iconsPath[raidFrameTarget.debuffs[j].ability.dispellable+" dispel"]
+                }
+
                 debuffs++
                 if (debuffs===maxDebuffs) {
                     break
                 }
             }
+
+            elements["raidFrame_dispel"+i].src = dispelIcon
 
             for (let j = 0; j<raidFrameTarget.buffs.length; j++) {
                 if (raidFrameTarget.buffs[j].name===raidFramesBuffs[player.spec].bottomRight && raidFrameTarget.buffs[j].caster === player) {

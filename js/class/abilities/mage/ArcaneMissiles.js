@@ -19,11 +19,6 @@ class ArcaneMissiles extends Ability {
         this.missiles = 5
         this.secCost = 0
 
-
-
-        this.effect = ""
-        this.effectValue = 0
-
         this.polygonData = {x1:-4,y1:0,x2:0,y2:-7,x3:4,y3:0,x4:0,y4:7}
 
 

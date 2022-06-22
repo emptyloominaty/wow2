@@ -23,9 +23,6 @@ class AutoAttack extends Ability {
 
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkCd(caster,true)) {
             let done = false

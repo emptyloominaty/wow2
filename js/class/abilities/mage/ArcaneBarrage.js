@@ -18,13 +18,6 @@ class ArcaneBarrage extends Ability {
         this.spellPower = 0.728
         this.secCost = "all"
 
-
-
-        this.effect = ""
-        this.effectValue = 0
-
-
-
     }
 
     getTooltip() {

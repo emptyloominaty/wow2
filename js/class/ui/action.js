@@ -90,6 +90,7 @@ if (player.spec==="mistweaver") {
         "Mana Tea": new Action("Mana Tea", 1, 2),
         "Roll": new Action("Roll", 1, 3),
 
+        "Ring of Peace": new Action("Ring of Peace", 1, 4),
         "Transcendence: Transfer": new Action("Transcendence: Transfer", 1, 5),
         "Transcendence": new Action("Transcendence", 1, 6),
 
@@ -100,11 +101,14 @@ if (player.spec==="mistweaver") {
         //bar0
         "Revival": new Action("Revival", 0, 0),
         "Essence Font": new Action("Essence Font", 0, 1),
+        "Refreshing Jade Wind": new Action("Refreshing Jade Wind", 0, 2),
+        "Chi Burst": new Action("Chi Burst", 0, 3),
         "Detox": new Action("Detox", 0, 4),
         "Touch of Death": new Action("Touch of Death", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
         "Healing Elixir": new Action("Healing Elixir", 0, 7),
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
+        "Paralysis": new Action("Paralysis", 0, 11),
         //bar2
         "Rising Sun Kick": new Action("Rising Sun Kick", 2, 0),
         "Tiger Palm": new Action("Tiger Palm", 2, 1),
@@ -118,8 +122,7 @@ if (player.spec==="mistweaver") {
         "Tiger's Lust": new Action("Tiger's Lust", 2, 11),
 
         //bar 3
-        "Refreshing Jade Wind": new Action("Refreshing Jade Wind", 3, 0),
-        "Chi Burst": new Action("Chi Burst", 3, 1),
+
 
         "Reawaken": new Action("Reawaken",3,5),
         "Resuscitate": new Action("Resuscitate",3,6),

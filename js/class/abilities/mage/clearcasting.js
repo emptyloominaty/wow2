@@ -22,8 +22,6 @@ class ClearcastingMage extends Ability {
         this.maxStacks = 3
 
         this.passive = true
-        this.effect = ""
-        this.effectValue = 0
 
     }
 

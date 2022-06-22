@@ -20,9 +20,6 @@ class Execute extends Ability {
 
         this.hasteCd = true
 
-        this.effect = ""
-        this.effectValue = 0
-
     }
 
     getTooltip() {

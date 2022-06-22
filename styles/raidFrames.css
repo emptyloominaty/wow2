@@ -59,6 +59,13 @@
     text-shadow: -1px -1px 1px rgba(0,0,0,0.8), 1px -1px 1px rgba(0,0,0,0.8), -1px 1px 1px #000, 1px 1px 1px rgba(0,0,0,0.8);
 }
 
+.raidFrame_dispel {
+    position:absolute;
+    max-width:15px;
+    right:0;
+    top:0;
+}
+
 .raidFrame_buff_bottomRight {
     position:absolute;
     max-width:22px;

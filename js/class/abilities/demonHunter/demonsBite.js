@@ -17,10 +17,6 @@ class DemonsBite extends Ability {
 
         this.spellPower = 0.572779
 
-
-        this.effect = ""
-        this.effectValue = 0
-
     }
 
     getTooltip() {

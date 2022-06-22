@@ -14,6 +14,9 @@ class Bm_abilities {
     "Touch of Death" = new TouchofDeath(false,true)
     "Leg Sweep" = new LegSweep()
     "Resuscitate" = new Resuscitate()
+    "Transcendence" = new Transcendence(true)
+    "Transcendence: Transfer" = new TranscendenceTransfer(true)
+    "Paralysis" = new Paralysis(true)
 
     //passive
     "Mystic Touch" = new MysticTouch()

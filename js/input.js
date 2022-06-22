@@ -89,8 +89,8 @@ let keybinds = {
     "Bar2 Ability10":{mod:"ControlLeft",key:"Digit9"},
     "Bar2 Ability11":{mod:"",key:"KeyV"},
 
-    "Bar3 Ability0":{mod:"",key:"Digit5"},
-    "Bar3 Ability1":{mod:"",key:"Digit6"},
+    "Bar3 Ability0":{mod:"ControlLeft",key:"Digit3"},
+    "Bar3 Ability1":{mod:"ControlLeft",key:"Digit4"},
 
     "Bar3 Ability2":{mod:"",key:"Digit7"},
     "Bar3 Ability3":{mod:"",key:"Digit8"},
@@ -458,14 +458,14 @@ let keyLoop = () => {
 
 //----------------------------------
 let keyup = (e)=> {
-    if (e.code==="Tab" || e.code==="Numpad0" || e.code==="Numpad1" || e.code==="Numpad2" || e.code==="Numpad3" || e.code==="Numpad4" || e.code==="Numpad5" || e.code==="Numpad6" || e.code==="Numpad7" || e.code==="Numpad8" || e.code==="Numpad9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
+    if (e.code==="ControlLeft" || e.code==="F1" || e.code==="F2" || e.code==="F3" || e.code==="F4" || e.code==="Tab" || e.code==="Numpad0" || e.code==="Numpad1" || e.code==="Numpad2" || e.code==="Numpad3" || e.code==="Numpad4" || e.code==="Numpad5" || e.code==="Numpad6" || e.code==="Numpad7" || e.code==="Numpad8" || e.code==="Numpad9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
         e.preventDefault()
     }
     keyPressed[e.code]=false
 }
 
 let keydown = (e)=> {
-    if (e.code==="Tab" || e.code==="Numpad0" || e.code==="Numpad1" || e.code==="Numpad2" || e.code==="Numpad3" || e.code==="Numpad4" || e.code==="Numpad5" || e.code==="Numpad6" || e.code==="Numpad7" || e.code==="Numpad8" || e.code==="Numpad9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
+    if (e.code==="ControlLeft" || e.code==="F1" || e.code==="F2" || e.code==="F3" || e.code==="F4" || e.code==="Tab" || e.code==="Numpad0" || e.code==="Numpad1" || e.code==="Numpad2" || e.code==="Numpad3" || e.code==="Numpad4" || e.code==="Numpad5" || e.code==="Numpad6" || e.code==="Numpad7" || e.code==="Numpad8" || e.code==="Numpad9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
         e.preventDefault()
     }
     keyPressed[e.code]=true
@@ -593,3 +593,27 @@ let resetInputs = function() {
 
 window.addEventListener('blur', resetInputs)
 
+
+//disable ctrl+s
+document.onkeydown = function (e) {
+    e = e || window.event;//Get event
+    if (e.ctrlKey) {
+        var c = e.which || e.keyCode;//Get key code
+        switch (c) {
+            case 83://Block Ctrl+S
+                e.preventDefault();
+                e.stopPropagation();
+                break;
+        }
+    }
+}
+
+//ctrl+w TODO:
+/*window.onbeforeunload = function (e) {
+console.log(e)
+    // Cancel the event
+    e.preventDefault()
+
+    // Chrome requires returnValue to be set
+    e.returnValue = 'NO'
+}*/

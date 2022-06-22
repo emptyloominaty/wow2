@@ -20,8 +20,6 @@ class Annihilation extends Ability {
         this.refundChance = 20
         this.refund = 20
 
-        this.effect = ""
-        this.effectValue = 0
 
     }
 

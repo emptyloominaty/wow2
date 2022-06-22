@@ -16,8 +16,6 @@ class Rejuvenation extends Ability {
 
         this.spellPower = 1.45
         this.duration = 15
-        this.effect = ""
-        this.effectValue = 0
     }
 
     getTooltip() {

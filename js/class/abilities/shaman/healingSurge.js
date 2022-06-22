@@ -15,8 +15,6 @@ class HealingSurge extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 2.48
-        this.effect = ""
-        this.effectValue = 0
     }
 
     getTooltip() {

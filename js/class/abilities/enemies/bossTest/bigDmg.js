@@ -4,7 +4,7 @@ class BigDmg extends Ability {
         let cost = 0 //% mana
         let gcd = 1
         let castTime = 0
-        let cd = 5
+        let cd = 3
         let charges = 1
         let maxCharges = 1
         let channeling = false
@@ -14,7 +14,7 @@ class BigDmg extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 25.5
+        this.spellPower = 30.5
 
         this.effect = ""
         this.effectValue = 0

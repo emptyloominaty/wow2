@@ -24,8 +24,6 @@ class Regrowth extends Ability {
             this.crit = 40
         }
 
-        this.effect = ""
-        this.effectValue = 0
     }
 
     getTooltip() {

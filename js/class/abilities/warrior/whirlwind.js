@@ -27,10 +27,6 @@ class Whirlwind extends Ability {
         this.cleaveDamage = 0.45
 
 
-
-        this.effect = ""
-        this.effectValue = 0
-
     }
 
     getTooltip() {

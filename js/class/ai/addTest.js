@@ -30,7 +30,9 @@ let _ai_addTest = function(creature) {
         if (dist>4) {
             b.move(1)
         } else {
-            //ABILITIES
+            if (b.gcd<=0) {
+                b.abilities["Big Dmg"].startCast(b)
+            }
         }
     }
 }
