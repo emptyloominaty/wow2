@@ -52,7 +52,6 @@ class HolyWordChastise extends Ability {
                 caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
-                    caster.channeling = {name:"", time:0, time2:0, timer:0, timer2:0}
                 }
                 this.setGcd(caster)
                 return true
@@ -72,7 +71,7 @@ class HolyWordChastise extends Ability {
                 doDamage(caster, target, this)
                 applyDebuff(caster,target,this,"stun")
                 caster.useEnergy(this.cost,this.secCost)
-                this.cd = 0
+                this.setCd()
             }
         }
     }

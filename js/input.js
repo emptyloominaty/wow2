@@ -92,6 +92,17 @@ let keybinds = {
     "Bar3 Ability0":{mod:"",key:"Digit5"},
     "Bar3 Ability1":{mod:"",key:"Digit6"},
 
+    "Bar3 Ability2":{mod:"",key:"Digit7"},
+    "Bar3 Ability3":{mod:"",key:"Digit8"},
+    "Bar3 Ability4":{mod:"",key:"Digit9"},
+    "Bar3 Ability5":{mod:"",key:"Digit0"},
+
+    "Bar3 Ability6":{mod:"ShiftLeft",key:"Digit5"},
+    "Bar3 Ability7":{mod:"ShiftLeft",key:"Digit6"},
+    "Bar3 Ability8":{mod:"ShiftLeft",key:"Digit7"},
+    "Bar3 Ability9":{mod:"ShiftLeft",key:"Digit8"},
+    "Bar3 Ability10":{mod:"ShiftLeft",key:"Digit9"},
+    "Bar3 Ability11":{mod:"ShiftLeft",key:"Digit0"},
 
 }
 

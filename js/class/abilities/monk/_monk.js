@@ -4,6 +4,7 @@ class MysticTouch extends Ability {
         this.passive = true
         this.duration = 60
         this.permanentBuff = true
+        this.effect = [{name:"physicalDamageTaken",val:0.05}]
     }
 
     getTooltip() {

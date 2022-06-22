@@ -159,32 +159,36 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
 
             //armor
             damage = damage * (1-(target.stats.armor/100))
+            damage = damage * (target.physicalDamageTaken)
 
             //mystic touch
-            let mt = true
-            for (let i = 0; i<target.debuffs.length; i++) {
-                if (target.debuffs[i].name==="Mystic Touch") {
-                    damage = damage*1.05
-                    mt = false
-                    break
+            if (caster.class === "Monk" && caster!==target) {
+                let mt = true
+                for (let i = 0; i<target.debuffs.length; i++) {
+                    if (target.debuffs[i].name==="Mystic Touch") {
+                        mt = false
+                        break
+                    }
                 }
-            }
-            if (caster.class === "Monk" && mt && caster!==target) {
-                applyDebuff(caster,target,caster.abilities["Mystic Touch"])
+                if (mt) {
+                    applyDebuff(caster,target,caster.abilities["Mystic Touch"])
+                }
             }
         } else {
             damage = damage * (1-target.magicDamageReduction)
-            let cb = true
+            damage = damage * (target.magicDamageTaken)
             //chaos brand
-            for (let i = 0; i<target.debuffs.length; i++) {
-                if (target.debuffs[i].name==="Chaos Brand") {
-                    damage = damage*1.05
-                    cb = false
-                    break
+            if (caster.class === "Demon Hunter"  && caster!==target) {
+                let cb = true
+                for (let i = 0; i<target.debuffs.length; i++) {
+                    if (target.debuffs[i].name==="Chaos Brand") {
+                        cb = false
+                        break
+                    }
                 }
-            }
-            if (caster.class === "Demon Hunter" && cb && caster!==target) {
-                applyDebuff(caster,target,caster.abilities["Chaos Brand"])
+                if (cb) {
+                    applyDebuff(caster,target,caster.abilities["Chaos Brand"])
+                }
             }
         }
 

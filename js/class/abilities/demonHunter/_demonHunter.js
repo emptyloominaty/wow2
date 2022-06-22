@@ -4,6 +4,7 @@ class ChaosBrand extends Ability {
         this.passive = true
         this.duration = 60
         this.permanentBuff = true
+        this.effect = [{name:"magicDamageTaken",val:0.05}]
     }
 
     getTooltip() {

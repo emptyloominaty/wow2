@@ -695,6 +695,7 @@ let iconsPath = {
     "Spiritual Focus":"img/monk/SpiritualFocus.jpg",
     "Spitfire":"img/monk/Spitfire.jpg",
     "Tiger Tail Sweep":"img/monk/TigerTailSweep.jpg",
+    "Leg Sweep":"img/monk/TigerTailSweep.jpg",
     "Whirling Dragon Punch":"img/monk/WhirlingDragonPunch.jpg",
 
     //Paladin

@@ -7,6 +7,8 @@ class Ww_abilities {
     "Roll" = new Roll()
     "Spear Hand Strike" = new SpearHandStrike()
     "Touch of Death" = new TouchofDeath(true)
+    "Leg Sweep" = new LegSweep()
+    "Resuscitate" = new Resuscitate()
 
     //passive
     "Mystic Touch" = new MysticTouch()

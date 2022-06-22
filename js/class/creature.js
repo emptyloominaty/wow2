@@ -75,6 +75,9 @@ class Creature {
     magicDamageReduction = 0
     reduceEnergyCost = 1
 
+    magicDamageTaken = 1
+    physicalDamageTaken = 1
+
     id3 = 99
     constructor(name,enemy,health,energy,x,y,direction,spec,stats) {
         this.stats = stats
@@ -241,6 +244,10 @@ class Creature {
     run() {
         this.floatingTexts.run()
 
+        if (!this.playerCharacter) {
+            this.ai.run()
+        }
+
         //pets
         for (let i = 0; i<this.pets.length; i++) {
             if (this.pets[i]!==undefined) {
@@ -324,6 +331,10 @@ class Creature {
         this.damageReduction = 0
         this.magicDamageReduction = 0
         this.damageIncrease = 1
+
+        this.magicDamageTaken = 1
+        this.physicalDamageTaken = 1
+
         let dodge = this.stats.crit
         this.stats = JSON.parse(JSON.stringify(this.statsBup))
         this.stats.dodge = dodge
@@ -360,7 +371,7 @@ class Creature {
                 for (let j = 0; j<this.buffs[i].effect.length; j++) {
                     if (this.buffs[i].effect[j].name === "move") {
                         if (!this.buffMoved) {
-                            this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
+                            this.move((this.buffs[i].effect[j].val * 40) / fps, undefined, undefined, true)
                             this.buffMoved = true
                         }
                     } else if (this.buffs[i].effect[j].name === "healingIncrease") {
@@ -370,19 +381,23 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "increaseDamage") {
                         this.damageIncrease += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "moveSpeed") {
-                        if (this.buffs[i].stacks>1) {
+                        if (this.buffs[i].stacks > 1) {
                             this.moveSpeedIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
                         } else {
                             this.moveSpeedIncrease += this.buffs[i].effect[j].val
                         }
                     } else if (this.buffs[i].effect[j].name === "incAttackSpeed") {
-                        this.attackSpeed *= (1+this.buffs[i].effect[j].val)
+                        this.attackSpeed *= (1 + this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "reduceEnergyCost") {
                         this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "damageReduction") {
                         this.damageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "magicDamageReduction") {
                         this.magicDamageReduction += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "magicDamageTaken") {
+                        this.magicDamageTaken += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "physicalDamageTaken") {
+                        this.physicalDamageTaken += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "absorb") {
                         this.absorb += this.buffs[i].effect[j].val
                         this.absorbsBuffId.push(i)
@@ -546,10 +561,6 @@ class Creature {
                     i--
                 }
             }
-        }
-
-        if (!this.playerCharacter) {
-            this.ai.run()
         }
 
         //death

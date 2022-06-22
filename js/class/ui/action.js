@@ -91,6 +91,7 @@ if (player.spec==="mistweaver") {
         "Roll": new Action("Roll", 1, 3),
         "Soothing Mist": new Action("Soothing Mist", 1, 8),
         "Enveloping Mist": new Action("Enveloping Mist", 1, 9),
+        "Leg Sweep": new Action("Leg Sweep", 1, 10),
 
         //bar0
         "Revival": new Action("Revival", 0, 0),
@@ -114,6 +115,9 @@ if (player.spec==="mistweaver") {
         //bar 3
         "Refreshing Jade Wind": new Action("Refreshing Jade Wind", 3, 0),
         "Chi Burst": new Action("Chi Burst", 3, 1),
+
+        "Reawaken": new Action("Reawaken",3,5),
+        "Resuscitate": new Action("Resuscitate",3,6),
     }
 }
 

@@ -18,7 +18,9 @@ class Mw_Abilities {
     "Life Cocoon" = new LifeCocoon()
     "Touch of Death" = new TouchofDeath()
     "Crackling Jade Lightning" = new CracklingJadeLightning()
-
+    "Leg Sweep" = new LegSweep()
+    "Reawaken" = new Reawaken()
+    "Resuscitate" = new Resuscitate()
 
     //pasive
     "Mystic Touch" = new MysticTouch()

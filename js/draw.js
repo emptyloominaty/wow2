@@ -367,7 +367,7 @@ function draw(progress) {
     if (player.gcd>0) {
         bars.playerCast.setVisibility(true)
         bars.playerCast.setVal(player.gcd)
-        bars.playerCast.setText(player.gcd.toFixed(1)+"s "+player.casting.name)
+        bars.playerCast.setText(player.gcd.toFixed(1)+"s ")
     } else {
         bars.playerCast.setVisibility(false)
     }

@@ -12,6 +12,8 @@ class Bm_abilities {
     "Spear Hand Strike" = new SpearHandStrike()
     "Zen Meditation" = new ZenMeditation()
     "Touch of Death" = new TouchofDeath(false,true)
+    "Leg Sweep" = new LegSweep()
+    "Resuscitate" = new Resuscitate()
 
     //passive
     "Mystic Touch" = new MysticTouch()
