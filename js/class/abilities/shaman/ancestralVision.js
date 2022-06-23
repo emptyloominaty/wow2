@@ -1,6 +1,6 @@
-class Reawaken extends Ability {
+class AncestralVision extends Ability {
     constructor() {
-        let name = "Reawaken"
+        let name = "Ancestral Vision"
         let cost = 0.8
         let gcd = 1.5
         let castTime = 10

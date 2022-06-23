@@ -22,11 +22,15 @@ class RestoSham_abilities {
     "Hex" = new Hex()
     "Purify Spirit" = new PurifySpirit()
     "Spiritwalker's Grace" = new SpiritwalkersGrace()
+    "Capacitor Totem" = new CapacitorTotem()
+    "Earthbind Totem" = new EarthbindTotem()
+    "Ancestral Spirit" = new AncestralSpirit()
+    "Ancestral Vision" = new AncestralVision()
 
     //TODO:
     //Earth Elemental
-    //Tremor Totem  //FEAR
-    //Purge //MAGIC BUFF ON ENEMY
+    //Tremor Totem          //FEAR
+    //Purge                 //MAGIC BUFF ON ENEMY
     //Reincarnation
 
     //passive

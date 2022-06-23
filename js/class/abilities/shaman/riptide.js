@@ -20,10 +20,7 @@ class Riptide extends Ability {
     }
 
     getTooltip() {
-        return "Restorative waters wash over a friendly target, healing them for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+"and an additional "+((player.stats.primary * this.spellPowerHot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+"over 18 sec. "
-    }
-
-    run(caster) {
+        return "Restorative waters wash over a friendly target, healing them for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" and an additional "+((player.stats.primary * this.spellPowerHot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" over 18 sec. "
     }
 
     startCast(caster) {

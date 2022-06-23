@@ -456,7 +456,7 @@ class SongofChiJi extends Ability {
     constructor() {
         super("Song of Chi-Ji", 0, 1.5, 1.8, 30, false, true, false, "nature", 5, 1)
         this.talent = true
-        this.area = {type:"circle", radius:8, duration: 5,data:{type:"songofChiJi", maxTargets:"all",moving:true,speed:8, timer:0.15/*sec*/,color:"#ff747c",color2:"rgba(255,98,108,0.05)"},cast:false}
+        this.area = {type:"circle", radius:8, duration: 5,data:{type:"applyDebuff", maxTargets:"all",moving:true,speed:8, timer:0.15/*sec*/,color:"#ff747c",color2:"rgba(255,98,108,0.05)"},cast:false}
         this.effect = [{name:"incapacitate"}]
         this.duration = 20
     }
@@ -655,29 +655,7 @@ class SummonJadeSerpentStatue extends Ability {
                     this.castPosition.y = caster.mousePos.y
                 }
 
-                if (caster.pets.length===0) {
-                    caster.pets.push(new Pet(caster.pets.length,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y))
-                } else {
-                    let undefinedV = false
-                    let statue = false
-                    for (let i = 0; i<caster.pets.length; i++) {
-                        if (caster.pets[i]!==undefined) {
-                            if (caster.pets[i].name==="Jade Serpent Statue") {
-                                statue = i
-                            }
-                            if (caster.pets[i]===undefinedV) {
-                                undefinedV = i
-                            }
-                        }
-                    }
-                    if (statue!==false){
-                        caster.pets[statue] = new Pet(statue,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y)
-                    } else if (undefinedV!==false) {
-                        caster.pets[undefinedV] = new Pet(undefinedV,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y)
-                    } else {
-                        caster.pets.push(new Pet(caster.pets.length,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y))
-                    }
-                }
+                spawnPet(caster,"totem",this.petData.name,this.castPosition.x,this.castPosition.y,this)
 
                 this.setCd()
                 caster.useEnergy(this.cost)
@@ -745,29 +723,9 @@ class InvokeChiJitheRedCrane extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster) && this.talentSelect) {
-            if (caster.pets.length===0) {
-                caster.pets.push(new Pet(caster.pets.length,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20))
-            } else {
-                let undefinedV = false
-                let statue = false
-                for (let i = 0; i<caster.pets.length; i++) {
-                    if (caster.pets[i]!==undefined) {
-                        if (caster.pets[i].name==="Chi-Ji") {
-                            statue = i
-                        }
-                        if (caster.pets[i]===undefinedV) {
-                            undefinedV = i
-                        }
-                    }
-                }
-                if (statue!==false){
-                    caster.pets[statue] = new Pet(statue,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20)
-                } else if (undefinedV!==false) {
-                    caster.pets[undefinedV] = new Pet(undefinedV,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20)
-                } else {
-                    caster.pets.push(new Pet(caster.pets.length,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20))
-                }
-            }
+
+            spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this)
+
             this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)

@@ -159,10 +159,13 @@ if (player.spec==="restorationShaman") {
         "Riptide": new Action("Riptide", 1, 1),
         "Ghost Wolf": new Action("Ghost Wolf",1,3),
 
+        "Earthbind Totem": new Action("Earthbind Totem", 1, 5),
         "Mana Tide Totem": new Action("Mana Tide Totem",1,6),
 
         "Healing Surge": new Action("Healing Surge", 1, 8),
         "Healing Wave": new Action("Healing Wave", 1, 9),
+        "Capacitor Totem": new Action("Capacitor Totem", 1, 10),
+
         //bar0
         "Healing Tide Totem": new Action("Healing Tide Totem", 0, 0),
         "Healing Rain": new Action("Healing Rain", 0, 1),

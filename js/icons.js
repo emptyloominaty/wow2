@@ -938,7 +938,6 @@ let iconsPath = {
     "Envenom":"img/rogue/Envenom.jpg",
     "Deadly Poison":"img/rogue/DeadlyPoison.jpg",
     "Acrobatic Strikes":"img/rogue/AcrobaticStrikes.jpg",
-
     "Adrenaline Rush":"img/rogue/AdrenalineRush.jpg",
     "Alacrity":"img/rogue/Alacrity.jpg",
     "Ambush":"img/rogue/Ambush.jpg",
@@ -1051,12 +1050,10 @@ let iconsPath = {
     "Healing Tide Totem":"img/shaman/HealingTideTotem.jpg",
     "Ghost Wolf":"img/shaman/GhostWolf.jpg",
     "Riptide":"img/shaman/Riptide.jpg",
-
     "Aftershock":"img/shaman/Aftershock.jpg",
     "Ancestral Guidance":"img/shaman/AncestralGuidance.jpg",
     "Ancestral Protection Totem":"img/shaman/AncestralProtectionTotem.jpg",
     "Ancestral Spirit":"img/shaman/AncestralSpirit.jpg",
-
     "Ancestral Vigor":"img/shaman/AncestralVigor.jpg",
     "Ancestral Vision":"img/shaman/AncestralVision.jpg",
     "Ascendance":"img/shaman/Ascendance.jpg",
@@ -1147,6 +1144,8 @@ let iconsPath = {
     "Windfury Totem":"img/shaman/WindfuryTotem.jpg",
     "Wind Rush Totem":"img/shaman/WindRushTotem.jpg",
     "Wind Shear":"img/shaman/WindShear.jpg",
+    "Unleash Life":"img/shaman/UnleashLife.jpg",
+
 
     //Warlock
     "Absolute Corruption":"img/warlock/AbsoluteCorruption.jpg",

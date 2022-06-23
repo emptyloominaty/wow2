@@ -611,12 +611,18 @@ let spawnPet = function (caster,type,name,x,y,ability) {
             if (caster.pets[i]!==undefined) {
                 if (caster.pets[i].name===name) {
                     statue = i
-                }
-                if (caster.pets[i]===undefinedV) {
-                    undefinedV = i
+                    break
                 }
             }
         }
+
+        for (let i = 0; i<caster.pets.length; i++) {
+            if (caster.pets[i]===undefined) {
+                undefinedV = i
+                break
+            }
+        }
+
         if (statue!==false){
             caster.pets[statue] = new Pet(statue,caster,type,ability.petDuration,ability.petData,x,y)
         } else if (undefinedV!==false) {
@@ -627,7 +633,10 @@ let spawnPet = function (caster,type,name,x,y,ability) {
     }
 }
 
-
+let resurrect = function(caster,target,health) {
+    target.isDead = false
+    target.health = target.maxHealth*health
+}
 
 //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
 const pSBC=(p,c0,c1,l)=>{

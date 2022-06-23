@@ -151,6 +151,7 @@ class Creature {
         } else if (spec==="restorationShaman") {//----------------------------------------Resto Sham
             this.class = "Shaman"
             this.abilities = new RestoSham_abilities()
+            _restorationShaman_talents(this)
             this.melee = false
             this.role = "healer"
         } else if (spec==="holyPriest") {//----------------------------------------Holy Priest

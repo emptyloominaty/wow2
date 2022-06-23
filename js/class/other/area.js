@@ -115,7 +115,7 @@ class Area {
             for (let i = 0; i<targets.length; i++) {
                 targets[i].move(-5)
             }
-        } else if (this.data.type==="songofChiJi") {
+        } else if (this.data.type==="applyDebuff") {
             let targets = this.findAllCreaturesInsideEnemy()
             for (let i = 0; i<targets.length; i++) {
                 applyDebuff(this.caster,targets[i],this.ability)
@@ -177,7 +177,6 @@ class Area {
             let x2d = (game2d.canvasW/2)+x
             let y2d = (game2d.canvasH/2)+y
             if (this.type==="circle") {
-                // game2d.drawCircleStroke(x2d,y2d,this.radius*22,this.data.color,2)
                 game2d.drawCircle(x2d,y2d,this.radius*pxToMeter*gameScaling,this.data.color2)
             } else if (this.type==="circle2") {
                 game2d.drawCircleStroke(x2d,y2d,this.radius*pxToMeter*gameScaling,this.data.color2,2)
@@ -209,6 +208,11 @@ class Area {
     end() {
         if (this.data.type==="hot" || this.data.type==="dot") {
             this.doTimer(this.timer/this.data.timer)
+        } else if (this.data.type==="stun") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                applyDebuff(this.caster,targets[i],this.ability)
+            }
         }
     }
 }

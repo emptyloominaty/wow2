@@ -15,7 +15,7 @@ class Resuscitate extends Ability {
     }
 
     getTooltip() {
-        return "Returns all dead party members to life with 35% of maximum health and mana. Cannot be cast when in combat."
+        return "Returns the spirit to the body, restoring a dead target to life with 35% of maximum health and mana. Cannot be cast when in combat."
     }
 
     startCast(caster) {
@@ -38,8 +38,7 @@ class Resuscitate extends Ability {
         let target = caster.casting.target
 
         if (target.isDead && this.checkDistance(caster,target) && !target.enemy) {
-            target.isDead = false
-            target.health = target.maxHealth*0.35
+            resurrect(caster,target,0.35)
         }
 
         caster.useEnergy(this.cost)
