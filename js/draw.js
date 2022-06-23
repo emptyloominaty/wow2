@@ -194,6 +194,13 @@ function draw(progress) {
     }
 
     for (let i = 0; i<creatures.length; i++) {
+        //pets
+        for (let i = 0; i<creatures[i].pets.length; i++) {
+            if (creatures[i].pets[i]!==undefined) {
+                creatures[i].pets[i].draw()
+            }
+        }
+
         if (creatures[i].name!=="player") {
             let x = (creatures[i].x - player.x)*gameScaling
             let y = (creatures[i].y - player.y)*gameScaling
@@ -328,15 +335,6 @@ function draw(progress) {
             game2d.drawCircle(x2d, y2d, size, color)
             game2d.drawTargetDirection(x2d, y2d, (size-(3*gameScaling)), 3, "#9f5c5d", creatures[i].direction)
         }
-
-        //pets
-        for (let i = 0; i<creatures[i].pets.length; i++) {
-            if (creatures[i].pets[i]!==undefined) {
-                creatures[i].pets[i].draw()
-            }
-
-        }
-
     }
 
     //spell visuals
@@ -657,6 +655,15 @@ function draw(progress) {
         }
     //drawVars.raidFramesUpdated = true
 
+    if (spellTooltip) {
+        document.getElementById("spellTooltip").style.left = mousePosition.x+30 + "px"
+        document.getElementById("spellTooltip").style.top = mousePosition.y-(document.getElementById("spellTooltip").clientHeight+15) + "px"
+    } else if ( buffTooltip) {
+        document.getElementById("buffTooltip").style.left = mousePosition.x + 30 + "px"
+        document.getElementById("buffTooltip").style.top = (mousePosition.y + 15) + "px"
+    }
+
+    //pets
     for (let i = 0; i<4; i++) {
         if (player.pets[i]!==undefined) {
             elements["pets"+i+"_img"].src = iconsPath[player.pets[i].name]
@@ -668,14 +675,6 @@ function draw(progress) {
         }
 
     }
-    if (spellTooltip) {
-        document.getElementById("spellTooltip").style.left = mousePosition.x+30 + "px"
-        document.getElementById("spellTooltip").style.top = mousePosition.y-(document.getElementById("spellTooltip").clientHeight+15) + "px"
-    } else if ( buffTooltip) {
-        document.getElementById("buffTooltip").style.left = mousePosition.x + 30 + "px"
-        document.getElementById("buffTooltip").style.top = (mousePosition.y + 15) + "px"
-    }
-
 
     if (movingFromSpellbook) {
         if (movingSpellElement) {

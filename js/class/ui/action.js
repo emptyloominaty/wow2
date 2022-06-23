@@ -155,8 +155,11 @@ if (player.spec==="restorationShaman") {
     actions = {
         //bar1
         "Chain Heal": new Action("Chain Heal", 1, 0),
+
         "Riptide": new Action("Riptide", 1, 1),
         "Ghost Wolf": new Action("Ghost Wolf",1,3),
+
+        "Mana Tide Totem": new Action("Mana Tide Totem",1,6),
 
         "Healing Surge": new Action("Healing Surge", 1, 8),
         "Healing Wave": new Action("Healing Wave", 1, 9),

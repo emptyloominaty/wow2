@@ -14,6 +14,7 @@ class RestoSham_abilities {
     "Astral Shift" = new AstralShift()
     "Heroism" = new Heroism()
     "Wind Shear" = new WindShear()
+    "Mana Tide Totem" = new ManaTideTotem()
 
     //passive
     "Exhaustion" = new Exhaustion()

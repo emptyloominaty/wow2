@@ -658,20 +658,22 @@ class SummonJadeSerpentStatue extends Ability {
                 if (caster.pets.length===0) {
                     caster.pets.push(new Pet(caster.pets.length,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y))
                 } else {
-                    let undefined = false
+                    let undefinedV = false
                     let statue = false
                     for (let i = 0; i<caster.pets.length; i++) {
-                        if (caster.pets[i].name==="Jade Serpent Statue") {
-                            statue = i
-                        }
-                        if (caster.pets[i]===undefined) {
-                            undefined = i
+                        if (caster.pets[i]!==undefined) {
+                            if (caster.pets[i].name==="Jade Serpent Statue") {
+                                statue = i
+                            }
+                            if (caster.pets[i]===undefinedV) {
+                                undefinedV = i
+                            }
                         }
                     }
                     if (statue!==false){
                         caster.pets[statue] = new Pet(statue,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y)
-                    } else if (undefined!==false) {
-                        caster.pets[undefined] = new Pet(undefined,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y)
+                    } else if (undefinedV!==false) {
+                        caster.pets[undefinedV] = new Pet(undefinedV,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y)
                     } else {
                         caster.pets.push(new Pet(caster.pets.length,caster,"totem",this.petDuration,this.petData,this.castPosition.x,this.castPosition.y))
                     }

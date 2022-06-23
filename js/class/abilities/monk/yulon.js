@@ -39,22 +39,22 @@ class Yulon extends Ability {
             if (caster.pets.length===0) {
                 caster.pets.push(new Pet(caster.pets.length,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20))
             } else {
-                let undefined = false
+                let undefinedV = false
                 let statue = false
                 for (let i = 0; i<caster.pets.length; i++) {
                     if (caster.pets[i]!==undefined) {
-                        if (caster.pets[i].name === "Yu'lon") {
+                        if (caster.pets[i].name==="Yu'lon") {
                             statue = i
                         }
-                        if (caster.pets[i] === undefined) {
-                            undefined = i
+                        if (caster.pets[i]===undefinedV) {
+                            undefinedV = i
                         }
                     }
                 }
                 if (statue!==false){
                     caster.pets[statue] = new Pet(statue,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20)
-                } else if (undefined!==false) {
-                    caster.pets[undefined] = new Pet(undefined,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20)
+                } else if (undefinedV!==false) {
+                    caster.pets[undefinedV] = new Pet(undefinedV,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20)
                 } else {
                     caster.pets.push(new Pet(caster.pets.length,caster,"guardian",this.petDuration,this.petData,caster.x+20,caster.y+20))
                 }

@@ -601,6 +601,33 @@ let sortFriendlyTargetsByHealth = function(array = false) {
     }
 }
 
+let spawnPet = function (caster,type,name,x,y,ability) {
+    if (caster.pets.length===0) {
+        caster.pets.push(new Pet(caster.pets.length,caster,type,ability.petDuration,ability.petData,x,y))
+    } else {
+        let undefinedV = false
+        let statue = false
+        for (let i = 0; i<caster.pets.length; i++) {
+            if (caster.pets[i]!==undefined) {
+                if (caster.pets[i].name===name) {
+                    statue = i
+                }
+                if (caster.pets[i]===undefinedV) {
+                    undefinedV = i
+                }
+            }
+        }
+        if (statue!==false){
+            caster.pets[statue] = new Pet(statue,caster,type,ability.petDuration,ability.petData,x,y)
+        } else if (undefinedV!==false) {
+            caster.pets[undefinedV] = new Pet(undefinedV,caster,type,ability.petDuration,ability.petData,x,y)
+        } else {
+            caster.pets.push(new Pet(caster.pets.length,caster,type,ability.petDuration,ability.petData,x,y))
+        }
+    }
+}
+
+
 
 //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
 const pSBC=(p,c0,c1,l)=>{
