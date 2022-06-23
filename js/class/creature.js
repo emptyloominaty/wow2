@@ -425,6 +425,13 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "root") {
                         this.isRooted = true
+                    } else if (this.buffs[i].effect[j].name === "canMoveWhileCasting") {
+                        this.canMoveWhileCasting = true
+                    } else if (this.buffs[i].effect[j].name === "restoreMana") {
+                        this.energy += this.buffs[i].effect[j].val / (fps*5)
+                        if (this.energy>this.maxEnergy) {
+                            this.energy = this.maxEnergy
+                        }
                     } else if (this.buffs[i].effect[j].name === "prayerofMending") {
                         let buffPoM = this.buffs[i].effect[j]
                         let buff = this.buffs[i]
@@ -440,6 +447,20 @@ class Creature {
                                 }
                             }
                             buff.duration = -1
+                        }
+                        buffPoM.healthB = this.health
+                    } else if (this.buffs[i].effect[j].name === "healWhenDamage") {
+                        let buffPoM = this.buffs[i].effect[j]
+                        let buff = this.buffs[i]
+                        buffPoM.healthA = this.health
+                        if (buffPoM.healthA<buffPoM.healthB && buff.duration+3<buffPoM.lastTime) {
+                            doHeal(buff.caster,this,buff.ability)
+                            buffPoM.lastTime = buff.duration
+                            if (buff.stacks>1) {
+                                buff.stacks--
+                            } else {
+                                buff.duration = -1
+                            }
                         }
                         buffPoM.healthB = this.health
                     } else if (this.buffs[i].effect[j].name === "starfall") {

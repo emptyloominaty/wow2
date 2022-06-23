@@ -50,7 +50,7 @@ class Area {
 
     findAllCreaturesInside() {
         let inside = []
-        if (this.type==="circle") {
+        if (this.type==="circle" ||this.type==="circle2") {
             for (let i = 0; i<creatures.length; i++) {
                 let distance = getDistance(creatures[i],this)
                 if (distance<this.radius && !isEnemy(this.caster,creatures[i])) {
@@ -63,7 +63,7 @@ class Area {
 
     findAllCreaturesInsideEnemy() {
         let inside = []
-        if (this.type==="circle") {
+        if (this.type==="circle" ||this.type==="circle2") {
             for (let i = 0; i<creatures.length; i++) {
                 let distance = getDistance(creatures[i],this)
                 if (distance<this.radius && isEnemy(this.caster,creatures[i]) && !creatures[i].isDead) {
@@ -127,6 +127,24 @@ class Area {
                     targets[i].energy += targets[i].energyRegen/fps
                 }
             }
+        } else if (this.data.type==="spiritLinkTotem") {
+            if (this.timer<this.data.timer) {
+                this.timer += progressInSec
+            } else {
+                this.timer = 0
+
+                let targets = this.findAllCreaturesInside()
+                let health = 0
+                for (let i = 0; i<targets.length; i++) {
+                    health += targets[i].health/targets[i].maxHealth
+                }
+                let avgHealth = health/targets.length
+                for (let i = 0; i<targets.length; i++) {
+                    targets[i].health = avgHealth*targets[i].maxHealth
+                    applyBuff(this.caster,targets[i],{name:"Spirit Link Totem",duration:1,spellPower:0,stacks:1,maxStacks:1,effectValue:0,effect:[{name:"damageReduction",val:0.1}],runBuff:()=>{},endBuff:()=>{},})
+                }
+
+            }
         }
 
 
@@ -161,6 +179,8 @@ class Area {
             if (this.type==="circle") {
                 // game2d.drawCircleStroke(x2d,y2d,this.radius*22,this.data.color,2)
                 game2d.drawCircle(x2d,y2d,this.radius*pxToMeter*gameScaling,this.data.color2)
+            } else if (this.type==="circle2") {
+                game2d.drawCircleStroke(x2d,y2d,this.radius*pxToMeter*gameScaling,this.data.color2,2)
             }
         }
     }

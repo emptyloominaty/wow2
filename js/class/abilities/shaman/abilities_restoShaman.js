@@ -15,6 +15,19 @@ class RestoSham_abilities {
     "Heroism" = new Heroism()
     "Wind Shear" = new WindShear()
     "Mana Tide Totem" = new ManaTideTotem()
+    "Healing Stream Totem" = new HealingStreamTotem()
+    "Spirit Link Totem" = new SpiritLinkTotem()
+    "Earth Shield" = new EarthShield()
+    "Water Shield" = new WaterShield()
+    "Hex" = new Hex()
+    "Purify Spirit" = new PurifySpirit()
+    "Spiritwalker's Grace" = new SpiritwalkersGrace()
+
+    //TODO:
+    //Earth Elemental
+    //Tremor Totem  //FEAR
+    //Purge //MAGIC BUFF ON ENEMY
+    //Reincarnation
 
     //passive
     "Exhaustion" = new Exhaustion()

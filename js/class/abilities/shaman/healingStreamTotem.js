@@ -1,38 +1,32 @@
-class HealingTideTotem extends Ability {
+class HealingStreamTotem extends Ability {
     constructor() {
-        let name = "Healing Tide Totem"
-        let cost = 4.32 //% mana
+        let name = "Healing Stream Totem"
+        let cost = 1.8
         let gcd = 1
         let castTime = 0
-        let cd = 180
+        let cd = 30
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = false
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
-        this.spellPower = 0.35
-
-
-        this.area = {type:"circle", radius:40, duration:12,data:{type:"hot", maxTargets:"all", spellPower:0.35, timer:2/*sec*/,color:"#82fffd",color2:"rgba(167,255,171,0.05)"}}
-
-        this.effect = []
-        this.duration = 12
+        this.duration = 15
+        this.spellPower = 0.48
+        this.area = {type:"circle", radius:40, duration: 15,data:{type:"hot", maxTargets:2, spellPower:this.spellPower, timer:2/*sec*/,color:"#82fffd",color2:"rgba(133,255,251,0.05)"},cast:false}
         this.petData = {
-            name:"Healing Tide Totem",
+            name:"Healing Stream Totem",
             abilities:{},
-            color:"#77a6ff",
+            color:"#7fb8ff",
             size:4,
             do:[]
         }
-        this.petDuration = 12
+        this.petDuration = 15
     }
 
     getTooltip() {
-        return "Summons a totem at your feet for 12 sec, which pulses every 2 sec, healing all party or raid members within 40 yards for "+(((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))*6).toFixed(0)+" total. "
+        return "Summons a totem at your feet for 15 sec that heals two injured party or raid members within 40 yards for "+spellPowerToNumber(this.spellPower)+" every 2 sec."
     }
 
     run(caster) {
@@ -44,7 +38,7 @@ class HealingTideTotem extends Ability {
                 caster.isChanneling = false
             }
 
-            spawnPet(caster,"totem","Healing Tide Totem",caster.x,caster.y,this)
+            spawnPet(caster,"totem","Healing Stream Totem",caster.x,caster.y,this)
 
             addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
 

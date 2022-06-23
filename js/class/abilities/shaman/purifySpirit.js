@@ -1,7 +1,7 @@
-class Detox extends Ability {
+class PurifySpirit extends Ability {
     constructor() {
-        let name = "Detox"
-        let cost = 1.3 //% mana
+        let name = "Purify Spirit"
+        let cost = 1.3
         let gcd = 1.5
         let castTime = 0
         let cd = 8
@@ -13,11 +13,11 @@ class Detox extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.dispelTypes = ["magic","poison","disease"]
+        this.dispelTypes = ["magic","curse",false]
     }
 
     getTooltip() {
-        return "Removes all Magic, Poison, and Disease effects from the target."
+        return "Removes all Curse and Magic effects from a friendly target."
     }
 
     run(caster) {
@@ -34,7 +34,6 @@ class Detox extends Ability {
             } else {
                 dispel(caster,target,this.dispelTypes[0],this.dispelTypes[1],this.dispelTypes[2])
             }
-
 
             caster.useEnergy(this.cost)
             this.setCd()

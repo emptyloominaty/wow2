@@ -32,7 +32,7 @@ let raidFramesBuffs = {
     "restorationShaman": {
         bottomRight:"Riptide",
         bottomRight2:"none", //TODO:
-        centreRight:"Regrowth", //TODO:
+        centreRight:"Earth Shield",
         bottomCentre:"Ancestral Vigor",
     },
     "holyPriest": {

@@ -170,11 +170,20 @@ if (player.spec==="restorationShaman") {
         "Wind Shear": new Action("Wind Shear", 0, 5),
         "Chain Lightning": new Action("Chain Lightning", 0, 6),
         "Astral Shift": new Action("Astral Shift", 0, 8),
+        "Hex": new Action("Hex", 0, 11),
         //bar2
         "Flame Shock": new Action("Flame Shock", 2, 0),
         "Lava Burst": new Action("Lava Burst", 2, 1),
         "Lightning Bolt": new Action("Lightning Bolt", 2, 2),
         "Frost Shock": new Action("Frost Shock", 2, 3),
+        "Spirit Link Totem": new Action("Spirit Link Totem", 2, 4),
+
+        "Earth Shield": new Action("Earth Shield", 2, 7),
+
+        "Spiritwalker's Grace": new Action("Spiritwalker's Grace", 2, 11),
+
+
+        "Water Shield": new Action("Water Shield", 3, 11),
     }
 
 }

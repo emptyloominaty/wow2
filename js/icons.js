@@ -1123,7 +1123,7 @@ let iconsPath = {
     "Resurgence":"img/shaman/Resurgence.jpg",
     "Spirit Link Totem":"img/shaman/SpiritLinkTotem.jpg",
     "Spirit Walk":"img/shaman/SpiritWalk.jpg",
-    "Spirit walker's Grace":"img/shaman/SpiritwalkersGrace.jpg",
+    "Spiritwalker's Grace":"img/shaman/SpiritwalkersGrace.jpg",
     "Spirit Wolf":"img/shaman/SpiritWolf.jpg",
     "Static Discharge":"img/shaman/StaticDischarge.jpg",
     "Static Charge":"img/shaman/StaticCharge.jpg",
