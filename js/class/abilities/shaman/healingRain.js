@@ -20,7 +20,7 @@ class HealingRain extends Ability {
             visualEffect:{name:"rain",data:{size:10*pxToMeter,speed:40,duration:10,target:{},color:"rgba(56,191,187,0.52)",onEnd:{name:"",size:1},onRun:{name:"",size:5}}}},cast:false}
 
         this.effect = []
-        this.duration = 10
+        this.duration = 2.1
 
         this.castPosition = {x:0,y:0}
     }
@@ -59,7 +59,6 @@ class HealingRain extends Ability {
     endCast(caster) {
         caster.isCasting = false
         addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
-        applyBuff(caster,caster,this)
         this.setCd()
         caster.useEnergy(this.cost)
     }

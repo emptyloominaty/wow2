@@ -22,7 +22,6 @@ class GhostWolf extends Ability {
         return "Turn into a Ghost Wolf, increasing movement speed by "+(this.effects[0].val*100)+"% and preventing movement speed from being reduced below 100%."
     }
 
-
     run(caster) {
     }
 

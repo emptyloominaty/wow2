@@ -28,15 +28,18 @@ class PurifySpirit extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            let cd
             let target = caster.castTarget
             if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-                dispel(caster,caster,this.dispelTypes[0],this.dispelTypes[1],this.dispelTypes[2])
+                cd = dispel(caster,caster,this.dispelTypes[0],this.dispelTypes[1],this.dispelTypes[2])
             } else {
-                dispel(caster,target,this.dispelTypes[0],this.dispelTypes[1],this.dispelTypes[2])
+                cd = dispel(caster,target,this.dispelTypes[0],this.dispelTypes[1],this.dispelTypes[2])
             }
 
             caster.useEnergy(this.cost)
-            this.setCd()
+            if (cd) {
+                this.setCd()
+            }
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

@@ -237,6 +237,12 @@ class Creature {
         }
 
 
+        Object.keys(this.abilities).forEach((key)=> {
+            if (this.abilities[key].talentSelect) {
+                this.abilities[key].setTalent(this)
+            }
+        })
+
         this.health = this.stats.stamina*20
         this.maxHealth = this.stats.stamina*20
 
@@ -347,10 +353,25 @@ class Creature {
         this.isInterrupted = false
         this.buffMoved = false //Chi torpedo Fix
 
+
+        //TODO?
+        if (this.form==="Ghost Wolf") {
+            if (this.abilities["Spirit Wolf"].talentSelect) {
+                let sw = this.abilities["Spirit Wolf"]
+                if (sw.timer<sw.timer2) {
+                    sw.timer += progressInSec
+                } else {
+                    sw.timer = 0
+                    applyBuff(this,this,sw,1,true)
+                }
+            }
+        }
         //forms
         for (let i = 0; i<this.formEffects.length; i++) {
             if (this.formEffects[i].name==="moveSpeed") {
                 this.moveSpeedIncrease += this.formEffects[i].val
+            } else if (this.formEffects[i].name === "damageReduction") {
+                this.damageReduction += this.formEffects[i].val
             } else if (this.formEffects[i].name==="increaseDamage") {
                 this.damageIncrease += this.formEffects[i].val
             } else if (this.formEffects[i].name==="increaseArmor") {
@@ -395,6 +416,8 @@ class Creature {
                         this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "damageReduction") {
                         this.damageReduction += this.buffs[i].effect[j].val
+                    } else if (this.buffs[i].effect[j].name === "damageReductionStacks") {
+                        this.damageReduction += this.buffs[i].effect[j].val * this.buffs[i].stacks
                     } else if (this.buffs[i].effect[j].name === "magicDamageReduction") {
                         this.magicDamageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "magicDamageTaken") {

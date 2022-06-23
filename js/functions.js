@@ -235,6 +235,16 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             }
         }
+        if (target.isRooted) {
+            target.isRooted = false
+            for (let i = 0; i<target.debuffs.length; i++) {
+                for (let j = 0; j < target.debuffs[i].effect.length; j++) {
+                    if (target.debuffs[i].effect[j].name === "root") {
+                        target.debuffs[i].duration = -1
+                    }
+                }
+            }
+        }
 
         //combatlog
         details.doDamageTaken(caster, target, damage, ability)
@@ -573,6 +583,7 @@ let dispel = function (caster,target,dispelType1 = false,dispelType2 = false,dis
     for (let i = 0; i<target.debuffs.length; i++) {
         if (target.debuffs[i].ability.dispellable!==false && (target.debuffs[i].ability.dispellable===dispelType1 || target.debuffs[i].ability.dispellable===dispelType2 || target.debuffs[i].ability.dispellable===dispelType3 )) {
             target.debuffs[i].duration = -1
+            d++
         }
     }
     if (d>0) {

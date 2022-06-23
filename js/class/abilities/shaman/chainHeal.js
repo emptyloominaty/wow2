@@ -51,7 +51,9 @@ class ChainHeal extends Ability {
             doHeal(caster,target,this,0)
         }
 
-        let spellPower = this.spellPower
+        let spellPower = this.spellPower * (1+caster.abilities["Unleash Life"].checkBuff(caster))
+        spellPower = spellPower * (1+caster.abilities["Deluge"].checkBuff(caster,target))
+
         //jump
         let ttt = 0
         let lastTarget = target

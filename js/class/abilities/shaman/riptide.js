@@ -44,12 +44,14 @@ class Riptide extends Ability {
 
         this.setCd()
 
+        let spellPower = this.spellPower * (1+caster.abilities["Unleash Life"].checkBuff(caster))
+
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             applyHot(caster,caster,this,undefined,undefined,this.spellPowerHot)
-            doHeal(caster,caster,this)
+            doHeal(caster,caster,this,undefined,spellPower)
         } else {
             applyHot(caster,target,this,undefined,undefined,this.spellPowerHot)
-            doHeal(caster,target,this)
+            doHeal(caster,target,this,undefined,spellPower)
         }
         caster.abilities["Tidal Waves"].applyBuff(caster)
         caster.useEnergy(this.cost)

@@ -189,6 +189,9 @@ class Area {
         //targets = targets.sort(() => 0.5 - Math.random()) //randomise
         targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
         for (let i = 0; i<targets.length;i++) {
+            applyBuff(this.caster,targets[i],this.ability)
+        }
+        for (let i = 0; i<targets.length;i++) {
             if (i===this.maxTargets) {
                 break
             }

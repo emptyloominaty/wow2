@@ -23,7 +23,7 @@ class EarthbindTotem extends Ability {
             do:[]
         }
         this.petDuration = 20
-        //DR in area.js
+
         this.castPosition = {x:0,y:0}
     }
 

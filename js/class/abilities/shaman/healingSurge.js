@@ -39,7 +39,7 @@ class HealingSurge extends Ability {
         return false
     }
 
-    endCast(caster) { //TODO:undulation,unleash life
+    endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
 
@@ -56,12 +56,16 @@ class HealingSurge extends Ability {
             }
         }
 
+        let spellPower = this.spellPower * (1+caster.abilities["Undulation"].checkBuff(caster))
+        spellPower = spellPower * (1+caster.abilities["Unleash Life"].checkBuff(caster))
+        spellPower = spellPower * (1+caster.abilities["Deluge"].checkBuff(caster,target))
+
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
-            doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,undefined,critInc)
+            doHeal(caster,caster,this,undefined,spellPower,undefined,undefined,undefined,undefined,critInc)
         } else {
             //heal target
-            doHeal(caster,target,this,undefined,undefined,undefined,undefined,undefined,undefined,critInc)
+            doHeal(caster,target,this,undefined,spellPower,undefined,undefined,undefined,undefined,critInc)
         }
         this.setCd()
         caster.useEnergy(this.cost)

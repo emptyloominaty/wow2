@@ -36,7 +36,7 @@ class HealingWave extends Ability {
         return false
     }
 
-    endCast(caster) { //TODO:undulation,unleash life
+    endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
 
@@ -52,6 +52,10 @@ class HealingWave extends Ability {
                 }
             }
         }
+
+        spellPower = spellPower * (1+caster.abilities["Undulation"].checkBuff(caster))
+        spellPower = spellPower * (1+caster.abilities["Unleash Life"].checkBuff(caster))
+        spellPower = spellPower * (1+caster.abilities["Deluge"].checkBuff(caster,target))
 
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self

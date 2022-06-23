@@ -169,6 +169,7 @@ if (player.spec==="restorationShaman") {
         //bar0
         "Healing Tide Totem": new Action("Healing Tide Totem", 0, 0),
         "Healing Rain": new Action("Healing Rain", 0, 1),
+        "Purify Spirit": new Action("Purify Spirit",0,4),
 
         "Wind Shear": new Action("Wind Shear", 0, 5),
         "Chain Lightning": new Action("Chain Lightning", 0, 6),
@@ -185,7 +186,7 @@ if (player.spec==="restorationShaman") {
 
         "Spiritwalker's Grace": new Action("Spiritwalker's Grace", 2, 11),
 
-
+        "Unleash Life": new Action("Unleash Life", 3, 0),
         "Water Shield": new Action("Water Shield", 3, 11),
     }
 
