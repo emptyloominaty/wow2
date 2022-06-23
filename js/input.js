@@ -608,12 +608,10 @@ document.onkeydown = function (e) {
     }
 }
 
-//ctrl+w TODO:
-/*window.onbeforeunload = function (e) {
-console.log(e)
-    // Cancel the event
-    e.preventDefault()
-
-    // Chrome requires returnValue to be set
-    e.returnValue = 'NO'
-}*/
+//ctrl+w
+window.onbeforeunload = function (e) {
+    if (keyPressed["ControlLeft"]) {
+        e.preventDefault()
+        e.returnValue = 'NO'
+    }
+}

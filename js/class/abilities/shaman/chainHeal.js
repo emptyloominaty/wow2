@@ -1,9 +1,9 @@
-class HealingSurge extends Ability {
+class ChainHeal extends Ability {
     constructor() {
-        let name = "Healing Surge"
-        let cost = 4.8 //% mana
+        let name = "Chain Heal"
+        let cost = 6
         let gcd = 1.5
-        let castTime = 1.5
+        let castTime = 2.5
         let cd = 0
         let charges = 1
         let maxCharges = 1
@@ -14,14 +14,13 @@ class HealingSurge extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 2.48
+        this.spellPower = 2.1
+        this.jumptargets = 3
+        this.jumpRange = 15
     }
 
     getTooltip() {
-        return "A quick surge of healing energy that restores "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" of a friendly target's health."
-    }
-
-    run(caster) {
+        return "Heals the friendly target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+", then jumps to heal the 2 most injured nearby allies. Healing is reduced by 30% with each jump."
     }
 
     startCast(caster) {
@@ -39,30 +38,36 @@ class HealingSurge extends Ability {
         return false
     }
 
-    endCast(caster) { //TODO:undulation,unleash life
+    endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
 
-        let critInc = 0
-        for (let i = 0; i<caster.buffs.length;i++) {
-            if (caster.buffs[i].name==="Tidal Waves") {
-                critInc = 30
-                if (caster.buffs[i].stacks>1) {
-                    caster.buffs[i].stacks--
-                    caster.buffs[i].duration = 15
-                } else {
-                    caster.buffs[i].duration = -1
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
+            //heal self
+            doHeal(caster,caster,this,0)
+            target = caster
+        } else {
+            //heal target
+            doHeal(caster,target,this,0)
+        }
+
+        let spellPower = this.spellPower
+        //jump
+        let ttt = 0
+        let lastTarget = target
+        let targets = sortFriendlyTargetsByHealth(true)
+        for (let i = 0; i<targets.length ;i++) {
+            if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.jumpRange)) {
+                lastTarget = targets[i]
+                spellPower = spellPower * 0.7 //-30%
+                doHeal(caster, targets[i], this,undefined,spellPower)
+                ttt++
+                if (ttt>=this.jumptargets) {
+                    break
                 }
             }
         }
-
-        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-            //heal self
-            doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,undefined,critInc)
-        } else {
-            //heal target
-            doHeal(caster,target,this,undefined,undefined,undefined,undefined,undefined,undefined,critInc)
-        }
+        caster.abilities["Tidal Waves"].applyBuff(caster)
         this.setCd()
         caster.useEnergy(this.cost)
     }

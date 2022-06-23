@@ -40,7 +40,7 @@ class FortifyingBrew extends Ability {
         if (this.checkStart(caster)) {
             this.cd = 0
             applyBuff(caster,caster,this)
-            caster.damageReduction += this.effectValue
+            //caster.damageReduction += this.effectValue
             caster.healthIncreased += this.effect2Value
             let a = caster.maxHealth
             caster.maxHealth *= 1+this.effect2Value
@@ -56,7 +56,7 @@ class FortifyingBrew extends Ability {
     }
 
     endBuff(target) {
-        target.damageReduction -= this.effectValue
+        //target.damageReduction -= this.effectValue
         target.healthIncreased -= this.effect2Value
         target.maxHealth /= 1+this.effect2Value
         if (target.health>target.maxHealth) {

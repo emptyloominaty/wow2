@@ -44,7 +44,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
         } else {
             heal = (caster.stats.primary * spellPower) * (1 + (caster.stats.vers / 100)) * crit
         }
-        //TODO????
+
         heal = heal * target.healingIncrease
 
         if (val!==0) {
@@ -55,6 +55,9 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             heal = heal * getRestoDruidMastery(caster,target)
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
+            if (crit>1 && t!==true) {
+                caster.abilities["Resurgence"].refundMana(caster,ability)
+            }
         } else if (caster.spec==="mistweaver") {
             if (ability.name!=="Enveloping Mist" || ability.name!=="Enveloping Breath") {
                 for (let i = 0; i<target.buffs.length; i++) {
@@ -576,6 +579,26 @@ let dispel = function (caster,target,dispelType1 = false,dispelType2 = false,dis
         return true
     }
     return false
+}
+
+
+let sortFriendlyTargetsByHealth = function(array = false) {
+    let t = []
+    for (let i = 0; i < friendlyTargets.length; i++) {
+        if (!friendlyTargets[i].isDead) {
+            t.push(friendlyTargets[i])
+        }
+    }
+    if (t.length>0) {
+        t = t.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+        if (array) {
+            return t
+        } else {
+            return t[0]
+        }
+    } else {
+        return false
+    }
 }
 
 

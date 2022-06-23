@@ -1,29 +1,24 @@
-class Riptide extends Ability {
+class HealingWave extends Ability {
     constructor() {
-        let name = "Riptide"
-        let cost = 1.6 //% mana
+        let name = "Healing Wave"
+        let cost = 3
         let gcd = 1.5
-        let castTime = 0
-        let cd = 6
+        let castTime = 2.5
+        let cd = 0
         let charges = 1
         let maxCharges = 1
         let channeling = false
-        let casting = false
+        let casting = true
         let canMove = false
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 1.7
-        this.spellPowerHot = 1.32
-        this.duration = 18
+        this.spellPower = 3
     }
 
     getTooltip() {
-        return "Restorative waters wash over a friendly target, healing them for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+"and an additional "+((player.stats.primary * this.spellPowerHot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+"over 18 sec. "
-    }
-
-    run(caster) {
+        return "An efficient wave of healing energy that restores "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" of a friendly target's health."
     }
 
     startCast(caster) {
@@ -41,20 +36,31 @@ class Riptide extends Ability {
         return false
     }
 
-    endCast(caster) {
+    endCast(caster) { //TODO:undulation,unleash life
         caster.isCasting = false
         let target = caster.casting.target
 
-        this.setCd()
+        let spellPower = this.spellPower
+        for (let i = 0; i<caster.buffs.length;i++) {
+            if (caster.buffs[i].name==="Tidal Waves") {
+                spellPower = spellPower *1.1
+                if (caster.buffs[i].stacks>1) {
+                    caster.buffs[i].stacks--
+                    caster.buffs[i].duration = 15
+                } else {
+                    caster.buffs[i].duration = -1
+                }
+            }
+        }
 
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-            applyHot(caster,caster,this,undefined,undefined,this.spellPowerHot)
-            doHeal(caster,caster,this)
+            //heal self
+            doHeal(caster,caster,this,undefined,spellPower)
         } else {
-            applyHot(caster,target,this,undefined,undefined,this.spellPowerHot)
-            doHeal(caster,target,this)
+            //heal target
+            doHeal(caster,target,this,undefined,spellPower)
         }
-        caster.abilities["Tidal Waves"].applyBuff(caster)
+        this.setCd()
         caster.useEnergy(this.cost)
     }
 }

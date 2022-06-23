@@ -154,17 +154,24 @@ if (player.spec==="brewmaster") {
 if (player.spec==="restorationShaman") {
     actions = {
         //bar1
+        "Chain Heal": new Action("Chain Heal", 1, 0),
         "Riptide": new Action("Riptide", 1, 1),
         "Ghost Wolf": new Action("Ghost Wolf",1,3),
 
         "Healing Surge": new Action("Healing Surge", 1, 8),
+        "Healing Wave": new Action("Healing Wave", 1, 9),
         //bar0
         "Healing Tide Totem": new Action("Healing Tide Totem", 0, 0),
         "Healing Rain": new Action("Healing Rain", 0, 1),
+
+        "Wind Shear": new Action("Wind Shear", 0, 5),
+        "Chain Lightning": new Action("Chain Lightning", 0, 6),
+        "Astral Shift": new Action("Astral Shift", 0, 8),
         //bar2
         "Flame Shock": new Action("Flame Shock", 2, 0),
         "Lava Burst": new Action("Lava Burst", 2, 1),
         "Lightning Bolt": new Action("Lightning Bolt", 2, 2),
+        "Frost Shock": new Action("Frost Shock", 2, 3),
     }
 
 }

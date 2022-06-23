@@ -67,7 +67,7 @@ function update(progress) {
         detailsDamage.run()
     } else if (detailsIdx===1) {
         detailsHealing.run()
-    } else {
+    } else if (detailsIdx===2) {
         detailsAbilities.run()
     }
     detailsIdx++

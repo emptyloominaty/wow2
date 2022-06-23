@@ -47,7 +47,7 @@ let iconsPath = {
     "Attack":"img/Attack.jpg",
     "Block":"img/Block.jpg",
     "Parry":"img/Parry.jpg",
-
+    "Exhaustion":"img/Exhaustion.jpg",
 
 
 

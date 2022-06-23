@@ -21,9 +21,10 @@ class Ability {
     hiddenBuff = false
     permanentBuff = false
     dispellable = false // magic,disease,curse,poison //TODO
+    hiddenSB = false
 
-    ignoreArmor = false
-    dontBreakStealth = false
+    ignoreArmor = false //TODO
+    dontBreakStealth = false //TODO
 
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
