@@ -28,8 +28,14 @@ class ChainHeal extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+
+            let castTime = this.castTime
+            if (caster.abilities["Flash Flood"].checkBuff(caster)) {
+                castTime = castTime * (1-caster.abilities["Flash Flood"].reduceCastTime)
+            }
+
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

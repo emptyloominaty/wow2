@@ -26,8 +26,14 @@ class HealingWave extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+
+            let castTime = this.castTime
+            if (caster.abilities["Flash Flood"].checkBuff(caster)) {
+                castTime = castTime * (1-caster.abilities["Flash Flood"].reduceCastTime)
+            }
+
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -44,6 +50,7 @@ class HealingWave extends Ability {
         for (let i = 0; i<caster.buffs.length;i++) {
             if (caster.buffs[i].name==="Tidal Waves") {
                 spellPower = spellPower *1.1
+                caster.abilities["Flash Flood"].applyBuff(caster)
                 if (caster.buffs[i].stacks>1) {
                     caster.buffs[i].stacks--
                     caster.buffs[i].duration = 15

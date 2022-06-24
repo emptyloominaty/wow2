@@ -64,7 +64,6 @@ class Undulation extends Ability {
         super("Undulation", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
         this.duration = 15
         this.maxStacks = 3
     }
@@ -104,7 +103,6 @@ class UnleashLife extends Ability {
     constructor() {
         super("Unleash Life", 0.8, 1.5, 0, 15, false, false, false, "nature", 40, 1)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 1.9
         this.duration = 10
     }
@@ -205,7 +203,6 @@ class Deluge extends Ability {
         super("Deluge", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
     }
 
     getTooltip() {
@@ -233,7 +230,6 @@ class SurgeofEarth extends Ability {
     constructor() {
         super("Surge of Earth", 2, 1.5, 0, 20, false, false, false, "nature", 40, 1)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 0.8333
     }
 
@@ -310,7 +306,6 @@ class EarthgrabTotem extends Ability {
         let range = 35
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
         this.effect = [{name:"root"}]
         this.duration = 8
         this.area = {type:"circle", radius:8, duration:20,data:{type:"applyDebuff",color:"#4eff40",color2:"rgba(103,163,255,0.3)"},cast:false}
@@ -365,7 +360,6 @@ class StaticCharge extends Ability {
         super("Static Charge", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
     }
 
     getTooltip() {
@@ -388,7 +382,6 @@ class AncestralVigor extends Ability {
         super("Ancestral Vigor", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
         this.effect = [{name:"increaseHealth",val:0.1}]
         this.duration = 10
     }
@@ -496,7 +489,6 @@ class AncestralProtectionTotem extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 0.35
         this.duration = 1
         this.area = {type:"circle2", radius:20, duration:30,data:{type:"applyBuff",timer:1,color:"#275e79",color2:"rgba(47,69,124,0.19)"},cast:false}
@@ -588,7 +580,6 @@ class GracefulSpirit extends Ability {
         super("Graceful Spirit", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
     }
 
     getTooltip() {
@@ -623,7 +614,6 @@ class WindRushTotem extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
         this.area = {type:"circle", radius:10, duration:10,data:{type:"applyBuff",timer:0.5,color:"#794123",color2:"rgba(112,124,116,0.06)"},cast:false}
         this.petData = {
             name:"Earthen Wall Totem",
@@ -676,13 +666,32 @@ class FlashFlood extends Ability {
         super("Flash Flood", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
+        this.duration = 15
+        this.reduceCastTime = 0.2
+    }
+
+    applyBuff(caster) {
+        if (this.talentSelect) {
+            applyBuff(caster,caster,this)
+        }
+    }
+
+    checkBuff(caster) {
+        if (this.talentSelect) {
+            for (let i = 0; i<caster.buffs.length;i++) {
+                if (caster.buffs[i].name==="Flash Flood") {
+                    caster.buffs[i].duration = -1
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     getTooltip() {
-        return "//NOT IMPLEMENTED//When you consume Tidal Waves, the cast time of your next heal is reduced by 20%."
+        return "When you consume Tidal Waves, the cast time of your next heal is reduced by 20%."
     }
-    //TODO:
+
 }
 //------------------------------------------------
 class Downpour extends Ability {
@@ -701,7 +710,6 @@ class Downpour extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 1.75
         this.maxtargets = 5
         this.healRange = 12
@@ -719,8 +727,14 @@ class Downpour extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+
+            let castTime = this.castTime
+            if (caster.abilities["Flash Flood"].checkBuff(caster)) {
+                castTime = castTime * (1-caster.abilities["Flash Flood"].reduceCastTime)
+            }
+
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -875,7 +889,6 @@ class HighTide extends Ability {
         super("High Tide", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
         this.manaSpent = 0
         this.maxManaSpent = 40 //%
         this.duration = 25
@@ -900,14 +913,61 @@ class Wellspring extends Ability {
     constructor() {
         super("Wellspring", 4, 1.5, 1.5, 20, false, true, false, "nature", 30, 1)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 1.9
+        this.maxtargets = 6
     }
     getTooltip() {
-        return "//NOT IMPLEMENTED//Creates a surge of water that flows forward, healing friendly targets in a wide arc in front of you for "+spellPowerToNumber(this.spellPower)+"."
+        return "Creates a surge of water that flows forward, healing friendly targets in a wide arc in front of you for "+spellPowerToNumber(this.spellPower)+"."
     }
 
-    
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            let castTime = this.castTime
+            if (caster.abilities["Flash Flood"].checkBuff(caster)) {
+                castTime = castTime * (1-caster.abilities["Flash Flood"].reduceCastTime)
+            }
+
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+
+        let dir = caster.direction
+        let ttt = 0
+        let lastTarget = target
+        let targets = sortFriendlyTargetsByHealth(true)
+        for (let i = 0; i<targets.length ;i++) {
+            if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.healRange,true)) {
+                let dirToTarget = getDirection(caster,targets[i])
+                if (dir+90>dirToTarget && dir-90<dirToTarget) {
+                    lastTarget = targets[i]
+                    doHeal(caster, targets[i], this)
+                    ttt++
+                    if (ttt>=this.maxtargets) {
+                        break
+                    }
+                }
+
+            }
+        }
+
+        this.setCd()
+        caster.useEnergy(this.cost)
+    }
+
 }
 //------------------------------------------------
 class Ascendance extends Ability {
