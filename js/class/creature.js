@@ -78,6 +78,11 @@ class Creature {
 
     magicDamageTaken = 1
     physicalDamageTaken = 1
+    canRess = false
+    canRessBuffId = 0
+
+    healthA = 0
+    healthB = 0
 
     id3 = 99
     constructor(name,enemy,health,energy,x,y,direction,spec,stats) {
@@ -342,6 +347,8 @@ class Creature {
 
         this.magicDamageTaken = 1
         this.physicalDamageTaken = 1
+        this.canRess = false
+        this.canRessBuffId = 0
 
         let dodge = this.stats.crit
         this.stats = JSON.parse(JSON.stringify(this.statsBup))
@@ -352,6 +359,7 @@ class Creature {
         this.isIncapacitated = false
         this.isInterrupted = false
         this.buffMoved = false //Chi torpedo Fix
+        this.healthA = this.health
 
 
         //TODO?
@@ -456,11 +464,22 @@ class Creature {
                         if (this.energy>this.maxEnergy) {
                             this.energy = this.maxEnergy
                         }
+                    } else if (this.buffs[i].effect[j].name === "resurrect") {
+                        this.canRess = true
+                        this.canRessBuffId = i
+                    } else if (this.buffs[i].effect[j].name === "healWhenBelow") {
+                        if (this.buffs[i].effect[j].time<=0) {
+                            if (this.health/this.maxHealth<this.buffs[i].effect[j].below) {
+                                this.health += this.maxHealth*this.buffs[i].effect[j].heal
+                                this.buffs[i].effect[j].time = this.buffs[i].effect[j].time2 - progressInSec
+                            }
+                        } else {
+                            this.buffs[i].effect[j].time -= progressInSec
+                        }
                     } else if (this.buffs[i].effect[j].name === "prayerofMending") {
                         let buffPoM = this.buffs[i].effect[j]
                         let buff = this.buffs[i]
-                        buffPoM.healthA = this.health
-                        if (buffPoM.healthA<buffPoM.healthB && buff.duration+1<buffPoM.lastTime ) {
+                        if (this.healthA<this.healthB && buff.duration+1<buffPoM.lastTime ) {
                             doHeal(buff.caster,this,buff.caster.abilities["Prayer of Mending"])
                             buffPoM.lastTime = buff.duration
                             buffPoM.val--
@@ -472,12 +491,10 @@ class Creature {
                             }
                             buff.duration = -1
                         }
-                        buffPoM.healthB = this.health
                     } else if (this.buffs[i].effect[j].name === "healWhenDamage") {
                         let buffPoM = this.buffs[i].effect[j]
                         let buff = this.buffs[i]
-                        buffPoM.healthA = this.health
-                        if (buffPoM.healthA<buffPoM.healthB && buff.duration+3<buffPoM.lastTime) {
+                        if (this.healthA<this.healthB && buff.duration+3<buffPoM.lastTime) {
                             doHeal(buff.caster,this,buff.ability)
                             buffPoM.lastTime = buff.duration
                             if (buff.stacks>1) {
@@ -486,7 +503,26 @@ class Creature {
                                 buff.duration = -1
                             }
                         }
-                        buffPoM.healthB = this.health
+                    } else if (this.buffs[i].effect[j].name === "redirectDamage") {
+                        let buffPoM = this.buffs[i].effect[j]
+                        let buff = this.buffs[i]
+                        if (!buff.ability.destroyed) {
+                            if (this.healthA < this.healthB) {
+                                //TODO:fullDamage:false
+                                doHeal(buff.caster, this, buff.ability)
+
+                                if (buffPoM.returnTo === "ability") {
+                                    buff.ability.health -= ((buff.caster.stats.primary * buff.ability.spellPower) * (1 + (buff.caster.stats.vers / 100)))
+                                    buff.ability.destroyed = buff.ability.destroyArea(this)
+                                }
+
+                                if (buff.stacks > 1) {
+                                    buff.stacks--
+                                } else {
+                                    buff.duration = -1
+                                }
+                            }
+                        }
                     } else if (this.buffs[i].effect[j].name === "starfall") {
                         this.buffs[i].effect[j].timer += progressInSec
                         if (this.buffs[i].effect[j].timer>1) {
@@ -546,6 +582,7 @@ class Creature {
                 }
             }
         }
+        this.healthB = this.health
         //debuffs
         for (let i = 0; i<this.debuffs.length; i++) {
             if (this.debuffs[i].type==="dot") {
@@ -627,8 +664,19 @@ class Creature {
 
     die() {
         this.floatingTexts.removeAll()
-        this.health = 0
         this.isDead = true
+        if (this.canRess && this.health>this.maxHealth*(-1)) {
+            this.health = this.maxHealth*0.2
+            this.isDead = false
+            this.buffs[this.canRessBuffId].ability.destroyArea(this.buffs[this.canRessBuffId].caster)
+        } else {
+            this.health = 0
+        }
+
+        for (let i = 0; i<this.pets.length; i++) {
+            this.pets[i] = undefined
+        }
+
         this.debuffs = []
         this.buffs = []
     }

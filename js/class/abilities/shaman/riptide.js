@@ -49,10 +49,12 @@ class Riptide extends Ability {
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             applyHot(caster,caster,this,undefined,undefined,this.spellPowerHot)
             doHeal(caster,caster,this,undefined,spellPower)
+            target = caster
         } else {
             applyHot(caster,target,this,undefined,undefined,this.spellPowerHot)
             doHeal(caster,target,this,undefined,spellPower)
         }
+        caster.abilities["Ancestral Vigor"].applyBuff(caster,target)
         caster.abilities["Tidal Waves"].applyBuff(caster)
         caster.useEnergy(this.cost)
     }

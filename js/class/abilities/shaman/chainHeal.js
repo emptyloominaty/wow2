@@ -63,12 +63,14 @@ class ChainHeal extends Ability {
                 lastTarget = targets[i]
                 spellPower = spellPower * 0.7 //-30%
                 doHeal(caster, targets[i], this,undefined,spellPower)
+                caster.abilities["Ancestral Vigor"].applyBuff(caster,targets[i])
                 ttt++
                 if (ttt>=this.jumptargets) {
                     break
                 }
             }
         }
+        caster.abilities["Ancestral Vigor"].applyBuff(caster,target)
         caster.abilities["Tidal Waves"].applyBuff(caster)
         this.setCd()
         caster.useEnergy(this.cost)

@@ -11,11 +11,23 @@ let _restorationShaman_talents = function(caster) {
     caster.abilities["Earthgrab Totem"] = new EarthgrabTotem()
     caster.abilities["Static Charge"] = new StaticCharge()
 
+    caster.abilities["Ancestral Vigor"] = new AncestralVigor()
+    caster.abilities["Earthen Wall Totem"] = new EarthenWallTotem()
+    caster.abilities["Ancestral Protection Totem"] = new AncestralProtectionTotem()
+
+    caster.abilities["Nature's Guardian "] = new NaturesGuardianShaman()
+    caster.abilities["Graceful Spirit"] = new GracefulSpirit()
+    caster.abilities["Wind Rush Totem"] = new WindRushTotem()
+
+    caster.abilities["Flash Flood"] = new FlashFlood()
+    caster.abilities["Downpour"] = new Downpour()
+    caster.abilities["Cloudburst Totem"] = new CloudburstTotem()
+
     caster.talents = [["Torrent","Undulation","Unleash Life"],
         ["Echo of the Elements","Deluge","Surge of Earth"],
         ["Spirit Wolf","Earthgrab Totem","Static Charge"],
         ["Ancestral Vigor","Earthen Wall Totem","Ancestral Protection Totem"],
-        ["Nature's Guardian","Graceful Spirit","Wind Rush Totem"],
+        ["Nature's Guardian ","Graceful Spirit","Wind Rush Totem"],
         ["Flash Flood","Downpour","Cloudburst Totem"],
         ["High Tide","Wellspring","Ascendance"]
     ]
@@ -161,12 +173,13 @@ class EchooftheElements extends Ability {
         return "Riptide, Healing Stream Totem, and Lava Burst now have 2 charges. Effects that reset their remaining cooldown will instead grant 1 charge."
     }
 
-    //TODO:CLOUDBURST TOTEM
     setTalent(caster) {
         caster.abilities["Riptide"].charges += 1
         caster.abilities["Riptide"].maxCharges += 1
         caster.abilities["Healing Stream Totem"].charges += 1
         caster.abilities["Healing Stream Totem"].maxCharges += 1
+        caster.abilities["Cloudburst Totem"].charges += 1
+        caster.abilities["Cloudburst Totem"].maxCharges += 1
         caster.abilities["Lava Burst"].charges += 1
         caster.abilities["Lava Burst"].maxCharges += 1
     }
@@ -176,6 +189,8 @@ class EchooftheElements extends Ability {
         caster.abilities["Riptide"].maxCharges -= 1
         caster.abilities["Healing Stream Totem"].charges -= 1
         caster.abilities["Healing Stream Totem"].maxCharges -= 1
+        caster.abilities["Cloudburst Totem"].charges -= 1
+        caster.abilities["Cloudburst Totem"].maxCharges -= 1
         caster.abilities["Lava Burst"].charges -= 1
         caster.abilities["Lava Burst"].maxCharges -= 1
     }
@@ -223,7 +238,7 @@ class SurgeofEarth extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget) && this.talentSelect) {
             let target = caster.castTarget
             if (!this.isEnemy(caster,target) || !target.isDead || target!=="" || Object.keys(target).length !== 0) {
                 let charges = 0
@@ -290,6 +305,8 @@ class EarthgrabTotem extends Ability {
         let school = "nature"
         let range = 35
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
         this.effect = [{name:"root"}]
         this.duration = 8
         this.area = {type:"circle", radius:8, duration:20,data:{type:"applyDebuff",color:"#4eff40",color2:"rgba(103,163,255,0.3)"},cast:false}
@@ -310,7 +327,7 @@ class EarthgrabTotem extends Ability {
 
     //TODO:Enemies previously rooted by the totem instead suffer 50% movement speed
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
@@ -362,65 +379,492 @@ class StaticCharge extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW4
-//------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW5
-//------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW6
-//------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW7
+class AncestralVigor extends Ability {
+    constructor() {
+        super("Ancestral Vigor", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.effect = [{name:"increaseHealth",val:0.1}]
+        this.duration = 10
+    }
 
+    getTooltip() {
+        return "Targets you heal with Healing Wave, Healing Surge, Chain Heal, or Riptide's initial heal gain 10% increased health for 10 sec."
+    }
 
+    applyBuff(caster,target) {
+        if (this.talentSelect) {
+            applyBuff(caster, target, this)
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-let _restorationShaman_talents = function(caster) {
-    caster.abilities[""] = new ()
-
-
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
-    ]
 }
+//------------------------------------------------
+class EarthenWallTotem extends Ability {
+    constructor() {
+        let name = "Earthen Wall Totem"
+        let cost = 2.2
+        let gcd = 1
+        let castTime = 0
+        let cd = 60
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.35
+        this.area = {type:"circle", radius:10, duration:15,data:{type:"applyBuff",timer:1,color:"#794123",color2:"rgba(124,79,49,0.06)"},cast:false}
+        this.petData = {
+            name:"Earthen Wall Totem",
+            abilities:{},
+            color:"rgb(135,84,45)",
+            size:3,
+            do:[]
+        }
+        this.petDuration = 15
+        this.castPosition = {x:0,y:0}
+        this.effect = [{name:"redirectDamage",fullDamage:false,returnTo:"ability",spellPower:this.spellPower,healthA:0,healthB:0,used:false}]
+        this.health = 0
 
-//------------------------------------------------------------------------------------------------ROW1
+        this.areaId = 0
+        this.destroyed = false
+    }
+
+    getTooltip() {
+        return  "Summons a totem with "+Math.round(player.maxHealth)+" health for 15 sec. "+spellPowerToNumber(this.spellPower)+" damage from each attack against allies within 10 yards of the totem is redirected to the totem."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            if (caster===player) {
+                this.castPosition.x = mousePosition2d.x
+                this.castPosition.y = mousePosition2d.y
+            } else {
+                this.castPosition.x = caster.mousePos.x
+                this.castPosition.y = caster.mousePos.y
+            }
+            this.destroyed = false
+            spawnPet(caster,"totem",this.petData.name,this.castPosition.x,this.castPosition.y,this)
+            this.health = caster.maxHealth+1
+            this.areaId = addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
+
+            this.setCd()
+            caster.useEnergy(this.cost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    destroyArea() {
+        if (this.health<=0) {
+            areas[this.areaId].time = 99
+            return true
+        }
+        return false
+    }
+
+}
 //------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW2
-//------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW3
-//------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW4
-//------------------------------------------------
-//------------------------------------------------
+class AncestralProtectionTotem extends Ability {
+    constructor() {
+        let name = "Ancestral Protection Totem"
+        let cost = 2.2
+        let gcd = 1
+        let castTime = 0
+        let cd = 300
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.35
+        this.duration = 1
+        this.area = {type:"circle2", radius:20, duration:30,data:{type:"applyBuff",timer:1,color:"#275e79",color2:"rgba(47,69,124,0.19)"},cast:false}
+        this.petData = {
+            name: "Ancestral Protection Totem",
+            abilities:{},
+            color:"rgb(67,231,64)",
+            size:3,
+            do:[]
+        }
+        this.petDuration = 30
+        this.castPosition = {x:0,y:0}
+        this.effect = [{name:"resurrect"},{name:"increaseHealth",val:0.1}]
+        this.health = 0
+
+        this.areaId = 0
+        this.petId = 0
+    }
+
+    getTooltip() {
+        return  "Summons a totem at the target location for 30 sec. All allies within 20 yards of the totem gain 10% increased health. If an ally dies, the totem will be consumed to allow them to Reincarnate with 20% health and mana. Cannot reincarnate an ally who dies to massive damage."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            if (caster===player) {
+                this.castPosition.x = mousePosition2d.x
+                this.castPosition.y = mousePosition2d.y
+            } else {
+                this.castPosition.x = caster.mousePos.x
+                this.castPosition.y = caster.mousePos.y
+            }
+            this.petId = spawnPet(caster,"totem",this.petData.name,this.castPosition.x,this.castPosition.y,this)
+            this.areaId = addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
+
+            this.setCd()
+            caster.useEnergy(this.cost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    destroyArea(caster) {
+        areas[this.areaId].time = 999
+        caster.pets[this.petId].time = 999
+        return true
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW5
-//------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW6
-//------------------------------------------------
-//------------------------------------------------
-//------------------------------------------------------------------------------------------------ROW7
+class NaturesGuardianShaman extends Ability {
+    constructor() {
+        super("Nature's Guardian ", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.permanentBuff = true
+        this.duration = 10
+        this.hiddenBuff = true
+        this.effect = [{name:"healWhenBelow",below:0.35,heal:0.2,time:0,time2:45}]
+    }
 
- */
+    getTooltip() {
+        return "When your health is brought below 35%, you instantly heal for 20% of your maximum health.  Cannot occur more than once every 45 sec."
+    }
+
+    setTalent(caster) {
+        applyBuff(caster,caster,this)
+    }
+
+    unsetTalent(caster) {
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Nature's Guardian") {
+                caster.buffs[i].duration = -1
+            }
+        }
+    }
+}
+//------------------------------------------------
+class GracefulSpirit extends Ability {
+    constructor() {
+        super("Graceful Spirit", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Reduces the cooldown of Spiritwalker's Grace by 60 sec and increases your movement speed by 20% while it is active."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Spiritwalker's Grace"].cd -= 60
+        caster.abilities["Spiritwalker's Grace"].maxCd -= 60
+        caster.abilities["Spiritwalker's Grace"].effect[1].val = 0.2
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Spiritwalker's Grace"].cd += 60
+        caster.abilities["Spiritwalker's Grace"].maxCd += 60
+        caster.abilities["Spiritwalker's Grace"].effect[1].val = 0
+    }
+}
+//------------------------------------------------
+class WindRushTotem extends Ability {
+    constructor() {
+        let name = "Wind Rush Totem"
+        let cost = 0
+        let gcd = 1
+        let castTime = 0
+        let cd = 120
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.area = {type:"circle", radius:10, duration:10,data:{type:"applyBuff",timer:0.5,color:"#794123",color2:"rgba(112,124,116,0.06)"},cast:false}
+        this.petData = {
+            name:"Earthen Wall Totem",
+            abilities:{},
+            color:"rgb(135,84,45)",
+            size:3,
+            do:[]
+        }
+        this.petDuration = 10
+        this.castPosition = {x:0,y:0}
+        this.effect = [{name:"moveSpeed",val:0.6}]
+        this.duration = 0.6
+        this.health = 0
+
+    }
+
+    getTooltip() {
+        return "Summons a totem at the target location for 15 sec, continually granting all allies who pass within 10 yards 60% increased movement speed for 5 sec."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            if (caster===player) {
+                this.castPosition.x = mousePosition2d.x
+                this.castPosition.y = mousePosition2d.y
+            } else {
+                this.castPosition.x = caster.mousePos.x
+                this.castPosition.y = caster.mousePos.y
+            }
+            spawnPet(caster,"totem",this.petData.name,this.castPosition.x,this.castPosition.y,this)
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
+
+            this.setCd()
+            caster.useEnergy(this.cost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+}
+//------------------------------------------------------------------------------------------------ROW6
+class FlashFlood extends Ability {
+    constructor() {
+        super("Flash Flood", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//When you consume Tidal Waves, the cast time of your next heal is reduced by 20%."
+    }
+    //TODO:
+}
+//------------------------------------------------
+class Downpour extends Ability {
+    constructor() {
+        let name = "Downpour"
+        let cost = 3
+        let gcd = 1.5
+        let castTime = 1.5
+        let cd = 5
+        let charges = 1
+        let maxCharges = 1
+        let channeling = false
+        let casting = true
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 1.75
+        this.maxtargets = 5
+        this.healRange = 12
+    }
+
+    getTooltip() {
+        return "A burst of water at the target location heals up to six injured allies within 12 yards for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+". Cooldown increased by 5 sec for each target effectively healed."
+    }
+
+    run(caster) {
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        this.setCd()
+
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
+            //heal self
+            doHeal(caster,caster,this,)
+            target = caster
+        } else {
+            //heal target
+            doHeal(caster,target,this)
+        }
+
+        let ttt = 0
+        let lastTarget = target
+        let targets = sortFriendlyTargetsByHealth(true)
+        for (let i = 0; i<targets.length ;i++) {
+            if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.healRange)) {
+                lastTarget = targets[i]
+                doHeal(caster, targets[i], this)
+                ttt++
+                if (ttt>=this.maxtargets) {
+                    break
+                }
+            }
+        }
+        this.maxCd = 5+(ttt*5)
+        caster.useEnergy(this.cost)
+    }
+}
+//------------------------------------------------
+class CloudburstTotem extends Ability {
+    constructor() {
+        let name = "Cloudburst Totem"
+        let cost = 0
+        let gcd = 1
+        let castTime = 0
+        let cd = 30
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.petData = {
+            name:"Cloudburst Totem",
+            abilities:{},
+            color:"rgb(135,84,45)",
+            size:4,
+            do:[]
+        }
+        this.petDuration = 15
+        this.petId = 0
+        this.healing = 0
+        this.ct = false
+        this.timer1 = 0
+        this.timer2 = 15
+    }
+
+    getTooltip() {
+        return "Summons a totem at your feet for 15 sec that collects power from all of your healing spells. When the totem expires or dies, the stored power is released, healing all injured allies within 40 yards for 30% of all healing done while it was active, divided evenly among targets. Casting this spell a second time recalls the totem and releases the healing."
+    }
+
+    run(caster) {
+        if (this.ct) {
+            if (this.timer1>this.timer2) {
+                this.releaseHealing(caster)
+            } else {
+                this.timer1 += progressInSec
+            }
+
+        }
+    }
+
+
+    setTalent(caster) {
+        caster.abilities["Healing Stream Totem"].canUse = false
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Healing Stream Totem"].canUse = true
+    }
+
+    startCast(caster) {
+        if (this.ct && this.abilityCd>=this.abilityMaxCd && this.checkGcd(caster)) {
+           this.releaseHealing(caster)
+        } else {
+            if (this.checkStart(caster) && this.talentSelect) {
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+                this.petId = spawnPet(caster, "totem", this.petData.name, caster.x, caster.y, this)
+                this.ct = true
+
+                this.setCd()
+                caster.useEnergy(this.cost)
+                this.setGcd(caster)
+                return true
+            } else if (this.canSpellQueue(caster)) {
+                spellQueue.add(this, caster.gcd)
+            }
+        }
+        return false
+    }
+
+    releaseHealing(caster) {
+        let targets = sortFriendlyTargetsByHealth(true)
+
+        for (let i = 0; i<targets.length; i++) {
+            if (targets[i].health>=targets[i].maxHealth) {
+                targets.splice(i,1)
+                i--
+            }
+        }
+
+        let healing = this.healing/targets.length
+
+        for (let i = 0; i<targets.length; i++) {
+            if (this.checkDistance(caster,targets[i])) {
+                doHeal(caster,targets[i],this,undefined,undefined,false,undefined,undefined,healing)
+            }
+        }
+        if (caster.pets[this.petId]!==undefined) {
+            caster.pets[this.petId].time = 99
+        }
+        this.timer1 = 0
+        this.ct = false
+        this.abilityCd = 0
+    }
+
+    addHealing(val) {
+        if (this.talentSelect && this.ct) {
+            this.healing += val*0.3
+        }
+    }
+}
+//------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

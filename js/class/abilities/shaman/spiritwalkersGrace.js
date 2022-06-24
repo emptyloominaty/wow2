@@ -14,7 +14,7 @@ class SpiritwalkersGrace extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.noGcd = true
 
-        this.effect = [{name:"canMoveWhileCasting"}]
+        this.effect = [{name:"canMoveWhileCasting"},{name:"moveSpeed",val:0}]
         this.duration = 15
     }
 

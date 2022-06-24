@@ -155,8 +155,8 @@ if (player.spec==="restorationShaman") {
     actions = {
         //bar1
         "Chain Heal": new Action("Chain Heal", 1, 0),
-
         "Riptide": new Action("Riptide", 1, 1),
+        "Cloudburst Totem": new Action("Cloudburst Totem", 1, 2),
         "Ghost Wolf": new Action("Ghost Wolf",1,3),
 
         "Earthbind Totem": new Action("Earthbind Totem", 1, 5),
@@ -179,7 +179,10 @@ if (player.spec==="restorationShaman") {
         "Flame Shock": new Action("Flame Shock", 2, 0),
         "Lava Burst": new Action("Lava Burst", 2, 1),
         "Lightning Bolt": new Action("Lightning Bolt", 2, 2),
-        "Frost Shock": new Action("Frost Shock", 2, 3),
+
+
+        "Earthen Wall Totem": new Action("Earthen Wall Totem", 2, 3),
+
         "Spirit Link Totem": new Action("Spirit Link Totem", 2, 4),
 
         "Earth Shield": new Action("Earth Shield", 2, 7),
@@ -187,6 +190,7 @@ if (player.spec==="restorationShaman") {
         "Spiritwalker's Grace": new Action("Spiritwalker's Grace", 2, 11),
 
         "Unleash Life": new Action("Unleash Life", 3, 0),
+        "Frost Shock": new Action("Frost Shock", 3, 1),
         "Water Shield": new Action("Water Shield", 3, 11),
     }
 

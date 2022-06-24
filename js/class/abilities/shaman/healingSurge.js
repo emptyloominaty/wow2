@@ -63,10 +63,14 @@ class HealingSurge extends Ability {
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
             doHeal(caster,caster,this,undefined,spellPower,undefined,undefined,undefined,undefined,critInc)
+            target = caster
         } else {
             //heal target
             doHeal(caster,target,this,undefined,spellPower,undefined,undefined,undefined,undefined,critInc)
         }
+
+        caster.abilities["Ancestral Vigor"].applyBuff(caster,target)
+
         this.setCd()
         caster.useEnergy(this.cost)
     }

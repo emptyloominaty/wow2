@@ -1112,7 +1112,7 @@ let iconsPath = {
     "Maelstrom Weapon":"img/shaman/MaelstromWeapon.jpg",
     "Mana Tide Totem":"img/shaman/ManaTideTotem.jpg",
     "Master of the Elements":"img/shaman/MasteroftheElements.jpg",
-    "Nature's Guardian(Shaman)":"img/shaman/NaturesGuardian.jpg",
+    "Nature's Guardian ":"img/shaman/NaturesGuardian.jpg",
     "Primal Elementalist":"img/shaman/PrimalElementalist.jpg",
     "Purge":"img/shaman/Purge.jpg",
     "Purify Spirit":"img/shaman/PurifySpirit.jpg",

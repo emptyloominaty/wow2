@@ -55,6 +55,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             heal = heal * getRestoDruidMastery(caster,target)
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
+            caster.abilities["Cloudburst Totem"].addHealing(heal)
             if (crit>1 && t!==true) {
                 caster.abilities["Resurgence"].refundMana(caster,ability)
             }
@@ -615,6 +616,7 @@ let sortFriendlyTargetsByHealth = function(array = false) {
 let spawnPet = function (caster,type,name,x,y,ability) {
     if (caster.pets.length===0) {
         caster.pets.push(new Pet(caster.pets.length,caster,type,ability.petDuration,ability.petData,x,y))
+        return caster.pets.length-1
     } else {
         let undefinedV = false
         let statue = false
@@ -636,10 +638,13 @@ let spawnPet = function (caster,type,name,x,y,ability) {
 
         if (statue!==false){
             caster.pets[statue] = new Pet(statue,caster,type,ability.petDuration,ability.petData,x,y)
+            return statue
         } else if (undefinedV!==false) {
             caster.pets[undefinedV] = new Pet(undefinedV,caster,type,ability.petDuration,ability.petData,x,y)
+            return undefinedV
         } else {
             caster.pets.push(new Pet(caster.pets.length,caster,type,ability.petDuration,ability.petData,x,y))
+            return caster.pets.length-1
         }
     }
 }
