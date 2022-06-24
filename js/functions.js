@@ -55,9 +55,12 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             heal = heal * getRestoDruidMastery(caster,target)
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
-            caster.abilities["Cloudburst Totem"].addHealing(heal)
+            caster.abilities["Cloudburst Totem"].addHealing(heal,ability)
             if (crit>1 && t!==true) {
                 caster.abilities["Resurgence"].refundMana(caster,ability)
+            }
+            if (ability.name!=="Ascendance" && ability.name!=="Leech") {
+                caster.abilities["Ascendance"].heal(caster,heal)
             }
         } else if (caster.spec==="mistweaver") {
             if (ability.name!=="Enveloping Mist" || ability.name!=="Enveloping Breath") {

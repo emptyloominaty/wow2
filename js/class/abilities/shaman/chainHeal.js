@@ -54,6 +54,26 @@ class ChainHeal extends Ability {
         let spellPower = this.spellPower * (1+caster.abilities["Unleash Life"].checkBuff(caster))
         spellPower = spellPower * (1+caster.abilities["Deluge"].checkBuff(caster,target))
 
+        let highTide = false
+        if (caster.abilities["High Tide"].talentSelect) {
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name==="High Tide") {
+                    highTide = true
+                    if (caster.buffs[i].stacks>1) {
+                        caster.buffs[i].stacks--
+                    } else {
+                        caster.buffs[i].duration = -1
+
+                    }
+                }
+            }
+        }
+
+        if (highTide) {
+            spellPower = spellPower * 1.1
+        }
+
+
         //jump
         let ttt = 0
         let lastTarget = target
@@ -61,7 +81,9 @@ class ChainHeal extends Ability {
         for (let i = 0; i<targets.length ;i++) {
             if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.jumpRange)) {
                 lastTarget = targets[i]
-                spellPower = spellPower * 0.7 //-30%
+                if (!highTide) {
+                    spellPower = spellPower * 0.7 //-30%
+                }
                 doHeal(caster, targets[i], this,undefined,spellPower)
                 caster.abilities["Ancestral Vigor"].applyBuff(caster,targets[i])
                 ttt++

@@ -23,6 +23,10 @@ let _restorationShaman_talents = function(caster) {
     caster.abilities["Downpour"] = new Downpour()
     caster.abilities["Cloudburst Totem"] = new CloudburstTotem()
 
+    caster.abilities["High Tide"] = new HighTide()
+    caster.abilities["Wellspring"] = new Wellspring()
+    caster.abilities["Ascendance"] = new Ascendance()
+
     caster.talents = [["Torrent","Undulation","Unleash Life"],
         ["Echo of the Elements","Deluge","Surge of Earth"],
         ["Spirit Wolf","Earthgrab Totem","Static Charge"],
@@ -743,7 +747,7 @@ class Downpour extends Ability {
         let lastTarget = target
         let targets = sortFriendlyTargetsByHealth(true)
         for (let i = 0; i<targets.length ;i++) {
-            if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.healRange)) {
+            if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.healRange,true)) {
                 lastTarget = targets[i]
                 doHeal(caster, targets[i], this)
                 ttt++
@@ -847,7 +851,7 @@ class CloudburstTotem extends Ability {
         let healing = this.healing/targets.length
 
         for (let i = 0; i<targets.length; i++) {
-            if (this.checkDistance(caster,targets[i])) {
+            if (this.checkDistance(caster,targets[i],undefined,true)) {
                 doHeal(caster,targets[i],this,undefined,undefined,false,undefined,undefined,healing)
             }
         }
@@ -859,12 +863,119 @@ class CloudburstTotem extends Ability {
         this.abilityCd = 0
     }
 
-    addHealing(val) {
-        if (this.talentSelect && this.ct) {
+    addHealing(val,ability) {
+        if (this.talentSelect && this.ct && ability.name!=="Healing Tide Totem") {
             this.healing += val*0.3
         }
     }
 }
 //------------------------------------------------------------------------------------------------ROW7
+class HighTide extends Ability {
+    constructor() {
+        super("High Tide", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.manaSpent = 0
+        this.maxManaSpent = 40 //%
+        this.duration = 25
+        this.maxStacks = 2
+    }
+
+    getTooltip() {
+        return "Every 40% mana you spend brings a High Tide, making your next 2 Chain Heals heal for an additional 10% and not reduce with each jump."
+    }
+
+    spendMana(caster,val) {
+        this.manaSpent += val
+        if (this.manaSpent>=this.maxManaSpent) {
+            applyBuff(caster,caster,this,2,true)
+            this.manaSpent=0
+        }
+    }
+
+}
 //------------------------------------------------
+class Wellspring extends Ability {
+    constructor() {
+        super("Wellspring", 4, 1.5, 1.5, 20, false, true, false, "nature", 30, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 1.9
+    }
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Creates a surge of water that flows forward, healing friendly targets in a wide arc in front of you for "+spellPowerToNumber(this.spellPower)+"."
+    }
+
+    
+}
 //------------------------------------------------
+class Ascendance extends Ability {
+    constructor() {
+        super("Ascendance", 0, 1.5, 0, 180, false, false, false, "nature", 20, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 8.76
+        this.duration = 15
+    }
+    getTooltip() {
+        return "Transform into a Water Ascendant, duplicating all healing you deal for 15 sec and immediately healing for "+spellPowerToNumber(this.spellPower)+". Ascendant healing is distributed evenly among allies within 20 yds. "
+    }
+    getBuffTooltip(caster, target, buff) {
+        return "Transformed into a powerful Water Ascendant. Healing you deal is duplicated and distributed evenly among nearby allies."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            let targets = []
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                if (this.checkDistance(caster,friendlyTargets[i],undefined,true) && !friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
+                    targets.push(friendlyTargets[i])
+                }
+            }
+
+            targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+
+            let healing = this.spellPower/targets.length
+
+            for (let i = 0; i<targets.length; i++) {
+                doHeal(caster,targets[i],this,undefined,healing,undefined,undefined,"Restorative Mists")
+            }
+
+            applyBuff(caster,caster,this)
+            this.setCd()
+            caster.useEnergy(this.cost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    heal(caster,val) {
+        if (this.talentSelect) {
+            if (checkBuff(caster,caster,"Ascendance")) {
+                let targets = []
+                for (let i = 0; i<friendlyTargets.length; i++) {
+                    if (this.checkDistance(caster,friendlyTargets[i],undefined,true) && !friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth) {
+                        targets.push(friendlyTargets[i])
+                    }
+                }
+
+                targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+
+                let healing = val/targets.length
+
+                for (let i = 0; i<targets.length; i++) {
+                    doHeal(caster,targets[i],this,undefined,undefined,undefined,undefined,"Restorative Mists",healing)
+                }
+            }
+        }
+    }
+
+}

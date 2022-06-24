@@ -710,6 +710,8 @@ class Creature {
         }
         if (this.spec==="arcane") {
             this.abilities["Clearcasting"].spendMana(this,val)
+        } else if (this.spec==="restorationShaman") {
+            this.abilities["High Tide"].spendMana(this,val)
         }
     }
 

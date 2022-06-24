@@ -1145,6 +1145,7 @@ let iconsPath = {
     "Wind Rush Totem":"img/shaman/WindRushTotem.jpg",
     "Wind Shear":"img/shaman/WindShear.jpg",
     "Unleash Life":"img/shaman/UnleashLife.jpg",
+    "Restorative Mists":"img/shaman/RestorativeMists.jpg",
 
 
     //Warlock
