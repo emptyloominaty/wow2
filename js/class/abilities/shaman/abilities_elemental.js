@@ -17,9 +17,60 @@ class Elemental_Abilities {
     "Earthbind Totem" = new EarthbindTotem()
     "Ancestral Spirit" = new AncestralSpirit()
     "Earthquake" = new Earthquake()
+    "Cleanse Spirit" = new CleanseSpirit()
+    "Fire Elemental" = new FireElemental()
+
+    //TODO
+    //Thunderstorm
+    //Earth Elemental
+    //Tremor Totem          //FEAR
+    //Purge                 //MAGIC BUFF ON ENEMY
+    //Reincarnation
 
     //passive
     "Exhaustion" = new Exhaustion()
     "Lava Surge" = new LavaSurge()
+    "Elemental Fury" = new ElementalFury()
+    "Elemental Overload" = new ElementalOverload()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
+}
+
+
+class ElementalOverload extends Ability {
+    constructor() {
+        super("Elemental Overload", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "Your Lightning Bolt, Elemental Blast, Icefury, Lava Burst and Chain Lightning casts have a "+player.stats.mastery.toFixed(1)+"% chance to trigger a second cast on the same target, dealing 85% of normal damage and generating less Maelstrom."
+    }
+
+    mastery(caster,target,ability) {
+        if (ability.name === "Lightning Bolt" || ability.name === "Elemental Blast" || ability.name === "Icefury" || ability.name === "Lava Burst" || ability.name === "Chain Lightning") {
+            if (name!=="Elemental Overload" && getChance(player.stats.mastery)) {
+                doDamage(caster,target,this,undefined,ability.spellPower*0.85,undefined,undefined,undefined,undefined,undefined)
+                caster.useEnergy(ability.cost/2)
+            }
+        }
+    }
+
+}
+
+
+
+class ElementalFury extends Ability {
+    constructor() {
+        super("Elemental Fury", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "Your damaging and healing critical strikes deal 250% damage or healing instead of the usual 200%."
+    }
+
+    critChance() {
+        return 2.5
+    }
+
 }

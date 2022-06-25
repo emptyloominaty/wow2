@@ -5,6 +5,9 @@ let damageFunctions = {
             chance = getChance(15)
         } else if (caster.spec==="elemental") {
             chance = getChance(10)
+            if (checkBuff(caster,caster,"Fire Elemental")) {
+                damage = damage *1.25
+            }
         }
         if (chance) {
             caster.abilities["Lava Burst"].incCd(caster,12,false)

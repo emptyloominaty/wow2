@@ -24,6 +24,9 @@ let critChance = function(caster,incCrit = 0) {
     let critChance = (Math.random()*100)
     let crit = caster.stats.crit+incCrit
     if (critChance < crit) {
+        if (caster.spec==="elemental") {
+            return caster.abilities["Elemental Fury"].critChance()
+        }
         return 2
     }
     return 1
@@ -97,8 +100,13 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
     }
 }
 
-let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "",incCrit = 0,val = 0) {
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "",incCrit = 0,val = 0,name = "") {
     if (!target.isDead) {
+
+        if (name==="") {
+            name = ability.name
+        }
+
         let crit = critChance(caster,incCrit)
         if (!canCrit) { //0% crit chance
             crit = 1
@@ -141,6 +149,8 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (checkBuff(caster,caster,"Enrage")) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }
+        } else if (caster.spec==="elemental") {
+            caster.abilities["Elemental Overload"].mastery(caster,target,ability,name)
         }
 
         if (damageFunctions[ability.name]) {
@@ -219,7 +229,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
             details.doDamage(caster, damage, ability)
             if (caster === player && settings.showTargetFloatingText) {
-                target.floatingTexts.addText(damage, "damage", crit, ability.name, t)
+                target.floatingTexts.addText(damage, "damage", crit, name, t)
             }
 
             //leech

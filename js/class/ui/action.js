@@ -199,6 +199,7 @@ if (player.spec==="restorationShaman") {
 
 if (player.spec==="elemental") {
     actions = {
+        "Fire Elemental": new Action("Fire Elemental", 0, 0),
         "Earthquake": new Action("Earthquake", 0, 1),
 
         "Wind Shear": new Action("Wind Shear", 0, 5),
