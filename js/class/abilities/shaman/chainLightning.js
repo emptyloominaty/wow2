@@ -18,13 +18,12 @@ class ChainLightning extends Ability {
         this.jumptargets = 2
         this.jumpRange = 15
         if (ele) {
-            this.cost = -4 //TODO:*target hit
-            this.jumptargets +=2
-        }
-        if (resto) {
+            this.cost = -4
+            this.jumptargets += 2
+            this.spellPower *= 1.05
+        } else if (resto) {
             this.spellPower *= 1.61
             this.spellPower *= 1.15
-
         }
     }
 
@@ -83,6 +82,9 @@ class ChainLightning extends Ability {
                 if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.jumpRange)) {
                     lastTarget = targets[i]
                     doDamage(caster, targets[i], this)
+                    if (caster.spec==="elemental") {
+                        caster.useEnergy(this.cost)
+                    }
                     ttt++
                     if (ttt>=this.jumptargets) {
                         break

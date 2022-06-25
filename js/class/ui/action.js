@@ -195,8 +195,34 @@ if (player.spec==="restorationShaman") {
         "Frost Shock": new Action("Frost Shock", 3, 1),
         "Water Shield": new Action("Water Shield", 3, 11),
     }
-
 }
+
+if (player.spec==="elemental") {
+    actions = {
+        "Earthquake": new Action("Earthquake", 0, 1),
+
+        "Wind Shear": new Action("Wind Shear", 0, 5),
+        "Chain Lightning": new Action("Chain Lightning", 0, 6),
+        "Astral Shift": new Action("Astral Shift", 0, 8),
+
+        "Earth Shock": new Action("Earth Shock", 1, 0),
+        "Flame Shock": new Action("Flame Shock", 1, 1),
+
+        "Ghost Wolf": new Action("Ghost Wolf",1,3),
+
+        "Lightning Bolt": new Action("Lightning Bolt", 1, 8),
+        "Lava Burst": new Action("Lava Burst", 1, 9),
+
+        "Capacitor Totem": new Action("Capacitor Totem", 1, 10),
+
+        "Spiritwalker's Grace": new Action("Spiritwalker's Grace", 2, 11),
+
+        "Frost Shock": new Action("Frost Shock", 3, 1),
+
+    }
+}
+
+
 
 if (player.spec==="restorationDruid") {
     actions = {

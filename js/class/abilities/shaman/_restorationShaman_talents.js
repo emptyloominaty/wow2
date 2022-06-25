@@ -900,10 +900,12 @@ class HighTide extends Ability {
     }
 
     spendMana(caster,val) {
-        this.manaSpent += val
-        if (this.manaSpent>=this.maxManaSpent) {
-            applyBuff(caster,caster,this,2,true)
-            this.manaSpent=0
+        if (this.talentSelect) {
+            this.manaSpent += val
+            if (this.manaSpent>=this.maxManaSpent) {
+                applyBuff(caster,caster,this,2,true)
+                this.manaSpent=0
+            }
         }
     }
 

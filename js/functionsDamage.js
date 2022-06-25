@@ -3,8 +3,7 @@ let damageFunctions = {
         let chance = false
         if (caster.spec==="restorationShaman") {
             chance = getChance(15)
-        }
-        if (caster.spec==="elemental") {
+        } else if (caster.spec==="elemental") {
             chance = getChance(10)
         }
         if (chance) {

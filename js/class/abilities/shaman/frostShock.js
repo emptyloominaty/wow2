@@ -20,6 +20,7 @@ class FrostShock extends Ability {
 
         if (ele) {
             this.spellPower *= 1.05
+            this.cost = 0
         }
         if (resto) {
             this.spellPower *= 1.15

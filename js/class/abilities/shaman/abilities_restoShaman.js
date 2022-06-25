@@ -1,9 +1,9 @@
 class RestoSham_abilities {
     "Healing Surge" = new HealingSurge()
     "Healing Wave" = new HealingWave()
-    "Flame Shock" = new FlameShock()
-    "Lightning Bolt" = new LightningBolt()
-    "Lava Burst" = new LavaBurst()
+    "Flame Shock" = new FlameShock(false,true)
+    "Lightning Bolt" = new LightningBolt(false,true)
+    "Lava Burst" = new LavaBurst(false,true)
     "Healing Rain" = new HealingRain()
     "Healing Tide Totem" = new HealingTideTotem()
     "Ghost Wolf" = new GhostWolf()

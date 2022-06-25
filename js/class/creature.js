@@ -166,8 +166,12 @@ class Creature {
             this.role = "healer"
         } else if (spec==="elemental") {//----------------------------------------Elemental
             this.class = "Shaman"
+            this.abilities = new Elemental_Abilities()
+            _elemental_talents(this)
             this.melee = false
             this.role = "dps"
+            this.energy = 0
+            this.resourceName = "Maelstrom"
         } else if (spec==="assassination") { //----------------------------------------Assa
             this.class = "Rogue"
             this.abilities = new assassination_abilities()

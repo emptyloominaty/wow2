@@ -1,5 +1,5 @@
 class FlameShock extends Ability {
-    constructor() {
+    constructor(ele = false,resto= false) {
         let name = "Flame Shock"
         let cost = 0.3 //% mana
 
@@ -18,6 +18,14 @@ class FlameShock extends Ability {
         this.spellPower = 0.195
         this.spellPowerDot = 1.044
         this.duration = 18
+        if (ele) {
+            this.cost = 0
+            this.spellPower = this.spellPower*1.05
+            this.spellPowerDot = this.spellPowerDot*1.05
+        } else if (resto) {
+            this.spellPower = this.spellPower*1.15
+            this.spellPowerDot = this.spellPowerDot*1.15
+        }
     }
 
     getTooltip() {

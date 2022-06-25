@@ -63,7 +63,7 @@ class Area {
 
     findAllCreaturesInsideEnemy() {
         let inside = []
-        if (this.type==="circle" ||this.type==="circle2") {
+        if (this.type==="circle" || this.type==="circle2") {
             for (let i = 0; i<creatures.length; i++) {
                 let distance = getDistance(creatures[i],this)
                 if (distance<this.radius && isEnemy(this.caster,creatures[i]) && !creatures[i].isDead) {
@@ -81,7 +81,7 @@ class Area {
                 this.timer += progressInSec
             } else {
                 this.timer = 0
-                this.doTimer()
+                this.doTimer(undefined,this.data.type)
             }
         } else if (this.data.type==="heal" || this.data.type==="damage") {
             let targets = []
@@ -189,10 +189,15 @@ class Area {
         }
     }
 
-    doTimer(val = 1) {
-        let targets = this.findAllCreaturesInside()
-        //targets = targets.sort(() => 0.5 - Math.random()) //randomise
-        targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+    doTimer(val = 1,type) {
+        let targets = []
+        if (type==="hot") {
+            targets = this.findAllCreaturesInside()
+            targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+        } else if (type==="dot") {
+            targets = this.findAllCreaturesInsideEnemy()
+        }
+
         for (let i = 0; i<targets.length;i++) {
             applyBuff(this.caster,targets[i],this.ability)
         }
@@ -200,7 +205,12 @@ class Area {
             if (i===this.maxTargets) {
                 break
             }
-            doHeal(this.caster,targets[i],this.ability,undefined,(this.ability.spellPower*val))
+            if (type==="hot") {
+                doHeal(this.caster, targets[i], this.ability, undefined, (this.ability.spellPower * val))
+            } else if (type==="dot") {
+                doDamage(this.caster, targets[i], this.ability, undefined, (this.ability.spellPower * val))
+            }
+
             if (this.data.cast) {
                 this.caster.abilities[this.data.castName].startCast(this.caster,targets[i],this.ability)
             }

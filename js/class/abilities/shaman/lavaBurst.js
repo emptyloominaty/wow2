@@ -1,5 +1,5 @@
 class LavaBurst extends Ability {
-    constructor() {
+    constructor(ele=false,resto=false) {
         let name = "Lava Burst"
         let cost = 0.5 //% mana
 
@@ -16,7 +16,13 @@ class LavaBurst extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.972
-
+        if (ele) {
+            this.cost = -10
+            this.spellPower = this.spellPower*1.05
+        } else if (resto) {
+            this.spellPower = this.spellPower*1.15
+            this.spellPower = this.spellPower*1.27
+        }
     }
 
     getTooltip() {
