@@ -1,5 +1,5 @@
 class EarthShield extends Ability {
-    constructor() {
+    constructor(ele=false) {
         let name = "Earth Shield"
         let cost = 2
         let gcd = 1.5
@@ -17,6 +17,10 @@ class EarthShield extends Ability {
         this.effect = [{name:"healingIncrease2",val:0.2},{name:"healWhenDamage", healthA:0, healthB:0,lastTime:600}]
         this.maxStacks = 9
         this.duration = 600
+        if(ele) {
+            this.talent = true
+            this.cost = 0
+        }
     }
 
     getTooltip() {

@@ -27,9 +27,20 @@ class EarthShock extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+
+            let spellPower = this.spellPower
+            if (caster.abilities["Master of the Elements"].talentSelect && checkBuff(caster,caster,"Master of the Elements")) {
+                spellPower *= 1.2
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Master of the Elements") {
+                        caster.buffs[i].duration = -1
+                    }
+                }
+            }
+
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
-                doDamage(caster,caster.castTarget,this)
+                doDamage(caster,caster.castTarget,this,undefined,spellPower)
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
@@ -40,12 +51,14 @@ class EarthShock extends Ability {
                     caster.target = newTarget.name
                     if (this.checkDistance(caster,caster.targetObj)  && !caster.targetObj.isDead) {
                         done = true
-                        doDamage(caster,caster.targetObj,this,)
+                        doDamage(caster,caster.targetObj,this,undefined,spellPower)
                     }
                 }
             }
             if (done) {
-                caster.useEnergy(this.cost,this.secCost)
+                if (!caster.abilities["Aftershock"].refund()) {
+                    caster.useEnergy(this.cost)
+                }
                 this.setCd()
                 if (caster.isChanneling) {
                     caster.isChanneling = false

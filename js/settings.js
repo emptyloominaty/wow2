@@ -85,7 +85,7 @@ let raidFramesBuffs = {
         bottomCentre:"none",
     },
     "elemental": {
-        bottomRight:"none",
+        bottomRight:"Earth Shield",
         bottomRight2:"none",
         centreRight:"none",
         bottomCentre:"none",

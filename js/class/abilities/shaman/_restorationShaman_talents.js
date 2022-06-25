@@ -176,23 +176,27 @@ class EchooftheElements extends Ability {
     }
 
     setTalent(caster) {
-        caster.abilities["Riptide"].charges += 1
-        caster.abilities["Riptide"].maxCharges += 1
-        caster.abilities["Healing Stream Totem"].charges += 1
-        caster.abilities["Healing Stream Totem"].maxCharges += 1
-        caster.abilities["Cloudburst Totem"].charges += 1
-        caster.abilities["Cloudburst Totem"].maxCharges += 1
+        if (caster.spec==="restorationShaman") {
+            caster.abilities["Riptide"].charges += 1
+            caster.abilities["Riptide"].maxCharges += 1
+            caster.abilities["Healing Stream Totem"].charges += 1
+            caster.abilities["Healing Stream Totem"].maxCharges += 1
+            caster.abilities["Cloudburst Totem"].charges += 1
+            caster.abilities["Cloudburst Totem"].maxCharges += 1
+        }
         caster.abilities["Lava Burst"].charges += 1
         caster.abilities["Lava Burst"].maxCharges += 1
     }
 
     unsetTalent(caster) {
-        caster.abilities["Riptide"].charges -= 1
-        caster.abilities["Riptide"].maxCharges -= 1
-        caster.abilities["Healing Stream Totem"].charges -= 1
-        caster.abilities["Healing Stream Totem"].maxCharges -= 1
-        caster.abilities["Cloudburst Totem"].charges -= 1
-        caster.abilities["Cloudburst Totem"].maxCharges -= 1
+        if (caster.spec==="restorationShaman") {
+            caster.abilities["Riptide"].charges -= 1
+            caster.abilities["Riptide"].maxCharges -= 1
+            caster.abilities["Healing Stream Totem"].charges -= 1
+            caster.abilities["Healing Stream Totem"].maxCharges -= 1
+            caster.abilities["Cloudburst Totem"].charges -= 1
+            caster.abilities["Cloudburst Totem"].maxCharges -= 1
+        }
         caster.abilities["Lava Burst"].charges -= 1
         caster.abilities["Lava Burst"].maxCharges -= 1
     }

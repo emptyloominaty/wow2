@@ -134,6 +134,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         damage = damage * (1-target.damageReduction)
         damage = damage * (1-((target.stats.vers/100)/2))
 
+        if (damageFunctions[ability.name]) {
+            damage = damageFunctions[ability.name](caster,target,damage,ability)
+        }
 
         if (caster.spec==="assassination") {
             if (ability.poison || ability.bleed) {
@@ -151,10 +154,16 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         } else if (caster.spec==="elemental") {
             caster.abilities["Elemental Overload"].mastery(caster,target,ability,name)
-        }
-
-        if (damageFunctions[ability.name]) {
-            damage = damageFunctions[ability.name](caster,target,damage,ability)
+            if (caster.abilities["Ancestral Guidance"].talentSelect && checkBuff(caster,caster,"Ancestral Guidance")) {
+                caster.abilities["Ancestral Guidance"].collectHeal(damage)
+            }
+            if (caster.abilities["Echoing Shock"].talentSelect && checkBuff(caster,caster,"Echoing Shock")) {
+                if (ability.name!=="Flame Shock" && ability.name!=="Elemental Overload" || ability.name!=="Earthquake") {
+                    caster.abilities["Echoing Shock"].abilityCast = ability.name
+                    caster.abilities["Echoing Shock"].target = target
+                    caster.abilities["Echoing Shock"].removeBuff(caster)
+                }
+            }
         }
 
         if (ability.school==="physical") {

@@ -1,5 +1,5 @@
 class AncestralSpirit extends Ability {
-    constructor() {
+    constructor(ele=false) {
         let name = "Ancestral Spirit"
         let cost = 0.8
         let gcd = 1.5
@@ -12,6 +12,9 @@ class AncestralSpirit extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        if (ele) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

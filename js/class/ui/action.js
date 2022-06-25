@@ -216,6 +216,8 @@ if (player.spec==="elemental") {
 
         "Capacitor Totem": new Action("Capacitor Totem", 1, 10),
 
+        "Elemental Blast": new Action("Elemental Blast", 2, 0),
+
         "Spiritwalker's Grace": new Action("Spiritwalker's Grace", 2, 11),
 
         "Frost Shock": new Action("Frost Shock", 3, 1),

@@ -56,9 +56,19 @@ class ChainLightning extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+
+                let castTime = this.castTime
+                let gcd = this.gcd
+                if (caster.spec==="elemental" && caster.abilities["Storm Elemental"].talentSelect && checkBuff(caster,caster,"Storm Elemental")) {
+                    let val = caster.abilities["Storm Elemental"].getVal(caster)
+                    castTime = castTime * val
+                    gcd = gcd*val
+                    caster.abilities["Storm Elemental"].incStacks(caster)
+                }
+
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
-                this.setGcd(caster)
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                this.setGcd(caster,gcd)
             }
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -71,8 +81,18 @@ class ChainLightning extends Ability {
         caster.isCasting = false
         let target = caster.casting.target
 
+        let spellPower = this.spellPower
+        if (caster.spec==="elemental" && caster.abilities["Master of the Elements"].talentSelect && checkBuff(caster,caster,"Master of the Elements")) {
+            spellPower *= 1.2
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name==="Master of the Elements") {
+                    caster.buffs[i].duration = -1
+                }
+            }
+        }
+
         if (this.isEnemy(caster,target) || !target.isDead || target!=="" || Object.keys(target).length !== 0) {
-            doDamage(caster, target, this)
+            doDamage(caster, target, this,undefined,spellPower)
 
             //jump
             let ttt = 0
@@ -81,7 +101,7 @@ class ChainLightning extends Ability {
             for (let i = 0; i<targets.length ;i++) {
                 if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.jumpRange)) {
                     lastTarget = targets[i]
-                    doDamage(caster, targets[i], this)
+                    doDamage(caster, targets[i], this,undefined,spellPower)
                     if (caster.spec==="elemental") {
                         caster.useEnergy(this.cost)
                     }

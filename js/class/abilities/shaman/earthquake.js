@@ -13,16 +13,16 @@ class Earthquake extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.391*6
+        this.spellPower = 0.391
 
         //TODO:sometimes knocking down enemies.
-        this.area = {type:"circle", radius:10, duration: 10,data:{type:"dot", maxTargets:"all", spellPower:this.spellPower/6, timer:1/*sec*/,color:"#82fffd",color2:"rgba(133,71,16,0.09)"},cast:false}
+        this.area = {type:"circle", radius:10, duration: 10,data:{type:"dot", maxTargets:"all", spellPower:this.spellPower, timer:1/*sec*/,color:"#82fffd",color2:"rgba(133,71,16,0.09)"},cast:false}
         this.castPosition = {x:0,y:0}
 
     }
 
     getTooltip() {
-        return  "Causes the earth within 8 yards of the target location to tremble and break, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage over 6 sec and sometimes knocking down enemies."
+        return  "Causes the earth within 8 yards of the target location to tremble and break, dealing "+((player.stats.primary * this.spellPower*6) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage over 6 sec and sometimes knocking down enemies."
     }
 
     startCast(caster) {
@@ -39,9 +39,23 @@ class Earthquake extends Ability {
                 this.castPosition.y = caster.mousePos.y
             }
 
+            this.spellPower = 0.391
+            if (caster.abilities["Master of the Elements"].talentSelect && checkBuff(caster,caster,"Master of the Elements")) {
+                this.spellPower *= 1.2
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Master of the Elements") {
+                        caster.buffs[i].duration = -1
+                    }
+                }
+            }
+
             addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
             this.setCd()
-            caster.useEnergy(this.cost)
+
+            if (!caster.abilities["Aftershock"].refund()) {
+                caster.useEnergy(this.cost)
+            }
+
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

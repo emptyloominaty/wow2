@@ -22,7 +22,9 @@ let open_character = function(reload = false) {
     html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Stamina: </span> <span>"+player.stats.stamina.toFixed(0)+"</span>  </div>"
     html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Armor: </span>  <span>"+player.stats.armor.toFixed(0)+"%</span> </div>"
     html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Dodge: </span>  <span>"+player.stats.dodge.toFixed(0)+"%</span> </div>"
-
+    html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> DR: </span>  <span>"+(player.damageReduction*100).toFixed(0)+"%</span> </div>"
+    html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Magic DR: </span>  <span>"+(player.magicDamageReduction*100).toFixed(0)+"%</span> </div>"
+    html += "<div style='display:flex; justify-content:space-between;'> <span style='color:#AAAA33'> Absorb: </span>  <span>"+(player.absorb).toFixed(0)+"</span> </div>"
     html += "<h4>Enhancements</h4>"
 
     //crit

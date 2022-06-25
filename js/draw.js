@@ -658,6 +658,9 @@ function draw(progress) {
     if (spellTooltip) {
         document.getElementById("spellTooltip").style.left = mousePosition.x+30 + "px"
         document.getElementById("spellTooltip").style.top = mousePosition.y-(document.getElementById("spellTooltip").clientHeight+15) + "px"
+        if (parseInt(document.getElementById("spellTooltip").style.top,10) < 0) {
+            document.getElementById("spellTooltip").style.top = 0+"px"
+        }
     } else if ( buffTooltip) {
         document.getElementById("buffTooltip").style.left = mousePosition.x + 30 + "px"
         document.getElementById("buffTooltip").style.top = (mousePosition.y + 15) + "px"

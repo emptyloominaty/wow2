@@ -29,9 +29,6 @@ class LightningBolt extends Ability {
         return "Hurls a bolt of lightning at the target, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Nature damage."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
@@ -52,12 +49,21 @@ class LightningBolt extends Ability {
                 }
             }
             if (done) {
+                let castTime = this.castTime
+                let gcd = this.gcd
+                if (caster.spec==="elemental" && caster.abilities["Storm Elemental"].talentSelect && checkBuff(caster,caster,"Storm Elemental")) {
+                    let val = caster.abilities["Storm Elemental"].getVal(caster)
+                    castTime = castTime * val
+                    gcd = gcd*val
+                    caster.abilities["Storm Elemental"].incStacks(caster)
+                }
+
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                this.setGcd(caster)
+                this.setGcd(caster,gcd)
                 return true
             }
 
@@ -72,16 +78,22 @@ class LightningBolt extends Ability {
         let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                doDamage(caster,target,this)
+
+                let spellPower = this.spellPower
+                if (caster.spec==="elemental" && caster.abilities["Master of the Elements"].talentSelect && checkBuff(caster,caster,"Master of the Elements")) {
+                    spellPower *= 1.2
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Master of the Elements") {
+                            caster.buffs[i].duration = -1
+                        }
+                    }
+                }
+
+                doDamage(caster,target,this,undefined,spellPower)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }
         }
     }
 
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

@@ -1,5 +1,5 @@
 class CapacitorTotem extends Ability {
-    constructor() {
+    constructor(ele=false) {
         let name = "Capacitor Totem"
         let cost = 2
         let gcd = 1
@@ -23,8 +23,11 @@ class CapacitorTotem extends Ability {
             do:[]
         }
         this.petDuration = 2
-        //DR in area.js
         this.castPosition = {x:0,y:0}
+
+        if (ele) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

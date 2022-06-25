@@ -1,5 +1,5 @@
 class Heroism extends Ability {
-    constructor() {
+    constructor(ele=false) {
         let name = "Heroism"
         let cost = 4.3
         let gcd = 1.5
@@ -14,6 +14,9 @@ class Heroism extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.effect = [{name:"increaseStat",stat:"haste",val:30}]
         this.duration = 40
+        if (ele) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

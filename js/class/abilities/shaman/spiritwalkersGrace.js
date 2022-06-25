@@ -1,5 +1,5 @@
 class SpiritwalkersGrace extends Ability {
-    constructor() {
+    constructor(ele=false) {
         let name = "Spiritwalker's Grace"
         let cost = 2.82
         let gcd = 0
@@ -16,6 +16,9 @@ class SpiritwalkersGrace extends Ability {
 
         this.effect = [{name:"canMoveWhileCasting"},{name:"moveSpeed",val:0}]
         this.duration = 15
+        if (ele) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {
