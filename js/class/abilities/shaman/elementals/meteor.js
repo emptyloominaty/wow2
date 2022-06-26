@@ -27,7 +27,7 @@ class MeteorElemental extends Ability {
         if (this.checkStart(caster)) {
             let target = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
-                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                if (!caster.castTarget.isDead) {
                     target = caster.castTarget
                 }
             } else {
@@ -35,12 +35,11 @@ class MeteorElemental extends Ability {
                 if (newTarget!==false) {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
-                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                    if (!caster.targetObj.isDead) {
                         target = caster.targetObj
                     }
                 }
             }
-
             if (target) {
                 for (let i = 0; i<enemies.length ;i++) {
                     if (!enemies[i].isDead && this.checkDistance(target, enemies[i]) ) {

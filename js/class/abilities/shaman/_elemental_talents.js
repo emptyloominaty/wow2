@@ -337,10 +337,10 @@ class StormElemental extends Ability {
         this.stacks = 0
         this.petData = {
             name:"Storm Elemental",
-            abilities:{"Fire Blast":new FireBlast(true)}, //TODO: Call Lightning, Wind Gust
+            abilities:{"Call Lightning":new CallLightningElemental(true),"Wind Gust":new WindGustElemental(true),"Eye of the Storm":new EyeoftheStormElemental(true)},
             color:"#ff5230",
             size:7,
-            do:[{name:"cast",ability:"Fire Blast"}],//TODO: Call Lightning, Wind Gust
+            do:[{name:"cast",ability:"Call Lightning"},{name:"cast",ability:"Eye of the Storm"},{name:"cast",ability:"Wind Gust"}],
         }
         this.petDuration = 30
     }
@@ -603,7 +603,7 @@ class PrimalElementalist extends Ability {
     getTooltip() {
         return "Your Earth, Fire, and Storm Elementals are drawn from primal elementals 80% more powerful than regular elementals, with additional abilities, and you gain direct control over them."
     }
-
+    //TODO:EARTH ELEMENTAL
 }
 //------------------------------------------------
 //Icefury

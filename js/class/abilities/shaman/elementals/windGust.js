@@ -1,28 +1,28 @@
-class FireBlastElemental extends Ability {
+class WindGustElemental extends Ability {
     constructor(buffed = false) {
-        let name = "Fire Blast"
+        let name = "Wind Gust"
         let cost = 0
-        let gcd = 3
-        let castTime = 3
+        let gcd = 2
+        let castTime = 2
         let cd = 2
-        let charges = 2
+        let charges = 1
         let channeling = false
         let casting = true
         let canMove = false
-        let school = "fire"
+        let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.675
+        this.spellPower = 0.45
 
         if (buffed) {
-            this.spellPower = 0.675*1.8
+            this.spellPower = 0.45*1.8
         }
 
     }
 
     getTooltip() {
-        return "Blasts the enemy for (67.5% of Spell power) Fire damage."
+        return "Conjures a gust of wind that deals (45% of Spell power) Nature damage to an enemy."
     }
 
     startCast(caster) {

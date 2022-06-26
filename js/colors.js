@@ -19,13 +19,13 @@ let colors = {
 
     details:{
         "physical":"#888833",
-        "arcane":"#9b71ad",
+        "arcane":"#e5b7e0",
         "fire":"#c14f15",
         "frost":"#7ec8d0",
         "nature":"#4ca544",
         "shadow":"#73737b",
         "holy":"#d7d170",
-        "astral":"#d6b5d5",
+        "astral":"#be8fd0",
         "chaos":"#888833",
         "divine":"#888833",
         "plague":"#888833",
