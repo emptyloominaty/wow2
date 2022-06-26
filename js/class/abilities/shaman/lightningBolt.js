@@ -89,6 +89,10 @@ class LightningBolt extends Ability {
                     }
                 }
 
+                if (caster.spec==="elemental") {
+                    caster.abilities["Surge of Power"].enhance(caster,target,this)
+                }
+
                 doDamage(caster,target,this,undefined,spellPower)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()

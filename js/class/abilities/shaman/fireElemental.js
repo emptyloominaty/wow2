@@ -17,7 +17,7 @@ class FireElemental extends Ability {
         this.duration = 30
         this.petData = {
             name:"Fire Elemental",
-            abilities:{"Fire Blast":new FireBlast(true)},
+            abilities:{"Fire Blast":new FireBlastElemental()},
             color:"#ff5230",
             size:7,
             do:[{name:"cast",ability:"Fire Blast"}],
@@ -34,6 +34,17 @@ class FireElemental extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+
+            if (caster.abilities["Primal Elementalist"].talentSelect) {
+                this.petData.abilities = {"Fire Blast":new FireBlastElemental(true),"Immolate":new ImmolateElemental(true),"Meteor":new MeteorElemental(true)}
+                this.petData.do = [{name:"cast",ability:"Meteor"},{name:"castDot",ability:"Immolate"},{name:"cast",ability:"Fire Blast"}]
+                this.petData.size = 10
+            } else {
+                this.petData.abilities = {"Fire Blast":new FireBlastElemental()}
+                this.petData.do = [{name:"cast",ability:"Fire Blast"}]
+                this.petData.size = 7
+            }
+
 
             spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this)
             applyBuff(caster,caster,this)

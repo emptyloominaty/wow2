@@ -41,6 +41,7 @@ class FrostShock extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
@@ -52,6 +53,7 @@ class FrostShock extends Ability {
                     if (caster===player) {
                         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
                     }
+                    target = caster.targetObj
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
@@ -63,6 +65,9 @@ class FrostShock extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
+                }
+                if (caster.spec==="elemental") {
+                    caster.abilities["Surge of Power"].enhance(caster,target,this)
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

@@ -6,7 +6,6 @@ let _elemental_talents = function(caster) {
     caster.abilities["Echo of the Elements"] = new EchooftheElements()
     caster.abilities["Static Discharge"] = new StaticDischarge()
 
-
     //2
     caster.abilities["Aftershock"] = new Aftershock()
     caster.abilities["Echoing Shock"] = new EchoingShock()
@@ -22,15 +21,20 @@ let _elemental_talents = function(caster) {
     caster.abilities["Storm Elemental"] = new StormElemental()
     caster.abilities["Liquid Magma Totem"] = new LiquidMagmaTotem()
 
-
     //5
     caster.abilities["Nature's Guardian "] = new NaturesGuardianShaman()
     caster.abilities["Ancestral Guidance"] = new AncestralGuidance()
     caster.abilities["Wind Rush Totem"] = new WindRushTotem()
 
     //6
+    caster.abilities["Surge of Power"] = new SurgeofPower()
+    caster.abilities["Primal Elementalist"] = new PrimalElementalist()
+    //caster.abilities[""] = new ()
 
     //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
 
 
     caster.talents = [["Earthen Rage","Echo of the Elements","Static Discharge"],
@@ -311,8 +315,6 @@ class MasteroftheElements extends Ability {
     }
     //TODO:FrostShock,Icefury
 }
-
-
 //------------------------------------------------
 class StormElemental extends Ability {
     constructor() {
@@ -329,17 +331,16 @@ class StormElemental extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 1.05
         this.duration = 10
         this.maxStacks = 10
         this.stacks = 0
         this.petData = {
             name:"Storm Elemental",
-            abilities:{"Fire Blast":new FireBlast(true)}, //TODO
+            abilities:{"Fire Blast":new FireBlast(true)}, //TODO: Call Lightning, Wind Gust
             color:"#ff5230",
             size:7,
-            do:[{name:"cast",ability:"Fire Blast"}],//TODO
+            do:[{name:"cast",ability:"Fire Blast"}],//TODO: Call Lightning, Wind Gust
         }
         this.petDuration = 30
     }
@@ -406,7 +407,6 @@ class LiquidMagmaTotem extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 0.15*1.05
         this.area = {type:"circle", radius:8, duration:15,data:{type:"dot",timer:1,maxTargets:1, spellPower:this.spellPower,color:"#4eff40",color2:"rgba(103,163,255,0.3)"},cast:false}
         this.petData = {
@@ -532,6 +532,84 @@ class AncestralGuidance extends Ability {
 }
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW6
+class SurgeofPower extends Ability {
+    constructor() {
+        super("Surge of Power", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 15
+    }
+
+    getTooltip() {
+        return "Casting Earth Shock also enhances your next spell cast within 15 sec: <br>" +
+            "Flame Shock: The next cast also applies Flame Shock to 1 additional target within 8 yards of the target. <br>" +
+            "Lightning Bolt: Your next cast will cause an additional 1-3 Elemental Overloads. <br>" +
+            "Lava Burst: Reduces the cooldown of your Fire Elemental by 6.0 sec. <br>" +
+            "Frost Shock: Freezes the target in place for 6 sec. <br>"
+    }
+
+    enhance(caster,target,ability) {
+        if (this.talentSelect) {
+            let enhanced = false
+            let canEnhance = false
+            let buffId = 0
+            for (let j = 0; j<caster.buffs.length; j++) {
+                if (caster.buffs[j].name==="Surge of Power") {
+                    buffId = j
+                    canEnhance = true
+                }
+            }
+            if (canEnhance) {
+                if (ability.name==="Flame Shock") {
+                    let targets = enemies
+                    for (let i = 0; i<targets.length ;i++) {
+                        if (targets[i]!==target && !targets[i].isDead && this.checkDistance(target, targets[i],8)) {
+                            doDamage(caster, targets[i], caster.abilities["Flame Shock"])
+                            applyDot(caster, targets[i], caster.abilities["Flame Shock"])
+                            enhanced = true
+                            break
+                        }
+                    }
+                } else if (ability.name==="Lightning Bolt") {
+                    let rng = Math.ceil(Math.random()*3)
+                    for (let i = 0; i<rng; i++) {
+                        doDamage(caster,target,caster.abilities["Elemental Overload"],undefined,ability.spellPower*0.85)
+                    }
+                } else if (ability.name==="Lava Burst") {
+                    caster.abilities["Fire Elemental"].cd += 6
+                    caster.abilities["Storm Elemental"].cd += 6
+                    enhanced = true
+                } else if (ability.name==="Frost Shock") {
+                    //TODO:ROOT 6sec
+                }
+                if (enhanced) {
+                    caster.buffs[buffId].duration = -1
+                }
+            }
+        }
+    }
+}
 //------------------------------------------------
+//Primal Elementalist
+class PrimalElementalist extends Ability {
+    constructor() {
+        super("Primal Elementalist", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Your Earth, Fire, and Storm Elementals are drawn from primal elementals 80% more powerful than regular elementals, with additional abilities, and you gain direct control over them."
+    }
+
+}
 //------------------------------------------------
+//Icefury
 //------------------------------------------------------------------------------------------------ROW7
+//Unlimited Power
+//------------------------------------------------
+//Stormkeeper
+//------------------------------------------------
+//Ascendance

@@ -92,6 +92,9 @@ class LavaBurst extends Ability {
 
                 addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
                     {size:10,speed:50,target:target,color:"#FF0000",onEnd:{},onRun:{name:"fire",color1:"rgba(182,0,2,0.7)",color2:"rgba(255,59,0,0.7)",life:0.35}})
+                if (caster.spec==="elemental") {
+                    caster.abilities["Surge of Power"].enhance(caster,target,this)
+                }
                 doDamage(caster,target,this,undefined,undefined,undefined,crit)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()

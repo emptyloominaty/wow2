@@ -163,6 +163,8 @@ class Pet {
         for (let i = 0; i<this.data.do.length;i++ ) {
             if (this.data.do[i].name==="cast") {
                 this.abilities[this.data.do[i].ability].startCast(this)
+            } else  if (this.data.do[i].name==="castDot") {
+                this.abilities[this.data.do[i].ability].startCast(this)
             } else if (this.data.do[i].name==="goMelee") { //TODO
                 let newTarget = findNearestEnemy(this)
                 if (newTarget!==false) {

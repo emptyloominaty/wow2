@@ -46,10 +46,10 @@ class ElementalOverload extends Ability {
         return "Your Lightning Bolt, Elemental Blast, Icefury, Lava Burst and Chain Lightning casts have a "+player.stats.mastery.toFixed(1)+"% chance to trigger a second cast on the same target, dealing 85% of normal damage and generating less Maelstrom."
     }
 
-    mastery(caster,target,ability) {
+    mastery(caster,target,ability,name) {
         if (ability.name === "Lightning Bolt" || ability.name === "Elemental Blast" || ability.name === "Icefury" || ability.name === "Lava Burst" || ability.name === "Chain Lightning") {
             if (name!=="Elemental Overload" && getChance(player.stats.mastery)) {
-                doDamage(caster,target,this,undefined,ability.spellPower*0.85,undefined,undefined,undefined,undefined,undefined)
+                doDamage(caster,target,this,undefined,ability.spellPower*0.85)
                 caster.useEnergy(ability.cost/2)
             }
         }

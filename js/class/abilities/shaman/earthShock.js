@@ -59,6 +59,10 @@ class EarthShock extends Ability {
                 if (!caster.abilities["Aftershock"].refund()) {
                     caster.useEnergy(this.cost)
                 }
+                if (caster.abilities["Surge of Power"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Surge of Power"])
+                }
+
                 this.setCd()
                 if (caster.isChanneling) {
                     caster.isChanneling = false

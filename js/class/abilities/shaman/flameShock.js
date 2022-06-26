@@ -32,12 +32,10 @@ class FlameShock extends Ability {
         return "Sears the target with fire, causing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Fire damage and then an additional "+((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" Fire damage over 18 sec."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
@@ -50,6 +48,7 @@ class FlameShock extends Ability {
                     if (caster===player) {
                         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
                     }
+                    target = caster.targetObj
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
@@ -63,6 +62,9 @@ class FlameShock extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.spec==="elemental") {
+                    caster.abilities["Surge of Power"].enhance(caster,target,this)
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.setCd()
@@ -75,6 +77,4 @@ class FlameShock extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }
