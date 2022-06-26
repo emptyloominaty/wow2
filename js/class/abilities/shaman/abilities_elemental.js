@@ -51,6 +51,9 @@ class ElementalOverload extends Ability {
             if (name!=="Elemental Overload" && getChance(player.stats.mastery)) {
                 doDamage(caster,target,this,undefined,ability.spellPower*0.85)
                 caster.useEnergy(ability.cost/2)
+                if (caster.abilities["Unlimited Power"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Unlimited Power"],1,true,undefined,undefined,undefined,true)
+                }
             }
         }
     }

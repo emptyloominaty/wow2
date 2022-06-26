@@ -208,7 +208,7 @@ if (player.spec==="elemental") {
 
         "Earth Shock": new Action("Earth Shock", 1, 0),
         "Flame Shock": new Action("Flame Shock", 1, 1),
-
+        "Stormkeeper": new Action("Stormkeeper", 1, 2),
         "Ghost Wolf": new Action("Ghost Wolf",1,3),
 
         "Lightning Bolt": new Action("Lightning Bolt", 1, 8),

@@ -1,7 +1,7 @@
-class ChainLightning extends Ability {
-    constructor(ele = false,resto = false) {
-        let name = "Chain Lightning"
-        let cost = 0.2
+class LavaBeam extends Ability {
+    constructor() {
+        let name = "Lava Beam"
+        let cost = -3
         let gcd = 1.5
         let castTime = 2
         let cd = 0
@@ -10,21 +10,14 @@ class ChainLightning extends Ability {
         let channeling = false
         let casting = true
         let canMove = false
-        let school = "nature"
+        let school = "fire"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
-        this.spellPower = 0.635
+        this.canUse = false
+        this.spellPower = 0.635*1.05
         this.jumptargets = 2
         this.jumpRange = 15
-        if (ele) {
-            this.cost = -4
-            this.jumptargets += 2
-            this.spellPower *= 1.05
-        } else if (resto) {
-            this.spellPower *= 1.61
-            this.spellPower *= 1.15
-        }
+
     }
 
     getTooltip() {
@@ -57,22 +50,9 @@ class ChainLightning extends Ability {
                     caster.isChanneling = false
                 }
 
-                let castTime = this.castTime
-                let gcd = this.gcd
-                if (caster.spec==="elemental" && caster.abilities["Storm Elemental"].talentSelect && checkBuff(caster,caster,"Storm Elemental")) {
-                    let val = caster.abilities["Storm Elemental"].getVal(caster)
-                    castTime = castTime * val
-                    gcd = gcd*val
-                    caster.abilities["Storm Elemental"].incStacks(caster)
-                }
-
-                if (caster.spec==="elemental" && checkBuff(caster,caster,"Stormkeeper")) {
-                    castTime = 0
-                }
-
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
-                this.setGcd(caster,gcd)
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                this.setGcd(caster)
             }
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -94,18 +74,6 @@ class ChainLightning extends Ability {
                 }
             }
         }
-        if (caster.spec==="elemental" && caster.abilities["Stormkeeper"].talentSelect) {
-            for (let i = 0; i<caster.buffs.length; i++) {
-                if (caster.buffs[i].name==="Stormkeeper") {
-                    spellPower *= 2.5
-                    if (caster.buffs[i].stacks>1) {
-                        caster.buffs[i].stacks--
-                    } else {
-                        caster.buffs[i].duration = -1
-                    }
-                }
-            }
-        }
 
         if (this.isEnemy(caster,target) || !target.isDead || target!=="" || Object.keys(target).length !== 0) {
             doDamage(caster, target, this,undefined,spellPower)
@@ -117,6 +85,7 @@ class ChainLightning extends Ability {
             for (let i = 0; i<targets.length ;i++) {
                 if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.jumpRange)) {
                     lastTarget = targets[i]
+                    spellPower *= 1.1
                     doDamage(caster, targets[i], this,undefined,spellPower)
                     if (caster.spec==="elemental") {
                         caster.useEnergy(this.cost)

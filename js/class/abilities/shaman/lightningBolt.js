@@ -58,6 +58,10 @@ class LightningBolt extends Ability {
                     caster.abilities["Storm Elemental"].incStacks(caster)
                 }
 
+                if (caster.spec==="elemental" && checkBuff(caster,caster,"Stormkeeper")) {
+                    castTime = 0
+                }
+
                 caster.isCasting = true
                 caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
@@ -89,6 +93,18 @@ class LightningBolt extends Ability {
                     }
                 }
 
+                if (caster.spec==="elemental" && caster.abilities["Stormkeeper"].talentSelect) {
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Stormkeeper") {
+                            spellPower *= 2.5
+                            if (caster.buffs[i].stacks>1) {
+                                caster.buffs[i].stacks--
+                            } else {
+                                caster.buffs[i].duration = -1
+                            }
+                        }
+                    }
+                }
                 if (caster.spec==="elemental") {
                     caster.abilities["Surge of Power"].enhance(caster,target,this)
                 }

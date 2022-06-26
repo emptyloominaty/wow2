@@ -1,6 +1,4 @@
 let _elemental_talents = function(caster) {
-    //caster.abilities[""] = new ()
-
     //1
     caster.abilities["Earthen Rage"] = new EarthenRage()
     caster.abilities["Echo of the Elements"] = new EchooftheElements()
@@ -29,13 +27,13 @@ let _elemental_talents = function(caster) {
     //6
     caster.abilities["Surge of Power"] = new SurgeofPower()
     caster.abilities["Primal Elementalist"] = new PrimalElementalist()
-    //caster.abilities[""] = new ()
+    caster.abilities["Icefury"] = new Icefury()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-
+    caster.abilities["Unlimited Power"] = new UnlimitedPower()
+    caster.abilities["Stormkeeper"] = new Stormkeeper()
+    caster.abilities["Ascendance"] = new AscendanceEle()
+    caster.abilities["Lava Beam"] = new LavaBeam()
 
     caster.talents = [["Earthen Rage","Echo of the Elements","Static Discharge"],
         ["Aftershock","Echoing Shock","Elemental Blast"],
@@ -313,7 +311,7 @@ class MasteroftheElements extends Ability {
     getTooltip() {
         return "Casting Lava Burst increases the damage of your next Nature, Physical, or Frost spell by 20%."
     }
-    //TODO:FrostShock,Icefury
+
 }
 //------------------------------------------------
 class StormElemental extends Ability {
@@ -537,7 +535,6 @@ class SurgeofPower extends Ability {
         super("Surge of Power", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
         this.duration = 15
     }
 
@@ -591,7 +588,6 @@ class SurgeofPower extends Ability {
     }
 }
 //------------------------------------------------
-//Primal Elementalist
 class PrimalElementalist extends Ability {
     constructor() {
         super("Primal Elementalist", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
@@ -606,10 +602,224 @@ class PrimalElementalist extends Ability {
     //TODO:EARTH ELEMENTAL
 }
 //------------------------------------------------
-//Icefury
+class Icefury extends Ability {
+    constructor() {
+        let name = "Icefury"
+        let cost = -25
+        let gcd = 1.5
+        let castTime = 2
+        let cd = 30
+        let charges = 1
+        let channeling = false
+        let casting = true
+        let canMove = false
+        let school = "frost"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.spellPower = 0.825*1.05
+        this.duration = 15
+        this.maxStacks = 4
+    }
+
+    getTooltip() {
+        return "Hurls frigid ice at the target, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Frost damage and causing your next 4 Frost Shocks to deal 225% increased damage and generate 8 Maelstrom"
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Frost Shock damage increased by 225%."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            let done = false
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                done = true
+            } else {
+                let newTarget = findNearestEnemy(caster)
+                if (newTarget!==false) {
+                    if (caster === player) {
+                        document.getElementById("raidFrame" + targetSelect).style.outline = "0px solid #fff"
+                    }
+                    caster.targetObj = newTarget
+                    caster.castTarget = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                        done = true
+                    }
+                }
+            }
+            if (done) {
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+                this.setGcd(caster)
+                return true
+            }
+
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
+
+                let spellPower = this.spellPower
+                if (caster.abilities["Master of the Elements"].talentSelect && checkBuff(caster,caster,"Master of the Elements")) {
+                    spellPower *= 1.2
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Master of the Elements") {
+                            caster.buffs[i].duration = -1
+                        }
+                    }
+                }
+
+                doDamage(caster,target,this,undefined,spellPower)
+                applyBuff(caster,caster,this,4,true)
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
+            }
+        }
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
-//Unlimited Power
+class UnlimitedPower extends Ability {
+    constructor() {
+        super("Unlimited Power", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 10
+        this.maxStacks = 20
+        this.effect = [{name:"increaseStat",stat:"haste",val:2}]
+    }
+
+    getTooltip() {
+        return "When your spells cause an elemental overload, you gain 2% Haste for 10 sec. Gaining a stack does not refresh the duration."
+    }
+}
 //------------------------------------------------
-//Stormkeeper
+class Stormkeeper extends Ability {
+    constructor() {
+        super("Stormkeeper", 0, 1.5, 1.5, 60, false, true, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 15
+        this.maxStacks = 2
+    }
+
+    getTooltip() {
+        return "Charge yourself with lightning, causing your next 2 Lightning Bolts to deal 150% more damage, and also causes your next 2 Lightning Bolts or Chain Lightnings to be instant cast and trigger an Elemental Overload on every target."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Your next Lightning Bolt will deal 150% increased damage, and your next Lightning Bolt or Chain Lightning will be instant cast and cause an Elemental Overload to trigger on every target hit."
+    }
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        applyBuff(caster,caster,this,2,true)
+        caster.useEnergy(this.cost,this.secCost)
+        this.setCd()
+    }
+
+
+}
 //------------------------------------------------
-//Ascendance
+class AscendanceEle extends Ability {
+    constructor() {
+        super("Ascendance", 0, 1.5, 0, 180, false, false, false, "nature", 20, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 8.76
+        this.duration = 15
+    }
+    getTooltip() {
+        return "Transform into a Flame Ascendant for 15 sec, replacing Chain Lightning with Lava Beam, removing the cooldown on Lava Burst, and increasing the damage of Lava Burst by an amount equal to your critical strike chance. When you transform into the Flame Ascendant, instantly cast a Lava Burst at all enemies affected by your Flame Shock, and refresh your Flame Shock durations to 18 sec.\n "
+    }
+    getBuffTooltip(caster, target, buff) {
+        return "Transformed into a powerful Fire ascendant. Chain Lightning is transformed into Lava Beam."
+    }
+
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            let targets = []
+            for (let i = 0; i<enemies.length; i++) {
+                if (this.checkDistance(caster,enemies[i],undefined,true) && !enemies[i].isDead && checkDebuff(caster,enemies[i],"Flame Shock")) {
+                    targets.push(friendlyTargets[i])
+                }
+            }
+
+            targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
+
+            let damage = caster.abilities["Lava Burst"].spellPower
+
+            for (let i = 0; i<targets.length; i++) {
+                doDamage(caster,targets[i],this,undefined,damage,undefined,undefined,undefined,undefined,undefined,"Lava Burst")
+                for (let j = 0; j<targets[i].buffs.length; j++) {
+                    if (targets[i].buffs[j].name === "Flame Shock" && targets[i].buffs[j].caster === caster) {
+                        targets[i].buffs[j] += 18
+                    }
+                }
+            }
+
+            if (caster===player) {
+                //actionbar
+                if (actions["Chain Lightning"]) {
+                    let bar = actions["Chain Lightning"].bar
+                    let slot = actions["Chain Lightning"].slot
+                    actions["Lava Beam"] = new Action("Lava Beam", bar, slot)
+                }
+                caster.abilities["Lava Beam"].canUse = true
+            }
+
+            applyBuff(caster,caster,this)
+            this.setCd()
+            caster.useEnergy(this.cost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endBuff(caster) {
+        if (caster===player) {
+            //actionbar
+            if (actions["Lava Beam"]) {
+                let bar = actions["Lava Beam"].bar
+                let slot = actions["Lava Beam"].slot
+                actions["Chain Lightning"] = new Action("Chain Lightning", bar, slot)
+            }
+            caster.abilities["Lava Beam"].canUse = false
+        }
+    }
+
+}

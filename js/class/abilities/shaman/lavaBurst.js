@@ -95,10 +95,16 @@ class LavaBurst extends Ability {
                 if (caster.spec==="elemental") {
                     caster.abilities["Surge of Power"].enhance(caster,target,this)
                 }
-                doDamage(caster,target,this,undefined,undefined,undefined,crit)
-                caster.useEnergy(this.cost,this.secCost)
-                this.setCd()
 
+                let spellPower = this.spellPower
+                if (caster.spec==="elemental" && caster.abilities["Ascendance"].talentSelect && checkBuff(caster,caster,"Ascendance")) {
+                    spellPower *= 1+(caster.stats.crit/100)
+                } else {
+                    this.setCd()
+                }
+
+                doDamage(caster,target,this,undefined,spellPower,undefined,crit)
+                caster.useEnergy(this.cost,this.secCost)
             }
         }
     }

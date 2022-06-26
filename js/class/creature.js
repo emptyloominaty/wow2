@@ -443,7 +443,11 @@ class Creature {
                         if (this.buffs[i].effect[j].percent) {
                             this.stats[this.buffs[i].effect[j].stat] *= 1+(this.buffs[i].effect[j].val/100)
                         } else {
-                            this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val
+                            if (this.buffs[i].stacks > 1) {
+                                this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val * this.buffs[i].stacks
+                            } else {
+                                this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val
+                            }
                         }
                     } else if (this.buffs[i].effect[j].name === "increaseHealth") {
                         this.increaseHealth += this.buffs[i].effect[j].val

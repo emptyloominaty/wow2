@@ -1149,6 +1149,8 @@ let iconsPath = {
     "Call Lightning":"img/shaman/CallLightning.jpg",
     "Eye of the Storm":"img/shaman/EyeoftheStorm.jpg",
     "Wind Gust":"img/shaman/WindShear.jpg",
+    "Lava Beam":"img/druid/Sunfire.jpg",
+
 
     //Warlock
     "Absolute Corruption":"img/warlock/AbsoluteCorruption.jpg",

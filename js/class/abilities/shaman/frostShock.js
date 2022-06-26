@@ -41,10 +41,36 @@ class FrostShock extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+
+            let spellPower = this.spellPower
+            if (caster.spec==="elemental" && caster.abilities["Master of the Elements"].talentSelect) {
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Master of the Elements") {
+                        spellPower *= 1.2
+                        caster.buffs[i].duration = -1
+                    }
+                }
+            }
+
+            if (caster.spec==="elemental" && caster.abilities["Icefury"].talentSelect) {
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Icefury") {
+                        caster.useEnergy(-8)
+                        spellPower *= 2.25
+                        if (caster.buffs[i].stacks>1) {
+                            caster.buffs[i].stacks -= 1
+                        } else {
+                            caster.buffs[i].duration = -1
+                        }
+                    }
+                }
+            }
+
+
             let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
+                    doDamage(caster,caster.castTarget,this,undefined,spellPower)
                     done = true
                 }
             } else {
@@ -57,7 +83,7 @@ class FrostShock extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
+                        doDamage(caster, caster.targetObj, this,undefined,spellPower)
                         done = true
                     }
                 }

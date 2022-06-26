@@ -336,7 +336,7 @@ let applyHot = function(caster,target,ability,duration = 0,extDuration = 0,spell
     }
 }
 
-let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0,extend = false) {
+let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0,extend = false,dontRefresh = false) {
     if (!target.isDead) {
         let buffName = ability.name
         if (name!=="") {
@@ -352,7 +352,9 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
                 if (extend) {
                     duration = duration + target.buffs[i].duration
                 }
-                target.buffs[i].duration = duration
+                if (!dontRefresh) {
+                    target.buffs[i].duration = duration
+                }
                 if (stackable) {
                     if (ability.maxStacks>target.buffs[i].stacks) {
                         target.buffs[i].stacks += stacks
