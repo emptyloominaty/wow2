@@ -11,7 +11,6 @@ let _mistweaver_talents = function(caster) {
     caster.abilities["Spirit of the Crane"] = new SpiritoftheCrane()
     caster.abilities["Mana Tea"] = new ManaTea()
 
-
     caster.abilities["Tiger Tail Sweep"] = new TigerTailSweep()
     caster.abilities["Song of Chi-Ji"] = new SongofChiJi()
     caster.abilities["Ring of Peace"] = new RingofPeace()
@@ -23,7 +22,6 @@ let _mistweaver_talents = function(caster) {
     caster.abilities["Summon Jade Serpent Statue"] = new SummonJadeSerpentStatue()
     caster.abilities["Refreshing Jade Wind"] = new RefreshingJadeWind()
     caster.abilities["Invoke Chi-Ji, the Red Crane"] = new InvokeChiJitheRedCrane()
-
 
     caster.abilities["Focused Thunder"] = new FocusedThunder()
     caster.abilities["Upwelling"] = new Upwelling()

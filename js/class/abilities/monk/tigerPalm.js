@@ -17,9 +17,6 @@ class TigerPalm extends Ability {
 
         this.spellPower = 0.27027*1.1 //27.027%   +10% mw aura
 
-        this.effect = ""
-        this.effectValue = 0
-
         //Teachings of the Monastery
         this.maxStacks = 3
         this.duration = 20
@@ -50,6 +47,7 @@ class TigerPalm extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
@@ -66,6 +64,7 @@ class TigerPalm extends Ability {
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster, caster.targetObj, this)
                         done = true
+                        target = caster.targetObj
                     }
                 }
             }
@@ -77,6 +76,7 @@ class TigerPalm extends Ability {
                         this.duration = 20
                         applyBuff(caster, caster, this, 1, false, "Blackout Kick")
                     }
+                    caster.abilities["Eye of the Tiger"].apply(caster,target)
                 } else if (caster.spec === "brewmaster") {
                     caster.abilities["Celestial Brew"].cd +=1
                     caster.abilities["Purifying Brew"].incCd(caster,1,false)

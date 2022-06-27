@@ -277,14 +277,22 @@ if (player.spec==="assassination") {
 }
 if (player.spec==="windwalker") {
     actions = {
+        //bar0
+        "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
+        "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
+
         //bar1
         "Rising Sun Kick": new Action("Rising Sun Kick", 1, 0),
+        "Fists of Fury": new Action("Fists of Fury", 1, 1),
 
         "Tiger Palm": new Action("Tiger Palm", 1, 8),
         "Blackout Kick": new Action("Blackout Kick", 1, 9),
 
-        //bar2
-        "Provoke": new Action("Provoke", 2, 2),
+        "Touch of Karma":  new Action("Touch of Karma", 2, 2),
+
+        //bar3
+        "Provoke": new Action("Provoke", 3, 5),
+
     }
 }
 

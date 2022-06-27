@@ -16,8 +16,6 @@ class RenewingMist extends Ability {
 
         this.spellPower = 2.25
         this.duration = 20
-        this.effect = ""
-        this.effectValue = 0
         this.jumpRange = 20
     }
 

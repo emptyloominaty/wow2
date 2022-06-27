@@ -80,8 +80,8 @@ class BlackoutKick extends Ability {
                     caster.buffs.splice(i, 1)
                 }
             }
-            caster.abilities["Rising Sun Kick"].cd -= 1
-            //TODO:caster.abilities["Fists of Fury"].cd -= 1
+            caster.abilities["Rising Sun Kick"].cd += 1
+            caster.abilities["Fists of Fury"].cd += 1
         } else if (caster.spec==="brewmaster") {
             caster.abilities["Shuffle"].incBuff(caster,this)
             caster.abilities["Elusive Brawler"].hit(caster)

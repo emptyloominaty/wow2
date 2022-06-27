@@ -655,7 +655,7 @@ let iconsPath = {
     "Zen Meditation":"img/monk/ZenMeditation.jpg",
     "Combo Strikes":"img/monk/ComboStrikes.jpg",
     "Disable":"img/monk/Disable.jpg",
-    "Fists Of Fury":"img/monk/FistsOfFury.jpg",
+    "Fists of Fury":"img/monk/FistsOfFury.jpg",
     "Flying Serpent Kick":"img/monk/FlyingSerpentKick.jpg",
     "Invoke Xuen, the White Tiger":"img/monk/InvokeXuentheWhiteTiger.jpg",
     "Xuen":"img/monk/InvokeXuentheWhiteTiger.jpg",

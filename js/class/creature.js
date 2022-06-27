@@ -34,6 +34,7 @@ class Creature {
     isStunned = false
     isStunnable = true
     isIncapacitated = false
+    isSnared = false
     isRooted = false
     isInterrupted = false
     isCasting = false
@@ -361,6 +362,7 @@ class Creature {
         if (this.enemy) {this.stats.dodge = 0}
         this.isStunned = false
         this.isRooted = false
+        this.isSnared = false
         this.isIncapacitated = false
         this.isInterrupted = false
         this.buffMoved = false //Chi torpedo Fix
@@ -517,10 +519,8 @@ class Creature {
                         let buff = this.buffs[i]
                         if (!buff.ability.destroyed) {
                             if (this.healthA < this.healthB) {
-                                //TODO:fullDamage:false
-                                doHeal(buff.caster, this, buff.ability)
-
                                 if (buffPoM.returnTo === "ability") {
+                                    doHeal(buff.caster, this, buff.ability)
                                     buff.ability.health -= ((buff.caster.stats.primary * buff.ability.spellPower) * (1 + (buff.caster.stats.vers / 100)))
                                     buff.ability.destroyed = buff.ability.destroyArea(this)
                                 }
@@ -531,6 +531,15 @@ class Creature {
                                     buff.duration = -1
                                 }
                             }
+                        }
+                    } else if (this.buffs[i].effect[j].name === "TouchofKarma") {
+                        let buffPoM = this.buffs[i].effect[j]
+                        let buff = this.buffs[i]
+                        if (buffPoM.val>buff.effect[0].val) {
+                            let val = (buffPoM.val-buff.effect[0].val) * buffPoM.percent
+                            console.log(val)
+                            buffPoM.val = buff.effect[0].val+0
+                            doDamage(buff.caster, buffPoM.target, buff.ability,undefined,undefined,undefined,undefined,undefined,undefined,val)
                         }
                     } else if (this.buffs[i].effect[j].name === "starfall") {
                         this.buffs[i].effect[j].timer += progressInSec
@@ -641,8 +650,11 @@ class Creature {
                         }
                     } else if (this.debuffs[i].effect[j].name === "moveSpeed") {
                         this.moveSpeedIncrease -= this.debuffs[i].effect[j].val
-                    } else if (this.debuffs[i].effect[j].name === "interruptt") {
+                        this.isSnared = true
+                    } else if (this.debuffs[i].effect[j].name === "interrupt") {
                         this.isInterrupted = true
+                    } else if (this.debuffs[i].effect[j].name === "rootIfSnared") {
+                        this.isRooted = true
                     }
                 }
             }
