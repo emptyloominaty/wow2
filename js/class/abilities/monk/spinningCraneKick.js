@@ -54,6 +54,10 @@ class SpinningCraneKick extends Ability {
             caster.canMoveWhileCasting = this.canMove
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(0.8/(1 + (caster.stats.haste / 100)))/2}
+
+            if (caster.spec==="windwalker" && caster.abilities["Inner Strength"].talentSelect) {
+                caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+            }
             caster.useEnergy(this.cost,this.secCost)
             if (caster.spec==="brewmaster") {
                 caster.abilities["Shuffle"].incBuff(caster,this)

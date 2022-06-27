@@ -36,6 +36,9 @@ class FistsofFury extends Ability {
             caster.canMoveWhileCasting = true
             this.setCd()
             this.setGcd(caster)
+            if (caster.abilities["Inner Strength"].talentSelect) {
+                caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+            }
             caster.useEnergy(this.cost,this.secCost)
             return true
         } else if (this.canSpellQueue(caster)) {

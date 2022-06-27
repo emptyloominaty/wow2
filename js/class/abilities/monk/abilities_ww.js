@@ -16,6 +16,7 @@ class Ww_abilities {
     "Fists of Fury" = new FistsofFury()
     "Touch of Karma" = new TouchofKarma()
     "Flying Serpent Kick" = new FlyingSerpentKick()
+    "Fortifying Brew" = new FortifyingBrew()
 
     //passive
     "Mystic Touch" = new MysticTouch()

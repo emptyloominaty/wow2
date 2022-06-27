@@ -117,6 +117,9 @@ class BlackoutKick extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.spec==="windwalker" && caster.abilities["Inner Strength"].talentSelect) {
+                    caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 return true

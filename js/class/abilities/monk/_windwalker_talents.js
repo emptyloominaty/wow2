@@ -237,10 +237,19 @@ class InnerStrength extends Ability {
         this.passive = true
         this.talent = true
         this.talentSelect = true
+        this.duration = 5
+        this.maxStacks = 5
+        this.effect = [{name:"damageReductionStacks",val:0.02}]
     }
 
     getTooltip() { //TODO:
         return "Each Chi you spend reduces damage taken by 2% for 5 sec, stacking up to 5 times."
+    }
+
+    applyBuff(caster,chi) {
+        if (this.talentSelect) {
+            applyBuff(caster,caster,this,chi,true)
+        }
     }
 
 }

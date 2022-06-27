@@ -115,6 +115,8 @@ class RisingSunKick extends Ability {
                             }
                         }
                     }
+                } else if (caster.spec==="windwalker" && caster.abilities["Inner Strength"].talentSelect) {
+                    caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
                 }
                 return true
             }
@@ -125,6 +127,4 @@ class RisingSunKick extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

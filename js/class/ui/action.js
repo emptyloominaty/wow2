@@ -283,6 +283,8 @@ if (player.spec==="windwalker") {
         "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
 
+        "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
+
         //bar1
         "Rising Sun Kick": new Action("Rising Sun Kick", 1, 0),
         "Fists of Fury": new Action("Fists of Fury", 1, 1),
