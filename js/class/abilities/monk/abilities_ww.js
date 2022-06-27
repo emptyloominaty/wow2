@@ -15,10 +15,12 @@ class Ww_abilities {
     "Disable" = new Disable()
     "Fists of Fury" = new FistsofFury()
     "Touch of Karma" = new TouchofKarma()
+    "Flying Serpent Kick" = new FlyingSerpentKick()
 
     //passive
     "Mystic Touch" = new MysticTouch()
     "Windwalking" = new Windwalking()
+    "Afterlife" = new Afterlife()//TODO:
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -56,6 +58,17 @@ class Windwalking extends Ability {
     getTooltip() {
         return "You and your allies within 10 yards have 10% increased movement speed."
     }
+}
 
-
+class Afterlife extends Ability {
+    //TODO:
+    constructor() {
+        super("Afterlife", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+    }
+    getTooltip() {
+        return "When you kill an enemy, you summon a Healing Sphere, healing you for (196.56% of Attack power) when you walk through it.<br>" +
+            "When you kill an enemy with Blackout Kick, you have a 50% chance to summon a Chi Sphere, granting 1 Chi when you walk through it.<br>" +
+            "(1s cooldown)"
+    }
 }

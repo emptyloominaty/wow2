@@ -537,9 +537,11 @@ class Creature {
                         let buff = this.buffs[i]
                         if (buffPoM.val>buff.effect[0].val) {
                             let val = (buffPoM.val-buff.effect[0].val) * buffPoM.percent
-                            console.log(val)
                             buffPoM.val = buff.effect[0].val+0
-                            doDamage(buff.caster, buffPoM.target, buff.ability,undefined,undefined,undefined,undefined,undefined,undefined,val)
+                            doDamage(buff.caster, buffPoM.target, buff.ability,undefined,undefined,false,undefined,undefined,undefined,val)
+                            if (this.abilities["Good Karma"].talentSelect) {
+                                doHeal(buff.caster, this, buff.ability,undefined,undefined,false,undefined,undefined,val)
+                            }
                         }
                     } else if (this.buffs[i].effect[j].name === "starfall") {
                         this.buffs[i].effect[j].timer += progressInSec

@@ -278,12 +278,16 @@ if (player.spec==="assassination") {
 if (player.spec==="windwalker") {
     actions = {
         //bar0
+        "Flying Serpent Kick": new Action("Flying Serpent Kick", 0, 2),
+
         "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
 
         //bar1
         "Rising Sun Kick": new Action("Rising Sun Kick", 1, 0),
         "Fists of Fury": new Action("Fists of Fury", 1, 1),
+        "Fist of the White Tiger": new Action("Fist of the White Tiger", 1, 2),
+
 
         "Tiger Palm": new Action("Tiger Palm", 1, 8),
         "Blackout Kick": new Action("Blackout Kick", 1, 9),
