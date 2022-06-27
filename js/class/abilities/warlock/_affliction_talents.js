@@ -1,14 +1,46 @@
 let _affliction_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    caster.talents = [["Nightfall","Inevitable","Drain Soul"],
+        ["Writhe in Agony","Absolute Corruption","Siphon Life"],
+        ["Demon Skin","Burning Rush","Dark Pact"],
+        ["Sow the Seeds","Phantom Singularity","Vile Taint"],
+        ["Darkfury","Mortal Coil","Howl of Terror"],
+        ["Shadow Embrace","Haunt","Grimoire of Sancrifice"],
+        ["Soul Conduit","Creeping Death","Dark Soul: Misery"]
     ]
 }
 

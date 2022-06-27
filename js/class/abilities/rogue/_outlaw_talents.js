@@ -1,14 +1,47 @@
 let _outlaw_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    caster.talents = [["Weaponmaster","Quick Draw","Ghostly Strike"],
+        ["Acrobatic Strikes","Retractable Hook","Hit and Run"],
+        ["Vigor","Deeper Stratagem","Marked for Death"],
+        ["Iron Stomach","Cheat Death","Elusiveness"],
+        ["Dirty Tricks","Blinding Powder","Prey on the Weak"],
+        ["Loaded Dice","Alacrity","Dreadblades"],
+        ["Dancing Steel","Blade Rush","Killing Spree"]
     ]
 }
 

@@ -751,7 +751,6 @@ class AscendanceEle extends Ability {
     constructor() {
         super("Ascendance", 0, 1.5, 0, 180, false, false, false, "nature", 20, 1)
         this.talent = true
-        this.talentSelect = true
         this.spellPower = 8.76
         this.duration = 15
     }

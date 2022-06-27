@@ -1,14 +1,48 @@
 let _vengeance_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+
+    caster.talents = [["Abyssal Strike","Agonizing Flames","Felblade"],
+        ["Feast of Souls","Fallout","Burning Alive"],
+        ["Infernal Armor","Charred Flesh","Spirit Bomb"],
+        ["Soul Rending","Feed the Demon","Fracture"],
+        ["Concentrated Sigils","Quickened Sigils","Sigil of Chains"],
+        ["Void Reaver","Demonic","Soul Barrier"],
+        ["Last Resort","Ruinous Bulwark","Bulk Extraction"]
     ]
 }
 

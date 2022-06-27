@@ -283,6 +283,7 @@ if (player.spec==="windwalker") {
         "Tiger Palm": new Action("Tiger Palm", 1, 8),
         "Blackout Kick": new Action("Blackout Kick", 1, 9),
 
+        //bar2
         "Provoke": new Action("Provoke", 2, 2),
     }
 }

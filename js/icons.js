@@ -709,6 +709,7 @@ let iconsPath = {
     "Tiger Tail Sweep":"img/monk/TigerTailSweep.jpg",
     "Leg Sweep":"img/monk/TigerTailSweep.jpg",
     "Whirling Dragon Punch":"img/monk/WhirlingDragonPunch.jpg",
+    "Dance of Chi-Ji":"img/monk/SpinningCraneKick.jpg",
 
     //Paladin
     "Absolution":"img/paladin/Absolution.jpg",

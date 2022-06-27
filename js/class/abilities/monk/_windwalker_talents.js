@@ -1,14 +1,47 @@
 let _windwalker_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    caster.talents = [["Eye of the Tiger","Chi Wave","Chi Burst"],
+        ["Celerity","Chi Torpedo","Tiger's Lust"],
+        ["Ascension","Fist of the White Tiger","Energizing Elixir"],
+        ["Tiger Tail Sweep","Good Karma","Ring of Peace"],
+        ["Inner Strength","Diffuse Magic","Dampen Harm"],
+        ["Hit Combo","Rushing Jade Wind","Dance of Chi-Ji"],
+        ["Spiritual Focus","Whirling Dragon Punch","Serenity"]
     ]
 }
 
@@ -31,3 +64,5 @@ let _windwalker_talents = function(caster) {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

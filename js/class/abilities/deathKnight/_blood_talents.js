@@ -1,14 +1,47 @@
 let _blood_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    caster.talents = [["HeartBreaker","Blooddrinker","Tombstone"],
+        ["Rapid Decomposition","Hemostasis","Consumption"],
+        ["Foul Bulwark","Relish in Blood","Blood Tap"],
+        ["Will of the Necropolis","Anti-Magic Barrier","Mark of Blood"],
+        ["Grip of the Dead","Tightening Grasp","Wraith Walk"],
+        ["Voracious","Death Pact","Bloodworms"],
+        ["Purgatory","Red Thirst","Bonestorm"]
     ]
 }
 

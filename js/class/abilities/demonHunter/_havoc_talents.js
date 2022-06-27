@@ -1,14 +1,49 @@
 let _havoc_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+
+
+    caster.talents = [["Blind Fury","Demonic Appetite","Felblade"],
+        ["Insatiable Hunger","Burning Hatred","Demon Blades"],
+        ["Trail of Ruin","Unbound Chaos","Glaive Tempest"],
+        ["Soul Rending","Desperate Instincts","Netherwalk"],
+        ["Cycle of Hatred","First Blood","Essence Break"],
+        ["Unleashed Power","Master of the Glaive","Fel Eruption"],
+        ["Demonic","Momentum","Fel Barrage"]
     ]
 }
 

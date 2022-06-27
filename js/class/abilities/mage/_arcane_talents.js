@@ -1,14 +1,46 @@
 let _arcane_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    caster.talents = [["Amplification","Rule of Threes","Arcane Familiar"],
+        ["Master of Time","Shimmer","Slipstream"],
+        ["Incanter's Flow","Focus Magic","Rune of Power"],
+        ["Resonance","Arcane Echo","Nether Tempest"],
+        ["Chrono Shift","Ice Ward","Ring of Frost"],
+        ["Reverberate","Arcane Orb","Supernova"],
+        ["Overpowered","Time Anomaly","Enlightened"]
     ]
 }
 

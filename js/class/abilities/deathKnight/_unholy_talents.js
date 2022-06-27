@@ -1,14 +1,48 @@
 let _unholy_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+
+    caster.talents = [["Infected Claws","All Will Serve","Clawing Shadows"],
+        ["Bursting Sores","Ebon Fever","Unholy Blight"],
+        ["Grip of the Dead","Death's Reach","Asphyxiate"],
+        ["Pestilent Pustules","Harbinger of Doom","Soul Reaper"],
+        ["Spell Eater","Wraith Walk","Death Pact"],
+        ["Pestilence","Unholy Pact","Defile"],
+        ["Army of the Damned","Summon Gargoyle","Unholy Assault"]
     ]
 }
 

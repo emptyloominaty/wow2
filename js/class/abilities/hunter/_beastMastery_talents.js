@@ -1,14 +1,49 @@
 let _beastMastery_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+
+
+    caster.talents = [["Killer Instinct","Animal Companion","Dire Beast"],
+        ["Scent of Blood","One with the Pack","Chimaera Shot"],
+        ["Trailblazer","Natural Mending","Camouflage"],
+        ["Spitting Cobra","Thrill of the Hunt","A Murder of Crows"],
+        ["Born To Be Wild","Posthaste","Binding Shot"],
+        ["Stomp","Barrage","Stampede"],
+        ["Aspect of the Beast","Killer Cobra","Bloodshed"]
     ]
 }
 

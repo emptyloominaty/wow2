@@ -1,14 +1,47 @@
 let _fire_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    caster.talents = [["Firestarter","Pyromaniac","Searing Touch"],
+        ["Blazing Soul","Shimmer","Blast Wave"],
+        ["Incanter's Flow","Focus Magic","Rune of Power"],
+        ["Flame On","Alexstrasza's Fury","From the Ashes"],
+        ["Franetic Speed","Ice Ward","Ring of Frost"],
+        ["Flame Patch","Conflagration","Living Bomb"],
+        ["Kindling","Pyroclasm","Meteor"]
     ]
 }
 

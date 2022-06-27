@@ -1,14 +1,48 @@
 let _marksmanship_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+
+    caster.talents = [["Master Marksman","Serpent Sting","A Murder of Crows"],
+        ["Careful Aim","Barrage","Explosive Shot"],
+        ["Trailblazer","Natural Mending","Camouflage"],
+        ["Steady Focus","Streamline","Chimaera Shot"],
+        ["Born To Be Wild","Posthaste","Binding Shackles"],
+        ["Lethal Shots","Dead Eye","Double Tap"],
+        ["Calling the Shots","Lock and Load","Volley"]
     ]
 }
 

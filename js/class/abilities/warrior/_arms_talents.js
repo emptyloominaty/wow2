@@ -1,14 +1,47 @@
 let _arms_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    caster.talents = [["War Machine","Sudden Death","Skullsplitter"],
+        ["Double Time","Impending Victory","Storm Bolt"],
+        ["Massacre","Fervor of Battle","Rend"],
+        ["Second Wind","Bounding Stride","Defensive Stance"],
+        ["Collateral Damage","Warbreaker","Cleave"],
+        ["In For The Kill","Avatar","Deadly Calm"],
+        ["Anger Management","Dreadnaught","Ravager"]
     ]
 }
 

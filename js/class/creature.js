@@ -129,6 +129,7 @@ class Creature {
         } else if (spec==="windwalker") {//----------------------------------------Windwalker
             this.class = "Monk"
             this.abilities = new Ww_abilities()
+            _windwalker_talents(this)
             this.melee = true
             this.role = "dps"
 

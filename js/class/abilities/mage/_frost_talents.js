@@ -1,14 +1,46 @@
 let _frost_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    caster.talents = [["Bone Chiling","Lonely Winter","Ice Nova"],
+        ["Glacial Insulation","Shimmer","Ice Floes"],
+        ["Incanter's Flow","Focus Magic","Rune of Power"],
+        ["Frozen Touch","Chain Reaction","Ebonbolt"],
+        ["Frigid Winds","Ice Ward","Ring of Frost"],
+        ["Freezing Rain","Splitting Ice","Comet Storm"],
+        ["Thermal Void","Ray of Frost","Glacial Spike"]
     ]
 }
 

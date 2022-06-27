@@ -1,14 +1,47 @@
 let _brewmaster_talents = function(caster) {
+    //1
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //2
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //3
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //4
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //5
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //6
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
+
+    //7
+    //caster.abilities[""] = new ()
+    //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""],
-        ["","",""]
+    caster.talents = [["Eye of the Tiger","Chi Wave","Chi Burst"],
+        ["Celerity","Chi Torpedo","Tiger's Lust"],
+        ["Light Brewing","Spitfire","Black Ox Brew"],
+        ["Tiger Tail Sweep","Summon Black Ox Statue","Ring of Peace"],
+        ["Bob and Weave","Healing Elixir","Dampen Harm"],
+        ["Special Delivery","Rushing Jade Wind","Exploding Keg"],
+        ["High Tolerance","Celestial Flames","Blackout Combo"]
     ]
 }
 
@@ -31,3 +64,5 @@ let _brewmaster_talents = function(caster) {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------
