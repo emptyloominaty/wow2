@@ -1,5 +1,5 @@
 class Detox extends Ability {
-    constructor() {
+    constructor(wwbm=false) {
         let name = "Detox"
         let cost = 1.3 //% mana
         let gcd = 1.5
@@ -14,6 +14,13 @@ class Detox extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.dispelTypes = ["magic","poison","disease"]
+
+        if (wwbm) {
+            this.gcd = 1
+            this.hasteGcd = false
+            this.cost = 20
+            this.dispelTypes = ["poison","disease",false]
+        }
     }
 
     getTooltip() {

@@ -1,5 +1,5 @@
 class Vivify extends Ability {
-    constructor() {
+    constructor(wwbm = false) {
         let name = "Vivify"
         let cost = 3.8 //% mana
         let gcd = 1.5
@@ -16,8 +16,14 @@ class Vivify extends Ability {
 
         this.spellPower = 1.41 //141%
         this.spellPowerSec = 1.04 //104% renewing
-        this.effect = ""
-        this.effectValue = 0
+
+        if (wwbm) {
+            this.gcd = 1
+            this.hasteGcd = false
+            this.cost = 30
+            this.spellPower *= 1.4
+        }
+
     }
 
     getTooltip() {
@@ -56,42 +62,48 @@ class Vivify extends Ability {
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
             doHeal(caster,caster,this)
-            caster.abilities["Gust of Mists"].heal(caster,caster)
+            if (caster.spec==="mistweaver") {
+                caster.abilities["Gust of Mists"].heal(caster,caster)
+            }
         } else {
             //heal target
             doHeal(caster,target,this)
-            caster.abilities["Gust of Mists"].heal(caster,target)
+            if (caster.spec==="mistweaver") {
+                caster.abilities["Gust of Mists"].heal(caster, target)
+            }
         }
         //renewingMist
-        for (let i = 0; i<friendlyTargets.length; i++) {
-            Object.keys(friendlyTargets[i].buffs).forEach((key)=> {
-                if (friendlyTargets[i].buffs[key].name === "Renewing Mist" && friendlyTargets[i].buffs[key].caster === caster) {
-                    doHeal(caster,friendlyTargets[i],this,undefined,this.spellPowerSec)
-                }
-            })
+        if (caster.spec==="mistweaver") {
+            for (let i = 0; i < friendlyTargets.length; i++) {
+                Object.keys(friendlyTargets[i].buffs).forEach((key) => {
+                    if (friendlyTargets[i].buffs[key].name === "Renewing Mist" && friendlyTargets[i].buffs[key].caster === caster) {
+                        doHeal(caster, friendlyTargets[i], this, undefined, this.spellPowerSec)
+                    }
+                })
+            }
         }
         let cost = this.cost
 
-        //Lifecycles
+
         if (caster.spec==="mistweaver") {
+            //Lifecycles
             cost =  cost * (1-caster.abilities["Lifecycles"].check(caster,this))
-        }
 
-        //thunder focus tea
-        for (let i = 0; i<caster.buffs.length; i++) {
-            if (caster.buffs[i].name==="Thunder Focus Tea") {
+            //thunder focus tea
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name==="Thunder Focus Tea") {
 
-                cost = 0
+                    cost = 0
 
-                if (caster.buffs[i].stacks>1) {
-                    caster.buffs[i].stacks--
-                } else {
-                    caster.buffs[i].duration = -1
-                    caster.abilities["Thunder Focus Tea"].cd = 0
+                    if (caster.buffs[i].stacks>1) {
+                        caster.buffs[i].stacks--
+                    } else {
+                        caster.buffs[i].duration = -1
+                        caster.abilities["Thunder Focus Tea"].cd = 0
+                    }
                 }
             }
         }
-
         caster.useEnergy(cost)
     }
 }

@@ -189,7 +189,7 @@ class DetailsWindow {
 let detailsDamage = new DetailsWindow(20,200,250,200,"Damage Done","details_damageWindow")
 let detailsHealing = new DetailsWindow(20,420,250,200,"Healing Done","details_healingWindow")
 
-let detailsAbilities = new DetailsWindow(20,640,350,200,"Abilities Damage","details_abilitiesWindow",true)
+let detailsAbilities = new DetailsWindow(20,640,450,200,"Abilities Damage","details_abilitiesWindow",true)
 
 let details = {
     combatIdx: 0,

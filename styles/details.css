@@ -1,5 +1,6 @@
 .detailsWindow {
     overflow-y: auto;
+    z-index:49;
 }
 
 .detailsWindow span {

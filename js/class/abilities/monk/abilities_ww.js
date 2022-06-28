@@ -21,8 +21,8 @@ class Ww_abilities {
     "Expel Harm" = new ExpelHarm(true)
     "Storm, Earth, and Fire" = new StormEarthandFire()
     "Invoke Xuen, the White Tiger" = new InvokeXuentheWhiteTiger()
-
-
+    "Detox" = new Detox(true)
+    "Vivify" = new Vivify(true)
 
     //passive
     "Mystic Touch" = new MysticTouch()

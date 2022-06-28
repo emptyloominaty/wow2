@@ -146,6 +146,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (caster.spellHistory[0]!==ability.name) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }
+            if (checkBuff(caster,caster,"Invoke Xuen, the White Tiger")) {
+                caster.abilities["Invoke Xuen, the White Tiger"].storeDamage(caster,damage)
+            }
         } else if (caster.spec==="arcane") { //TODO?
             damage = damage * ((1 + (caster.stats.mastery / 100))/1.2)
         } else if (caster.spec==="fury") {
