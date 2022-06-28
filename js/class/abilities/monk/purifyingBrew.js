@@ -17,6 +17,7 @@ class PurifyingBrew extends Ability {
         this.duration = 15
         this.maxStacks = 10
         this.hasteCd = true
+        this.purifiedStagger = 0
     }
 
     getTooltip() {
@@ -39,9 +40,12 @@ class PurifyingBrew extends Ability {
                         stacks = 1
                     }
                     caster.debuffs[i].effect[0].val = caster.debuffs[i].effect[0].val/2
+                    this.purifiedStagger = caster.debuffs[i].effect[0].val+0
                     break
                 }
             }
+
+
 
             applyBuff(caster,caster,this,stacks,true,"Purified Chi")
             this.setCd()

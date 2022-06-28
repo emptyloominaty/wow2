@@ -717,11 +717,11 @@ class InvokeChiJitheRedCrane extends Ability {
             abilities:{},
             color:"#ff8a3a",
             size:6,
-            do:[{name:"goMelee"}/*,{name:"cast",ability:"Auto Attack"}*/],
+            do:[{name:"goMelee"}],
         }
         this.petDuration = 25
     }
-
+    //TODO Chi-Ji's presence makes you immune to movement impairing effects.
     startCast(caster) {
         if (this.checkStart(caster) && this.talentSelect) {
 

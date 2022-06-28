@@ -21,7 +21,7 @@ class Bm_abilities {
     "Vivify" = new Vivify(true)
     "Crackling Jade Lightning" = new CracklingJadeLightning(true)
     "Breath of Fire" = new BreathofFire()
-    //Invoke Niuzao, the Black Ox
+    "Invoke Niuzao, the Black Ox" = new InvokeNiuzaotheBlackOx()
 
     //passive
     "Mystic Touch" = new MysticTouch()
@@ -94,6 +94,10 @@ class Stagger extends Ability {
 
         staggeredDamage = damage * drDot
         damage = damage * dr
+
+        if (checkBuff(target,target,"Invoke Niuzao, the Black Ox")) {
+            staggeredDamage *= 0.75
+        }
 
         let done = false
         for (let i = 0; i<target.debuffs.length; i++) {

@@ -4,7 +4,7 @@ class InvokeXuentheWhiteTiger extends Ability {
         let cost = 0
         let gcd = 1
         let castTime = 0
-        let cd = 120
+        let cd = 180
         let charges = 1
         let channeling = false
         let casting = false
@@ -22,7 +22,7 @@ class InvokeXuentheWhiteTiger extends Ability {
             size:7,
             do:[{name:"goMelee"},{name:"cast",ability:"Empowered Tiger Lightning"},{name:"cast",ability:"Crackling Tiger Lightning"}],
         }
-        this.petDuration = 30
+        this.petDuration = 24
     }
 
     getTooltip() {

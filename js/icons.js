@@ -713,6 +713,9 @@ let iconsPath = {
     "Whirling Dragon Punch":"img/monk/WhirlingDragonPunch.jpg",
     "Dance of Chi-Ji":"img/monk/SpinningCraneKick.jpg",
     "Summon Black Ox Statue":"img/monk/SummonBlackOxStatue.jpg",
+    "Stomp ":"img/monk/Stomp.jpg",
+
+
 
     //Paladin
     "Absolution":"img/paladin/Absolution.jpg",

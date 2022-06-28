@@ -145,6 +145,7 @@ if (player.spec==="brewmaster") {
 
 
         //bar0
+        "Invoke Niuzao, the Black Ox": new Action("Invoke Niuzao, the Black Ox", 0, 0),
         "Detox": new Action("Detox", 0, 4),
         "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
