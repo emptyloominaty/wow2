@@ -17,6 +17,11 @@ class Bm_abilities {
     "Transcendence" = new Transcendence(true)
     "Transcendence: Transfer" = new TranscendenceTransfer(true)
     "Paralysis" = new Paralysis(true)
+    "Detox" = new Detox(true)
+    "Vivify" = new Vivify(true)
+    "Crackling Jade Lightning" = new CracklingJadeLightning(true)
+    "Breath of Fire" = new BreathofFire()
+    //Invoke Niuzao, the Black Ox
 
     //passive
     "Mystic Touch" = new MysticTouch()

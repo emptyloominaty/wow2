@@ -958,7 +958,7 @@ class Wellspring extends Ability {
         for (let i = 0; i<targets.length ;i++) {
             if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.healRange,true)) {
                 let dirToTarget = getDirection(caster,targets[i])
-                if (dir+90>dirToTarget && dir-90<dirToTarget) {
+                if (directionHit(dir,dirToTarget,90)) {
                     lastTarget = targets[i]
                     doHeal(caster, targets[i], this)
                     ttt++

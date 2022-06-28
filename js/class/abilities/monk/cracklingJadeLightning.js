@@ -1,5 +1,5 @@
 class CracklingJadeLightning extends Ability {
-    constructor(ww = false) {
+    constructor(wwbm = false) {
         let name = "Crackling Jade Lightning"
         let cost = 0 //% mana every sec
         let gcd = 1
@@ -17,7 +17,7 @@ class CracklingJadeLightning extends Ability {
         this.spellPower = 0.896
         this.duration = 4
 
-        if (ww) {
+        if (wwbm) {
             this.cost = 20
             this.spellPower = 0.224
             this.gcd = 1

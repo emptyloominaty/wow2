@@ -144,6 +144,7 @@ class Creature {
         } else if (spec==="brewmaster") {//----------------------------------------Brewmaster
             this.class = "Monk"
             this.abilities = new Bm_abilities()
+            _brewmaster_talents(this)
             this.melee = true
             this.role = "tank"
 
@@ -676,6 +677,8 @@ class Creature {
                         this.isInterrupted = true
                     } else if (this.debuffs[i].effect[j].name === "rootIfSnared") {
                         this.isRooted = true
+                    } else if (this.debuffs[i].effect[j].name === "reduceDamage") {
+                        this.damageIncrease -= this.debuffs[i].effect[j].val
                     }
                 }
             }

@@ -68,7 +68,7 @@ class FistsofFury extends Ability {
         for (let i = 0; i<targets.length ;i++) {
             if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
                 let dirToTarget = getDirection(caster,targets[i])
-                if (dir+120>dirToTarget && dir-120<dirToTarget) {
+                if (directionHit(dir,dirToTarget,75)) {
                     doDamage(caster, targets[i], this,undefined,this.spellPowerSec)
                 }
             }

@@ -694,6 +694,36 @@ let replaceAction = function(caster,ability1,ability2) {
     } ,120)
 }
 
+let direction360 = function(dir) {
+    if (dir>=360) {
+        dir-=360
+    }
+    if (dir<0) {
+        dir+=360
+    }
+    return dir
+}
+
+let directionHit = function(casterDir,dirToTarget,angle) {
+    casterDir = direction360(casterDir)
+    dirToTarget = direction360(dirToTarget)
+
+    let dir1 = casterDir+angle
+    let dir1_2 = casterDir+angle
+
+    let dir2 = casterDir-angle
+    let dir2_2 = casterDir-angle
+
+    if (dir1>=360) {
+        dir1_2 = dir1_2-360
+        dir2_2 = dir2_2-360
+    } else if (dir2<0) {
+        dir1_2 = dir1_2+360
+        dir2_2 = dir2_2+360
+    }
+    return (dir1 > dirToTarget && dir2 < dirToTarget) || (dir1_2 > dirToTarget && dir2_2 < dirToTarget)
+}
+
 //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
 const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";

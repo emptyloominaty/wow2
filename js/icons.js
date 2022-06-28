@@ -639,7 +639,7 @@ let iconsPath = {
     "Light Stagger":"img/monk/LightStagger.jpg",
     "Moderate Stagger":"img/monk/ModerateStagger.jpg",
     "Heavy Stagger":"img/monk/HeavyStagger.jpg",
-    "Breath Of Fire":"img/monk/BreathOfFire.jpg",
+    "Breath of Fire":"img/monk/BreathOfFire.jpg",
     "Celestial Brew":"img/monk/CelestialBrew.jpg",
     "Celestial Fortune":"img/monk/CelestialFortune.jpg",
     "Clash":"img/monk/Clash.jpg",
@@ -712,6 +712,7 @@ let iconsPath = {
     "Leg Sweep":"img/monk/TigerTailSweep.jpg",
     "Whirling Dragon Punch":"img/monk/WhirlingDragonPunch.jpg",
     "Dance of Chi-Ji":"img/monk/SpinningCraneKick.jpg",
+    "Summon Black Ox Statue":"img/monk/SummonBlackOxStatue.jpg",
 
     //Paladin
     "Absolution":"img/paladin/Absolution.jpg",

@@ -55,6 +55,7 @@ class KegSmash extends Ability {
                 for (let i = 0; i<enemies.length ;i++) {
                     if (!enemies[i].isDead && this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange)) {
                         doDamage(caster, enemies[i], this,undefined,this.spellPowerCleave)
+                        applyDebuff(caster,enemies[i],this)
                     }
                 }
                 caster.useEnergy(this.cost,this.secCost)

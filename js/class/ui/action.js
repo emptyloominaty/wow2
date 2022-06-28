@@ -134,20 +134,33 @@ if (player.spec==="brewmaster") {
         //bar1
         "Provoke": new Action("Provoke", 1, 0),
         "Keg Smash": new Action("Keg Smash", 1, 1),
+        "Breath of Fire": new Action("Breath of Fire", 1, 2),
         "Roll": new Action("Roll", 1, 3),
+        "Ring of Peace": new Action("Ring of Peace", 1, 4),
+        "Transcendence: Transfer": new Action("Transcendence: Transfer", 1, 5),
+        "Transcendence": new Action("Transcendence", 1, 6),
         "Tiger Palm": new Action("Tiger Palm", 1, 8),
         "Blackout Kick": new Action("Blackout Kick", 1, 9),
+        "Leg Sweep": new Action("Leg Sweep", 1, 10),
+
 
         //bar0
+        "Detox": new Action("Detox", 0, 4),
         "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
-        "Celestial Brew": new Action("Celestial Brew", 0, 7),
+        "Healing Elixir": new Action("Healing Elixir", 0, 7),
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
+        "Paralysis": new Action("Paralysis", 0, 11),
 
         //bar2
+        "Celestial Brew": new Action("Celestial Brew", 2, 0),
         "Purifying Brew": new Action("Purifying Brew", 2, 1),
+        "Crackling Jade Lightning": new Action("Crackling Jade Lightning", 2, 3),
         "Zen Meditation": new Action("Zen Meditation", 2, 4),
         "Expel Harm": new Action("Expel Harm", 2, 7),
+        "Tiger's Lust": new Action("Tiger's Lust", 2, 11),
+
+        "Vivify": new Action("Vivify", 3, 0),
     }
 }
 
@@ -282,6 +295,7 @@ if (player.spec==="windwalker") {
         "Storm, Earth, and Fire": new Action("Storm, Earth, and Fire", 0, 1),
         "Flying Serpent Kick": new Action("Flying Serpent Kick", 0, 2),
 
+        "Detox": new Action("Detox", 0, 4),
         "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
 
