@@ -45,7 +45,13 @@ class SpinningCraneKick extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        let secCost = this.secCost
+        if (caster.spec==="windwalker") {
+            if (caster.abilities["Dance of Chi-Ji"].talentSelect && checkBuff(caster,caster,"Dance of Chi-Ji")) {
+                secCost = 0
+            }
+        }
+        if (this.checkStart(caster,undefined,secCost)) {
             this.cd = 0
             if (caster.isChanneling) {
                 caster.isChanneling = false
@@ -55,10 +61,27 @@ class SpinningCraneKick extends Ability {
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(0.8/(1 + (caster.stats.haste / 100)))/2}
 
-            if (caster.spec==="windwalker" && caster.abilities["Inner Strength"].talentSelect) {
-                caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+            let secCost = this.secCost
+            if (caster.spec==="windwalker") {
+                this.spellPower = 0.4
+                if (caster.abilities["Inner Strength"].talentSelect) {
+                    caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+                }
+                if (caster.abilities["Dance of Chi-Ji"].talentSelect) {
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Dance of Chi-Ji") {
+                            secCost = 0
+                            this.spellPower = 1.2
+                            caster.buffs[i].duration = -1
+                        }
+                    }
+                    caster.abilities["Dance of Chi-Ji"].applyBuff(caster)
+                }
             }
-            caster.useEnergy(this.cost,this.secCost)
+
+
+
+            caster.useEnergy(this.cost,secCost)
             if (caster.spec==="brewmaster") {
                 caster.abilities["Shuffle"].incBuff(caster,this)
             }

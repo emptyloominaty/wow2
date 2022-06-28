@@ -278,27 +278,39 @@ if (player.spec==="assassination") {
 if (player.spec==="windwalker") {
     actions = {
         //bar0
+        "Storm, Earth, and Fire": new Action("Storm, Earth, and Fire", 0, 1),
         "Flying Serpent Kick": new Action("Flying Serpent Kick", 0, 2),
 
         "Spear Hand Strike": new Action("Spear Hand Strike", 0, 5),
         "Spinning Crane Kick": new Action("Spinning Crane Kick", 0, 6),
 
         "Fortifying Brew": new Action("Fortifying Brew", 0, 8),
-
+        "Paralysis": new Action("Paralysis", 0, 11),
         //bar1
         "Rising Sun Kick": new Action("Rising Sun Kick", 1, 0),
         "Fists of Fury": new Action("Fists of Fury", 1, 1),
         "Fist of the White Tiger": new Action("Fist of the White Tiger", 1, 2),
-
+        "Roll": new Action("Roll", 1, 3),
+        "Ring of Peace": new Action("Ring of Peace", 1, 4),
+        "Transcendence: Transfer": new Action("Transcendence: Transfer", 1, 5),
+        "Transcendence": new Action("Transcendence", 1, 6),
 
         "Tiger Palm": new Action("Tiger Palm", 1, 8),
         "Blackout Kick": new Action("Blackout Kick", 1, 9),
+        "Leg Sweep": new Action("Leg Sweep", 1, 10),
 
+        "Whirling Dragon Punch":  new Action("Whirling Dragon Punch", 2, 0),
+        "Touch of Death":  new Action("Touch of Death", 2, 2),
         "Touch of Karma":  new Action("Touch of Karma", 2, 2),
+        "Crackling Jade Lightning": new Action("Crackling Jade Lightning", 2, 3),
+
+
+        //bar2
+        "Expel Harm": new Action("Expel Harm", 2, 5),
 
         //bar3
         "Provoke": new Action("Provoke", 3, 5),
-
+        "Resuscitate": new Action("Resuscitate", 3, 6),
     }
 }
 

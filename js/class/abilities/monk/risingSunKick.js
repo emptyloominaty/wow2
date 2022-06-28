@@ -115,8 +115,13 @@ class RisingSunKick extends Ability {
                             }
                         }
                     }
-                } else if (caster.spec==="windwalker" && caster.abilities["Inner Strength"].talentSelect) {
-                    caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+                } else if (caster.spec==="windwalker" ) {
+                    if (caster.abilities["Inner Strength"].talentSelect) {
+                        caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+                    }
+                    if (caster.abilities["Dance of Chi-Ji"].talentSelect) {
+                        caster.abilities["Dance of Chi-Ji"].applyBuff(caster)
+                    }
                 }
                 return true
             }

@@ -51,11 +51,6 @@ class CracklingJadeLightning extends Ability {
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 doDamage(caster, target, this)
-                let masteryRng = Math.floor(Math.random() * 7)
-                if (masteryRng === 0) {
-                    caster.abilities["Gust of Mists"].heal(caster)
-                }
-
                 caster.useEnergy(this.cost)
             }
         }

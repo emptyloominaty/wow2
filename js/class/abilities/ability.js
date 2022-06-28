@@ -83,11 +83,11 @@ class Ability {
         return false
     }
 
-    checkStart(caster,cost = 9999) {
+    checkStart(caster,cost = 9999,secCost = 9999) {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
-        if (this.canUse && this.checkGcd(caster) && this.checkCost(caster,cost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster)) {
+        if (this.canUse && this.checkGcd(caster) && this.checkCost(caster,cost,undefined,secCost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster)) {
             return true
         }
         return false
@@ -147,6 +147,19 @@ class Ability {
     }
 
     setGcd(caster,gcd = 0) {
+        if(caster.spec==="windwalker") {
+            if (caster.spellHistory[0]!==this.name) {
+                caster.abilities["Hit Combo"].applyBuff(caster)
+            } else {
+                if (caster.abilities["Hit Combo"].talentSelect) {
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Hit Combo") {
+                            caster.buffs[i].duration = -1
+                        }
+                    }
+                }
+            }
+        }
         this.abilityCd = 0
         details.castAbility(caster,this)
         castCombatLog.cast(caster,this)
@@ -221,13 +234,16 @@ class Ability {
         return (caster===player && caster.gcd<spellQueueWindow && (caster.gcd>0 || caster.isCasting))
     }
 
-    checkCost(caster,cost = 9999,showMessage = true) {
+    checkCost(caster,cost = 9999,showMessage = true,secCost = 9999) {
         if (cost===9999) {
             cost = this.cost
         }
+        if (secCost===9999) {
+            secCost = this.secCost
+        }
         if (caster.energy>=cost) {
-            if (this.secCost>0 && caster.maxSecondaryResource>0) {
-                if (caster.secondaryResource>=this.secCost) {
+            if (secCost>0 && caster.maxSecondaryResource>0) {
+                if (caster.secondaryResource>=secCost) {
                     return true
                 } else {
                     if (caster===player && showMessage) {

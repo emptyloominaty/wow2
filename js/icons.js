@@ -660,7 +660,7 @@ let iconsPath = {
     "Invoke Xuen, the White Tiger":"img/monk/InvokeXuentheWhiteTiger.jpg",
     "Xuen":"img/monk/InvokeXuentheWhiteTiger.jpg",
     "Reawaken":"img/monk/Reawaken.jpg",
-    "Storm, Earth And Fire":"img/monk/StormEarthAndFire.jpg",
+    "Storm, Earth, and Fire":"img/monk/StormEarthAndFire.jpg",
     "Touch of Karma":"img/monk/TouchOfKarma.jpg",
     "Windwalking":"img/monk/Windwalking.jpg",
     "Resuscitate":"img/monk/Resuscitate.jpg",

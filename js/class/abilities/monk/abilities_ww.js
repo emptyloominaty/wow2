@@ -17,6 +17,9 @@ class Ww_abilities {
     "Touch of Karma" = new TouchofKarma()
     "Flying Serpent Kick" = new FlyingSerpentKick()
     "Fortifying Brew" = new FortifyingBrew()
+    "Crackling Jade Lightning" = new CracklingJadeLightning(true)
+    "Expel Harm" = new ExpelHarm(true)
+    "Storm, Earth, and Fire" = new StormEarthandFire()
 
     //passive
     "Mystic Touch" = new MysticTouch()

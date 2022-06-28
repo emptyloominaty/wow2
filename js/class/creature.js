@@ -418,7 +418,11 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "healingIncrease2") {
                         this.healingIncrease += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "increaseDamage") {
-                        this.damageIncrease += this.buffs[i].effect[j].val
+                        if (this.buffs[i].stacks > 1) {
+                            this.damageIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
+                        } else {
+                            this.damageIncrease += this.buffs[i].effect[j].val
+                        }
                     } else if (this.buffs[i].effect[j].name === "moveSpeed") {
                         if (this.buffs[i].stacks > 1) {
                             this.moveSpeedIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
@@ -560,6 +564,21 @@ class Creature {
                             for (let ft = 0; ft<friendlyTargets.length ;ft++) {
                                 if (!friendlyTargets[ft].isDead && getDistance(this, friendlyTargets[ft])<this.abilities["Refreshing Jade Wind"].range) {
                                     doHeal(this, friendlyTargets[ft], this.abilities["Refreshing Jade Wind"])
+                                    t++
+                                    if (t>this.buffs[i].effect[j].targets) {
+                                        break
+                                    }
+                                }
+                            }
+                            this.buffs[i].effect[j].timer=0
+                        }
+                    } else if (this.buffs[i].effect[j].name === "RJWDamage") {
+                        this.buffs[i].effect[j].timer += progressInSec
+                        if (this.buffs[i].effect[j].timer>this.buffs[i].effect[j].timer2) {
+                            let t = 0
+                            for (let ft = 0; ft<enemies.length ;ft++) {
+                                if (!enemies[ft].isDead && getDistance(this, enemies[ft])<this.abilities["Rushing Jade Wind"].range) {
+                                    doDamage(this, enemies[ft], this.abilities["Rushing Jade Wind"])
                                     t++
                                     if (t>this.buffs[i].effect[j].targets) {
                                         break

@@ -39,6 +39,9 @@ class FistsofFury extends Ability {
             if (caster.abilities["Inner Strength"].talentSelect) {
                 caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
             }
+            if (caster.abilities["Dance of Chi-Ji"].talentSelect) {
+                caster.abilities["Dance of Chi-Ji"].applyBuff(caster)
+            }
             caster.useEnergy(this.cost,this.secCost)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -48,7 +51,6 @@ class FistsofFury extends Ability {
     }
 
     cast(caster) {
-
         let target = caster.channeling.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target) && !target.isDead && this.checkDistance(caster,target)) {
             doDamage(caster,target,this)
@@ -58,7 +60,7 @@ class FistsofFury extends Ability {
         for (let i = 0; i<targets.length ;i++) {
             if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
                 let dirToTarget = getDirection(caster,targets[i])
-                if (dir+90>dirToTarget && dir-90<dirToTarget) {
+                if (dir+120>dirToTarget && dir-120<dirToTarget) {
                     doDamage(caster, targets[i], this,undefined,this.spellPowerSec)
                 }
             }

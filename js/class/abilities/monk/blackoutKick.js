@@ -25,6 +25,7 @@ class BlackoutKick extends Ability {
             this.secCost = 1 //chi
             this.spellPower = (0.565 *2)*0.93
             this.cd = 0
+            this.maxCd = 0
             this.gcd = 1
             this.hasteGcd = false
         }
@@ -79,6 +80,9 @@ class BlackoutKick extends Ability {
                     caster.secondaryResource++
                     caster.buffs.splice(i, 1)
                 }
+            }
+            if (caster.abilities["Dance of Chi-Ji"].talentSelect) {
+                caster.abilities["Dance of Chi-Ji"].applyBuff(caster)
             }
             caster.abilities["Rising Sun Kick"].cd += 1
             caster.abilities["Fists of Fury"].cd += 1

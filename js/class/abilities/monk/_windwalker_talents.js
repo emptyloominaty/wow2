@@ -25,13 +25,13 @@ let _windwalker_talents = function(caster) {
     caster.abilities["Dampen Harm"] = new DampenHarm()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Hit Combo"] = new HitCombo()
+    caster.abilities["Rushing Jade Wind"] = new RushingJadeWind()
+    caster.abilities["Dance of Chi-Ji"] = new DanceofChiJi()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Spiritual Focus"] = new SpiritualFocus()
+    caster.abilities["Whirling Dragon Punch"] = new WhirlingDragonPunch()
     //caster.abilities[""] = new ()
 
 
@@ -242,7 +242,7 @@ class InnerStrength extends Ability {
         this.effect = [{name:"damageReductionStacks",val:0.02}]
     }
 
-    getTooltip() { //TODO:
+    getTooltip() {
         return "Each Chi you spend reduces damage taken by 2% for 5 sec, stacking up to 5 times."
     }
 
@@ -256,8 +256,161 @@ class InnerStrength extends Ability {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW6
+class HitCombo extends Ability {
+    constructor() {
+        super("Hit Combo", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.permanentBuff = true
+        this.duration = 10
+        this.maxStacks = 6
+        this.effect = [{name:"increaseDamage",val:0.01}]
+    }
+
+    getTooltip() {
+        return "Each successive attack that triggers Combo Strikes in a row grants 1% increased damage, stacking up to 6 times."
+    }
+
+    applyBuff(caster) {
+        if (this.talentSelect) {
+            applyBuff(caster,caster,this,1,true)
+        }
+    }
+}
 //------------------------------------------------
+class RushingJadeWind extends Ability {
+    constructor() {
+        super("Rushing Jade Wind", 0, 1, 0, 6, false, false, false, "physical", 8, 1)
+        this.secCost = 1
+        this.hasteCd = true
+        this.talent = true
+        this.spellPower = 0.9/9
+        this.effect = [{name:"RJWDamage",val:this.spellPower,targets:20,timer:0,timer2:0.8}]
+        this.durationB = 6
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            this.duration = this.durationB / (1+(caster.stats.haste/100))
+            this.effect[0].timer2 = 0.8 / (1+(caster.stats.haste/100))
+
+            applyBuff(caster,caster,this)
+            this.setCd()
+            caster.useEnergy(this.cost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue()) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    getTooltip() {
+        return "Summons a whirling tornado around you, causing "+spellPowerToNumber(this.spellPower*9)+" Physical damage over 6 sec to all enemies within 8 yards."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Dealing physical damage to nearby enemies every 0.8 sec."
+    }
+}
 //------------------------------------------------
+class DanceofChiJi extends Ability {
+    constructor() {
+        super("Dance of Chi-Ji", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 15
+    }
+
+    getTooltip() {
+        return "Spending Chi has a chance to make your next Spinning Crane Kick free and deal an additional 200% damage."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Your next Spinning Crane Kick is free and deals an additional 200% damage."
+    }
+
+    applyBuff(caster) {
+        if (getChance(10*(1+(caster.stats.haste/100)))) {
+            applyBuff(caster,caster,this)
+        }
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW7
+class SpiritualFocus extends Ability {
+    constructor() {
+        super("Spiritual Focus", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.chiSpent = 0
+    }
+        //TODO:
+    getTooltip() {
+        return "Every 2 Chi you spend reduces the cooldown of Storm, Earth and Fire by 1.0 sec."
+    }
+
+    reduceCd(caster,chi) {
+        this.chiSpent += chi
+        if (this.chiSpent>1) {
+            caster.abilities["Storm, Earth, and Fire"] -=1
+            this.chiSpent -= 2
+        }
+    }
+}
 //------------------------------------------------
+class WhirlingDragonPunch extends Ability {
+    constructor() {
+        let name = "Whirling Dragon Punch"
+        let cost = 0
+        let gcd = 1
+        let castTime = 1
+        let cd = 24
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = true
+        let school = "physical"
+        let range = 8
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.hasteCd = true
+        this.spellPower = 2.487957
+
+    }
+
+    getTooltip() {
+        return "Performs a devastating whirling upward strike, dealing "+spellPowerToNumber(this.spellPower)+" damage to all nearby enemies. Only usable while both Fists of Fury and Rising Sun Kick are on cooldown."
+    }
+
+    startCast(caster,pet = false) {
+        if (this.checkStart(caster) && caster.abilities["Rising Sun Kick"].cd<caster.abilities["Rising Sun Kick"].maxCd && caster.abilities["Fists of Fury"].cd<caster.abilities["Fists of Fury"].maxCd ) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            let targets = enemies
+            for (let i = 0; i<targets.length ;i++) {
+                if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
+                        doDamage(caster, targets[i], this)
+                }
+            }
+
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost,this.secCost)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+}
+
 //------------------------------------------------

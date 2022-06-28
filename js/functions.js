@@ -142,7 +142,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (ability.poison || ability.bleed) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }
-        } else if (caster.spec==="windwalker") {
+        } else if (caster.spec==="windwalker" && ability.name!=="Auto Attack" && !t) {
             if (caster.spellHistory[0]!==ability.name) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }

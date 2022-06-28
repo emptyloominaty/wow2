@@ -38,7 +38,6 @@ class FortifyingBrew extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            this.cd = 0
             applyBuff(caster,caster,this)
             //caster.damageReduction += this.effectValue
             caster.healthIncreased += this.effect2Value
@@ -46,6 +45,8 @@ class FortifyingBrew extends Ability {
             caster.maxHealth *= 1+this.effect2Value
             let b = caster.maxHealth
             caster.health += b-a
+            this.setCd()
+            this.setGcd(caster)
             caster.useEnergy(this.cost)
             return true
         }
