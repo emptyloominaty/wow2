@@ -81,6 +81,9 @@ class TigerPalm extends Ability {
                     caster.abilities["Celestial Brew"].cd +=1
                     caster.abilities["Purifying Brew"].incCd(caster,1,false)
                     caster.abilities["Fortifying Brew"].cd +=1
+                    if (caster.abilities["Spitfire"].talentSelect && getChance(25)) {
+                        caster.abilities["Breath of Fire"].cd = caster.abilities["Breath of Fire"].maxCd
+                    }
                 }
                 if (caster.isChanneling) {
                     caster.isChanneling = false

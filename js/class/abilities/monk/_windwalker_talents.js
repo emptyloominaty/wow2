@@ -75,7 +75,6 @@ class EyeoftheTiger extends Ability {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW3
-//Ascension
 class Ascension extends Ability {
     constructor() {
         super("Ascension", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
@@ -279,7 +278,7 @@ class HitCombo extends Ability {
 }
 //------------------------------------------------
 class RushingJadeWind extends Ability {
-    constructor() {
+    constructor(bm = false) {
         super("Rushing Jade Wind", 0, 1, 0, 6, false, false, false, "physical", 8, 1)
         this.secCost = 1
         this.hasteCd = true
@@ -287,6 +286,10 @@ class RushingJadeWind extends Ability {
         this.spellPower = 0.9/9
         this.effect = [{name:"RJWDamage",val:this.spellPower,targets:20,timer:0,timer2:0.8}]
         this.durationB = 6
+        if (bm) {
+            this.secCost = 0
+            this.durationB = 9
+        }
     }
 
     startCast(caster) {

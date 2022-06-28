@@ -45,7 +45,9 @@ class PurifyingBrew extends Ability {
                 }
             }
 
-
+            if (caster.abilities["Special Delivery"].talentSelect) {
+                caster.abilities["Special Delivery"].drinkBrew(caster)
+            }
 
             applyBuff(caster,caster,this,stacks,true,"Purified Chi")
             this.setCd()
