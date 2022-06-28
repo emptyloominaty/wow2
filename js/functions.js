@@ -678,6 +678,19 @@ let resurrect = function(caster,target,health) {
     target.health = target.maxHealth*health
 }
 
+let replaceAction = function(caster,ability1,ability2) {
+    setTimeout(()=>{
+        if (caster===player) {
+            if (actions[ability1]) {
+                let bar = actions[ability1].bar
+                let slot = actions[ability1].slot
+                actions[ability2] = new Action(ability2, bar, slot)
+            }
+            caster.abilities[ability2].canUse = true
+        }
+    } ,120)
+}
+
 //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
 const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";

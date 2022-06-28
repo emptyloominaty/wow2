@@ -20,6 +20,9 @@ class Ww_abilities {
     "Crackling Jade Lightning" = new CracklingJadeLightning(true)
     "Expel Harm" = new ExpelHarm(true)
     "Storm, Earth, and Fire" = new StormEarthandFire()
+    "Invoke Xuen, the White Tiger" = new InvokeXuentheWhiteTiger()
+
+
 
     //passive
     "Mystic Touch" = new MysticTouch()

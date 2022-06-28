@@ -68,7 +68,7 @@ class RisingSunKick extends Ability {
             }
             if (done) {
                 this.cd = 0
-                caster.useEnergy(this.cost,this.secCost)
+                let secCost = this.secCost
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -122,7 +122,15 @@ class RisingSunKick extends Ability {
                     if (caster.abilities["Dance of Chi-Ji"].talentSelect) {
                         caster.abilities["Dance of Chi-Ji"].applyBuff(caster)
                     }
+                    if (caster.abilities["Serenity"].talentSelect && checkBuff(caster,caster,"Serenity")) {
+                        secCost = 0
+                        this.cd = this.maxCd/2
+                    }
+                    if (caster.abilities["Spiritual Focus"].talentSelect) {
+                        caster.abilities["Spiritual Focus"].reduceCd(caster,secCost)
+                    }
                 }
+                caster.useEnergy(this.cost,secCost)
                 return true
             }
 

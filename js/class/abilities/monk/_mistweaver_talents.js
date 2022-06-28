@@ -256,11 +256,14 @@ class ChiTorpedo extends Ability {
 
     setTalent(caster) {
         caster.abilities["Roll"].canUse = false
+        replaceAction(caster, "Roll", this.name)
     }
 
     unsetTalent(caster) {
         caster.abilities["Roll"].canUse = true
+        replaceAction(caster,this.name,"Roll")
     }
+
 
 }
 //------------------------------------------------

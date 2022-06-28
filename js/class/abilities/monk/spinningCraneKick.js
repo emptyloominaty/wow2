@@ -77,6 +77,13 @@ class SpinningCraneKick extends Ability {
                     }
                     caster.abilities["Dance of Chi-Ji"].applyBuff(caster)
                 }
+                if (caster.abilities["Serenity"].talentSelect && checkBuff(caster,caster,"Serenity")) {
+                    secCost = 0
+                    this.cd = this.maxCd/2
+                }
+                if (caster.abilities["Spiritual Focus"].talentSelect) {
+                    caster.abilities["Spiritual Focus"].reduceCd(caster,secCost)
+                }
             }
 
 

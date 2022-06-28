@@ -32,7 +32,7 @@ let _windwalker_talents = function(caster) {
     //7
     caster.abilities["Spiritual Focus"] = new SpiritualFocus()
     caster.abilities["Whirling Dragon Punch"] = new WhirlingDragonPunch()
-    //caster.abilities[""] = new ()
+    caster.abilities["Serenity"] = new Serenity()
 
 
     caster.talents = [["Eye of the Tiger","Chi Wave","Chi Burst"],
@@ -349,7 +349,7 @@ class SpiritualFocus extends Ability {
         this.talent = true
         this.chiSpent = 0
     }
-        //TODO:
+
     getTooltip() {
         return "Every 2 Chi you spend reduces the cooldown of Storm, Earth and Fire by 1.0 sec."
     }
@@ -357,7 +357,7 @@ class SpiritualFocus extends Ability {
     reduceCd(caster,chi) {
         this.chiSpent += chi
         if (this.chiSpent>1) {
-            caster.abilities["Storm, Earth, and Fire"] -=1
+            caster.abilities["Storm, Earth, and Fire"].incCd(caster,1,false)
             this.chiSpent -= 2
         }
     }
@@ -412,5 +412,55 @@ class WhirlingDragonPunch extends Ability {
     }
 
 }
-
 //------------------------------------------------
+class Serenity extends Ability {
+    constructor() {
+        let name = "Serenity"
+        let cost = 0
+        let gcd = 0
+        let castTime = 0
+        let cd = 90
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "physical"
+        let range = 5
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.effect = [{name:"increaseDamage",val:0.2}]
+        this.duration = 12
+        this.noGcd = true
+    }
+
+    setTalent(caster) {
+        replaceAction(caster, "Storm, Earth, and Fire", this.name)
+    }
+
+    unsetTalent(caster) {
+        replaceAction(caster,this.name,"Storm, Earth, and Fire")
+    }
+
+    getTooltip() {
+        return "Enter an elevated state of mental and physical serenity for 12 sec. While in this state, you deal 20% increased damage and healing, and all Chi consumers are free and cool down 100% more quickly."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Damage and healing increased by 20%. All Chi consumers are free and cool down 100% more quickly."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (caster.secondaryResource<3) {
+                caster.secondaryResource = 3
+            }
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+
+}

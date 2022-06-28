@@ -458,15 +458,16 @@ let keyLoop = () => {
 
 //----------------------------------
 let keyup = (e)=> {
-    if (e.code==="ControlLeft" || e.code==="F1" || e.code==="F2" || e.code==="F3" || e.code==="F4" || e.code==="Tab" || e.code==="Numpad0" || e.code==="Numpad1" || e.code==="Numpad2" || e.code==="Numpad3" || e.code==="Numpad4" || e.code==="Numpad5" || e.code==="Numpad6" || e.code==="Numpad7" || e.code==="Numpad8" || e.code==="Numpad9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
+    if (e.code==="ControlLeft" || e.code==="F1" || e.code==="F2" || e.code==="F3" || e.code==="F4" || e.code==="Tab" || e.code==="Digit0" || e.code==="Digit1" || e.code==="Digit2" || e.code==="Digit3" || e.code==="Digit4" || e.code==="Digit5" || e.code==="Digit6" || e.code==="Digit7" || e.code==="Digit8" || e.code==="Digit9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
         e.preventDefault()
     }
     keyPressed[e.code]=false
 }
 
 let keydown = (e)=> {
-    if (e.code==="ControlLeft" || e.code==="F1" || e.code==="F2" || e.code==="F3" || e.code==="F4" || e.code==="Tab" || e.code==="Numpad0" || e.code==="Numpad1" || e.code==="Numpad2" || e.code==="Numpad3" || e.code==="Numpad4" || e.code==="Numpad5" || e.code==="Numpad6" || e.code==="Numpad7" || e.code==="Numpad8" || e.code==="Numpad9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
+    if (e.code==="ControlLeft" || e.code==="F1" || e.code==="F2" || e.code==="F3" || e.code==="F4" || e.code==="Tab" || e.code==="Digit0" || e.code==="Digit1" || e.code==="Digit2" || e.code==="Digit3" || e.code==="Digit4" || e.code==="Digit5" || e.code==="Digit6" || e.code==="Digit7" || e.code==="Digit8" || e.code==="Digit9" || e.code==="Period" || e.code==="NumpadDecimal" || e.code==="Backspace" || e.code==="ControlLeft") {
         e.preventDefault()
+        e.stopPropagation() //ctrl+123456789
     }
     keyPressed[e.code]=true
     if (keybinds.keyListening!==0) {
@@ -610,7 +611,7 @@ document.onkeydown = function (e) {
 
 //ctrl+w
 window.onbeforeunload = function (e) {
-    if (keyPressed["ControlLeft"]) {
+    if (keyPressed["ControlLeft"] /*TODO:|| keyPressed["F5"]*/) {
         e.preventDefault()
         e.returnValue = 'NO'
     }

@@ -117,14 +117,26 @@ class BlackoutKick extends Ability {
                 }
             }
             if (done) {
-                this.cd = 0
+                this.setCd()
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                if (caster.spec==="windwalker" && caster.abilities["Inner Strength"].talentSelect) {
-                    caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+
+                let secCost = this.secCost
+                if (caster.spec==="windwalker") {
+                    if (caster.abilities["Inner Strength"].talentSelect) {
+                        caster.abilities["Inner Strength"].applyBuff(caster,this.secCost)
+                    }
+                    if (caster.abilities["Serenity"].talentSelect && checkBuff(caster,caster,"Serenity")) {
+                        secCost = 0
+                        this.cd = this.maxCd/2
+                    }
+                    if (caster.abilities["Spiritual Focus"].talentSelect) {
+                        caster.abilities["Spiritual Focus"].reduceCd(caster,secCost)
+                    }
                 }
-                caster.useEnergy(this.cost,this.secCost)
+
+                caster.useEnergy(this.cost,secCost)
                 this.setGcd(caster)
                 return true
             }
@@ -132,14 +144,5 @@ class BlackoutKick extends Ability {
             spellQueue.add(this,caster.gcd)
         }
         return false
-    }
-
-    endCast(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }
