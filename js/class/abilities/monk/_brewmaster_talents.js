@@ -216,7 +216,7 @@ class SpecialDelivery extends Ability {
 }
 //------------------------------------------------
 //------------------------------------------------
-class ExplodingKeg extends Ability {
+class ExplodingKeg extends Ability { //TODO
     constructor() {
         super("Exploding Keg", 0, 1, 0, 60, false, false, false, "fire", 40, 1)
         this.passive = true
@@ -281,7 +281,7 @@ class HighTolerance extends Ability {
 
 }
 //------------------------------------------------
-class CelestialFlames extends Ability {
+class CelestialFlames extends Ability { //TODO
     constructor() {
         super("Celestial Flames", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
@@ -294,7 +294,7 @@ class CelestialFlames extends Ability {
     }
 }
 //------------------------------------------------
-class BlackoutCombo extends Ability {
+class BlackoutCombo extends Ability { //TODO
     constructor() {
         super("Blackout Combo", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true

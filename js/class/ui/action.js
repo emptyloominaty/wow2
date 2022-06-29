@@ -277,6 +277,8 @@ if (player.spec==="balance") {
 
 if (player.spec==="assassination") {
     actions = {
+        //bar0
+        "Fan of Knives": new Action("Fan of Knives", 0, 6),
         //bar1
         "Rupture": new Action("Rupture", 1, 0),
         "Garrote": new Action("Garrote", 1, 1),
@@ -286,7 +288,10 @@ if (player.spec==="assassination") {
         "Mutilate": new Action("Mutilate", 1, 8),
         "Envenom": new Action("Envenom", 1, 9),
 
+        //bar2
         "Deadly Poison": new Action("Deadly Poison", 2, 2),
+
+        //bar3
     }
 }
 if (player.spec==="windwalker") {

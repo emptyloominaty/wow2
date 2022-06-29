@@ -139,8 +139,14 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
 
         if (caster.spec==="assassination") {
-            if (ability.poison || ability.bleed) {
+            if (ability.poison || ability.bleed) { //TODO:MASTERY PASSIVE ?
                 damage = damage * (1 + (caster.stats.mastery / 100))
+            }
+            if (ability.bleed) {
+                caster.abilities["Venomous Wounds"].gainEnergy(caster)
+            }
+            if (ability.secCost<0 && crit>1) {
+                caster.abilities["Seal Fate"].gainCombo(caster)
             }
         } else if (caster.spec==="windwalker" && ability.name!=="Auto Attack" && !t) {
             if (caster.spellHistory[0]!==ability.name) {

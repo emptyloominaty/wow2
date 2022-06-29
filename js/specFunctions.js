@@ -28,7 +28,6 @@ let checkAndApplyRoguePoison = function(caster,target) {
     for (let i = 0; i<caster.buffs.length; i++) {
         if (caster.buffs[i].effect==="roguePoison") {
             let poison = caster.buffs[i].effectValue
-             //  this.effectValue = {spellPower:0.045, spellPowerDot:0.37, durationDot:12, chance:30, name:""}
             if (getChance(poison.chance)) {
                 for (let i = 0; i<target.debuffs.length; i++) {
                     if (target.debuffs[i].name===poison.name && target.debuffs[i].caster === caster) {
