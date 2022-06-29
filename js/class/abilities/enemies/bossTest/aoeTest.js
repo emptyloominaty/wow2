@@ -6,21 +6,15 @@ class AoeTest extends Ability {
         let castTime = 0
         let cd = 7
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
         let school = "arcane"
         let range = 60 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
+        this.aoe = true
         this.spellPower = 2.8
-
-        this.effect = ""
-        this.effectValue = 0
-    }
-
-    run(caster) {
+        this.cd = 0
     }
 
     startCast(caster) {

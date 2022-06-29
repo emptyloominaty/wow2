@@ -168,7 +168,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+Math.round(avgFPS)+"("+Math.round(fps)+")"
+    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+Math.round(avgFPS)+"("+Math.round(fps)+")"+player.inCombat
     /*elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePosition2d.x.toFixed(0)+" y:"+mousePosition2d.y.toFixed(0)+"<br>"+"R: x: "+player.x.toFixed(0)+" y:"+player.y.toFixed(0)+"<br>"  /*+
             "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 

@@ -133,6 +133,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
 
         damage = damage * (1-target.damageReduction)
         damage = damage * (1-((target.stats.vers/100)/2))
+        if (ability.aoe) {
+            damage = damage * (1-(target.stats.avoidance/100))
+        }
 
         if (damageFunctions[ability.name]) {
             damage = damageFunctions[ability.name](caster,target,damage,ability)
@@ -307,10 +310,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     }
                 }
             }
-
-
-
         }
+
+        caster.inCombat = true
+        target.inCombat = true
 
         //damage
         target.health -= damage
@@ -348,7 +351,7 @@ let applyHot = function(caster,target,ability,duration = 0,extDuration = 0,spell
     }
 }
 
-let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0,extend = false,dontRefresh = false) {
+let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0,extend = false,dontRefresh = false,type="buff") {
     if (!target.isDead) {
         let buffName = ability.name
         if (name!=="") {
@@ -380,7 +383,7 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
         }
 
 
-        target.buffs.push({name:buffName, type: "buff", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+        target.buffs.push({name:buffName, type: type, effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
     }
 }
 
@@ -433,7 +436,7 @@ let findNearestEnemy = function(target1,_id  = 0) {
     if (!target1.enemy) {
         let distances = []
         for (let i = 0; i<enemyTargets.length; i++) {
-            if (!enemyTargets[i].isDead) {
+            if (!enemyTargets[i].isDead && !enemyTargets[i].isStealthed) {
                 distances.push({val:getDistance(target1,enemyTargets[i]),id:i})
             }
         }
@@ -448,7 +451,7 @@ let findNearestEnemy = function(target1,_id  = 0) {
     } else {
         let distances = []
         for (let i = 0; i<friendlyTargets.length; i++) {
-            if (!friendlyTargets[i].isDead) {
+            if (!friendlyTargets[i].isDead && !friendlyTargets[i].isStealthed) {
                 distances.push({val:getDistance(target1,friendlyTargets[i]),id:i})
             }
         }

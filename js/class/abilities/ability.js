@@ -14,6 +14,8 @@ class Ability {
     canCastWhileRooted = true
 
     canUse = true
+    aoe = false
+    requiresStealth = false
 
     talent = false
     talentSelect = false
@@ -160,6 +162,14 @@ class Ability {
                 }
             }
         }
+        if (caster.isStealthed && !this.dontBreakStealth) {
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].type==="stealth") {
+                    caster.buffs[i].duration = -1
+                }
+            }
+        }
+
         this.abilityCd = 0
         details.castAbility(caster,this)
         castCombatLog.cast(caster,this)

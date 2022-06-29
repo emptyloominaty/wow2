@@ -15,7 +15,6 @@ class Vendetta extends Ability {
 
         this.effect = []
         this.duration = 20
-        //TODO: 60 energy over 3sec
 
     }
 
@@ -32,25 +31,13 @@ class Vendetta extends Ability {
                     applyDebuff(caster,caster.castTarget,this)
                     done = true
                 }
-            } else {
-                let newTarget = findNearestEnemy(caster)
-                if (newTarget!==false) {
-                    if (caster===player) {
-                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
-                    }
-                    caster.targetObj = newTarget
-                    caster.target = newTarget.name
-                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        applyDebuff(caster, caster.targetObj, this)
-                        done = true
-                    }
-                }
             }
             if (done) {
                 applyBuff(caster,caster,caster.abilities["VendettaEnergy"])
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 return true

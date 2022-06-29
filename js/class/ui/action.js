@@ -33,7 +33,7 @@ class Action {
             }
         }
         //gcd
-        if (player.abilities[this.name].checkCost(player,undefined,false) && (player.abilities[this.name].talent===player.abilities[this.name].talentSelect) && player.abilities[this.name].canUse) {
+        if (player.abilities[this.name].checkCost(player,undefined,false) && (player.abilities[this.name].talent===player.abilities[this.name].talentSelect) && player.abilities[this.name].canUse && (!player.abilities[this.name].requiresStealth || player.isStealthed)) {
             if (player.gcd > 0 && !player.abilities[this.name].noGcd) {
                 this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.height = ((bars.playerCast.val / bars.playerCast.maxVal) * 100) + "%"
                 this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.borderBottom = "1px Solid #FFF"
@@ -284,7 +284,8 @@ if (player.spec==="assassination") {
         "Kick": new Action("Kick", 0, 5),
         "Fan of Knives": new Action("Fan of Knives", 0, 6),
         "Crimson Vial": new Action("Crimson Vial", 0, 7),
-        "Evasion": new Action("Evasion", 0, 8),
+        "Feint": new Action("Feint", 0, 8),
+        "Sap": new Action("Sap", 0, 11),
         //bar1
         "Rupture": new Action("Rupture", 1, 0),
         "Garrote": new Action("Garrote", 1, 1),
@@ -296,10 +297,14 @@ if (player.spec==="assassination") {
         "Kidney Shot": new Action("Kidney Shot", 1, 10),
 
         //bar2
+        "Ambush": new Action("Ambush", 2, 0),
         "Deadly Poison": new Action("Deadly Poison", 2, 2),
         "Poisoned Knife": new Action("Poisoned Knife", 2, 3),
+        "Cloak of Shadows": new Action("Cloak of Shadows", 2, 4),
+        "Evasion": new Action("Evasion", 2, 5),
+        "Vanish": new Action("Vanish", 2, 6),
 
-        "Feint": new Action("Feint", 2, 5),
+        "Stealth": new Action("Stealth", 2, 11),
 
         //bar3
     }

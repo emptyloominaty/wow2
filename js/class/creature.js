@@ -31,8 +31,10 @@ class Creature {
     mousePos = {x:0,y:0}
 
     //-------
+    inCombat = false
     isStunned = false
     isStunnable = true
+    isStealthed = false
     isIncapacitated = false
     isSnared = false
     isRooted = false
@@ -328,7 +330,7 @@ class Creature {
         }
 
         //autoattack
-        if (this.melee || this.class === "Hunter" && !this.isStunned) {
+        if ((this.melee || this.class === "Hunter") && !this.isStunned && !this.isStealthed) {
             this.abilities["Auto Attack"].startCast(this)
         }
 
@@ -367,6 +369,7 @@ class Creature {
         this.isIncapacitated = false
         this.isInterrupted = false
         this.buffMoved = false //Chi torpedo Fix
+        this.isStealthed = false
         this.healthA = this.health
 
 
@@ -434,6 +437,9 @@ class Creature {
                         this.attackSpeed *= (1 + this.buffs[i].effect[j].val)
                     } else if (this.buffs[i].effect[j].name === "reduceEnergyCost") {
                         this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
+                        if (this.reduceEnergyCost<0) {
+                            this.reduceEnergyCost = 0
+                        }
                     } else if (this.buffs[i].effect[j].name === "damageReduction") {
                         this.damageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "damageReductionStacks") {
@@ -459,7 +465,8 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "increaseHealth") {
                         this.increaseHealth += this.buffs[i].effect[j].val
-
+                    } else if (this.buffs[i].effect[j].name === "stealth") {
+                        this.isStealthed = true
                     } else if (this.buffs[i].effect[j].name === "healPercent") {
                         if (this.buffs[i].effect[j].timer1<this.buffs[i].effect[j].timer2) {
                             this.buffs[i].effect[j].timer1 += progressInSec
@@ -611,6 +618,9 @@ class Creature {
                     this.attackSpeed *= (1+this.buffs[i].effectValue)
                 } else if (this.buffs[i].effect === "reduceEnergyCost") {
                     this.reduceEnergyCost -= this.buffs[i].effectValue
+                    if (this.reduceEnergyCost<0) {
+                        this.reduceEnergyCost = 0
+                    }
                 }
             }
 
@@ -681,6 +691,9 @@ class Creature {
                         }
                     } else if (this.debuffs[i].effect[j].name === "moveSpeed") {
                         this.moveSpeedIncrease -= this.debuffs[i].effect[j].val
+                        if (this.moveSpeedIncrease<0) {
+                            this.moveSpeedIncrease = 0
+                        }
                         this.isSnared = true
                     } else if (this.debuffs[i].effect[j].name === "interrupt") {
                         this.isInterrupted = true
@@ -688,6 +701,11 @@ class Creature {
                         this.isRooted = true
                     } else if (this.debuffs[i].effect[j].name === "reduceDamage") {
                         this.damageIncrease -= this.debuffs[i].effect[j].val
+                        if (this.damageIncrease<0) {
+                            this.damageIncrease = 0
+                        }
+                    } else if (this.debuffs[i].effect[j].name === "magicDamageTaken") {
+                        this.magicDamageTaken += this.debuffs[i].effect[j].val
                     }
                 }
             }
@@ -708,6 +726,10 @@ class Creature {
                     i--
                 }
             }
+        }
+
+        if (!inCombat) {
+            this.inCombat = false
         }
 
         //death

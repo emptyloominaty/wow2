@@ -18,8 +18,16 @@ class assassination_abilities {
     "Shiv" = new Shiv(true)
     "Vendetta" = new Vendetta()
     "VendettaEnergy" = new VendettaEnergy()
+    "Cloak of Shadows" = new CloakofShadows()
+    "Stealth" = new Stealth()
+    "Vanish" = new Vanish()
+    "Cheap Shot" = new CheapShot()
+    "Sap" = new Sap()
+    "Ambush" = new Ambush()
 
     //passive
+    "Cut to the Chase" = new CuttotheChase()
+    "Potent Assassin" = new PotentAssassin()
     "Venomous Wounds" = new VenomousWounds()
     "Seal Fate" = new SealFate()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
@@ -66,7 +74,26 @@ class SealFate extends Ability {
     gainCombo(caster) {
         caster.useEnergy(0,-1)
     }
-
-
 }
 
+class CuttotheChase extends Ability {
+    constructor() {
+        super("Cut to the Chase", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "Envenom extends the duration of Slice and Dice by up to 3 sec per combo point spent."
+    }
+}
+
+class PotentAssassin extends Ability {
+    constructor() {
+        super("Potent Assassin", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "Increases the damage done by your poisons and bleeds by "+player.stats.mastery+"%."
+    }
+}

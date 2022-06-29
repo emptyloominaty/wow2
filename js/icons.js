@@ -1047,6 +1047,9 @@ let iconsPath = {
     "Vigor":"img/rogue/Vigor.jpg",
     "Weaponmaster":"img/rogue/Weaponmaster.jpg",
     "Wound Poison":"img/rogue/WoundPoison.jpg",
+    "Venomous Wounds":"img/rogue/VenomousWounds.jpg",
+    "Cut to the Chase":"img/rogue/CuttotheChase.jpg",
+
 
     //Shaman
     "Healing Surge":"img/shaman/HealingSurge.jpg",
