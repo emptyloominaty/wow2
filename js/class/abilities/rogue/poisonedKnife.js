@@ -1,31 +1,25 @@
-class Mutilate extends Ability {
+class PoisonedKnife extends Ability {
     constructor() {
-        let name = "Mutilate"
-        let cost = 50
-
+        let name = "Poisoned Knife"
+        let cost = 40
         let gcd = 1
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
         let school = "physical"
-        let range = 5 //melee
+        let range = 30
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.525*1.51
-
-        this.effect = ""
-        this.effectValue = 0
-
-        this.secCost = -2
+        this.spellPower = 0.16*1.51
+        this.secCost = -1
 
     }
 
     getTooltip() {
-        return "Attack with both weapons, dealing a total of  "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage."
+        return   "Throws a poison-coated knife, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" damage and applying your active Lethal and Non-Lethal Poisons."
     }
 
     startCast(caster) {
@@ -34,20 +28,8 @@ class Mutilate extends Ability {
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
+                    checkAndApplyRoguePoison(caster,caster.castTarget)
                     done = true
-                }
-            } else {
-                let newTarget = findNearestEnemy(caster)
-                if (newTarget!==false) {
-                    if (caster===player) {
-                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
-                    }
-                    caster.targetObj = newTarget
-                    caster.target = newTarget.name
-                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
-                        done = true
-                    }
                 }
             }
             if (done) {

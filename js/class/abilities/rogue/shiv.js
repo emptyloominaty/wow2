@@ -1,13 +1,11 @@
-class Mutilate extends Ability {
-    constructor() {
-        let name = "Mutilate"
-        let cost = 50
-
+class Shiv extends Ability {
+    constructor(assassination = false) {
+        let name = "Shiv"
+        let cost = 20
         let gcd = 1
         let castTime = 0
-        let cd = 0
+        let cd = 25
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
@@ -15,17 +13,21 @@ class Mutilate extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.525*1.51
+        this.spellPower = 0.5*1.51
 
-        this.effect = ""
-        this.effectValue = 0
+        this.effect = []
+        //TODO:DISPEL ENRAGE
 
-        this.secCost = -2
+        this.secCost = -1
+
+        if (assassination) {
+            //TODO: Your Nature damage done against the target is increased by 20% for 9 sec.
+        }
 
     }
 
-    getTooltip() {
-        return "Attack with both weapons, dealing a total of  "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage."
+    getTooltip() { //TODO:applying a concentrated form of your active Non-Lethal poison
+        return "Attack with your off-hand dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage, dispelling all enrage effects and applying a concentrated form of your active Non-Lethal poison."
     }
 
     startCast(caster) {
@@ -54,6 +56,7 @@ class Mutilate extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 return true

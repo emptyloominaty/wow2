@@ -148,6 +148,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (ability.secCost<0 && crit>1) {
                 caster.abilities["Seal Fate"].gainCombo(caster)
             }
+            if (checkDebuff(caster,target,"Vendetta")) {
+                damage *= 1.3
+            }
         } else if (caster.spec==="windwalker" && ability.name!=="Auto Attack" && !t) {
             if (caster.spellHistory[0]!==ability.name) {
                 damage = damage * (1 + (caster.stats.mastery / 100))

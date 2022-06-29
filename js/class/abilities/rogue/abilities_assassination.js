@@ -6,6 +6,18 @@ class assassination_abilities {
     "Slice And Dice" = new SliceAndDice()
     "Deadly Poison" = new DeadlyPoison()
     "Fan of Knives" = new FanofKnives()
+    "Kidney Shot" = new KidneyShot()
+    "Sprint" = new Sprint()
+    "Crimson Vial" = new CrimsonVial()
+    "Feint" = new Feint()
+    "Kick" = new Kick()
+    "Poisoned Knife" = new PoisonedKnife()
+    "Evasion" = new Evasion()
+    //"Tricks of the Trade" = new TricksoftheTrade()
+    "Shadowstep" = new Shadowstep()
+    "Shiv" = new Shiv(true)
+    "Vendetta" = new Vendetta()
+    "VendettaEnergy" = new VendettaEnergy()
 
     //passive
     "Venomous Wounds" = new VenomousWounds()
@@ -34,7 +46,7 @@ class VenomousWounds extends Ability {
         caster.useEnergy(-8)
     }
 
-    gainEnergyDead(caster,duration,maxDuration) { //TODO
+    gainEnergyDead(caster,duration,maxDuration) { //TODO ability.onDead() (buff/debuff)
         let val = 8 * (duration/maxDuration)
         caster.useEnergy(val)
     }

@@ -459,6 +459,15 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "increaseHealth") {
                         this.increaseHealth += this.buffs[i].effect[j].val
+
+                    } else if (this.buffs[i].effect[j].name === "healPercent") {
+                        if (this.buffs[i].effect[j].timer1<this.buffs[i].effect[j].timer2) {
+                            this.buffs[i].effect[j].timer1 += progressInSec
+                        } else {
+                            this.buffs[i].effect[j].timer1 = 0
+                            let val = this.maxHealth * this.buffs[i].effect[j].val
+                            doHeal(this.buffs[i].caster,this,this.buffs[i].ability,undefined,undefined,undefined,undefined,undefined,val)
+                        }
                     } else if (this.buffs[i].effect[j].name === "moveToTarget") {
                         if (this.buffs[i].effect[j]._end===undefined) {
                             this.direction = getDirection(this,this.buffs[i].effect[j].target)

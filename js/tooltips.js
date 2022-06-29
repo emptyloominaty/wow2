@@ -53,7 +53,7 @@ let showSpellTooltip = function(i,j,notActionBar = false,spellname = "") {
         if (cost === 0) {
             cost = ""
         } else {
-            cost = cost + "% Mana"
+            cost = cost + " " + player.resourceName
         }
 
 

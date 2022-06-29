@@ -278,18 +278,28 @@ if (player.spec==="balance") {
 if (player.spec==="assassination") {
     actions = {
         //bar0
+        "Vendetta": new Action("Vendetta", 0, 0),
+        "Sprint": new Action("Sprint", 0, 2),
+        "Shiv": new Action("Shiv", 0, 4),
+        "Kick": new Action("Kick", 0, 5),
         "Fan of Knives": new Action("Fan of Knives", 0, 6),
+        "Crimson Vial": new Action("Crimson Vial", 0, 7),
+        "Evasion": new Action("Evasion", 0, 8),
         //bar1
         "Rupture": new Action("Rupture", 1, 0),
         "Garrote": new Action("Garrote", 1, 1),
         "Slice And Dice": new Action("Slice And Dice", 1, 2),
-
+        "Shadowstep": new Action("Shadowstep", 1, 3),
 
         "Mutilate": new Action("Mutilate", 1, 8),
         "Envenom": new Action("Envenom", 1, 9),
+        "Kidney Shot": new Action("Kidney Shot", 1, 10),
 
         //bar2
         "Deadly Poison": new Action("Deadly Poison", 2, 2),
+        "Poisoned Knife": new Action("Poisoned Knife", 2, 3),
+
+        "Feint": new Action("Feint", 2, 5),
 
         //bar3
     }

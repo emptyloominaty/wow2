@@ -1,31 +1,25 @@
-class Mutilate extends Ability {
+class Kick extends Ability {
     constructor() {
-        let name = "Mutilate"
-        let cost = 50
-
-        let gcd = 1
+        let name = "Kick"
+        let cost = 0
+        let gcd = 0
         let castTime = 0
-        let cd = 0
+        let cd = 15
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
-        let canMove = true
+        let canMove = false
         let school = "physical"
-        let range = 5 //melee
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.525*1.51
-
-        this.effect = ""
-        this.effectValue = 0
-
-        this.secCost = -2
-
+        this.effect = [{name:"interrupt"}]
+        this.duration = 5
+        this.noGcd = true
     }
 
     getTooltip() {
-        return "Attack with both weapons, dealing a total of  "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage."
+        return "A quick kick that interrupts spellcasting and prevents any spell in that school from being cast for 5 sec."
     }
 
     startCast(caster) {
@@ -33,7 +27,9 @@ class Mutilate extends Ability {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
+                    if (caster.castTarget.interrupt()) {
+                        applyDebuff(caster,caster.castTarget,this)
+                    }
                     done = true
                 }
             } else {
@@ -45,7 +41,9 @@ class Mutilate extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
+                        if (caster.targetObj.interrupt()) {
+                            applyDebuff(caster,caster.targetObj,this)
+                        }
                         done = true
                     }
                 }
@@ -56,6 +54,7 @@ class Mutilate extends Ability {
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
+                this.setCd()
                 return true
             }
         } else if (this.canSpellQueue(caster)) {
