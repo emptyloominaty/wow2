@@ -92,6 +92,7 @@ class PotentAssassin extends Ability {
     constructor() {
         super("Potent Assassin", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
+        this.mastery = true
     }
 
     getTooltip() {

@@ -31,6 +31,10 @@ class Ww_abilities {
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
+//TODO: MASTERY this.mastery = true
+
+
+
 class Windwalking extends Ability {
     constructor() {
         super("Windwalking", 0, 0, 0, 0, false, false, false, "physical", 10, 1)

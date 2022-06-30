@@ -1354,7 +1354,7 @@ let iconsPath = {
     "Taunt":"img/warrior/Taunt.jpg",
     "Thunder Clap":"img/warrior/ThunderClap.jpg",
     "Titan's Grip":"img/warrior/TitansGrip.jpg",
-    "Unshackle dFury":"img/warrior/UnshackledFury.jpg",
+    "Unshackled Fury":"img/warrior/UnshackledFury.jpg",
     "Unstoppable Force":"img/warrior/UnstoppableForce.jpg",
     "Vanguard":"img/warrior/Vanguard.jpg",
     "Victory Rush":"img/warrior/VictoryRush.jpg",

@@ -367,6 +367,9 @@ if (player.spec==="arcane") {
 
 if (player.spec==="fury") {
     actions = {
+        "Recklessness": new Action("Recklessness",0,0),
+        "Pummel": new Action("Pummel", 0, 5),
+
         "Raging Blow": new Action("Raging Blow", 1, 0),
         "Bloodthirst": new Action("Bloodthirst", 1, 1),
         "Charge": new Action("Charge", 1, 3),
@@ -375,6 +378,8 @@ if (player.spec==="fury") {
         "Rampage": new Action("Rampage", 1, 9),
 
         "Execute": new Action("Execute", 2, 0),
+
+        "Rallying Cry": new Action("Rallying Cry", 2, 4),
     }
 }
 

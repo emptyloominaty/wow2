@@ -200,6 +200,7 @@ class ElusiveBrawler extends Ability {
     constructor() {
         super("Elusive Brawler", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
+        this.mastery = true
         this.duration = 10
         this.maxStacks = 10
         this.effect = [{name:"increaseStat",stat:"primary",val:8,percent:true},{name:"increaseStat",stat:"dodge",val:0,percent:true}]

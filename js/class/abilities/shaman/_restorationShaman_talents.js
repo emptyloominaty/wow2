@@ -397,6 +397,7 @@ class AncestralVigor extends Ability {
     applyBuff(caster,target) {
         if (this.talentSelect) {
             applyBuff(caster, target, this)
+            target.health += (friendlyTargets[i].stats.stamina*20) * 0.1
         }
     }
 

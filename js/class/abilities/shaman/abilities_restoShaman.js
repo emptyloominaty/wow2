@@ -41,6 +41,8 @@ class RestoSham_abilities {
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
+//TODO: MASTERY this.mastery = true
+
 
 class LavaSurge extends Ability {
     constructor() {

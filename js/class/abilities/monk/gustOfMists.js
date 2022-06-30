@@ -14,6 +14,7 @@ class GustOfMists extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.passive = true
+        this.mastery = true
         this.spellPower = 0.34
     }
 

@@ -226,6 +226,7 @@ class Creature {
             this.class = "Warrior"
             this.melee = true
             this.abilities = new Fury_Abilities()
+            _fury_talents(this)
             this.resourceName = "Rage"
             this.energy = 0
             this.role = "dps"
@@ -815,6 +816,10 @@ class Creature {
             this.abilities["Clearcasting"].spendMana(this,val)
         } else if (this.spec==="restorationShaman") {
             this.abilities["High Tide"].spendMana(this,val)
+        } else if (this.class==="Warrior") {
+            if (this.spec==="fury" && val<0 && checkBuff(this,this,"Recklessness")) {
+                this.energy -= val
+            }
         }
     }
 

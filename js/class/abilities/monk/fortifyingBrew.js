@@ -15,7 +15,7 @@ class FortifyingBrew extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0
-        this.effect = [{name:"damageReduction",val:0.2},{name:"increaseHealth",val:0.2,percent:true}]
+        this.effect = [{name:"damageReduction",val:0.2},{name:"increaseHealth",val:0.2,percent:true}] //TODO:? health?
 
         this.effect2Value = 0.2 //20% health
 

@@ -10,7 +10,7 @@ class StormEarthandFire extends Ability {
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "physical"
+        let school = "nature"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 

@@ -41,6 +41,9 @@ let open_spellbook = function() {
         if (player.abilities[key].name!==undefined && player.abilities[key].name!=="Leech" && player.abilities[key].name!=="Auto Attack" && (player.abilities[key].talent===player.abilities[key].talentSelect) && player.abilities[key].canUse && !player.abilities[key].hiddenSB) {
             html+= "<div class='window_spellbook_div' onmouseover='showSpellTooltip(0,0,true,\""+player.abilities[key].name.replace('\'', '€')+"\")' onmouseout='hideSpellTooltip()' " +
                 "style='display:flex;flex-direction:row; justify-content: space-between; width:11vw;' ><div style='display:flex;flex-direction:column;'><span>"+player.abilities[key].name+"</span> "
+            if (player.abilities[key].mastery) {
+                html += "<span style='color:#666666'>Mastery</span>"
+            }
             if (player.abilities[key].passive) {
                 html += "<span style='color:#666666'>Passive </span>"
             }

@@ -5,12 +5,29 @@ class Fury_Abilities {
     "Bloodthirst" = new Bloodthirst()
     "Whirlwind" = new Whirlwind()
     "Charge" = new Charge()
+    "Pummel" = new Pummel()
+    "Taunt" = new Taunt()
+    "Recklessness" = new Recklessness()
+    "Rallying Cry" = new RallyingCry()
 
     //Pasive
     "WhirlwindBuff" = new WhirlwindBuff()
     "Enrage" = new Enrage()
+    "Unshackled Fury" = new UnshackledFury()
 
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
+}
+
+class UnshackledFury extends Ability {
+    constructor() {
+        super("Unshackled Fury", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.mastery = true
+    }
+
+    getTooltip() {
+        return "Increases damage done while Enraged by "+player.stats.mastery+"%."
+    }
 }
 
 class Enrage extends Ability {
@@ -55,6 +72,7 @@ class WhirlwindBuff extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.passive = true
+        this.hiddenSB = true
     }
 
     startCast(caster,target,ability) {

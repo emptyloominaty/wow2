@@ -39,7 +39,7 @@ class AutoAttack extends Ability {
                 this.cd = 0
                 this.maxCd = (2.6/caster.attackSpeed) / (1 + (caster.stats.haste / 100))
                 if (caster.class==="Warrior") {
-                    caster.useEnergy(-3,0) //idk?
+                    caster.useEnergy(-3,0)
                 }
             }
 

@@ -40,6 +40,7 @@ class ElementalOverload extends Ability {
     constructor() {
         super("Elemental Overload", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
         this.passive = true
+        this.mastery = true
     }
 
     getTooltip() {
