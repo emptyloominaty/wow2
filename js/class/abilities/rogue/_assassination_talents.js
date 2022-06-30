@@ -25,14 +25,14 @@ let _assassination_talents = function(caster) {
     caster.abilities["Prey on the Weak"] = new PreyontheWeak()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Venom Rush"] = new VenomRush()
+    caster.abilities["Alacrity"] = new Alacrity()
+    caster.abilities["Exsanguinate"] = new Exsanguinate()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Poison Bomb"] = new PoisonBomb()
+    caster.abilities["Hidden Blades"] = new HiddenBlades()
+    caster.abilities["Crimson Tempest"] = new CrimsonTempest()
 
     caster.talents = [["Master Poisoner","Elaborate Planning","Blindside"],
         ["Nightstalker","Subterfuge","Master Assassin"],
@@ -80,7 +80,6 @@ class ElaboratePlanning extends Ability {
         this.effect = [{name:"increaseDamage",val:0.1}]
         this.duration = 4
     }
-    //TODO: CrimsonTempest
     getTooltip() {
         return "Your finishing moves grant 10% increased damage done for 4 sec."
     }
@@ -327,7 +326,6 @@ class InternalBleeding extends Ability {
         super("Internal Bleeding", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
         this.duration = 6
         this.spellPower = 0.1872
     }
@@ -364,7 +362,6 @@ class PreyontheWeak extends Ability {
         super("Prey on the Weak", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
         this.duration = 6
         this.effect = [{name:"damageTaken",val:0.10}]
     }
@@ -379,8 +376,220 @@ class PreyontheWeak extends Ability {
 
 }
 //------------------------------------------------------------------------------------------------ROW6
+class VenomRush extends Ability {
+    constructor() {
+        super("Venom Rush", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Mutilate refunds 8 Energy when used against a poisoned target."
+    }
+}
 //------------------------------------------------
+class Alacrity extends Ability {
+    constructor() {
+        super("Alacrity", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 20
+        this.maxStacks = 5
+        this.effect = [{name:"increaseStat",stat:"haste",val:2}]
+    }
+
+    getTooltip() {
+        return "Your finishing moves have a 20 + (20 * ComboPoints)% chance per combo point to grant 2% Haste for 20 sec, stacking up to 5 times."
+    }
+
+    applyBuff(caster) {
+        let comboPoints = caster.secondaryResource
+        if (getChance(20+(20*comboPoints))) {
+            applyBuff(caster,caster,this,1,true)
+        }
+    }
+}
 //------------------------------------------------
+class Exsanguinate extends Ability {
+    constructor() {
+        super("Exsanguinate", 25, 1, 0, 45, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.permanentBuff = true
+        this.duration = 10
+    }
+
+    getTooltip() {
+        return "Twist your blades into the target's wounds, causing your Bleed effects on them to bleed out 100% faster."
+    }
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            let done = false
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    applyDebuff(caster,caster.castTarget,this)
+                    done = true
+                }
+            } else {
+                let newTarget = findNearestEnemy(caster)
+                if (newTarget!==false) {
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
+                    caster.targetObj = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                        applyDebuff(caster,caster.targetObj,this)
+                        done = true
+                    }
+                }
+            }
+            if (done) {
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+                this.setCd()
+                caster.useEnergy(this.cost,this.secCost)
+                this.setGcd(caster)
+                this.cd = 0
+                return true
+            }
+
+        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
+class PoisonBomb extends Ability {
+    constructor() {
+        super("Poison Bomb", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 2
+        this.spellPower = (0.44/2)*1.51
+        this.chance = 4
+        this.area = {type:"circle", radius:4, duration: 2,data:{type:"dot", maxTargets:"all", spellPower:this.spellPower, timer:1/*sec*/,color:"#8dff80",color2:"rgba(47,133,51,0.09)"},cast:false}
+    }
+
+    getTooltip() {
+        return "Envenom and Rupture have a 4% chance per combo point spent to smash a vial of poison at the target's location, creating a pool of acidic death that deals " +spellPowerToNumber(this.spellPower*2)+
+            " Nature damage over 2 sec to all enemies within it."
+    }
+
+    smashVial(caster,target) {
+        if (getChance(this.chance)) {
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,target.x,target.y,true,this.area.radius)
+        }
+    }
+
+}
 //------------------------------------------------
+class HiddenBlades extends Ability {
+    constructor() {
+        super("Hidden Blades", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.permanentBuff = true
+        this.duration = 10
+        this.maxStacks = 20
+        this.timer1 = 0
+        this.timer2 = 2
+    }
+
+    run(caster) {
+        if (this.talentSelect) {
+            if (this.timer1<this.timer2) {
+                this.timer1 += progressInSec
+            } else {
+                applyBuff(caster,caster,this,1,true)
+                this.timer1 = 0
+            }
+        }
+    }
+
+    getTooltip() {
+        return "Every 2 sec, gain 20% increased damage for your next Fan of Knives, stacking up to 20 times."
+    }
+
+    unsetTalent(caster) {
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Hidden Blades") {
+                caster.buffs[i].duration = -1
+            }
+        }
+    }
+
+}
 //------------------------------------------------
+class CrimsonTempest extends Ability {
+    constructor() {
+        let name = "Crimson Tempest"
+        let cost = 35
+        let gcd = 1
+        let castTime = 0
+        let cd = 0
+        let charges = 1
+        let channeling = true
+        let casting = false
+        let canMove = true
+        let school = "physical"
+        let range = 10
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+
+        this.spellPower = 0.0468*1.51
+        this.spellPowerDot = 0.117*1.51
+        this.secCost = "all"
+
+    }
+
+    getTooltip() {
+        let spellPower = ((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)))
+        let spellPowerDot = ((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))
+        return "Finishing move that slashes all enemies within 10 yards, dealing instant damage and causing victims to bleed for additional damage. Lasts longer per combo point." +
+            "<br>1 point: "+(spellPower*2).toFixed(0)+"  damage plus " +(spellPowerDot*2).toFixed(0)+" over 4 sec"+
+            "<br>2 points: "+(spellPower*3).toFixed(0)+"  damage plus " +(spellPowerDot*3).toFixed(0)+" over 6 sec"+
+            "<br>3 points: "+(spellPower*4).toFixed(0)+"  damage plus " +(spellPowerDot*4).toFixed(0)+" over 8 sec"+
+            "<br>4 points: "+(spellPower*5).toFixed(0)+"  damage plus " +(spellPowerDot*5).toFixed(0)+" over 10 sec"+
+            "<br>5 points: "+(spellPower*6).toFixed(0)+"  damage plus " +(spellPowerDot*6).toFixed(0)+" over 12 sec"
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            this.duration = 2 + (2*caster.secondaryResource)
+            let spellPower = this.spellPower * (1+caster.secondaryResource)
+            let spellPowerDot = this.spellPower * (1+caster.secondaryResource)
+
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            for (let i = 0; i<enemies.length ;i++) {
+                if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {
+                    doDamage(caster, enemies[i], this,undefined,spellPower)
+                    applyDot(caster,enemies[i],this,undefined,spellPowerDot)
+                }
+            }
+
+            if (caster.abilities["Elaborate Planning"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
+            }
+
+            if (caster.abilities["Alacrity"].talentSelect) {
+                caster.abilities["Alacrity"].applyBuff(caster)
+            }
+
+            this.setCd()
+            caster.useEnergy(this.cost,this.secCost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+}

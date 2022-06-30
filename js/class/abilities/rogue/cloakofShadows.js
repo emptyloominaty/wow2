@@ -12,7 +12,7 @@ class CloakofShadows extends Ability {
         let school = "physical"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
+        this.dispelTypes = ["magic",false,false] //TODO:ALL?
         this.duration = 5
         this.effect = [{name:"magicDamageReduction",val:100}] //TODO:Resisting all harmful spells.
         this.dontBreakStealth = true
@@ -32,7 +32,7 @@ class CloakofShadows extends Ability {
                 caster.isChanneling = false
             }
             applyBuff(caster,caster,this)
-
+            dispel(caster,caster,this.dispelTypes[0],this.dispelTypes[1],this.dispelTypes[2])
             caster.useEnergy(this.cost,this.secCost)
             this.setGcd(caster)
             this.setCd()
@@ -41,5 +41,9 @@ class CloakofShadows extends Ability {
             spellQueue.add(this,caster.gcd)
         }
         return false
+    }
+
+    runBuff(caster) {
+        dispel(caster,caster,this.dispelTypes[0],this.dispelTypes[1],this.dispelTypes[2])
     }
 }

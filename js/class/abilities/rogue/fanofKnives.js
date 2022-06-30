@@ -28,9 +28,20 @@ class FanofKnives extends Ability {
                 caster.isChanneling = false
             }
 
+            let spellPower = this.spellPower
+            if (caster.abilities["Hidden Blades"].talentSelect) {
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Hidden Blades") {
+                        spellPower = spellPower * (1+(caster.buffs[i].stacks*0.2))
+                        caster.buffs[i].duration = -1
+                    }
+                }
+
+            }
+
             for (let i = 0; i<enemies.length ;i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {
-                    doDamage(caster, enemies[i], this)
+                    doDamage(caster, enemies[i], this,undefined,spellPower)
                     checkAndApplyRoguePoison(caster,enemies[i])
                 }
             }

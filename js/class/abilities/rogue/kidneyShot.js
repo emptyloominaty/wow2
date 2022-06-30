@@ -70,6 +70,9 @@ class KidneyShot extends Ability {
                 if (caster.abilities["Prey on the Weak"].talentSelect) {
                     caster.abilities["Prey on the Weak"].applyDebuff(caster,target)
                 }
+                if (caster.abilities["Alacrity"].talentSelect) {
+                    caster.abilities["Alacrity"].applyBuff(caster)
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.cd = 0

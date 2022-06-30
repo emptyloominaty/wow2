@@ -65,6 +65,10 @@ class Mutilate extends Ability {
                     }
                 }
 
+                if (caster.abilities["Venom Rush"].talentSelect && checkDebuff(caster,target,"Deadly Poison")) {
+                    caster.useEnergy(-8,0)
+                }
+
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 return true

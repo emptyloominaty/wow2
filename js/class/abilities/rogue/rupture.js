@@ -47,6 +47,7 @@ class Rupture extends Ability {
         if (this.checkStart(caster)) {
             this.duration = 4 + (4*caster.secondaryResource)
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerC[caster.secondaryResource])
@@ -60,6 +61,7 @@ class Rupture extends Ability {
                     }
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
+                    target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPowerC[caster.secondaryResource])
                         done = true
@@ -73,6 +75,14 @@ class Rupture extends Ability {
                 if (caster.abilities["Elaborate Planning"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
                 }
+                if (caster.abilities["Alacrity"].talentSelect) {
+                    caster.abilities["Alacrity"].applyBuff(caster)
+                }
+
+                if (caster.abilities["Poison Bomb"].talentSelect) {
+                    caster.abilities["Poison Bomb"].smashVial(caster,target)
+                }
+
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.setCd()

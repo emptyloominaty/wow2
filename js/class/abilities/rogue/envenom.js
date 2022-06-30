@@ -30,7 +30,7 @@ class Envenom extends Ability {
     }
 
     getTooltip() {
-        let spellPower = ((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100)))
+        let spellPower = ((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)))
         return "Finishing move that drives your poisoned blades in deep, dealing instant Nature damage and increasing your poison application chance by 30%. Damage and duration increased per combo point. " +
             "<br>1 point: "+(spellPower).toFixed(0)+"  damage " +
             "<br>2 points: "+(spellPower*2).toFixed(0)+"  damage " +
@@ -45,6 +45,7 @@ class Envenom extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             this.duration = 4 + (4*caster.secondaryResource)
+            let target = caster.castTarget
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
@@ -59,6 +60,7 @@ class Envenom extends Ability {
                     }
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
+                    target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster,caster.targetObj,this,undefined,this.spellPowerC[caster.secondaryResource])
                         done = true
@@ -77,6 +79,15 @@ class Envenom extends Ability {
                 if (caster.abilities["Elaborate Planning"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
                 }
+
+                if (caster.abilities["Alacrity"].talentSelect) {
+                    caster.abilities["Alacrity"].applyBuff(caster)
+                }
+
+                if (caster.abilities["Poison Bomb"].talentSelect) {
+                    caster.abilities["Poison Bomb"].smashVial(caster,target)
+                }
+
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.cd = 0

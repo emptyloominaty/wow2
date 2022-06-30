@@ -157,6 +157,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (caster.abilities["Deeper Stratagem"].talentSelect && (ability.name==="Rupture" || ability.name==="Envenom" || ability.name==="CrimsonTempest")) {
                 damage *= 1.05
             }
+            if (caster.abilities["Exsanguinate"].talentSelect && checkDebuff(caster,target,"Venom Rush") && (ability.name==="Garrote" || ability.name==="Rupture" || ability.name==="InternalBleeding" || ability.name==="CrimsonTempest")) {
+                damage = damage *2
+            }
         } else if (caster.spec==="windwalker" && ability.name!=="Auto Attack" && !t) {
             if (caster.spellHistory[0]!==ability.name) {
                 damage = damage * (1 + (caster.stats.mastery / 100))

@@ -279,6 +279,7 @@ if (player.spec==="assassination") {
     actions = {
         //bar0
         "Vendetta": new Action("Vendetta", 0, 0),
+        "Crimson Tempest": new Action("Crimson Tempest", 0, 1),
         "Sprint": new Action("Sprint", 0, 2),
         "Shiv": new Action("Shiv", 0, 4),
         "Kick": new Action("Kick", 0, 5),
