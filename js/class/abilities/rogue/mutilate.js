@@ -2,12 +2,10 @@ class Mutilate extends Ability {
     constructor() {
         let name = "Mutilate"
         let cost = 50
-
         let gcd = 1
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
@@ -31,6 +29,7 @@ class Mutilate extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
@@ -46,6 +45,7 @@ class Mutilate extends Ability {
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster, caster.targetObj, this)
+                        target = caster.targetObj
                         done = true
                     }
                 }
@@ -54,6 +54,17 @@ class Mutilate extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+
+                if (caster.abilities["Blindside"].talentSelect) {
+                    if (target.health/target.maxHealth<0.35 && getChance(40)) {
+                        applyBuff(caster,caster,caster.abilities["Blindside"])
+                        caster.abilities["Ambush"].canUseWithoutStealth = true
+                    } else if (getChance(20)) {
+                        applyBuff(caster,caster,caster.abilities["Blindside"])
+                        caster.abilities["Ambush"].canUseWithoutStealth = true
+                    }
+                }
+
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 return true

@@ -2,7 +2,6 @@ class Ambush extends Ability {
     constructor() {
         let name = "Ambush"
         let cost = 50
-
         let gcd = 1
         let castTime = 0
         let cd = 0
@@ -18,6 +17,7 @@ class Ambush extends Ability {
         this.spellPower = 0.95472*1.51
         this.secCost = -2
         this.requiresStealth = true
+        this.canUseWithoutStealth = false
 
     }
 
@@ -26,7 +26,17 @@ class Ambush extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster) && caster.isStealthed) {
+        this.cost = 50
+        let a = false
+        let id = 0
+        for (let i = 0; i<caster.buffs.length;i++) {
+            if (caster.buffs[i].name==="Blindside") {
+                a = true
+                id = i
+                this.cost = 0
+            }
+        }
+        if (this.checkStart(caster) && (caster.isStealthed || a)) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
@@ -50,6 +60,10 @@ class Ambush extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
+                }
+                if (a) {
+                    caster.buffs[id].duration = -1
+                    this.canUseWithoutStealth = false
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

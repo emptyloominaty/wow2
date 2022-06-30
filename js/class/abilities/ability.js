@@ -251,6 +251,9 @@ class Ability {
         if (secCost===9999) {
             secCost = this.secCost
         }
+        if (secCost==="all") {
+            secCost = 1
+        }
         if (caster.energy>=cost) {
             if (secCost>0 && caster.maxSecondaryResource>0) {
                 if (caster.secondaryResource>=secCost) {

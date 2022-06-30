@@ -33,7 +33,7 @@ class Action {
             }
         }
         //gcd
-        if (player.abilities[this.name].checkCost(player,undefined,false) && (player.abilities[this.name].talent===player.abilities[this.name].talentSelect) && player.abilities[this.name].canUse && (!player.abilities[this.name].requiresStealth || player.isStealthed)) {
+        if (player.abilities[this.name].checkCost(player,undefined,false) && (player.abilities[this.name].talent===player.abilities[this.name].talentSelect) && player.abilities[this.name].canUse && (!player.abilities[this.name].requiresStealth || player.isStealthed || player.abilities[this.name].canUseWithoutStealth)) {
             if (player.gcd > 0 && !player.abilities[this.name].noGcd) {
                 this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.height = ((bars.playerCast.val / bars.playerCast.maxVal) * 100) + "%"
                 this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.borderBottom = "1px Solid #FFF"

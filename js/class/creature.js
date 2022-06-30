@@ -180,6 +180,7 @@ class Creature {
         } else if (spec==="assassination") { //----------------------------------------Assa
             this.class = "Rogue"
             this.abilities = new assassination_abilities()
+            _assassination_talents(this)
             this.melee = true
             this.role = "dps"
             this.energyRegen = 10

@@ -71,9 +71,11 @@ class Envenom extends Ability {
                         caster.buffs[i].duration += 3*caster.secondaryResource
                     }
                 }
-
                 if (caster.isChanneling) {
                     caster.isChanneling = false
+                }
+                if (caster.abilities["Elaborate Planning"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

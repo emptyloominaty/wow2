@@ -43,6 +43,9 @@ class SliceAndDice extends Ability {
             this.duration = 12 + (6*caster.secondaryResource)
             this.setCd()
             applyBuff(caster,caster,this)
+            if (caster.abilities["Elaborate Planning"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
+            }
             this.setGcd(caster)
             caster.useEnergy(this.cost,this.secCost)
             if (caster.isChanneling) {
