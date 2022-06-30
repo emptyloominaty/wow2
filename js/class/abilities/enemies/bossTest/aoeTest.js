@@ -1,13 +1,13 @@
 class AoeTest extends Ability {
     constructor() {
-        let name = "Aoe Test"
+        let name = "Aoe Dmg"
         let cost = 0 //% mana
         let gcd = 1.5
-        let castTime = 0
-        let cd = 7
+        let castTime = 2
+        let cd = 6
         let charges = 1
         let channeling = false
-        let casting = false
+        let casting = true
         let canMove = true
         let school = "arcane"
         let range = 60 //melee
@@ -22,17 +22,21 @@ class AoeTest extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
-            for (let i = 0; i<friendlyTargets.length; i++) {
-                doDamage(caster,friendlyTargets[i],this)
-            }
-            this.cd = 0
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
-            caster.useEnergy(this.cost)
             return true
         }
         return false
     }
 
     endCast(caster) {
+        caster.isCasting = false
+        for (let i = 0; i<friendlyTargets.length; i++) {
+            doDamage(caster,friendlyTargets[i],this)
+        }
+
+        this.setCd()
+        caster.useEnergy(this.cost)
     }
 }

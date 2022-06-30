@@ -1,7 +1,7 @@
 let _ai_bossTest = function(creature) {
     let c = creature
 
-    c.abilities["Aoe Test"].startCast(c)
+    c.abilities["Aoe Dmg"].startCast(c)
 
     //no target
     if (Object.keys(c.targetObj).length === 0)  {

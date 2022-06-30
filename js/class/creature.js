@@ -181,6 +181,9 @@ class Creature {
             this.class = "Rogue"
             this.abilities = new assassination_abilities()
             _assassination_talents(this)
+
+            applyBuff(this,this,this.abilities["Deadly Poison"])
+
             this.melee = true
             this.role = "dps"
             this.energyRegen = 10
@@ -251,17 +254,16 @@ class Creature {
             this.stats.armor = 0
         }
 
+        this.health = this.stats.stamina*20
+        this.maxHealth = this.stats.stamina*20
+
+        this.statsBup = JSON.parse(JSON.stringify(this.stats))
 
         Object.keys(this.abilities).forEach((key)=> {
             if (this.abilities[key].talentSelect) {
                 this.abilities[key].setTalent(this)
             }
         })
-
-        this.health = this.stats.stamina*20
-        this.maxHealth = this.stats.stamina*20
-
-        this.statsBup = JSON.parse(JSON.stringify(this.stats))
     }
 
     run() {
@@ -711,7 +713,15 @@ class Creature {
                         }
                     } else if (this.debuffs[i].effect[j].name === "magicDamageTaken") {
                         this.magicDamageTaken += this.debuffs[i].effect[j].val
+                    } else if (this.debuffs[i].effect[j].name === "damageTaken") {
+                        this.damageReduction -= this.debuffs[i].effect[j].val
+                        if (this.damageReduction<0) {
+                            this.damageReduction = 0
+                        }
                     }
+
+
+
                 }
             }
 
@@ -744,10 +754,15 @@ class Creature {
     }
 
     die() {
+        if (this.class==="Rogue" && this.abilities["Cheat Death"].talentSelect) {
+            this.abilities["Cheat Death"].cheat(this)
+            return false
+        }
+
         this.floatingTexts.removeAll()
         this.isDead = true
-        if (this.canRess && this.health>this.maxHealth*(-1)) {
-            this.health = this.maxHealth*0.2
+        if (this.canRess && this.health>this.maxHealth*(-1)) { //TODO:
+            this.health = this.maxHealth*0.2//TODO:
             this.isDead = false
             this.buffs[this.canRessBuffId].ability.destroyArea(this.buffs[this.canRessBuffId].caster)
         } else {

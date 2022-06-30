@@ -26,6 +26,7 @@ class assassination_abilities {
     "Ambush" = new Ambush()
 
     //passive
+    "GarroteSilence" = new GarroteSilence()
     "Cut to the Chase" = new CuttotheChase()
     "Potent Assassin" = new PotentAssassin()
     "Venomous Wounds" = new VenomousWounds()

@@ -15,14 +15,14 @@ let _assassination_talents = function(caster) {
     caster.abilities["Marked for Death"] = new MarkedforDeath()
 
     //4
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Leeching Poison"] = new LeechingPoison()
+    caster.abilities["Cheat Death"] = new CheatDeath()
+    caster.abilities["Elusiveness"] = new Elusiveness()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Internal Bleeding"] = new InternalBleeding()
+    caster.abilities["Iron Wire"] = new IronWire()
+    caster.abilities["Prey on the Weak"] = new PreyontheWeak()
 
     //6
     //caster.abilities[""] = new ()
@@ -259,12 +259,128 @@ class MarkedforDeath extends Ability {
 
 }
 //------------------------------------------------------------------------------------------------ROW4
+class LeechingPoison extends Ability {
+    constructor() {
+        super("Leeching Poison", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Adds a Leeching Poison effect to your Deadly Poison and Wound Poison, granting you 10% Leech."
+    }
+
+    setTalent(caster) {
+        caster.statsBup.leech += 10
+    }
+
+    unsetTalent(caster) {
+        caster.statsBup.leech -= 10
+    }
+}
 //------------------------------------------------
+class CheatDeath extends Ability {
+    constructor() {
+        super("Cheat Death", 0, 0, 0, 360, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 3
+        this.effect = [{name:"damageReduction",val:0.85}]
+    }
+
+    getTooltip() {
+        return "Fatal attacks instead reduce you to 7% of your maximum health. For 3 sec afterward, you take 85% reduced damage. Cannot trigger more often than once per 6 min."
+    }
+
+    cheat(caster) {
+        if (this.talentSelect && this.cd>=this.maxCd) {
+            caster.health = caster.maxHealth * 0.07
+            applyBuff(caster,caster,this)
+            this.setCd()
+        }
+    }
+}
 //------------------------------------------------
+class Elusiveness extends Ability {
+    constructor() {
+        super("Elusiveness", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Feint also reduces all damage you take from non-area-of-effect attacks by 30% for 6 sec."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Feint"].effect[1] = {name:"damageReduction",val:0.3}
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Feint"].effect[1] = {name:"no"}
+    }
+}
 //------------------------------------------------------------------------------------------------ROW5
+class InternalBleeding extends Ability {
+    constructor() {
+        super("Internal Bleeding", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 6
+        this.spellPower = 0.1872
+    }
+
+    getTooltip() {
+        return "Kidney Shot also deals up to "+spellPowerToNumber(this.spellPower*5)+" Bleed damage over 6 sec, based on combo points spent."
+    }
+
+    applyDot(caster,target) {
+        let spellPower = this.spellPower * caster.secondaryResource
+        applyDot(caster,target,this,undefined,undefined,spellPower)
+    }
+
+}
 //------------------------------------------------
+class IronWire extends Ability {
+    constructor() {
+        super("Iron Wire", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Increase the duration of Garrote's silence effect by 3 sec.<br>" +
+            "<br>" +
+            "Enemies silenced by Garrote deal 15% reduced damage for 8 sec."
+    }
+
+}
 //------------------------------------------------
+class PreyontheWeak extends Ability {
+    constructor() {
+        super("Prey on the Weak", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 6
+        this.effect = [{name:"damageTaken",val:0.10}]
+    }
+
+    getTooltip() {
+        return "Enemies disabled by your Cheap Shot or Kidney Shot take 10% increased damage from all sources for 6 sec."
+    }
+
+    applyDebuff(caster,target) {
+        applyDebuff(caster,target,this)
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW6
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

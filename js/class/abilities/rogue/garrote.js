@@ -19,9 +19,6 @@ class Garrote extends Ability {
         this.spellPower = 1.08*1.51
         this.duration = 18
 
-        this.effect = ""
-        this.effectValue = 0
-
         this.secCost = -1
 
         this.bleed = true
@@ -52,6 +49,7 @@ class Garrote extends Ability {
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDot(caster,caster.castTarget,this,undefined,undefined,spellPower)
+                    caster.abilities["GarroteSilence"].silence(caster,caster.castTarget)
                     done = true
                 }
             } else {
@@ -64,6 +62,7 @@ class Garrote extends Ability {
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         applyDot(caster,caster.targetObj,this,undefined,undefined,spellPower)
+                        caster.abilities["GarroteSilence"].silence(caster,caster.targetObj)
                         done = true
                     }
                 }
@@ -89,4 +88,41 @@ class Garrote extends Ability {
 
     endCast(caster) {
     }
+}
+
+
+class GarroteSilence extends Ability {
+    constructor() {
+        super("GarroteSilence", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.hiddenSB = true
+        this.effect = [{name:"interrupt"}]
+        this.duration = 3
+    }
+
+    getTooltip() {
+        return "Silences an enemy for 3 sec."
+    }
+
+    silence(caster,target) {
+        this.duration = 3
+        this.effect[1] = {name:"no"}
+
+        if (caster.abilities["Iron Wire"].talentSelect) {
+            this.duration = 6
+            this.effect[1] = {name:"reduceDamage",val:0.15}
+        }
+
+        if (caster.abilities["Subterfuge"].talentSelect) {
+            if (checkBuff(caster, caster, "Subterfuge")) {
+                target.interrupt()
+                applyDebuff(caster,target,this)
+            }
+        }
+        if (caster.isStealthed) {
+            target.interrupt()
+            applyDebuff(caster,target,this)
+        }
+    }
+
 }

@@ -17,6 +17,9 @@ class KidneyShot extends Ability {
         this.secCost = "all"
         this.effect = [{name:"stun"}]
 
+        //Internal Bleeding
+        this.bleed = true
+
     }
 
     getTooltip() {
@@ -32,6 +35,7 @@ class KidneyShot extends Ability {
         if (this.checkStart(caster)) {
             this.duration = 1 + caster.secondaryResource
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDebuff(caster,caster.castTarget,this)
@@ -45,6 +49,7 @@ class KidneyShot extends Ability {
                     }
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
+                    target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         applyDebuff(caster,caster.targetObj,this)
                         done = true
@@ -57,6 +62,13 @@ class KidneyShot extends Ability {
                 }
                 if (caster.abilities["Elaborate Planning"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
+                }
+
+                if (caster.abilities["Internal Bleeding"].talentSelect) {
+                    caster.abilities["Internal Bleeding"].applyDot(caster,target)
+                }
+                if (caster.abilities["Prey on the Weak"].talentSelect) {
+                    caster.abilities["Prey on the Weak"].applyDebuff(caster,target)
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

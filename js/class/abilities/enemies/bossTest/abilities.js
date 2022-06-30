@@ -1,5 +1,5 @@
 class BossTestAbilities {
-    "Aoe Test" = new AoeTest()
+    "Aoe Dmg" = new AoeTest()
     "Big Dmg" = new BigDmg()
     "Big Rng Dmg" = new BigRngDmg()
     "Big Arcane Dmg" = new BigArcaneDmg()

@@ -939,6 +939,7 @@ let iconsPath = {
 
     //Rogue
     "Garrote":"img/rogue/Garrote.jpg",
+    "GarroteSilence":"img/rogue/Garrote.jpg",
     "Mutilate":"img/rogue/Mutilate.jpg",
     "Rupture":"img/rogue/Rupture.jpg",
     "Slice And Dice":"img/rogue/SliceAndDice.jpg",

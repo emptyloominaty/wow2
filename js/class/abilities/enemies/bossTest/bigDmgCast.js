@@ -3,7 +3,7 @@ class BigArcaneDmg extends Ability {
         let name = "Big Arcane Dmg"
         let cost = 0 //% mana
         let gcd = 1
-        let castTime = 5
+        let castTime = 3
         let cd = 30
         let charges = 1
         let maxCharges = 1
