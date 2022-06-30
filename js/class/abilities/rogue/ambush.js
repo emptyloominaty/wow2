@@ -30,10 +30,13 @@ class Ambush extends Ability {
         let a = false
         let id = 0
         for (let i = 0; i<caster.buffs.length;i++) {
-            if (caster.buffs[i].name==="Blindside") {
+            if (caster.buffs[i].name==="Blindside" || caster.buffs[i].name==="Subterfuge") {
                 a = true
                 id = i
-                this.cost = 0
+                if (caster.buffs[i].name==="Blindside") {
+                    this.cost = 0
+                }
+                break
             }
         }
         if (this.checkStart(caster) && (caster.isStealthed || a)) {

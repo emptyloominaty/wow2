@@ -154,6 +154,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (checkDebuff(caster,target,"Vendetta")) {
                 damage *= 1.3
             }
+            if (caster.abilities["Deeper Stratagem"].talentSelect && (ability.name==="Rupture" || ability.name==="Envenom" || ability.name==="CrimsonTempest")) {
+                damage *= 1.05
+            }
         } else if (caster.spec==="windwalker" && ability.name!=="Auto Attack" && !t) {
             if (caster.spellHistory[0]!==ability.name) {
                 damage = damage * (1 + (caster.stats.mastery / 100))

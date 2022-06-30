@@ -490,6 +490,10 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "root") {
                         this.isRooted = true
+                    } else if (this.buffs[i].effect[j].name === "endWithStealth") {
+                        if (!this.isStealthed) {
+                            this.buffs[i].duration = -1
+                        }
                     } else if (this.buffs[i].effect[j].name === "canMoveWhileCasting") {
                         this.canMoveWhileCasting = true
                     } else if (this.buffs[i].effect[j].name === "restoreMana") {
@@ -752,6 +756,13 @@ class Creature {
 
         for (let i = 0; i<this.pets.length; i++) {
             this.pets[i] = undefined
+        }
+
+        for (let i = 0; i<this.buffs.length; i++) {
+            this.buffs[i].ability.onDeath(this.buffs[i].caster,this,this.buffs[i])
+        }
+        for (let i = 0; i<this.debuffs.length; i++) {
+            this.debuffs[i].ability.onDeath(this.debuffs[i].caster,this,this.debuffs[i])
         }
 
         this.debuffs = []

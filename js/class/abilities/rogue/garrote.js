@@ -39,10 +39,19 @@ class Garrote extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            let spellPower = this.spellPower
+            let cd = this.cd
+            if (caster.abilities["Subterfuge"].talentSelect) {
+                if (caster.isStealthed || checkBuff(caster,caster,"Subterfuge")) {
+                    spellPower *= 1.8
+                    cd = 0
+                }
+            }
+
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    applyDot(caster,caster.castTarget,this)
+                    applyDot(caster,caster.castTarget,this,undefined,undefined,spellPower)
                     done = true
                 }
             } else {
@@ -54,7 +63,7 @@ class Garrote extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        applyDot(caster,caster.targetObj,this)
+                        applyDot(caster,caster.targetObj,this,undefined,undefined,spellPower)
                         done = true
                     }
                 }
@@ -66,6 +75,9 @@ class Garrote extends Ability {
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.setCd()
+                if (cd===0) {
+                    this.cd = this.maxCd
+                }
                 return true
             }
 

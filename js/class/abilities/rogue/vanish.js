@@ -32,7 +32,10 @@ class Vanish extends Ability {
                     caster.isChanneling = false
                 }
                 applyBuff(caster, caster, this,undefined,undefined,undefined,undefined,undefined,undefined,"stealth")
-                this.stealthed = true
+                if (caster.abilities["Nightstalker"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Nightstalker"])
+                }
+
                 caster.useEnergy(this.cost, this.secCost)
                 this.setGcd(caster)
                 this.setCd()
@@ -41,5 +44,14 @@ class Vanish extends Ability {
                 spellQueue.add(this, caster.gcd)
             }
         return false
+    }
+
+    endBuff(caster) {
+        if (caster.abilities["Subterfuge"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["Subterfuge"])
+        }
+        if (caster.abilities["Master Assassin"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["Master Assassin"])
+        }
     }
 }

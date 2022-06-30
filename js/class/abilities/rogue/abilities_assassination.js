@@ -54,8 +54,8 @@ class VenomousWounds extends Ability {
         caster.useEnergy(-8)
     }
 
-    gainEnergyDead(caster,duration,maxDuration) { //TODO ability.onDead() (buff/debuff)
-        let val = 8 * (duration/maxDuration)
+    onDeath(caster,target,buff) {
+        let val = 8 * (buff.duration/buff.maxDuration)
         caster.useEnergy(val)
     }
 

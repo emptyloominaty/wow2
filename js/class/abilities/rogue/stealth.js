@@ -42,6 +42,9 @@ class Stealth extends Ability {
                     caster.isChanneling = false
                 }
                 applyBuff(caster, caster, this,undefined,undefined,undefined,undefined,undefined,undefined,"stealth")
+                if (caster.abilities["Nightstalker"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Nightstalker"])
+                }
                 this.stealthed = true
                 caster.useEnergy(this.cost, this.secCost)
                 this.setGcd(caster)
@@ -52,5 +55,13 @@ class Stealth extends Ability {
             }
         }
         return false
+    }
+    endBuff(caster) {
+        if (caster.abilities["Subterfuge"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["Subterfuge"])
+        }
+        if (caster.abilities["Master Assassin"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["Master Assassin"])
+        }
     }
 }

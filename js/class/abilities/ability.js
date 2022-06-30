@@ -350,4 +350,6 @@ class Ability {
     unsetTalent() {
     }
 
+    onDeath(caster,target,buff) {
+    }
 }
