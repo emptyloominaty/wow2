@@ -13,7 +13,7 @@ class Hamstring extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.15
+        this.spellPower = 0.15*1.29
         this.effect = [{name:"moveSpeed",val:0.5}]
         this.duration = 15
     }

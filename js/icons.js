@@ -1362,4 +1362,6 @@ let iconsPath = {
     "War Machine":"img/warrior/WarMachine.jpg",
     "Warpaint":"img/warrior/Warpaint.jpg",
     "Whirlwind":"img/warrior/Whirlwind.jpg",
+    "Bloodbath":"img/warrior/Bloodbath.jpg",
+    "Crushing Blow":"img/warrior/CrushingBlow.jpg",
 }

@@ -13,7 +13,7 @@ class HeroicThrow extends Ability {
         let range = 30
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.threat = 10
-        this.spellPower = 0.2
+        this.spellPower = 0.2*1.29
     }
 
     getTooltip() {

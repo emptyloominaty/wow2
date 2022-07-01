@@ -22,6 +22,8 @@ class Fury_Abilities {
     "Victory Rush" = new VictoryRush()
     "Heroic Leap" = new HeroicLeap()
 
+    "Crushing Blow" = new CrushingBlow()
+    "Bloodbath" = new Bloodbath()
 
     //TODO: Intimidating Shout - Causes the targeted enemy to cower in fear, and up to 5 additional enemies within 8 yards to flee. Targets are disoriented for 8 sec. (1.5min cd) (1.5gcd)
     //TODO: Berserker Rage - Go berserk, removing and granting immunity to Fear, Sap, and Incapacitate effects for 6 sec. (1min cd) (0gcd)

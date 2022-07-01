@@ -13,7 +13,7 @@ class VictoryRush extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.4
+        this.spellPower = 0.4*1.29
         this.heal = 0.1
 
         this.duration = 20

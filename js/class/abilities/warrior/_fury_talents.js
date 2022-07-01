@@ -32,7 +32,7 @@ let _fury_talents = function(caster) {
     //7
     caster.abilities["Anger Management"] = new AngerManagement()
     caster.abilities["Reckless Abandon"] = new RecklessAbandon()
-    //caster.abilities["Siegebreaker"] = new Siegebreaker()
+    caster.abilities["Siegebreaker"] = new Siegebreaker()
 
     caster.talents = [["War Machine","Sudden Death","Fresh Meat"],
         ["Double Time","Impending Victory","Storm Bolt"],
@@ -124,7 +124,7 @@ class ImpendingVictory extends Ability {
     constructor() {
         super("Impending Victory", 10, 1.5, 0, 25, false, false, false, "physical", 5, 1)
         this.talent = true
-        this.spellPower = 0.5
+        this.spellPower = 0.5*1.29
         this.heal = 0.4
     }
 
@@ -208,7 +208,7 @@ class StormBolt extends Ability {
         let range = 20
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.spellPower = 0.1638
+        this.spellPower = 0.1638*1.29
         this.effect = [{name:"stun"}]
         this.duration = 4
     }
@@ -307,7 +307,7 @@ class Onslaught extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.spellPower = 1.316
+        this.spellPower = 1.316*1.29
         this.hasteCd = true
     }
 
@@ -507,7 +507,7 @@ class DragonRoar extends Ability {
         let range = 12
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.spellPower = 1.70
+        this.spellPower = 1.70*1.2
     }
 
     getTooltip() {
@@ -566,7 +566,7 @@ class Bladestorm extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
         this.talentSelect = true
-        this.spellPower = 1
+        this.spellPower = 1*1.21
         this.hasteCd = true
         this.duration = 4
     }
@@ -673,13 +673,22 @@ class RecklessAbandon extends Ability {
         caster.abilities["Recklessness"].cost -= 50
         caster.abilities["Bloodthirst"].canUse = false
         caster.abilities["Raging Blow"].canUse = false
+        caster.abilities["Bloodbath"].canUse = true
+        caster.abilities["Crushing Blow"].canUse = true
+
+        replaceAction(caster, "Bloodthirst","Bloodbath")
+        replaceAction(caster, "Raging Blow","Crushing Blow")
     }
 
     unsetTalent(caster) {
         caster.abilities["Recklessness"].cost += 50
         caster.abilities["Bloodthirst"].canUse = true
         caster.abilities["Raging Blow"].canUse = true
+        caster.abilities["Bloodbath"].canUse = false
+        caster.abilities["Crushing Blow"].canUse = false
 
+        replaceAction(caster, "Bloodbath","Bloodthirst")
+        replaceAction(caster, "Crushing Blow","Raging Blow")
     }
 
 }
@@ -689,7 +698,7 @@ class Siegebreaker extends Ability {
         super("Siegebreaker", -10, 1.5, 0, 30, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
-        this.spellPower = 0.8
+        this.spellPower = 0.8*1.29
         //this.effect = [{}] +15% damage
         this.duration = 10
     }
