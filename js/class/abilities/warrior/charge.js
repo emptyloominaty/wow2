@@ -6,7 +6,6 @@ class Charge extends Ability {
         let castTime = 0
         let cd = 20
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = false

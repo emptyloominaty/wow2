@@ -74,7 +74,9 @@ class VictoryRush extends Ability {
     }
 
     killEnemy(caster,target) {
-        applyBuff(caster,caster,this)
+        if (this.canUse) {
+            applyBuff(caster,caster,this)
+        }
     }
 
 }

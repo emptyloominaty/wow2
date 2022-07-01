@@ -483,13 +483,14 @@ class Creature {
                             doHeal(this.buffs[i].caster,this,this.buffs[i].ability,undefined,undefined,undefined,undefined,undefined,val)
                         }
                     } else if (this.buffs[i].effect[j].name === "moveToTarget") {
-                        if (this.buffs[i].effect[j]._end===undefined) {
-                            this.direction = getDirection(this,this.buffs[i].effect[j].target)
-                            this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
-                            if (getDistance(this,this.buffs[i].effect[j].target)<3) {
-                                this.buffs[i].effect[j]._end = true
-                                this.buffs[i].duration = -1
-                            }
+                        let minDistance = 3
+                        if (this.buffs[i].effect[j].dist) {
+                            minDistance = this.buffs[i].effect[j].dist
+                        }
+                        this.direction = getDirection(this,this.buffs[i].effect[j].target)
+                        this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
+                        if (getDistance(this,this.buffs[i].effect[j].target)<minDistance) {
+                            this.buffs[i].duration = -1
                         }
                     } else if (this.buffs[i].effect[j].name === "stun") {
                         if (this.isStunnable) {

@@ -27,9 +27,6 @@ class Bloodthirst extends Ability {
         return "Assault the target in a bloodthirsty craze, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage and restoring 3% of your health."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
@@ -69,9 +66,14 @@ class Bloodthirst extends Ability {
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
 
-                if (getChance(30)) {
+                if (caster.abilities["Fresh Meat"].talentSelect) { //TODO: CBA   first time you strike a target, and it has a 15% increased chance to trigger Enrage.
                     caster.abilities["Enrage"].startCast(caster)
+                } else {
+                    if (getChance(30)) {
+                        caster.abilities["Enrage"].startCast(caster)
+                    }
                 }
+
                 return true
             }
         } else if (this.canSpellQueue(caster)) {
@@ -80,6 +82,4 @@ class Bloodthirst extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

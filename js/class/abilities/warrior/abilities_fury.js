@@ -20,6 +20,7 @@ class Fury_Abilities {
     "Intervene" = new Intervene()
     "Piercing Howl" = new PiercingHowl()
     "Victory Rush" = new VictoryRush()
+    "Heroic Leap" = new HeroicLeap()
 
 
     //TODO: Intimidating Shout - Causes the targeted enemy to cower in fear, and up to 5 additional enemies within 8 yards to flee. Targets are disoriented for 8 sec. (1.5min cd) (1.5gcd)
@@ -67,8 +68,6 @@ class Enrage extends Ability {
     startCast(caster){
         applyBuff(caster, caster, this)
     }
-    endCast() {
-    }
 }
 
 class WhirlwindBuff extends Ability {
@@ -113,6 +112,5 @@ class WhirlwindBuff extends Ability {
             }
         }
     }
-    endCast() {
-    }
+
 }

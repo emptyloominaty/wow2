@@ -2,17 +2,15 @@ class Execute extends Ability {
     constructor() {
         let name = "Execute"
         let cost = -20
-
         let gcd = 1.5
         let castTime = 0
         let cd = 6
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
         let school = "physical"
-        let range = 5 //melee
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = ((1.128+1.27)*1.15)*1.29
@@ -26,11 +24,8 @@ class Execute extends Ability {
         return "Attempt to finish off a wounded foe, causing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage. Only usable on enemies that have less than 20% health."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
-        if (this.checkStart(caster) && caster.castTarget.health/caster.castTarget.maxHealth<this.health) {
+        if (this.checkStart(caster) && (caster.castTarget.health/caster.castTarget.maxHealth<this.health || checkBuff(caster,caster,"Sudden Death"))) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
@@ -58,6 +53,12 @@ class Execute extends Ability {
                     caster.isChanneling = false
                 }
 
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Sudden Death") {
+                        caster.buffs[i].duration = -1
+                    }
+                }
+
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
@@ -69,6 +70,4 @@ class Execute extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

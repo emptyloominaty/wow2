@@ -62,7 +62,8 @@ class Action {
         }
         if (player.abilities[this.name].maxCharges>1) {
             this.elements["action_charges_"+this.bar+"_"+this.slot].textContent = player.abilities[this.name].charges
-
+        } else {
+            this.elements["action_charges_"+this.bar+"_"+this.slot].textContent = ""
         }
     }
 
@@ -388,6 +389,8 @@ if (player.spec==="fury") {
         "Heroic Throw": new Action("Heroic Throw",2,3),
 
         "Rallying Cry": new Action("Rallying Cry", 2, 4),
+
+        "Heroic Leap": new Action("Heroic Leap", 2, 11),
 
         //bar3
         "Intervene": new Action("Intervene",3,0),

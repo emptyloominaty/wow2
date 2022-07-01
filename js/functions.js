@@ -173,6 +173,12 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (checkBuff(caster,caster,"Enrage")) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }
+            if (caster.abilities["Sudden Death"].talentSelect) {
+                if (getChance(5*(1+(caster.stats.haste/100))))  {
+                    applyBuff(caster,caster,caster.abilities["Sudden Death"])
+                    caster.abilities["Execute"].cd = caster.abilities["Execute"].maxCd
+                }
+            }
         } else if (caster.spec==="elemental") {
             caster.abilities["Elemental Overload"].mastery(caster,target,ability,name)
             if (caster.abilities["Ancestral Guidance"].talentSelect && checkBuff(caster,caster,"Ancestral Guidance")) {

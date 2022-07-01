@@ -27,7 +27,7 @@ let showSpellTooltip = function(i,j,notActionBar = false,spellname = "") {
 
         let castTime = ability.castTime
         if (ability.hasteGcd) {
-            castTime = castTime / (1 + (player.stats.haste / 100))
+            castTime = Math.round((castTime / (1 + (player.stats.haste / 100)))*100)/100
         }
         if (castTime === 0) {
             castTime = "Instant"
@@ -41,7 +41,7 @@ let showSpellTooltip = function(i,j,notActionBar = false,spellname = "") {
 
         let cd = ability.maxCd
         if (ability.hasteCd) {
-            cd = cd / (1 + (player.stats.haste / 100))
+            cd =  Math.round((cd / (1 + (player.stats.haste / 100)))*100)/100
         }
         if (cd === 0) {
             cd = ""
