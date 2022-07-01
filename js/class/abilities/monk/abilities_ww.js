@@ -39,9 +39,9 @@ class Windwalking extends Ability {
     constructor() {
         super("Windwalking", 0, 0, 0, 0, false, false, false, "physical", 10, 1)
         this.passive = true
-        this.duration = 10
+        this.duration = 10.49
         this.timer1 = 0
-        this.timer2 = 1
+        this.timer2 = 0.99
         this.effect = [{name:"moveSpeed",val:0.1}]
     }
 

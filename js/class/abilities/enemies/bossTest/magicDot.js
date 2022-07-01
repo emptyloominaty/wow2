@@ -18,18 +18,20 @@ class MagicDot extends Ability {
         this.spellPower = 2
         this.spellPowerDot = 90
         this.duration = 30
+        this.cd = 25
 
     }
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            caster.castTarget = player
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
                     applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
                     done = true
                 }
-            } else {
+            }/* else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
                     caster.targetObj = newTarget
@@ -40,7 +42,7 @@ class MagicDot extends Ability {
                         done = true
                     }
                 }
-            }
+            }*/
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false

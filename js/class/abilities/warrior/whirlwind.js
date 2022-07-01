@@ -40,7 +40,7 @@ class Whirlwind extends Ability {
         if (this.checkStart(caster)) {
             let enemiesHit = 0
             for (let i = 0; i<enemies.length ;i++) {
-                if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {
+                if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
                     doDamage(caster, enemies[i], this)
                     enemiesHit++
                 }

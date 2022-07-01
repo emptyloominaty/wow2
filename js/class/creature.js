@@ -84,6 +84,8 @@ class Creature {
     canRess = false
     canRessBuffId = 0
 
+    isReflectingSpell = false
+
     healthA = 0
     healthB = 0
 
@@ -374,6 +376,7 @@ class Creature {
         this.isInterrupted = false
         this.buffMoved = false //Chi torpedo Fix
         this.isStealthed = false
+        this.isReflectingSpell = false
         this.healthA = this.health
 
 
@@ -493,6 +496,8 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "root") {
                         this.isRooted = true
+                    } else if (this.buffs[i].effect[j].name==="reflectSpell") {
+                        this.isReflectingSpell = true
                     } else if (this.buffs[i].effect[j].name === "endWithStealth") {
                         if (!this.isStealthed) {
                             this.buffs[i].duration = -1

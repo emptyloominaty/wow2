@@ -25,6 +25,7 @@ class Ability {
     dispellable = false // magic,disease,curse,poison //TODO
     hiddenSB = false
     mastery = false
+    threat = 1
 
     ignoreArmor = false //TODO
     dontBreakStealth = false //TODO

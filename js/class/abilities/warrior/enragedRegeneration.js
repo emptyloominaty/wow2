@@ -1,30 +1,31 @@
-class AstralShift extends Ability {
+class EnragedRegeneration extends Ability {
     constructor() {
-        let name = "Astral Shift"
+        let name = "Enraged Regeneration"
         let cost = 0
         let gcd = 0
         let castTime = 0
-        let cd = 90
+        let cd = 120
         let charges = 1
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "nature"
+        let school = "physical"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
+        //TODO:Can be used while stunned
         this.spellPower = 0
-        this.effect = [{name:"damageReduction",val:0.4}]
+        this.effect = [{name:"damageReduction",val:0.3}]
 
-        this.duration = 12
+        this.duration = 8
         this.noGcd = true
     }
 
     getTooltip() {
-        return "Shift partially into the elemental planes, taking 40% less damage for 8 sec."
+        return "Reduces damage taken by 30%, and Bloodthirst restores an additional 20% health. Usable while stunned. Lasts 8 sec."
     }
 
-    run(caster) {
+    getBuffTooltip(caster, target, buff) {
+        return "Damage taken reduced by 30%. Bloodthirst restores an additional 20% health."
     }
 
     startCast(caster) {

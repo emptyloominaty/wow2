@@ -9,6 +9,14 @@ class Fury_Abilities {
     "Taunt" = new Taunt()
     "Recklessness" = new Recklessness()
     "Rallying Cry" = new RallyingCry()
+    "Heroic Throw" = new HeroicThrow()
+    "Enraged Regeneration" = new EnragedRegeneration()
+    "Hamstring" = new Hamstring()
+    "Challenging Shout" = new ChallengingShout()
+    "Ignore Pain" = new IgnorePain()
+    "Battle Shout" = new BattleShout()
+    "Shattering Throw" = new ShatteringThrow()
+    "Spell Reflection" = new SpellReflection()
 
     //Pasive
     "WhirlwindBuff" = new WhirlwindBuff()

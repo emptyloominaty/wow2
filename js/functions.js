@@ -205,7 +205,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
 
             //armor
-            damage = damage * (1-(target.stats.armor/100))
+            if (!ability.ignoreArmor) {
+                damage = damage * (1-(target.stats.armor/100))
+            }
+
             damage = damage * (target.physicalDamageTaken)
 
             //mystic touch
@@ -328,7 +331,8 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             target.die()
         }
         if (target.enemy) {
-            target.aggroInc(caster.id2, damage * caster.aggroMultiplier)
+
+            target.aggroInc(caster.id2, damage * caster.aggroMultiplier * ability.threat)
         }
     }
 }
@@ -498,6 +502,19 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
         if (spellPowerDot!==0) {
             spellPower = spellPowerDot
         }
+
+        if (target.isReflectingSpell) {
+            for (let i = 0; i<target.buffs.length; i++) {
+                for (let j = 0; j<target.buffs.length; j++) {
+                    if (target.buffs[i].effect[j].name==="reflectSpell") {
+                        target.buffs[i].duration = -1
+                        target = caster
+                        break
+                    }
+                }
+            }
+        }
+
         if (duration === 0) {
             target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration2, maxDuration:duration2, extendedDuration:0, spellPower:spellPower/duration2, caster:caster,ability:ability })
         } else {

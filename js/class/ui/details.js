@@ -212,8 +212,11 @@ let details = {
 
         if (inCombat) {
             if (overhealing>0) {
-                caster.healingDone+=val-overhealing
-                this.combats[this.combatIdx][caster.id][name].heal += val-overhealing
+                let valO = val-overhealing
+                if (valO>0) {
+                    caster.healingDone+=valO
+                    this.combats[this.combatIdx][caster.id][name].heal += valO
+                }
             } else {
                 this.combats[this.combatIdx][caster.id][name].heal += val
                 caster.healingDone+=val

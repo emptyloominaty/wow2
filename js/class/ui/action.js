@@ -367,9 +367,13 @@ if (player.spec==="arcane") {
 
 if (player.spec==="fury") {
     actions = {
+        //bar0
         "Recklessness": new Action("Recklessness",0,0),
         "Pummel": new Action("Pummel", 0, 5),
+        "Ignore Pain": new Action("Ignore Pain",0,7),
+        "Enraged Regeneration": new Action("Enraged Regeneration", 0, 8),
 
+        //bar1
         "Raging Blow": new Action("Raging Blow", 1, 0),
         "Bloodthirst": new Action("Bloodthirst", 1, 1),
         "Charge": new Action("Charge", 1, 3),
@@ -377,9 +381,18 @@ if (player.spec==="fury") {
         "Whirlwind": new Action("Whirlwind", 1, 8),
         "Rampage": new Action("Rampage", 1, 9),
 
+        //bar2
         "Execute": new Action("Execute", 2, 0),
+        "Shattering Throw": new Action("Shattering Throw",2,2),
+        "Heroic Throw": new Action("Heroic Throw",2,3),
 
         "Rallying Cry": new Action("Rallying Cry", 2, 4),
+
+        //bar3
+        "Spell Reflection": new Action("Spell Reflection",3,1),
+        "Challenging Shout":  new Action("Challenging Shout", 3, 8),
+        "Battle Shout":  new Action("Battle Shout", 3, 10),
+
     }
 }
 

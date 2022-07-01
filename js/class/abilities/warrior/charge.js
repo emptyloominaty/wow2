@@ -23,7 +23,7 @@ class Charge extends Ability {
     }
 
     getTooltip() {
-        return "Charge to an enemy, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage, rooting it for 1 sec"
+        return "Charge to an enemy, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage, rooting it for 1 sec <br> Min Range:8"
     }
 
     run(caster) {
