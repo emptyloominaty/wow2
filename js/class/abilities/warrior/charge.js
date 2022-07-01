@@ -43,6 +43,11 @@ class Charge extends Ability {
                 this.caster = caster
                 this.effect[0].target = caster.castTarget
                 applyBuff(caster,caster,this)
+
+                if (caster.abilities["Furious Charge"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Furious Charge"])
+                }
+
                 caster.useEnergy(this.cost)
                 return true
             }

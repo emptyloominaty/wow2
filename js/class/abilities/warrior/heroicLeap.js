@@ -44,6 +44,10 @@ class HeroicLeap extends Ability {
             }
             caster.isRolling = true
 
+            if (caster.abilities["Bounding Stride"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Bounding Stride"])
+            }
+
             this.setGcd(caster)
             this.setCd()
             this.caster = caster

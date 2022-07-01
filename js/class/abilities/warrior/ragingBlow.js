@@ -24,15 +24,20 @@ class RagingBlow extends Ability {
         return "A mighty blow with both weapons that deals a total of "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
+            let cd = true
+            let spellPower = this.spellPower
+            if (checkBuff(caster,caster,"Enrage")) {
+                spellPower *= 1.2
+                if (getChance(30)) {
+                    cd = false
+                }
+            }
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
+                    doDamage(caster,caster.castTarget,this,undefined,spellPower)
                     caster.abilities["WhirlwindBuff"].startCast(caster,caster.castTarget,this)
                     done = true
                 }
@@ -45,7 +50,7 @@ class RagingBlow extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
+                        doDamage(caster, caster.targetObj, this,undefined,spellPower)
                         caster.abilities["WhirlwindBuff"].startCast(caster,caster.targetObj,this)
                         done = true
                     }
@@ -57,9 +62,14 @@ class RagingBlow extends Ability {
                 }
 
                 //20% cd reset chance
-                if (getChance(80)) {
+                if (getChance(20)) {
+                    cd = false
+                }
+
+                if (cd) {
                     this.setCd(caster)
                 }
+
                 this.setGcd(caster)
                 caster.useEnergy(this.cost,this.secCost)
                 return true
@@ -70,6 +80,4 @@ class RagingBlow extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

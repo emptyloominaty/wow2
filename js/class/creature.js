@@ -834,9 +834,13 @@ class Creature {
         } else if (this.spec==="restorationShaman") {
             this.abilities["High Tide"].spendMana(this,val)
         } else if (this.class==="Warrior") {
-            if (this.spec==="fury" && val<0) {
-                if (checkBuff(this,this,"Recklessness")) {
-                    this.energy -= val
+            if (this.spec==="fury") {
+                if (val<0) {
+                    if (checkBuff(this,this,"Recklessness")) {
+                        this.energy -= val
+                    }
+                } else {
+                    this.abilities["Anger Management"].spendRage(this,val)
                 }
             }
         }

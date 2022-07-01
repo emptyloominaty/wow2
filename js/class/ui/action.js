@@ -371,6 +371,7 @@ if (player.spec==="fury") {
         //bar0
         "Recklessness": new Action("Recklessness",0,0),
         "Pummel": new Action("Pummel", 0, 5),
+        "Bladestorm": new Action("Bladestorm", 0, 6),
         "Ignore Pain": new Action("Ignore Pain",0,7),
         "Enraged Regeneration": new Action("Enraged Regeneration", 0, 8),
 

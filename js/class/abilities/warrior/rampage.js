@@ -63,6 +63,13 @@ class Rampage extends Ability {
 
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
+
+                if (caster.abilities["Frothing Berserker"].talentSelect) {
+                    if(getChance(20)) {
+                        caster.useEnergy(-20,0)
+                    }
+                }
+
                 this.setGcd(caster)
                 caster.abilities["Enrage"].startCast(caster)
                 return true

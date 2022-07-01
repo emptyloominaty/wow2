@@ -61,6 +61,10 @@ class Bloodthirst extends Ability {
                     heal += 0.2
                 }
 
+                if (checkBuff(caster,caster,"Furious Charge")) {
+                    heal *= 3.5
+                }
+
                 doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,caster.maxHealth*heal)
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)

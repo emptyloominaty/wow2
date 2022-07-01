@@ -15,24 +15,24 @@ let _fury_talents = function(caster) {
     caster.abilities["Onslaught"] = new Onslaught()
 
     //4
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Furious Charge"] = new FuriousCharge()
+    caster.abilities["Bounding Stride"] = new BoundingStride()
+    caster.abilities["Warpaint"] = new Warpaint()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Seethe"] = new Seethe()
+    caster.abilities["Frothing Berserker"] = new FrothingBerserker()
+    caster.abilities["Cruelty"] = new Cruelty()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Meat Cleaver"] = new MeatCleaver()
+    caster.abilities["Dragon Roar"] = new DragonRoar()
+    caster.abilities["Bladestorm"] = new Bladestorm()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Anger Management"] = new AngerManagement()
+    caster.abilities["Reckless Abandon"] = new RecklessAbandon()
+    //caster.abilities["Siegebreaker"] = new Siegebreaker()
 
     caster.talents = [["War Machine","Sudden Death","Fresh Meat"],
         ["Double Time","Impending Victory","Storm Bolt"],
@@ -290,7 +290,6 @@ class Frenzy extends Ability {
             }
         }
     }
-
 }
 //------------------------------------------------
 class Onslaught extends Ability {
@@ -358,14 +357,344 @@ class Onslaught extends Ability {
 
 }
 //------------------------------------------------------------------------------------------------ROW4
+class FuriousCharge extends Ability {
+    constructor() {
+        super("Furious Charge", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 15
+    }
+
+    getTooltip() {
+        return "Charge also increases the healing from your next Bloodthirst by 250%."
+    }
+
+}
 //------------------------------------------------
+class BoundingStride extends Ability {
+    constructor() {
+        super("Bounding Stride", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.effect = [{name:"moveSpeed",val:0.7}]
+        this.duration = 3
+    }
+
+    getTooltip() {
+        return "Reduces the cooldown on Heroic Leap by 15 sec, and Heroic Leap now also increases your run speed by 70% for 3 sec."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Heroic Leap"].cd -= 15
+        caster.abilities["Heroic Leap"].maxCd -= 15
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Heroic Leap"].cd += 15
+        caster.abilities["Heroic Leap"].maxCd += 15
+    }
+
+}
 //------------------------------------------------
+class Warpaint extends Ability {
+    constructor() {
+        super("Warpaint", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "You take 10% reduced damage while Enrage is active."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Enrage"].effect[2] = {name:"damageReduction",val:0.1}
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Enrage"].effect[2] = {}
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW5
+class Seethe extends Ability {
+    constructor() {
+        super("Seethe", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() { //TODO:CRIT
+        return "Bloodthirst generates 2 more Rage, or 4 more Rage when it critically strikes your primary target."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Bloodthirst"].cost -= 2
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Bloodthirst"].cost += 2
+    }
+
+}
 //------------------------------------------------
+class FrothingBerserker extends Ability {
+    constructor() {
+        super("Frothing Berserker", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Rampage has a 20% chance to immediately refund 20 Rage."
+    }
+
+}
 //------------------------------------------------
+class Cruelty extends Ability {
+    constructor() {
+        super("Cruelty", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "While Enraged, Raging Blow deals 20% more damage and has a 30% chance to instantly reset its own cooldown."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW6
+class MeatCleaver extends Ability {
+    constructor() {
+        super("Meat Cleaver", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Whirlwind deals 25% more damage and now affects your next 4 single-target melee attacks, instead of the next 2 attacks."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Whirlwind"].spellPower *= 1.25
+        caster.abilities["Whirlwind"].stacks = 4
+        caster.abilities["Whirlwind"].maxStacks = 4
+
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Whirlwind"].spellPower /= 1.25
+        caster.abilities["Whirlwind"].stacks = 2
+        caster.abilities["Whirlwind"].maxStacks = 2
+    }
+
+}
 //------------------------------------------------
+class DragonRoar extends Ability {
+    constructor() {
+        let name = "Dragon Roar"
+        let cost = -10 //TODO: -20 prot war
+        let gcd = 1.5
+        let castTime = 0
+        let cd = 30
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = true
+        let school = "physical"
+        let range = 12
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.spellPower = 1.70
+    }
+
+    getTooltip() {
+        return "Roar explosively, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage to enemies within 12 yds. Deals reduced damage to secondary targets. Dragon Roar critically strikes for 3 times normal damage."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+
+            let spellPower = this.spellPower*(1+((caster.stats.crit/100)*3)) //3times CRIT FIX
+
+            let e = []
+            for (let i = 0; i<enemies.length; i++) {
+                if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],undefined,true)) {
+                    e.push(enemies[i])
+                }
+            }
+
+            if (e.length>1) {
+                spellPower = spellPower / (e.length/1.5)
+            }
+
+            for (let i = 0; i<e.length; i++) {
+                doDamage(caster, e[i], this, undefined, spellPower)
+            }
+
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            this.setCd()
+            caster.useEnergy(this.cost,this.secCost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+}
 //------------------------------------------------
+class Bladestorm extends Ability {
+    constructor() {
+        let name = "Bladestorm"
+        let cost = -20
+        let gcd = 1.5
+        let castTime = 4
+        let cd = 60
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = true
+        let school = "physical"
+        let range = 8
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 1
+        this.hasteCd = true
+        this.duration = 4
+    }
+
+    getTooltip() {
+        return "Become an unstoppable storm of destructive force, striking all nearby enemies for "+spellPowerToNumber(this.spellPower*5)+"Physical damage over 4 sec." +
+            "You are immune to movement impairing and loss of control effects, but can use defensive abilities and avoid attacks." //TODO:IMMUNE TO snare,CC
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return  "Dealing damage to all nearby enemies every 1 sec.<br>" +
+            "Immune to crowd control."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            caster.isChanneling = true
+            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0.8/(1 + (caster.stats.haste / 100)), timer2:0.8/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+
+            caster.canMoveWhileCasting = true
+
+
+            this.setCd()
+            caster.useEnergy(this.cost,this.secCost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    cast(caster) {
+        for (let i = 0; i<enemies.length; i++) {
+            if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],undefined,true)) {
+                doDamage(caster, enemies[i], this)
+            }
+        }
+    }
+
+    endChanneling(caster) {
+        caster.canMoveWhileCasting = false
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW7
+class AngerManagement extends Ability {
+    constructor() {
+        super("Anger Management", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.rageSpent = 0
+        this.rageNeed = 20
+    }
+
+    getTooltip() {
+        if (player.spec==="fury") {
+            return "Every 20 Rage you spend reduces the remaining cooldown on Recklessness by 1 sec."
+        }
+        //         Protection
+        //         Every 10 Rage you spend reduces the remaining cooldown on Avatar and Shield Wall by 1 sec.
+        //
+        //         Fury
+        //         Every 20 Rage you spend reduces the remaining cooldown on Recklessness by 1 sec.
+        //
+        //         Arms
+        //         Every 20 Rage you spend reduces the remaining cooldown on Warbreaker and BladestormColossus Smash and Bladestorm by 1 sec.
+    }
+
+    spendRage(caster,val) {
+        if (this.talentSelect) {
+            this.rageSpent += val
+            let a = true
+            while(a) {
+                if(this.rageSpent>this.rageNeed) {
+                    this.rageSpent-=this.rageNeed
+                    if(caster.spec==="fury") {
+                        caster.abilities["Recklessness"].cd ++
+                    }
+                } else {
+                    a = false
+                }
+            }
+        }
+    }
+
+}
+
 //------------------------------------------------
+class RecklessAbandon extends Ability {
+    constructor() {
+        super("Reckless Abandon", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        //this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Recklessness generates 50 Rage and greatly empowers Bloodthirst and Raging Blow."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Recklessness"].cost -= 50
+        caster.abilities["Bloodthirst"].canUse = false
+        caster.abilities["Raging Blow"].canUse = false
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Recklessness"].cost += 50
+        caster.abilities["Bloodthirst"].canUse = true
+        caster.abilities["Raging Blow"].canUse = true
+
+    }
+
+}
 //------------------------------------------------
+class Siegebreaker extends Ability {
+    constructor() {
+        super("Siegebreaker", -10, 1.5, 0, 30, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.spellPower = 0.8
+        //this.effect = [{}] +15% damage
+        this.duration = 10
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Break the enemy's defenses, dealing (80% of Attack power) Physical damage, and increasing your damage done to the target by 15% for 10 sec."
+    }
+}
