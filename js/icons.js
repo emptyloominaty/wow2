@@ -902,7 +902,7 @@ let iconsPath = {
     "Purify Disease":"img/priest/PurifyDisease.jpg",
     "Rapture":"img/priest/Rapture.jpg",
     "Renew":"img/priest/Renew.jpg",
-    "RenewedFaith":"img/priest/RenewedFaith.jpg",
+    "Renewed Faith":"img/priest/RenewedFaith.jpg",
     "Resurrection":"img/priest/Resurrection.jpg",
     "San'layn":"img/priest/Sanlayn.jpg",
     "Searing Nightmare":"img/priest/SearingNightmare.jpg",

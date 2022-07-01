@@ -13,6 +13,11 @@ class HolyPriest_abilities {
     "Holy Word: Chastise" = new HolyWordChastise()
     "Prayer of Healing" = new PrayerofHealing()
     "Prayer of Mending" = new PrayerofMending()
+    "Shackle Undead" = new ShackleUndead()
+    "Leap of Faith" = new LeapofFaith()
+    "Power Infusion" = new PowerInfusion()
+
+    
 
     //passive
     "Echo of Light" = new EchoofLight()

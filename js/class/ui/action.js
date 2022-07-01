@@ -426,5 +426,9 @@ if (player.spec==="holyPriest") {
 
         "Prayer of Mending": new Action("Prayer of Mending", 2, 7),
 
+
+        "Leap of Faith": new Action( "Leap of Faith",3,0),
+        "Power Infusion": new Action( "Power Infusion",3,1),
+
     }
 }

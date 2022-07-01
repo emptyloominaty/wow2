@@ -169,6 +169,7 @@ class Creature {
         } else if (spec==="holyPriest") {//----------------------------------------Holy Priest
             this.class = "Priest"
             this.abilities = new HolyPriest_abilities()
+            _holyPriest_talents(this)
             this.melee = false
             this.role = "healer"
         } else if (spec==="elemental") {//----------------------------------------Elemental
