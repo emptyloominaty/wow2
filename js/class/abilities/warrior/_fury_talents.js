@@ -1,8 +1,8 @@
 let _fury_talents = function(caster) {
     //1
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["War Machine"] = new WarMachine()
+    //caster.abilities["Sudden Death"] = new SuddenDeath()
+    //caster.abilities["Fresh Meat"] = new FreshMeat()
 
     //2
     //caster.abilities[""] = new ()
@@ -43,8 +43,36 @@ let _fury_talents = function(caster) {
         ["Anger Management","Reckless Abandon","Siegebreaker"]
     ]
 }
-
 //------------------------------------------------------------------------------------------------ROW1
+class WarMachine extends Ability {
+    constructor() {
+        super("War Machine", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 8
+        this.effect = [{name:"moveSpeed",val:0.3}]
+    }
+
+    getTooltip() {
+        return "Your auto attacks generate 20% more Rage.<br>" +
+            "<br>" +
+            "Killing an enemy instantly generates 10 Rage, and increases your movement speed by 30% for 8 sec." //TODO:
+    }
+
+    killEnemy(caster,target) {
+        if (this.talentSelect) {
+            applyBuff(caster,caster,this)
+            caster.useEnergy(-10,0)
+        }
+    }
+
+    setTalent(caster) {
+    }
+
+    unsetTalent(caster) {
+    }
+}
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW2

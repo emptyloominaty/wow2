@@ -507,7 +507,9 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
             for (let i = 0; i<target.buffs.length; i++) {
                 for (let j = 0; j<target.buffs.length; j++) {
                     if (target.buffs[i].effect[j].name==="reflectSpell") {
-                        target.buffs[i].duration = -1
+                        if (target.buffs[i].effect[j].removeOnReflect) {
+                            target.buffs[i].duration = -1
+                        }
                         target = caster
                         break
                     }

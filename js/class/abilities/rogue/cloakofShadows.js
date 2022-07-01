@@ -12,9 +12,9 @@ class CloakofShadows extends Ability {
         let school = "physical"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.dispelTypes = ["magic",false,false] //TODO:ALL?
+        this.dispelTypes = ["magic",false,false]
         this.duration = 5
-        this.effect = [{name:"magicDamageReduction",val:100}] //TODO:Resisting all harmful spells.
+        this.effect = [{name:"magicDamageReduction",val:100}]
         this.dontBreakStealth = true
     }
 

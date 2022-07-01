@@ -30,7 +30,8 @@ class EnragedRegeneration extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            this.cd = 0
+            this.setCd()
+            this.setGcd()
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
             return true

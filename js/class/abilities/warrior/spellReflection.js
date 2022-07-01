@@ -2,9 +2,9 @@ class SpellReflection extends Ability {
     constructor() {
         let name = "Spell Reflection"
         let cost = 0
-        let gcd = 1
+        let gcd = 0
         let castTime = 0
-        let cd = 0
+        let cd = 25
         let charges = 1
         let channeling = false
         let casting = false
@@ -13,7 +13,7 @@ class SpellReflection extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.effect = [{name:"magicDamageReduction",val:0.2},{name:"reflectSpell"}]
+        this.effect = [{name:"magicDamageReduction",val:0.2},{name:"reflectSpell",removeOnReflect:true}]
         this.duration = 5
     }
 
@@ -31,6 +31,7 @@ class SpellReflection extends Ability {
             this.setCd()
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
+            this.setGcd()
             return true
         }
         return false

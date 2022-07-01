@@ -488,6 +488,7 @@ class Creature {
                             this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
                             if (getDistance(this,this.buffs[i].effect[j].target)<3) {
                                 this.buffs[i].effect[j]._end = true
+                                this.buffs[i].duration = -1
                             }
                         }
                     } else if (this.buffs[i].effect[j].name === "stun") {
@@ -775,6 +776,16 @@ class Creature {
             this.health = 0
         }
 
+        if (this.enemy) {
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                Object.keys(friendlyTargets[i].abilities).forEach((key)=> {
+                    if (friendlyTargets[i].abilities[key].killEnemy) {
+                        friendlyTargets[i].abilities[key].killEnemy(friendlyTargets[i],this)
+                    }
+                })
+            }
+        }
+
         for (let i = 0; i<this.pets.length; i++) {
             this.pets[i] = undefined
         }
@@ -822,8 +833,10 @@ class Creature {
         } else if (this.spec==="restorationShaman") {
             this.abilities["High Tide"].spendMana(this,val)
         } else if (this.class==="Warrior") {
-            if (this.spec==="fury" && val<0 && checkBuff(this,this,"Recklessness")) {
-                this.energy -= val
+            if (this.spec==="fury" && val<0) {
+                if (checkBuff(this,this,"Recklessness")) {
+                    this.energy -= val
+                }
             }
         }
     }

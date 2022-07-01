@@ -376,6 +376,7 @@ if (player.spec==="fury") {
         //bar1
         "Raging Blow": new Action("Raging Blow", 1, 0),
         "Bloodthirst": new Action("Bloodthirst", 1, 1),
+        "Victory Rush": new Action("Victory Rush", 1, 2),
         "Charge": new Action("Charge", 1, 3),
 
         "Whirlwind": new Action("Whirlwind", 1, 8),
@@ -389,7 +390,9 @@ if (player.spec==="fury") {
         "Rallying Cry": new Action("Rallying Cry", 2, 4),
 
         //bar3
+        "Intervene": new Action("Intervene",3,0),
         "Spell Reflection": new Action("Spell Reflection",3,1),
+        "Piercing Howl": new Action("Piercing Howl",3,2),
         "Challenging Shout":  new Action("Challenging Shout", 3, 8),
         "Battle Shout":  new Action("Battle Shout", 3, 10),
 

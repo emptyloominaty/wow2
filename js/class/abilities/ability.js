@@ -27,8 +27,8 @@ class Ability {
     mastery = false
     threat = 1
 
-    ignoreArmor = false //TODO
-    dontBreakStealth = false //TODO
+    ignoreArmor = false
+    dontBreakStealth = false
 
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
@@ -353,5 +353,8 @@ class Ability {
     }
 
     onDeath(caster,target,buff) {
+    }
+
+    killEnemy(caster,target) {
     }
 }
