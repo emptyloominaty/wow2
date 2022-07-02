@@ -40,14 +40,14 @@ class HolyNova extends Ability {
             //damage
             let ttd = 0
             for (let i = 0; i<enemies.length ;i++) {
-                if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {
+                if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
                     doDamage(caster, enemies[i], this)
                     ttd++
                 }
             }
             if (ttd>2) {
                 for (let i = 0; i<enemies.length ;i++) {
-                    if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {
+                    if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
                         doDamage(caster, enemies[i], this,undefined,this.spellPower/2)
                     }
                 }
@@ -56,7 +56,7 @@ class HolyNova extends Ability {
             //healing
             let tth = 0
             for (let i = 0; i<friendlyTargets.length ;i++) {
-                if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i])) {
+                if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i],undefined,true)) {
                     doHeal(caster, friendlyTargets[i], this)
                     if (ttd>2) {
                         doHeal(caster, friendlyTargets[i], this,undefined,this.spellPower/2)

@@ -25,6 +25,7 @@ class HolyPriest_abilities {
     "Symbol of Hope" = new SymbolofHope()
     "Dispel Magic" = new DispelMagic()
     "Mass Dispel" = new MassDispel()
+    "Shadow Word: Death" = new ShadowWordDeath()
 
     //TODO
     //Psychic Scream

@@ -1,5 +1,5 @@
 class HealingStreamTotem extends Ability {
-    constructor() {
+    constructor(ele=false) {
         let name = "Healing Stream Totem"
         let cost = 1.8
         let gcd = 1
@@ -23,6 +23,9 @@ class HealingStreamTotem extends Ability {
             do:[]
         }
         this.petDuration = 15
+        if(ele) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

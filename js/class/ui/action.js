@@ -423,7 +423,7 @@ if (player.spec==="holyPriest") {
         "Prayer of Healing": new Action("Prayer of Healing", 0, 2),
 
         "Purify": new Action("Purify", 0, 4),
-
+        "Shadow Word: Death": new Action("Shadow Word: Death",0,5),
         "Holy Nova": new Action("Holy Nova", 0, 6),
         "Dispel Magic": new Action("Dispel Magic", 0, 7),
         "Desperate Prayer": new Action("Desperate Prayer", 0, 8),

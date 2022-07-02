@@ -1,8 +1,8 @@
 let _holyPriest_talents = function(caster) {
     //1
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Enlightenment"] = new Enlightenment()
+    //caster.abilities["Trail of Light"] = new TrailofLight()
+    //caster.abilities["Renewed Faith"] = new RenewedFaith()
 
     //2
     //caster.abilities[""] = new ()
@@ -43,8 +43,27 @@ let _holyPriest_talents = function(caster) {
         ["Light of the Naaru","Apotheosis","Holy Word: Salvation"]
     ]
 }
-
 //------------------------------------------------------------------------------------------------ROW1
+class Enlightenment extends Ability {
+    constructor() {
+        super("Enlightenment", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "You regenerate mana 10% faster."
+    }
+
+    setTalent(caster) {
+        caster.energyRegen += 1
+    }
+
+    unsetTalent(caster) {
+        caster.energyRegen -= 1
+    }
+
+}
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW2

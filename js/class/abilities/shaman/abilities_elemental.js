@@ -20,6 +20,7 @@ class Elemental_Abilities {
     "Cleanse Spirit" = new CleanseSpirit()
     "Fire Elemental" = new FireElemental()
     "Purge" = new Purge()
+    "Healing Stream Totem" = new HealingStreamTotem(true)
 
     //TODO
     //Thunderstorm
