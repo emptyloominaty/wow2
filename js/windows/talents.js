@@ -20,7 +20,7 @@ let open_talents = function(reload = false) {
                 }
             }
 
-            html+= "<div onmouseover='showSpellTooltip(0,0,true,\""+player.talents[i][j].replace('\'', '€')+"\")' onmouseout='hideSpellTooltip()' onclick='player.changeTalent("+i+","+j+")' class='"+classes+"'> <div class='window_talentButtonImg'><img src='"+iconsPath[talentName]+"'></div> <div class='window_talentName'><span>"+talentName+"</span></div> </div>"
+            html+= "<div onmousedown='moveFromSpellBook(\""+talentName.replace('\'', '€')+"\")' onmouseover='showSpellTooltip(0,0,true,\""+player.talents[i][j].replace('\'', '€')+"\")' onmouseout='hideSpellTooltip()' onclick='player.changeTalent("+i+","+j+")' class='"+classes+"'> <div class='window_talentButtonImg'><img draggable='false' src='"+iconsPath[talentName]+"'></div> <div class='window_talentName'><span>"+talentName+"</span></div> </div>"
         }
         html += "</div>"
     }

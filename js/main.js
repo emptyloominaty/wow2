@@ -95,4 +95,8 @@ function update(progress) {
         player.isMoving = false
     }
 
+    if (movingCd<0.35) {
+        movingCd += progressInSec
+    }
+
 }

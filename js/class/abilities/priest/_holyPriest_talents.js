@@ -127,7 +127,7 @@ class BodyandSoul extends Ability {
         this.effect = [{name:"moveSpeed",val:0.4}]
     }
 
-    getTooltip() { //TODO:
+    getTooltip() {
         return "Power Word: Shield and Leap of Faith increase your target's movement speed by 40% for 3 sec."
     }
 
@@ -136,13 +136,43 @@ class BodyandSoul extends Ability {
 class AngelicFeather extends Ability {
     constructor() {
         super("Angelic Feather", 0, 1.5, 0, 20, false, false, false, "holy", 40, 3)
-        this.passive = true
         this.talent = true
-        //area 2m
+        this.talentSelect = true
+        this.effect = [{name:"moveSpeed",val:0.4}]
+        this.duration = 5
+        this.area = {type:"circle", radius:2, duration: 20,data:{type:"applyBuffOneTarget",color:"#f8ff81",color2:"rgba(253,255,139,0.65)",cast:false}}
+
+        this.castPosition = {x:0,y:0}
     }
 
-    getTooltip() { //TODO:
+    getTooltip() {
         return "Places a feather at the target location, granting the first ally to walk through it 40% increased movement speed for 5 sec. Only 3 feathers can be placed at one time."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            if (caster===player) {
+                this.castPosition.x = mousePosition2d.x
+                this.castPosition.y = mousePosition2d.y
+            } else {
+                this.castPosition.x = caster.mousePos.x
+                this.castPosition.y = caster.mousePos.y
+            }
+
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
+
+            caster.useEnergy(this.cost)
+            this.setCd()
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
     }
 
 }

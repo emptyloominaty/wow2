@@ -74,6 +74,7 @@ class WeakenedSoul extends Ability {
         super("Weakened Soul", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
         this.passive = true
         this.duration = 7.5
+        this.hiddenSB = true
     }
 
     getTooltip() {

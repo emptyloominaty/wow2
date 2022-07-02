@@ -106,10 +106,15 @@ let keybinds = {
 
 }
 
-let pressAbility = function(bar,slot){
+let pressAbility = function(bar,slot,actionbar = false){
     if (actionBars[bar].abilities[slot] !== undefined) {
-        actions[actionBars[bar].abilities[slot]].pressStart()
-        player.abilities[actionBars[bar].abilities[slot]].startCast(player)
+        if (actionbar && keyPressed["ControlLeft"]) {
+            let spellname = actionBars[bar].abilities[slot]
+            moveFromActionBar(spellname,bar,slot)
+        } else {
+            actions[actionBars[bar].abilities[slot]].pressStart()
+            player.abilities[actionBars[bar].abilities[slot]].startCast(player)
+        }
     }
 }
 
@@ -562,6 +567,13 @@ let strafeStart = function(e) {
     if (e.button===2) {
         strafing = true
         moveWithMouseButtons[1] = true
+        if (movingFromSpellbook) {
+            movingFromSpellbook = false
+            movingSpellName = ""
+            movingCd = 0
+            movingSpellElement.remove()
+            movingSpellElement = undefined
+        }
     } else if (e.button===0) {
         moveWithMouseButtons[0] = true
     }
@@ -577,8 +589,8 @@ let strafeEnd = function(e) {
     }
 }
 
-elements.canvas.addEventListener('mousedown', strafeStart)
-elements.canvas.addEventListener('mouseup', strafeEnd)
+elements.canvas.addEventListener('mousedown', strafeStart) //TODO FIX?
+elements.canvas.addEventListener('mouseup', strafeEnd) //elements.canvas
 
 
 window.oncontextmenu = (e) => {
