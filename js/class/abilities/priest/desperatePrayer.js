@@ -1,25 +1,29 @@
-class RallyingCry extends Ability {
+class DesperatePrayer extends Ability {
     constructor() {
-        let name = "Rallying Cry"
+        let name = "Desperate Prayer"
         let cost = 0
-        let gcd = 1.5
+        let gcd = 0
         let castTime = 0
-        let cd = 180
+        let cd = 90
         let charges = 1
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "physical"
+        let school = "holy"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.effect = [{name:"increaseHealth",val:0.2}]
+        this.effect = [{name:"increaseHealth",val:0.25}]
         this.duration = 10
 
     }
 
     getTooltip() {
-        return "Lets loose a rallying cry, granting all party or raid members within 40 yards 15% temporary and maximum health for 10 sec."
+        return "Increases maximum health by 25% for 10 sec, and instantly heals you for that amount."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Maximum health increased by 25%."
     }
 
     startCast(caster) {
@@ -27,12 +31,10 @@ class RallyingCry extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
-            for (let i = 0; i<friendlyTargets.length; i++) {
-                if (this.checkDistance(caster,friendlyTargets[i]) && !friendlyTargets[i].isDead) {
-                    applyBuff(caster,friendlyTargets[i],this)
-                    friendlyTargets[i].health += (friendlyTargets[i].stats.stamina*20) * 0.2
-                }
-            }
+
+            applyBuff(caster,caster,this)
+            caster.health += (caster.stats.stamina*20) * 0.25
+
             this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)

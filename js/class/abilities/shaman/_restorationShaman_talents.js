@@ -506,8 +506,8 @@ class AncestralProtectionTotem extends Ability {
         }
         this.petDuration = 30
         this.castPosition = {x:0,y:0}
-        this.effect = [{name:"resurrect"},{name:"increaseHealth",val:0.1}]
-        this.health = 0
+        this.effect = [{name:"resurrect",},{name:"increaseHealth",val:0.1}]
+        this.health = 0.2
 
         this.areaId = 0
         this.petId = 0

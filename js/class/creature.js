@@ -770,10 +770,14 @@ class Creature {
 
         this.floatingTexts.removeAll()
         this.isDead = true
-        if (this.canRess && this.health>this.maxHealth*(-1)) { //TODO:
-            this.health = this.maxHealth*0.2//TODO:
+        if (this.canRess /*&& this.health>this.maxHealth*(-1)*/) { //TODO
+            this.health = this.maxHealth*this.buffs[this.canRessBuffId].ability.health
             this.isDead = false
-            this.buffs[this.canRessBuffId].ability.destroyArea(this.buffs[this.canRessBuffId].caster)
+            if (this.buffs[this.canRessBuffId].ability.destroyArea) {
+                this.buffs[this.canRessBuffId].ability.destroyArea(this.buffs[this.canRessBuffId].caster)
+            }
+            this.buffs[this.canRessBuffId].duration = -1
+
         } else {
             this.health = 0
         }

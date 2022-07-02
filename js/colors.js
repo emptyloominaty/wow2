@@ -23,7 +23,7 @@ let colors = {
         "fire":"#c14f15",
         "frost":"#7ec8d0",
         "nature":"#4ca544",
-        "shadow":"#73737b",
+        "shadow":"#a1a1ac",
         "holy":"#d7d170",
         "astral":"#be8fd0",
         "chaos":"#888833",

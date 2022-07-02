@@ -408,6 +408,7 @@ if (player.spec==="holyPriest") {
         "Holy Word: Serenity": new Action("Holy Word: Serenity", 1, 0),
         "Renew": new Action("Renew", 1, 1),
         "Holy Word: Sanctify": new Action("Holy Word: Sanctify", 1, 2),
+        "Purify": new Action("Purify", 1, 4),
 
         "Flash Heal": new Action("Flash Heal", 1, 8),
         "Heal": new Action("Heal", 1, 9),
@@ -418,11 +419,13 @@ if (player.spec==="holyPriest") {
         "Prayer of Healing": new Action("Prayer of Healing", 0, 2),
 
         "Holy Nova": new Action("Holy Nova", 0, 6),
+        "Desperate Prayer": new Action("Desperate Prayer", 0, 8),
 
         //bar2
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
         "Holy Fire": new Action("Holy Fire", 2, 1),
         "Smite": new Action("Smite", 2, 2),
+        "Guardian Spirit": new Action("Guardian Spirit", 2, 4),
 
         "Prayer of Mending": new Action("Prayer of Mending", 2, 7),
 

@@ -16,8 +16,11 @@ class HolyPriest_abilities {
     "Shackle Undead" = new ShackleUndead()
     "Leap of Faith" = new LeapofFaith()
     "Power Infusion" = new PowerInfusion()
-
-    
+    "Purify" = new Purify()
+    "Desperate Prayer" = new DesperatePrayer()
+    "Resurrection" = new Resurrection()
+    "Mass Resurrection" = new MassResurrection()
+    "Guardian Spirit" = new GuardianSpirit()
 
     //passive
     "Echo of Light" = new EchoofLight()
@@ -33,7 +36,6 @@ class EchoofLight extends Ability {
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
