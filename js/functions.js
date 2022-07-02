@@ -73,6 +73,10 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
                     }
                 }
             }
+        } else if (caster.spec==="holyPriest") {
+            if (caster.abilities["Renewed Faith"].talentSelect) {
+                heal *= 1.1
+            }
         }
 
         if (target.spec==="brewmaster") {

@@ -48,11 +48,13 @@ class Heal extends Ability {
             //heal self
             doHeal(caster,caster,this,0)
             caster.abilities["Echo of Light"].startCast(caster,caster,this)
+            target = caster
         } else {
             //heal target
             doHeal(caster,target,this,0)
             caster.abilities["Echo of Light"].startCast(caster,target,this)
         }
+        caster.abilities["Trail of Light"].heal(caster,target,this)
         caster.abilities["Holy Word: Serenity"].reduceCd(6)
         caster.useEnergy(this.cost)
     }

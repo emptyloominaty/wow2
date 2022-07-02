@@ -13,7 +13,7 @@ let open_settings = function(reload = false) {
         {name:"UI Scale",settingKey:"uiScaling",options:[],rangeMin:0.5,rangeMax:1.5,rangeStep:0.1,range:true,digits:1},
         {name:"Show Scrolling Combat Text",settingKey:"showFloatingAbility",options:[{name:"Off",val:false},{name:"On",val:true}]},
         {name:"Show Floating Combat Text",settingKey:"showTargetFloatingText",options:[{name:"Off",val:false},{name:"On",val:true}]},
-
+        {name:"Static Floating Combat Text",settingKey:"staticTargetFloatingText",options:[{name:"Yes",val:true},{name:"No",val:false}]},
 
         {name:"Graphics",settingKey:"",options:[],category:true},
 

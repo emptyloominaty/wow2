@@ -4,6 +4,7 @@ let settings = {
     reduceTargetFlaotingHealingFont:true,
     showTargetFloatingText:true,
     mouseSensitivity:2.4,
+    staticTargetFloatingText:false,
 
     uiScaling: 1,
 

@@ -90,14 +90,16 @@ class FloatingText2 {
                 }
             //}
             if (text.time>0.1) {
-                let y = parseInt(text.element.style.top, 10)
-                text.element.style.top = (y-(0.005*gameScaling))+"px"
+                if (!settings.staticTargetFloatingText) {
+                    let y = parseInt(text.element.style.top, 10)
+                    text.element.style.top = (y-(0.005*gameScaling))+"px"
 
-                if (y<50) {
-                    text.element.remove()
-                    this.texts.splice(i,1)
-                    i--
-                    continue
+                    if (y<50) {
+                        text.element.remove()
+                        this.texts.splice(i,1)
+                        i--
+                        continue
+                    }
                 }
             }
             if (text.time>1.5) {

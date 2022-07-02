@@ -1,8 +1,8 @@
 let _holyPriest_talents = function(caster) {
     //1
     caster.abilities["Enlightenment"] = new Enlightenment()
-    //caster.abilities["Trail of Light"] = new TrailofLight()
-    //caster.abilities["Renewed Faith"] = new RenewedFaith()
+    caster.abilities["Trail of Light"] = new TrailofLight()
+    caster.abilities["Renewed Faith"] = new RenewedFaith()
 
     //2
     //caster.abilities[""] = new ()
@@ -46,7 +46,7 @@ let _holyPriest_talents = function(caster) {
 //------------------------------------------------------------------------------------------------ROW1
 class Enlightenment extends Ability {
     constructor() {
-        super("Enlightenment", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        super("Enlightenment", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
         this.passive = true
         this.talent = true
     }
@@ -56,16 +56,50 @@ class Enlightenment extends Ability {
     }
 
     setTalent(caster) {
-        caster.energyRegen += 1
+        caster.energyRegen += 0.08
     }
 
     unsetTalent(caster) {
-        caster.energyRegen -= 1
+        caster.energyRegen -= 0.08
     }
 
 }
 //------------------------------------------------
+class TrailofLight extends Ability {
+    constructor() {
+        super("Trail of Light", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.lastTarget = false
+    }
+
+    getTooltip() {
+        return "When you cast Heal or Flash Heal, 35% of the healing is replicated to the previous target you healed with Heal or Flash Heal."
+    }
+
+    heal(caster,target,ability) {
+        if (this.talentSelect) {
+            if (this.lastTarget && !this.lastTarget.isDead) {
+                doHeal(caster,this.lastTarget,ability,undefined,ability.spellPower*0.35)
+            }
+            this.lastTarget = friendlyTargets[target.id2]
+        }
+    }
+
+}
 //------------------------------------------------
+class RenewedFaith extends Ability {
+    constructor() {
+        super("Renewed Faith", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Your healing is increased by 10% on targets with your Renew."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW2
 //------------------------------------------------
 //------------------------------------------------
