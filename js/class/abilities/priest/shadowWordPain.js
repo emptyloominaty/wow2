@@ -2,12 +2,10 @@ class ShadowWordPain extends Ability {
     constructor() {
         let name = "Shadow Word: Pain"
         let cost = 0.3 //% mana
-
         let gcd = 1.5
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = false
@@ -18,11 +16,6 @@ class ShadowWordPain extends Ability {
         this.spellPower = 0.1292*2.12
         this.spellPowerDot = 0.57528
         this.duration = 12
-
-        this.effect = ""
-        this.effectValue = 0
-
-
 
     }
 

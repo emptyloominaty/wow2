@@ -168,7 +168,7 @@ function draw(progress) {
     /*elements.test.innerHTML = "x: "+player.x+"<br>" +
         " y: "+player.y+"<br>" +
         " dir: "+player.direction+"<br>"*/
-    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+Math.round(avgFPS)+"("+Math.round(fps)+")"+player.inCombat
+    elements.test.textContent = "Time:"+getTime(combatTime)+"| FPS: "+Math.round(avgFPS)
     /*elements.test.innerHTML = "Time:"+getTime(combatTime)+"<br> FPS: "+avgFPS.toFixed(0)+"<br>"+"x: "+mousePosition2d.x.toFixed(0)+" y:"+mousePosition2d.y.toFixed(0)+"<br>"+"R: x: "+player.x.toFixed(0)+" y:"+player.y.toFixed(0)+"<br>"  /*+
             "x: "+mousePosition2d.x.toFixed(0)+" y: "+mousePosition2d.y.toFixed(0)*/
 
@@ -285,6 +285,7 @@ function draw(progress) {
                 //debuffs "bar"
                 let debuffsHTML = ""
                 if (creatures[i].enemy) {
+                    let jj = 0
                     for (let j = 0; j<creatures[i].debuffs.length; j++) {
                         if (creatures[i].debuffs[j].caster===player || creatures[i].debuffs[j].type==="stun") {
                             let duration = ""
@@ -293,7 +294,20 @@ function draw(progress) {
                             }
                             debuffsHTML += "<div id='debuffs_"+i+"_"+j+"' class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].debuffs[j].name]+"'> <span id='debuffs_"+i+"_"+j+"duration' >"+duration+"</span></div>"
                         }
+                        jj++
                     }
+
+                    for (let j = 0; j<creatures[i].buffs.length; j++) {
+                        if (creatures[i].buffs[j].ability.dispellable==="magic") {
+                            let duration = ""
+                            if (!creatures[i].buffs[j].ability.permanentBuff) {
+                                duration = Math.round(creatures[i].buffs[j].duration)
+                            }
+                            debuffsHTML += "<div id='debuffs_"+i+"_"+jj+"' class='creature_bar_debuffs'><img src='"+iconsPath[creatures[i].buffs[j].name]+"'> <span id='debuffs_"+i+"_"+jj+"duration' >"+duration+"</span></div>"
+                        }
+                        jj++
+                    }
+
                 }
 
                 let el = elements["creature"+i+"debuffs"]
@@ -314,8 +328,10 @@ function draw(progress) {
                         el.style.zIndex = "0"
                     }
 
+                    let jj = 0
                     for (let j = 0; j<creatures[i].debuffs.length; j++){
                         if (creatures[i].debuffs[j].caster===player || creatures[i].debuffs[j].type==="stun") {
+                            document.getElementById("debuffs_" + i + "_" + j).style.border = "1px solid rgba(0,255,0,0)"
                             document.getElementById("debuffs_" + i + "_" + j).style.width = height + "px"
                             document.getElementById("debuffs_" + i + "_" + j).style.height = height + "px"
 
@@ -323,7 +339,21 @@ function draw(progress) {
                             document.getElementById("debuffs_" + i + "_" + j+"duration").style.height = height + "px"
                             document.getElementById("debuffs_" + i + "_" + j+"duration").style.fontSize = fontSize + "px"
                         }
+                        jj++
                     }
+                    for (let j = 0; j<creatures[i].buffs.length; j++) {
+                        if (creatures[i].buffs[j].ability.dispellable==="magic") {
+                            document.getElementById("debuffs_" + i + "_" + jj).style.border = "1px solid rgba(0,255,0,0.55)"
+                            document.getElementById("debuffs_" + i + "_" + jj).style.width = height + "px"
+                            document.getElementById("debuffs_" + i + "_" + jj).style.height = height + "px"
+
+                            document.getElementById("debuffs_" + i + "_" + jj+"duration").style.width = height + "px"
+                            document.getElementById("debuffs_" + i + "_" + jj+"duration").style.height = height + "px"
+                            document.getElementById("debuffs_" + i + "_" + jj+"duration").style.fontSize = fontSize + "px"
+                        }
+                        jj++
+                    }
+
                 }
             }
             if (creatures[i].isDead) {

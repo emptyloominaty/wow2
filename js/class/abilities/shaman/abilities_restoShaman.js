@@ -26,11 +26,11 @@ class RestoSham_abilities {
     "Earthbind Totem" = new EarthbindTotem()
     "Ancestral Spirit" = new AncestralSpirit()
     "Ancestral Vision" = new AncestralVision()
+    "Purge" = new Purge()
 
     //TODO:
     //Earth Elemental
     //Tremor Totem          //FEAR
-    //Purge                 //MAGIC BUFF ON ENEMY
     //Reincarnation
 
     //passive

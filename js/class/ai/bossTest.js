@@ -36,6 +36,9 @@ let _ai_bossTest = function(creature) {
 
             if (!b.isCasting) {
                 if (b.gcd<=0) {
+                    b.abilities["Magic Buff"].startCast(b)
+                }
+                if (b.gcd<=0) {
                     b.abilities["Magic Dot"].startCast(b)
                 }
                 if (b.gcd<=0) {

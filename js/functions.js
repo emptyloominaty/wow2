@@ -663,6 +663,22 @@ let dispel = function (caster,target,dispelType1 = false,dispelType2 = false,dis
     return false
 }
 
+let dispelEnemy = function (caster,target,targets = 0) {
+    let d = 0
+    for (let i = 0; i<target.buffs.length; i++) {
+        if (target.buffs[i].ability.dispellable!==false && (target.buffs[i].ability.dispellable==="magic")) {
+            target.buffs[i].duration = -1
+            d++
+            if (targets===1) {
+                break
+            }
+        }
+    }
+    if (d>0) {
+        return true
+    }
+    return false
+}
 
 let sortFriendlyTargetsByHealth = function(array = false) {
     let t = []

@@ -1,10 +1,10 @@
-class GuardianSpirit extends Ability {
+class Fade extends Ability {
     constructor() {
-        let name = "Guardian Spirit"
-        let cost = 0.9
+        let name = "Fade"
+        let cost = 0
         let gcd = 0
         let castTime = 0
-        let cd = 180
+        let cd = 30
         let charges = 1
         let channeling = false
         let casting = false
@@ -14,18 +14,15 @@ class GuardianSpirit extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.duration = 10
-        this.effect = [{name:"resurrect"},{name:"healingIncrease2",val:0.6}]
-        this.health = 0.4
+        this.effect = []
     }
 
     getTooltip() {
-        return "Calls upon a guardian spirit to watch over the friendly target for 10 sec, increasing healing received by 60%. If the target would die, the Spirit sacrifices itself and restores the target to 40% health.<br>" +
-            "<br>" +
-            "Castable while stunned. Cannot save the target from massive damage." //TODO:Castable while stunned.
+        return "Fade out, removing all your threat and reducing enemies' attack range against you for 10 sec." //TODO:reducing enemies' attack range against you for 10 sec.
     }
 
     getBuffTooltip(caster, target, buff) {
-        return "Increased healing received by 60% and will prevent 1 killing blow."
+        return "Reduced threat level."
     }
 
     startCast(caster) {
@@ -45,11 +42,11 @@ class GuardianSpirit extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        let target = caster.casting.target
-        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-            applyBuff(caster,caster,this)
-        } else {
-            applyBuff(caster,target,this)
+        applyBuff(caster,caster,this)
+        for (let i = 0; i<enemies.length; i++) {
+            if (enemies[i].aggro[caster.id2]) {
+                enemies[i].aggro[caster.id2] = 0
+            }
         }
         this.setCd()
         caster.useEnergy(this.cost)

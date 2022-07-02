@@ -25,9 +25,6 @@ class HolyWordSanctify extends Ability {
         return "Heals the target and 4 injured allies within 30 yards of the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+""
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {

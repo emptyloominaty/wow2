@@ -190,6 +190,7 @@ if (player.spec==="restorationShaman") {
 
         "Wind Shear": new Action("Wind Shear", 0, 5),
         "Chain Lightning": new Action("Chain Lightning", 0, 6),
+        "Purge": new Action("Purge", 0, 7),
         "Astral Shift": new Action("Astral Shift", 0, 8),
         "Hex": new Action("Hex", 0, 11),
         //bar2
@@ -219,6 +220,7 @@ if (player.spec==="elemental") {
 
         "Wind Shear": new Action("Wind Shear", 0, 5),
         "Chain Lightning": new Action("Chain Lightning", 0, 6),
+        "Purge": new Action("Purge", 0, 7),
         "Astral Shift": new Action("Astral Shift", 0, 8),
 
         "Earth Shock": new Action("Earth Shock", 1, 0),
@@ -408,7 +410,9 @@ if (player.spec==="holyPriest") {
         "Holy Word: Serenity": new Action("Holy Word: Serenity", 1, 0),
         "Renew": new Action("Renew", 1, 1),
         "Holy Word: Sanctify": new Action("Holy Word: Sanctify", 1, 2),
-        "Purify": new Action("Purify", 1, 4),
+
+        "Mass Dispel": new Action("Mass Dispel",1,4),
+        "Symbol of Hope": new Action("Symbol of Hope", 1, 6),
 
         "Flash Heal": new Action("Flash Heal", 1, 8),
         "Heal": new Action("Heal", 1, 9),
@@ -418,7 +422,10 @@ if (player.spec==="holyPriest") {
         "Circle of Healing": new Action("Circle of Healing", 0, 1),
         "Prayer of Healing": new Action("Prayer of Healing", 0, 2),
 
+        "Purify": new Action("Purify", 0, 4),
+
         "Holy Nova": new Action("Holy Nova", 0, 6),
+        "Dispel Magic": new Action("Dispel Magic", 0, 7),
         "Desperate Prayer": new Action("Desperate Prayer", 0, 8),
 
         //bar2
@@ -426,6 +433,7 @@ if (player.spec==="holyPriest") {
         "Holy Fire": new Action("Holy Fire", 2, 1),
         "Smite": new Action("Smite", 2, 2),
         "Guardian Spirit": new Action("Guardian Spirit", 2, 4),
+        "Fade": new Action("Fade", 2, 5),
 
         "Prayer of Mending": new Action("Prayer of Mending", 2, 7),
 

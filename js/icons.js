@@ -59,6 +59,7 @@ let iconsPath = {
 
     //TEST
     "Magic Dot":"img/monk/SongofChi-Ji.jpg",
+    "Magic Buff":"img/druid/Regrowth.jpg",
 
     //Death Knight
     "All Will Serve":"img/deathKnight/AllWillServe.jpg",

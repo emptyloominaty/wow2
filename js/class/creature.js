@@ -620,6 +620,8 @@ class Creature {
                             }
                             this.buffs[i].effect[j].timer=0
                         }
+                    } else if (this.buffs[i].effect[j].name === "cantDie") {
+                        this.health = this.maxHealth
                     }
                 }
             } else {
@@ -766,6 +768,13 @@ class Creature {
         if (this.class==="Rogue" && this.abilities["Cheat Death"].talentSelect) {
             this.abilities["Cheat Death"].cheat(this)
             return false
+        }
+        if (this.spec==="holyPriest") {
+            if (this.abilities["Spirit of Redemption"].applyBuff(this)) {
+                return false
+            } else {
+                this.abilities["Spirit of Redemption"].used = false
+            }
         }
 
         this.floatingTexts.removeAll()

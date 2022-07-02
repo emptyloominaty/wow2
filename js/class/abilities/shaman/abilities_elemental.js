@@ -19,12 +19,12 @@ class Elemental_Abilities {
     "Earthquake" = new Earthquake()
     "Cleanse Spirit" = new CleanseSpirit()
     "Fire Elemental" = new FireElemental()
+    "Purge" = new Purge()
 
     //TODO
     //Thunderstorm
     //Earth Elemental
     //Tremor Totem          //FEAR
-    //Purge                 //MAGIC BUFF ON ENEMY
     //Reincarnation
 
     //passive

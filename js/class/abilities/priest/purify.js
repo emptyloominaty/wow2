@@ -9,7 +9,7 @@ class Purify extends Ability {
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "nature"
+        let school = "holy"
         let range = 40
         super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
         this.dispelTypes = ["magic", "disease", false]
