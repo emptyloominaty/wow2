@@ -110,18 +110,20 @@ class Stagger extends Ability {
                 } else {
                     target.debuffs[i].name = "Light Stagger"
                 }
+                target.debuffs[i].effect[0].dotVal = target.debuffs[i].effect[0].val/this.duration
                 done = true
             }
         }
         if (!done) {
             this.effect[0].val = staggeredDamage
+            this.effect[0].dotVal = this.effect[0].val/this.duration
             applyDebuff(target,target,this,"stagger",undefined,undefined,"Light Stagger")
         }
 
         if (target.abilities["High Tolerance"].talentSelect) {
             target.abilities["High Tolerance"].applyBuff(target)
         }
-        this.effect[0].dotVal = this.effect[0].val/this.duration
+
         return damage
 
     }

@@ -14,7 +14,7 @@ class LeapofFaith extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.duration = 2
-        this.effect = [{name:"moveToTarget",val:7,target:{}}]
+        this.effect = [{name:"moveToTarget",val:7,target:0}]
     }
 
     getTooltip() {
@@ -43,7 +43,7 @@ class LeapofFaith extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        let target = caster.casting.target
+        let target = caster.casting.target.id
         this.setCd()
         if (!this.isEnemy(caster,target) && !target.isDead && target!=="" && Object.keys(target).length !== 0) {
             applyBuff(caster,target,this)

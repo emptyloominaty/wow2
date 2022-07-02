@@ -258,6 +258,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
 
         if (target.spec==="brewmaster" && ability.name!=="Stagger") {
             damage = target.abilities["Stagger"].reduceDamage(caster,target,ability,damage)
+        } else if (target.spec==="holyPriest") {
+            if (target.abilities["Angel's Mercy"].talentSelect) {
+                target.abilities["Angel's Mercy"].takeDamage(target,damage)
+            }
         }
 
         //PET
@@ -319,7 +323,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     if (inCombat) {
                         timelineCombatLog.heal(target.buffs[target.absorbsBuffId[b]].caster,target,target.buffs[target.absorbsBuffId[b]].ability,absorbed,0)
                     }
-                    details.doHealing(target, absorbed, target.buffs[target.absorbsBuffId[b]].ability, 0,target.buffs[target.absorbsBuffId[b]].name)
+                    details.doHealing(target.buffs[target.absorbsBuffId[b]].caster, absorbed, target.buffs[target.absorbsBuffId[b]].ability, 0,target.buffs[target.absorbsBuffId[b]].name)
                     if (target.buffs[target.absorbsBuffId[b]].effect[0].val>absorbed) {
                         target.buffs[target.absorbsBuffId[b]].effect[0].val -= absorbed
                         break
@@ -364,9 +368,9 @@ let applyHot = function(caster,target,ability,duration = 0,extDuration = 0,spell
             spellPower = spellPowerHot
         }
         if (duration === 0) {
-            target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:maxDuration, extendedDuration:0, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+            target.buffs.push({name:ability.name, type:"hot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:maxDuration, extendedDuration:0, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
         } else {
-            target.buffs.push({name:ability.name, type:"hot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:maxDuration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+            target.buffs.push({name:ability.name, type:"hot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:maxDuration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
         }
     }
 }
@@ -403,7 +407,7 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
         }
 
 
-        target.buffs.push({name:buffName, type: type, effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+        target.buffs.push({name:buffName, type: type, effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
     }
 }
 
@@ -428,7 +432,7 @@ let applyDebuff = function (caster,target,ability,type = "debuff",stacks = 1, st
                 return true
             }
         }
-        target.debuffs.push({name:debuffName, type: type, effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+        target.debuffs.push({name:debuffName, type: type, effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
     }
 }
 
@@ -528,9 +532,9 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
         }
 
         if (duration === 0) {
-            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration2, maxDuration:duration2, extendedDuration:0, spellPower:spellPower/duration2, caster:caster,ability:ability })
+            target.debuffs.push({name:ability.name, type:"dot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration2, maxDuration:duration2, extendedDuration:0, spellPower:spellPower/duration2, caster:caster,ability:ability })
         } else {
-            target.debuffs.push({name:ability.name, type:"dot", effect:ability.effect, effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:duration2, extendedDuration:extDuration, spellPower:spellPower/duration2, caster:caster,ability:ability })
+            target.debuffs.push({name:ability.name, type:"dot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:duration2, extendedDuration:extDuration, spellPower:spellPower/duration2, caster:caster,ability:ability })
         }
     }
 }

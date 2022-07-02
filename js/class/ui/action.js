@@ -410,7 +410,7 @@ if (player.spec==="holyPriest") {
         "Holy Word: Serenity": new Action("Holy Word: Serenity", 1, 0),
         "Renew": new Action("Renew", 1, 1),
         "Holy Word: Sanctify": new Action("Holy Word: Sanctify", 1, 2),
-
+        "Angelic Feather": new Action("Angelic Feather", 1, 3),
         "Mass Dispel": new Action("Mass Dispel",1,4),
         "Symbol of Hope": new Action("Symbol of Hope", 1, 6),
 
@@ -440,6 +440,7 @@ if (player.spec==="holyPriest") {
 
         "Leap of Faith": new Action( "Leap of Faith",3,0),
         "Power Infusion": new Action( "Power Infusion",3,1),
+        "Power Word: Shield": new Action( "Power Word: Shield",3,2)
 
     }
 }

@@ -488,9 +488,9 @@ class Creature {
                         if (this.buffs[i].effect[j].dist) {
                             minDistance = this.buffs[i].effect[j].dist
                         }
-                        this.direction = getDirection(this,this.buffs[i].effect[j].target)
+                        this.direction = getDirection(this,creatures[this.buffs[i].effect[j].target])
                         this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
-                        if (getDistance(this,this.buffs[i].effect[j].target)<minDistance) {
+                        if (getDistance(this,this,creatures[this.buffs[i].effect[j].target])<minDistance) {
                             this.buffs[i].duration = -1
                         }
                     } else if (this.buffs[i].effect[j].name === "stun") {

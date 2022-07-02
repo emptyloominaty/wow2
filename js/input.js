@@ -388,6 +388,69 @@ let keyLoop = () => {
         }
     }
 
+    if (keyPressed[keybinds["Bar3 Ability2"].key]) {
+        if ((modPressed("Bar3 Ability2"))) {
+            pressAbility(3,2)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability3"].key]) {
+        if ((modPressed("Bar3 Ability3"))) {
+            pressAbility(3,3)
+
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability4"].key]) {
+        if ((modPressed("Bar3 Ability4"))) {
+            pressAbility(3,4)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability5"].key]) {
+        if ((modPressed("Bar3 Ability5"))) {
+            pressAbility(3,5)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability6"].key]) {
+        if ((modPressed("Bar3 Ability6"))) {
+            pressAbility(3,6)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability7"].key]) {
+        if ((modPressed("Bar3 Ability7"))) {
+            pressAbility(3,7)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability8"].key]) {
+        if ((modPressed("Bar3 Ability8"))) {
+            pressAbility(3,8)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability9"].key]) {
+        if ((modPressed("Bar3 Ability9"))) {
+            pressAbility(3,9)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability10"].key]) {
+        if ((modPressed("Bar3 Ability10"))) {
+            pressAbility(3,10)
+        }
+    }
+
+    if (keyPressed[keybinds["Bar3 Ability11"].key]) {
+        if ((modPressed("Bar3 Ability11"))) {
+            pressAbility(3,11)
+        }
+    }
+
+
+
     if (keyPressed[keybinds["Character Info"].key]) {
         if ((modPressed("Character Info"))) {
             if (currentWindow!=="character") {

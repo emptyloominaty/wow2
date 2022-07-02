@@ -5,9 +5,9 @@ let _holyPriest_talents = function(caster) {
     caster.abilities["Renewed Faith"] = new RenewedFaith()
 
     //2
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Angel's Mercy"] = new AngelsMercy()
+    caster.abilities["Body and Soul"] = new BodyandSoul()
+    caster.abilities["Angelic Feather"] = new AngelicFeather()
 
     //3
     //caster.abilities[""] = new ()
@@ -101,8 +101,51 @@ class RenewedFaith extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW2
+class AngelsMercy extends Ability {
+    constructor() {
+        super("Angel's Mercy", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Damage you take reduces the cooldown of Desperate Prayer, based on the amount of damage taken."
+    }
+
+    takeDamage(caster,damage) {
+        let val = (damage / caster.maxHealth) * 15
+        caster.abilities["Desperate Prayer"].incCd(caster,val,false)
+    }
+}
 //------------------------------------------------
+class BodyandSoul extends Ability {
+    constructor() {
+        super("Body and Soul", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 3
+        this.effect = [{name:"moveSpeed",val:0.4}]
+    }
+
+    getTooltip() { //TODO:
+        return "Power Word: Shield and Leap of Faith increase your target's movement speed by 40% for 3 sec."
+    }
+
+}
 //------------------------------------------------
+class AngelicFeather extends Ability {
+    constructor() {
+        super("Angelic Feather", 0, 1.5, 0, 20, false, false, false, "holy", 40, 3)
+        this.passive = true
+        this.talent = true
+        //area 2m
+    }
+
+    getTooltip() { //TODO:
+        return "Places a feather at the target location, granting the first ally to walk through it 40% increased movement speed for 5 sec. Only 3 feathers can be placed at one time."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW3
 //------------------------------------------------
 //------------------------------------------------

@@ -14,7 +14,7 @@ class Charge extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.1147
-        this.effect = [{name:"moveToTarget",val:7,target:{}}]
+        this.effect = [{name:"moveToTarget",val:7,target:0}]
         this.duration = 2.5
         this.minRange = 8
         this.caster = {}
@@ -41,7 +41,7 @@ class Charge extends Ability {
                 this.setGcd(caster)
                 this.setCd()
                 this.caster = caster
-                this.effect[0].target = caster.castTarget
+                this.effect[0].target = caster.castTarget.id
                 applyBuff(caster,caster,this)
 
                 if (caster.abilities["Furious Charge"].talentSelect) {
@@ -61,7 +61,7 @@ class Charge extends Ability {
     }
 
     endBuff(target) {
-        doDamage(this.caster, this.effect[0].target, this)
+        doDamage(this.caster, creatures[this.effect[0].target], this)
         target.isRolling = false
     }
 }

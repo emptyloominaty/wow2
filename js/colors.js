@@ -15,7 +15,7 @@ let colors = {
     "error":"#ff7d66",
     "textRed":"#ff3331",
     "text":"#d1d1d1",
-    "absorb":"#68d0eb",
+    "absorb":"#a4e9ff",
 
     details:{
         "physical":"#888833",

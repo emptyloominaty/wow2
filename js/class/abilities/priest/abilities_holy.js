@@ -26,6 +26,7 @@ class HolyPriest_abilities {
     "Dispel Magic" = new DispelMagic()
     "Mass Dispel" = new MassDispel()
     "Shadow Word: Death" = new ShadowWordDeath()
+    "Power Word: Shield" = new PowerWordShield()
 
     //TODO
     //Psychic Scream
@@ -34,6 +35,7 @@ class HolyPriest_abilities {
     //passive
     "Echo of Light" = new EchoofLight()
     "Spirit of Redemption" = new SpiritofRedemption()
+    "Weakened Soul" = new WeakenedSoul()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
