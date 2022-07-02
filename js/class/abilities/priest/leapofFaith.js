@@ -32,7 +32,6 @@ class LeapofFaith extends Ability {
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
-            this.effect[0].target = caster
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -43,10 +42,14 @@ class LeapofFaith extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        let target = caster.casting.target.id
+        let target = caster.casting.target
+        this.effect[0].target = caster.id
         this.setCd()
         if (!this.isEnemy(caster,target) && !target.isDead && target!=="" && Object.keys(target).length !== 0) {
             applyBuff(caster,target,this)
+            if (caster.abilities["Body and Soul"].talentSelect) {
+                applyBuff(caster,target,caster.abilities["Body and Soul"])
+            }
         }
         caster.useEnergy(this.cost)
     }

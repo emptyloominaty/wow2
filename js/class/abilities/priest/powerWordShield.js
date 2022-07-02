@@ -49,11 +49,17 @@ class PowerWordShield extends Ability {
             if (!checkDebuff(caster,caster,"Weakened Soul")) {
                 applyBuff(caster,caster,this)
                 applyDebuff(caster,caster,caster.abilities["Weakened Soul"])
+                if (caster.abilities["Body and Soul"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Body and Soul"])
+                }
             }
         } else {
             if (!checkDebuff(caster,target,"Weakened Soul")) {
                 applyBuff(caster, target, this)
                 applyDebuff(caster,target,caster.abilities["Weakened Soul"])
+                if (caster.abilities["Body and Soul"].talentSelect) {
+                    applyBuff(caster,target,caster.abilities["Body and Soul"])
+                }
             }
         }
         caster.useEnergy(this.cost)
