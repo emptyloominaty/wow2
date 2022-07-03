@@ -16,7 +16,7 @@ class HolyWordChastise extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 1.4*1.44
-        this.effect = [{name:"stun"}]
+        this.effect = [{name:"incapacitate"}]
         this.duration = 4
 
     }

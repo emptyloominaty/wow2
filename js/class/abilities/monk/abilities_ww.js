@@ -27,7 +27,7 @@ class Ww_abilities {
     //passive
     "Mystic Touch" = new MysticTouch()
     "Windwalking" = new Windwalking()
-    "Afterlife" = new Afterlife()//TODO:
+    "Afterlife" = new AfterlifeWW()//TODO:
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -71,7 +71,7 @@ class Windwalking extends Ability {
     }
 }
 
-class Afterlife extends Ability {
+class AfterlifeWW extends Ability {
     //TODO:
     constructor() {
         super("Afterlife", 0, 0, 0, 0, false, false, false, "physical", 5, 1)

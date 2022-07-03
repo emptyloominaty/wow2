@@ -55,6 +55,9 @@ class FlashHeal extends Ability {
             caster.abilities["Echo of Light"].startCast(caster,target,this)
         }
         caster.abilities["Trail of Light"].heal(caster,target,this)
+        if (caster.abilities["Binding Heals"].talentSelect) {
+            doHeal(caster,caster,this,undefined,this.spellPower*0.2)
+        }
         caster.abilities["Holy Word: Serenity"].reduceCd(6)
         caster.useEnergy(this.cost)
     }

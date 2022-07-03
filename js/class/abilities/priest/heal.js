@@ -46,15 +46,18 @@ class Heal extends Ability {
         let target = caster.casting.target
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
-            doHeal(caster,caster,this,0)
+            doHeal(caster,caster,this,)
             caster.abilities["Echo of Light"].startCast(caster,caster,this)
             target = caster
         } else {
             //heal target
-            doHeal(caster,target,this,0)
+            doHeal(caster,target,this,)
             caster.abilities["Echo of Light"].startCast(caster,target,this)
         }
         caster.abilities["Trail of Light"].heal(caster,target,this)
+        if (caster.abilities["Binding Heals"].talentSelect) {
+            doHeal(caster,caster,this,undefined,this.spellPower*0.2)
+        }
         caster.abilities["Holy Word: Serenity"].reduceCd(6)
         caster.useEnergy(this.cost)
     }
