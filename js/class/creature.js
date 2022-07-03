@@ -197,6 +197,7 @@ class Creature {
         } else if (spec==="restorationDruid") { //----------------------------------------Resto Druid
             this.class = "Druid"
             this.abilities = new restoDruid_abilities()
+            _restorationDruid_talents(this)
             this.melee = false
             this.role = "healer"
         } else if (spec==="balance") {//----------------------------------------Balance

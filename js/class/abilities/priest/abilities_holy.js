@@ -58,7 +58,13 @@ class EchoofLight extends Ability {
         this.duration = 6
         this.effect = []
         this.passive = true
+        this.mastery = true
     }
+
+    getTooltip() {
+        return "Your direct healing spells heal for an additional "+spellPowerToNumber(player.stats.mastery)+" over 6 sec."
+    }
+
     startCast(caster,target,ability){
         applyHot(caster, target, this,undefined,undefined,ability.spellPower*(caster.stats.mastery/100))
     }

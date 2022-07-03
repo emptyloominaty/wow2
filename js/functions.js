@@ -368,9 +368,9 @@ let applyHot = function(caster,target,ability,duration = 0,extDuration = 0,spell
             spellPower = spellPowerHot
         }
         if (duration === 0) {
-            target.buffs.push({name:ability.name, type:"hot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:maxDuration, extendedDuration:0, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+            target.buffs.push({name:ability.name,school:ability.school, type:"hot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:maxDuration, extendedDuration:0, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
         } else {
-            target.buffs.push({name:ability.name, type:"hot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:maxDuration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
+            target.buffs.push({name:ability.name,school:ability.school, type:"hot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:maxDuration, extendedDuration:extDuration, spellPower:spellPower/ability.duration, caster:caster,ability:ability })
         }
     }
 }

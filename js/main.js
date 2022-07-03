@@ -8,6 +8,8 @@ let avgFPSlastSec = []
 let combatLog = []
 let detailsIdx = 0
 
+let crCount = 1
+
 function update(progress) {
     fps = 1/progress*1000
     progressInSec = progress/1000
@@ -26,6 +28,8 @@ function update(progress) {
         combatTime += progressInSec
     }
 
+    //combat res
+    crCount += (progressInSec * friendlyTargets.length)/4800
 
     //AvgFPS Sec---------------------------------------------
     avgFPSlastSec.push(fps)

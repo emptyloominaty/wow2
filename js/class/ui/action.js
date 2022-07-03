@@ -248,6 +248,7 @@ if (player.spec==="restorationDruid") {
     actions = {
         //bar1
         "Rejuvenation": new Action("Rejuvenation", 1, 1),
+        "Efflorescence": new Action("Efflorescence",1,2),
         "Regrowth": new Action("Regrowth", 1, 8),
         //bar0
         "Wild Growth": new Action("Wild Growth", 0, 1),

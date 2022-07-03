@@ -18,13 +18,13 @@ let colors = {
     "absorb":"#a4e9ff",
 
     details:{
-        "physical":"#888833",
+        "physical":"#a8a83f",
         "arcane":"#e5b7e0",
         "fire":"#c14f15",
         "frost":"#7ec8d0",
-        "nature":"#4ca544",
+        "nature":"#7ec771",
         "shadow":"#a1a1ac",
-        "holy":"#d7d170",
+        "holy":"#efe492",
         "astral":"#be8fd0",
         "chaos":"#888833",
         "divine":"#888833",
