@@ -53,6 +53,8 @@ class HolyWordSerenity extends Ability {
             doHeal(caster,target,this,0)
             caster.abilities["Echo of Light"].startCast(caster,target,this)
         }
+        caster.abilities["Surge of Light"].chance(caster)
+        this.holyPriestCdUsed = false
         this.setCd()
         caster.useEnergy(this.cost)
     }

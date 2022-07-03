@@ -54,6 +54,7 @@ class Ability {
         this.secCost = secCost
         this.poison = poison
         this.bleed = bleed
+        this.holyPriestCdUsed = false
     }
 
     getTooltip() {
@@ -337,6 +338,16 @@ class Ability {
                 //cd
                 if (this.cd<this.maxCd) {
                     this.cd += inc
+                }
+            }
+        }
+        if (caster.spec==="holyPriest" && !this.holyPriestCdUsed) {
+            if (caster.abilities["Cosmic Ripple"].talentSelect) {
+                if (this.cd>=this.maxCd) {
+                    if (this.name==="Holy Word: Serenity" || this.name==="Holy Word: Sanctify") {
+                        caster.abilities["Cosmic Ripple"].burst(caster)
+                        this.holyPriestCdUsed = true
+                    }
                 }
             }
         }

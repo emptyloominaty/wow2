@@ -31,8 +31,13 @@ class PrayerofHealing extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            let castTime = this.castTime
+            if (checkBuff(caster,caster,"Prayer Circle")) {
+                castTime /= 1.25
+            }
+
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -67,8 +72,14 @@ class PrayerofHealing extends Ability {
                 break
             }
         }
+        let cost = this.cost
+        caster.abilities["Surge of Light"].chance(caster)
         caster.abilities["Holy Word: Sanctify"].reduceCd(6)
+        if (checkBuff(caster,caster,"Prayer Circle")) {
+            cost /= 1.25
+        }
+
         this.setCd()
-        caster.useEnergy(this.cost)
+        caster.useEnergy(cost)
     }
 }

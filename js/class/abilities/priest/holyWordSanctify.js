@@ -41,6 +41,9 @@ class HolyWordSanctify extends Ability {
 
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+
+            caster.abilities["Surge of Light"].chance(caster)
+
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -53,6 +56,7 @@ class HolyWordSanctify extends Ability {
         caster.isCasting = false
         addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
         this.setCd()
+        this.holyPriestCdUsed = false
         caster.useEnergy(this.cost)
     }
 }

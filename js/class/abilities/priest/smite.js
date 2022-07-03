@@ -26,10 +26,6 @@ class Smite extends Ability {
     getTooltip() {
         return "Smites an enemy for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Holy damage and has a 20% chance to reset the cooldown of Holy Fire."
     }
-
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
@@ -75,16 +71,14 @@ class Smite extends Ability {
                 if (getChance(this.resetChance)) {
                     caster.abilities["Holy Fire"].cd = caster.abilities["Holy Fire"].maxCd
                 }
-                caster.abilities["Holy Word: Chastise"].reduceCd(4)
+                if (caster.spec==="holyPriest") {
+                    caster.abilities["Surge of Light"].chance(caster)
+                    caster.abilities["Holy Word: Chastise"].reduceCd(4)
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0
             }
         }
     }
 
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

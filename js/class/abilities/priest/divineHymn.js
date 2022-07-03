@@ -37,14 +37,14 @@ class DivineHymn extends Ability {
             this.setGcd(caster)
             this.cd = 0
             caster.useEnergy(this.cost)
+
+            caster.abilities["Surge of Light"].chance(caster)
+
             return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
         return false
-    }
-
-    endChanneling(caster) {
     }
 
     cast(caster) {

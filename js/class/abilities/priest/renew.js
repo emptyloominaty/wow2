@@ -53,7 +53,10 @@ class Renew extends Ability {
             applyHot(caster,target,this)
             caster.abilities["Echo of Light"].startCast(caster,target,this)
         }
-        caster.abilities["Holy Word: Sanctify"].reduceCd(2)
+        if (caster.spec==="holyPriest") {
+            caster.abilities["Surge of Light"].chance(caster)
+            caster.abilities["Holy Word: Sanctify"].reduceCd(2)
+        }
         caster.useEnergy(this.cost)
     }
 }

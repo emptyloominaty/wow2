@@ -17,12 +17,12 @@ let _holyPriest_talents = function(caster) {
     //4
     caster.abilities["Psychic Voice"] = new PsychicVoice()
     caster.abilities["Censure"] = new Censure()
-    //caster.abilities["Shining Force"] = new ShiningForce()
+    caster.abilities["Shining Force"] = new ShiningForce()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Surge of Light"] = new SurgeofLight()
+    caster.abilities["Cosmic Ripple"] = new CosmicRipple()
+    caster.abilities["Prayer Circle"] = new PrayerCircle()
 
     //6
     //caster.abilities[""] = new ()
@@ -276,10 +276,113 @@ class Censure extends Ability {
     }
 }
 //------------------------------------------------
+class ShiningForce extends Ability {
+    constructor() {
+        super("Shining Force", 2.5, 1.5, 0, 45, false, false, false, "holy", 40, 1)
+        this.talent = true
+        this.effect = [{name:"moveSpeed",val:0.7}]
+        this.duration = 3
+        this.area = {type:"circle", radius:10, duration: 0.2,data:{type:"applyDebuff",color:"#f8ff81",color2:"rgba(253,255,139,0.38)",cast:false}}
+        this.area2 = {type:"circle", radius:10, duration: 0.5,data:{type:"ringofPeace",color:"#f8ff81",color2:"rgba(253,255,139,0.38)",cast:false}}
+        this.castPosition = {x:0,y:0}
+    }
+
+    getTooltip() {
+        return "Creates a burst of light around a friendly target, knocking away nearby enemies and slowing their movement speed by 70% for 3 sec."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            if (caster===player) {
+                this.castPosition.x = mousePosition2d.x
+                this.castPosition.y = mousePosition2d.y
+            } else {
+                this.castPosition.x = caster.mousePos.x
+                this.castPosition.y = caster.mousePos.y
+            }
+
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
+            addArea(areas.length,caster,this,this.area2.type,this.area2.duration,this.area2.data,this.castPosition.x,this.castPosition.y,false,this.area2.radius)
+
+            caster.useEnergy(this.cost)
+            this.setCd()
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW5
+class SurgeofLight extends Ability {
+    constructor() {
+        super("Surge of Light", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 20
+        this.maxStacks = 2
+    }
+
+    getTooltip() {
+        return "Your healing spells and Smite have a 8% chance to make your next Flash Heal instant and cost no mana. Stacks to 2."
+    }
+
+    chance(caster) { //TODO: DivineStar, Halo
+        if (this.talentSelect && getChance(8)) {
+            applyBuff(caster,caster,this,2,true)
+        }
+    }
+}
 //------------------------------------------------
+class CosmicRipple extends Ability {
+    constructor() {
+        super("Cosmic Ripple", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.spellPower = 0.42
+        this.targetsHeal = 5
+    }
+
+    getTooltip() {
+        return "When Holy Word: Serenity or Holy Word: Sanctify finish their cooldown, you emit a burst of light that heals up to 5 injured targets for (42% of Spell power)."
+    }
+
+    burst(caster) {
+        let tth = 0
+        for (let i = 0; i<friendlyTargets.length ;i++) {
+            if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i],undefined,true)) {
+                doHeal(caster, friendlyTargets[i], this)
+                tth++
+                if (tth>=this.targetsHeal) {
+                    break
+                }
+            }
+        }
+    }
+}
 //------------------------------------------------
+class PrayerCircle extends Ability {
+    constructor() {
+        super("Prayer Circle", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 8
+    }
+
+    getTooltip() {
+        return "Using Circle of Healing reduces the cast time and cost of your Prayer of Healing by 25% for 8 sec."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW6
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

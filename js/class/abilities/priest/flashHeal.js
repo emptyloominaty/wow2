@@ -31,8 +31,13 @@ class FlashHeal extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            let castTime = this.castTime
+            if (caster.abilities["Surge of Light"].talentSelect && checkBuff(caster,caster,"Surge of Light")) {
+                castTime = 0
+            }
+
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -59,6 +64,22 @@ class FlashHeal extends Ability {
             doHeal(caster,caster,this,undefined,this.spellPower*0.2)
         }
         caster.abilities["Holy Word: Serenity"].reduceCd(6)
-        caster.useEnergy(this.cost)
+        if (caster.spec==="holyPriest") {
+            caster.abilities["Surge of Light"].chance(caster)
+        }
+        let cost = this.cost
+        if (caster.abilities["Surge of Light"].talentSelect) {
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name==="Surge of Light") {
+                    if (caster.buffs[i].stacks>1) {
+                        caster.buffs[i].stacks--
+                    } else {
+                        caster.buffs[i].duration = -1
+                    }
+                }
+            }
+            cost = 0
+        }
+        caster.useEnergy(cost)
     }
 }

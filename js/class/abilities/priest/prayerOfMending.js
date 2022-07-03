@@ -26,9 +26,6 @@ class PrayerofMending extends Ability {
         return "Places a ward on an ally that heals them for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))* (1 + (player.stats.haste / 100))).toFixed(0)+" the next time they take damage, and then jumps to another ally within 20 yds. Jumps up to 5 times and lasts 30 sec after each jump."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
@@ -53,6 +50,9 @@ class PrayerofMending extends Ability {
         } else {
             //heal target
             applyBuff(caster,target,this,this.stacks,true)
+        }
+        if (caster.spec==="holyPriest") {
+            caster.abilities["Surge of Light"].chance(caster)
         }
         this.setCd()
         caster.useEnergy(this.cost)

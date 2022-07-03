@@ -24,9 +24,6 @@ class CircleofHealing extends Ability {
         return "Heals the target and 4 injured allies within 30 yards of the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+""
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
@@ -68,6 +65,10 @@ class CircleofHealing extends Ability {
             if (tth>this.targetsHeal) {
                 break
             }
+        }
+        caster.abilities["Surge of Light"].chance(caster)
+        if (caster.abilities["Prayer Circle"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["Prayer Circle"])
         }
         this.setCd()
         caster.useEnergy(this.cost)

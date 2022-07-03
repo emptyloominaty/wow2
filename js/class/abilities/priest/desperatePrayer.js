@@ -35,6 +35,11 @@ class DesperatePrayer extends Ability {
             applyBuff(caster,caster,this)
             caster.health += (caster.stats.stamina*20) * 0.25
 
+
+            if (caster.spec==="holyPriest") {
+                caster.abilities["Surge of Light"].chance(caster)
+            }
+
             this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)
