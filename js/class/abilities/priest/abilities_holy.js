@@ -36,6 +36,7 @@ class HolyPriest_abilities {
     "Echo of Light" = new EchoofLight()
     "Spirit of Redemption" = new SpiritofRedemption()
     "Weakened Soul" = new WeakenedSoul()
+    "Holy Words" = new HolyWords()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -103,3 +104,38 @@ class SpiritofRedemption extends Ability {
         target.die()
     }
 }
+
+class HolyWords extends Ability {
+    constructor() {
+        let name = "Holy Words"
+        let cost = 0
+        let gcd = 0
+        let castTime = 0
+        let cd = 0
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = true
+        let school = "holy"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.passive = true
+
+        this.serenity = 6
+        this.sanctify = 6
+        this.sanctify2 = 2
+        this.chastise = 4
+        this.salvation = 30
+
+    }
+
+    getTooltip() {
+        return "When you cast Flash Heal or Heal, the remaining cooldown on Holy Word: Serenity is reduced by 6 sec.<br>" +
+            "<br>" +
+            "When you cast Prayer of Healing, the remaining cooldown on Holy Word: Sanctify is reduced by 6 sec and by 2 sec when you cast Renew.<br>" +
+            "<br>" +
+            "When you cast Smite, the remaining cooldown on Holy Word: Chastise is reduced by 4 sec."
+    }
+
+}
+

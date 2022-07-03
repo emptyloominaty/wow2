@@ -6,7 +6,6 @@ class HolyWordSerenity extends Ability {
         let castTime = 0
         let cd = 60
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = false
@@ -56,6 +55,13 @@ class HolyWordSerenity extends Ability {
         caster.abilities["Surge of Light"].chance(caster)
         this.holyPriestCdUsed = false
         this.setCd()
-        caster.useEnergy(this.cost)
+        let cost = this.cost
+        if (caster.abilities["Holy Word: Salvation"].talentSelect) {
+            caster.abilities["Holy Word: Salvation"].reduceCd(caster.abilities["Holy Words"].salvation)
+        }
+        if (checkBuff(caster,caster,"Apotheosis")) {
+            cost = 0
+        }
+        caster.useEnergy(cost)
     }
 }

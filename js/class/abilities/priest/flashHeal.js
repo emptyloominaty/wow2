@@ -6,7 +6,6 @@ class FlashHeal extends Ability {
         let castTime = 1.5
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = true
         let canMove = false
@@ -63,7 +62,7 @@ class FlashHeal extends Ability {
         if (caster.abilities["Binding Heals"].talentSelect) {
             doHeal(caster,caster,this,undefined,this.spellPower*0.2)
         }
-        caster.abilities["Holy Word: Serenity"].reduceCd(6)
+        caster.abilities["Holy Word: Serenity"].reduceCd(caster.abilities["Holy Words"].serenity)
         if (caster.spec==="holyPriest") {
             caster.abilities["Surge of Light"].chance(caster)
         }

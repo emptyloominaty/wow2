@@ -6,7 +6,6 @@ class Heal extends Ability {
         let castTime = 2.5
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = true
         let canMove = false
@@ -61,7 +60,7 @@ class Heal extends Ability {
             }
             caster.abilities["Trail of Light"].heal(caster,target,this)
             caster.abilities["Surge of Light"].chance(caster)
-            caster.abilities["Holy Word: Serenity"].reduceCd(6)
+            caster.abilities["Holy Word: Serenity"].reduceCd( caster.abilities["Holy Words"].serenity)
         }
         caster.useEnergy(this.cost)
     }

@@ -938,6 +938,8 @@ let iconsPath = {
     "Voidform":"img/priest/Voidform.jpg",
     "Void Torrent":"img/priest/VoidTorrent.jpg",
     "Weakened Soul":"img/priest/WeakenedSoul.jpg",
+    "Holy Words":"img/priest/HolyWords.jpg",
+
 
     //Rogue
     "Garrote":"img/rogue/Garrote.jpg",

@@ -156,7 +156,8 @@ class ChiBurst extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-
+        this.area.data.direction = caster.direction
+        this.area2.data.direction = caster.direction
         addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
         addArea(areas.length,caster,this,this.area2.type,this.area2.duration,this.area2.data,caster.x,caster.y,false,this.area2.radius)
 

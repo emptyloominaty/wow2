@@ -432,9 +432,10 @@ if (player.spec==="holyPriest") {
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
         "Holy Fire": new Action("Holy Fire", 2, 1),
         "Smite": new Action("Smite", 2, 2),
+        "Divine Star": new Action("Divine Star",2,3),
         "Guardian Spirit": new Action("Guardian Spirit", 2, 4),
         "Fade": new Action("Fade", 2, 5),
-
+        "Holy Word: Salvation": new Action("Holy Word: Salvation",2,6),
         "Prayer of Mending": new Action("Prayer of Mending", 2, 7),
 
 

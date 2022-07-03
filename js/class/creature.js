@@ -538,6 +538,9 @@ class Creature {
                                     applyBuff(buff.caster,target,buff.caster.abilities["Prayer of Mending"],buffPoM.vals,true,undefined,(buff.duration+0.1))
                                 }
                             }
+                            if (buff.caster.spec==="holyPriest" && buff.caster.abilities["Benediction"].talentSelect && getChance(25)) {
+                                applyHot(buff.caster,this,buff.caster.abilities["Renew"])
+                            }
                             buff.duration = -1
                         }
                     } else if (this.buffs[i].effect[j].name === "healWhenDamage") {

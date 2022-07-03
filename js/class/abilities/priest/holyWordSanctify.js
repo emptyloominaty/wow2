@@ -6,7 +6,6 @@ class HolyWordSanctify extends Ability {
         let castTime = 0
         let cd = 60
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = false
@@ -57,6 +56,13 @@ class HolyWordSanctify extends Ability {
         addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
         this.setCd()
         this.holyPriestCdUsed = false
-        caster.useEnergy(this.cost)
+        let cost = this.cost
+        if (caster.abilities["Holy Word: Salvation"].talentSelect) {
+            caster.abilities["Holy Word: Salvation"].reduceCd(caster.abilities["Holy Words"].salvation)
+        }
+        if (checkBuff(caster,caster,"Apotheosis")) {
+            cost = 0
+        }
+        caster.useEnergy(cost)
     }
 }

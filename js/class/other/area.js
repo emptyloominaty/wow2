@@ -164,6 +164,14 @@ class Area {
         }
 
         this.time += progressInSec
+
+        if (this.data.returnBack && this.time>this.duration/2) {
+            this.direction -= 180
+            this.data.returnBack = false
+            this.damagedTargets = []
+            this.healedTargets = []
+        }
+
         if (this.time>this.duration) {
             this.end()
             areas[this.id] = undefined

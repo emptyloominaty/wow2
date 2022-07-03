@@ -70,7 +70,13 @@ class HolyWordChastise extends Ability {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 doDamage(caster, target, this)
                 applyDebuff(caster,target,this,"stun")
-                caster.useEnergy(this.cost,this.secCost)
+
+                let cost = this.cost
+                if (checkBuff(caster,caster,"Apotheosis")) {
+                    cost = 0
+                }
+
+                caster.useEnergy(cost,this.secCost)
                 this.setCd()
             }
         }

@@ -74,7 +74,7 @@ class PrayerofHealing extends Ability {
         }
         let cost = this.cost
         caster.abilities["Surge of Light"].chance(caster)
-        caster.abilities["Holy Word: Sanctify"].reduceCd(6)
+        caster.abilities["Holy Word: Sanctify"].reduceCd(caster.abilities["Holy Words"].sanctify)
         if (checkBuff(caster,caster,"Prayer Circle")) {
             cost /= 1.25
         }

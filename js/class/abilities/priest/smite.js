@@ -73,7 +73,7 @@ class Smite extends Ability {
                 }
                 if (caster.spec==="holyPriest") {
                     caster.abilities["Surge of Light"].chance(caster)
-                    caster.abilities["Holy Word: Chastise"].reduceCd(4)
+                    caster.abilities["Holy Word: Chastise"].reduceCd(caster.abilities["Holy Words"].chastise)
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.cd = 0

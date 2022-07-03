@@ -55,7 +55,7 @@ class Renew extends Ability {
         }
         if (caster.spec==="holyPriest") {
             caster.abilities["Surge of Light"].chance(caster)
-            caster.abilities["Holy Word: Sanctify"].reduceCd(2)
+            caster.abilities["Holy Word: Sanctify"].reduceCd(caster.abilities["Holy Words"].sanctify2)
         }
         caster.useEnergy(this.cost)
     }

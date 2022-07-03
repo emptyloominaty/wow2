@@ -25,14 +25,14 @@ let _holyPriest_talents = function(caster) {
     caster.abilities["Prayer Circle"] = new PrayerCircle()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Benediction"] = new Benediction()
+    caster.abilities["Divine Star"] = new DivineStar()
+    caster.abilities["Halo"] = new Halo()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Light of the Naaru"] = new LightoftheNaaru()
+    caster.abilities["Apotheosis"] = new Apotheosis()
+    caster.abilities["Holy Word: Salvation"] = new HolyWordSalvation()
 
     caster.talents = [["Enlightenment","Trail of Light","Renewed Faith"],
         ["Angel's Mercy","Body and Soul","Angelic Feather"],
@@ -334,7 +334,7 @@ class SurgeofLight extends Ability {
         return "Your healing spells and Smite have a 8% chance to make your next Flash Heal instant and cost no mana. Stacks to 2."
     }
 
-    chance(caster) { //TODO: DivineStar, Halo
+    chance(caster) { //TODO: Halo
         if (this.talentSelect && getChance(8)) {
             applyBuff(caster,caster,this,2,true)
         }
@@ -381,8 +381,227 @@ class PrayerCircle extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW6
+class Benediction extends Ability {
+    constructor() {
+        super("Benediction", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Your Prayer of Mending has a 25% chance to leave a Renew on each target it heals."
+    }
+}
 //------------------------------------------------
+class DivineStar extends Ability {
+    constructor() {
+        super("Divine Star", 2, 1.5, 0, 15, false, false, false, "holy", 30, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.56
+        this.spellPowerHeal = 0.70
+        this.area = {type:"circle", radius:8, duration:3,data:{type:"damage", maxTargets:"all", spellPower:this.spellPower,moving:true,returnBack:true,speed:22.5,color:"#fff08f",color2:"rgba(255,253,156,0.16)"}}
+        this.area2 = {type:"circle", radius:8, duration:3,data:{type:"heal", maxTargets:6, spellPower:this.spellPowerHeal,moving:true,returnBack:true,speed:22.5,color:"#fff08f",color2:"rgba(255,253,156,0.16)"}}
+
+    }
+
+    getTooltip() {
+        return "Throw a Divine Star forward 24 yds, healing allies in its path for "+spellPowerToNumber(this.spellPowerHeal)+" and dealing "+spellPowerToNumber(this.spellPower)+" Holy damage to enemies." +
+            " After reaching its destination, the Divine Star returns to you, healing allies and damaging enemies in its path again. Healing reduced beyond 6 targets."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            caster.abilities["Surge of Light"].chance(caster)
+
+            this.area.data.direction = caster.direction
+            this.area2.data.direction = caster.direction
+            addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,true,this.area.radius) //TODO: drawArea:false
+            addArea(areas.length,caster,this,this.area2.type,this.area2.duration,this.area2.data,caster.x,caster.y,false,this.area2.radius)
+
+            caster.useEnergy(this.cost)
+            this.setCd()
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+}
 //------------------------------------------------
+class Halo extends Ability {
+    constructor() {
+        super("Halo", 2.7, 1.5, 1.5, 40, false, true, false, "holy", 30, 1)
+        this.talent = true
+        this.spellPower = 1.03
+        this.spellPowerHeal = 1.15
+
+    }
+
+    getTooltip() { //TODO: ring not implemented (2.15sec)
+        return "Creates a ring of Holy energy around you that quickly expands to a 30 yd radius, healing allies for "+spellPowerToNumber(this.spellPowerHeal)+" and dealing "+spellPowerToNumber(this.spellPower)+" Holy damage to enemies."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            let castTime = this.castTime
+
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        for (let i = 0; i<friendlyTargets.length ;i++) {
+            if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster, friendlyTargets[i],undefined,true)) {
+                doHeal(caster, friendlyTargets[i], this,undefined,this.spellPowerHeal)
+            }
+        }
+        for (let i = 0; i<enemies.length ;i++) {
+            if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true)) {
+                doDamage(caster, enemies[i], this)
+            }
+        }
+
+        this.setCd()
+        caster.useEnergy(this.cost)
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
+class LightoftheNaaru extends Ability {
+    constructor() {
+        super("Light of the Naaru", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "The cooldowns of your Holy Words are reduced by an additional 33% when you cast the relevant spells."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Holy Words"].serenity *= 1.33
+        caster.abilities["Holy Words"].sanctify *= 1.33
+        caster.abilities["Holy Words"].sanctify2 *= 1.33
+        caster.abilities["Holy Words"].chastise *= 1.33
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Holy Words"].serenity /= 1.33
+        caster.abilities["Holy Words"].sanctify /= 1.33
+        caster.abilities["Holy Words"].sanctify2 /= 1.33
+        caster.abilities["Holy Words"].chastise /= 1.33
+    }
+}
 //------------------------------------------------
+class Apotheosis extends Ability {
+    constructor() {
+        super("Apotheosis", 0, 1.5, 0, 120, false, false, false, "holy", 30, 1)
+        this.talent = true
+        this.duration = 20
+
+    }
+
+    getTooltip() {
+        return "Reset the cooldowns of your Holy Words, and enter a pure Holy form for 20 sec, increasing the cooldown reductions to your Holy Words by 300% and reducing their cost by 100%."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Effects that reduce Holy Word cooldowns increased by 300%. Cost of Holy Words reduced by 100%."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            caster.abilities["Holy Words"].serenity *= 4
+            caster.abilities["Holy Words"].sanctify *= 4
+            caster.abilities["Holy Words"].sanctify2 *= 4
+            caster.abilities["Holy Words"].chastise *= 4
+
+
+            caster.abilities["Holy Word: Chastise"].cd = caster.abilities["Holy Word: Chastise"].maxCd
+            caster.abilities["Holy Word: Serenity"].cd = caster.abilities["Holy Word: Serenity"].maxCd
+            caster.abilities["Holy Word: Sanctify"].cd = caster.abilities["Holy Word: Sanctify"].maxCd
+
+            applyBuff(caster,caster,this)
+            caster.useEnergy(this.cost)
+            this.setCd()
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endBuff(caster) {
+        caster.abilities["Holy Words"].serenity /= 4
+        caster.abilities["Holy Words"].sanctify /= 4
+        caster.abilities["Holy Words"].sanctify2 /= 4
+        caster.abilities["Holy Words"].chastise /= 4
+    }
+
+}
 //------------------------------------------------
+class HolyWordSalvation extends Ability {
+    constructor() {
+        super("Holy Word: Salvation", 6, 1.5, 2.5, 720, false, true, false, "holy", 30, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 1.1
+    }
+
+    getTooltip() {
+        return  "Heals all allies within 40 yards for "+spellPowerToNumber(this.spellPower)+", and applies Renew and 2 stacks of Prayer of Mending to each of them.<br>" +
+            "<br>" +
+            "Cooldown reduced by 30 sec when you cast Holy Word: Serenity or Holy Word: Sanctify."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            let castTime = this.castTime
+
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        for (let i = 0; i<friendlyTargets.length ;i++) {
+            if (!friendlyTargets[i].isDead && this.checkDistance(caster, friendlyTargets[i],undefined,true)) {
+                doHeal(caster, friendlyTargets[i], this,undefined,this.spellPowerHeal)
+                applyHot(caster,friendlyTargets[i],caster.abilities["Renew"])
+                applyBuff(caster,friendlyTargets[i],caster.abilities["Prayer of Mending"],2,true)
+            }
+        }
+        this.setCd()
+        caster.useEnergy(this.cost)
+    }
+}
