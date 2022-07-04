@@ -253,6 +253,7 @@ if (player.spec==="restorationDruid") {
         "Cat Form": new Action("Cat Form",1,3),
         "Regrowth": new Action("Regrowth", 1, 8),
         "Lifebloom": new Action("Lifebloom",1,9),
+        "Cenarion Ward": new Action("Cenarion Ward",1,10),
 
         //bar0
         "Tranquility": new Action("Tranquility",0,0),
@@ -260,8 +261,8 @@ if (player.spec==="restorationDruid") {
 
         "Nature's Cure": new Action("Nature's Cure",0,4),
         "Soothe": new Action("Soothe",0,5),
-        "Sunfire": new Action("Sunfire", 0, 6),
-
+        "Sunfire": new Action("Sunfire", 0,6),
+        "Renewal": new Action( "Renewal",0,7),
         "Barkskin":new Action("Barkskin",0,8),
 
         //bar2

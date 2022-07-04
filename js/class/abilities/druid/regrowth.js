@@ -6,7 +6,6 @@ class Regrowth extends Ability {
         let castTime = 1.5
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = true
         let canMove = false
@@ -29,9 +28,6 @@ class Regrowth extends Ability {
 
     getTooltip() {
         return "Heals a friendly target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" and another "+((player.stats.primary * this.spellPowerHot) * (1 + (player.stats.vers / 100))).toFixed(0)+" over 12 sec. Initial heal has a 40% increased chance for a critical effect if the target is already affected by Regrowth."
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {
@@ -64,25 +60,32 @@ class Regrowth extends Ability {
         let target = caster.casting.target
         let spellPower = this.spellPower
         let cost = this.cost
+        let crit = 0
+        if (caster.spec==="restorationDruid" && caster.abilities["Abundance"].talentSelect) {
+            let val = caster.abilities["Abundance"].getCost(caster)
+            crit += val
+            cost = cost * (1-(val/100))
+            if (cost<0) {
+                cost = 0
+            }
+        }
         if (this.naturesSwiftness) {
             cost = 0
             spellPower *= 2
         }
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-            let crit = 0
             for (let i = 0; i<caster.buffs.length; i++) {
                 if (caster.buffs[i].name==="Regrowth" && caster.buffs[i].caster === caster) {
-                    crit = this.crit
+                    crit += this.crit
                 }
             }
             //heal self
             doHeal(caster,caster,this,undefined,spellPower,undefined,undefined,undefined,undefined,crit)
             applyHot(caster,caster,this,undefined,undefined,this.spellPowerHot)
         } else {
-            let crit = 0
             for (let i = 0; i<target.buffs.length; i++) {
                 if (target.buffs[i].name==="Regrowth" && target.buffs[i].caster === caster) {
-                    crit = this.crit
+                    crit += this.crit
                 }
             }
             //heal target
@@ -98,12 +101,6 @@ class Regrowth extends Ability {
         }
 
         caster.useEnergy(cost)
-    }
-
-    runBuff(target,buff,id) {
-    }
-
-    endBuff(target) {
     }
 
 }

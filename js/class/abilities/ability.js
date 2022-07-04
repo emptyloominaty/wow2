@@ -106,9 +106,10 @@ class Ability {
             return true
         } else if (this.needForm === caster.form) {
             return true
-        } else if (this.canCastForm === caster.form) {
+        } else if (this.canCastForm === caster.form || this.canCastForm === "all") {
             return true
         }
+        return false
     }
 
     checkShamanForm(caster) {

@@ -67,7 +67,7 @@ class CatForm extends Ability {
             if (form) {
                 this.setGcd(caster)
             } else {
-                caster.gcd = 0.15
+                caster.gcd = 0.3
             }
             return true
         }
