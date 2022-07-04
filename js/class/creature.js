@@ -472,6 +472,13 @@ class Creature {
                                 this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val
                             }
                         }
+                    } else if (this.buffs[i].effect[j].name === "hot") {
+                        if (this.buffs[i].effect[j].timer<1) {
+                            this.buffs[i].effect[j].timer+= (progressInSec)*(1 + (this.buffs[i].caster.stats.haste / 100))
+                        } else {
+                            doHeal(this.buffs[i].caster,this,this.buffs[i].ability,undefined,this.buffs[i].ability.spellPowerHot,undefined,undefined,undefined,undefined,undefined,true)
+                            this.buffs[i].effect[j].timer = 0
+                        }
                     } else if (this.buffs[i].effect[j].name === "increaseHealth") {
                         this.increaseHealth += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "stealth") {

@@ -56,6 +56,11 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
 
         if (caster.spec==="restorationDruid") {
             heal = heal * getRestoDruidMastery(caster,target)
+            for (let i = 0; i<target.buffs.length; i++) {
+                if (target.buffs[i].name === "Ironbark" && target.buffs[i].caster === caster) {
+                    heal = heal * 1.2
+                }
+            }
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
             caster.abilities["Cloudburst Totem"].addHealing(heal,ability)

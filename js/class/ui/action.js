@@ -247,16 +247,27 @@ if (player.spec==="elemental") {
 if (player.spec==="restorationDruid") {
     actions = {
         //bar1
+        "Swiftmend": new Action("Swiftmend",1,0),
         "Rejuvenation": new Action("Rejuvenation", 1, 1),
         "Efflorescence": new Action("Efflorescence",1,2),
         "Regrowth": new Action("Regrowth", 1, 8),
+
         //bar0
+        "Tranquility": new Action("Tranquility",0,0),
         "Wild Growth": new Action("Wild Growth", 0, 1),
         "Sunfire": new Action("Sunfire", 0, 6),
+
+        "Barkskin":new Action("Barkskin",0,8),
+
         //bar2
         "Moonfire": new Action("Moonfire", 2, 0),
         "Wrath": new Action("Wrath", 2, 1),
         //"Starfire": new Action("Starfire", 2, 2),
+
+        "Ironbark": new Action("Ironbark",2,4),
+
+        //bar3
+        "Innervate":new Action("Innervate",3,0),
     }
 }
 

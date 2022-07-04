@@ -6,9 +6,15 @@ class restoDruid_abilities {
     "Moonfire" = new Moonfire()
     "Sunfire" = new Sunfire()
     "Efflorescence" = new Efflorescence()
+    "Swiftmend" = new Swiftmend()
+    "Tranquility" = new Tranquility()
+    "Innervate" = new Innervate()
+    "Barkskin" = new Barkskin()
+    "Ironbark" = new Ironbark()
 
     //passive
     "Harmony" = new Harmony()
+    "InnervateSelf" = new InnervateSelf()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 

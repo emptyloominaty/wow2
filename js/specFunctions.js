@@ -5,7 +5,7 @@ let getRestoShamMastery = function(caster,target) {
 let getRestoDruidMastery = function(caster,target) {
     let hots = 0
     for (let i = 0; i<target.buffs.length; i++) {
-        if (target.buffs[i].type==="hot" && target.buffs[i].caster === caster) {
+        if ((target.buffs[i].type==="hot" || target.buffs[i].name==="Tranquility") && target.buffs[i].caster === caster) {
             hots++
         }
     }

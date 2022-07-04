@@ -27,7 +27,7 @@ class Regrowth extends Ability {
     }
 
     getTooltip() {
-        return "Heals a friendly target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" and another "+((player.stats.primary * this.spellPowerSec) * (1 + (player.stats.vers / 100))).toFixed(0)+" over 12 sec. Initial heal has a 40% increased chance for a critical effect if the target is already affected by Regrowth."
+        return "Heals a friendly target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" and another "+((player.stats.primary * this.spellPowerHot) * (1 + (player.stats.vers / 100))).toFixed(0)+" over 12 sec. Initial heal has a 40% increased chance for a critical effect if the target is already affected by Regrowth."
     }
 
     run(caster) {
