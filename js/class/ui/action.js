@@ -255,6 +255,9 @@ if (player.spec==="restorationDruid") {
         //bar0
         "Tranquility": new Action("Tranquility",0,0),
         "Wild Growth": new Action("Wild Growth", 0, 1),
+
+        "Nature's Cure": new Action("Nature's Cure",0,4),
+
         "Sunfire": new Action("Sunfire", 0, 6),
 
         "Barkskin":new Action("Barkskin",0,8),
@@ -267,7 +270,12 @@ if (player.spec==="restorationDruid") {
         "Ironbark": new Action("Ironbark",2,4),
 
         //bar3
-        "Innervate":new Action("Innervate",3,0),
+        "Innervate": new Action("Innervate",3,0),
+        "Rebirth": new Action("Rebirth",3,1),
+
+
+        "Revive": new Action ("Revive",3,4),
+        "Revitalize": new Action ("Revitalize",3,5),
     }
 }
 

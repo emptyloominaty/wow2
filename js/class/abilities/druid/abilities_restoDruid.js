@@ -11,6 +11,10 @@ class restoDruid_abilities {
     "Innervate" = new Innervate()
     "Barkskin" = new Barkskin()
     "Ironbark" = new Ironbark()
+    "Revive" = new Revive()
+    "Revitalize" = new Revitalize()
+    "Nature's Cure" = new NaturesCure()
+    "Rebirth" = new Rebirth()
 
     //passive
     "Harmony" = new Harmony()
