@@ -21,6 +21,9 @@ class Creature {
 
     itemLevel = 270
 
+    autoattackSpeed = 2.6
+    autoattackDamage = 0.23
+
     moveSpeed = 1
     x = 0
     y = 0
@@ -404,6 +407,10 @@ class Creature {
                 this.damageIncrease += this.formEffects[i].val
             } else if (this.formEffects[i].name==="increaseArmor") {
                 this.stats.armor = this.stats.armor*(1+this.formEffects[i].val)
+            } else if (this.formEffects[i].name === "incAttackSpeed") {
+                this.attackSpeed *= (1 + this.formEffects[i].val)
+            }  else if (this.formEffects[i].name === "increaseStat") {
+                this.stats[this.formEffects[i].stat] *= 1+(this.formEffects[i].val/100)
             }
         }
 
@@ -462,7 +469,7 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "absorb") {
                         this.absorb += this.buffs[i].effect[j].val
                         this.absorbsBuffId.push(i)
-                    }  else if (this.buffs[i].effect[j].name === "increaseStat") {
+                    } else if (this.buffs[i].effect[j].name === "increaseStat") {
                         if (this.buffs[i].effect[j].percent) {
                             this.stats[this.buffs[i].effect[j].stat] *= 1+(this.buffs[i].effect[j].val/100)
                         } else {

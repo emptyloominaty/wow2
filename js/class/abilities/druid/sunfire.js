@@ -15,13 +15,14 @@ class Sunfire extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.2
+        this.spellPower = 0.2/1.11
         this.spellPowerDot = 1.044
         this.duration = 16
         this.spreadRange = 8
 
 
         if (balance) {
+            this.spellPower = 0.2
             this.spellPowerDot = 1.566
             this.duration+=6
             this.cost = -3

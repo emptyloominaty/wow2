@@ -564,6 +564,8 @@ function draw(progress) {
     }
     if (player.form!=="") {
         elements["buff_0_image"].src = iconsPath[player.form]
+        elements["buff_0"].onmouseover = ()=> {showBuffTooltip(player.abilities[player.form],player)}
+        elements["buff_0"].onmouseout = ()=> {hideBuffTooltip()}
         elements["buff_0_text"].textContent = ""
         elements["buff_0_stacks"].textContent = ""
     }

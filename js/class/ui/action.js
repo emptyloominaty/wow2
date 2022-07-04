@@ -250,6 +250,7 @@ if (player.spec==="restorationDruid") {
         "Swiftmend": new Action("Swiftmend",1,0),
         "Rejuvenation": new Action("Rejuvenation", 1, 1),
         "Efflorescence": new Action("Efflorescence",1,2),
+        "Cat Form": new Action("Cat Form",1,3),
         "Regrowth": new Action("Regrowth", 1, 8),
         "Lifebloom": new Action("Lifebloom",1,9),
 
@@ -269,7 +270,8 @@ if (player.spec==="restorationDruid") {
         //"Starfire": new Action("Starfire", 2, 2),
 
         "Ironbark": new Action("Ironbark",2,4),
-
+        "Bear Form": new Action("Bear Form",2,5),
+        "Nature's Swiftness":new Action("Nature's Swiftness",2,7),
         //bar3
         "Innervate": new Action("Innervate",3,0),
         "Rebirth": new Action("Rebirth",3,1),

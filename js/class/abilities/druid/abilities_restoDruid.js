@@ -16,6 +16,18 @@ class restoDruid_abilities {
     "Nature's Cure" = new NaturesCure()
     "Rebirth" = new Rebirth()
     "Lifebloom" = new Lifebloom()
+    "Nature's Swiftness" = new NaturesSwiftness()
+    "Cat Form" = new CatForm()
+    "Bear Form" = new BearForm()
+    "Growl" = new Growl()
+    "Dash" = new Dash()
+    "Stampeding Roar" = new StampedingRoar()
+
+    //TODO:
+    //Entangling Roots
+    //Ursol's Vortex
+    //Cyclone
+    //Hibernate
 
     //passive
     "Harmony" = new Harmony()

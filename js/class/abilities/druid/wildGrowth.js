@@ -14,7 +14,7 @@ class WildGrowth extends Ability {
         let range = 30
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.98
+        this.spellPower = 0.98*1.10
         this.healTargets = 6
         this.duration = 7
     }

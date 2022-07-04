@@ -27,6 +27,9 @@ class Ability {
     mastery = false
     threat = 1
 
+    needForm = false
+    canCastForm = false
+
     ignoreArmor = false
     dontBreakStealth = false
 
@@ -88,14 +91,24 @@ class Ability {
         return false
     }
 
-    checkStart(caster,cost = 9999,secCost = 9999) {
+    checkStart(caster,cost = 9999,secCost = 9999,checkForm = true) {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
-        if (this.canUse && this.checkGcd(caster) && this.checkCost(caster,cost,undefined,secCost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster)) {
+        if (this.canUse && this.checkGcd(caster) && this.checkCost(caster,cost,undefined,secCost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster) && (!checkForm || this.checkDruidForm(caster))) {
             return true
         }
         return false
+    }
+
+    checkDruidForm(caster) {
+        if (caster.form==="" && this.needForm===false) {
+            return true
+        } else if (this.needForm === caster.form) {
+            return true
+        } else if (this.canCastForm === caster.form) {
+            return true
+        }
     }
 
     checkShamanForm(caster) {

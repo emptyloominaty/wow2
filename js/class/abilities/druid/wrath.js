@@ -15,9 +15,10 @@ class Wrath extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.5775
+        this.spellPower = 0.5775*1.37
 
         if (balance) {
+            this.spellPower = 0.5775
             this.cost = -6
             this.spellPower = 0.6
         }

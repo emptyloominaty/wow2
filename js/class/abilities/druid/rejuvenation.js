@@ -14,7 +14,7 @@ class Rejuvenation extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 1.45
+        this.spellPower = 1.45*1.10
         this.duration = 15
     }
 

@@ -77,6 +77,9 @@ let hideSpellTooltip = function() {
 let showBuffTooltip = function(buff,target) {
     if (buff) {
         let ability = buff.ability
+        if (ability===undefined) {
+            ability = buff
+        }
         buffTooltip = true
 
         let htmlTooltip = "<div class='buffTooltip' id='buffTooltip'><h4 class='buffTooltip_name'>" + buff.name + "</h4>"

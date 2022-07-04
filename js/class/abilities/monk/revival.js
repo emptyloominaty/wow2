@@ -33,7 +33,7 @@ class Revival extends Ability {
                 caster.isChanneling = false
             }
             for (let i = 0; i<friendlyTargets.length; i++) {
-                if (this.checkDistance(caster,friendlyTargets[i])) {
+                if (this.checkDistance(caster,friendlyTargets[i],undefined,true)) {
                     doHeal(caster,friendlyTargets[i],this)
                     caster.abilities["Gust of Mists"].heal(caster,friendlyTargets[i])
                     dispel(caster,friendlyTargets[i],"magic")

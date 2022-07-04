@@ -13,7 +13,7 @@ class Lifebloom extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 2.25
+        this.spellPower = 2.25*1.10
         this.spellPowerEnd = 1.38
         this.duration = 15
         this.caster = {}

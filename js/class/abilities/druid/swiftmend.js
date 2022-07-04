@@ -12,7 +12,7 @@ class Swiftmend extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.spellPower = 3.45
+        this.spellPower = 3.45*1.1
     }
 
     getTooltip() {

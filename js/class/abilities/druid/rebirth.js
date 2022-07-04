@@ -23,8 +23,15 @@ class Rebirth extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            let castTime = this.castTime
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name==="Nature's Swiftness") {
+                    castTime = 0
+                    caster.buffs[i].duration = -1
+                }
+            }
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.targetObj}
+            caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.targetObj}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

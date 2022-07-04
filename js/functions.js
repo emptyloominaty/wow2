@@ -450,9 +450,11 @@ let changeForm = function (caster,ability) {
     if (caster.form!==ability.name) {
         caster.form = ability.name
         caster.formEffects = ability.effects
+        return true
     } else {
         caster.form = ""
         caster.formEffects = []
+        return false
     }
 }
 

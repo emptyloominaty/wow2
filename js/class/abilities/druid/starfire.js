@@ -1,5 +1,5 @@
 class Starfire extends Ability {
-    constructor() {
+    constructor(resto = false) {
         let name = "Starfire"
         let cost = -8
 
@@ -19,6 +19,11 @@ class Starfire extends Ability {
         this.spellPowerCleave = 0.765*0.33
 
         this.cleaveRange = 8
+
+        if (resto) {
+            this.spellPower *= 1.37
+            this.spellPowerCleave *= 1.37
+        }
     }
 
     getTooltip() {
