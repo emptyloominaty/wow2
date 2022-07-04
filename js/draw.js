@@ -321,7 +321,7 @@ function draw(progress) {
                     }
 
                     for (let j = 0; j<creatures[i].buffs.length; j++) {
-                        if (creatures[i].buffs[j].ability.dispellable==="magic") {
+                        if (creatures[i].buffs[j].ability.dispellable==="magic" || creatures[i].buffs[j].ability.dispellable==="enrage") {
                             if(jj>10) {
                                 break
                             }
@@ -373,11 +373,16 @@ function draw(progress) {
 
                     }
                     for (let j = 0; j<creatures[i].buffs.length; j++) {
-                        if (creatures[i].buffs[j].ability.dispellable==="magic") {
+                        if (creatures[i].buffs[j].ability.dispellable==="magic" || creatures[i].buffs[j].ability.dispellable==="enrage") {
                             if(jj>10) {
                                 break
                             }
-                            elements["debuffs_"+i+"_"+jj+""].style.border = "1px solid rgba(0,255,0,0.55)"
+                            if (creatures[i].buffs[j].ability.dispellable==="enrage") {
+                                elements["debuffs_"+i+"_"+jj+""].style.border = "1px solid rgba(255,0,0,0.55)"
+                            } else {
+                                elements["debuffs_"+i+"_"+jj+""].style.border = "1px solid rgba(50,125,255,0.55)"
+                            }
+
                             elements["debuffs_"+i+"_"+jj+""].style.width = height + "px"
                             elements["debuffs_"+i+"_"+jj+""].style.height = height + "px"
 

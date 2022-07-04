@@ -72,7 +72,14 @@ class Regrowth extends Ability {
             doHeal(caster,target,this)
             applyHot(caster,target,this,undefined,undefined,this.spellPowerHot)
         }
-        caster.useEnergy(this.cost)
+        let cost = this.cost
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Clearcasting") {
+                cost = 0
+                caster.buffs[i].duration = -1
+            }
+        }
+        caster.useEnergy(cost)
     }
 
     runBuff(target,buff,id) {

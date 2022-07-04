@@ -56,10 +56,12 @@ let iconsPath = {
     "curse dispel":"img/curse_dispel.png",
     "disease dispel":"img/disease_dispel.png",
     "poison dispel":"img/poison_dispel.png",
+    "enrage dispel":"img/enrage_dispel.png",
 
     //TEST
     "Magic Dot":"img/monk/SongofChi-Ji.jpg",
     "Magic Buff":"img/druid/Regrowth.jpg",
+    "Enrage Buff":"img/Attack.jpg",
 
     //Death Knight
     "All Will Serve":"img/deathKnight/AllWillServe.jpg",

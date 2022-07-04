@@ -61,6 +61,11 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
                     heal = heal * 1.2
                 }
             }
+            if (ability.name==="Lifebloom") {
+                if (getChance(4)) {
+                    applyBuff(caster,caster,caster.abilities["Clearcasting"])
+                }
+            }
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
             caster.abilities["Cloudburst Totem"].addHealing(heal,ability)
@@ -592,12 +597,12 @@ let getTime2 = function(number) {
     }
 }
 
-let spellPowerToNumber = function(val) {
-    return ((player.stats.primary * val) * (1 + (player.stats.vers / 100))).toFixed(0)
+let spellPowerToNumber = function(val,caster = player) {
+    return ((caster.stats.primary * val) * (1 + (caster.stats.vers / 100))).toFixed(0)
 }
 
-let spellPowerHotToNumber = function(val) {
-    return ((player.stats.primary * val) * (1 + (player.stats.vers / 100))* (1 + (player.stats.haste / 100))).toFixed(0)
+let spellPowerHotToNumber = function(val,caster = player) {
+    return ((caster.stats.primary * val) * (1 + (caster.stats.vers / 100))* (1 + (caster.stats.haste / 100))).toFixed(0)
 }
 
 let checkBuff = function(caster,target,buffName) {
@@ -676,13 +681,13 @@ let dispel = function (caster,target,dispelType1 = false,dispelType2 = false,dis
     return false
 }
 
-let dispelEnemy = function (caster,target,targets = 0) {
+let dispelEnemy = function (caster,target,buffs = 0) {
     let d = 0
     for (let i = 0; i<target.buffs.length; i++) {
         if (target.buffs[i].ability.dispellable!==false && (target.buffs[i].ability.dispellable==="magic")) {
             target.buffs[i].duration = -1
             d++
-            if (targets===1) {
+            if (buffs===1) {
                 break
             }
         }
@@ -692,6 +697,25 @@ let dispelEnemy = function (caster,target,targets = 0) {
     }
     return false
 }
+
+let dispelEnemyEnrage = function (caster,target,buffs = 0) {
+    let d = 0
+    for (let i = 0; i<target.buffs.length; i++) {
+        if (target.buffs[i].ability.dispellable!==false && (target.buffs[i].ability.dispellable==="enrage")) {
+            target.buffs[i].duration = -1
+            d++
+            if (buffs===1) {
+                break
+            }
+        }
+    }
+    if (d>0) {
+        return true
+    }
+    return false
+}
+
+
 
 let sortFriendlyTargetsByHealth = function(array = false) {
     let t = []
@@ -751,6 +775,16 @@ let spawnPet = function (caster,type,name,x,y,ability) {
 let resurrect = function(caster,target,health) {
     target.isDead = false
     target.health = target.maxHealth*health
+}
+
+let limitBuff = function(caster,buffName) {
+    for (let i = 0; i<friendlyTargets.length; i++) {
+        for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
+            if (friendlyTargets[i].buffs[j].name === buffName && friendlyTargets[i].buffs[j].caster === caster) {
+                friendlyTargets[i].buffs[j].duration = -1
+            }
+        }
+    }
 }
 
 let replaceAction = function(caster,ability1,ability2) {
