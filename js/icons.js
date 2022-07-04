@@ -277,6 +277,7 @@ let iconsPath = {
     "Cat Form":"img/druid/CatForm.jpg",
     "Celestial Alignment":"img/druid/CelestialAlignment.jpg",
     "Cenarion Ward":"img/druid/CenarionWard.jpg",
+    "Cenarion Ward ":"img/druid/CenarionWard.jpg",
     "Clearcasting":"img/druid/Clearcasting.jpg",
     "Cultivation":"img/druid/Cultivation.jpg",
     "Cyclone":"img/druid/Cyclone.jpg",

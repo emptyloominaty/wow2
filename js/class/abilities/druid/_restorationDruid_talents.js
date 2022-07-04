@@ -3,6 +3,7 @@ let _restorationDruid_talents = function(caster) {
     caster.abilities["Abundance"] = new Abundance()
     caster.abilities["Nourish"] = new Nourish()
     caster.abilities["Cenarion Ward"] = new CenarionWard()
+    caster.abilities["Cenarion Ward Hot"] = new CenarionWardHot()
 
     //2
     caster.abilities["Tiger Dash"] = new TigerDash()
@@ -149,11 +150,11 @@ class CenarionWard extends Ability {
         this.talent = true
         this.talentSelect = true
         this.spellPower = 0.79/2
-        this.duration = 8 //TODO:30
-        this.caster = {}
+        this.duration = 30
+        this.effect = [{name:"cenarionWard"}]
     }
 
-    getTooltip() { //TODO: Any damage taken will consume the ward and apply HOT
+    getTooltip() {
         return "Protects a friendly target for 30 sec. Any damage taken will consume the ward and heal the target for "+spellPowerHotToNumber(this.spellPower*8)+" over 8 sec."
     }
 
@@ -167,7 +168,6 @@ class CenarionWard extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
-            this.caster = caster
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
@@ -183,16 +183,30 @@ class CenarionWard extends Ability {
         let target = caster.casting.target
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             limitBuff(caster,"Cenarion Ward")
-            applyHot(caster,caster,this)
+            applyBuff(caster,caster,this)
         } else {
             limitBuff(caster,"Cenarion Ward")
-            applyHot(caster,target,this)
+            applyBuff(caster,target,this)
         }
         this.setCd()
         caster.useEnergy(this.cost)
     }
 
 }
+class CenarionWardHot extends Ability {
+    constructor() {
+        super("Cenarion Ward ", 0, 0, 0, 0, false, false, false, "nature", 40, 1)
+        this.passive = true
+        this.hiddenSB = true
+        this.duration = 8
+        this.spellPower = 0.79/2
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Taking damage will grant "+spellPowerHotToNumber(this.spellPower)+" healing every 1 sec for 8 sec."
+    }
+}
+
 
 //------------------------------------------------------------------------------------------------ROW2
 class TigerDash extends Ability {
@@ -262,8 +276,6 @@ class WildCharge extends Ability {
         let range = 25
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
-        this.noGcd = true
         this.canCastForm = "all"
     }
 

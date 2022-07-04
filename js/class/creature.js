@@ -641,6 +641,11 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "cantDie") {
                         this.health = this.maxHealth
+                    }else if (this.buffs[i].effect[j].name === "cenarionWard") {
+                        if (this.healthA < this.healthB) {
+                            this.buffs[i].duration = -1
+                            applyHot(this.buffs[i].caster,this,this.buffs[i].caster.abilities["Cenarion Ward Hot"])
+                        }
                     }
                 }
             } else {
