@@ -38,6 +38,9 @@ class Ai {
         "arcane":() => {
             _ai_arcane(this.creature)
         },
+        "elemental":() => {
+            _ai_elemental(this.creature)
+        },
         "bossTest":() => {
             _ai_bossTest(this.creature)
         }, "addTest":() => {

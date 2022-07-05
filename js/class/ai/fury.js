@@ -10,6 +10,15 @@ let _ai_fury = function(creature) {
         c.abilities["Charge"].startCast(c)
         c.move(1)
     } else {
+
+        if (!casted) {
+            casted = c.abilities["Recklessness"].startCast(c)
+        }
+
+        if (!casted) {
+            casted = c.abilities["Bladestorm"].startCast(c)
+        }
+
         if (!casted) {
             casted = c.abilities["Execute"].startCast(c)
         }

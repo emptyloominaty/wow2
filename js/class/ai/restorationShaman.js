@@ -39,6 +39,10 @@ let _ai_restorationShaman = function(creature) {
             setTargetAi(c,target)
             c.direction = getDirection(c,c.targetObj)
 
+            if (!casted && aiFunctions.getNumberOfEnemies(c,40)>=2 ) {
+                casted = c.abilities["Chain Lightning"].startCast(c)
+            }
+
             if (!aiFunctions.checkDebuff(c,target,"Flame Shock")) {
                 casted = c.abilities["Flame Shock"].startCast(c)
             }

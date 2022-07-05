@@ -474,3 +474,26 @@ if (player.spec==="holyPriest") {
 
     }
 }
+
+if (player.spec==="havoc") {
+    actions = {
+        //bar0
+        "Disrupt": new Action("Disrupt",0,5),
+        "Consume Magic": new Action("Consume Magic", 0, 7),
+        "Blur": new Action("Blur",0,8),
+
+        //bar1
+        "Blade Dance": new Action("Blade Dance",1,1),
+        "Immolation Aura": new Action("Immolation Aura",1,2),
+        "Fel Rush": new Action("Fel Rush",1,3),
+
+        "Demon's Bite": new Action("Demon's Bite", 1, 8),
+        "Chaos Strike": new Action("Chaos Strike", 1, 9),
+
+
+        //bar2
+
+
+        //bar3
+    }
+}

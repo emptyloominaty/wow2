@@ -29,7 +29,6 @@ class restoDruid_abilities {
     "Moonkin Form" = new MoonkinForm(true)
 
     //TODO:
-    //Entangling Roots
     //Ursol's Vortex
     //Cyclone
     //Hibernate

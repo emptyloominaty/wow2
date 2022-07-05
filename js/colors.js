@@ -26,7 +26,7 @@ let colors = {
         "shadow":"#a1a1ac",
         "holy":"#efe492",
         "astral":"#be8fd0",
-        "chaos":"#888833",
+        "chaos":"#6c55a5",
         "divine":"#888833",
         "plague":"#888833",
         "radiant":"#888833",

@@ -1,31 +1,26 @@
-class Annihilation extends Ability {
+class Disrupt extends Ability {
     constructor() {
-        let name = "Annihilation"
-        let cost = 40
-
-        let gcd = 1.5
+        let name = "Disrupt"
+        let cost = 0
+        let gcd = 0
         let castTime = 0
-        let cd = 0
+        let cd = 15
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
-        let canMove = true
+        let canMove = false
         let school = "chaos"
-        let range = 5 //melee
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.575575+0.904475
-
-        this.refundChance = 20
-        this.refund = 20
-        this.canUse = false
-
+        this.effect = [{name:"interrupt"}]
+        this.duration = 3
+        this.noGcd = true
 
     }
 
     getTooltip() {
-        return "Slice your target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Chaos damage. Annihilation has a 20% chance to refund 20 Fury."
+        return "Interrupts the enemy's spellcasting and locks them from that school of magic for 3 sec. Generates 30 Fury on a successful interrupt"
     }
 
     run(caster) {
@@ -36,7 +31,10 @@ class Annihilation extends Ability {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
+                    if (caster.castTarget.interrupt()) {
+                        applyDebuff(caster,caster.castTarget,this)
+                        caster.useEnergy(-30)
+                    }
                     done = true
                 }
             } else {
@@ -48,21 +46,21 @@ class Annihilation extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
+                        if (caster.targetObj.interrupt()) {
+                            applyDebuff(caster,caster.targetObj,this)
+                            caster.useEnergy(-30)
+                        }
                         done = true
                     }
                 }
             }
             if (done) {
-                let cost = this.cost
-                if (getChance(this.refundChance)) {
-                    cost = cost - this.refund
-                }
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                caster.useEnergy(cost,this.secCost)
+                caster.useEnergy(this.cost)
                 this.setGcd(caster)
+                this.setCd()
                 return true
             }
         } else if (this.canSpellQueue(caster)) {

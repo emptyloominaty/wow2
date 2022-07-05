@@ -209,7 +209,7 @@ let iconsPath = {
     "Feast of Souls":"img/demonHunter/FeastofSouls.jpg",
     "Feed the Demon":"img/demonHunter/FeedtheDemon.jpg",
     "Fel Barrage":"img/demonHunter/FelBarrage.jpg",
-    "Fel blade":"img/demonHunter/Felblade.jpg",
+    "Felblade":"img/demonHunter/Felblade.jpg",
     "Fel Blood":"img/demonHunter/FelBlood.jpg",
     "Fel Devastation":"img/demonHunter/FelDevastation.jpg",
     "Fel Eruption":"img/demonHunter/FelEruption.jpg",

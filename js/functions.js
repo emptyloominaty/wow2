@@ -200,7 +200,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             }
         } else if (caster.spec==="elemental") {
-            caster.abilities["Elemental Overload"].mastery(caster,target,ability,name)
+            caster.abilities["Elemental Overload"].mastery_(caster,target,ability,name)
             if (caster.abilities["Ancestral Guidance"].talentSelect && checkBuff(caster,caster,"Ancestral Guidance")) {
                 caster.abilities["Ancestral Guidance"].collectHeal(damage)
             }
@@ -210,6 +210,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     caster.abilities["Echoing Shock"].target = target
                     caster.abilities["Echoing Shock"].removeBuff(caster)
                 }
+            }
+        } else if (caster.spec==="havoc") {
+            if (ability.school==="chaos") {
+                damage = damage * (1 + (caster.stats.mastery / 100))
             }
         }
 

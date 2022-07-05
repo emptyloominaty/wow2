@@ -27,8 +27,8 @@ class Enemy extends Creature {
 }
 
 let enemiesStats = {
-    "boss1":{primary:2000, haste:25, crit:15, vers:0, mastery:1, leech:0, avoidance:0, dodge:0, armor:10, speed:0, stamina:75000},
-    "add1":{primary:1000, haste:10, crit:15, vers:0, mastery:1, leech:0, avoidance:0, dodge:0, armor:10, speed:0, stamina:25000},
+    "boss1":{primary:2000, haste:25, crit:15, vers:0, mastery:1, leech:0, avoidance:0, dodge:0, armor:10, speed:0, stamina:125000},
+    "add1":{primary:1000, haste:10, crit:15, vers:0, mastery:1, leech:0, avoidance:0, dodge:0, armor:10, speed:0, stamina:13000},
 }
 
 

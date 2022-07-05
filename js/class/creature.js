@@ -227,6 +227,7 @@ class Creature {
             this.class = "Demon Hunter"
             this.melee = true
             this.abilities = new Havoc_Abilities()
+            _havoc_talents(this)
             this.resourceName = "Fury"
             this.role = "dps"
         } else if (spec==="fury") {//----------------------------------------Fury
@@ -359,6 +360,9 @@ class Creature {
         this.increaseHealth = 1
         this.healingIncrease = 1
         this.moveSpeedIncrease = 1
+        if (this.spec==="havoc") {
+            this.moveSpeedIncrease += this.stats.mastery/280
+        }
         this.attackSpeed = 1
         this.reduceEnergyCost = 1
         this.damageReduction = 0
