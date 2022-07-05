@@ -17,7 +17,7 @@ class CelestialAlignment extends Ability {
         //TODO ECLIPSE
         this.effect = [{name:"increaseStat",stat:"haste",val:10}]
         this.duration = 20
-
+        this.canCastForm = "Moonkin Form"
     }
 
     getTooltip() {

@@ -11,9 +11,9 @@ let _restorationDruid_talents = function(caster) {
     caster.abilities["Wild Charge"] = new WildCharge()
 
     //3
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Balance Affinity"] = new BalanceAffinity()
+    caster.abilities["Feral Affinity"] = new FeralAffinity()
+    caster.abilities["Guardian Affinity"] = new GuardianAffinity()
 
     //4
     //caster.abilities[""] = new ()
@@ -314,8 +314,148 @@ class WildCharge extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW3
+class BalanceAffinity extends Ability {
+    constructor() {
+        super("Balance Affinity", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.permanentBuff = true
+        this.duration = 10
+    }
+
+    getTooltip() {//TODO:
+        return "You gain:<br>" +
+            "<br>" +
+            " Astral Influence<br>" +
+            "Increases the range of all of your abilities by 5 yards.<br>" +
+            "<br>" +
+            "You also learn:<br>" +
+            "<br>" +
+            " Moonkin Form<br>" +
+            " Starsurge<br>" +
+            " Starfire<br>" +
+            "Typhoon"
+    }
+
+    setTalent(caster) {
+        caster.abilities["Starfire"].canUse = true
+        caster.abilities["Starsurge"].canUse = true
+        caster.abilities["Moonkin Form"].canUse = true
+        //TODO: caster.abilities["Typhoon"].canUse = true
+        Object.keys(caster.abilities).forEach((key)=> {
+            caster.abilities[key].range += 5
+        })
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Starfire"].canUse = false
+        caster.abilities["Starsurge"].canUse = false
+        caster.abilities["Moonkin Form"].canUse = false
+        //TODO: caster.abilities["Typhoon"].canUse = false
+        Object.keys(caster.abilities).forEach((key)=> {
+            caster.abilities[key].range -= 5
+        })
+    }
+}
 //------------------------------------------------
+class FeralAffinity extends Ability {
+    constructor() {
+        super("Feral Affinity", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.permanentBuff = true
+        this.duration = 10
+        this.effect = [{name:"moveSpeed",val:0.15}]
+        this.hiddenBuff = true
+    }
+
+    getTooltip() {//TODO:
+        return "You gain:<br>" +
+            "<br>" +
+            " Feline Swiftness<br>" +
+            "Increases your movement speed by 15%.<br>" +
+            "<br>" +
+            "You also learn:<br>" +
+            "<br>" +
+            " Rake<br>" +
+            " Rip<br>" +
+            " Swipe<br>" +
+            " Maim<br>" +
+            "<br>" +
+            "Your energy regeneration is increased by 35%." //TODO: energy regen 
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Increases your movement speed by 15%."
+    }
+
+    setTalent(caster) {
+        //caster.abilities["Rake"].canUse = true
+        //caster.abilities["Rip"].canUse = true
+        //caster.abilities["Swipe"].canUse = true
+        //TODO: caster.abilities["Maim"].canUse = true
+        applyBuff(caster,caster,this)
+    }
+
+    unsetTalent(caster) {
+        //caster.abilities["Rake"].canUse = false
+        //caster.abilities["Rip"].canUse = false
+        //caster.abilities["Swipe"].canUse = false
+        //TODO: caster.abilities["Maim"].canUse = false
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Feral Affinity") {
+                caster.buffs[i].duration = -1
+            }
+        }
+    }
+}
 //------------------------------------------------
+class GuardianAffinity extends Ability {
+    constructor() {
+        super("Guardian Affinity", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.permanentBuff = true
+        this.duration = 10
+        this.effect = [{name:"damageReduction",val:0.06}]
+        this.hiddenBuff = true
+    }
+
+    getTooltip() {//TODO:
+        return "You gain:<br>" +
+            "<br>" +
+            " Thick Hide<br>" +
+            "Reduces all damage taken by 6%.<br>" +
+            "<br>" +
+            "You also learn:<br>" +
+            "<br>" +
+            " Thrash<br>" +
+            " Frenzied Regeneration<br>" +
+            " Incapacitating Roar"
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Reduces all damage taken by 6%."
+    }
+
+    setTalent(caster) {
+        //caster.abilities["Thrash"].canUse = true
+        //caster.abilities["Frenzied Regeneration"].canUse = true
+        //caster.abilities["Incapacitating Roar"].canUse = true
+        applyBuff(caster,caster,this)
+    }
+
+    unsetTalent(caster) {
+        //caster.abilities["Thrash"].canUse = false
+        //caster.abilities["Frenzied Regeneration"].canUse = false
+        //caster.abilities["Incapacitating Roar"].canUse = false
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Guardian Affinity") {
+                caster.buffs[i].duration = -1
+            }
+        }
+    }
+}
 //------------------------------------------------------------------------------------------------ROW4
 //------------------------------------------------
 //------------------------------------------------

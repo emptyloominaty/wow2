@@ -16,6 +16,7 @@ class Wrath extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.5775*1.37
+        this.canCastForm = "Moonkin Form"
 
         if (balance) {
             this.spellPower = 0.5775

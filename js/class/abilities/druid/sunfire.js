@@ -19,7 +19,7 @@ class Sunfire extends Ability {
         this.spellPowerDot = 1.044
         this.duration = 16
         this.spreadRange = 8
-
+        this.canCastForm = "Moonkin Form"
 
         if (balance) {
             this.spellPower = 0.2

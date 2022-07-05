@@ -23,6 +23,10 @@ class restoDruid_abilities {
     "Dash" = new Dash()
     "Stampeding Roar" = new StampedingRoar()
 
+    "Starfire" = new Starfire(true)
+    "Starsurge" = new Starsurge(true)
+    "Moonkin Form" = new MoonkinForm(true)
+
     //TODO:
     //Entangling Roots
     //Ursol's Vortex
@@ -92,11 +96,11 @@ class YserasGift extends Ability {
         } else {
             let val = caster.maxHealth * 0.03
             if (caster.health/caster.maxHealth<1) {
-                doHeal(caster,caster,this,undefined,undefined,undefined,undefined,undefined,val)
+                doHeal(caster,caster,this,undefined,undefined,false,undefined,undefined,val)
             } else {
                 for (let i = 0; i<friendlyTargets.length; i++) {
                     if (!friendlyTargets[i].isDead && friendlyTargets[i].health<friendlyTargets[i].maxHealth && this.checkDistance(caster,friendlyTargets[i],undefined,true)) {
-                        doHeal(caster,friendlyTargets[i],this,undefined,undefined,undefined,undefined,undefined,val)
+                        doHeal(caster,friendlyTargets[i],this,undefined,undefined,false,undefined,undefined,val)
                         break
                     }
                 }

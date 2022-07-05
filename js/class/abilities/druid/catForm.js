@@ -17,9 +17,9 @@ class CatForm extends Ability {
         this.effects = [{name:"incAttackSpeed",val:0.4},{name:"moveSpeed",val:0.3}]
 
         this.actionBar = [false,false,false,false,false,false,false,false,false,false,false,false]
-        this.actionBarCatForm = [false,false,"Dash","Cat Form",false,false,false,false,false,false,false,false]
+        this.actionBarForm = [false,false,"Dash","Cat Form",false,false,false,false,false,false,false,false]
     }
-
+    //TODO:ENERGY = secondary
     getTooltip() {
         return "Shapeshift into Cat Form, increasing auto-attack damage by 40%, movement speed by 30%, granting protection from Polymorph effects, and reducing falling damage.<br>" +
             "The act of shapeshifting frees you from movement impairing effects." //TODO: frees you from movement impairing effects
@@ -43,16 +43,15 @@ class CatForm extends Ability {
                                 this.actionBar[i] = actionBars[1].abilities[i]
                             }
                         }
-                        for (let i = 0; i<this.actionBarCatForm.length; i++) {
-                            if (this.actionBarCatForm[i]) {
-                                actions[this.actionBarCatForm[i]] = new Action(this.actionBarCatForm[i], 1, i)
+                        for (let i = 0; i<this.actionBarForm.length; i++) {
+                            if (this.actionBarForm[i]) {
+                                actions[this.actionBarForm[i]] = new Action(this.actionBarForm[i], 1, i)
                             }
                         }
-
                     } else {
-                        for (let i = 0; i<this.actionBarCatForm.length; i++) {
+                        for (let i = 0; i<this.actionBarForm.length; i++) {
                             if (actionBars[1].abilities[i])  {
-                                this.actionBarCatForm[i] = actionBars[1].abilities[i]
+                                this.actionBarForm[i] = actionBars[1].abilities[i]
                             }
                         }
                         for (let i = 0; i<this.actionBar.length; i++) {

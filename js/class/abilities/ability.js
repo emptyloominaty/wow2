@@ -33,6 +33,9 @@ class Ability {
     ignoreArmor = false
     dontBreakStealth = false
 
+    actionBarForm = false
+    actionBar = false
+
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,
                 poison = false, bleed = false,) {
@@ -109,7 +112,24 @@ class Ability {
         } else if (this.canCastForm === caster.form || this.canCastForm === "all") {
             return true
         }
-        return false
+
+        let actionBarForm = caster.abilities[caster.form].actionBarForm
+        let actionBar = caster.abilities[caster.form].actionBar
+
+        if (actionBarForm!==false) {
+            for (let i = 0; i<actionBarForm.length; i++) {
+                if (actionBars[1].abilities[i])  {
+                    actionBarForm[i] = actionBars[1].abilities[i]
+                }
+            }
+            for (let i = 0; i<actionBar.length; i++) {
+                if (actionBar[i]) {
+                    actions[actionBar[i]] = new Action(actionBar[i], 1, i)
+                }
+            }
+        }
+        caster.form = ""
+        caster.formEffects = []
     }
 
     checkShamanForm(caster) {

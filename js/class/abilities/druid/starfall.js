@@ -17,7 +17,7 @@ class Starfall extends Ability {
         this.spellPower = 0.221625 // every sec
         this.effect = [{name:"starfall",duration:8,spellPower:0.221625,timer:0}]
         this.duration = 8
-
+        this.canCastForm = "Moonkin Form"
         this.incDuration = 4 //moonfire,sunfire
     }
 

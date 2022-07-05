@@ -73,7 +73,7 @@ class Eclipse extends Ability {
 
         this.time = 0
         this.buffed = 0
-
+        this.canCastForm = "Moonkin Form"
     }
 
     run(caster) {

@@ -1,5 +1,5 @@
 class MoonkinForm extends Ability {
-    constructor() {
+    constructor(resto = false) {
         let name = "Moonkin Form"
         let cost = 0
         let gcd = 1
@@ -16,6 +16,10 @@ class MoonkinForm extends Ability {
 
         this.spellPower = 0
         this.effects = [{name:"increaseDamage",val:0.1},{name:"increaseArmor",val:1.25}]
+
+        if (resto) {
+            this.canUse = false
+        }
     }
 
     getTooltip() {

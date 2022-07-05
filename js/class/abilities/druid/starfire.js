@@ -19,10 +19,11 @@ class Starfire extends Ability {
         this.spellPowerCleave = 0.765*0.33
 
         this.cleaveRange = 8
-
+        this.canCastForm = "Moonkin Form"
         if (resto) {
             this.spellPower *= 1.37
             this.spellPowerCleave *= 1.37
+            this.canUse = false
         }
     }
 

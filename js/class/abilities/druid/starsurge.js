@@ -16,12 +16,13 @@ class Starsurge extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 2.07 * 1.37
-
+        this.canCastForm = "Moonkin Form"
 
         if (balance) {
             this.spellPower = 2.07
             this.cost = -6
             this.spellPower = 0.6
+            this.canUse = false
         }
 
 

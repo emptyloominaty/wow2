@@ -18,6 +18,7 @@ class Moonfire extends Ability {
         this.spellPower = 0.2
         this.spellPowerDot = 1.392
         this.duration = 16
+        this.canCastForm = "Moonkin Form"
 
         if (balance) {
             this.cost = -2
