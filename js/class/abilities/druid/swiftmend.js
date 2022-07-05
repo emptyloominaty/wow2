@@ -65,6 +65,9 @@ class Swiftmend extends Ability {
                 }
             }
             if (done) {
+                if (caster.spec==="restorationDruid" && caster.abilities["Soul of the Forest"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Soul of the Forest"])
+                }
                 this.setCd()
                 caster.useEnergy(this.cost)
                 this.setGcd(caster)

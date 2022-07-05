@@ -18,8 +18,21 @@ class CatForm extends Ability {
 
         this.actionBar = [false,false,false,false,false,false,false,false,false,false,false,false]
         this.actionBarForm = [false,false,"Dash","Cat Form",false,false,false,false,false,false,false,false]
+
+        this.energy = 100
+        this.energyMax = 100
+        this.energyRegen = 10
     }
-    //TODO:ENERGY = secondary
+
+    run(caster) {
+        if (this.energy<this.energyMax) {
+            this.energy += (this.energyRegen*(1+(caster.stats.haste/100)))/fps
+        } else {
+            this.energy = this.energyMax
+        }
+
+    }
+
     getTooltip() {
         return "Shapeshift into Cat Form, increasing auto-attack damage by 40%, movement speed by 30%, granting protection from Polymorph effects, and reducing falling damage.<br>" +
             "The act of shapeshifting frees you from movement impairing effects." //TODO: frees you from movement impairing effects

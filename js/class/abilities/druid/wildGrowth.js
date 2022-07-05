@@ -45,11 +45,17 @@ class WildGrowth extends Ability {
     endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
-        this.cd = 0
+        this.setCd()
+
+        let spellPower = this.spellPower
+        if (caster.spec==="restorationDruid" && caster.abilities["Soul of the Forest"].talentSelect && checkBuff(caster,caster,"Soul of the Forest",true)) {
+            spellPower *= 1.75
+        }
+
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-            applyHot(caster,caster,this)
+            applyHot(caster,caster,this,undefined,undefined,spellPower)
         } else {
-            applyHot(caster,target,this)
+            applyHot(caster,target,this,undefined,undefined,spellPower)
         }
         let targets = []
         for (let i = 0; i<friendlyTargets.length; i++) {
@@ -57,8 +63,14 @@ class WildGrowth extends Ability {
                 targets.push(friendlyTargets[i])
             }
         }
+
+        let maxTargets = this.healTargets
+        if (checkBuff(caster,caster,"Incarnation: Tree of Life")) {
+            maxTargets += 2
+        }
+
         targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
-        for (let i = 0; i<this.healTargets-1; i++) {
+        for (let i = 0; i<maxTargets-1; i++) {
             if (targets[i]!==undefined) {
                 applyHot(caster,targets[i],this)
             }

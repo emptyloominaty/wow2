@@ -22,9 +22,6 @@ class Rejuvenation extends Ability {
         return "Heals the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" over 15 sec."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             if (caster.isChanneling) {
@@ -43,11 +40,27 @@ class Rejuvenation extends Ability {
     endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
-        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-            applyHot(caster,caster,this)
-        } else {
-            applyHot(caster,target,this)
+
+        let cost = this.cost
+        let spellPower = this.spellPower
+        if (caster.spec==="restorationDruid" && caster.abilities["Soul of the Forest"].talentSelect && checkBuff(caster,caster,"Soul of the Forest",true)) {
+            spellPower *= 3
         }
-        caster.useEnergy(this.cost)
+
+        if (checkBuff(caster,caster,"Incarnation: Tree of Life")) {
+            spellPower *= 1.5
+            cost /= 1.3
+        }
+
+        if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
+            applyHot(caster,caster,this,undefined,undefined,spellPower)
+            target = caster
+        } else {
+            applyHot(caster,target,this,undefined,undefined,spellPower)
+        }
+        if(caster.spec==="restorationDruid") {
+            caster.abilities["Cultivation"].applyHot(caster,target)
+        }
+        caster.useEnergy(cost)
     }
 }

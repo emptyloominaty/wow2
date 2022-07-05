@@ -22,6 +22,7 @@ class restoDruid_abilities {
     "Growl" = new Growl()
     "Dash" = new Dash()
     "Stampeding Roar" = new StampedingRoar()
+    "Entangling Roots" = new EntanglingRoots()
 
     "Starfire" = new Starfire(true)
     "Starsurge" = new Starsurge(true)

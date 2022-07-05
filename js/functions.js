@@ -66,6 +66,9 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
                     applyBuff(caster,caster,caster.abilities["Clearcasting"])
                 }
             }
+            if (caster.abilities["Incarnation: Tree of Life"].talentSelect && checkBuff(caster,caster,"Incarnation: Tree of Life")) {
+                heal *= 1.15
+            }
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
             caster.abilities["Cloudburst Totem"].addHealing(heal,ability)
@@ -607,9 +610,12 @@ let spellPowerHotToNumber = function(val,caster = player) {
     return ((caster.stats.primary * val) * (1 + (caster.stats.vers / 100))* (1 + (caster.stats.haste / 100))).toFixed(0)
 }
 
-let checkBuff = function(caster,target,buffName) {
+let checkBuff = function(caster,target,buffName,remove = false) {
     for (let i = 0; i<target.buffs.length; i++) {
         if (target.buffs[i].name===buffName && target.buffs[i].caster === caster) {
+            if (remove) {
+                target.buffs[i].duration = -1
+            }
             return true
         }
     }

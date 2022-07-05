@@ -263,7 +263,8 @@ if (player.spec==="restorationDruid") {
         "Soothe": new Action("Soothe",0,5),
         "Sunfire": new Action("Sunfire", 0,6),
         "Renewal": new Action( "Renewal",0,7),
-        "Barkskin":new Action("Barkskin",0,8),
+        "Barkskin": new Action("Barkskin",0,8),
+        "Entangling Roots": new Action("Entangling Roots",0,11),
 
         //bar2
         "Moonfire": new Action("Moonfire", 2, 0),
@@ -272,6 +273,7 @@ if (player.spec==="restorationDruid") {
 
         "Ironbark": new Action("Ironbark",2,4),
         "Bear Form": new Action("Bear Form",2,5),
+        "Incarnation: Tree of Life": new Action("Incarnation: Tree of Life",2,6),
         "Nature's Swiftness":new Action("Nature's Swiftness",2,7),
         //bar3
         "Innervate": new Action("Innervate",3,0),

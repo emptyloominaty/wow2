@@ -830,6 +830,13 @@ class Creature {
         }
 
         for (let i = 0; i<this.buffs.length; i++) {
+            this.buffs[i].ability.endBuff(this)
+        }
+        for (let i = 0; i<this.debuffs.length; i++) {
+            this.debuffs[i].ability.endBuff(this)
+        }
+
+        for (let i = 0; i<this.buffs.length; i++) {
             this.buffs[i].ability.onDeath(this.buffs[i].caster,this,this.buffs[i])
         }
         for (let i = 0; i<this.debuffs.length; i++) {

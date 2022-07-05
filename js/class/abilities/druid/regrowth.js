@@ -44,7 +44,9 @@ class Regrowth extends Ability {
                     caster.buffs[i].duration = -1
                 }
             }
-
+            if (checkBuff(caster,caster,"Incarnation: Tree of Life")) {
+                castTime = 0
+            }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
@@ -72,6 +74,9 @@ class Regrowth extends Ability {
         if (this.naturesSwiftness) {
             cost = 0
             spellPower *= 2
+        }
+        if (caster.spec==="restorationDruid" && caster.abilities["Soul of the Forest"].talentSelect && checkBuff(caster,caster,"Soul of the Forest",true)) {
+            spellPower *= 3
         }
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             for (let i = 0; i<caster.buffs.length; i++) {

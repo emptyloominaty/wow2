@@ -16,14 +16,14 @@ let _restorationDruid_talents = function(caster) {
     caster.abilities["Guardian Affinity"] = new GuardianAffinity()
 
     //4
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Mighty Bash"] = new MightyBash()
+    caster.abilities["Mass Entanglement"] = new MassEntanglement()
+    caster.abilities["Heart of the Wild"] = new HeartoftheWild()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Soul of the Forest"] = new SouloftheForest()
+    caster.abilities["Cultivation"] = new Cultivation()
+    caster.abilities["Incarnation: Tree of Life"] = new IncarnationTreeofLife()
 
     //6
     //caster.abilities[""] = new ()
@@ -382,7 +382,7 @@ class FeralAffinity extends Ability {
             " Swipe<br>" +
             " Maim<br>" +
             "<br>" +
-            "Your energy regeneration is increased by 35%." //TODO: energy regen 
+            "Your energy regeneration is increased by 35%." //TODO: energy regen
     }
 
     getBuffTooltip(caster, target, buff) {
@@ -457,11 +457,236 @@ class GuardianAffinity extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW4
+class MightyBash extends Ability {
+    constructor() {
+        let name = "Mighty Bash"
+        let cost = 0
+        let gcd = 1.5
+        let castTime = 0
+        let cd = 60
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 5
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.canCastForm = "all"
+        this.duration = 4
+        this.effect = [{name:"stun"}]
+    }
+
+    getTooltip() {
+        return "Invokes the spirit of Ursoc to stun the target for 4 sec. Usable in all shapeshift forms."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                applyDebuff(caster,caster.castTarget,this)
+                this.setCd()
+                this.setGcd(caster)
+                caster.useEnergy(this.cost)
+                return true
+            }
+        }
+        return false
+    }
+}
 //------------------------------------------------
+class MassEntanglement extends Ability {
+    constructor() {
+        let name = "Mass Entanglement"
+        let cost = 0
+        let gcd = 1.5
+        let castTime = 0
+        let cd = 30
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.canCastForm = "all"
+        this.duration = 30
+        this.effect = [{name:"root"}]
+        //TODO:	Apply Aura: Periodic Damage
+        // Interval: 2 seconds (SP mod: 0.5)
+    }
+
+    getTooltip() {
+        return  "Roots the target and all enemies within 15 yards in place for 30 sec. Damage may interrupt the effect. Usable in all shapeshift forms."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                applyDebuff(caster,caster.castTarget,this)
+                for (let i = 0; i<enemies.length; i++) {
+                    if (!enemies[i].isDead && this.checkDistance(caster.castTarget,enemies[i],15,true)) {
+                        applyDebuff(caster,enemies[i],this)
+                    }
+                }
+                this.setCd()
+                this.setGcd(caster)
+                caster.useEnergy(this.cost)
+                return true
+            }
+        }
+        return false
+    }
+}
 //------------------------------------------------
+class HeartoftheWild extends Ability {
+    constructor() {
+        let name = "Heart of the Wild"
+        let cost = 0
+        let gcd = 1.5
+        let castTime = 0
+        let cd = 300
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "nature"
+        let range = 40
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.talent = true
+        this.talentSelect = true
+        this.canCastForm = "all"
+        this.duration = 45
+
+        this.affinity = ""
+    }
+
+    getTooltip() {
+        let tooltip = "//NOT IMPLEMENTED//Abilities associated with your chosen Affinity are substantially empowered for 45 sec.<br><br>"
+               if (player.abilities["Restoration Affinity"] && player.abilities["Restoration Affinity"].talentSelect) {
+                   tooltip += "Healing of your Restoration spells increased by 30%, and mana costs reduced by 50%"
+               } else if (player.abilities["Feral Affinity"] && player.abilities["Feral Affinity"].talentSelect) {
+                   tooltip += "Damage of your Feral abilities increased by 30%, and critical strikes with attacks that generate a combo point generate an additional combo point."
+               } else if (player.abilities["Balance Affinity"] && player.abilities["Balance Affinity"].talentSelect) {
+                   tooltip += "Damage of your Balance abilities increased by 30%, and Starsurge is instant."
+               } else if (player.abilities["Guardian Affinity"] && player.abilities["Guardian Affinity"].talentSelect) {
+                   tooltip += "Bear Form gives an additional 20% Stamina, multiple uses of Ironfur may overlap, and Frenzied Regeneration has 2 charges."
+               }
+        return tooltip
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Abilities associated with your chosen Affinity are substantially empowered."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.abilities["Restoration Affinity"] && caster.abilities["Restoration Affinity"].talentSelect) {
+                caster.abilities["Regrowth"].spellPower *= 1.3
+                caster.abilities["Regrowth"].cost /= 2
+                //TODO: , Rejuvenation, Swiftmend, Wild Growth
+                this.affinity = "Restoration"
+            } else if (caster.abilities["Feral Affinity"] && caster.abilities["Feral Affinity"].talentSelect) {
+                //TODO: Shred, Rake, Rip, FerociousBite
+                this.affinity = "Feral"
+            } else if (caster.abilities["Balance Affinity"] && caster.abilities["Balance Affinity"].talentSelect) {
+
+                //TODO: Wrath, Sunfire, Starsurge, Starfire, Moonfire
+                //TODO: Starsurge cast time = 0
+                this.affinity = "Balance"
+            } else if (caster.abilities["Guardian Affinity"] && caster.abilities["Guardian Affinity"].talentSelect) {
+
+                this.affinity = "Guardian"
+            }
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+
+        }
+        return false
+    }
+
+    endBuff(caster) {
+        if (this.affinity==="Restoration") {
+            caster.abilities["Regrowth"].spellPower /= 1.3
+            caster.abilities["Regrowth"].cost *= 2
+        } else if (this.affinity==="Feral") {
+
+        } else if (this.affinity==="Balance") {
+
+        } else if (this.affinity==="Guardian") {
+
+        }
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW5
+class SouloftheForest extends Ability {
+    constructor() {
+        super("Soul of the Forest", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 15
+    }
+
+    getTooltip() {
+        return "Swiftmend increases the healing of your next Regrowth or Rejuvenation by 200%, or your next Wild Growth by 75%."
+    }
+
+}
 //------------------------------------------------
+class Cultivation extends Ability {
+    constructor() {
+        super("Cultivation", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 6
+        this.spellPower = 0.288
+    }
+
+    getTooltip() {
+        return "When Rejuvenation heals a target below 60% health, it applies Cultivation to the target, healing them for (28.8% of Spell power) over 6 sec."
+    }
+
+    applyHot(caster,target) {
+        if (this.talentSelect && target.health/target.maxHealth<0.6) {
+            applyHot(caster,target,this)
+        }
+    }
+}
 //------------------------------------------------
+class IncarnationTreeofLife extends Ability {
+    constructor() {
+        super("Incarnation: Tree of Life", 0, 1.5, 0, 180, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 30
+    }
+
+    getTooltip() {
+        return "Shapeshift into the Tree of Life, increasing healing done by 15%, increasing armor by 120%, and granting protection from Polymorph effects." +
+            " Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.<br>" +
+            "<br>" +
+            "Lasts 30 sec. You may shapeshift in and out of this form for its duration." //TODO: YOU CANT
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+
+        }
+        return false
+    }
+}
 //------------------------------------------------------------------------------------------------ROW6
 //------------------------------------------------
 //------------------------------------------------
