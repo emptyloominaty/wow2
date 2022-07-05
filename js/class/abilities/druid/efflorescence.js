@@ -18,16 +18,13 @@ class Efflorescence extends Ability {
         this.area = {type:"circle", radius:10, duration: 30,data:{type:"hot", maxTargets:3, spellPower:0.233, timer:2/*sec*/,color:"#6aff60",color2:"rgba(38,255,56,0.05)"},cast:false}
         this.areaId = undefined
 
-        this.effect = []
+        this.effect = [{name:"efflorescence"}]
 
         this.castPosition = {x:0,y:0}
     }
 
     getTooltip() {
         return "Grows a healing blossom at the target location, restoring "+spellPowerHotToNumber(this.spellPower)+" health to three injured allies within 10 yards every 2 sec for 30 sec. Limit 1."
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {

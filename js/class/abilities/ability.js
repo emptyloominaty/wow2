@@ -105,7 +105,7 @@ class Ability {
     }
 
     checkDruidForm(caster) {
-        if (caster.form==="" && this.needForm===false) {
+        if (caster.class!=="Druid" || (caster.form==="" && this.needForm===false)) {
             return true
         } else if (this.needForm === caster.form) {
             return true

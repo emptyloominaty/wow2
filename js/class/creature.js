@@ -646,6 +646,10 @@ class Creature {
                             this.buffs[i].duration = -1
                             applyHot(this.buffs[i].caster,this,this.buffs[i].caster.abilities["Cenarion Ward Hot"])
                         }
+                    } else if (this.buffs[i].effect[j].name === "efflorescence") {
+                        if (this.buffs[i].caster.abilities["Spring Blossoms"].talentSelect) {
+                            applyHot(this.buffs[i].caster,this,this.buffs[i].caster.abilities["Spring Blossoms"])
+                        }
                     }
                 }
             } else {

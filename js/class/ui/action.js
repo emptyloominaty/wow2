@@ -251,6 +251,8 @@ if (player.spec==="restorationDruid") {
         "Rejuvenation": new Action("Rejuvenation", 1, 1),
         "Efflorescence": new Action("Efflorescence",1,2),
         "Cat Form": new Action("Cat Form",1,3),
+
+
         "Regrowth": new Action("Regrowth", 1, 8),
         "Lifebloom": new Action("Lifebloom",1,9),
         "Cenarion Ward": new Action("Cenarion Ward",1,10),
@@ -258,6 +260,7 @@ if (player.spec==="restorationDruid") {
         //bar0
         "Tranquility": new Action("Tranquility",0,0),
         "Wild Growth": new Action("Wild Growth", 0, 1),
+        "Flourish": new Action("Flourish",0,2),
 
         "Nature's Cure": new Action("Nature's Cure",0,4),
         "Soothe": new Action("Soothe",0,5),

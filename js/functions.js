@@ -69,6 +69,9 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             if (caster.abilities["Incarnation: Tree of Life"].talentSelect && checkBuff(caster,caster,"Incarnation: Tree of Life")) {
                 heal *= 1.15
             }
+            if (caster.abilities["Flourish"].talentSelect && t===true && checkBuff(caster,caster,"Flourish")) {
+                heal *= 2
+            }
         } else if (caster.spec==="restorationShaman") {
             heal = heal * getRestoShamMastery(caster,target)
             caster.abilities["Cloudburst Totem"].addHealing(heal,ability)

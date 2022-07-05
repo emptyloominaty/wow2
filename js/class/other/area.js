@@ -215,6 +215,7 @@ class Area {
         for (let i = 0; i<targets.length;i++) {
             applyBuff(this.caster,targets[i],this.ability)
         }
+
         for (let i = 0; i<targets.length;i++) {
             if (i===this.maxTargets) {
                 break

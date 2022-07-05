@@ -26,14 +26,14 @@ let _restorationDruid_talents = function(caster) {
     caster.abilities["Incarnation: Tree of Life"] = new IncarnationTreeofLife()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Inner Peace"] = new InnerPeace()
+    caster.abilities["Spring Blossoms"] = new SpringBlossoms()
+    caster.abilities["Overgrowth"] = new Overgrowth()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Photosynthesis"] = new Photosynthesis()
+    caster.abilities["Germination"] = new Germination()
+    caster.abilities["Flourish"] = new Flourish()
 
 
     caster.talents = [["Abundance","Nourish","Cenarion Ward"],
@@ -556,7 +556,6 @@ class HeartoftheWild extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
-        this.talentSelect = true
         this.canCastForm = "all"
         this.duration = 45
 
@@ -662,7 +661,6 @@ class Cultivation extends Ability {
 class IncarnationTreeofLife extends Ability {
     constructor() {
         super("Incarnation: Tree of Life", 0, 1.5, 0, 180, false, false, false, "nature", 5, 1)
-        this.passive = true
         this.talent = true
         this.talentSelect = true
         this.duration = 30
@@ -688,6 +686,163 @@ class IncarnationTreeofLife extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW6
+class InnerPeace extends Ability {
+    constructor() {
+        super("Inner Peace", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 8
+        this.effect = [{name:"damageReduction",val:0.2}] //TODO:immune to knockbacks.
+        //TODO:Duration (haste)
+    }
+
+    getTooltip() {
+        return "Reduces the cooldown of Tranquility by 60 sec.<br>" +
+            "<br>" +
+            "While channeling Tranquility, you take 20% reduced damage and are immune to knockbacks."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Tranquility"].cd -= 60
+        caster.abilities["Tranquility"].maxCd -= 60
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Tranquility"].cd += 60
+        caster.abilities["Tranquility"].maxCd += 60
+    }
+
+}
 //------------------------------------------------
+class SpringBlossoms extends Ability {
+    constructor() {
+        super("Spring Blossoms", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 6
+        this.spellPower = 0.216
+    }
+
+    getTooltip() {
+        return "Each target healed by Efflorescence is healed for an additional (21.6% of Spell power) over 6 sec."
+    }
+
+}
 //------------------------------------------------
+class Overgrowth extends Ability {
+    constructor() {
+        super("Overgrowth", 2.4, 1.5, 0, 60, false, false, false, "nature", 40, 1)
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Apply Lifebloom, Rejuvenation, Wild Growth, and Regrowth's heal over time effect to an ally."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect && this.checkDistance(caster,caster.castTarget)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            let target = caster.castTarget
+            if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
+                target = caster
+            }
+            caster.abilities["Lifebloom"].caster = caster
+            applyHot(caster,target,caster.abilities["Lifebloom"])
+            applyHot(caster,target,caster.abilities["Rejuvenation"])
+            applyHot(caster,target,caster.abilities["Wild Growth"])
+            applyHot(caster,target,caster.abilities["Regrowth"],undefined,undefined,caster.abilities["Regrowth"].spellPowerHot)
+
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+
+        }
+        return false
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW7
+class Photosynthesis extends Ability {
+    constructor() {
+        super("Photosynthesis", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() { //TODO
+        return "//NOT IMPLEMENTED//While your Lifebloom is on yourself, your periodic heals heal 20% faster.<br>" +
+            "<br>" +
+            "While your Lifebloom is on an ally, your periodic heals on them have a 4% chance to cause it to bloom."
+    }
+
+}
+//------------------------------------------------
+class Germination extends Ability {
+    constructor() {
+        super("Germination", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.spellPower = 1.45*1.10
+        this.duration = 17
+    }
+
+    getTooltip() {
+        return "You can apply Rejuvenation twice to the same target. Rejuvenation's duration is increased by 2 sec."
+    }
+
+    setTalent(caster) {
+       caster.abilities["Rejuvenation"].duration += 2
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Rejuvenation"].duration += 2
+    }
+}
+//------------------------------------------------
+class Flourish extends Ability {
+    constructor() {
+        super("Flourish", 0, 1.5, 0, 90, false, false, false, "nature", 60, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 8
+    }
+
+    getTooltip() {
+        return "Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec, and increases the rate of your heal over time effects by 100% for 8 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Heal over time spells are healing 100% faster."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect && this.checkDistance(caster,caster.castTarget)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                if (!friendlyTargets[i].isDead && this.checkDistance(caster,friendlyTargets[i],undefined,true)) {
+                    for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
+                        if (friendlyTargets[i].buffs[j].type === "hot" && friendlyTargets[i].buffs[j].caster === caster) {
+                            friendlyTargets[i].buffs[j].duration += 8
+                        }
+                    }
+                }
+            }
+
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+
+        }
+        return false
+    }
+
+}

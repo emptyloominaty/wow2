@@ -53,9 +53,15 @@ class Rejuvenation extends Ability {
         }
 
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
+            if (caster.spec==="restorationDruid" && caster.abilities["Germination"].talentSelect && checkBuff(caster,target,"Rejuvenation")) {
+                applyHot(caster,caster,caster.abilities["Germination"],undefined,undefined,spellPower)
+            }
             applyHot(caster,caster,this,undefined,undefined,spellPower)
             target = caster
         } else {
+            if (caster.spec==="restorationDruid" && caster.abilities["Germination"].talentSelect && checkBuff(caster,target,"Rejuvenation")) {
+                applyHot(caster,target,caster.abilities["Germination"],undefined,undefined,spellPower)
+            }
             applyHot(caster,target,this,undefined,undefined,spellPower)
         }
         if(caster.spec==="restorationDruid") {

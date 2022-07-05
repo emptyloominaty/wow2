@@ -32,6 +32,10 @@ class Tranquility extends Ability {
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))-0.1}
 
+            if (caster.abilities["Inner Peace"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Inner Peace"])
+            }
+
             this.setGcd(caster)
             this.setCd()
             caster.useEnergy(this.cost)
