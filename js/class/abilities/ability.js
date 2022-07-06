@@ -98,7 +98,7 @@ class Ability {
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
-        if (this.canUse && this.checkGcd(caster) && this.checkCost(caster,cost,undefined,secCost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster) && (!checkForm || this.checkDruidForm(caster))) {
+        if (this.canUse && this.checkGcd(caster) && !caster.isInterrupted && this.checkCost(caster,cost,undefined,secCost) && this.checkCasting(caster) && this.checkCd(caster) && this.abilityCd>=this.abilityMaxCd && this.checkRooted(caster) && this.checkShamanForm(caster) && (!checkForm || this.checkDruidForm(caster))) {
             return true
         }
         return false

@@ -24,9 +24,6 @@ class Blur extends Ability {
         return "Increases your chance to dodge by 50% and reduces all damage taken by 20% for 10 sec."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             applyBuff(caster,caster,this)

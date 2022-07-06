@@ -668,6 +668,8 @@ class Creature {
                         if (this.buffs[i].caster.abilities["Spring Blossoms"].talentSelect) {
                             applyHot(this.buffs[i].caster,this,this.buffs[i].caster.abilities["Spring Blossoms"])
                         }
+                    } else if (this.buffs[i].effect[j].name === "interrupt") {
+                        this.isInterrupted = true
                     }
                 }
             } else {
@@ -691,6 +693,14 @@ class Creature {
             if (this.moveSpeedIncrease<0) {
                 this.moveSpeedIncrease = 0
             }
+            if (this.damageReduction>1) {
+                this.damageReduction = 1
+            }
+            if (this.magicDamageReduction>1) {
+                this.magicDamageReduction = 1
+            }
+
+
 
             if (!this.buffs[i].ability.permanentBuff) {
                 this.buffs[i].duration -= progressInSec

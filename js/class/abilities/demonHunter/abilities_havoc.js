@@ -13,6 +13,7 @@ class Havoc_Abilities {
     "Eye Beam" = new EyeBeam()
     "Metamorphosis" = new Metamorphosis()
     "Vengeful Retreat" = new VengefulRetreat()
+    "Throw Glaive" = new ThrowGlaive()
 
     "Death Sweep" = new DeathSweep()
     "Annihilation" = new Annihilation()

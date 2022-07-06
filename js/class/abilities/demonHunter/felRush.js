@@ -37,6 +37,13 @@ class FelRush extends Ability {
             if (caster.isCasting) {
                 caster.isCasting = false
             }
+
+            if (caster.spec==="havoc" && caster.abilities["Unbound Chaos"].talentSelect && checkBuff(caster,caster,"Unbound Chaos")) {
+               this.spellPower = 1.8975
+            } else {
+                this.spellPower = 0.31625
+            }
+
             caster.isRolling = true
             this.targetsDamaged = []
             this.setGcd(caster)

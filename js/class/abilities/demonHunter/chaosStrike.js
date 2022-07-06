@@ -7,7 +7,6 @@ class ChaosStrike extends Ability {
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
@@ -32,9 +31,15 @@ class ChaosStrike extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let spellPower = this.spellPower
+            if (caster.abilities["Essence Break"].talentSelect) {
+                if (checkBuff(caster,caster,"Essence Break")) {
+                    spellPower *= 1.4
+                }
+            }
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
+                    doDamage(caster,caster.castTarget,this,undefined,spellPower)
                     done = true
                 }
             } else {
@@ -46,7 +51,7 @@ class ChaosStrike extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
+                        doDamage(caster, caster.targetObj, this,undefined,spellPower)
                         done = true
                     }
                 }
@@ -55,6 +60,9 @@ class ChaosStrike extends Ability {
                 let cost = this.cost
                 if (getChance(this.refundChance)) {
                     cost = cost - this.refund
+                    if (caster.abilities["Cycle of Hatred"].talentSelect) {
+                        caster.abilities["Eye Beam"].incCd(caster,3,false)
+                    }
                 }
                 if (caster.isChanneling) {
                     caster.isChanneling = false

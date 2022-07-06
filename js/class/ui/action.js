@@ -495,6 +495,8 @@ if (player.spec==="havoc") {
         "Chaos Nova": new Action("Chaos Nova",1,10),
 
         //bar2
+        "Netherwalk": new Action("Netherwalk",2,1),
+        "Throw Glaive": new Action( "Throw Glaive",2,3),
         "Darkness": new Action("Darkness",2,4),
         "Vengeful Retreat":new Action("Vengeful Retreat",2,11)
 

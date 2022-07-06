@@ -10,24 +10,24 @@ let _havoc_talents = function(caster) {
     caster.abilities["Demon Blades"] = new DemonBlades()
 
     //3
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Trail of Ruin"] = new TrailofRuin()
+    caster.abilities["Unbound Chaos"] = new UnboundChaos()
+    caster.abilities["Glaive Tempest"] = new GlaiveTempest()
 
     //4
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Soul Rending"] = new SoulRending()
+    caster.abilities["Desperate Instincts"] = new DesperateInstincts()
+    caster.abilities["Netherwalk"] = new Netherwalk()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Cycle of Hatred"] = new CycleofHatred()
+    caster.abilities["First Blood"] = new FirstBlood()
+    caster.abilities["Essence Break"] = new EssenceBreak()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Unleashed Power"] = new UnleashedPower()
+    //caster.abilities["Master of the Glaive"] = new MasteroftheGlaive()
+    //caster.abilities["Fel Eruption"] = new FelEruption()
 
     //7
     //caster.abilities[""] = new ()
@@ -65,7 +65,7 @@ class BlindFury extends Ability {
         caster.abilities["Eye Beam"].duration /= 1.5
     }
 }
-//------------------------------------------------Demonic Appetite
+//------------------------------------------------
 class DemonicAppetite extends Ability {
     constructor() {
         super("Demonic Appetite", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
@@ -81,7 +81,6 @@ class DemonicAppetite extends Ability {
 class Felblade extends Ability {
     constructor() {
         super("Felblade", -40, 1.5, 0, 15, false, false, false, "fire", 15, 1)
-        this.passive = true
         this.talent = true
         this.spellPower = 0.6669
         this.hasteCd = true
@@ -212,15 +211,237 @@ class DemonBlades extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW3
+class TrailofRuin extends Ability {
+    constructor() {
+        super("Trail of Ruin", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 4
+        this.spellPower = 0.5896
+    }
+
+    getTooltip() {
+        return "The final slash of Blade Dance inflicts an additional "+spellPowerToNumber(this.spellPower)+" Chaos damage over 4 sec."
+    }
+}
 //------------------------------------------------
+class UnboundChaos extends Ability {
+    constructor() {
+        super("Unbound Chaos", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 20
+    }
+
+    getTooltip() {
+        return "Activating Immolation Aura increases the damage of your next Fel Rush by 500%. Lasts 20 sec."
+    }
+}
 //------------------------------------------------
+class GlaiveTempest extends Ability {
+    constructor() {
+        super("Glaive Tempest", 30, 1.5, 0, 20, false, false, false, "chaos", 8, 1)
+        this.talent = true
+        this.spellPower = 0.1518
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Launch two demonic glaives in a whirlwind of energy, causing [14 * (15.3% of Attack power)] Chaos damage over 3 sec to all nearby enemies."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW4
+class SoulRending extends Ability {
+    constructor() {
+        super("Soul Rending", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 10
+        this.permanentBuff = true
+        this.hiddenBuff = true
+        this.effect = [{name:"increaseStat",stat:"leech",val:10}]
+    }
+
+    getTooltip() {
+        return "Leech increased by 10%.<br>" +
+            "<br>" +
+            "Gain an additional 20% Leech while Metamorphosis is active."
+    }
+
+    setTalent(caster) {
+        applyBuff(caster,caster,this)
+        caster.abilities["Metamorphosis"].effect.push({name:"increaseStat",stat:"leech",val:20})
+    }
+
+    unsetTalent(caster) {
+        checkBuff(caster,caster,"Soul Rending",true)
+        caster.abilities["Metamorphosis"].effect.pop()
+    }
+
+}
 //------------------------------------------------
+class DesperateInstincts extends Ability {
+    constructor() {
+        super("Desperate Instincts", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.effect = [{name:"increaseStat",stat:"leech",val:10}]
+    }
+
+    getTooltip() {
+        return "Blur now reduces damage taken by an additional 10%. <br><br>" +
+            "//NOT IMPLEMENTED//Additionally, you automatically trigger Blur with 50% reduced cooldown and duration when you fall below 35% health. This effect can only occur when Blur is not on cooldown."
+    } //TODO:
+
+    setTalent(caster) {
+        caster.abilities["Blur"].effect[0].val += 0.1
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Blur"].effect[0].val -= 0.1
+    }
+
+}
 //------------------------------------------------
+class Netherwalk extends Ability {
+    constructor() {
+        super("Netherwalk", 0, 1.5, 0, 180, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 6
+        this.effect = [{name:"damageReduction",val:1},{name:"moveSpeed",val:1},{name:"interrupt"}]
+    }
+
+    getTooltip() {
+        return "Slip into the nether, increasing movement speed by 100% and becoming immune to damage, but unable to attack. Lasts 6 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Immune to damage and unable to attack.<br>" +
+            "Movement speed increased by 100%."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Blur"].effect[0].val += 0.1
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Blur"].effect[0].val -= 0.1
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}
 //------------------------------------------------------------------------------------------------ROW5
+class CycleofHatred extends Ability {
+    constructor() {
+        super("Cycle of Hatred", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "When Chaos Strike refunds Fury, it also reduces the cooldown of Eye Beam by 3 sec."
+    }
+
+}
 //------------------------------------------------
+class FirstBlood extends Ability {
+    constructor() {
+        super("First Blood", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Reduces the Fury cost of Blade Dance by 20 and increases its damage to "+spellPowerToNumber(0.66*2.35)+" against the first target struck."
+    }
+
+
+    setTalent(caster) {
+        caster.abilities["Blade Dance"].cost -= 20
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Blade Dance"].cost += 20
+    }
+
+}
 //------------------------------------------------
+class EssenceBreak extends Ability {
+    constructor() {
+        super("Essence Break", 0, 1.5, 0, 20, false, false, false, "chaos", 10, 1)
+        this.talent = true
+        this.spellPower = 0.590733
+        this.duration = 8
+    }
+
+    getTooltip() {
+        return "Slash all enemies in front of you for "+spellPowerToNumber(this.spellPower)+" Chaos damage, and increase the damage your Chaos Strike and Blade Dance deal to them by 40% for 8 sec."
+    }
+
+    startCast(caster,pet = false) {
+        if (this.checkStart(caster)) {
+
+            let dir = caster.direction
+            let targets = enemies
+            for (let i = 0; i<targets.length ;i++) {
+                if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
+                    let dirToTarget = getDirection(caster,targets[i])
+                    if (directionHit(dir,dirToTarget,75)) {
+                        doDamage(caster, targets[i], this)
+                    }
+                }
+            }
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+
+}
 //------------------------------------------------------------------------------------------------ROW6
+class UnleashedPower extends Ability {
+    constructor() {
+        super("Unleashed Power", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Removes the Fury cost of Chaos Nova and reduces its cooldown by 33%."
+    }
+
+
+    setTalent(caster) {
+        caster.abilities["Chaos Nova"].cost = 0
+        caster.abilities["Chaos Nova"].maxCd /= 1.33
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Blade Dance"].cost = 30
+        caster.abilities["Chaos Nova"].maxCd *= 1.33
+    }
+
+}
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

@@ -115,7 +115,7 @@ class ChainLightning extends Ability {
             let lastTarget = target
             let targets = enemies
             for (let i = 0; i<targets.length ;i++) {
-                if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.jumpRange)) {
+                if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],this.jumpRange,true)) {
                     lastTarget = targets[i]
                     doDamage(caster, targets[i], this,undefined,spellPower)
                     if (caster.spec==="elemental") {
