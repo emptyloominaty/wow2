@@ -29,7 +29,23 @@ class EyeBeam extends Ability {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0.2/(1 + (caster.stats.haste / 100)), timer2:0.2/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
-
+            if (caster.abilities["Demonic"].talentSelect) {
+                let extended = false
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Metamorphosis") {
+                        caster.buffs[i].duration += 8
+                        extended = true
+                        break
+                    }
+                }
+                if (!extended) {
+                    applyBuff(caster,caster,caster.abilities["Metamorphosis"],undefined,undefined,undefined,8)
+                    caster.abilities["Eye Beam"].cd = caster.abilities["Eye Beam"].maxCd
+                    caster.abilities["Blade Dance"].cd = caster.abilities["Blade Dance"].maxCd
+                    replaceAction(caster, "Blade Dance","Death Sweep")
+                    replaceAction(caster, "Chaos Strike","Annihilation")
+                }
+            }
             caster.canMoveWhileCasting = true
             applyBuff(caster,caster,this)
             this.setCd()
@@ -60,7 +76,6 @@ class EyeBeam extends Ability {
         if (caster.abilities["Blind Fury"].talentSelect) {
             caster.useEnergy(-8)
         }
-
     }
 
     endChanneling(caster) {

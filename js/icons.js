@@ -254,6 +254,7 @@ let iconsPath = {
     "Unbound Chaos":"img/demonHunter/UnboundChaos.jpg",
     "Unleashed Power":"img/demonHunter/UnleashedPower.jpg",
     "Vengeful Retreat":"img/demonHunter/VengefulRetreat.jpg",
+    "Vengeful Retreat ":"img/demonHunter/VengefulRetreat.jpg",
     "Void Reaver":"img/demonHunter/VoidReaver.jpg",
 
     //Druid

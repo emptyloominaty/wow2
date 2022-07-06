@@ -25,9 +25,6 @@ class FistsofFury extends Ability {
         return "Pummels all targets in front of you, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage over 4 sec to your primary target and "+spellPowerToNumber(this.spellPowerSec)+" damage over 4 sec to all other enemies. Can be channeled while moving."
     }
 
-    run(caster) {
-    }
-
     startCast(caster,pet = false) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             caster.isChanneling = true

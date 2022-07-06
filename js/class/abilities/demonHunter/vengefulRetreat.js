@@ -53,8 +53,11 @@ class VengefulRetreat extends Ability {
         return false
     }
 
-    endBuff(target) {
-        target.isRolling = false
+    endBuff(caster) {
+        caster.isRolling = false
+        if (caster.abilities["Momentum"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["VengefulRetreatMomentum"])
+        }
     }
 }
 
@@ -66,5 +69,16 @@ class VengefulRetreatDebuff extends Ability {
         this.hiddenSB = true
         this.duration = 3
         this.effect = [{name:"moveSpeed",val:0.7}]
+    }
+}
+//--------------------------
+class VengefulRetreatMomentum extends Ability {
+    constructor() {
+        super("Vengeful Retreat ", 0, 0, 0, 0, false, false, false, "chaos", 40, 1)
+        this.passive = true
+        this.hiddenSB = true
+        //this.hiddenBuff = true
+        this.duration = 10
+        this.effect = [{name:"restoreMana",val:80/2}]
     }
 }

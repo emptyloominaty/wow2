@@ -26,13 +26,13 @@ let _havoc_talents = function(caster) {
 
     //6
     caster.abilities["Unleashed Power"] = new UnleashedPower()
-    //caster.abilities["Master of the Glaive"] = new MasteroftheGlaive()
-    //caster.abilities["Fel Eruption"] = new FelEruption()
+    caster.abilities["Master of the Glaive"] = new MasteroftheGlaive()
+    caster.abilities["Fel Eruption"] = new FelEruption()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Demonic"] = new Demonic()
+    caster.abilities["Momentum"] = new Momentum()
+    caster.abilities["Fel Barrage"] = new FelBarrage()
 
     caster.talents = [["Blind Fury","Demonic Appetite","Felblade"],
         ["Insatiable Hunger","Burning Hatred","Demon Blades"],
@@ -346,6 +346,7 @@ class CycleofHatred extends Ability {
         super("Cycle of Hatred", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
         this.passive = true
         this.talent = true
+        this.talentSelect = true
     }
 
     getTooltip() {
@@ -359,7 +360,6 @@ class FirstBlood extends Ability {
         super("First Blood", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
     }
 
     getTooltip() {
@@ -381,7 +381,7 @@ class EssenceBreak extends Ability {
     constructor() {
         super("Essence Break", 0, 1.5, 0, 20, false, false, false, "chaos", 10, 1)
         this.talent = true
-        this.spellPower = 0.590733
+        this.spellPower = 0.590733*1.08
         this.duration = 8
     }
 
@@ -421,7 +421,6 @@ class UnleashedPower extends Ability {
         super("Unleashed Power", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
     }
 
     getTooltip() {
@@ -441,7 +440,151 @@ class UnleashedPower extends Ability {
 
 }
 //------------------------------------------------
+class MasteroftheGlaive extends Ability {
+    constructor() {
+        super("Master of the Glaive", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 6
+        this.effect = [{name:"moveSpeed",val:0.5}]
+    }
+
+    getTooltip() {
+        return "Throw Glaive has 2 charges, and snares all enemies hit by 50% for 6 sec."
+    }
+
+
+    setTalent(caster) {
+        caster.abilities["Throw Glaive"].charges ++
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Throw Glaive"].charges --
+    }
+
+}
 //------------------------------------------------
+class FelEruption extends Ability {
+    constructor() {
+        super("Fel Eruption", 10, 1.5, 0, 30, false, false, false, "chaos", 20, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.3276
+        this.effect = [{name:"stun"}]
+        this.duration = 4
+    }
+
+    getTooltip() {
+        return "Impales the target for "+spellPowerToNumber(this.spellPower)+" Chaos damage and stuns them for 4 sec."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget)) {
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+                doDamage(caster,caster.castTarget,this)
+                applyDebuff(caster, caster.castTarget, this)
+
+                this.setGcd(caster)
+                this.setCd()
+                caster.useEnergy(this.cost)
+                return true
+            }
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
+class Demonic extends Ability {
+    constructor() {
+        super("Demonic", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Eye Beam causes you to enter demon form for 6 sec after it finishes dealing damage."
+    }
+
+}
 //------------------------------------------------
+class Momentum extends Ability {
+    constructor() {
+        super("Momentum", 0, 0, 0, 0, false, false, false, "chaos", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 6
+        this.effect = [{name:"increaseDamage",val:0.15}]
+    }
+
+    getTooltip() {
+        return "Fel Rush increases your damage done by 15% for 6 sec.<br>" +
+            "<br>" +
+            "Vengeful Retreat's cooldown is reduced by 5 sec, and it generates 80 Fury over 10 sec if it damages at least one enemy."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Vengeful Retreat"].maxCd -=5
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Vengeful Retreat"].maxCd +=5
+    }
+
+}
 //------------------------------------------------
+class FelBarrage extends Ability {
+    constructor() {
+        super("Fel Barrage", 0, 1.5, 3, 60, true, false, false, "chaos", 8, 1)
+        this.talent = true
+        this.duration = 3
+        this.spellPower = 0.242
+    }
+
+    getTooltip() {
+        return "Unleash a torrent of Fel energy over 3 sec, inflicting "+spellPowerToNumber(this.spellPower*13)+" Chaos damage to all enemies within 8 yds."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Unleashing Fel."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
+            caster.isChanneling = true
+            caster.channeling = {name:this.name, time:0, time2:this.duration, timer:0.25/(1 + (caster.stats.haste / 100)), timer2:0.25/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+
+            caster.canMoveWhileCasting = true
+            this.setCd()
+            this.setGcd(caster)
+            let secCost = this.secCost
+
+            caster.useEnergy(this.cost,secCost)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    cast(caster) {
+        let targets = enemies
+        for (let i = 0; i<targets.length ;i++) {
+            if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
+                doDamage(caster, targets[i], this)
+            }
+        }
+    }
+
+    endChanneling(caster) {
+        caster.canMoveWhileCasting = false
+    }
+
+
+
+}

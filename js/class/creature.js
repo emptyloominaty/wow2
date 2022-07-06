@@ -230,9 +230,19 @@ class Creature {
             _havoc_talents(this)
             applyBuff(this,this,this.abilities["Demonic Wards"])
 
-            this.energy += 20
+            this.energy = 0
             this.maxEnergy += 20
 
+            this.resourceName = "Fury"
+            this.role = "dps"
+        } else if (spec==="vengeance") {//----------------------------------------Havoc
+            this.class = "Demon Hunter"
+            this.melee = true
+            this.abilities = new Vengeance_Abilities()
+            _vengeance_talents(this)
+            applyBuff(this,this,this.abilities["Demonic Wards"])
+
+            this.energy = 0
             this.resourceName = "Fury"
             this.role = "dps"
         } else if (spec==="fury") {//----------------------------------------Fury

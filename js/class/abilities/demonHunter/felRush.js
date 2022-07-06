@@ -66,7 +66,10 @@ class FelRush extends Ability {
         }
     }
 
-    endBuff(target) {
-        target.isRolling = false
+    endBuff(caster) {
+        caster.isRolling = false
+        if (caster.abilities["Momentum"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["Momentum"])
+        }
     }
 }

@@ -14,6 +14,7 @@ class Havoc_Abilities {
     "Metamorphosis" = new Metamorphosis()
     "Vengeful Retreat" = new VengefulRetreat()
     "Throw Glaive" = new ThrowGlaive()
+    "Torment" = new Torment()
 
     "Death Sweep" = new DeathSweep()
     "Annihilation" = new Annihilation()
@@ -27,6 +28,7 @@ class Havoc_Abilities {
     "MetaJump" = new MetaJump()
     "MetaStun" = new MetaStun()
     "VengefulRetreatDebuff" = new VengefulRetreatDebuff()
+    "VengefulRetreatMomentum" = new VengefulRetreatMomentum()
     "Demonic Wards" = new DemonicWards()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

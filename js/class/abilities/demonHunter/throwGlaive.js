@@ -13,7 +13,7 @@ class ThrowGlaive extends Ability {
         let range = 30
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.hasteCd = true
-        this.spellPower = 0.366795
+        this.spellPower = 0.366795*1.08
         this.jumptargets = 2
 
     }
@@ -29,6 +29,10 @@ class ThrowGlaive extends Ability {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
 
+                    if (caster.spec==="havoc" && caster.abilities["Master of the Glaive"].talentSelect) {
+                        applyDebuff(caster,caster.castTarget,caster.abilities["Master of the Glaive"])
+                    }
+
                     let ttt = 0
                     let lastTarget = caster.castTarget
                     let targets = enemies
@@ -36,6 +40,9 @@ class ThrowGlaive extends Ability {
                         if (!targets[i].isDead && this.checkDistance(lastTarget, targets[i],10,true)) {
                             lastTarget = targets[i]
                             doDamage(caster, targets[i], this)
+                            if (caster.spec==="havoc" && caster.abilities["Master of the Glaive"].talentSelect) {
+                                applyDebuff(caster,targets[i],caster.abilities["Master of the Glaive"])
+                            }
                             ttt++
                             if (ttt>=this.jumptargets) {
                                 break
