@@ -8,7 +8,11 @@ class Havoc_Abilities {
     "Imprison" = new Imprison()
     "Blur" = new Blur()
     "Immolation Aura" = new ImmolationAura()
-
+    "Chaos Nova" = new ChaosNova()
+    "Darkness" = new Darkness()
+    "Eye Beam" = new EyeBeam()
+    "Metamorphosis" = new Metamorphosis()
+    "Vengeful Retreat" = new VengefulRetreat()
 
     "Death Sweep" = new DeathSweep()
     "Annihilation" = new Annihilation()
@@ -16,10 +20,14 @@ class Havoc_Abilities {
     //passive
     "Chaos Brand" = new ChaosBrand()
     "Demonic Presence" = new DemonicPresence()
+    "Eye Beam " = new EyeBeamBuff()
+    "MetaJump" = new MetaJump()
+    "MetaStun" = new MetaStun()
+    "VengefulRetreatDeuff" = new VengefulRetreatDeuff()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
-//-----
+//--------------------------
 class DemonicPresence extends Ability {
     constructor() {
         super("Demonic Presence", 0, 0, 0, 0, false, false, false, "chaos", 40, 1)

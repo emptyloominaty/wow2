@@ -217,6 +217,17 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         }
 
+        //darkness
+        if (!target.enemy) {
+            for (let i = 0; i<target.buffs.length; i++) {
+                if (target.buffs[i].name==="Darkness") {
+                    if (getChance(20)) {
+                        damage = 0
+                    }
+                }
+            }
+        }
+
         if (ability.school==="physical") {
 
             //dodge

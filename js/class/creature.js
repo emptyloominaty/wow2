@@ -510,10 +510,19 @@ class Creature {
                         this.direction = getDirection(this,creatures[this.buffs[i].effect[j].target])
                         this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
                         if (getDistance(this,creatures[this.buffs[i].effect[j].target])<minDistance) {
-                            console.log()
                             this.buffs[i].duration = -1
                         }
-                    } else if (this.buffs[i].effect[j].name === "stun") {
+                    } else if (this.buffs[i].effect[j].name === "moveToPoint") {
+                        let minDistance = 3
+                        if (this.buffs[i].effect[j].dist) {
+                            minDistance = this.buffs[i].effect[j].dist
+                        }
+                        this.direction = getDirection(this,this.buffs[i].effect[j].target)
+                        this.move((this.buffs[i].effect[j].val*40)/fps,undefined,undefined,true)
+                        if (getDistance(this,this.buffs[i].effect[j].target)<minDistance) {
+                            this.buffs[i].duration = -1
+                        }
+                    }  else if (this.buffs[i].effect[j].name === "stun") {
                         if (this.isStunnable) {
                             this.isStunned = true
                         }
@@ -645,7 +654,7 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "cantDie") {
                         this.health = this.maxHealth
-                    }else if (this.buffs[i].effect[j].name === "cenarionWard") {
+                    } else if (this.buffs[i].effect[j].name === "cenarionWard") {
                         if (this.healthA < this.healthB) {
                             this.buffs[i].duration = -1
                             applyHot(this.buffs[i].caster,this,this.buffs[i].caster.abilities["Cenarion Ward Hot"])
@@ -672,6 +681,10 @@ class Creature {
                         this.reduceEnergyCost = 0
                     }
                 }
+            }
+
+            if (this.moveSpeedIncrease<0) {
+                this.moveSpeedIncrease = 0
             }
 
             if (!this.buffs[i].ability.permanentBuff) {

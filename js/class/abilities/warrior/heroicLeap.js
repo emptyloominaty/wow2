@@ -14,7 +14,7 @@ class HeroicLeap extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.1102211
-        this.effect = [{name:"moveToTarget",val:7,dist:0.5,target:{}}]
+        this.effect = [{name:"moveToPoint",val:7,dist:0.5,target:{}}]
         this.duration = 2.5
         this.caster = {}
         this.canCastWhileRooted = false

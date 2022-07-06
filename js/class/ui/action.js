@@ -478,21 +478,24 @@ if (player.spec==="holyPriest") {
 if (player.spec==="havoc") {
     actions = {
         //bar0
+        "Metamorphosis": new Action("Metamorphosis",0,0),
         "Disrupt": new Action("Disrupt",0,5),
+        "Blade Dance": new Action("Blade Dance",0,6),
         "Consume Magic": new Action("Consume Magic", 0, 7),
         "Blur": new Action("Blur",0,8),
 
         //bar1
-        "Blade Dance": new Action("Blade Dance",1,1),
-        "Immolation Aura": new Action("Immolation Aura",1,2),
+        "Immolation Aura": new Action("Immolation Aura",1,1),
+        "Eye Beam": new Action("Eye Beam",1,2),
         "Fel Rush": new Action("Fel Rush",1,3),
 
         "Demon's Bite": new Action("Demon's Bite", 1, 8),
         "Chaos Strike": new Action("Chaos Strike", 1, 9),
-
+        "Chaos Nova": new Action("Chaos Nova",1,10),
 
         //bar2
-
+        "Darkness": new Action("Darkness",2,4),
+        "Vengeful Retreat":new Action("Vengeful Retreat",2,11)
 
         //bar3
     }

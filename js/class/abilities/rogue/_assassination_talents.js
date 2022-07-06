@@ -480,7 +480,7 @@ class PoisonBomb extends Ability {
     }
 
     smashVial(caster,target) {
-        if (getChance(this.chance)) {
+        if (getChance(this.chance*caster.secondaryResource)) {
             addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,target.x,target.y,true,this.area.radius)
         }
     }
