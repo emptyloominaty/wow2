@@ -38,6 +38,10 @@ class AutoAttack extends Ability {
                     if (caster.spec==="fury" && caster.abilities["War Machine"].talentSelect) {
                         caster.useEnergy(-0.6,0)
                     }
+                } else if (caster.spec==="havoc") {
+                    if (caster.abilities["Demon Blades"].talentSelect) {
+                        caster.abilities["Demon Blades"].doDamage(caster,caster.targetObj)
+                    }
                 }
             }
 

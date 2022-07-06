@@ -186,6 +186,7 @@ let iconsPath = {
     "Chaos Strike":"img/demonHunter/ChaosStrike.jpg",
     "Immolation Aura":"img/demonHunter/ImmolationAura.jpg",
     "Metamorphosis":"img/demonHunter/Metamorphosis.jpg",
+    "Metamorphosis  ":"img/demonHunter/Metamorphosis.jpg",
     "MetaStun":"img/demonHunter/Metamorphosis.jpg",
     "Abyssal Strike":"img/demonHunter/AbyssalStrike.jpg",
     "Agonizing Flames":"img/demonHunter/AgonizingFlames.jpg",

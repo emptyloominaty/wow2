@@ -12,8 +12,6 @@ class Metamorphosis extends Ability {
         let school = "chaos"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
-        this.spellPower = 0
         this.effect = [{name:"increaseStat",stat:"haste",val:25}]
         if (vengeance) {
             this.effect = []
@@ -60,6 +58,7 @@ class Metamorphosis extends Ability {
 
 
             applyBuff(caster,caster,this)
+
             this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)
@@ -69,6 +68,9 @@ class Metamorphosis extends Ability {
     }
 
     endBuff(caster) {
+        console.log("HUH?")
+        caster.abilities["Death Sweep"].canUse = false
+        caster.abilities["Annihilation"].canUse = false
         replaceAction(caster, "Death Sweep","Blade Dance")
         replaceAction(caster, "Annihilation","Chaos Strike")
     }
@@ -79,7 +81,7 @@ class Metamorphosis extends Ability {
 //-----
 class MetaJump extends Ability {
     constructor() {
-        super("Metamorphosis", 0, 0, 0, 0, false, false, false, "chaos", 40, 1)
+        super("Metamorphosis  ", 0, 0, 0, 0, false, false, false, "chaos", 40, 1)
         this.passive = true
         this.hiddenBuff = true
         this.hiddenSB = true

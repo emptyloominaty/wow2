@@ -57,6 +57,9 @@ class ImmolationAura extends Ability {
             this.timer1 += progressInSec
         } else {
             this.timer1 = 0
+            if (caster.abilities["Burning Hatred"].talentSelect) {
+                caster.useEnergy(-5)
+            }
             for (let i = 0; i<enemies.length; i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true))  {
                     doDamage(caster,enemies[i],this)

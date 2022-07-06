@@ -485,6 +485,7 @@ if (player.spec==="havoc") {
         "Blur": new Action("Blur",0,8),
 
         //bar1
+        "Felblade": new Action("Felblade",1,0),
         "Immolation Aura": new Action("Immolation Aura",1,1),
         "Eye Beam": new Action("Eye Beam",1,2),
         "Fel Rush": new Action("Fel Rush",1,3),

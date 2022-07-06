@@ -37,7 +37,7 @@ class VengefulRetreat extends Ability {
             for (let i = 0; i<enemies.length; i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],5,true))  {
                     doDamage(caster,enemies[i],this)
-                    applyDebuff(caster,enemies[i],caster.abilities["VengefulRetreatDeuff"])
+                    applyDebuff(caster,enemies[i],caster.abilities["VengefulRetreatDebuff"])
                 }
             }
 
@@ -59,7 +59,7 @@ class VengefulRetreat extends Ability {
 }
 
 //--------------------------
-class VengefulRetreatDeuff extends Ability {
+class VengefulRetreatDebuff extends Ability {
     constructor() {
         super("Vengeful Retreat", 0, 0, 0, 0, false, false, false, "chaos", 40, 1)
         this.passive = true

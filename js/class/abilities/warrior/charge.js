@@ -24,10 +24,6 @@ class Charge extends Ability {
     getTooltip() {
         return "Charge to an enemy, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage, rooting it for 1 sec <br> Min Range:8"
     }
-
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget) && !this.checkDistance(caster,caster.castTarget,this.minRange)) {
@@ -60,8 +56,8 @@ class Charge extends Ability {
     runBuff(target,buff) {
     }
 
-    endBuff(target) {
+    endBuff(caster) {
         doDamage(this.caster, creatures[this.effect[0].target], this)
-        target.isRolling = false
+        caster.isRolling = false
     }
 }

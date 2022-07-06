@@ -3,7 +3,7 @@ class EyeBeam extends Ability {
         let name = "Eye Beam"
         let cost = 30
         let gcd = 1.5
-        let castTime = 1
+        let castTime = 2
         let cd = 30
         let charges = 1
         let channeling = true
@@ -56,6 +56,9 @@ class EyeBeam extends Ability {
                     doDamage(caster, targets[i], this,undefined,this.spellPowerSec)
                 }
             }
+        }
+        if (caster.abilities["Blind Fury"].talentSelect) {
+            caster.useEnergy(-8)
         }
 
     }

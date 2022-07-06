@@ -7,7 +7,6 @@ class DemonsBite extends Ability {
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
@@ -21,9 +20,6 @@ class DemonsBite extends Ability {
 
     getTooltip() {
         return "Quickly attack for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage"
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {
@@ -53,6 +49,11 @@ class DemonsBite extends Ability {
                     caster.isChanneling = false
                 }
 
+                if (caster.abilities["Felblade"].talentSelect) {
+                    if (getChance(10*(1+(caster.stats.haste/100)))) {
+                        caster.abilities["Felblade"].cd = caster.abilities["Felblade"].maxCd
+                    }
+                }
 
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
@@ -64,6 +65,4 @@ class DemonsBite extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

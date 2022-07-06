@@ -228,6 +228,11 @@ class Creature {
             this.melee = true
             this.abilities = new Havoc_Abilities()
             _havoc_talents(this)
+            applyBuff(this,this,this.abilities["Demonic Wards"])
+
+            this.energy += 20
+            this.maxEnergy += 20
+
             this.resourceName = "Fury"
             this.role = "dps"
         } else if (spec==="fury") {//----------------------------------------Fury

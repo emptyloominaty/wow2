@@ -15,7 +15,7 @@ class ChaosStrike extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.44275+0.69575
+        this.spellPower = 0.44275+0.69575*1.1*1.08
 
         this.refundChance = 20
         this.refund = 20
