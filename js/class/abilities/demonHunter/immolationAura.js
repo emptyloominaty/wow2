@@ -19,7 +19,9 @@ class ImmolationAura extends Ability {
         this.hasteCd = true
 
         if (vengeance) {
+            this.cost = -8
             this.cd = 15
+            this.maxCd = 15
             this.duration = 6
         }
 

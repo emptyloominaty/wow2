@@ -14,7 +14,7 @@ class BigArcaneDmg extends Ability {
         let range = 5 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 14.5
+        this.spellPower = 10
     }
 
     run(caster) {

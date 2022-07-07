@@ -14,14 +14,13 @@ class Shear extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.40365*1.24
+        this.fragments = 1
 
     }
 
     getTooltip() {
         return "Shears an enemy for "+spellPowerToNumber(this.spellPower)+" Physical damage, and shatters two Lesser Soul Fragments from your target."
     }
-
-
 
     startCast(caster) {
         if (this.checkStart(caster)) {
@@ -49,7 +48,7 @@ class Shear extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                caster.abilities["Soul Fragment"].gainSoul(caster,2)
+                caster.abilities["Soul Fragment"].gainSoul(caster,this.fragments)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 return true

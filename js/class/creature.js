@@ -241,7 +241,8 @@ class Creature {
             this.abilities = new Vengeance_Abilities()
             _vengeance_talents(this)
             applyBuff(this,this,this.abilities["Demonic Wards"])
-
+            applyBuff(this,this,this.abilities["Thick Skin"])
+            setTimeout(()=>{this.updateHealth()},30)
             this.energy = 0
             this.resourceName = "Fury"
             this.role = "tank"
@@ -293,7 +294,7 @@ class Creature {
     run() {
         this.floatingTexts.run()
 
-        if (!this.playerCharacter) {
+        if (!this.playerCharacter && combatTime>0.5) {
             this.ai.run()
         }
 
@@ -393,6 +394,9 @@ class Creature {
         this.stats = JSON.parse(JSON.stringify(this.statsBup))
         this.stats.dodge = dodge
         if (this.enemy) {this.stats.dodge = 0}
+        if (this.spec==="vengeance") {
+            this.stats.primary *= (1+(this.stats.mastery/300))
+        }
         this.isStunned = false
         this.isRooted = false
         this.isSnared = false
@@ -449,7 +453,7 @@ class Creature {
                 for (let j = 0; j<this.buffs[i].effect.length; j++) {
                     if (this.buffs[i].effect[j].name === "move") {
                         if (!this.buffMoved) {
-                            this.move((this.buffs[i].effect[j].val * 40) / fps, undefined, undefined, true)
+                            this.move((this.buffs[i].effect[j].val * 40) / 60, undefined, undefined, true)
                             this.buffMoved = true
                         }
                     } else if (this.buffs[i].effect[j].name === "healingIncrease") {

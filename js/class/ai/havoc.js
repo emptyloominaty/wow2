@@ -10,7 +10,6 @@ let _ai_havoc = function(creature) {
         if (!casted && dist>15) {
             casted = c.abilities["Fel Rush"].startCast(c)
         }
-
         c.move(1)
     } else {
 

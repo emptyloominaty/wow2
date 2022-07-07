@@ -3,9 +3,12 @@ class Vengeance_Abilities {
     "Imprison" = new Imprison()
     "Consume Magic" = new ConsumeMagic()
     "Throw Glaive" = new ThrowGlaive()
-    "Metamorphosis" = new Metamorphosis()
+    "Metamorphosis" = new Metamorphosis(true)
     "Torment" = new Torment()
     "Shear" = new Shear()
+    "Soul Cleave" = new SoulCleave()
+    "Immolation Aura" = new ImmolationAura(true)
+    "Demon Spikes" = new DemonSpikes()
 
     //passive
     "Fel Blood" = new FelBlood()
@@ -15,17 +18,18 @@ class Vengeance_Abilities {
     "Demonic Wards" = new DemonicWards()
     "Soul Fragment" = new SoulFragment()
     "Consume Soul" = new ConsumeSoul()
+    "Thick Skin" = new ThickSkin()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
 class FelBlood extends Ability {
     constructor() {
-        super("Fel Blood", 0, 0, 0, 0, false, false, false, "chaos", 40, 1)
+        super("Fel Blood", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
         this.passive = true
         this.mastery = true
     }
 
-    getTooltip() { //TODO:
+    getTooltip() {
         return "Increases the Armor bonus of Demon Spikes by an additional "+player.stats.mastery.toFixed(1)+"% of your Agility. Also increases your attack power by "+(player.stats.mastery/3).toFixed(1)+"%"
     }
 }
@@ -99,10 +103,40 @@ class ConsumeSoul extends Ability {
         for (let i = 0; i<caster.abilities["Soul Fragment"].damageLast5Sec.length; i++) {
             val += caster.abilities["Soul Fragment"].damageLast5Sec[i]
         }
+        let buffStacks = 0
+        for (let i = 0; i<caster.buffs.length; i++) {
+            if (caster.buffs[i].name==="Soul Fragment") {
+                buffStacks += caster.buffs[i].stacks
+                caster.buffs[i].stacks -= stacks
+                if (caster.buffs[i].stacks<0) {
+                    caster.buffs[i].duration = -1
+                }
+                break
+            }
+        }
+        if (buffStacks<stacks) {
+            stacks = buffStacks
+        }
         let heal = (val*0.06) *stacks
         if (heal<(caster.maxHealth*0.01)*stacks) {
             heal = (caster.maxHealth*0.01)*stacks
         }
         doHeal(caster,caster,this,undefined,undefined,false,undefined,undefined,heal)
+        return stacks
+    }
+}
+
+class ThickSkin extends Ability {
+    constructor() {
+        super("Thick Skin", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.permanentBuff = true
+        this.hiddenBuff = true
+        this.duration = 10
+        this.effect = [{name:"increaseStat",stat:"armor",val:100,percent:true},{name:"increaseStat",stat:"stamina",val:65,percent:true}]
+    }
+
+    getTooltip() {
+        return "Fel energy thickens your skin to demonic proportions, increasing your Stamina by 65% and your Armor by 100%"
     }
 }
