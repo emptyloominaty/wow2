@@ -91,4 +91,10 @@ let raidFramesBuffs = {
         centreRight:"none",
         bottomCentre:"none",
     },
+    "vengeance": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
 }

@@ -235,7 +235,7 @@ class Creature {
 
             this.resourceName = "Fury"
             this.role = "dps"
-        } else if (spec==="vengeance") {//----------------------------------------Havoc
+        } else if (spec==="vengeance") {//----------------------------------------Vengeance
             this.class = "Demon Hunter"
             this.melee = true
             this.abilities = new Vengeance_Abilities()
@@ -244,7 +244,7 @@ class Creature {
 
             this.energy = 0
             this.resourceName = "Fury"
-            this.role = "dps"
+            this.role = "tank"
         } else if (spec==="fury") {//----------------------------------------Fury
             this.class = "Warrior"
             this.melee = true

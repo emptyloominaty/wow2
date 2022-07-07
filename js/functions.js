@@ -149,6 +149,8 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
 
         if (target.spec==="brewmaster") {
             target.abilities["Gift of the Ox"].spawnSphere(target,damage)
+        } else if (target.spec==="vengeance") {
+            target.abilities["Soul Fragment"].damageLast5Sec[target.abilities["Soul Fragment"].idx] += damage
         }
 
         damage = damage * (1-target.damageReduction)

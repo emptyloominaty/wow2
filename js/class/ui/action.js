@@ -504,3 +504,27 @@ if (player.spec==="havoc") {
         //bar3
     }
 }
+
+if (player.spec==="vengeance") {
+    actions = {
+        //bar0
+        //"Metamorphosis": new Action("Metamorphosis",0,0),
+        "Disrupt": new Action("Disrupt",0,5),
+
+        "Consume Magic": new Action("Consume Magic", 0, 7),
+
+
+        //bar1
+        "Torment": new Action("Torment",1,0),
+        //"Immolation Aura": new Action("Immolation Aura",1,1),
+
+        "Shear": new Action("Shear", 1, 8),
+
+
+
+        //bar2
+        "Throw Glaive": new Action( "Throw Glaive",2,3),
+
+        //bar3
+    }
+}

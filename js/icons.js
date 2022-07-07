@@ -23,6 +23,7 @@ let iconsPath = {
         "fury":"img/specs/warrior/fury.png",
         "holyPriest":"img/specs/priest/holy.png",
         "discPriest":"img/specs/priest/discipline.png",
+        "vengeance":"img/specs/demonhunter/vengeance.jpg",
     },
 
     //classes
@@ -256,6 +257,8 @@ let iconsPath = {
     "Vengeful Retreat":"img/demonHunter/VengefulRetreat.jpg",
     "Vengeful Retreat ":"img/demonHunter/VengefulRetreat.jpg",
     "Void Reaver":"img/demonHunter/VoidReaver.jpg",
+    "Consume Soul":"img/demonHunter/ConsumeSoul.jpg",
+    "Soul Fragment":"img/demonHunter/SoulFragment.jpg",
 
     //Druid
     "Moonkin Form":"img/druid/MoonkinForm.jpg",
