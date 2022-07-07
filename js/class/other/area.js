@@ -120,7 +120,12 @@ class Area {
             for (let i = 0; i<targets.length; i++) {
                 applyDebuff(this.caster,targets[i],this.ability)
             }
-        } else if (this.data.type==="applyBuff") {
+        } else if (this.data.type==="applyDot") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                applyDot(this.caster,targets[i],this.ability,this.data.spellPowerDot)
+            }
+        }  else if (this.data.type==="applyBuff") {
             let targets = this.findAllCreaturesInside()
             for (let i = 0; i<targets.length; i++) {
                 applyBuff(this.caster,targets[i],this.ability)
@@ -242,6 +247,17 @@ class Area {
         if (this.data.type==="hot" || this.data.type==="dot") {
             this.doTimer(this.timer/this.data.timer)
         } else if (this.data.type==="stun") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                applyDebuff(this.caster,targets[i],this.ability)
+            }
+        } else if (this.data.type==="sigilofFlame") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                doDamage(this.caster,targets[i],this.ability)
+                applyDot(this.caster,targets[i],this.ability,undefined,undefined,this.data.spellPowerDot)
+            }
+        } else if (this.data.type==="applyDebuffEnd") {
             let targets = this.findAllCreaturesInsideEnemy()
             for (let i = 0; i<targets.length; i++) {
                 applyDebuff(this.caster,targets[i],this.ability)

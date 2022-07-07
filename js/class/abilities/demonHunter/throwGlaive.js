@@ -1,5 +1,5 @@
 class ThrowGlaive extends Ability {
-    constructor() {
+    constructor(vengeance = false) {
         let name = "Throw Glaive"
         let cost = 0
         let gcd = 1.5
@@ -15,6 +15,13 @@ class ThrowGlaive extends Ability {
         this.hasteCd = true
         this.spellPower = 0.366795*1.08
         this.jumptargets = 2
+
+        if (vengeance) {
+            this.cd = 6
+            this.maxCd = 6
+            this.spellPower = 0.15795
+            this.threat = 10
+        }
 
     }
 

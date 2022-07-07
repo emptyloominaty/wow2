@@ -2,13 +2,21 @@ class Vengeance_Abilities {
     "Disrupt" = new Disrupt()
     "Imprison" = new Imprison()
     "Consume Magic" = new ConsumeMagic()
-    "Throw Glaive" = new ThrowGlaive()
+    "Throw Glaive" = new ThrowGlaive(true)
     "Metamorphosis" = new Metamorphosis(true)
     "Torment" = new Torment()
     "Shear" = new Shear()
     "Soul Cleave" = new SoulCleave()
     "Immolation Aura" = new ImmolationAura(true)
     "Demon Spikes" = new DemonSpikes()
+    "Infernal Strike" = new InfernalStrike()
+    "Fel Devastation" = new FelDevastation()
+    "Fiery Brand" = new FieryBrand()
+    "Sigil of Flame" = new SigilofFlame()
+    "Sigil of Silence" = new SigilofSilence()
+
+    //TODO: Sigil of Misery - Fear
+    //TODO:Revel in Pain When Fiery Brand expires on your primary target, you gain a shield that absorbs up [Attack power * (4.5) * (1 + Versatility)] damage for 15 sec, based on your damage dealt to them while Fiery Brand was active.
 
     //passive
     "Fel Blood" = new FelBlood()
@@ -38,6 +46,7 @@ class SoulFragment extends Ability {
     constructor() {
         super("Soul Fragment", 0, 0, 0, 0, false, false, false, "chaos", 40, 1)
         this.passive = true
+        this.hiddenSB = true
         this.maxStacks = 5
         this.duration = 20
         this.damageLast5Sec = [0,0,0,0,0]

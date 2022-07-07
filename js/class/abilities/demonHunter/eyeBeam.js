@@ -59,17 +59,13 @@ class EyeBeam extends Ability {
     }
 
     cast(caster) {
-        let target = caster.channeling.target
-        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target) && !target.isDead && this.checkDistance(caster,target)) {
-            doDamage(caster,target,this,undefined,undefined,undefined,true)
-        }
         let dir = caster.direction
         let targets = enemies
         for (let i = 0; i<targets.length ;i++) {
             if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
                 let dirToTarget = getDirection(caster,targets[i])
                 if (directionHit(dir,dirToTarget,50)) {
-                    doDamage(caster, targets[i], this,undefined,this.spellPowerSec)
+                    doDamage(caster, targets[i], this)
                 }
             }
         }

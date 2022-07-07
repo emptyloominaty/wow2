@@ -510,20 +510,23 @@ if (player.spec==="vengeance") {
         //bar0
         "Metamorphosis": new Action("Metamorphosis",0,0),
         "Disrupt": new Action("Disrupt",0,5),
-
+        "Sigil of Flame": new Action("Sigil of Flame",0,6),
         "Consume Magic": new Action("Consume Magic", 0, 7),
+        "Fiery Brand":new Action("Fiery Brand",0,8),
 
 
         //bar1
         "Torment": new Action("Torment",1,0),
         "Immolation Aura": new Action("Immolation Aura",1,1),
+        "Fel Devastation": new Action("Fel Devastation",1,2),
+        "Infernal Strike" :new Action("Infernal Strike",1,3),
 
         "Shear": new Action("Shear", 1, 8),
         "Soul Cleave": new Action("Soul Cleave",1,9),
 
 
-
         //bar2
+        "Sigil of Silence": new Action ("Sigil of Silence",2,1),
         "Throw Glaive": new Action( "Throw Glaive",2,3),
         "Demon Spikes": new Action("Demon Spikes", 2, 7),
         //bar3
