@@ -5,7 +5,7 @@ class Raider extends Creature {
 }
 
 let raidersStats = {
-    "stat1":{primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:20, speed:0, stamina:3100},
+    "stat1":{primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:3100},
 }
 
 let raiders = [

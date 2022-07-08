@@ -10,9 +10,9 @@ let _vengeance_talents = function(caster) {
     caster.abilities["Burning Alive"] = new BurningAlive()
 
     //3
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Infernal Armor"] = new InfernalArmor()
+    //caster.abilities["Charred Flesh"] = new CharredFlesh()
+    //caster.abilities["Spirit Bomb"] = new SpiritBomb()
 
     //4
     //caster.abilities[""] = new ()
@@ -131,6 +131,21 @@ class BurningAlive extends Ability {
 
 }
 //------------------------------------------------------------------------------------------------ROW3
+class InfernalArmor extends Ability {
+    constructor() {
+        super("Infernal Armor", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 6
+        this.effect = [{name:"increaseStat",stat:"armor",val:20}]
+    }
+
+    getTooltip() {
+        return "Immolation Aura increases your armor by 20% and causes melee attackers to suffer (5% of Attack power) Fire damage." //TODO:melee attackers
+    }
+
+}
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW4

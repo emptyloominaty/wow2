@@ -12,4 +12,5 @@ let specsName = {
     "arcane":"Arcane",
     "havoc":"Havoc",
     "fury":"Fury",
+    "vengeance":"Vengeance",
 }

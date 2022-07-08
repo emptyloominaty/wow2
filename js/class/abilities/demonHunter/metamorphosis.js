@@ -14,7 +14,7 @@ class Metamorphosis extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.effect = [{name:"increaseStat",stat:"haste",val:25}]
         if (vengeance) {
-            this.effect = [{name:"increaseHealth",val:0.5},{name:"increaseStat",stat:"armor",val:50,percent:true}] //200% armor???
+            this.effect = [{name:"increaseHealth",val:0.5},{name:"increaseStat",stat:"armor",val:200,percent:true}]
             this.cd = 180
             this.maxCd = 180
             this.duration = 15

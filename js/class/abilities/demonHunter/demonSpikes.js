@@ -14,7 +14,7 @@ class DemonSpikes extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0
-        this.effect = [{name:"increaseStat",stat:"armor",val:0.2},{name:"increaseStat",stat:"dodge",val:15}] // parry = dodge
+        this.effect = [{name:"increaseStat",stat:"armor",val:0.2,percent:true},{name:"increaseStat",stat:"dodge",val:15}] // parry = dodge
 
         this.duration = 6
         this.noGcd = true
@@ -27,7 +27,7 @@ class DemonSpikes extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
 
-            this.effect[0].val = caster.stats.primary*(0.0075+(caster.stats.mastery/10000))
+            this.effect[0].val = (caster.stats.primary*(0.075+(caster.stats.mastery/1000)))
             applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)

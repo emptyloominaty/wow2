@@ -713,9 +713,6 @@ class Creature {
             if (this.magicDamageReduction>1) {
                 this.magicDamageReduction = 1
             }
-
-
-
             if (!this.buffs[i].ability.permanentBuff) {
                 this.buffs[i].duration -= progressInSec
                 if (this.buffs[i].duration < 0 || this.buffs[i].stacks <= 0) {
@@ -733,6 +730,23 @@ class Creature {
                 }
             }
         }
+
+        if (this.stats.armor>10) { //TODO:FIX?
+             /*if (this===player) {
+                console.log("---------------")
+                console.log(this.stats.armor)
+            }*/
+            //this.stats.armor = this.stats.armor/Math.log10(this.stats.armor)
+            this.stats.armor = Math.pow((Math.log10(this.stats.armor)*10),1.5)/1.5  //???
+            /*if (this===player) {
+                console.log(this.stats.armor)
+            }*/
+        }
+        if (this.stats.armor>75) {
+            this.stats.armor = 75
+        }
+
+
         this.healthB = this.health
         //debuffs
         for (let i = 0; i<this.debuffs.length; i++) {
