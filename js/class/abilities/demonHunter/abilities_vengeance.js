@@ -130,6 +130,9 @@ class ConsumeSoul extends Ability {
         if (heal<(caster.maxHealth*0.01)*stacks) {
             heal = (caster.maxHealth*0.01)*stacks
         }
+        if (caster.abilities["Feed the Demon"].talentSelect) {
+            caster.abilities["Demon Spikes"].incCd(caster,0.5*stacks,false)
+        }
         doHeal(caster,caster,this,undefined,undefined,false,undefined,undefined,heal)
         return stacks
     }

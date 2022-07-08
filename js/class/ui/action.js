@@ -523,7 +523,7 @@ if (player.spec==="vengeance") {
 
         "Shear": new Action("Shear", 1, 8),
         "Soul Cleave": new Action("Soul Cleave",1,9),
-
+        "Spirit Bomb": new Action("Spirit Bomb",1,10),
 
         //bar2
         "Sigil of Silence": new Action ("Sigil of Silence",2,1),

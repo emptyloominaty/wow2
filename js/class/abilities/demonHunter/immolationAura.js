@@ -80,6 +80,14 @@ class ImmolationAura extends Ability {
             this.timer1 = 0
             if (caster.spec==="havoc" && caster.abilities["Burning Hatred"].talentSelect) {
                 caster.useEnergy(-5)
+            } else if (caster.spec==="vengeance" && caster.abilities["Charred Flesh"].talentSelect) {
+                for (let i = 0; i<enemies.length; i++) {
+                    for (let j = 0; j<enemies[i].debuffs.length; j++) {
+                        if (enemies[i].debuffs[j].name === "Fiery Brand" && enemies[i].debuffs[j].caster === caster) {
+                            enemies[i].debuffs[j].duration += 0.5
+                        }
+                    }
+                }
             }
             for (let i = 0; i<enemies.length; i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true))  {

@@ -220,6 +220,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (ability.school==="chaos") {
                 damage = damage * (1 + (caster.stats.mastery / 100))
             }
+        } else if (caster.spec==="vengeance") {
+            if (caster.abilities["Spirit Bomb"].talentSelect && checkDebuff(caster,target,"Frailty")) {
+                doHeal(caster,target,caster.abilities["Spirit Bomb"],undefined,undefined,undefined,undefined,undefined,damage*0.1)
+            }
         }
 
         //darkness

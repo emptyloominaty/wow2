@@ -732,7 +732,7 @@ class Creature {
         }
 
         if (this.stats.armor>10) { //TODO:FIX?
-             /*if (this===player) {
+            /*if (this===player) {
                 console.log("---------------")
                 console.log(this.stats.armor)
             }*/

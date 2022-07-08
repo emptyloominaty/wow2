@@ -248,6 +248,7 @@ let iconsPath = {
     "Soul Rending":"img/demonHunter/SoulRending.jpg",
     "Spectral Sight":"img/demonHunter/SpectralSight.jpg",
     "Spirit Bomb":"img/demonHunter/SpiritBomb.jpg",
+    "Frailty":"img/demonHunter/SpiritBomb.jpg",
     "Thick Skin":"img/demonHunter/ThickSkin.jpg",
     "Throw Glaive":"img/demonHunter/ThrowGlaive.jpg",
     "Torment":"img/demonHunter/Torment.jpg",
