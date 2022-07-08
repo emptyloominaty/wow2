@@ -48,6 +48,11 @@ class Shear extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.abilities["Felblade"].talentSelect) {
+                    if (getChance(10*(1+(caster.stats.haste/100)))) {
+                        caster.abilities["Felblade"].cd = caster.abilities["Felblade"].maxCd
+                    }
+                }
                 caster.abilities["Soul Fragment"].gainSoul(caster,this.fragments)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

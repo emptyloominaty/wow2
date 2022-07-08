@@ -64,6 +64,9 @@ class InfernalStrike extends Ability {
                 doDamage(caster, enemies[i], this)
             }
         }
+        if (caster.abilities["Abyssal Strike"].talentSelect) {
+            caster.abilities["Sigil of Flame"].createArea(caster)
+        }
         caster.isRolling = false
     }
 }

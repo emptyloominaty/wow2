@@ -52,4 +52,8 @@ class SigilofFlame extends Ability {
         return false
     }
 
+    createArea(caster) {
+        addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,true,this.area.radius)
+    }
+
 }

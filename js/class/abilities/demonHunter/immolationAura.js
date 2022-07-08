@@ -40,13 +40,23 @@ class ImmolationAura extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            let ttt = 0
             for (let i = 0; i<enemies.length; i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true))  {
                     doDamage(caster,enemies[i],this,undefined,this.spellPowerInstant)
+                    ttt++
                 }
             }
             if (caster.spec==="havoc" && caster.abilities["Unbound Chaos"].talentSelect) {
                 applyBuff(caster,caster,caster.abilities["Unbound Chaos"])
+            } else if (caster.spec==="vengeance" && caster.abilities["Fallout"].talentSelect) {
+                let fragments = 0
+                for (let i = 0; i<ttt; i++) {
+                    if (getChance(60)) {
+                        fragments ++
+                    }
+                }
+                caster.abilities["Soul Fragment"].gainSoul(caster,fragments)
             }
             applyBuff(caster,caster,this)
             this.setCd()

@@ -45,6 +45,10 @@ class SoulCleave extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.abilities["Feast of Souls"].talentSelect) {
+                    applyHot(caster,caster,caster.abilities["Feast of Souls"])
+                }
+
                 let consumed = caster.abilities["Consume Soul"].consume(caster,2)
                 for (let i = 0; i<consumed; i++) {
                     doHeal(caster,caster,this,undefined,this.spellPowerHeal)

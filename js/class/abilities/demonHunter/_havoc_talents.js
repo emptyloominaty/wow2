@@ -97,7 +97,7 @@ class Felblade extends Ability {
                 "Demon's Bite has a chance to reset the cooldown of Felblade.<br> Generates 40 Fury."
         } else {
             return "Charge to your target and deal "+spellPowerToNumber(this.spellPower)+" Fire damage.<br>" +
-                "Shear has a chance to reset the cooldown of Felblade.<br>" +  //TODO:  PPM 2 * (1 + TotalHaste)
+                "Shear has a chance to reset the cooldown of Felblade.<br>" +
                 "Generates 40 Fury."
         }
     }

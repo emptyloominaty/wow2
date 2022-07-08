@@ -447,7 +447,7 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
     }
 }
 
-let applyDebuff = function (caster,target,ability,type = "debuff",stacks = 1, stackable = false,name = "") {
+let applyDebuff = function (caster,target,ability,type = "debuff",stacks = 1, stackable = false,name = "",duration = 0) {
     if (!target.isDead) {
         let debuffName = ability.name
         if (name!=="") {
@@ -468,7 +468,12 @@ let applyDebuff = function (caster,target,ability,type = "debuff",stacks = 1, st
                 return true
             }
         }
-        target.debuffs.push({name:debuffName, type: type, effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:ability.duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
+
+        if (duration===0) {
+            duration = ability.duration
+        }
+
+        target.debuffs.push({name:debuffName, type: type, effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:ability.duration, extendedDuration:0, spellPower:ability.spellPower/ability.duration, caster:caster,ability:ability, stacks:stacks })
     }
 }
 
