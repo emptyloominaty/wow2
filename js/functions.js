@@ -154,6 +154,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (checkDebuff(target,caster,"Fiery Brand")) {
                 damage *= 0.6
             }
+            if (target.abilities["Void Reaver"].talentSelect && checkDebuff(target,caster,"Void Reaver")) {
+                damage *= 0.94
+            }
         }
 
         damage = damage * (1-target.damageReduction)

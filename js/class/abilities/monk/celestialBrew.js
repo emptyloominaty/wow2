@@ -22,9 +22,6 @@ class CelestialBrew extends Ability {
         return "A swig of strong brew that coalesces purified chi escaping your body into a celestial guard, "+spellPowerToNumber(this.spellPower)+" absorbing  damage. Purifying Stagger damage increases absorption by up to 200%"
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             let stacks = 0
@@ -48,10 +45,4 @@ class CelestialBrew extends Ability {
         return false
     }
 
-    runBuff(target,buff) {
-    }
-
-    endBuff(target) {
-
-    }
 }

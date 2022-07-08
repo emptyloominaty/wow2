@@ -23,19 +23,19 @@ let _vengeance_talents = function(caster) {
     caster.abilities["Fracture"] = new Fracture()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Concentrated Sigils"] = new ConcentratedSigils()
+    caster.abilities["Quickened Sigils"] = new QuickenedSigils()
+    caster.abilities["Sigil of Chains"] = new SigilofChains()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Void Reaver"] = new VoidReaver()
+    caster.abilities["Demonic"] = new Demonic()
+    caster.abilities["Soul Barrier"] = new SoulBarrier()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Last Resort"] = new LastResort()
+    caster.abilities["Ruinous Bulwark"] = new RuinousBulwark()
+    caster.abilities["Bulk Extraction"] = new BulkExtraction()
 
     caster.talents = [["Abyssal Strike","Agonizing Flames","Felblade"],
         ["Feast of Souls","Fallout","Burning Alive"],
@@ -190,7 +190,7 @@ class SpiritBomb extends Ability {
                     doDamage(caster, targets[i], this,undefined,spellPower)
                 }
             }
-            
+
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
@@ -294,9 +294,178 @@ class Fracture extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW5
+class ConcentratedSigils extends Ability {
+    constructor() {
+        super("Concentrated Sigils", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//All Sigils are now targeted at your location, and the duration of their effects is increased by 2 sec."
+    }
+
+}
 //------------------------------------------------
+class QuickenedSigils extends Ability {
+    constructor() {
+        super("Quickened Sigils", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "All Sigils activate 1 second faster, and their cooldowns are reduced by 20%."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Sigil of Flame"].cd *= 0.8
+        caster.abilities["Sigil of Flame"].maxCd *= 0.8
+        caster.abilities["Sigil of Flame"].area.duration --
+        caster.abilities["Sigil of Silence"].cd *= 0.8
+        caster.abilities["Sigil of Silence"].maxCd *= 0.8
+        caster.abilities["Sigil of Silence"].area.duration --
+        //TODO:
+        //caster.abilities["Sigil of Chains"].cd *= 0.8
+        //caster.abilities["Sigil of Chains"].maxCd *= 0.8
+        //caster.abilities["Sigil of Chains"].area.duration --
+        //caster.abilities["Sigil of Misery"].cd *= 0.8
+        //caster.abilities["Sigil of Misery"].maxCd *= 0.8
+        //caster.abilities["Sigil of Misery"].area.duration --
+
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Sigil of Flame"].cd /= 0.8
+        caster.abilities["Sigil of Flame"].maxCd /= 0.8
+        caster.abilities["Sigil of Flame"].area.duration ++
+        caster.abilities["Sigil of Silence"].cd /= 0.8
+        caster.abilities["Sigil of Silence"].maxCd /= 0.8
+        caster.abilities["Sigil of Silence"].area.duration ++
+        //TODO:
+        //caster.abilities["Sigil of Chains"].cd /= 0.8
+        //caster.abilities["Sigil of Chains"].maxCd /= 0.8
+        //caster.abilities["Sigil of Chains"].area.duration ++
+        //caster.abilities["Sigil of Misery"].cd /= 0.8
+        //caster.abilities["Sigil of Misery"].maxCd /= 0.8
+        //caster.abilities["Sigil of Misery"].area.duration ++
+    }
+}
 //------------------------------------------------
+class SigilofChains extends Ability {
+    constructor() {
+        super("Sigil of Chains", 0, 1.5, 0, 90, false, false, false, "physical", 30, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED// Place a Sigil of Chains at the target location that activates after 2 sec.<br>" +
+            "<br>" +
+            "All enemies affected by the sigil are pulled to its center and are snared, reducing movement speed by 70% for 6 sec."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW6
+class VoidReaver extends Ability {
+    constructor() {
+        super("Void Reaver", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 12
+    }
+
+    getTooltip() {
+        return "Enemies struck by Soul Cleave deal 6% less damage to you for 12 sec."
+    }
+
+}
 //------------------------------------------------
 //------------------------------------------------
+class SoulBarrier extends Ability {
+    constructor() {
+        super("Soul Barrier", 0, 1.5, 0, 30, false, false, false, "physical", 40, 1)
+        this.talent = true
+        this.duration = 12
+        this.effect = [{name:"absorb",val:0}]
+    }
+
+    getTooltip() {
+        return "Shield yourself for 12 sec, absorbing "+5*player.stats.primary.toFixed(0)+"  damage.<br>" +
+            "<br>" +
+            "Consumes all Soul Fragments within 25 yds to add "+player.stats.primary.toFixed(0)+" to the shield per fragment."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Absorbs "+buff.effect[0].val.toFixed(0)+" damage."
+    }
+
+    startCast(caster) { //TODO:It's not mentioned in the tooltip, but while the shield is up, each consecutive Soul Fragment you spend adds to the shield value,
+        if (this.checkStart(caster)) {
+            let consumed = caster.abilities["Consume Soul"].consume(caster,2)
+
+            this.effect[0].val = (caster.stats.primary * 5) + (caster.stats.primary * consumed)
+
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+
+
+}
 //------------------------------------------------------------------------------------------------ROW7
+class LastResort extends Ability {
+    constructor() {
+        super("Last Resort", 0, 0, 0, 480, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 480
+    }
+
+    getTooltip() {
+        return "Sustaining fatal damage instead transforms you to Metamorphosis form.<br>" +
+            "<br>" +
+            "This may occur once every 8 min."
+    }
+
+    cheat(caster) {
+        if (this.talentSelect && this.cd>=this.maxCd) {
+            caster.health = caster.maxHealth * 0.3
+            applyBuff(caster,caster,caster.abilities["Metamorphosis"])
+            applyDebuff(caster,caster,this)
+            this.setCd()
+        }
+    }
+}
+//------------------------------------------------
+class RuinousBulwark extends Ability {
+    constructor() {
+        super("Ruinous Bulwark", 0, 0, 0, 0, false, false, false, "fire", 40, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {//TODO:
+        return "//NOT IMPLEMENTED//Fel Devastation heals for an additional 15%, and 50% of its overhealing is converted into an absorb shield for 10 sec."
+    }
+
+}
+//------------------------------------------------
+class BulkExtraction extends Ability {
+    constructor() {
+        super("Bulk Extraction", 0, 1.5, 0, 90, false, false, false, "fire", 40, 1)
+        this.talent = true
+    }
+
+    getTooltip() {//TODO:
+        return "//NOT IMPLEMENTED//Demolish the spirit of all those around you, dealing (30% of Attack power) Fire damage to nearby enemies and extracting up to 5 Lesser Soul Fragments," +
+            " drawing them to you for immediate consumption."
+    }
+
+}

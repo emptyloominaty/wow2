@@ -93,6 +93,8 @@ class Metamorphosis extends Ability {
         } else {
             caster.abilities["Shear"].cost += 40
             caster.abilities["Shear"].fragments --
+            caster.abilities["Fracture"].cost += 40
+            caster.abilities["Fracture"].fragments --
         }
     }
 

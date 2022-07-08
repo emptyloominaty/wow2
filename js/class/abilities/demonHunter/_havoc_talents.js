@@ -508,7 +508,12 @@ class Demonic extends Ability {
     }
 
     getTooltip() {
-        return "Eye Beam causes you to enter demon form for 6 sec after it finishes dealing damage."
+        if (player.spec==="havoc") {
+            return "Eye Beam causes you to enter demon form for 6 sec after it finishes dealing damage."
+        } else {
+            return "Fel Devastation causes you to enter demon form for 6 sec after it finishes dealing damage."
+        }
+
     }
 
 }

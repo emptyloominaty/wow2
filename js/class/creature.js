@@ -856,13 +856,15 @@ class Creature {
         if (this.class==="Rogue" && this.abilities["Cheat Death"].talentSelect) {
             this.abilities["Cheat Death"].cheat(this)
             return false
-        }
-        if (this.spec==="holyPriest") {
+        } else if (this.spec==="holyPriest") {
             if (this.abilities["Spirit of Redemption"].applyBuff(this)) {
                 return false
             } else {
                 this.abilities["Spirit of Redemption"].used = false
             }
+        } else if (this.spec==="vengeance" && this.abilities["Last Resort"].talentSelect) {
+            this.abilities["Last Resort"].cheat(this)
+            return false
         }
 
         this.floatingTexts.removeAll()

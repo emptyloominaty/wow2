@@ -36,6 +36,9 @@ class SoulCleave extends Ability {
                     if (directionHit(dir,dirToTarget,75)) {
                         doDamage(caster, targets[i], this)
                         doHeal(caster,caster,this,undefined,this.spellPowerHeal)
+                        if (caster.abilities["Void Reaver"].talentSelect) {
+                            applyDebuff(caster,targets[i],caster.abilities["Void Reaver"])
+                        }
                         done = true
                     }
                 }

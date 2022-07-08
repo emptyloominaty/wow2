@@ -287,7 +287,7 @@ class CheatDeath extends Ability {
         this.duration = 3
         this.effect = [{name:"damageReduction",val:0.85}]
     }
-
+    //TODO:DEBUFF 360sec
     getTooltip() {
         return "Fatal attacks instead reduce you to 7% of your maximum health. For 3 sec afterward, you take 85% reduced damage. Cannot trigger more often than once per 6 min."
     }
