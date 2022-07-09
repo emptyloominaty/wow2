@@ -19,17 +19,22 @@ let _ai_arcane = function(creature) {
                     c.target = enemyTargets[i].name
                     let casted = false
 
-                    if (casted) {
+                    if (!casted && c.energy<20) {
+                        casted = c.abilities["Evocation"].startCast(c)
+                    }
+                    if (!casted) {
+                        casted = c.abilities["Touch of the Magi"].startCast(c)
+                    }
+                    if (!casted) {
                         casted = c.abilities["Presence of Mind"].startCast(c)
                     }
-                    if (casted) {
+                    if (!casted) {
                         casted = c.abilities["Arcane Power"].startCast(c)
                     }
-
                     if (!casted && checkBuff(b,b,"Clearcasting ")) {
                         casted = c.abilities["Arcane Missiles"].startCast(c)
                     }
-                    if (!casted && c.energy<10) { //&& c.secondaryResource>2 ???
+                    if (!casted && c.energy<15) { //&& c.secondaryResource>2 ???
                         c.abilities["Arcane Barrage"].startCast(c)
                     }
                     if (!casted) {

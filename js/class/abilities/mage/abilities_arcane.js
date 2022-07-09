@@ -9,6 +9,8 @@ class Arcane_abilities {
     "Time Warp" = new TimeWarp()
     "Counterspell" = new Counterspell()
     "Evocation" = new Evocation()
+    "Remove Curse" = new RemoveCurse()
+    "Touch of the Magi" = new TouchoftheMagi()
 
 
     //passive

@@ -1,13 +1,11 @@
-class ArcaneBlast extends Ability {
+class TouchoftheMagi extends Ability {
     constructor() {
-        let name = "Arcane Blast"
-        let cost = 3 //% mana
-
+        let name = "Touch of the Magi"
+        let cost = 5
         let gcd = 1.5
-        let castTime = 2.25
-        let cd = 0
+        let castTime = 1.5
+        let cd = 45
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = true
         let canMove = false
@@ -15,20 +13,22 @@ class ArcaneBlast extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.457
-        this.secCost = -1
-
+        this.secCost = -4
+        this.damageDealt = 0
+        this.duration = 8
+        this.caster = {}
 
     }
 
     getTooltip() {
-        return "Blasts the target with energy, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Arcane damage. Damage increased by 60% per Arcane Charge. Mana cost increased by 100% per Arcane Charge. Generates 1 Arcane Charge"
+        return "Applies Touch of the Magi to your current target, accumulating 25% of the damage you deal to the target for 8 sec," +
+            " and then exploding for that amount of Arcane damage to the target and reduced damage to all nearby enemies. Generates 4 Arcane Charges."
     }
 
     startCast(caster) {
-        let cost = this.cost * (1 + (caster.secondaryResource))
-        if (this.checkStart(caster,cost)) {
+        if (this.checkStart(caster)) {
             let done = false
+            this.caster = caster
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
@@ -47,17 +47,6 @@ class ArcaneBlast extends Ability {
             }
             if (done) {
                 let castTime = this.castTime
-                for (let i = 0; i<caster.buffs.length; i++) {
-                    if (caster.buffs[i].name==="Presence of Mind") {
-                        castTime = 0
-                        if (caster.buffs[i].stacks>1) {
-                            caster.buffs[i].stacks--
-                        } else {
-                            caster.buffs[i].duration = -1
-                        }
-                    }
-                }
-
                 caster.isCasting = true
                 caster.casting = {name:this.name, time:0, time2:(castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
@@ -77,18 +66,26 @@ class ArcaneBlast extends Ability {
         let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                let spellPower = this.spellPower
-                for (let i = 0; i<caster.secondaryResource; i++) {
-                    spellPower += spellPower * (0.6)
-                    spellPower += spellPower * (((caster.stats.mastery / 100))/2)
-                }
-
-                let cost = this.cost * (1 + (caster.secondaryResource))
-
-                doDamage(caster,target,this,undefined,spellPower)
-                caster.useEnergy(cost,this.secCost)
+                applyDebuff(caster,target,this)
+                caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }
         }
     }
+
+    endBuff(target) {
+        let caster = this.caster
+        let val = this.damageDealt * 0.25
+
+        doDamage(caster,target,this,undefined,undefined,false,undefined,undefined,undefined,val)
+
+        let targets = enemies
+        for (let i = 0; i<targets.length ;i++) {
+            if (!targets[i].isDead && target!==targets[i] && this.checkDistance(target, targets[i],undefined,true)) {
+                doDamage(caster, targets[i], this,undefined,undefined,undefined,undefined,undefined,undefined,val/1.5) // 1.5??????
+            }
+        }
+        this.damageDealt = 0
+    }
+
 }

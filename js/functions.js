@@ -198,6 +198,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         } else if (caster.spec==="arcane") {
             if (ability.name!=="Arcane Blast" && ability.name!=="Arcane Barrage")
             damage = damage * ((1 + ((caster.stats.mastery / 100)*caster.secondaryResource))/1.2)
+            if (checkDebuff(caster,target,"Touch of the Magi")) {
+                caster.abilities["Touch of the Magi"].damageDealt += damage
+            }
         } else if (caster.spec==="fury") {
             if (checkBuff(caster,caster,"Enrage")) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
