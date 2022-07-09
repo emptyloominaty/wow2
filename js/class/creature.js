@@ -82,6 +82,8 @@ class Creature {
     magicDamageReduction = 0
     reduceEnergyCost = 1
 
+    battleShout = false
+
     magicDamageTaken = 1
     physicalDamageTaken = 1
     canRess = false
@@ -213,6 +215,7 @@ class Creature {
         } else if (spec==="arcane") {//----------------------------------------Arcane
             this.class = "Mage"
             this.abilities = new Arcane_abilities()
+            _arcane_talents(this)
             this.melee = false
             this.role = "dps"
 
@@ -270,6 +273,7 @@ class Creature {
 
         this.abilities["Auto Attack"] = new AutoAttack()
         this.abilities["Leech"] = new Leech()
+        this.abilities["Exhaustion"] = new Exhaustion()
 
         if (this.role==="tank") {
             this.aggroMultiplier = 10
@@ -405,6 +409,7 @@ class Creature {
         this.buffMoved = false //Chi torpedo Fix
         this.isStealthed = false
         this.isReflectingSpell = false
+        this.battleShout = false
         this.healthA = this.health
 
 
@@ -684,6 +689,12 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "interrupt") {
                         this.isInterrupted = true
+                    } else if (this.buffs[i].effect[j].name === "battleShout") {
+                        this.battleShout = true
+                    } else if (this.buffs[i].effect[j].name === "arcaneIntellect") {
+                        if (this.role==="healer" || this.class==="Mage" || this.class==="Priest" || this.spec==="balance" || this.spec==="elemental" || this.class==="Warlock") {
+                            this.stats.primary *= 1.05
+                        }
                     }
                 }
             } else {
@@ -941,7 +952,7 @@ class Creature {
             this.useSec(val2)
         }
         if (this.spec==="arcane") {
-            this.abilities["Clearcasting"].spendMana(this,val)
+            this.abilities["Clearcasting "].spendMana(this,val)
         } else if (this.spec==="restorationShaman") {
             this.abilities["High Tide"].spendMana(this,val)
         } else if (this.class==="Warrior") {

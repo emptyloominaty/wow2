@@ -1,7 +1,7 @@
-class Heroism extends Ability {
-    constructor(ele=false) {
-        let name = "Heroism"
-        let cost = 4.3
+class TimeWarp extends Ability {
+    constructor() {
+        let name = "Time Warp"
+        let cost = 4
         let gcd = 1.5
         let castTime = 0
         let cd = 300
@@ -14,13 +14,11 @@ class Heroism extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.effect = [{name:"increaseStat",stat:"haste",val:30}]
         this.duration = 40
-        if (ele) {
-            this.cost = 0
-        }
+
     }
 
     getTooltip() {
-        return "Increases haste by 30% for all party and raid members for 40 sec. Allies receiving this effect will become Exhausted and unable to benefit from Heroism or Time Warp again for 10 min."
+        return "Warp the flow of time, increasing haste by 30% for all party and raid members for 40 sec. Allies will be unable to benefit from Bloodlust, Heroism, or Time Warp again for 10 min."
     }
 
     getBuffTooltip(caster, target, buff) {
@@ -50,18 +48,4 @@ class Heroism extends Ability {
         return false
     }
 
-}
-
-
-class Exhaustion extends Ability {
-    constructor() {
-        super("Exhaustion", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
-        this.passive = true
-        this.hiddenSB = true
-        this.duration = 600
-    }
-
-    getBuffTooltip(caster,target,buff) {
-        return "Cannot benefit from Heroism or other similar effects."
-    }
 }

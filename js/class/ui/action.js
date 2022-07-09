@@ -388,11 +388,21 @@ if (player.spec==="windwalker") {
 
 if (player.spec==="arcane") {
     actions = {
+        //bar 0
+        "Arcane Power": new Action("Arcane Power",0,0),
+
+        "Counterspell": new Action("Counterspell",0,5),
+        "Arcane Explosion": new Action("Arcane Explosion",0,6),
+
         //bar1
         "Arcane Barrage": new Action("Arcane Barrage", 1, 0),
-
+        "Evocation": new Action("Evocation",1,2),
         "Arcane Blast": new Action("Arcane Blast", 1, 8),
         "Arcane Missiles": new Action("Arcane Missiles", 1, 9),
+
+        "Presence of Mind": new Action("Presence of Mind",2,1),
+
+        "Time Warp": new Action("Time Warp",3,5),
     }
 }
 
@@ -513,7 +523,6 @@ if (player.spec==="vengeance") {
         "Sigil of Flame": new Action("Sigil of Flame",0,6),
         "Consume Magic": new Action("Consume Magic", 0, 7),
         "Fiery Brand":new Action("Fiery Brand",0,8),
-
 
         //bar1
         "Torment": new Action("Torment",1,0),

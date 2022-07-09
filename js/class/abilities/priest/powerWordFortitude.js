@@ -1,29 +1,31 @@
-class BattleShout extends Ability {
+class PowerWordFortitude extends Ability {
     constructor() {
-        let name = "Battle Shout"
-        let cost = 0
+        let name = "Power Word: Fortitude"
+        let cost = 4
         let gcd = 1.5
         let castTime = 0
-        let cd = 15
+        let cd = 0
         let charges = 1
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "physical"
+        let school = "holy"
         let range = 100
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.effect = [{name:"battleShout"}]
+        this.effect = [{name:"increaseStat",stat:"stamina",val:5,percent:true}]
         this.duration = 3600
 
     }
 
     getTooltip() {
-        return "Increases the attack power of all raid and party members within 100 yards by 5% for 1 hour.\n"
+        return "Infuses the target with vitality, increasing their Stamina by 5% for 1 hour. <br>" +
+            "<br>" +
+            "If the target is in your party or raid, all party and raid members will be affected." //TODO:?
     }
 
     getBuffTooltip(caster, target, buff) {
-        return "Attack power increased by 5%."
+        return "Stamina increased by 5%."
     }
 
     startCast(caster) {

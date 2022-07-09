@@ -68,6 +68,7 @@ class ArcaneBarrage extends Ability {
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 let spellPower = this.spellPower * (1 + (caster.secondaryResource*0.3))
+                spellPower = spellPower *  (((1 + (caster.stats.mastery / 100))/4)*caster.secondaryResource)
                 doDamage(caster,target,this,undefined,spellPower)
                 addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
                     {size:7,speed:24,target:target,color:"#b068ff",onEnd:{},onRun:{name:"fire",color1:"rgba(139,236,255,0.7)",color2:"rgba(213,120,255,0.7)",life:0.4}})

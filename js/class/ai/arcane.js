@@ -13,12 +13,20 @@ let _ai_arcane = function(creature) {
             b.move(1)
         } else {
             for (let i = 0; i<enemyTargets.length; i++) {
-                if (c.gcd<=0 && !enemyTargets[i].isDead) {
+                if (c.gcd<=0 && !enemyTargets[i].isDead && !c.isChanneling) {
                     c.targetObj = enemyTargets[i]
                     c.castTarget = enemyTargets[i]
                     c.target = enemyTargets[i].name
                     let casted = false
-                    if (!casted && checkBuff(b,b,"Clearcasting(Mage)")) {
+
+                    if (casted) {
+                        casted = c.abilities["Presence of Mind"].startCast(c)
+                    }
+                    if (casted) {
+                        casted = c.abilities["Arcane Power"].startCast(c)
+                    }
+
+                    if (!casted && checkBuff(b,b,"Clearcasting ")) {
                         casted = c.abilities["Arcane Missiles"].startCast(c)
                     }
                     if (!casted && c.energy<10) { //&& c.secondaryResource>2 ???
@@ -27,6 +35,7 @@ let _ai_arcane = function(creature) {
                     if (!casted) {
                         c.abilities["Arcane Blast"].startCast(c)
                     }
+                    break
                 }
             }
 

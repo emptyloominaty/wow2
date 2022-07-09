@@ -79,7 +79,7 @@ class DemonicAppetite extends Ability {
 }
 //------------------------------------------------
 class Felblade extends Ability {
-    constructor() {
+    constructor(vengeance=false) {
         super("Felblade", -40, 1.5, 0, 15, false, false, false, "fire", 15, 1)
         this.talent = true
         this.spellPower = 0.6669
@@ -88,6 +88,10 @@ class Felblade extends Ability {
         this.effect = [{name:"moveToTarget",val:7,target:0}]
         this.duration = 1.3
         this.canCastWhileRooted = false
+
+        if (vengeance) {
+            this.spellPower *= 0.65
+        }
 
     }
 

@@ -34,7 +34,7 @@ class ArcaneMissiles extends Ability {
     startCast(caster) {
         let cost = this.cost
         for (let i = 0; i<caster.buffs.length; i++) {
-            if (caster.buffs[i].name==="Clearcasting(Mage)") {
+            if (caster.buffs[i].name==="Clearcasting ") {
                 cost = 0
             }
         }
@@ -62,10 +62,10 @@ class ArcaneMissiles extends Ability {
                     caster.isChanneling = false
                 }
                 caster.isChanneling = true
-                caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:0.5/(1 + (caster.stats.haste / 100))}
+                caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:0.5/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 this.setGcd(caster)
                 for (let i = 0; i<caster.buffs.length; i++) {
-                    if (caster.buffs[i].name==="Clearcasting(Mage)") {
+                    if (caster.buffs[i].name==="Clearcasting ") {
                         caster.channeling = {name:this.name, time:0, time2:(this.castTime/(1 + (caster.stats.haste / 100)))/1.2, timer:0, timer2:(0.4/(1 + (caster.stats.haste / 100)))/1.70,target:caster.castTarget}
                         if (caster.buffs[i].stacks>0) {
                             caster.buffs[i].stacks--

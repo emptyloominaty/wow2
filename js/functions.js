@@ -195,8 +195,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (checkBuff(caster,caster,"Invoke Xuen, the White Tiger")) {
                 caster.abilities["Invoke Xuen, the White Tiger"].storeDamage(caster,damage)
             }
-        } else if (caster.spec==="arcane") { //TODO?
-            damage = damage * ((1 + (caster.stats.mastery / 100))/1.2)
+        } else if (caster.spec==="arcane") {
+            if (ability.name!=="Arcane Blast" && ability.name!=="Arcane Barrage")
+            damage = damage * ((1 + ((caster.stats.mastery / 100)*caster.secondaryResource))/1.2)
         } else if (caster.spec==="fury") {
             if (checkBuff(caster,caster,"Enrage")) {
                 damage = damage * (1 + (caster.stats.mastery / 100))
@@ -241,6 +242,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
 
         if (ability.school==="physical") {
+            if (caster.battleShout) {
+                damage = damage * 1.05
+            }
 
             //dodge
             if (ability.range<8) {

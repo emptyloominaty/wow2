@@ -25,9 +25,6 @@ class ArcaneBlast extends Ability {
         return "Blasts the target with energy, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Arcane damage. Damage increased by 60% per Arcane Charge. Mana cost increased by 100% per Arcane Charge. Generates 1 Arcane Charge"
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         let cost = this.cost * (1 + (caster.secondaryResource))
         if (this.checkStart(caster,cost)) {
@@ -49,8 +46,20 @@ class ArcaneBlast extends Ability {
                 }
             }
             if (done) {
+                let castTime = this.castTime
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Presence of Mind") {
+                        castTime = 0
+                        if (caster.buffs[i].stacks>1) {
+                            caster.buffs[i].stacks--
+                        } else {
+                            caster.buffs[i].duration = -1
+                        }
+                    }
+                }
+
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                caster.casting = {name:this.name, time:0, time2:(castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -70,7 +79,8 @@ class ArcaneBlast extends Ability {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 let spellPower = this.spellPower
                 for (let i = 0; i<caster.secondaryResource; i++) {
-                    spellPower = spellPower * (1.6)
+                    spellPower += spellPower * (0.6)
+                    spellPower += spellPower * (((caster.stats.mastery / 100))/2)
                 }
 
                 let cost = this.cost * (1 + (caster.secondaryResource))

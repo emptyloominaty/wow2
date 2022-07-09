@@ -1,6 +1,6 @@
 class ClearcastingMage extends Ability {
     constructor() {
-        let name = "Clearcasting(Mage)"
+        let name = "Clearcasting "
         let cost = 15 //% mana
 
         let gcd = 1.5
@@ -26,7 +26,11 @@ class ClearcastingMage extends Ability {
     }
 
     getTooltip() {
-        return "For each x mana you spend, you have a 1% chance to gain Clearcasting, making your next Arcane Missiles or Arcane Explosion free and channel 20% faster."
+        return "For each 0.5 mana you spend, you have a 1% chance to gain Clearcasting, making your next Arcane Missiles or Arcane Explosion free and channel 20% faster."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Your next Arcane Missiles costs no mana and deals 5% additional damage."
     }
 
     spendMana(caster,val) {
@@ -34,7 +38,7 @@ class ClearcastingMage extends Ability {
         if(getChance(this.manaSpent/0.5)) {
             this.manaSpent = 0
             for (let i = 0; i<caster.buffs.length; i++) {
-                if (caster.buffs[i].name==="Clearcasting(Mage)") {
+                if (caster.buffs[i].name==="Clearcasting ") {
                     caster.buffs[i].stacks++
                     if (caster.buffs[i].stacks>this.maxStacks) {
                         caster.buffs[i].stacks = this.maxStacks
@@ -48,23 +52,8 @@ class ClearcastingMage extends Ability {
         }
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         return true
     }
 
-    endCast(caster) {
-    }
-
-    cast(caster) {
-    }
-
-
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

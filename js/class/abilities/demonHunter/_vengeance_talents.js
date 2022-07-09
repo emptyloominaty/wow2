@@ -4,7 +4,7 @@ let _vengeance_talents = function(caster) {
     //1
     caster.abilities["Abyssal Strike"] = new AbyssalStrike()
     caster.abilities["Agonizing Flames"] = new AgonizingFlames()
-    caster.abilities["Felblade"] = new Felblade()
+    caster.abilities["Felblade"] = new Felblade(true)
 
     //2
     caster.abilities["Feast of Souls"] = new FeastofSouls()
@@ -358,6 +358,8 @@ class SigilofChains extends Ability {
         super("Sigil of Chains", 0, 1.5, 0, 90, false, false, false, "physical", 30, 1)
         this.passive = true
         this.talent = true
+        this.area = {type:"circle", radius:8, duration: 2,data:{type:"sigilofChains", timer:2/*sec*/,color:"#fffa82",color2:"rgba(246,232,104,0.52)"},cast:false}
+        this.castPosition = {x:0,y:0}
     }
 
     getTooltip() { //TODO:

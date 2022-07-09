@@ -27,6 +27,7 @@ class HolyPriest_abilities {
     "Mass Dispel" = new MassDispel()
     "Shadow Word: Death" = new ShadowWordDeath()
     "Power Word: Shield" = new PowerWordShield()
+    "Power Word: Fortitude" = new PowerWordFortitude()
 
     //TODO
     //Psychic Scream
