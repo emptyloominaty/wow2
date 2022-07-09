@@ -47,7 +47,7 @@ class PowerWordShield extends Ability {
         let target = caster.casting.target
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             if (!checkDebuff(caster,caster,"Weakened Soul")) {
-                applyBuff(caster,caster,this)
+                applyBuff(caster,caster,this,undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                 applyDebuff(caster,caster,caster.abilities["Weakened Soul"])
                 if (caster.abilities["Body and Soul"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Body and Soul"])
@@ -55,7 +55,7 @@ class PowerWordShield extends Ability {
             }
         } else {
             if (!checkDebuff(caster,target,"Weakened Soul")) {
-                applyBuff(caster, target, this)
+                applyBuff(caster, target, this,undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                 applyDebuff(caster,target,caster.abilities["Weakened Soul"])
                 if (caster.abilities["Body and Soul"].talentSelect) {
                     applyBuff(caster,target,caster.abilities["Body and Soul"])

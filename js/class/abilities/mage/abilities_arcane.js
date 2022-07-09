@@ -11,6 +11,13 @@ class Arcane_abilities {
     "Evocation" = new Evocation()
     "Remove Curse" = new RemoveCurse()
     "Touch of the Magi" = new TouchoftheMagi()
+    "Slow" = new Slow()
+    "Frost Nova" = new FrostNova()
+    "Ice Block" = new IceBlock()
+    "Polymorph" = new Polymorph()
+    "Blink" = new Blink()
+    "Prismatic Barrier" = new PrismaticBarrier()
+    "Mirror Image" = new MirrorImage()
 
 
     //passive

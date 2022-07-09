@@ -394,16 +394,22 @@ if (player.spec==="arcane") {
         "Remove Curse": new Action("Remove Curse",0,4),
         "Counterspell": new Action("Counterspell",0,5),
         "Arcane Explosion": new Action("Arcane Explosion",0,6),
+        "Mirror Image": new Action("Mirror Image",0,7),
+        "Prismatic Barrier": new Action("Prismatic Barrier",0,8),
 
         //bar1
         "Arcane Barrage": new Action("Arcane Barrage", 1, 0),
         "Touch of the Magi": new Action("Touch of the Magi",1,1),
         "Evocation": new Action("Evocation",1,2),
+        "Blink": new Action("Blink",1,3),
 
         "Arcane Blast": new Action("Arcane Blast", 1, 8),
         "Arcane Missiles": new Action("Arcane Missiles", 1, 9),
+        "Frost Nova": new Action("Frost Nova",1,10),
 
         "Presence of Mind": new Action("Presence of Mind",2,1),
+
+        "Ice Block": new Action("Ice Block",2,4),
 
         "Time Warp": new Action("Time Warp",3,5),
     }

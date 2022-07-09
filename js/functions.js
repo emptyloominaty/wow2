@@ -346,7 +346,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             }
         }
-        if (target.isRooted) {
+        if (target.isRooted && damage>1000) { //TODO? damage?
             target.isRooted = false
             for (let i = 0; i<target.debuffs.length; i++) {
                 for (let j = 0; j < target.debuffs[i].effect.length; j++) {
@@ -425,7 +425,7 @@ let applyHot = function(caster,target,ability,duration = 0,extDuration = 0,spell
     }
 }
 
-let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0,extend = false,dontRefresh = false,type="buff") {
+let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,name = "",duration = 0,extend = false,dontRefresh = false,type="buff",reapply = false) {
     if (!target.isDead) {
         let buffName = ability.name
         if (name!=="") {
@@ -452,7 +452,11 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
                         }
                     }
                 }
-                return true
+                if (reapply) {
+                    target.buffs.splice(i, 1)
+                } else {
+                    return true
+                }
             }
         }
 

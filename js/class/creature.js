@@ -488,9 +488,9 @@ class Creature {
                         this.damageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "damageReductionStacks") {
                         this.damageReduction += this.buffs[i].effect[j].val * this.buffs[i].stacks
-                    } else if (this.buffs[i].effect[j].name === "magicDamageReduction") {
+                    } else if (this.buffs[i].effect[j].name === "magicDamageReduction") { //DR
                         this.magicDamageReduction += this.buffs[i].effect[j].val
-                    } else if (this.buffs[i].effect[j].name === "magicDamageTaken") {
+                    } else if (this.buffs[i].effect[j].name === "magicDamageTaken") {  //INC DMG TAKEN
                         this.magicDamageTaken += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "physicalDamageTaken") {
                         this.physicalDamageTaken += this.buffs[i].effect[j].val
