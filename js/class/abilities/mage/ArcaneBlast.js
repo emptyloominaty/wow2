@@ -27,6 +27,13 @@ class ArcaneBlast extends Ability {
 
     startCast(caster) {
         let cost = this.cost * (1 + (caster.secondaryResource))
+        if (caster.abilities["Rule of Threes"]) {
+            for (let i = 0; i<caster.buffs.length; i++) {
+                if (caster.buffs[i].name==="Rule of Threes") {
+                    cost = 0
+                }
+            }
+        }
         if (this.checkStart(caster,cost)) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
@@ -84,6 +91,12 @@ class ArcaneBlast extends Ability {
                 }
 
                 let cost = this.cost * (1 + (caster.secondaryResource))
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name === "Rule of Threes") {
+                        caster.buffs[i].duration = -1
+                        cost = 0
+                    }
+                }
 
                 doDamage(caster,target,this,undefined,spellPower)
                 caster.useEnergy(cost,this.secCost)

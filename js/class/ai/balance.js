@@ -5,7 +5,8 @@ let _ai_balance = function(creature) {
 
     if (!c.isCasting && !c.isChanneling && c.gcd<=0) {
         if (!casted) {
-            let target = aiFunctions.getLowestHpEnemy()
+            //let target = aiFunctions.getLowestHpEnemy()
+            let target = enemies[0]
             setTargetAi(c,target)
             c.direction = getDirection(c,c.targetObj)
 

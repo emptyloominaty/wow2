@@ -28,10 +28,11 @@ let _ai_havoc = function(creature) {
 
         if (aiFunctions.getNumberOfEnemies(c,8)>4) {
             casted = c.abilities["Blade Dance"].startCast(c)
+            casted = c.abilities["Death Sweep"].startCast(c)
         }
-
         if (!casted) {
             casted = c.abilities["Chaos Strike"].startCast(c)
+            casted = c.abilities["Annihilation"].startCast(c)
         }
         if (!casted) {
             casted = c.abilities["Demon's Bite"].startCast(c)

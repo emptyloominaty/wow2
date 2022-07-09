@@ -953,6 +953,11 @@ class Creature {
         }
         if (this.spec==="arcane") {
             this.abilities["Clearcasting "].spendMana(this,val)
+            if (this.abilities["Rule of Threes"].talentSelect && val2<0) {
+                if (this.secondaryResource===3) {
+                    applyBuff(this,this,this.abilities["Rule of Threes"])
+                }
+            }
         } else if (this.spec==="restorationShaman") {
             this.abilities["High Tide"].spendMana(this,val)
         } else if (this.class==="Warrior") {

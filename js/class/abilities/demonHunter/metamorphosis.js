@@ -64,8 +64,12 @@ class Metamorphosis extends Ability {
                 caster.abilities["MetaJump"].jump(this.castPosition.x,this.castPosition.y,caster)
                 caster.abilities["Eye Beam"].cd = caster.abilities["Eye Beam"].maxCd
                 caster.abilities["Blade Dance"].cd = caster.abilities["Blade Dance"].maxCd
-                replaceAction(caster, "Blade Dance","Death Sweep")
-                replaceAction(caster, "Chaos Strike","Annihilation")
+                caster.abilities["Blade Dance"].canUse = false
+                caster.abilities["Chaos Strike"].canUse = false
+                caster.abilities["Death Sweep"].canUse =true
+                caster.abilities["Annihilation"].canUse = true
+                /*replaceAction(caster, "Blade Dance","Death Sweep")
+                replaceAction(caster, "Chaos Strike","Annihilation")*/
             } else {
                 caster.abilities["Shear"].cost -= 40
                 caster.abilities["Shear"].fragments ++
@@ -88,8 +92,10 @@ class Metamorphosis extends Ability {
         if (caster.spec==="havoc") {
             caster.abilities["Death Sweep"].canUse = false
             caster.abilities["Annihilation"].canUse = false
-            replaceAction(caster, "Death Sweep", "Blade Dance")
-            replaceAction(caster, "Annihilation", "Chaos Strike")
+            caster.abilities["Blade Dance"].canUse = true
+            caster.abilities["Chaos Strike"].canUse = true
+            /*replaceAction(caster, "Death Sweep", "Blade Dance")
+            replaceAction(caster, "Annihilation", "Chaos Strike")*/
         } else {
             caster.abilities["Shear"].cost += 40
             caster.abilities["Shear"].fragments --

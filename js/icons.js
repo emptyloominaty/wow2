@@ -506,6 +506,7 @@ let iconsPath = {
     //Mage
     "Arcane Blast":"img/mage/ArcaneBlast.jpg",
     "Arcane Barrage":"img/mage/ArcaneBarrage.jpg",
+    "Arcane Assault":"img/mage/ArcaneBarrage.jpg",
     "Alexstrasza's Fury":"img/mage/AlexstraszasFury.jpg",
     "Alter Time":"img/mage/AlterTime.jpg",
     "Amplification":"img/mage/Amplification.jpg",
