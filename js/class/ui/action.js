@@ -394,7 +394,7 @@ if (player.spec==="arcane") {
         "Remove Curse": new Action("Remove Curse",0,4),
         "Counterspell": new Action("Counterspell",0,5),
         "Arcane Explosion": new Action("Arcane Explosion",0,6),
-        "Mirror Image": new Action("Mirror Image",0,7),
+        "Spellsteal":  new Action("Spellsteal",0,7),
         "Prismatic Barrier": new Action("Prismatic Barrier",0,8),
 
         //bar1
@@ -407,10 +407,15 @@ if (player.spec==="arcane") {
         "Arcane Missiles": new Action("Arcane Missiles", 1, 9),
         "Frost Nova": new Action("Frost Nova",1,10),
 
+        //bar2
         "Presence of Mind": new Action("Presence of Mind",2,1),
+        "Alter Time": new Action("Alter Time",2,2),
 
         "Ice Block": new Action("Ice Block",2,4),
+        "Mirror Image": new Action("Mirror Image",2,5),
 
+        //bar3
+        "Greater Invisibility": new Action("Greater Invisibility",3,1),
         "Time Warp": new Action("Time Warp",3,5),
     }
 }

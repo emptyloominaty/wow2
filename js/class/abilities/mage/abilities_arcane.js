@@ -18,7 +18,9 @@ class Arcane_abilities {
     "Blink" = new Blink()
     "Prismatic Barrier" = new PrismaticBarrier()
     "Mirror Image" = new MirrorImage()
-
+    "Greater Invisibility" = new GreaterInvisibility()
+    "Alter Time" = new AlterTime()
+    "Spellsteal" = new Spellsteal(true)
 
     //passive
     "Savant" = new Savant()

@@ -49,7 +49,7 @@ let showSpellTooltip = function(i,j,notActionBar = false,spellname = "") {
             cd = cd + "s CD"
         }
 
-        let cost = ability.cost
+        let cost = Math.round((ability.cost)*100)/100
         if (cost === 0) {
             cost = ""
         } else {

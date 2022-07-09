@@ -20,7 +20,7 @@ class PrismaticBarrier extends Ability {
     getTooltip() {
         return "Shields you with an arcane force, absorbing [20 / 100 * Total health * (1 + Versatility)] damage and reducing magic damage taken by 15% for 1 min.<br>" +
             "<br>" +
-            "The duration of harmful Magic effects against you is reduced by 25%."
+            "The duration of harmful Magic effects against you is reduced by 25%." //TODO:
     }
 
     getBuffTooltip(caster, target, buff) {

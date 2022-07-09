@@ -19,6 +19,10 @@ class MagicBuff extends Ability {
 
     }
 
+    getBuffTooltip(caster, target, buff) {
+        return "Increase primary stat by 400."
+    }
+
     startCast(caster) {
         if (this.checkStart(caster)) {
             if (caster.isChanneling) {
