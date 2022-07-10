@@ -1,5 +1,5 @@
 class balanceDruid_abilities {
-    "Regrowth" = new Regrowth()
+    "Regrowth" = new Regrowth(false)
     "Wrath" = new Wrath(true)
     "Moonfire" = new Moonfire(true)
     "Sunfire" = new Sunfire(true)
@@ -21,10 +21,14 @@ class balanceDruid_abilities {
     "Soothe" = new Soothe(false)
     "Remove Corruption" = new RemoveCorruption()
     "Solar Beam" = new SolarBeam()
+    "Wild Growth" = new WildGrowth(false)
+    "Rejuvenation" = new Rejuvenation(false)
+    "Swiftmend" = new Swiftmend(false)
 
     //passive
     "Eclipse" = new Eclipse()
     "Shooting Stars" = new ShootingStars()
+    "Ysera's Gift" = new YserasGift()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 

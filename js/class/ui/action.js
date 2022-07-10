@@ -297,6 +297,9 @@ if (player.spec==="balance") {
         "Remove Corruption": new Action("Remove Corruption",0,4),
         "Solar Beam": new Action("Solar Beam",0,5),
         "Sunfire": new Action("Sunfire", 0, 6),
+        "Renewal": new Action( "Renewal",0,7),
+        "Barkskin": new Action("Barkskin",0,8),
+        "Entangling Roots": new Action("Entangling Roots",0,11),
 
         //bar1
         "Starsurge": new Action("Starsurge", 1, 0),
@@ -308,6 +311,12 @@ if (player.spec==="balance") {
         "Moonfire": new Action("Moonfire", 2, 0),
         "Regrowth": new Action("Regrowth", 2, 2),
         "Moonkin Form": new Action("Moonkin Form", 2, 3),
+
+        //bar3
+        "Innervate": new Action("Innervate",3,0),
+        "Rebirth": new Action("Rebirth",3,1),
+
+        "Revive": new Action ("Revive",3,4),
     }
 
 }

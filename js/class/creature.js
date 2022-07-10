@@ -212,6 +212,7 @@ class Creature {
             //TODO:   Object.keys(this.abilities).forEach((key)=> {
             //             this.abilities[key].range += 5
             //         })
+            changeForm(this,this.abilities["Moonkin Form"])
             this.melee = false
             this.resourceName = "Astral Power"
             this.energy = 0

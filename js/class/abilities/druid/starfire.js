@@ -58,6 +58,19 @@ class Starfire extends Ability {
                 let castTime = this.castTime
                 if (caster.spec==="balance") {
                     castTime = castTime*caster.abilities["Eclipse"].getCastTime(caster,this)
+                    if (caster.abilities["Warrior of Elune"].talentSelect) {
+                        for (let i = 0; i<caster.buffs.length; i++) {
+                            if (caster.buffs[i].name==="Warrior of Elune") {
+                                castTime = 0
+                                caster.useEnergy(this.cost*0.4)
+                                if (caster.buffs[i].stacks>1) {
+                                    caster.buffs[i].stacks--
+                                } else {
+                                    caster.buffs[i].duration = -1
+                                }
+                            }
+                        }
+                    }
                 }
                 caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {

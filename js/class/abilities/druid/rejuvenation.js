@@ -1,5 +1,5 @@
 class Rejuvenation extends Ability {
-    constructor() {
+    constructor(resto = true) {
         let name = "Rejuvenation"
         let cost = 2.2 //% mana
         let gcd = 1.5
@@ -16,6 +16,10 @@ class Rejuvenation extends Ability {
 
         this.spellPower = 1.45*1.10
         this.duration = 15
+
+        if (!resto) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

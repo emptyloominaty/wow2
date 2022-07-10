@@ -1,5 +1,5 @@
 class Swiftmend extends Ability {
-    constructor() {
+    constructor(resto = true) {
         let name = "Swiftmend"
         let cost = 1.6
         let gcd = 1.5
@@ -13,6 +13,9 @@ class Swiftmend extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.spellPower = 3.45*1.1
+        if (!resto) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

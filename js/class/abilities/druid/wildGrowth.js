@@ -1,12 +1,11 @@
 class WildGrowth extends Ability {
-    constructor() {
+    constructor(resto = true) {
         let name = "Wild Growth"
         let cost = 4.4 //% mana
         let gcd = 1.5
         let castTime = 1.5
         let cd = 10
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = true
         let canMove = false
@@ -17,13 +16,14 @@ class WildGrowth extends Ability {
         this.spellPower = 0.98*1.10
         this.healTargets = 6
         this.duration = 7
+
+        if (!resto) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {
         return "Heals up to 6 injured allies within 30 yards of the target for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" over 7 sec. "
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {
@@ -78,9 +78,4 @@ class WildGrowth extends Ability {
         caster.useEnergy(this.cost)
     }
 
-    runBuff(target,buff,id) {
-    }
-
-    endBuff(target) {
-    }
 }
