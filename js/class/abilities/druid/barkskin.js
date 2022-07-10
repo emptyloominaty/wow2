@@ -16,6 +16,7 @@ class Barkskin extends Ability {
         this.effect = [{name:"damageReduction",val:0.2}]
         this.duration = 8
         this.noGcd = true
+        this.canCastForm = "all"
     }
 
     getTooltip() {

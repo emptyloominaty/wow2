@@ -208,6 +208,10 @@ class Creature {
         } else if (spec==="balance") {//----------------------------------------Balance
             this.class = "Druid"
             this.abilities = new balanceDruid_abilities()
+            _balance_talents(this)
+            //TODO:   Object.keys(this.abilities).forEach((key)=> {
+            //             this.abilities[key].range += 5
+            //         })
             this.melee = false
             this.resourceName = "Astral Power"
             this.energy = 0
@@ -313,6 +317,12 @@ class Creature {
             this.energy += (this.energyRegen*(1+(this.stats.haste/100)))/fps
         } else if (this.resourceName==="Mana") {
             this.energy += this.energyRegen/fps
+            if (this.spec==="arcane" && this.abilities["Enlightened"].talentSelect) {
+                if (this.energy/this.maxEnergy<0.7) {
+                    this.energy += (this.energyRegen*0.2)/fps
+                }
+            }
+
         } //TODO:RUNES
 
         if (this.energy>this.maxEnergy) {

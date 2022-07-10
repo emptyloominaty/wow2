@@ -13,7 +13,7 @@ class ArcanePower extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.effect = [{name:"increaseStat",stat:"primary",val:30,percent:true},{name:"reduceEnergyCost",val:0.3}]
+        this.effect = [{name:"increaseDamage",val:0.3},{name:"reduceEnergyCost",val:0.3}]
         this.duration = 15
 
     }

@@ -1,5 +1,5 @@
 class Soothe extends Ability {
-    constructor() {
+    constructor(resto = true) {
         let name = "Soothe"
         let cost = 1.12
         let gcd = 1.5
@@ -12,6 +12,10 @@ class Soothe extends Ability {
         let school = "nature"
         let range = 40
         super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
+        if (!resto) {
+            this.cost = 0
+        }
+        this.canCastForm = "all"
     }
 
     getTooltip() {

@@ -14,6 +14,7 @@ class Innervate extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.effect = [{name:"reduceEnergyCost",val:1}]
         this.duration = 10
+        this.canCastForm = "all"
     }
 
     getTooltip() {

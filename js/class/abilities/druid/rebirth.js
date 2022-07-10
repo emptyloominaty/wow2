@@ -1,5 +1,5 @@
 class Rebirth extends Ability {
-    constructor() {
+    constructor(resto = true) {
         let name = "Rebirth"
         let cost = 0.8
         let gcd = 1.5
@@ -12,6 +12,10 @@ class Rebirth extends Ability {
         let school = "nature"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        if (!resto) {
+            this.cost = 0
+        }
+        this.canCastForm = "all"
     }
 
     getTooltip() {

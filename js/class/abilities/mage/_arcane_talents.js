@@ -18,22 +18,22 @@ let _arcane_talents = function(caster) {
     //4
     caster.abilities["Resonance"] = new Resonance()
     caster.abilities["Arcane Echo"] = new ArcaneEcho()
-    //caster.abilities["Nether Tempest"] = new NetherTempest()
+    caster.abilities["Nether Tempest"] = new NetherTempest()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Chrono Shift"] = new ChronoShift()
+    caster.abilities["Ice Ward"] = new IceWard()
+    caster.abilities["Ring of Frost"] = new RingofFrost()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Reverberate"] = new Reverberate()
+    caster.abilities["Arcane Orb"] = new ArcaneOrb()
+    caster.abilities["Supernova"] = new Supernova()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Overpowered"] = new Overpowered()
+    caster.abilities["Time Anomaly"] = new TimeAnomaly()
+    caster.abilities["Enlightened"] = new Enlightened()
 
     caster.talents = [["Amplification","Rule of Threes","Arcane Familiar"],
         ["Master of Time","Shimmer","Slipstream"],
@@ -75,7 +75,6 @@ class RuleofThrees extends Ability {
 class ArcaneFamiliar extends Ability {
     constructor() {
         super("Arcane Familiar", 0, 1.5, 0, 10, false, false, false, "arcane", 5, 1)
-        this.passive = true
         this.talent = true
         //pet casts:  Arcane Assault: Launches bolts of arcane energy at the enemy target, causing (8.75% of Spell power) Arcane damage.
     }
@@ -115,7 +114,6 @@ class MasterofTime extends Ability {
 class Shimmer extends Ability {
     constructor() {
         super("Shimmer", 2, 0.5, 0, 25, false, false, false, "arcane", 5, 2)
-        this.passive = true
         this.talent = true
         this.talentSelect = true
         this.noGcd = true
@@ -216,7 +214,6 @@ class IncantersFlow extends Ability {
 class FocusMagic extends Ability {
     constructor() {
         super("Focus Magic", 2, 1.5, 0, 0, false, false, false, "arcane", 40, 1)
-        this.passive = true
         this.talent = true
         this.duration = 600
     }
@@ -234,7 +231,6 @@ class FocusMagic extends Ability {
 class RuneofPower extends Ability {
     constructor() {
         super("Rune of Power", 0, 1.5, 1.5, 45, false, true, false, "arcane", 40, 1)
-        this.passive = true
         this.talent = true
         this.talentSelect = true
         this.duration = 1.49
@@ -299,23 +295,259 @@ class Resonance extends Ability {
 //------------------------------------------------
 class ArcaneEcho extends Ability {
     constructor() {
-        super("Arcane Echo", 0, 0, 0, 0, false, false, false, "arcane", 0, 1)
+        super("Arcane Echo", 0, 0, 0, 0, false, false, false, "arcane", 8, 1)
         this.passive = true
         this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.1092
     }
 
-    getTooltip() { //TODO:
-        return "Direct damage you deal to enemies affected by Touch of the Magi, causes an explosion that deals (10.92% of Spell power) Arcane damage to all nearby enemies. Deals reduced damage beyond 8 targets."
+    getTooltip() {
+        return "Direct damage you deal to enemies affected by Touch of the Magi, causes an explosion that deals "+spellPowerToNumber(this.spellPower)+" Arcane damage to all nearby enemies."
+    }
+
+    doDamage(caster,target) {
+        for (let i = 0; i<enemies.length ;i++) {
+            if (!enemies[i].isDead && this.checkDistance(target, enemies[i],10)) {
+                doDamage(caster, enemies[i], this)
+            }
+        }
     }
 
 }
 //------------------------------------------------
+class NetherTempest extends Ability {
+    constructor() {
+        super("Nether Tempest", 1.5, 1.5, 0, 0, false, false, false, "arcane", 40, 1)
+        this.talent = true
+        this.spellPower = 0.1092
+        this.duration = 12
+    }
+
+    getTooltip() {
+        return "Places a Nether Tempest on the target which deals (17.061% of Spell power) Arcane damage over 12 sec to the target and nearby enemies within 10 yards." +
+            " Limit 1 target. Deals reduced damage to secondary targets.<br>" +
+            "<br>" +
+            "Damage increased by 60% per Arcane Charge."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Deals (1.42175% of Spell power) Arcane damage and an additional (1.42175% of Spell power) Arcane damage to all enemies within 8 yards every 1 sec."
+    }
+
+    doDamage(caster,target) {
+        for (let i = 0; i<enemies.length ;i++) {
+            if (!enemies[i].isDead && this.checkDistance(target, enemies[i],10)) {
+                doDamage(caster, enemies[i], this)
+            }
+        }
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW5
+class ChronoShift extends Ability {
+    constructor() {
+        super("Chrono Shift", 0, 0, 0, 0, false, false, false, "arcane", 0, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 5
+        this.effect = [{name:"moveSpeed",val:0.5}]
+
+    }
+
+    getTooltip() {
+        return "Arcane Barrage slows enemies by 50% and increases your movement speed by 50% for 5 sec."
+    }
+
+}
 //------------------------------------------------
+class IceWard extends Ability {
+    constructor() {
+        super("Ice Ward", 0, 0, 0, 0, false, false, false, "arcane", 0, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Frost Nova now has 2 charges."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Frost Nova"].charges = 2
+        caster.abilities["Frost Nova"].maxCharges = 2
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Frost Nova"].charges = 1
+        caster.abilities["Frost Nova"].maxCharges = 1
+    }
+
+}
 //------------------------------------------------
+class RingofFrost extends Ability {
+    constructor() {
+        super("Ring of Frost", 8, 1.5, 2, 45, false, true, false, "frost", 30, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 10
+
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Summons a Ring of Frost for 10 sec at the target location. Enemies entering the ring are incapacitated for 10 sec. Limit 10 targets.<br>" +
+            "<br>" +
+            "When the incapacitate expires, enemies are slowed by 65% for 4 sec."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW6
+class Reverberate extends Ability {
+    constructor() {
+        super("Reverberate", 0, 0, 0, 0, false, false, false, "arcane", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "If Arcane Explosion hits at least 3 targets, it has a 50% chance to generate an extra Arcane Charge."
+    }
+
+}
 //------------------------------------------------
+class ArcaneOrb extends Ability {
+    constructor() {
+        super("Arcane Orb", 1, 1.5, 0, 20, false, false, false, "arcane", 40, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 1.092
+        this.area = {type:"circle", radius:8, duration:2.5,data:{type:"damage", maxTargets:"all", spellPower:this.spellPower,moving:true,speed:14,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
+        this.secCost = -2 //TODO:Grants 1 Arcane Charge when cast and every time it deals damage.
+    }
+
+    getTooltip() {
+        return "Launches an Arcane Orb forward from your position, traveling up to 40 yards, dealing "+spellPowerToNumber(this.spellPower)+" Arcane damage to enemies it passes through."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            caster.isCasting = true
+            caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100))}
+
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue()) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        this.area.data.direction = caster.direction
+        addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,false,this.area.radius)
+
+        let target = getPointTarget(caster,40,caster.direction)
+
+        addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
+            {size:10,speed:40,target:target,color:"#966eff",onEnd:{},onRun:{name:"fire",color1:"rgba(93,37,255,0.7)",color2:"rgba(194,139,255,0.7)",life:0.4}})
+
+        this.setCd()
+        caster.useEnergy(this.cost,this.secCost)
+    }
+}
 //------------------------------------------------
+class Supernova extends Ability {
+    constructor() {
+        super("Supernova", 0, 1.5, 0, 25, false, false, false, "arcane", 40, 1)
+        this.talent = true
+        this.spellPower = 0.3
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Pulses arcane energy around the target enemy or ally, dealing "+spellPowerToNumber(this.spellPower)+" Arcane damage to all enemies within 8 yards, and knocking them upward." +
+            " A primary enemy target will take 100% increased damage."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW7
+class Overpowered extends Ability {
+    constructor() {
+        super("Overpowered", 0, 0, 0, 0, false, false, false, "arcane", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Arcane Power now increases damage by 50% and reduces mana costs by 50%."
+    }
+
+
+    setTalent(caster) {
+        caster.abilities["Arcane Power"].effect[0].val = 0.5
+        caster.abilities["Arcane Power"].effect[1].val = 0.5
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Arcane Power"].effect[0].val = 0.3
+        caster.abilities["Arcane Power"].effect[1].val = 0.3
+    }
+
+}
 //------------------------------------------------
+class TimeAnomaly extends Ability {
+    constructor() {
+        super("Time Anomaly", 0, 0, 0, 0, false, false, false, "arcane", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.timer1 = 0
+        this.timer2 = 2
+    }
+
+    run(caster) {
+        if (this.talentSelect) {
+            if (this.timer1<this.timer2) {
+                this.timer1 += progressInSec
+            } else {
+                this.timer1 = 0
+                this.anomaly(caster)
+            }
+        }
+    }
+
+    getTooltip() {
+        return "At any moment, you have a chance to gain Arcane Power for 8 sec, gain Evocation for 1 sec, or gain Time Warp for 6 sec."
+    }
+
+    anomaly(caster) {
+        if (getChance(5)) {//???
+            if (getChance(34)) {
+                applyBuff(caster,caster,caster.abilities["Time Warp"],undefined,undefined,undefined,6)
+            } else if (getChance(33)) {
+                applyBuff(caster,caster,caster.abilities["Arcane Power"],undefined,undefined,undefined,8)
+            } else {
+                //TODO: evocation
+                caster.energy += caster.maxEnergy*0.167
+            }
+
+        }
+    }
+
+}
 //------------------------------------------------
+class Enlightened extends Ability {
+    constructor() {
+        super("Enlightened", 0, 0, 0, 0, false, false, false, "arcane", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Arcane damage dealt while above 70% mana is increased by 8%, Mana Regen while below 70% is increased by 20%."
+    }
+
+
+}

@@ -173,6 +173,12 @@ class Area {
             for (let i = 0; i<targets.length; i++) {
                 applyBuff(this.caster,targets[i],this.ability)
             }
+        } else if (this.data.type==="solarBeam") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                applyDebuff(this.caster,targets[i],this.ability)
+                targets[i].interrupt()
+            }
         }
 
 

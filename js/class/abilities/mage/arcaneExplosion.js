@@ -24,17 +24,26 @@ class ArcaneExplosion extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            let a = 0
             let done = false
             let targets = enemies
             for (let i = 0; i<targets.length ;i++) {
                 if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
                     doDamage(caster, targets[i], this)
                     done = true
+                    a++
                 }
             }
             let secCost = 0
             if (done) {
                 secCost = -1
+            }
+            if (caster.abilities["Reverberate"].talentSelect) {
+                if (a>2) {
+                    if (getChance(50)) {
+                        secCost -= 1
+                    }
+                }
             }
             if (caster.isChanneling) {
                 caster.isChanneling = false

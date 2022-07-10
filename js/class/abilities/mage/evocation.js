@@ -15,10 +15,11 @@ class Evocation extends Ability {
     }
 
     getTooltip() {
-        return "Spin while kicking in the air, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage over 1.5 sec to all enemies within 8 yds."
+        return "Increases your mana regeneration by 750% for 6 sec."
     }
 
-    run(caster) {
+    getBuffTooltip(caster, target, buff) {
+        return "Mana regeneration increased by 750%."
     }
 
     startCast(caster) {

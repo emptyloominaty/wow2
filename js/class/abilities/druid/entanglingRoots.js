@@ -1,5 +1,5 @@
 class EntanglingRoots extends Ability {
-    constructor() {
+    constructor(resto=true) {
         let name = "Entangling Roots"
         let cost = 1.2
         let gcd = 1.5
@@ -18,6 +18,11 @@ class EntanglingRoots extends Ability {
         //TODO: Apply Aura: Periodic Damage
         // Interval: 2 seconds (SP mod: 1.5)
 
+        if (!resto) {
+            this.cost = 0
+        }
+
+        this.canCastForm = "all"
     }
 
     getTooltip() {

@@ -200,6 +200,14 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             damage = damage * (1 + (((caster.stats.mastery / 100)*caster.secondaryResource))/1.2)
             if (checkDebuff(caster,target,"Touch of the Magi")) {
                 caster.abilities["Touch of the Magi"].damageDealt += damage
+                if (caster.abilities["Arcane Echo"].talentSelect && ability.name!=="Arcane Echo") {
+                    caster.abilities["Arcane Echo"].doDamage(caster,target)
+                }
+            }
+            if (caster.abilities["Enlightened"].talentSelect) {
+                if (caster.energy/caster.maxEnergy>0.7) {
+                    damage *= 1.08
+                }
             }
         } else if (caster.spec==="fury") {
             if (checkBuff(caster,caster,"Enrage")) {

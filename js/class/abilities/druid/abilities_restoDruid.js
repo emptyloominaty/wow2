@@ -23,6 +23,7 @@ class restoDruid_abilities {
     "Dash" = new Dash()
     "Stampeding Roar" = new StampedingRoar()
     "Entangling Roots" = new EntanglingRoots()
+    "Soothe" = new Soothe()
 
     "Starfire" = new Starfire(true)
     "Starsurge" = new Starsurge(true)
@@ -39,7 +40,6 @@ class restoDruid_abilities {
     "Omen of Clarity" = new OmenofClarity()
     "InnervateSelf" = new InnervateSelf()
     "Clearcasting" = new Clearcasting()
-    "Soothe" = new Soothe()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 

@@ -278,10 +278,10 @@ if (player.spec==="restorationDruid") {
         "Bear Form": new Action("Bear Form",2,5),
         "Incarnation: Tree of Life": new Action("Incarnation: Tree of Life",2,6),
         "Nature's Swiftness":new Action("Nature's Swiftness",2,7),
+
         //bar3
         "Innervate": new Action("Innervate",3,0),
         "Rebirth": new Action("Rebirth",3,1),
-
 
         "Revive": new Action ("Revive",3,4),
         "Revitalize": new Action ("Revitalize",3,5),
@@ -290,14 +290,20 @@ if (player.spec==="restorationDruid") {
 
 if (player.spec==="balance") {
     actions = {
-        //bar1
-        "Starsurge": new Action("Starsurge", 1, 0),
-        "Wrath": new Action("Wrath", 1, 8),
-        "Starfire": new Action("Starfire", 1, 9),
         //bar0
         "Celestial Alignment": new Action("Celestial Alignment", 0, 0),
         "Starfall": new Action("Starfall", 0, 1),
+
+        "Remove Corruption": new Action("Remove Corruption",0,4),
+        "Solar Beam": new Action("Solar Beam",0,5),
         "Sunfire": new Action("Sunfire", 0, 6),
+
+        //bar1
+        "Starsurge": new Action("Starsurge", 1, 0),
+
+        "Wrath": new Action("Wrath", 1, 8),
+        "Starfire": new Action("Starfire", 1, 9),
+
         //bar2
         "Moonfire": new Action("Moonfire", 2, 0),
         "Regrowth": new Action("Regrowth", 2, 2),
@@ -409,6 +415,7 @@ if (player.spec==="arcane") {
         "Frost Nova": new Action("Frost Nova",1,10),
 
         //bar2
+        "Arcane Orb": new Action("Arcane Orb",2,0),
         "Presence of Mind": new Action("Presence of Mind",2,1),
         "Alter Time": new Action("Alter Time",2,2),
 
