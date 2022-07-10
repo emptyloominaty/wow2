@@ -334,7 +334,7 @@ class BalanceAffinity extends Ability {
             " Moonkin Form<br>" +
             " Starsurge<br>" +
             " Starfire<br>" +
-            "Typhoon"
+            "//NO//Typhoon"
     }
 
     setTalent(caster) {
@@ -377,10 +377,10 @@ class FeralAffinity extends Ability {
             "<br>" +
             "You also learn:<br>" +
             "<br>" +
-            " Rake<br>" +
-            " Rip<br>" +
-            " Swipe<br>" +
-            " Maim<br>" +
+            " //NO//Rake<br>" +
+            " //NO//Rip<br>" +
+            " //NO//Swipe<br>" +
+            " //NO//Maim<br>" +
             "<br>" +
             "Your energy regeneration is increased by 35%." //TODO: energy regen
     }
@@ -429,9 +429,9 @@ class GuardianAffinity extends Ability {
             "<br>" +
             "You also learn:<br>" +
             "<br>" +
-            " Thrash<br>" +
-            " Frenzied Regeneration<br>" +
-            " Incapacitating Roar"
+            " //NO//Thrash<br>" +
+            " //NO//Frenzied Regeneration<br>" +
+            " //NO//Incapacitating Roar"
     }
 
     getBuffTooltip(caster, target, buff) {
@@ -671,6 +671,12 @@ class IncarnationTreeofLife extends Ability {
             " Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.<br>" +
             "<br>" +
             "Lasts 30 sec. You may shapeshift in and out of this form for its duration." //TODO: YOU CANT
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Healing increased by 15%.<br>" +
+            "Armor increased by 120%.<br>" +
+            "Some spells are enhanced."
     }
 
     startCast(caster) {

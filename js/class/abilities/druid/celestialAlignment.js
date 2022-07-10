@@ -14,7 +14,6 @@ class CelestialAlignment extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        //TODO ECLIPSE
         this.effect = [{name:"increaseStat",stat:"haste",val:10}]
         this.duration = 20
         this.canCastForm = "Moonkin Form"
@@ -22,9 +21,6 @@ class CelestialAlignment extends Ability {
 
     getTooltip() {
         return "Celestial bodies align, maintaining both Eclipses and granting 10% haste for 20 sec."
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {

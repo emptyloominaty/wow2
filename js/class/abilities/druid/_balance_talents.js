@@ -20,9 +20,9 @@ let _balance_talents = function(caster) {
     caster.abilities["Heart of the Wild"] = new HeartoftheWild()
 
     //5
-    //caster.abilities["Soul of the Forest"] = new SouloftheForest()
-    //caster.abilities["Starlord"] = new Starlord()
-    //caster.abilities["Incarnation: Chosen of Elune"] = new IncarnationChosenofElune()
+    caster.abilities["Soul of the Forest "] = new SouloftheForestBalance()
+    caster.abilities["Starlord"] = new Starlord()
+    caster.abilities["Incarnation: Chosen of Elune"] = new IncarnationChosenofElune()
 
     //6
     //caster.abilities["Twin Moons"] = new TwinMoons()
@@ -40,7 +40,7 @@ let _balance_talents = function(caster) {
         ["Tiger Dash","Renewal","Wild Charge"],
         ["Feral Affinity","Guardian Affinity","Restoration Affinity"],
         ["Mighty Bash","Mass Entanglement","Heart of the Wild"],
-        ["Soul of the Forest","Starlord","Incarnation: Chosen of Elune"],
+        ["Soul of the Forest ","Starlord","Incarnation: Chosen of Elune"],
         ["Twin Moons","Stellar Drift","Stellar Flare"],
         ["Solstice","Fury of Elune","New Moon"]
     ]
@@ -165,7 +165,7 @@ class RestorationAffinity extends Ability {
             " Rejuvenation<br>" +
             " Swiftmend<br>" +
             " Wild Growth<br>" +
-            "Ursol's Vortex"
+            "//NO//Ursol's Vortex"
 
     }
 
@@ -189,9 +189,88 @@ class RestorationAffinity extends Ability {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW5
+class SouloftheForestBalance extends Ability {
+    constructor() {
+        super("Soul of the Forest ", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Eclipse increases Wrath's Astral power generation 50%, and increases Starfire's area effect damage by 150%."
+    }
+
+}
 //------------------------------------------------
+class Starlord extends Ability {
+    constructor() {
+        super("Starlord", 0, 0, 0, 0, false, false, false, "arcane", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 15
+        this.effect = [{name:"increaseStat",stat:"haste",val:4}]
+        this.maxStacks = 3
+    }
+
+    getTooltip() {
+        return "Starsurge and Starfall grant you 4% Haste for 15 sec.<br>" +
+            "<br>" +
+            "Stacks up to 3 times. Gaining a stack does not refresh the duration."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Haste increased by "+buff.stacks*4+"%."
+    }
+
+}
 //------------------------------------------------
+class IncarnationChosenofElune extends Ability {
+    constructor() {
+        super("Incarnation: Chosen of Elune", 0, 0, 0, 180, false, false, false, "arcane", 5, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 30
+        this.effect = [{name:"increaseStat",stat:"haste",val:10},{name:"increaseStat",stat:"crit",val:10}]
+    }
+
+    getTooltip() {
+        return "An improved Moonkin Form that grants the benefits of Celestial Alignment, and 10% critical strike chance.<br>" +
+            "<br>" +
+            "Lasts 30 sec. You may shapeshift in and out of this improved Moonkin Form for its duration."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Both Eclipses active. Haste increased by 10% and critical strike chance by 10%."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster) && this.talentSelect) {
+            caster.abilities["Eclipse"].solar = true
+            caster.abilities["Eclipse"].lunar = true
+            caster.abilities["Eclipse"].next = "none"
+            caster.abilities["Eclipse"].solarStacks = 0
+            caster.abilities["Eclipse"].lunarStacks = 0
+            caster.abilities["Eclipse"].time = this.duration
+            caster.abilities["Eclipse"].buffed = 0
+
+            applyBuff(caster, caster, caster.abilities["Eclipse"],undefined,undefined,"Eclipse (Solar)",this.duration)
+            applyBuff(caster, caster, caster.abilities["Eclipse"],undefined,undefined,"Eclipse (Lunar)",this.duration)
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+
+        }
+        return false
+    }
+
+}
+
+
 //------------------------------------------------------------------------------------------------ROW6
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

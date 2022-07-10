@@ -31,9 +31,6 @@ class Wrath extends Ability {
         return "Hurl a ball of energy at the target, dealing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  Nature damage."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
@@ -89,15 +86,14 @@ class Wrath extends Ability {
                 addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
                     {size:4,speed:20,target:target,color:"#fffc00",onEnd:{},onRun:{name:"fire",color1:"rgba(255,243,107,0.7)",color2:"rgba(255,255,0,0.7)",life:0.4}})
                 doDamage(caster,target,this,undefined,spellPower)
+                if (caster.spec==="balance" && caster.abilities["Soul of the Forest "].talentSelect) {
+                    if (caster.abilities["Eclipse"].solar && caster.abilities["Eclipse"].time>0) {
+                        caster.useEnergy(-3)
+                    }
+                }
                 caster.useEnergy(this.cost,this.secCost)
-                this.cd = 0
+                this.setCd()
             }
         }
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
     }
 }

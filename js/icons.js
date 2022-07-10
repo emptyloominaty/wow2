@@ -368,6 +368,7 @@ let iconsPath = {
     "Solstice":"img/druid/Solstice.jpg",
     "Soothe":"img/druid/Soothe.jpg",
     "Soul of the Forest":"img/druid/SouloftheForest.jpg",
+    "Soul of the Forest ":"img/druid/SouloftheForest.jpg",
     "Spring Blossoms":"img/druid/SpringBlossoms.jpg",
     "Stampeding Roar":"img/druid/StampedingRoar.jpg",
     "Starfall":"img/druid/Starfall.jpg",

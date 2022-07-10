@@ -306,11 +306,14 @@ if (player.spec==="balance") {
 
         "Wrath": new Action("Wrath", 1, 8),
         "Starfire": new Action("Starfire", 1, 9),
+        "Mighty Bash": new Action("Mighty Bash",1,10),
 
         //bar2
         "Moonfire": new Action("Moonfire", 2, 0),
         "Regrowth": new Action("Regrowth", 2, 2),
         "Moonkin Form": new Action("Moonkin Form", 2, 3),
+        "Bear Form": new Action("Bear Form", 2, 5),
+        "Incarnation: Chosen of Elune": new Action("Incarnation: Chosen of Elune",2,6),
 
         //bar3
         "Innervate": new Action("Innervate",3,0),

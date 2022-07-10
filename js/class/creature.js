@@ -510,7 +510,12 @@ class Creature {
                         this.absorbsBuffId.push(i)
                     } else if (this.buffs[i].effect[j].name === "increaseStat") {
                         if (this.buffs[i].effect[j].percent) {
-                            this.stats[this.buffs[i].effect[j].stat] *= 1+(this.buffs[i].effect[j].val/100)
+                            if (this.buffs[i].stacks > 1) {
+                                this.stats[this.buffs[i].effect[j].stat] *= 1+((this.buffs[i].effect[j].val*this.buffs[i].stacks)/100)
+                            } else {
+                                this.stats[this.buffs[i].effect[j].stat] *= 1+(this.buffs[i].effect[j].val/100)
+                            }
+
                         } else {
                             if (this.buffs[i].stacks > 1) {
                                 this.stats[this.buffs[i].effect[j].stat] += this.buffs[i].effect[j].val * this.buffs[i].stacks

@@ -11,7 +11,11 @@ let _ai_balance = function(creature) {
             c.direction = getDirection(c,c.targetObj)
 
 
-            if (!casted) {
+            if (!casted && !checkBuff(c,c,"Celestial Alignment")) {
+                casted = c.abilities["Incarnation: Chosen of Elune"].startCast(c)
+            }
+
+            if (!casted && !checkBuff(c,c,"Incarnation: Chosen of Elune")) {
                 casted = c.abilities["Celestial Alignment"].startCast(c)
             }
 
@@ -30,14 +34,12 @@ let _ai_balance = function(creature) {
                 casted = c.abilities["Sunfire"].startCast(c)
             }
 
-            if (!casted && aiFunctions.checkBuff(c,c,"Eclipse (Lunar)")) {
+            if (!casted && aiFunctions.checkBuff(c,c,"Eclipse (Lunar)") && aiFunctions.getNumberOfEnemies(c,40)>1) {
                 casted = c.abilities["Starfire"].startCast(c)
             }
-
             if (!casted && aiFunctions.checkBuff(c,c,"Eclipse (Solar)")) {
                 casted = c.abilities["Wrath"].startCast(c)
             }
-
 
             if (!casted && c.abilities["Eclipse"].next==="solar") {
                 casted = c.abilities["Starfire"].startCast(c)

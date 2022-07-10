@@ -89,11 +89,17 @@ class Starfire extends Ability {
     endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
+        let spellPowerCleave = this.spellPowerCleave
+        if (caster.spec==="balance" && caster.abilities["Soul of the Forest "].talentSelect) {
+            if (caster.abilities["Eclipse"].solar && caster.abilities["Eclipse"].time>0) {
+                spellPowerCleave *= 2.5
+            }
+        }
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 for (let i = 0; i<enemies.length ;i++) {
                     if (!enemies[i].isDead && this.checkDistance(target, enemies[i],this.cleaveRange) ) {
-                        doDamage(caster, enemies[i], this,undefined,this.spellPowerCleave)
+                        doDamage(caster, enemies[i], this,undefined,spellPowerCleave)
                     }
                 }
                 let critInc = 0

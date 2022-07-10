@@ -39,6 +39,11 @@ let showSpellTooltip = function(i,j,notActionBar = false,spellname = "") {
             }
         }
 
+        if (ability.passive) {
+            castTime = ""
+            range = ""
+        }
+
         let cd = ability.maxCd
         if (ability.hasteCd) {
             cd =  Math.round((cd / (1 + (player.stats.haste / 100)))*100)/100

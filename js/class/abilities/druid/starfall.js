@@ -41,7 +41,9 @@ class Starfall extends Ability {
                     }
                 }
             }
-
+            if (caster.abilities["Starlord"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Starlord"],1,true)
+            }
             applyBuff(caster,caster,this)
             this.setGcd(caster)
             this.setCd()
