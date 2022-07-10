@@ -48,13 +48,20 @@ class Area {
         this.start()
     }
 
-    findAllCreaturesInside() {
+    findAllCreaturesInside(caster = false) {
         let inside = []
         if (this.type==="circle" ||this.type==="circle2") {
-            for (let i = 0; i<creatures.length; i++) {
-                let distance = getDistance(creatures[i],this)
-                if (distance<this.radius && !isEnemy(this.caster,creatures[i])) {
-                    inside.push(creatures[i])
+            if (!caster) {
+                for (let i = 0; i<creatures.length; i++) {
+                    let distance = getDistance(creatures[i],this)
+                    if (distance<this.radius && !isEnemy(this.caster,creatures[i])) {
+                        inside.push(creatures[i])
+                    }
+                }
+            } else {
+                let distance = getDistance(this.caster,this)
+                if (distance<this.radius) {
+                    inside.push(this.caster)
                 }
             }
         }
@@ -160,6 +167,11 @@ class Area {
                     applyBuff(this.caster,targets[i],{name:"Spirit Link Totem",duration:1,spellPower:0,stacks:1,maxStacks:1,effectValue:0,effect:[{name:"damageReduction",val:0.1}],runBuff:()=>{},endBuff:()=>{},})
                 }
 
+            }
+        }  else if (this.data.type==="applyBuffToCaster") {
+            let targets = this.findAllCreaturesInside(true)
+            for (let i = 0; i<targets.length; i++) {
+                applyBuff(this.caster,targets[i],this.ability)
             }
         }
 

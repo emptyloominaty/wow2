@@ -29,6 +29,9 @@ class Evocation extends Ability {
             this.setCd()
             caster.useEnergy(this.cost)
             this.setGcd(caster)
+            if (caster.abilities["Slipstream"].talentSelect) {
+                caster.canMoveWhileCasting = true
+            }
             return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
@@ -40,4 +43,7 @@ class Evocation extends Ability {
         caster.energy += caster.maxEnergy*0.0334
     }
 
+    endChanneling(caster) {
+        caster.canMoveWhileCasting = false
+    }
 }

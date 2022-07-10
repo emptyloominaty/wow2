@@ -197,7 +197,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         } else if (caster.spec==="arcane") {
             if (ability.name!=="Arcane Blast" && ability.name!=="Arcane Barrage")
-            damage = damage * ((1 + ((caster.stats.mastery / 100)*caster.secondaryResource))/1.2)
+            damage = damage * (1 + (((caster.stats.mastery / 100)*caster.secondaryResource))/1.2)
             if (checkDebuff(caster,target,"Touch of the Magi")) {
                 caster.abilities["Touch of the Magi"].damageDealt += damage
             }
@@ -445,11 +445,12 @@ let applyBuff = function (caster,target,ability,stacks = 1, stackable = false,na
                     target.buffs[i].duration = duration
                 }
                 if (stackable) {
-                    if (ability.maxStacks>target.buffs[i].stacks) {
-                        target.buffs[i].stacks += stacks
-                        if (ability.maxStacks<target.buffs[i].stacks) {
-                            target.buffs[i].stacks = ability.maxStacks
-                        }
+                    target.buffs[i].stacks += stacks
+                    if (ability.maxStacks<target.buffs[i].stacks) {
+                        target.buffs[i].stacks = ability.maxStacks
+                    }
+                    if (target.buffs[i].stacks<1) {
+                        target.buffs[i].stacks = 1
                     }
                 }
                 if (reapply) {

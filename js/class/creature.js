@@ -738,6 +738,8 @@ class Creature {
                     this.buffs[i].ability.endBuff(this)
                     this.buffs.splice(i, 1)
                     i--
+                } else {
+                    this.buffs[i].ability.runBuff(this, this.buffs[i], i)
                 }
             }
         }

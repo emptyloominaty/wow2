@@ -23,12 +23,15 @@ let _ai_arcane = function(creature) {
                         casted = c.abilities["Evocation"].startCast(c)
                     }
                     if (!casted) {
+                        casted = c.abilities["Rune of Power"].startCast(c)
+                    }
+                    if (!casted) {
                         casted = c.abilities["Touch of the Magi"].startCast(c)
                     }
                     if (!casted) {
                         casted = c.abilities["Presence of Mind"].startCast(c)
                     }
-                    if (!casted) {
+                    if (!casted && !checkBuff(c,c,"Arcane Power")) {
                         casted = c.abilities["Arcane Power"].startCast(c)
                     }
                     if (!casted && checkBuff(b,b,"Clearcasting ")) {

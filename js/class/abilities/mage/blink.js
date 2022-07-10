@@ -16,7 +16,7 @@ class Blink extends Ability {
     }
 
     getTooltip() {
-        return "Teleports you forward 20 yds or until reaching an obstacle, and frees you from all stuns and bonds."
+        return "Teleports you forward 20 yds or until reaching an obstacle, and frees you from all stuns and bonds." //TODO:frees you from all stuns and bonds.
     }
 
 

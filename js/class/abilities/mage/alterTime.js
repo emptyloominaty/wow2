@@ -34,6 +34,7 @@ class AlterTime extends Ability {
                     caster.buffs[i].duration = -1
                 }
             }
+            this.abilityCd = 0
             this.used = false
             return true
         } else {
@@ -57,6 +58,10 @@ class AlterTime extends Ability {
         caster.x = this.location.x
         caster.y = this.location.y
         this.used = false
+        if (caster.abilities["Master of Time"].talentSelect) {
+            caster.abilities["Blink"].cd =  caster.abilities["Blink"].maxCd
+        }
+
     }
 
 }

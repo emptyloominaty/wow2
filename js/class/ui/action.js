@@ -390,6 +390,7 @@ if (player.spec==="arcane") {
     actions = {
         //bar 0
         "Arcane Power": new Action("Arcane Power",0,0),
+        "Rune of Power": new Action("Rune of Power",0,1),
 
         "Remove Curse": new Action("Remove Curse",0,4),
         "Counterspell": new Action("Counterspell",0,5),

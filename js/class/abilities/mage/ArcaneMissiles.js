@@ -79,8 +79,11 @@ class ArcaneMissiles extends Ability {
                 this.setGcd(caster)
                 this.setCd()
                 caster.useEnergy(cost,this.secCost)
+                if (caster.abilities["Slipstream"].talentSelect) {
+                    caster.canMoveWhileCasting = true
+                }
+                return true
             }
-            return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
@@ -108,5 +111,9 @@ class ArcaneMissiles extends Ability {
 
             }
         }
+    }
+
+    endChanneling(caster) {
+        caster.canMoveWhileCasting = false
     }
 }
