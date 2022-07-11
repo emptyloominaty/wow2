@@ -82,5 +82,36 @@ let damageFunctions = {
         }
         return damage
     },
-
+    "Fury of Elune":(caster,target,damage,ability)=> {
+        if (caster.spec==="balance") {
+            if (caster.abilities["Eclipse"].time>0) {
+                return damage * (1 + (caster.stats.mastery / 100))
+            }
+        }
+        return damage
+    },
+    "New Moon":(caster,target,damage,ability)=> {
+        if (caster.spec==="balance") {
+            if (caster.abilities["Eclipse"].time>0) {
+                return damage * (1 + (caster.stats.mastery / 100))
+            }
+        }
+        return damage
+    },
+    "Half Moon":(caster,target,damage,ability)=> {
+        if (caster.spec==="balance") {
+            if (caster.abilities["Eclipse"].time>0) {
+                return damage * (1 + (caster.stats.mastery / 100))
+            }
+        }
+        return damage
+    },
+    "Full Moon":(caster,target,damage,ability)=> {
+        if (caster.spec==="balance") {
+            if (caster.abilities["Eclipse"].time>0) {
+                return damage * (1 + (caster.stats.mastery / 100))
+            }
+        }
+        return damage
+    },
 }

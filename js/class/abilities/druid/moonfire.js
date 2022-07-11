@@ -25,14 +25,10 @@ class Moonfire extends Ability {
             this.duration += 6
         }
 
-
     }
 
     getTooltip() {
         return "A quick beam of lunar light burns the enemy for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Arcane damage and then an additional  "+((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" Arcane damage over 16 sec."
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {
@@ -86,6 +82,4 @@ class Moonfire extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

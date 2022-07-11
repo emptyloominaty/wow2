@@ -42,7 +42,6 @@ class ShootingStars extends Ability {
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = false
@@ -55,7 +54,13 @@ class ShootingStars extends Ability {
     }
 
     proc(caster,target) {
-        if (getChance(this.chance)) {
+        let chance = this.chance
+        if (caster.abilities["Solstice"].talentSelect) {
+            if (caster.abilities["Eclipse"].time>9) { //TODO?  //9/14/24 ??
+                chance *= 2.5
+            }
+        }
+        if (getChance(chance)) {
             doDamage(caster,target,this)
         }
     }

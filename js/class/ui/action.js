@@ -303,6 +303,7 @@ if (player.spec==="balance") {
 
         //bar1
         "Starsurge": new Action("Starsurge", 1, 0),
+        "New Moon": new Action("New Moon",1,1),
 
         "Wrath": new Action("Wrath", 1, 8),
         "Starfire": new Action("Starfire", 1, 9),
