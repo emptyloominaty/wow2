@@ -4,7 +4,7 @@ let specsName = {
     "brewmaster":"Brewmaster",
     "restorationShaman":"Restoration",
     "holyPriest":"Holy",
-    "discPriest":"Discipline",
+    "discipline":"Discipline",
     "elemental":"Elemental",
     "assassination":"Assassination",
     "restorationDruid":"Restoration",

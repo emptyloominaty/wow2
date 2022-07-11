@@ -206,7 +206,7 @@ class Ability {
                 }
             }
         }
-
+        caster.abilitiesCasted.push({name:this.name,time:time})
         this.abilityCd = 0
         details.castAbility(caster,this)
         castCombatLog.cast(caster,this)

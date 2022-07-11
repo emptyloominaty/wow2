@@ -6,7 +6,7 @@ let _discipline_talents = function(caster) {
 
     //2
     //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Body and Soul"] = new BodyandSoul()
     //caster.abilities[""] = new ()
 
     //3

@@ -2,7 +2,7 @@ class CelestialAlignment extends Ability {
     constructor() {
         let name = "Celestial Alignment"
         let cost = 0
-        let gcd = 1.5
+        let gcd = 0
         let castTime = 0
         let cd = 180
         let charges = 1

@@ -22,7 +22,7 @@ let iconsPath = {
         "havoc":"img/specs/demonhunter/havoc.jpg",
         "fury":"img/specs/warrior/fury.png",
         "holyPriest":"img/specs/priest/holy.png",
-        "discPriest":"img/specs/priest/discipline.png",
+        "discipline":"img/specs/priest/discipline.png",
         "vengeance":"img/specs/demonhunter/vengeance.jpg",
     },
 

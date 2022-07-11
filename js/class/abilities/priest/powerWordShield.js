@@ -23,7 +23,8 @@ class PowerWordShield extends Ability {
         return "Shields an ally for 15 sec, absorbing "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" damage.  You cannot shield the target again for 7.5 sec."
     }
 
-    run(caster) {
+    getBuffTooltip(caster, target, buff) {
+        return "Absorbs "+buff.effect[0].val.toFixed(0)+" damage."
     }
 
     startCast(caster) {
@@ -52,6 +53,9 @@ class PowerWordShield extends Ability {
                 if (caster.abilities["Body and Soul"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Body and Soul"])
                 }
+                if (caster.spec==="discipline") {
+                    applyBuff(caster,caster,caster.abilities["Atonement"])
+                }
             }
         } else {
             if (!checkDebuff(caster,target,"Weakened Soul")) {
@@ -59,6 +63,9 @@ class PowerWordShield extends Ability {
                 applyDebuff(caster,target,caster.abilities["Weakened Soul"])
                 if (caster.abilities["Body and Soul"].talentSelect) {
                     applyBuff(caster,target,caster.abilities["Body and Soul"])
+                }
+                if (caster.spec==="discipline") {
+                    applyBuff(caster,target,caster.abilities["Atonement"])
                 }
             }
         }

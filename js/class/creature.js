@@ -94,6 +94,8 @@ class Creature {
     healthA = 0
     healthB = 0
 
+    abilitiesCasted = []
+
     id3 = 99
     constructor(name,enemy,health,energy,x,y,direction,spec,stats) {
         this.stats = stats
@@ -175,6 +177,12 @@ class Creature {
             this.class = "Priest"
             this.abilities = new HolyPriest_abilities()
             _holyPriest_talents(this)
+            this.melee = false
+            this.role = "healer"
+        } else if (spec==="discipline") {//----------------------------------------Disc Priest
+            this.class = "Priest"
+            this.abilities = new Discipline_Abilities()
+            _discipline_talents(this)
             this.melee = false
             this.role = "healer"
         } else if (spec==="elemental") {//----------------------------------------Elemental

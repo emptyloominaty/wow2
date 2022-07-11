@@ -27,6 +27,12 @@ let _ai_balance = function(creature) {
                 casted = c.abilities["Starsurge"].startCast(c)
             }
 
+            if (!casted) {
+                casted = c.abilities["Full Moon"].startCast(c)
+                casted = c.abilities["Half Moon"].startCast(c)
+                casted = c.abilities["New Moon"].startCast(c)
+            }
+
             if (!casted && !aiFunctions.checkDebuff(c,target,"Moonfire")) {
                 casted = c.abilities["Moonfire"].startCast(c)
             }

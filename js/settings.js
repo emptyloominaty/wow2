@@ -42,7 +42,12 @@ let raidFramesBuffs = {
         centreRight:"Echo of Light",
         bottomCentre:"Divine Hymn",
     },
-
+    "discipline": {
+        bottomRight:"Atonement",
+        bottomRight2:"Power Word: Shield",
+        centreRight:"TODO",
+        bottomCentre:"Pain Suppression",
+    },
     "assassination": {
         bottomRight:"none",
         bottomRight2:"none",

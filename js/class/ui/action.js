@@ -515,10 +515,38 @@ if (player.spec==="holyPriest") {
 
         "Leap of Faith": new Action( "Leap of Faith",3,0),
         "Power Infusion": new Action( "Power Infusion",3,1),
-        "Power Word: Shield": new Action( "Power Word: Shield",3,2)
+        "Power Word: Shield": new Action( "Power Word: Shield",3,2),
 
     }
 }
+
+
+if (player.spec==="discipline") {
+    actions = {
+        //bar0
+        "Purify": new Action("Purify", 0, 4),
+        "Shadow Word: Death": new Action("Shadow Word: Death",0,5),
+        "Holy Nova": new Action("Holy Nova", 0, 6),
+        "Dispel Magic": new Action("Dispel Magic", 0, 7),
+        "Desperate Prayer": new Action("Desperate Prayer", 0, 8),
+
+        //bar1
+        "Power Word: Shield": new Action( "Power Word: Shield",1,1),
+
+        "Mass Dispel": new Action("Mass Dispel",1,4),
+
+        "Smite": new Action("Smite", 1, 8),
+        //penance
+        //bar2
+        "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
+
+        //bar3
+        "Leap of Faith": new Action( "Leap of Faith",3,0),
+        "Power Infusion": new Action( "Power Infusion",3,1),
+
+    }
+}
+
 
 if (player.spec==="havoc") {
     actions = {

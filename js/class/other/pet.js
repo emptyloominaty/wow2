@@ -2,6 +2,7 @@ class Pet {
     time = 0
     timer = 0
     timer2 = 1
+    abilitiesCasted = []
 
     health = 100
     maxHealth = 100

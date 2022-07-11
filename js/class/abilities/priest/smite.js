@@ -1,5 +1,5 @@
 class Smite extends Ability {
-    constructor() {
+    constructor(disc = false) {
         let name = "Smite"
         let cost = 0.2 //% mana
 
@@ -7,7 +7,6 @@ class Smite extends Ability {
         let castTime = 1.5
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = true
         let canMove = true
@@ -18,8 +17,9 @@ class Smite extends Ability {
         this.spellPower = (0.47*1.5)*1.44
         this.resetChance = 20
 
-        this.effect = ""
-        this.effectValue = 0
+        if (disc) {
+            this.spellPower = (0.47*1.5)*0.7
+        }
 
     }
 
@@ -68,10 +68,10 @@ class Smite extends Ability {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 doDamage(caster, target, this)
 
-                if (getChance(this.resetChance)) {
-                    caster.abilities["Holy Fire"].cd = caster.abilities["Holy Fire"].maxCd
-                }
                 if (caster.spec==="holyPriest") {
+                    if (getChance(this.resetChance)) {
+                        caster.abilities["Holy Fire"].cd = caster.abilities["Holy Fire"].maxCd
+                    }
                     caster.abilities["Surge of Light"].chance(caster)
                     caster.abilities["Holy Word: Chastise"].reduceCd(caster.abilities["Holy Words"].chastise)
                 }
