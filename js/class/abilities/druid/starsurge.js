@@ -1,13 +1,11 @@
 class Starsurge extends Ability {
-    constructor(balance = false) {
+    constructor(resto = false) {
         let name = "Starsurge"
         let cost = 30
-
         let gcd = 1.5
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = false
@@ -18,10 +16,10 @@ class Starsurge extends Ability {
         this.spellPower = 2.07 * 1.37
         this.canCastForm = "Moonkin Form"
 
-        if (balance) {
+        if (resto) {
             this.spellPower = 2.07
             this.cost = -6
-            this.spellPower = 0.6
+            //this.spellPower = 0.6
             this.canUse = false
         }
 

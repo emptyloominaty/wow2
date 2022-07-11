@@ -24,7 +24,7 @@ class Sunfire extends Ability {
         if (balance) {
             this.spellPower = 0.2
             this.spellPowerDot = 1.566
-            this.duration+=6
+            this.duration += 6
             this.cost = -3
         }
     }
@@ -63,7 +63,7 @@ class Sunfire extends Ability {
             }
             if (done) {
                 for (let i = 0; i<enemies.length ;i++) {
-                    if (!enemies[i].isDead && enemies[i]!==caster.castTarget && this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange) ) {
+                    if (!enemies[i].isDead && enemies[i]!==caster.castTarget && this.checkDistance(caster.castTarget, enemies[i],this.cleaveRange,true) ) {
                         doDamage(caster, enemies[i], this)
                         applyDot(caster,enemies[i],this,undefined,undefined,this.spellPowerDot)
                     }
@@ -78,7 +78,7 @@ class Sunfire extends Ability {
                 return true
             }
 
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
         return false

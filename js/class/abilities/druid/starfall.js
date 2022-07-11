@@ -6,7 +6,6 @@ class Starfall extends Ability {
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
@@ -44,6 +43,9 @@ class Starfall extends Ability {
             if (caster.abilities["Starlord"].talentSelect) {
                 applyBuff(caster,caster,caster.abilities["Starlord"],1,true)
             }
+            if (caster.abilities["Stellar Drift"].talentSelect) {
+                caster.canMoveWhileCasting = true
+            }
             applyBuff(caster,caster,this)
             this.setGcd(caster)
             this.setCd()
@@ -55,12 +57,9 @@ class Starfall extends Ability {
         return false
     }
 
-    endChanneling(caster) {
-    }
-
-    runBuff() {
-    }
-
-    endBuff() {
+    endBuff(caster) {
+        if (caster.abilities["Stellar Drift"].talentSelect) {
+            caster.canMoveWhileCasting = false
+        }
     }
 }

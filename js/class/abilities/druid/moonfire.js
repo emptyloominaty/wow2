@@ -22,6 +22,7 @@ class Moonfire extends Ability {
 
         if (balance) {
             this.cost = -2
+            this.duration += 6
         }
 
 
@@ -37,6 +38,7 @@ class Moonfire extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
@@ -49,6 +51,7 @@ class Moonfire extends Ability {
                     if (caster===player) {
                         document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
                     }
+                    target = newTarget
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
@@ -62,13 +65,22 @@ class Moonfire extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.spec==="balance" && caster.abilities["Twin Moons"].talentSelect) {
+                    for (let i = 0; i<enemies.length; i++) {
+                        if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(target, enemies[i],15,true)) {
+                            doDamage(caster, enemies[i], this)
+                            applyDot(caster,enemies[i],this,undefined,undefined,this.spellPowerDot)
+                            break
+                        }
+                    }
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.cd = 0
                 return true
             }
 
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
         return false

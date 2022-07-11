@@ -98,7 +98,7 @@ class Starfire extends Ability {
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 for (let i = 0; i<enemies.length ;i++) {
-                    if (!enemies[i].isDead && this.checkDistance(target, enemies[i],this.cleaveRange) ) {
+                    if (!enemies[i].isDead && this.checkDistance(target, enemies[i],this.cleaveRange,true) ) {
                         doDamage(caster, enemies[i], this,undefined,spellPowerCleave)
                     }
                 }

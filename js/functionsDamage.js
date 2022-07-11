@@ -74,6 +74,13 @@ let damageFunctions = {
         }
         return damage
     },
-
+    "Stellar Flare":(caster,target,damage,ability)=> {
+        if (caster.spec==="balance") {
+            if (caster.abilities["Eclipse"].time>0) {
+                return damage * (1 + (caster.stats.mastery / 100))
+            }
+        }
+        return damage
+    },
 
 }

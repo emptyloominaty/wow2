@@ -19,11 +19,11 @@ let _ai_balance = function(creature) {
                 casted = c.abilities["Celestial Alignment"].startCast(c)
             }
 
-            if (!casted && aiFunctions.getNumberOfEnemies(c,40)>2) {
+            if (!casted && aiFunctions.getNumberOfEnemies(c,40)>2 && !checkBuff(c,c,"Starfall")) {
                 casted = c.abilities["Starfall"].startCast(c)
             }
 
-            if (!casted && aiFunctions.getNumberOfEnemies(c,40)<=2 ) {
+            if (!casted && (aiFunctions.getNumberOfEnemies(c,40)<=2 || checkBuff(c,c,"Starfall"))) {
                 casted = c.abilities["Starsurge"].startCast(c)
             }
 

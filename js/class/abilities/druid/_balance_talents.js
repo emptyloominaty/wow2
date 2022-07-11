@@ -25,16 +25,14 @@ let _balance_talents = function(caster) {
     caster.abilities["Incarnation: Chosen of Elune"] = new IncarnationChosenofElune()
 
     //6
-    //caster.abilities["Twin Moons"] = new TwinMoons()
-    //caster.abilities["Stellar Drift"] = new StellarDrift()
-    //caster.abilities["Stellar Flare"] = new StellarFlare()
+    caster.abilities["Twin Moons"] = new TwinMoons()
+    caster.abilities["Stellar Drift"] = new StellarDrift()
+    caster.abilities["Stellar Flare"] = new StellarFlare()
 
     //7
     //caster.abilities["Solstice"] = new Solstice()
     //caster.abilities["Fury of Elune"] = new FuryofElune()
     //caster.abilities["New Moon"] = new NewMoon()
-
-
 
     caster.talents = [["Nature's Balance","Warrior of Elune","Force of Nature"],
         ["Tiger Dash","Renewal","Wild Charge"],
@@ -266,11 +264,121 @@ class IncarnationChosenofElune extends Ability {
     }
 
 }
-
-
 //------------------------------------------------------------------------------------------------ROW6
+class TwinMoons extends Ability {
+    constructor() {
+        super("Twin Moons", 0, 0, 0, 0, false, false, false, "arcane", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Moonfire deals 10% increased damage and also hits another nearby enemy within 15 yds of the target."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Moonfire"].spellPower *= 1.1
+        caster.abilities["Moonfire"].spellPowerDot *= 1.1
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Moonfire"].spellPower /= 1.1
+        caster.abilities["Moonfire"].spellPowerDot /= 1.1
+    }
+
+}
 //------------------------------------------------
+class StellarDrift extends Ability {
+    constructor() {
+        super("Stellar Drift", 0, 0, 0, 0, false, false, false, "arcane", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Starfall deals 50% additional damage and allows you to cast while moving while it is active, but now has a 12 sec cooldown."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Starfall"].spellPower *= 1.5
+        caster.abilities["Starfall"].cd = 12
+        caster.abilities["Starfall"].maxCd = 12
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Starfall"].spellPower /= 1.5
+        caster.abilities["Starfall"].cd = 0
+        caster.abilities["Starfall"].maxCd = 0
+    }
+
+}
 //------------------------------------------------
+class StellarFlare extends Ability {
+    constructor() {
+        super("Stellar Flare", -8, 1.5, 1.5, 0, false, true, false, "astral", 40, 1)
+        this.talent = true
+        this.duration = 24
+        this.spellPower = 0.125
+        this.spellPowerDot = 1.05
+    }
+
+    getTooltip() {
+        return "Burns the target for "+spellPowerToNumber(this.spellPower)+" Astral damage, and then an additional "+spellPowerHotToNumber(this.spellPowerDot)+" damage over 24 sec.<br>" +
+            "<br>" +
+            "Generates 8 Astral Power."
+    }
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            let done = false
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget)) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    done = true
+                }
+            } else {
+                let newTarget = findNearestEnemy(caster)
+                if (newTarget!==false) {
+                    if (caster===player) {
+                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
+                    }
+                    caster.castTarget = newTarget
+                    caster.targetObj = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                        done = true
+                    }
+                }
+            }
+            if (done) {
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                this.setGcd(caster)
+                this.cd = 0
+                return true
+            }
+
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster, target) && !target.isDead) {
+                doDamage(caster, target, this)
+                applyDot(caster, target,this,undefined,undefined,this.spellPowerDot)
+                this.setCd()
+                caster.useEnergy(this.cost, this.secCost)
+            }
+        }
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
 //------------------------------------------------
 //------------------------------------------------
