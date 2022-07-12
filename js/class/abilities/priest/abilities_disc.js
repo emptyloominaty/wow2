@@ -13,18 +13,22 @@ class Discipline_Abilities {
     "Mass Dispel" = new MassDispel()
     "Fade" = new Fade()
     "Shadow Word: Death" = new ShadowWordDeath()
-    "Smite" = new Smite()
+    "Smite" = new Smite(true)
     "Shadow Word: Pain" = new ShadowWordPain()
     "Penance" = new Penance()
     "Pain Suppression" = new PainSuppression()
     "Power Word: Radiance" = new PowerWordRadiance()
     "Shadow Mend" = new ShadowMend()
     "Rapture" = new Rapture()
+    "Mind Blast" = new MindBlast(true)
+    "Power Word: Barrier" = new PowerWordBarrier()
+    "Shadowfiend" = new Shadowfiend()
 
     //passive
     "Atonement" = new Atonement()
     "Grace" = new Grace()
     "Weakened Soul" = new WeakenedSoul()
+    "Power of the Dark Side" = new PoweroftheDarkSide()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -62,6 +66,19 @@ class Grace extends Ability {
 
     getTooltip() {
         return "Your healing and absorption is increased by "+player.stats.mastery.toFixed(1)+"% on targets with Atonement."
+    }
+
+}
+
+class PoweroftheDarkSide extends Ability {
+    constructor() {
+        super("Power of the Dark Side", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
+        this.passive = true
+        this.duration = 20
+    }
+
+    getTooltip() {
+        return "Shadow Word: Pain has a chance to empower your next Penance with Shadow, increasing its effectiveness by 50%."
     }
 
 }

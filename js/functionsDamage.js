@@ -114,4 +114,23 @@ let damageFunctions = {
         }
         return damage
     },
+    "Shadow Word: Pain":(caster,target,damage,ability)=> {
+        if (caster.spec==="discipline") {
+            if (getChance(1.66)) {
+                applyBuff(caster,caster,caster.abilities["Power of the Dark Side"])
+            }
+        }
+        return damage
+    },
+    "Purge the Wicked":(caster,target,damage,ability)=> {
+        if (caster.spec==="discipline") {
+            if (getChance(1.66)) {
+                applyBuff(caster,caster,caster.abilities["Power of the Dark Side"])
+            }
+        }
+        return damage
+    },
+
+
+
 }

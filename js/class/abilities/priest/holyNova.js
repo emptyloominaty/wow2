@@ -17,17 +17,13 @@ class HolyNova extends Ability {
 
         this.spellPower = 0.18*1.44
         this.targetsHeal = 5
-//TODO: If your Holy Nova deals damage to at least 3 enemies, a second Holy Nova will be cast a moment later at 50% effectiveness at the same location.
 
     }
 
     getTooltip() {
         let tooltip = "An explosion of holy light around you deals up to "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Holy damage to enemies and up to "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"" +
-            " healing to allies within 12 yds."
-
-        //TODO:HOLY/DISC
-        tooltip += "If your Holy Nova deals damage to at least 3 enemies, a second Holy Nova will be cast a moment later at 50% effectiveness at the same location."
-
+            " healing to allies within 12 yds. <br>"
+            tooltip += "If your Holy Nova deals damage to at least 3 enemies, a second Holy Nova will be cast a moment later at 50% effectiveness at the same location."
         return tooltip
     }
 

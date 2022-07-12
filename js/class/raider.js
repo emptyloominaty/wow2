@@ -27,4 +27,5 @@ let raiders = [
     new Raider("raider16",50000,100,300,30,0,"holyPriest",raidersStats["stat1"]),
     new Raider("raider17",50000,100,100,30,0,"mistweaver",raidersStats["stat1"]),
     new Raider("raider18",50000,100,100,30,0,"elemental",raidersStats["stat1"]),
+    new Raider("raider18",50000,100,120,66,0,"discipline",raidersStats["stat1"]),
 ]

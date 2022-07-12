@@ -96,6 +96,9 @@ let _ai_holyPriest = function(creature) {
                 if (!casted) {
                     casted = c.abilities["Holy Word: Chastise"].startCast(c)
                 }
+                if (!casted) {
+                    casted = c.abilities["Smite"].startCast(c)
+                }
             }
         }
     }

@@ -337,6 +337,15 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         //PET
         if (caster.spec==="pet") {
             caster = caster.caster
+            if (caster.spec==="discipline") {
+                for (let i = 0; i<friendlyTargets.length; i++) {
+                    for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
+                        if (friendlyTargets[i].buffs[j].name==="Atonement" && friendlyTargets[i].buffs[j].caster === caster) {
+                            caster.abilities["Atonement"].heal(caster,friendlyTargets[i],damage)
+                        }
+                    }
+                }
+            }
         }
 
 

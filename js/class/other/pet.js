@@ -52,6 +52,8 @@ class Pet {
     magicDamageReduction = 0
     reduceEnergyCost = 1
     attackSpeed = 1
+    autoattackSpeed = 2.6
+    autoattackDamage = 0.23
     gcd = 0
     id3 = 99
     spec = "pet"
@@ -74,6 +76,10 @@ class Pet {
         this.data = data
         this.name = this.data.name
         this.stats = JSON.parse(JSON.stringify(caster.stats))
+
+        if (this.data.autoAttackDamage) {
+            this.autoattackDamage = this.data.autoAttackDamage
+        }
 
 
         this.abilities = this.data.abilities

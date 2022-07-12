@@ -31,6 +31,16 @@ class Penance extends Ability {
             //TODO:Castigation timer = 0.66
             caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0.97/(1 + (caster.stats.haste / 100)), timer2:0.97/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             caster.canMoveWhileCasting = this.canMove
+
+            if (checkBuff(caster,caster,"Power of the Dark Side",true)) {
+                this.spellPower = 0.6
+                this.spellPowerHeal = 1.875
+            } else {
+                this.spellPower = 0.4
+                this.spellPowerHeal = 1.25
+            }
+
+
             this.setGcd(caster)
             caster.useEnergy(this.cost)
             this.setCd()

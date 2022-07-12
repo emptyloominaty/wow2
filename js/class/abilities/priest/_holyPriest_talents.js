@@ -416,7 +416,9 @@ class DivineStar extends Ability {
                 caster.isChanneling = false
             }
 
-            caster.abilities["Surge of Light"].chance(caster)
+            if (caster.spec==="holyPirest") {
+                caster.abilities["Surge of Light"].chance(caster)
+            }
 
             this.area.data.direction = caster.direction
             this.area2.data.direction = caster.direction

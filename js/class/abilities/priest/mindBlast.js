@@ -1,30 +1,34 @@
-class Smite extends Ability {
+class MindBlast extends Ability {
     constructor(disc = false) {
-        let name = "Smite"
-        let cost = 0.2 //% mana
-
+        let name = "Mind Blast"
+        let cost = 0.25
         let gcd = 1.5
         let castTime = 1.5
-        let cd = 0
+        let cd = 15
         let charges = 1
         let channeling = false
         let casting = true
-        let canMove = true
-        let school = "holy"
+        let canMove = false
+        let school = "shadow"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = (0.47*1.5)*1.44
-        this.resetChance = 20
+        this.spellPower = 0.9792
 
         if (disc) {
-            this.spellPower = (0.47*1.5)*0.7
+            this.spellPower = 0.9792*0.76
         }
 
     }
 
     getTooltip() {
-        return "Smites an enemy for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Holy damage and has a 20% chance to reset the cooldown of Holy Fire."
+        if (player.spec==="discipline") {
+            return "Blasts the target's mind for "+spellPowerToNumber(this.spellPower)+" Shadow damage <br>" +
+                "preventing the next "+spellPowerToNumber(this.spellPower*3)+" damage they deal" //TODO:
+        } else {
+            return "Blasts the target's mind for "+spellPowerToNumber(this.spellPower)+" Shadow damage."
+        }
+
     }
     startCast(caster) {
         if (this.checkStart(caster)) {
@@ -67,16 +71,8 @@ class Smite extends Ability {
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 doDamage(caster, target, this)
-
-                if (caster.spec==="holyPriest") {
-                    if (getChance(this.resetChance)) {
-                        caster.abilities["Holy Fire"].cd = caster.abilities["Holy Fire"].maxCd
-                    }
-                    caster.abilities["Surge of Light"].chance(caster)
-                    caster.abilities["Holy Word: Chastise"].reduceCd(caster.abilities["Holy Words"].chastise)
-                }
                 caster.useEnergy(this.cost,this.secCost)
-                this.cd = 0
+                this.setCd()
             }
         }
     }

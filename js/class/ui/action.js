@@ -535,14 +535,20 @@ if (player.spec==="discipline") {
         //bar1
         "Shadow Mend": new Action("Shadow Mend",1,0),
         "Power Word: Shield": new Action( "Power Word: Shield",1,1),
+        "Shadowfiend": new Action("Shadowfiend",1,2),
+        "Angelic Feather": new Action("Angelic Feather", 1, 3),
 
         "Mass Dispel": new Action("Mass Dispel",1,4),
-
         "Smite": new Action("Smite", 1, 8),
         "Penance": new Action("Penance",1,9),
+
         //bar2
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
+        "Mind Blast": new Action("Mind Blast",2,1),
+
+        "Divine Star": new Action("Divine Star",2,3),
         "Pain Suppression": new Action("Pain Suppression",2,4),
+        "Power Word: Barrier": new Action("Power Word: Barrier",2,5),
         "Rapture": new Action("Rapture",2,6),
 
         //bar3

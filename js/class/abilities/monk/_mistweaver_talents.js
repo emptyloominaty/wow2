@@ -719,6 +719,7 @@ class InvokeChiJitheRedCrane extends Ability {
             color:"#ff8a3a",
             size:6,
             do:[{name:"goMelee"}],
+            autoAttackDamage:0.38,
         }
         this.petDuration = 25
     }
