@@ -524,6 +524,8 @@ if (player.spec==="holyPriest") {
 if (player.spec==="discipline") {
     actions = {
         //bar0
+        "Power Word: Radiance": new Action("Power Word: Radiance",0,1),
+
         "Purify": new Action("Purify", 0, 4),
         "Shadow Word: Death": new Action("Shadow Word: Death",0,5),
         "Holy Nova": new Action("Holy Nova", 0, 6),
@@ -531,14 +533,17 @@ if (player.spec==="discipline") {
         "Desperate Prayer": new Action("Desperate Prayer", 0, 8),
 
         //bar1
+        "Shadow Mend": new Action("Shadow Mend",1,0),
         "Power Word: Shield": new Action( "Power Word: Shield",1,1),
 
         "Mass Dispel": new Action("Mass Dispel",1,4),
 
         "Smite": new Action("Smite", 1, 8),
-        //penance
+        "Penance": new Action("Penance",1,9),
         //bar2
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
+        "Pain Suppression": new Action("Pain Suppression",2,4),
+        "Rapture": new Action("Rapture",2,6),
 
         //bar3
         "Leap of Faith": new Action( "Leap of Faith",3,0),

@@ -34,7 +34,6 @@ class PowerWordShield extends Ability {
             }
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
-            this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
@@ -44,12 +43,20 @@ class PowerWordShield extends Ability {
 
     endCast(caster) {
         caster.isCasting = false
-        this.effect[0].val = ((caster.stats.primary * this.spellPower) * (1 + (caster.stats.vers / 100)))
+        let rapture = (caster.spec==="discipline" && checkBuff(caster,caster,"Rapture"))
+        if (rapture) {
+            this.effect[0].val = ((caster.stats.primary * this.spellPower) * (1 + (caster.stats.vers / 100)))*3
+        } else {
+            this.effect[0].val = ((caster.stats.primary * this.spellPower) * (1 + (caster.stats.vers / 100)))
+        }
+
         let target = caster.casting.target
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
-            if (!checkDebuff(caster,caster,"Weakened Soul")) {
+            if (!checkDebuff(caster,caster,"Weakened Soul") || rapture) {
                 applyBuff(caster,caster,this,undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                 applyDebuff(caster,caster,caster.abilities["Weakened Soul"])
+                this.setGcd(caster)
+                caster.useEnergy(this.cost)
                 if (caster.abilities["Body and Soul"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Body and Soul"])
                 }
@@ -58,9 +65,11 @@ class PowerWordShield extends Ability {
                 }
             }
         } else {
-            if (!checkDebuff(caster,target,"Weakened Soul")) {
+            if (!checkDebuff(caster,target,"Weakened Soul") || rapture) {
                 applyBuff(caster, target, this,undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                 applyDebuff(caster,target,caster.abilities["Weakened Soul"])
+                this.setGcd(caster)
+                caster.useEnergy(this.cost)
                 if (caster.abilities["Body and Soul"].talentSelect) {
                     applyBuff(caster,target,caster.abilities["Body and Soul"])
                 }
@@ -69,7 +78,6 @@ class PowerWordShield extends Ability {
                 }
             }
         }
-        caster.useEnergy(this.cost)
     }
 }
 

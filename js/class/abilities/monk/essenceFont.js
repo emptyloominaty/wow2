@@ -50,7 +50,7 @@ class EssenceFont extends Ability {
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:(1/(1 + (caster.stats.haste / 100)))/6}
             this.setGcd(caster)
-            this.cd = 0
+            this.setCd()
             caster.useEnergy(this.cost)
             this.last6bolts = []
             return true

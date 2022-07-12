@@ -15,6 +15,11 @@ class Discipline_Abilities {
     "Shadow Word: Death" = new ShadowWordDeath()
     "Smite" = new Smite()
     "Shadow Word: Pain" = new ShadowWordPain()
+    "Penance" = new Penance()
+    "Pain Suppression" = new PainSuppression()
+    "Power Word: Radiance" = new PowerWordRadiance()
+    "Shadow Mend" = new ShadowMend()
+    "Rapture" = new Rapture()
 
     //passive
     "Atonement" = new Atonement()
@@ -31,7 +36,7 @@ class Atonement extends Ability {
         this.duration = 15
     }
 
-    getTooltip() { //TODO: Shadow Mend, and Power Word: Radiance
+    getTooltip() {
         return "Power Word: Shield, Shadow Mend, and Power Word: Radiance apply Atonement to your target for 15 sec.<br>" +
             "<br>" +
             "Your spell damage heals all targets affected by Atonement for 50% of the damage done."
@@ -55,7 +60,7 @@ class Grace extends Ability {
         this.mastery = true
     }
 
-    getTooltip() { //TODO:
+    getTooltip() {
         return "Your healing and absorption is increased by "+player.stats.mastery.toFixed(1)+"% on targets with Atonement."
     }
 

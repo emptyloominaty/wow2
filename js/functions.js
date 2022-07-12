@@ -340,7 +340,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
 
 
-        if (ability.name!=="Stagger") {
+        if (ability.name!=="Stagger" && ability.name!=="Shadow Mend") {
             if (inCombat) {
                 timelineCombatLog.damage(caster, target, ability, damage)
             }
