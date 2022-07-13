@@ -76,7 +76,7 @@ class Smite extends Ability {
                     caster.abilities["Holy Word: Chastise"].reduceCd(caster.abilities["Holy Words"].chastise)
                 }
                 caster.useEnergy(this.cost,this.secCost)
-                this.cd = 0
+                this.setCd()
             }
         }
     }

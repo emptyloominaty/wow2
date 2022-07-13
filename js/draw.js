@@ -641,13 +641,16 @@ function draw(progress) {
             let debuffs = 0
             let dispelIcon = ""
             for (let j = 0; j<raidFrameTarget.debuffs.length; j++) {
-                elements["raidFrame_debuff_"+j+i].src = iconsPath[raidFrameTarget.debuffs[j].name]
+                if ((raidFrameTarget.debuffs[j].name==="Shadow Mend" || raidFrameTarget.debuffs[j].name==="Weakened Soul") && raidFrameTarget.debuffs[j].caster !== player) {
+                    continue
+                }
+                elements["raidFrame_debuff_"+debuffs+i].src = iconsPath[raidFrameTarget.debuffs[j].name]
                 debuffEl[j] = true
                 if (raidFrameTarget.debuffs[j].ability.dispellable!==false) {
                     dispelIcon = iconsPath[raidFrameTarget.debuffs[j].ability.dispellable+" dispel"]
                 }
-
                 debuffs++
+
                 if (debuffs===maxDebuffs) {
                     break
                 }

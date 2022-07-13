@@ -23,9 +23,6 @@ class ShadowWordPain extends Ability {
         return "A word of darkness that causes "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Shadow damage instantly, and an additional "+((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" Shadow damage over 12 sec."
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
@@ -51,7 +48,7 @@ class ShadowWordPain extends Ability {
                         doDamage(caster, caster.castTarget, this)
                         applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
                         caster.useEnergy(this.cost,this.secCost)
-                        this.cd = 0
+                        this.setCd()
                     }
                 }
                 if (caster.isChanneling) {
@@ -61,12 +58,10 @@ class ShadowWordPain extends Ability {
                 return true
             }
 
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
         return false
     }
 
-    endCast(caster) {
-    }
 }

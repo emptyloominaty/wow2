@@ -541,6 +541,7 @@ if (player.spec==="discipline") {
         "Mass Dispel": new Action("Mass Dispel",1,4),
         "Smite": new Action("Smite", 1, 8),
         "Penance": new Action("Penance",1,9),
+        "Power Word: Solace": new Action("Power Word: Solace",1,10),
 
         //bar2
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),

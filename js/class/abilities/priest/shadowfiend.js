@@ -54,7 +54,4 @@ class Shadowfiend extends Ability {
         return false
     }
 
-    endCast() {
-
-    }
 }

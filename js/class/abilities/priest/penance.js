@@ -62,10 +62,27 @@ class Penance extends Ability {
             if (this.isEnemy(caster, target)) {
                 if (this.checkDistance(caster, target) && !target.isDead) {
                     doDamage(caster, target, this)
+                    if (caster.abilities["Purge the Wicked"].talentSelect) {
+                        if (checkDebuff(caster,target,"Purge the Wicked")) {
+                            for (let i = 0; i<enemies.length; i++) {
+                                if (!enemies[i].isDead && this.checkDistance(target,enemies[i],8,true) && !checkDebuff(caster,enemies[i],"Purge the Wicked")) {
+                                    applyDot(caster,enemies[i],caster.abilities["Purge the Wicked"])
+                                    break
+                                }
+                            }
+                        }
+                    }
                 }
             } else {
                 if (this.checkDistance(caster, target) && !target.isDead) {
                     doHeal(caster, target, this,undefined,this.spellPowerHeal)
+                    if (caster.abilities["Contrition"].talentSelect) {
+                        for (let i = 0; i<friendlyTargets.length; i++) {
+                            if (checkBuff(caster,friendlyTargets[i],"Atonement")) {
+                                doHeal(caster,friendlyTargets[i],caster.abilities["Contrition"])
+                            }
+                        }
+                    }
                 }
             }
         }
