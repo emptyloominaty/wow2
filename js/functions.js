@@ -97,6 +97,11 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
             if (checkBuff(caster,target,"Atonement")) {
                 heal *= (1+(caster.stats.mastery/100))
             }
+            if (caster.abilities["Twist of Fate"].talentSelect) {
+                if (target.health/target.maxHealth<0.35) {
+                    applyBuff(caster,caster,caster.abilities["Twist of Fate"])
+                }
+            }
         }
 
         if (target.spec==="brewmaster") {
@@ -244,6 +249,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 doHeal(caster,target,caster.abilities["Spirit Bomb"],undefined,undefined,undefined,undefined,undefined,damage*0.1)
             }
         } else if (caster.spec==="discipline") {
+            if (checkDebuff(caster,target,"Schism")) {
+                damage = damage * 1.25
+            }
             for (let i = 0; i<friendlyTargets.length; i++) {
                 for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
                     if (friendlyTargets[i].buffs[j].name==="Atonement" && friendlyTargets[i].buffs[j].caster === caster) {

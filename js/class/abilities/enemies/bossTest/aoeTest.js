@@ -13,7 +13,7 @@ class AoeTest extends Ability {
         let range = 60 //melee
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.aoe = true
-        this.spellPower = 2.8
+        this.spellPower = 4
         this.cd = 0
     }
 

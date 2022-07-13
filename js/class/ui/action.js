@@ -545,6 +545,7 @@ if (player.spec==="discipline") {
         //bar2
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 2, 0),
         "Mind Blast": new Action("Mind Blast",2,1),
+        "Schism": new Action("Schism",2,2),
 
         "Divine Star": new Action("Divine Star",2,3),
         "Pain Suppression": new Action("Pain Suppression",2,4),

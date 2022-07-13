@@ -28,8 +28,13 @@ class Penance extends Ability {
     startCast(caster) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
             caster.isChanneling = true
-            //TODO:Castigation timer = 0.66
-            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:0.97/(1 + (caster.stats.haste / 100)), timer2:0.97/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+
+            let timer = 0.97
+            if (caster.abilities["Castigation"].talentSelect) {
+                timer = 0.66
+            }
+
+            caster.channeling = {name:this.name, time:0, time2:this.duration/(1 + (caster.stats.haste / 100)), timer:timer/(1 + (caster.stats.haste / 100)), timer2:timer/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             caster.canMoveWhileCasting = this.canMove
 
             if (checkBuff(caster,caster,"Power of the Dark Side",true)) {
