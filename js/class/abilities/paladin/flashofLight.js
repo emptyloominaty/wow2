@@ -49,6 +49,10 @@ class FlashofLight extends Ability {
             //heal target
             doHeal(caster,target,this)
         }
-        caster.useEnergy(this.cost)
+        let cost = this.cost
+        if (checkBuff(caster,caster,"Infusion of Light",true)) {
+            cost *= 0.7
+        }
+        caster.useEnergy(cost)
     }
 }

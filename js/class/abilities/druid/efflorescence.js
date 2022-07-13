@@ -55,7 +55,7 @@ class Efflorescence extends Ability {
         caster.isCasting = false
 
         if (this.areaId!==undefined) {
-            if (areas[this.areaId]) {
+            if (areas[this.areaId] && areas[this.areaId].ability.name==="Efflorescence" && areas[this.areaId].caster === caster) {
                 areas[this.areaId] = undefined
             }
         }

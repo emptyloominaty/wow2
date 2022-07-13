@@ -18,7 +18,7 @@ class LightofDawn extends Ability {
     }
 
     getTooltip() {
-        return "Unleashes a wave of holy energy, healing up to 5 injured allies within a 15 yd frontal cone for (105% of Spell power)"
+        return "Unleashes a wave of holy energy, healing up to 5 injured allies within a 15 yd frontal cone for "+spellPowerToNumber(this.spellPower)+"."
     }
 
 

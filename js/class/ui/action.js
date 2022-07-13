@@ -33,7 +33,7 @@ class Action {
             }
         }
         //gcd
-        if (player.abilities[this.name].checkCost(player,undefined,false) && (player.abilities[this.name].talent===player.abilities[this.name].talentSelect) && player.abilities[this.name].canUse && (!player.abilities[this.name].requiresStealth || player.isStealthed || player.abilities[this.name].canUseWithoutStealth)) {
+        if (player.abilities[this.name].checkCost(player,undefined,false) && (player.abilities[this.name].talent===player.abilities[this.name].talentSelect) && player.abilities[this.name].canUse && (!player.abilities[this.name].requiresStealth || player.isStealthed || player.abilities[this.name].canUseWithoutStealth) && (!player.abilities[this.name].lessthanhealth || (player.targetObj.health/player.targetObj.maxHealth<player.abilities[this.name].lessthanhealth))) {
             if (player.gcd > 0 && !player.abilities[this.name].noGcd) {
                 this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.height = ((bars.playerCast.val / bars.playerCast.maxVal) * 100) + "%"
                 this.elements["action_gcd_" + this.bar + "_" + this.slot + ""].style.borderBottom = "1px Solid #FFF"
@@ -565,12 +565,21 @@ if (player.spec==="discipline") {
 if (player.spec==="holyPaladin") {
     actions = {
         //bar0
-
+        "Avenging Wrath": new Action("Avenging Wrath",0,0),
         "Light of Dawn": new Action("Light of Dawn",0,1),
+        "Light of the Martyr": new Action("Light of the Martyr",0,2),
         "Cleanse": new Action("Cleanse",0,4),
+
+        "Consecration": new Action("Consecration",0,6),
+
+        "Divine Protection": new Action("Divine Protection",0,8),
 
         //bar1
         "Holy Shock": new Action("Holy Shock",1,0),
+        "Word of Glory": new Action("Word of Glory",1,1),
+        "Beacon of Light": new Action("Beacon of Light",1,2),
+        "Divine Steed": new Action("Divine Steed",1,3),
+
         "Flash of Light": new Action("Flash of Light", 1, 8),
         "Holy Light": new Action("Holy Light",1,9),
         "Hammer of Justice": new Action("Hammer of Justice",1,10),
@@ -578,8 +587,10 @@ if (player.spec==="holyPaladin") {
         //bar2
         "Judgment": new Action("Judgment",2,0),
         "Crusader Strike": new Action("Crusader Strike",2,1),
+        "Hammer of Wrath": new Action("Hammer of Wrath",2,2),
 
         "Lay on Hands": new Action("Lay on Hands",2,4),
+        "Aura Mastery": new Action("Aura Mastery",2,6),
 
 
         //bar3

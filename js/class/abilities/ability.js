@@ -35,6 +35,7 @@ class Ability {
 
     actionBarForm = false
     actionBar = false
+    lessthanhealth = false
 
     constructor(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges,effects = [],values = {},
                 noGcd = false,hasteCd = false,hasteGcd = true,secCost = 0,

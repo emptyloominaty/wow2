@@ -49,6 +49,9 @@ class HolyLight extends Ability {
             //heal target
             doHeal(caster,target,this)
         }
+        if (checkBuff(caster,caster,"Infusion of Light",true)) {
+            caster.useEnergy(0,-1)
+        }
         caster.useEnergy(this.cost)
     }
 }

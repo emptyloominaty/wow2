@@ -102,6 +102,22 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
                     applyBuff(caster,caster,caster.abilities["Twist of Fate"])
                 }
             }
+        } else if (caster.spec==="holyPaladin") {
+            heal *= caster.abilities["Lightbringer"].increaseHealing(caster,target)
+
+            if (caster.abilities["Beacon of Light"].currentTarget && ability.name!=="Leech" && ability.name!=="Beacon of Light" && ability.name!=="Lay on Hands" && ability.name!=="Light of the Martyr") {
+                if (caster.abilities["Beacon of Light"].currentTarget===target) {
+                    if (ability.name==="Flash of Light" || ability.name==="Holy Light") {
+                        caster.useEnergy(0,-1)
+                    }
+                } else {
+                    doHeal(caster,caster.abilities["Beacon of Light"].currentTarget,caster.abilities["Beacon of Light"],undefined,undefined,false,undefined,undefined,heal*0.5)
+                }
+            }
+            if (ability.name==="Holy Shock" && crit>1) {
+                applyBuff(caster,caster,caster.abilities["Infusion of Light"])
+            }
+
         }
 
         if (target.spec==="brewmaster") {

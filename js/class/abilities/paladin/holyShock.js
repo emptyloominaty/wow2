@@ -19,7 +19,7 @@ class HolyShock extends Ability {
     }
 
     getTooltip() {
-        return   "Triggers a burst of Light on the target, dealing (68% of Spell power) Holy damage to an enemy, or (155% of Spell power) healing to an ally.<br> Has an additional 30% critical effect chance<br>" +
+        return   "Triggers a burst of Light on the target, dealing "+spellPowerToNumber(this.spellPower)+" Holy damage to an enemy, or "+spellPowerToNumber(this.spellPowerHeal)+" healing to an ally.<br> Has an additional 30% critical effect chance<br>" +
             "<br>" +
             "Generates 1 Holy Power."
     }

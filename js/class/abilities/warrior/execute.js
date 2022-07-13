@@ -14,7 +14,7 @@ class Execute extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = ((1.128+1.27)*1.15)*1.29
-        this.health = 0.2
+        this.lessthanhealth = 0.2
 
         this.hasteCd = true
 
@@ -25,7 +25,7 @@ class Execute extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster) && (caster.castTarget.health/caster.castTarget.maxHealth<this.health || checkBuff(caster,caster,"Sudden Death"))) {
+        if (this.checkStart(caster) && (caster.castTarget.health/caster.castTarget.maxHealth<this.lessthanhealth || checkBuff(caster,caster,"Sudden Death"))) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {

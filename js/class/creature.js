@@ -189,7 +189,7 @@ class Creature {
             this.class = "Paladin"
             this.abilities = new HolyPaladin_Abilities()
             _holyPaladin_talents(this)
-
+            applyBuff(this,this,this.abilities["Devotion Aura"])
             this.secondaryResourceName = "Holy Power"
             this.secondaryResource = 0
             this.maxSecondaryResource = 5

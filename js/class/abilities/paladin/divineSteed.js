@@ -1,31 +1,28 @@
-class EnragedRegeneration extends Ability {
+class DivineSteed extends Ability {
     constructor() {
-        let name = "Enraged Regeneration"
+        let name = "Divine Steed"
         let cost = 0
-        let gcd = 0
+        let gcd = 1.5
         let castTime = 0
-        let cd = 120
+        let cd = 45
         let charges = 1
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "physical"
+        let school = "holy"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        //TODO:Can be used while stunned
-        this.spellPower = 0
-        this.effect = [{name:"damageReduction",val:0.3}]
 
-        this.duration = 8
-        this.noGcd = true
+        this.effect = [{name:"moveSpeed",val:1}]
+        this.duration = 3
     }
 
     getTooltip() {
-        return "Reduces damage taken by 30%, and Bloodthirst restores an additional 20% health. Usable while stunned. Lasts 8 sec."
+        return "Leap atop your Charger for 3 sec, increasing movement speed by 100%. Usable while indoors or in combat."
     }
 
     getBuffTooltip(caster, target, buff) {
-        return "Damage taken reduced by 30%. Bloodthirst restores an additional 20% health."
+        return "Movement speed increased by 100%."
     }
 
     startCast(caster) {
