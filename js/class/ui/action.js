@@ -566,13 +566,20 @@ if (player.spec==="holyPaladin") {
     actions = {
         //bar0
 
+        "Light of Dawn": new Action("Light of Dawn",0,1),
+        "Cleanse": new Action("Cleanse",0,4),
 
         //bar1
+        "Holy Shock": new Action("Holy Shock",1,0),
         "Flash of Light": new Action("Flash of Light", 1, 8),
         "Holy Light": new Action("Holy Light",1,9),
+        "Hammer of Justice": new Action("Hammer of Justice",1,10),
 
         //bar2
-        "Judgment": new Action("Judgment",2,0)
+        "Judgment": new Action("Judgment",2,0),
+        "Crusader Strike": new Action("Crusader Strike",2,1),
+
+        "Lay on Hands": new Action("Lay on Hands",2,4),
 
 
         //bar3

@@ -14,7 +14,7 @@ class MindBlast extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.9792
-
+        this.hasteCd = true
         if (disc) {
             this.spellPower = 0.9792*0.76
         }

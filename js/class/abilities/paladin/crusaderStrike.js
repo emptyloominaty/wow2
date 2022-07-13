@@ -1,29 +1,28 @@
-class Judgment extends Ability {
+class CrusaderStrike extends Ability {
     constructor() {
-        let name = "Judgment"
-        let cost = 1.5
+        let name = "Crusader Strike"
+        let cost = 0.44
         let gcd = 1.5
         let castTime = 0
-        let cd = 12
-        let charges = 1
+        let cd = 6
+        let charges = 2
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "holy"
-        let range = 30
+        let school = "physical"
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+
+        this.spellPower = 0.765
         this.hasteCd = true
-        this.spellPower = 1.125*1.5
         this.secCost = -1
 
     }
 
-    getTooltip() { //TODO:and causing the target to take 30% increased damage from your next Crusader Strike or Holy Shock
-        if (player.spec==="holyPaladin") {
-            return "Judges the target, dealing "+spellPowerToNumber(this.spellPower)+" Holy damage and causing the target to take 30% increased damage from your next Crusader Strike or Holy Shock. Generates 1 Holy Power."
-        } else {
-            return "Judges the target, dealing "+spellPowerToNumber(this.spellPower)+" Holy damage and causing them to take 25% increased damage from your next Holy Power ability. Generates 1 Holy Power."
-        }
+    getTooltip() {
+        return "Strike the target for "+spellPowerToNumber(this.spellPower)+" Physical damage.<br>" +
+            "<br>" +
+            "Generates 1 Holy Power."
     }
 
     startCast(caster) {

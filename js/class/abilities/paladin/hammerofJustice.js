@@ -1,29 +1,25 @@
-class Judgment extends Ability {
+class HammerofJustice extends Ability {
     constructor() {
-        let name = "Judgment"
-        let cost = 1.5
+        let name = "Hammer of Justice"
+        let cost = 0.7
         let gcd = 1.5
         let castTime = 0
-        let cd = 12
+        let cd = 60
         let charges = 1
         let channeling = false
         let casting = false
         let canMove = false
         let school = "holy"
-        let range = 30
+        let range = 10
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.hasteCd = true
-        this.spellPower = 1.125*1.5
-        this.secCost = -1
+
+        this.effect = [{name:"stun"}]
+        this.duration = 6
 
     }
 
-    getTooltip() { //TODO:and causing the target to take 30% increased damage from your next Crusader Strike or Holy Shock
-        if (player.spec==="holyPaladin") {
-            return "Judges the target, dealing "+spellPowerToNumber(this.spellPower)+" Holy damage and causing the target to take 30% increased damage from your next Crusader Strike or Holy Shock. Generates 1 Holy Power."
-        } else {
-            return "Judges the target, dealing "+spellPowerToNumber(this.spellPower)+" Holy damage and causing them to take 25% increased damage from your next Holy Power ability. Generates 1 Holy Power."
-        }
+    getTooltip() {
+        return "Stuns the target for 6 sec."
     }
 
     startCast(caster) {
@@ -45,14 +41,9 @@ class Judgment extends Ability {
                     }
                 }
             }
-            if (done && Object.keys(caster.castTarget).length !== 0) {
-                if (this.isEnemy(caster,caster.castTarget)) {
-                    if (this.checkDistance(caster,caster.castTarget) && !caster.castTarget.isDead) {
-                        doDamage(caster, caster.castTarget, this)
-                        caster.useEnergy(this.cost,this.secCost)
-                        this.setCd()
-                    }
-                }
+            if (done) {
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
@@ -60,10 +51,27 @@ class Judgment extends Ability {
                 return true
             }
 
-        } else if (this.canSpellQueue(caster)) {
+        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
             spellQueue.add(this,caster.gcd)
         }
         return false
     }
 
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
+                applyDebuff(caster,target,this,"stun")
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
+            }
+        }
+    }
+
+    runBuff() {
+    }
+
+    endBuff() {
+    }
 }
