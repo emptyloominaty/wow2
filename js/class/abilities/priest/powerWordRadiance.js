@@ -41,21 +41,77 @@ class PowerWordRadiance extends Ability {
     endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
+
+        //  if (caster.abilities["Spirit Shell"].talentSelect && checkBuff(caster,caster,"Spirit Shell")) {
+        //             let buff = false
+        //             for (let i = 0; i<target.buffs.length; i++) {
+        //                 if (target.buffs[i].name==="Spirit Shell " && target.buffs[i].caster === caster) {
+        //                     target.buffs[i].effect[0].val += heal * 0.8
+        //                     buff = true
+        //                 }
+        //             }
+        //             if (!buff) {
+        //                 caster.abilities["Spirit Shell "].applyAbsorb(caster,target,heal)
+        //             }
+        //         } else {
+        //             doHeal(caster,target,this,undefined,undefined,undefined,undefined,undefined,heal)
+        //         }
+
+        let spiritShell = false
+        let val = 0
+        if (caster.abilities["Spirit Shell"].talentSelect && checkBuff(caster,caster,"Spirit Shell")) {
+            spiritShell = true
+            val = ((caster.stats.primary * this.spellPower) * (1 + (caster.stats.vers / 100))) * 0.8
+        }
+
         if (this.isEnemy(caster,target) || target.isDead || Object.keys(target).length === 0 || !this.checkDistance(caster, target)) {
             //heal self
-            doHeal(caster,caster,this)
+            if (!spiritShell) {
+                doHeal(caster, caster, this)
+            }
             applyBuff(caster,caster,caster.abilities["Atonement"],undefined,undefined,undefined,9)
             target = caster
         } else {
             //heal target
-            doHeal(caster,target,this)
+            if (!spiritShell) {
+                doHeal(caster, target, this)
+            }
             applyBuff(caster,target,caster.abilities["Atonement"],undefined,undefined,undefined,9)
         }
+
+        if (spiritShell) {
+            let buff = false
+            for (let i = 0; i<target.buffs.length; i++) {
+                if (target.buffs[i].name==="Spirit Shell " && target.buffs[i].caster === caster) {
+                    target.buffs[i].effect[0].val += val
+                    buff = true
+                }
+            }
+            if (!buff) {
+                caster.abilities["Spirit Shell "].applyAbsorb(caster,target,val)
+            }
+        }
+
+
         let tth = 0
         let targets = sortFriendlyTargetsByHealth(true)
         for (let i = 0; i<targets.length ;i++) {
             if (!targets[i].isDead && this.checkDistance(target, targets[i]) && !checkBuff(caster,targets[i],"Atonement")) { //TODO: buff fix
-                doHeal(caster, targets[i], this)
+                if (spiritShell) {
+                    console.log(val)
+                    let buff = false
+                    for (let i = 0; i<targets[i].buffs.length; i++) {
+                        if (targets[i].buffs[i].name==="Spirit Shell " && targets[i].buffs[i].caster === caster) {
+                            targets[i].buffs[i].effect[0].val += val
+                            buff = true
+                        }
+                    }
+                    if (!buff) {
+                        caster.abilities["Spirit Shell "].applyAbsorb(caster,targets[i],val)
+                    }
+                } else {
+                    doHeal(caster, targets[i], this)
+                }
                 applyBuff(caster,targets[i],caster.abilities["Atonement"],undefined,undefined,undefined,9)
                 tth++
             }

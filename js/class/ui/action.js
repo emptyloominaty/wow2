@@ -524,6 +524,7 @@ if (player.spec==="holyPriest") {
 if (player.spec==="discipline") {
     actions = {
         //bar0
+        "Evangelism": new Action("Evangelism",0,0),
         "Power Word: Radiance": new Action("Power Word: Radiance",0,1),
 
         "Purify": new Action("Purify", 0, 4),
@@ -560,6 +561,24 @@ if (player.spec==="discipline") {
     }
 }
 
+
+if (player.spec==="holyPaladin") {
+    actions = {
+        //bar0
+
+
+        //bar1
+        "Flash of Light": new Action("Flash of Light", 1, 8),
+        "Holy Light": new Action("Holy Light",1,9),
+
+        //bar2
+        "Judgment": new Action("Judgment",2,0)
+
+
+        //bar3
+
+    }
+}
 
 if (player.spec==="havoc") {
     actions = {

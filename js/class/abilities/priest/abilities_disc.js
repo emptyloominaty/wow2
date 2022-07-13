@@ -52,7 +52,20 @@ class Atonement extends Ability {
 
     heal(caster,target,damage) {
         let heal = damage * 0.5
-        doHeal(caster,target,this,undefined,undefined,undefined,undefined,undefined,heal)
+        if (caster.abilities["Spirit Shell"].talentSelect && checkBuff(caster,caster,"Spirit Shell")) {
+            let buff = false
+            for (let i = 0; i<target.buffs.length; i++) {
+                if (target.buffs[i].name==="Spirit Shell " && target.buffs[i].caster === caster) {
+                    target.buffs[i].effect[0].val += heal * 0.8
+                    buff = true
+                }
+            }
+            if (!buff) {
+                caster.abilities["Spirit Shell "].applyAbsorb(caster,target,heal)
+            }
+        } else {
+            doHeal(caster,target,this,undefined,undefined,undefined,undefined,undefined,heal)
+        }
     }
 
 }

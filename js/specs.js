@@ -13,4 +13,5 @@ let specsName = {
     "havoc":"Havoc",
     "fury":"Fury",
     "vengeance":"Vengeance",
+    "holyPaladin":"Holy",
 }

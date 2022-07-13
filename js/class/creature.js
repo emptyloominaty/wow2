@@ -185,6 +185,16 @@ class Creature {
             _discipline_talents(this)
             this.melee = false
             this.role = "healer"
+        } else if (spec==="holyPaladin") {//----------------------------------------Holy Paladin
+            this.class = "Paladin"
+            this.abilities = new HolyPaladin_Abilities()
+            _holyPaladin_talents(this)
+
+            this.secondaryResourceName = "Holy Power"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 5
+            this.melee = true
+            this.role = "healer"
         } else if (spec==="elemental") {//----------------------------------------Elemental
             this.class = "Shaman"
             this.abilities = new Elemental_Abilities()

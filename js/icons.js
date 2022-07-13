@@ -24,6 +24,7 @@ let iconsPath = {
         "holyPriest":"img/specs/priest/holy.png",
         "discipline":"img/specs/priest/discipline.png",
         "vengeance":"img/specs/demonhunter/vengeance.jpg",
+        "holyPaladin":"img/specs/paladin/holy.png",
     },
 
     //classes
@@ -938,6 +939,7 @@ let iconsPath = {
     "Smite":"img/priest/Smite.jpg",
     "Spirit of Redemption":"img/priest/SpiritofRedemption.jpg",
     "Spirit Shell":"img/priest/SpiritShell.jpg",
+    "Spirit Shell ":"img/priest/SpiritShell.jpg",
     "Surge of Light":"img/priest/SurgeofLight.jpg",
     "Surrender to Madness":"img/priest/SurrendertoMadness.jpg",
     "Symbol of Hope":"img/priest/SymbolofHope.jpg",

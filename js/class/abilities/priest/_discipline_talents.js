@@ -1,4 +1,5 @@
 let _discipline_talents = function(caster) {
+    caster.abilities["Spirit Shell "] = new SpiritShellAbsorb()
     //1
     caster.abilities["Castigation"] = new Castigation()
     caster.abilities["Twist of Fate"] = new TwistofFate()
@@ -31,8 +32,8 @@ let _discipline_talents = function(caster) {
 
     //7
     caster.abilities["Lenience"] = new Lenience()
-    //caster.abilities["Spirit Shell"] = new SpiritShell()
-    //caster.abilities["Evangelism"] = new Evangelism()
+    caster.abilities["Spirit Shell"] = new SpiritShell()
+    caster.abilities["Evangelism"] = new Evangelism()
 
 
     caster.talents = [["Castigation","Twist of Fate","Schism"],
@@ -440,7 +441,6 @@ class Lenience extends Ability {
         super("Lenience", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
     }
 
     getTooltip() {
@@ -457,4 +457,99 @@ class Lenience extends Ability {
     }
 }
 //------------------------------------------------
+class SpiritShell extends Ability {
+    constructor() {
+        super("Spirit Shell", 2, 1.5, 0, 90, false, false, false, "holy", 5, 1)
+        this.talent = true
+        this.duration = 10
+    }
+
+    getTooltip() { //TODO: PENANCE
+        return "For 10 sec, Penance, Power Word: Radiance, and Atonement create absorb shields for 80% of their value, instead of healing."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Penance, Power Word: Radiance, and Atonement create absorb shields for 80% of their healing."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Rapture"].canUse = false
+        replaceAction(caster, "Rapture", this.name)
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Rapture"].canUse = true
+        replaceAction(caster,this.name,"Rapture")
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+
+            applyBuff(caster,caster,this)
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            caster.useEnergy(this.cost)
+            this.setCd()
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+}
+class SpiritShellAbsorb extends Ability {
+    constructor() {
+        super("Spirit Shell ", 2, 1.5, 0, 90, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.hiddenSB = true
+        this.duration = 10
+        this.effect = [{name:"absorb",val:0}]
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Absorbs "+buff.effect[0].val+" damage."
+    }
+
+    applyAbsorb(caster,target,val) {
+        this.effect[0].val = val * 0.8
+        applyBuff(caster,target,this)
+    }
+
+
+}
 //------------------------------------------------
+class Evangelism extends Ability {
+    constructor() {
+        super("Evangelism", 0, 1.5, 0, 90, false, false, false, "holy", 5, 1)
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return  "Extends the duration of all of your active Atonements by 6 sec."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+
+            for (let i = 0; i<friendlyTargets.length; i++) {
+                for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
+                    friendlyTargets[i].buffs[j].duration += 6
+                }
+            }
+
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+            caster.useEnergy(this.cost)
+            this.setCd()
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+}

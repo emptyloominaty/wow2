@@ -28,13 +28,13 @@ class Enemy extends Creature {
 
 let enemiesStats = {
     "boss1":{primary:2000, haste:25, crit:15, vers:0, mastery:1, leech:0, avoidance:0, dodge:0, armor:10, speed:0, stamina:185000}, //185000
-    "add1":{primary:1000, haste:10, crit:15, vers:0, mastery:1, leech:0, avoidance:0, dodge:0, armor:10, speed:0, stamina:13000},
+    "add1":{primary:1000, haste:10, crit:15, vers:0, mastery:1, leech:0, avoidance:0, dodge:0, armor:10, speed:0, stamina:53000},
 }
 
 
 enemies.push(new Enemy("Test1",1000000,100,0,-150,180,"bossTest","boss",enemiesStats["boss1"]))
 enemies.push(new Enemy("Test2",650000,100,50,-170,180,"addTest","add",enemiesStats["add1"]))
 enemies.push(new Enemy("Test3",650000,100,-50,-170,180,"addTest","add",enemiesStats["add1"]))
-enemies.push(new Enemy("Test4",650000,100,25,-180,180,"addTest","add",enemiesStats["add1"]))
+/*enemies.push(new Enemy("Test4",650000,100,25,-180,180,"addTest","add",enemiesStats["add1"]))
 enemies.push(new Enemy("Test5",650000,100,-25,-180,180,"addTest","add",enemiesStats["add1"]))
-enemies.push(new Enemy("Test6",650000,100,0,-200,180,"addTest","add",enemiesStats["add1"]))
+enemies.push(new Enemy("Test6",650000,100,0,-200,180,"addTest","add",enemiesStats["add1"]))*/

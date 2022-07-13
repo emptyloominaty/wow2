@@ -12,9 +12,9 @@ let _ai_discipline = function(creature) {
             }
         }
 
-        /*if (!casted && raidAvgHealth < 0.8 && atonements>10) {
+        if (!casted && raidAvgHealth < 0.8 && atonements>10) {
             casted = c.abilities["Evangelism"].startCast(c)
-        }*/
+        }
 
         if (!checkBuff(c,c,"Evangelism") && atonements<11) {
 
@@ -91,6 +91,9 @@ let _ai_discipline = function(creature) {
                 casted = c.abilities["Shadowfiend"].startCast(c)
             }
 
+            if (!casted) {
+                casted = c.abilities["Schism"].startCast(c)
+            }
 
             if (!casted && !aiFunctions.checkDebuff(c, target, "Shadow Word: Pain")) {
                 casted = c.abilities["Shadow Word: Pain"].startCast(c)
@@ -113,6 +116,9 @@ let _ai_discipline = function(creature) {
             }
             if (!casted) {
                 casted = c.abilities["Penance"].startCast(c)
+            }
+            if (!casted) {
+                casted = c.abilities["Power Word: Solace"].startCast(c)
             }
 
             if (!casted) {
