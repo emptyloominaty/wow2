@@ -50,7 +50,7 @@ class HandofReckoning extends Ability {
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
-                this.cd = 0
+                this.setCd()
                 return true
             }
         } else if (this.canSpellQueue(caster)) {

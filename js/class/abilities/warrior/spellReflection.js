@@ -31,7 +31,7 @@ class SpellReflection extends Ability {
             this.setCd()
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
-            this.setGcd()
+            this.setGcd(caster)
             return true
         }
         return false
