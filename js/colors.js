@@ -34,5 +34,12 @@ let colors = {
 
     "barHealth":"rgba(85,187,63,0.5)",
     "barHealthSelect":"rgba(27,138,187,0.5)",
+
+    logs: ['#f9ff6a','#e78b24','#9e3e3c','#ffa7cb',
+    '#80ea80','#00cddd', '#166fbf','#fffdff',
+    '#9b8ec8','#d2cc8b','#FF69B4','#98b86e',
+    '#c8c280', '#c8a985','#c8807d','#b4afac',
+    '#006400','#75539e','#ff230a','#98c96e',
+    '#ADFF2F']
 }
 

@@ -1,8 +1,11 @@
-let logsSettings = {id:6,type:"dps",type2:"abilities"}
+let logsSettings = {id:6,type:"dps",type2:"stacked"}
 
-let open_logs = function(reload = false,type = false) {
+let open_logs = function(reload = false,type = false,type2 = false) {
     if (type!==false) {
         logsSettings.type = type
+    }
+    if (type2!==false) {
+        logsSettings.type2 = type2
     }
     if (currentWindow === "logs" && !reload) {
         close_window()
@@ -14,7 +17,9 @@ let open_logs = function(reload = false,type = false) {
     let html = "<div class='windowHeader'><span>Logs</span> <span>"+creatures[logsSettings.id].name+"("+logsSettings.type+")</span> <div onclick='close_window()'>x</div></div>"
     html += "<div class='windowBody'>"
 
-    html += "<div class='window_logs_header'> <div class='window_logs_header2_1'><button onclick='open_logs(true,\"dps\");'>DPS</button><button onclick='open_logs(true,\"hps\");'>HPS</button><button onclick='open_logs(true,\"dtps\");'>DTPS</button></div> <div class='window_logs_header2_2'><button>Total</button><button>Abilities</button></div> </div>"
+    html += "<div class='window_logs_header'> <div class='window_logs_header2_1'><button onclick='open_logs(true,\"dps\");'>DPS</button>" +
+        "<button onclick='open_logs(true,\"hps\");'>HPS</button><button onclick='open_logs(true,\"dtps\");'>DTPS</button></div> <div class='window_logs_header2_2'>" +
+        "<button onclick='open_logs(true,undefined,\"stacked\");'>Stacked</button><button  onclick='open_logs(true,undefined,\"notstacked\");'>Not Stacked</button></div> </div>"
 
     //-------START
     html += "<div class='window_logs_body'>"
@@ -32,10 +37,17 @@ let open_logs = function(reload = false,type = false) {
 
     html += "</div>"
     //-------LIST END
-
     html += "</div>"
     //-------END
+
+    //---Abilities
+    html += "<div id='window_logs_abilities'>"
     html += "</div>"
+    //---
+
+
+    html += "</div>"
+
     elements.window.innerHTML = html
     let canvasElement = document.getElementById("logs_graph")
     canvasElement.style.border = "1px solid rgba(255,255,255,0.3)"
@@ -61,11 +73,27 @@ let open_logs = function(reload = false,type = false) {
         canvas.closePath()
     }
 
+    let drawRect = function(x,y,w,h,color) {
+        canvas.fillStyle = color
+        canvas.fillRect(x,y,w,h)
+    }
+
     let drawText = function(x,y,text,font = "12px Courier New",color = "#888",align = "center") {
         canvas.textAlign = align
         canvas.font = font //"16px Courier New"
         canvas.fillStyle = color
         canvas.fillText(text,x,y)
+    }
+
+    let fill = function(x1,y1,x2,y2,x3,y3,x4,y4,color) {
+        canvas.fillStyle = color
+        canvas.beginPath()
+        canvas.moveTo(x1, y1)
+        canvas.lineTo(x2, y2)
+        canvas.lineTo(x3, y3)
+        canvas.lineTo(x4, y4)
+        canvas.closePath()
+        canvas.fill()
     }
 
     let canvasW = graphDiv.getBoundingClientRect().width-2
@@ -93,6 +121,7 @@ let open_logs = function(reload = false,type = false) {
     }
 
     let totalVals = []
+    let valsAbilities = {}
     let maxVal = 0
     for (let i = 0; i<combatLength; i++) {
         Object.keys(timelineI).forEach(key => {
@@ -103,9 +132,10 @@ let open_logs = function(reload = false,type = false) {
                 } else {
                     totalVals[i] = val
                 }
-                /*if (totalVals[i]>maxVal) {
-                    maxVal = totalVals[i]
-                }*/
+                if (valsAbilities[key]===undefined) {
+                    valsAbilities[key] = []
+                }
+                valsAbilities[key][i] = val
             }
         })
     }
@@ -113,9 +143,15 @@ let open_logs = function(reload = false,type = false) {
         if (!totalVals[i]) {
             totalVals[i] = 0
         }
+        Object.keys(valsAbilities).forEach(key => {
+            if (!valsAbilities[key][i]) {
+                valsAbilities[key][i] = 0
+            }
+        })
     }
 
     let totalValsInt = []
+    let valsAbilitiesInt = {}
 
     for (let i = 0; i<totalVals.length; i++) {
         if (i>0 && i<combatLength) {
@@ -127,12 +163,25 @@ let open_logs = function(reload = false,type = false) {
         } else {
             totalValsInt[i] = totalVals[i]
         }
+        Object.keys(valsAbilities).forEach(key => {
+            if (valsAbilitiesInt[key]===undefined) {
+                valsAbilitiesInt[key] = []
+            }
+            if (i>0 && i<combatLength) {
+                if (i>2 && i+2<combatLength) {
+                    valsAbilitiesInt[key][i] = (valsAbilities[key][i-2]+valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1]+valsAbilities[key][i+2])/5
+                } else if (i>1 && i+1<combatLength) {
+                    valsAbilitiesInt[key][i] = (valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1])/3
+                }
+            } else {
+                valsAbilitiesInt[key][i] = valsAbilities[key][i]
+            }
+        })
     }
 
     for (let i = 0; i<totalValsInt.length; i++) {
        if (totalValsInt[i]>maxVal) {
            maxVal = totalValsInt[i]
-
        }
     }
 
@@ -140,13 +189,28 @@ let open_logs = function(reload = false,type = false) {
         if (totalValsInt[i]) {
             let x = 15+(i/combatLength)*canvasW
             let y = canvasH - ((totalValsInt[i]/(maxVal*1.1))*canvasH)
-            drawCircle(x,y,3,"#FFF")
+            if (logsSettings.type2!=="stacked") {
+                drawCircle(x,y,3,"#FFF")
+            }
+            let a = 0
+            let yStack = 0
+            Object.keys(valsAbilities).forEach(key => {
+                if (logsSettings.type2==="stacked") {
+                    //drawRect(x,y,w,h,color)
+                    yStack += (valsAbilitiesInt[key][i]/(maxVal*1.1))*canvasH
+                } else {
+                    let x = 15+(i/combatLength)*canvasW
+                    let y = (canvasH - ((valsAbilitiesInt[key][i]/(maxVal*1.1))*canvasH))-yStack
+                    drawCircle(x,y,3,colors.logs[a])
+                }
+                a++
+            })
         }
     }
 
+    let yStack = [0,0]
     for (let i = 0; i<totalValsInt.length; i++) {
         if (i>0) {
-
             let x1 = 15+((i-1)/combatLength)*canvasW
             let y1 = canvasH - ((totalValsInt[i-1]/(maxVal*1.1))*canvasH)
 
@@ -154,8 +218,74 @@ let open_logs = function(reload = false,type = false) {
             let y2 = canvasH - ((totalValsInt[i]/(maxVal*1.1))*canvasH)
 
             drawLine(x1,y1,x2,y2,1,"#999")
+
+            let a = 0
+
+            Object.keys(valsAbilities).forEach(key => {
+                let x1 = 15+((i-1)/combatLength)*canvasW
+                let y1 = (canvasH - ((valsAbilitiesInt[key][i-1]/(maxVal*1.1))*canvasH))-yStack[0]
+
+                let x2 = 15+(i/combatLength)*canvasW
+                let y2 = (canvasH - ((valsAbilitiesInt[key][i]/(maxVal*1.1))*canvasH))-yStack[1]
+
+                drawLine(x1,y1,x2,y2,1,colors.logs[a])
+                if (logsSettings.type2==="stacked") {
+
+
+                    yStack[0] += (valsAbilitiesInt[key][i-1] / (maxVal * 1.1)) * canvasH
+                    yStack[1] += (valsAbilitiesInt[key][i]/(maxVal*1.1))*canvasH
+                }
+                a++
+            })
+            yStack.shift()
+            yStack.push(0)
+            yStack[0] = 0
         }
     }
+
+    yStack = [0,0]
+    if (logsSettings.type2==="stacked") {
+        let reverseAbilitiesVals = Object.keys(valsAbilitiesInt).reverse()
+
+        for (let i = 0; i < totalValsInt.length; i++) {
+            if (i > 0) {
+                let a = 0
+                for (let j = 0; j<reverseAbilitiesVals.length ; j++) {
+                    let key = reverseAbilitiesVals[j]
+                    let xmin = 15 + ((i - 1) / combatLength) * canvasW
+                    let xmax = 15 + (i / combatLength) * canvasW
+
+                    //TOP LEFT
+                    let x1 = xmin
+                    let y1 = (canvasH - ((valsAbilitiesInt[key][i - 1] / (maxVal * 1.1)) * canvasH)) - yStack[0]
+
+                    //BOTTOM LEFT
+                    let x2 = xmin
+                    let y2 = canvasH-yStack[0]
+
+                    //BOTTOM RIGHT
+                    let x3 = xmax
+                    let y3 = canvasH-yStack[1]
+
+                    //TOP RIGHT
+                    let x4 = xmax
+                    let y4 = (canvasH - ((valsAbilitiesInt[key][i] / (maxVal * 1.1)) * canvasH)) - yStack[1]
+
+                    let color = colors.logs[reverseAbilitiesVals.length-1-a]
+                    fill(x1, y1, x2, y2, x3, y3, x4, y4, color)
+
+                    yStack[0] += (valsAbilitiesInt[key][i - 1] / (maxVal * 1.1)) * canvasH
+                    yStack[1] += (valsAbilitiesInt[key][i] / (maxVal * 1.1)) * canvasH
+
+                    a++
+                }
+                yStack.shift()
+                yStack.push(0)
+                yStack[0] = 0
+            }
+        }
+    }
+
 
     //Text
     drawText(0,canvasH*0.1,getNumberString(maxVal),undefined,"#CCC","left")
@@ -175,16 +305,14 @@ let open_logs = function(reload = false,type = false) {
 
     drawText(0,canvasH,0,undefined,"#CCC","left")
 
-    /*for (let i = 0; i<combatLength; i++) {
-        Object.keys(timelineI).forEach(key => {
-            let val = timelineI[key][i]
-            if (val) {
-                let x = 15+(i/combatLength)*canvasW
-                let y = canvasH - val/100
-                drawCircle(x,y,5,"#FFF")
-            }
-        })
-    }*/
+    let abilitiesColor = document.getElementById("window_logs_abilities")
 
+    html = ""
+    let a = 0
+    Object.keys(valsAbilities).forEach(key => {
+        html += "<span style='color:"+colors.logs[a]+";padding:2px 5px 2px 5px; '>"+key+"</span>"
+        a++
+    })
+    abilitiesColor.innerHTML += html
 
 }
