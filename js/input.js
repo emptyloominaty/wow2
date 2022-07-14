@@ -620,7 +620,7 @@ setTimeout( ()=> {
         bars[key].updateSize()
     })
 
-},150 )
+},500 )
 
 
 //mouse position

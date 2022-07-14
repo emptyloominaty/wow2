@@ -113,3 +113,64 @@
     height:2vw;
     min-width:2vw;
 }
+
+/*----------------------- LOGS -----------------------*/
+.window_logs_header {
+    display:flex;
+    flex-direction: row;
+}
+
+.window_logs_header2_1 {
+    margin:0 5px 0 5px;
+    display:flex;
+    flex-direction: row;
+}
+
+.window_logs_header2_2 {
+    margin:0 5px 0 10px;
+    display:flex;
+    flex-direction: row;
+}
+
+
+.window_logs_header2_1 button,.window_logs_header2_2 button  {
+    text-align: center;
+    font-size:1vw;
+    background-color: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #FFFFFF;
+    padding:0.15vw;
+    margin:0.05vw 0 0.05vw 0;
+}
+.window_logs_header2_1 button:hover,.window_logs_header2_2 button:hover  {
+    background-color: rgba(255,255,255,0.4);
+}
+
+.window_logs_body {
+    display:flex;
+    flex-direction: row;
+}
+
+.window_logs_body_graph {
+    width:80vw;
+    margin:5px;
+}
+
+.window_logs_body_raiderList {
+    display:flex;
+    flex-direction: column;
+}
+
+.window_logs_raiderList_button {
+    text-align: center;
+    font-size:0.7vw;
+    background-color: rgba(255,255,255,0);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #FFFFFF;
+    width:10vw;
+    padding:0.15vw;
+    margin:0.05vw 0 0.05vw 0;
+}
+.window_logs_raiderList_button:hover  {
+    background-color: rgba(255,255,255,0.4);
+}
