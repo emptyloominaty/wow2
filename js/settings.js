@@ -52,7 +52,7 @@ let raidFramesBuffs = {
         bottomRight:"Glimmer of Light",
         bottomRight2:"Beacon of Light",
         centreRight:"Bestow Faith",
-        bottomCentre:"TODO2",
+        bottomCentre:"Beacon of Faith",
     },
     "assassination": {
         bottomRight:"none",

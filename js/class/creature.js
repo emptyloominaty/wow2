@@ -83,14 +83,18 @@ class Creature {
     physicalDamageReduction = 0
     reduceEnergyCost = 1
 
+    //
     battleShout = false
+    isReflectingSpell = false
+
+    //
 
     magicDamageTaken = 1
     physicalDamageTaken = 1
     canRess = false
     canRessBuffId = 0
 
-    isReflectingSpell = false
+
 
     healthA = 0
     healthB = 0
@@ -1010,6 +1014,16 @@ class Creature {
                     this.abilities["Anger Management"].spendRage(this,val)
                 }
             }
+        } else if (this.spec==="holyPaladin") {
+            if  (this.abilities["Fist of Justice"].talentSelect) {
+                if (val2>0) {
+                    this.abilities["Hammer of Justice"].incCd(this,2*val2,false)
+                }
+            }
+            if (this.abilities["Holy Avenger"].talentSelect && val2<0 && checkBuff(this,this,"Holy Avenger")) {
+                this.useSec(val2 * 2)
+            }
+
         }
     }
 

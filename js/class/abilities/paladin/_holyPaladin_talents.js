@@ -5,24 +5,24 @@ let _holyPaladin_talents = function(caster) {
     caster.abilities["Light's Hammer"] = new LightsHammer()
 
     //2
-    //caster.abilities["Saved by the Light"] = new SavedbytheLight()
-    //caster.abilities["Judgment of Light"] = new JudgmentofLight()
-    //caster.abilities["Holy Prism"] = new HolyPrism()
+    caster.abilities["Saved by the Light"] = new SavedbytheLight()
+    caster.abilities["Judgment of Light"] = new JudgmentofLight()
+    caster.abilities["Holy Prism"] = new HolyPrism()
 
     //3
-    //caster.abilities["Fist of Justice"] = new FistofJustice()
-    //caster.abilities["Repentance"] = new Repentance()
-    //caster.abilities["Blinding Light"] = new BlindingLight()
+    caster.abilities["Fist of Justice"] = new FistofJustice()
+    caster.abilities["Repentance"] = new Repentance()
+    caster.abilities["Blinding Light"] = new BlindingLight()
 
     //4
-    //caster.abilities["Unbreakable Spirit"] = new UnbreakableSpirit()
-    //caster.abilities["Cavalier"] = new Cavalier()
-    //caster.abilities["Rule of Law"] = new RuleofLaw()
+    caster.abilities["Unbreakable Spirit"] = new UnbreakableSpirit()
+    caster.abilities["Cavalier"] = new Cavalier()
+    caster.abilities["Rule of Law"] = new RuleofLaw()
 
     //5
-    //caster.abilities["Divine Purpose"] = new DivinePurpose()
-    //caster.abilities["Holy Avenger"] = new HolyAvenger()
-    //caster.abilities["Seraphim"] = new Seraphim()
+    caster.abilities["Divine Purpose"] = new DivinePurpose()
+    caster.abilities["Holy Avenger"] = new HolyAvenger()
+    caster.abilities["Seraphim"] = new Seraphim()
 
     //6
     //caster.abilities["Sanctified Wrath"] = new SanctifiedWrath()
@@ -130,18 +130,337 @@ class LightsHammer extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW2
+class SavedbytheLight extends Ability {
+    constructor() {
+        super("Saved by the Light", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//When an ally with your Beacon of Light is damaged below 30% health, they absorb the next [Spell power * 4 * (1 + Versatility)] damage.<br>" +
+            "<br>" +
+            "You cannot shield the same person this way twice within 1 min."
+    }
+}
 //------------------------------------------------
+class JudgmentofLight extends Ability {
+    constructor() {
+        super("Judgment of Light", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.07
+        this.maxStacks = 25
+        this.duration = 30
+        this.effect = [{name:"judgmentofLight",val:25}]
+    }
+
+    getTooltip() {
+        return "Judgment causes the next 25 successful attacks against the target to heal the attacker for "+spellPowerToNumber(this.spellPower)+"."
+    }
+}
 //------------------------------------------------
+class HolyPrism extends Ability {
+    constructor() {
+        super("Holy Prism", 2.6, 1.5, 0, 20, false, false, false, "holy", 40, 1)
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Fires a beam of light that scatters to strike a clump of targets.\n" +
+            "\n" +
+            "If the beam is aimed at an enemy target, it deals (75% of Spell power) Holy damage and radiates (70% of Spell power) healing to 5 allies within 15 yards.\n" +
+            "\n" +
+            "If the beam is aimed at a friendly target, it heals for (140% of Spell power) and radiates (45% of Spell power) Holy damage to 5 enemies within 15 yards."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW3
+class FistofJustice extends Ability {
+    constructor() {
+        super("Fist of Justice", 0, 0, 0, 0, false, false, false, "holy", 0, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Each Holy Power spent reduces the remaining cooldown on Hammer of Justice by 2 sec."
+    }
+}
 //------------------------------------------------
+class Repentance extends Ability {
+    constructor() {
+        super("Repentance", 1.2, 1.5, 1.7, 15, false, true, false, "holy", 30, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.effect = [{name:"incapacitate"}]
+        this.duration = 60
+    }
+
+    getTooltip() {
+        return "Forces an enemy target to meditate, incapacitating them for 1 min.<br>" +
+            "<br>" +
+            "Usable against Humanoids, Demons, Undead, Dragonkin, and Giants."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            let done = false
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    done = true
+                }
+            }
+            if (done) {
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+
+                this.setGcd(caster)
+                return true
+            }
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (this.checkDistance(caster,target) && !target.isDead) {
+            applyDebuff(caster,target,this)
+            this.setCd()
+            caster.useEnergy(this.cost,this.secCost)
+        }
+    }
+
+}
 //------------------------------------------------
+class BlindingLight extends Ability {
+    constructor() {
+        super("Blinding Light", 1.2, 1.5, 0, 90, false, false, false, "holy", 10, 1)
+        this.talent = true
+        this.duration = 6
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Emits dazzling light in all directions, blinding enemies within 10 yards, causing them to wander disoriented for 6 sec. Non-Holy damage will break the disorient effect."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW4
+class UnbreakableSpirit extends Ability {
+    constructor() {
+        super("Unbreakable Spirit", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 6
+    }
+
+    getTooltip() {
+        if (player.spec==="holyPaladin") {
+            return "Reduces the cooldown of your Divine Shield, Divine Protection and Lay on Hands by 30%."
+        } else if (player.spec==="retribution") {
+            return "Reduces the cooldown of your Divine Shield, Shield of Vengeance, Divine Protection and Lay on Hands by 30%."
+        } else if (player.spec==="protectionPaladin") {
+            return "Reduces the cooldown of your Divine Shield, Ardent Defender, Divine Protection and Lay on Hands by 30%."
+        }
+    }
+
+    setTalent(caster) {
+        caster.abilities["Divine Shield"].cd *= 0.7
+        caster.abilities["Divine Shield"].maxCd *= 0.7
+        caster.abilities["Lay on Hands"].cd *= 0.7
+        caster.abilities["Lay on Hands"].maxCd *= 0.7
+
+        if (caster.spec==="retribution") {
+            caster.abilities["Shield of Vengeance"].cd *= 0.7
+            caster.abilities["Shield of Vengeance"].maxCd *= 0.7
+        } else if (caster.spec==="protectionPaladin") {
+            caster.abilities["Ardent Defender"].cd *= 0.7
+            caster.abilities["Ardent Defender"].maxCd *= 0.7
+        }
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Divine Shield"].cd /= 0.7
+        caster.abilities["Divine Shield"].maxCd /= 0.7
+        caster.abilities["Lay on Hands"].cd /= 0.7
+        caster.abilities["Lay on Hands"].maxCd /= 0.7
+
+        if (caster.spec==="retribution") {
+            caster.abilities["Shield of Vengeance"].cd /= 0.7
+            caster.abilities["Shield of Vengeance"].maxCd /= 0.7
+        } else if (caster.spec==="protectionPaladin") {
+            caster.abilities["Ardent Defender"].cd /= 0.7
+            caster.abilities["Ardent Defender"].maxCd /= 0.7
+        }
+    }
+
+}
 //------------------------------------------------
+class Cavalier extends Ability {
+    constructor() {
+        super("Cavalier", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Divine Steed now has 2 charges."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Divine Steed"].charges ++
+        caster.abilities["Divine Steed"].maxCharges ++
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Divine Steed"].charges --
+        caster.abilities["Divine Steed"].maxCharges --
+    }
+
+}
 //------------------------------------------------
+class RuleofLaw extends Ability {
+    constructor() {
+        super("Rule of Law", 0, 0, 0, 30, false, false, false, "holy", 5, 2)
+        this.talent = true
+        this.noGcd = true
+        this.duration = 10
+    }
+
+    getTooltip() {
+        return "Increase the range of your heals and the reach of Mastery: Lightbringer by 50% for 10 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Range of heals and reach of Lightbringer increased by 50%."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            this.setCd()
+            this.setGcd(caster)
+
+            caster.abilities["Lightbringer"].minVal = 20
+            caster.abilities["Lightbringer"].maxVal = 60
+
+            applyBuff(caster,caster,this)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+
+    endBuff(caster) {
+        caster.abilities["Lightbringer"].minVal = 10
+        caster.abilities["Lightbringer"].maxVal = 40
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW5
+class DivinePurpose extends Ability {
+    constructor() {
+        super("Divine Purpose", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 12
+
+    }
+
+    getTooltip() { //TODO:TemplarsVerdict, DivineStorm, ExecutionSentence, JusticarsVengeance,  ShieldOfTheRighteous, FinalVerdict
+        return "Holy Power abilities have a 15% chance to make your next Holy Power ability free and deal 20% increased damage and healing."
+    }
+
+
+}
 //------------------------------------------------
+class HolyAvenger extends Ability {
+    constructor() {
+        super("Holy Avenger", 0, 0, 0, 180, false, false, false, "holy", 5, 1)
+        this.talent = true
+        this.duration = 20
+
+    }
+
+    getTooltip() {
+        return "Your Holy Power generation is tripled for 20 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Your Holy Power generation is tripled."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(0)
+            return true
+        }
+        return false
+    }
+
+}
 //------------------------------------------------
+class Seraphim extends Ability {
+    constructor() {
+        super("Seraphim", 0, 1.5, 0, 45, false, false, false, "holy", 5, 1)
+        this.talent = true
+        this.duration = 15
+        this.secCost = 3
+        this.effect = [{name:"increaseStat",stat:"haste",val:8},{name:"increaseStat",stat:"crit",val:8},{name:"increaseStat",stat:"mastery",val:12}]
+
+    }
+
+    getTooltip() {
+        if (player.spec==="holyPaladin") {
+            return "The Light magnifies your power for 15 sec, granting 8% Haste, Critical Strike, and Versatility, and 12% Mastery."
+        } else if (player.spec==="retribution") {
+            return "The Light magnifies your power for 15 sec, granting 8% Haste, Critical Strike, and Versatility, and 12.8% Mastery."
+        } else if (player.spec==="protectionPaladin") {
+            return "The Light magnifies your power for 15 sec, granting 8% Haste, Critical Strike, and Versatility, and 8% Mastery."
+        }
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        if (player.spec==="holyPaladin") {
+            return "Haste, Critical Strike, and Versatility increased by 8%, and Mastery increased by 12%."
+        } else if (player.spec==="retribution") {
+            return "Haste, Critical Strike, and Versatility increased by 8%, and Mastery increased by 12.8%."
+        } else if (player.spec==="protectionPaladin") {
+            return "Haste, Critical Strike, and Versatility increased by 8%, and Mastery increased by 8%."
+        }
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (caster.spec==="retribution") {
+                this.effect[3].val = 12.8
+            } else if (caster.spec==="protectionPaladin") {
+                this.effect[3].val = 8
+            }
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(0)
+            return true
+        }
+        return false
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW6
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

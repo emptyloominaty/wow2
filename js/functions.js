@@ -194,84 +194,86 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             damage = damageFunctions[ability.name](caster,target,damage,ability)
         }
 
-        if (caster.spec==="assassination") {
-            if (ability.poison || ability.bleed) { //TODO:MASTERY PASSIVE ?
-                damage = damage * (1 + (caster.stats.mastery / 100))
-            }
-            if (ability.bleed) {
-                caster.abilities["Venomous Wounds"].gainEnergy(caster)
-            }
-            if (ability.secCost<0 && crit>1) {
-                caster.abilities["Seal Fate"].gainCombo(caster)
-            }
-            if (checkDebuff(caster,target,"Vendetta")) {
-                damage *= 1.3
-            }
-            if (caster.abilities["Deeper Stratagem"].talentSelect && (ability.name==="Rupture" || ability.name==="Envenom" || ability.name==="CrimsonTempest")) {
-                damage *= 1.05
-            }
-            if (caster.abilities["Exsanguinate"].talentSelect && checkDebuff(caster,target,"Venom Rush") && (ability.name==="Garrote" || ability.name==="Rupture" || ability.name==="InternalBleeding" || ability.name==="CrimsonTempest")) {
-                damage = damage *2
-            }
-        } else if (caster.spec==="windwalker" && ability.name!=="Auto Attack" && !t) {
-            if (caster.spellHistory[0]!==ability.name) {
-                damage = damage * (1 + (caster.stats.mastery / 100))
-            }
-            if (checkBuff(caster,caster,"Invoke Xuen, the White Tiger")) {
-                caster.abilities["Invoke Xuen, the White Tiger"].storeDamage(caster,damage)
-            }
-        } else if (caster.spec==="arcane") {
-            if (ability.name!=="Arcane Blast" && ability.name!=="Arcane Barrage")
-            damage = damage * (1 + (((caster.stats.mastery / 100)*caster.secondaryResource))/1.2)
-            if (checkDebuff(caster,target,"Touch of the Magi")) {
-                caster.abilities["Touch of the Magi"].damageDealt += damage
-                if (caster.abilities["Arcane Echo"].talentSelect && ability.name!=="Arcane Echo") {
-                    caster.abilities["Arcane Echo"].doDamage(caster,target)
+        if (!caster.enemy) {
+            if (caster.spec === "assassination") {
+                if (ability.poison || ability.bleed) { //TODO:MASTERY PASSIVE ?
+                    damage = damage * (1 + (caster.stats.mastery / 100))
                 }
-            }
-            if (caster.abilities["Enlightened"].talentSelect) {
-                if (caster.energy/caster.maxEnergy>0.7) {
-                    damage *= 1.08
+                if (ability.bleed) {
+                    caster.abilities["Venomous Wounds"].gainEnergy(caster)
                 }
-            }
-        } else if (caster.spec==="fury") {
-            if (checkBuff(caster,caster,"Enrage")) {
-                damage = damage * (1 + (caster.stats.mastery / 100))
-            }
-            if (caster.abilities["Sudden Death"].talentSelect) {
-                if (getChance(5*(1+(caster.stats.haste/100))))  {
-                    applyBuff(caster,caster,caster.abilities["Sudden Death"])
-                    caster.abilities["Execute"].cd = caster.abilities["Execute"].maxCd
+                if (ability.secCost < 0 && crit > 1) {
+                    caster.abilities["Seal Fate"].gainCombo(caster)
                 }
-            }
-        } else if (caster.spec==="elemental") {
-            caster.abilities["Elemental Overload"].mastery_(caster,target,ability,name)
-            if (caster.abilities["Ancestral Guidance"].talentSelect && checkBuff(caster,caster,"Ancestral Guidance")) {
-                caster.abilities["Ancestral Guidance"].collectHeal(damage)
-            }
-            if (caster.abilities["Echoing Shock"].talentSelect && checkBuff(caster,caster,"Echoing Shock")) {
-                if (ability.name!=="Flame Shock" && ability.name!=="Elemental Overload" || ability.name!=="Earthquake") {
-                    caster.abilities["Echoing Shock"].abilityCast = ability.name
-                    caster.abilities["Echoing Shock"].target = target
-                    caster.abilities["Echoing Shock"].removeBuff(caster)
+                if (checkDebuff(caster, target, "Vendetta")) {
+                    damage *= 1.3
                 }
-            }
-        } else if (caster.spec==="havoc") {
-            if (ability.school==="chaos") {
-                damage = damage * (1 + (caster.stats.mastery / 100))
-            }
-        } else if (caster.spec==="vengeance") {
-            if (caster.abilities["Spirit Bomb"].talentSelect && checkDebuff(caster,target,"Frailty")) {
-                doHeal(caster,target,caster.abilities["Spirit Bomb"],undefined,undefined,undefined,undefined,undefined,damage*0.1)
-            }
-        } else if (caster.spec==="discipline") {
-            if (checkDebuff(caster,target,"Schism")) {
-                damage = damage * 1.25
-            }
-            for (let i = 0; i<friendlyTargets.length; i++) {
-                for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {
-                    if (friendlyTargets[i].buffs[j].name==="Atonement" && friendlyTargets[i].buffs[j].caster === caster) {
-                        caster.abilities["Atonement"].heal(caster,friendlyTargets[i],damage)
+                if (caster.abilities["Deeper Stratagem"].talentSelect && (ability.name === "Rupture" || ability.name === "Envenom" || ability.name === "CrimsonTempest")) {
+                    damage *= 1.05
+                }
+                if (caster.abilities["Exsanguinate"].talentSelect && checkDebuff(caster, target, "Venom Rush") && (ability.name === "Garrote" || ability.name === "Rupture" || ability.name === "InternalBleeding" || ability.name === "CrimsonTempest")) {
+                    damage = damage * 2
+                }
+            } else if (caster.spec === "windwalker" && ability.name !== "Auto Attack" && !t) {
+                if (caster.spellHistory[0] !== ability.name) {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
+                if (checkBuff(caster, caster, "Invoke Xuen, the White Tiger")) {
+                    caster.abilities["Invoke Xuen, the White Tiger"].storeDamage(caster, damage)
+                }
+            } else if (caster.spec === "arcane") {
+                if (ability.name !== "Arcane Blast" && ability.name !== "Arcane Barrage")
+                    damage = damage * (1 + (((caster.stats.mastery / 100) * caster.secondaryResource)) / 1.2)
+                if (checkDebuff(caster, target, "Touch of the Magi")) {
+                    caster.abilities["Touch of the Magi"].damageDealt += damage
+                    if (caster.abilities["Arcane Echo"].talentSelect && ability.name !== "Arcane Echo") {
+                        caster.abilities["Arcane Echo"].doDamage(caster, target)
+                    }
+                }
+                if (caster.abilities["Enlightened"].talentSelect) {
+                    if (caster.energy / caster.maxEnergy > 0.7) {
+                        damage *= 1.08
+                    }
+                }
+            } else if (caster.spec === "fury") {
+                if (checkBuff(caster, caster, "Enrage")) {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
+                if (caster.abilities["Sudden Death"].talentSelect) {
+                    if (getChance(5 * (1 + (caster.stats.haste / 100)))) {
+                        applyBuff(caster, caster, caster.abilities["Sudden Death"])
+                        caster.abilities["Execute"].cd = caster.abilities["Execute"].maxCd
+                    }
+                }
+            } else if (caster.spec === "elemental") {
+                caster.abilities["Elemental Overload"].mastery_(caster, target, ability, name)
+                if (caster.abilities["Ancestral Guidance"].talentSelect && checkBuff(caster, caster, "Ancestral Guidance")) {
+                    caster.abilities["Ancestral Guidance"].collectHeal(damage)
+                }
+                if (caster.abilities["Echoing Shock"].talentSelect && checkBuff(caster, caster, "Echoing Shock")) {
+                    if (ability.name !== "Flame Shock" && ability.name !== "Elemental Overload" || ability.name !== "Earthquake") {
+                        caster.abilities["Echoing Shock"].abilityCast = ability.name
+                        caster.abilities["Echoing Shock"].target = target
+                        caster.abilities["Echoing Shock"].removeBuff(caster)
+                    }
+                }
+            } else if (caster.spec === "havoc") {
+                if (ability.school === "chaos") {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
+            } else if (caster.spec === "vengeance") {
+                if (caster.abilities["Spirit Bomb"].talentSelect && checkDebuff(caster, target, "Frailty")) {
+                    doHeal(caster, target, caster.abilities["Spirit Bomb"], undefined, undefined, undefined, undefined, undefined, damage * 0.1)
+                }
+            } else if (caster.spec === "discipline") {
+                if (checkDebuff(caster, target, "Schism")) {
+                    damage = damage * 1.25
+                }
+                for (let i = 0; i < friendlyTargets.length; i++) {
+                    for (let j = 0; j < friendlyTargets[i].buffs.length; j++) {
+                        if (friendlyTargets[i].buffs[j].name === "Atonement" && friendlyTargets[i].buffs[j].caster === caster) {
+                            caster.abilities["Atonement"].heal(caster, friendlyTargets[i], damage)
+                        }
                     }
                 }
             }
@@ -283,6 +285,16 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (target.buffs[i].name==="Darkness") {
                     if (getChance(20)) {
                         damage = 0
+                    }
+                }
+            }
+        } else {
+            for (let i = 0; i<target.debuffs.length; i++) {
+                if (target.debuffs[i].name==="Judgment of Light" && caster.health<caster.maxHealth) {
+                    doHeal(target.debuffs[i].caster,caster,target.debuffs[i].caster.abilities["Judgment of Light"])
+                    target.debuffs[i].effect[0].val--
+                    if (target.debuffs[i].effect[0].val<=0) {
+                        target.debuffs[i].duration = -1
                     }
                 }
             }

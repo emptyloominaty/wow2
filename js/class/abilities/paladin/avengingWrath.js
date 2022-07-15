@@ -19,6 +19,7 @@ class AvengingWrath extends Ability {
             this.effect[0].val = 30
             this.effect[1].val = 30
         }
+        this.noGcd = true
     }
 
     getTooltip() {

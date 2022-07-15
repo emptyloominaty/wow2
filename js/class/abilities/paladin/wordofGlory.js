@@ -24,7 +24,14 @@ class WordofGlory extends Ability {
 
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        let secCost = this.secCost
+        let spellPower = this.spellPower
+        if (caster.abilities["Divine Purpose"].talentSelect && checkBuff(caster,caster,"Divine Purpose")) {
+            secCost = 0
+            spellPower *= 1.2
+        }
+
+        if (this.checkStart(caster,undefined,secCost)) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
@@ -32,13 +39,18 @@ class WordofGlory extends Ability {
             let target = caster.castTarget
             if (target==="" || Object.keys(target).length === 0 || target.isDead || this.isEnemy(caster,target) ) {
                 //heal self
-                doHeal(caster,caster,this) // TODO If cast on yourself, healing increased by up to 250% based on your missing health
+                doHeal(caster,caster,this,undefined,spellPower) // TODO If cast on yourself, healing increased by up to 250% based on your missing health
             } else {
                 //heal target
-                doHeal(caster,target,this)
+                doHeal(caster,target,this,undefined,spellPower)
             }
-
-            caster.useEnergy(this.cost,this.secCost)
+            if (caster.abilities["Divine Purpose"].talentSelect) {
+                checkBuff(caster,caster,"Divine Purpose",true)
+                if (getChance(15)) {
+                    applyBuff(caster,caster,caster.abilities["Divine Purpose"])
+                }
+            }
+            caster.useEnergy(this.cost,secCost)
             this.setCd()
             this.setGcd(caster)
             return true

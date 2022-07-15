@@ -40,6 +40,8 @@ class Lightbringer extends Ability {
         super("Lightbringer", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
         this.passive = true
         this.mastery = true
+        this.minVal = 10
+        this.maxVal = 40
     }
 
     getTooltip() {
@@ -50,12 +52,12 @@ class Lightbringer extends Ability {
     increaseHealing(caster,target) {
         let distance = getDistance(caster,target)
         let mul = 0
-        if (distance<=10) {
+        if (distance<=this.minVal) {
             mul = 1
-        } else if (distance>=40) {
+        } else if (distance>=this.maxVal) {
             mul = 0
         } else {
-            mul = 1-((distance-10)/30)
+            mul = 1-((distance-this.minVal)/(this.maxVal-this.minVal))
         }
         return (1+((caster.stats.mastery/100)*mul))
     }

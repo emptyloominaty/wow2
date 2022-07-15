@@ -51,6 +51,10 @@ class Judgment extends Ability {
                         doDamage(caster, caster.castTarget, this)
                         caster.useEnergy(this.cost,this.secCost)
                         this.setCd()
+                        if (caster.spec==="holyPaladin" && caster.abilities["Judgment of Light"].talentSelect) {
+                            applyDebuff(caster,caster.castTarget,caster.abilities["Judgment of Light"],undefined,25,true)
+                        }
+
                     }
                 }
                 if (caster.isChanneling) {
