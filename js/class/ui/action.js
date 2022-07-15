@@ -571,7 +571,7 @@ if (player.spec==="holyPaladin") {
         "Cleanse": new Action("Cleanse",0,4),
 
         "Consecration": new Action("Consecration",0,6),
-
+        "Divine Shield": new Action("Divine Shield",0,7),
         "Divine Protection": new Action("Divine Protection",0,8),
 
         //bar1
@@ -590,8 +590,9 @@ if (player.spec==="holyPaladin") {
         "Hammer of Wrath": new Action("Hammer of Wrath",2,2),
 
         "Lay on Hands": new Action("Lay on Hands",2,4),
+        "Blessing of Protection": new Action("Blessing of Protection",2,5),
         "Aura Mastery": new Action("Aura Mastery",2,6),
-
+        "Blessing of Freedom": new Action( "Blessing of Freedom",2,11),
 
         //bar3
 

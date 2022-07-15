@@ -114,7 +114,7 @@ let open_logs = function(reload = false,type = false,type2 = false) {
     let timelineI = timeline[logsSettings.id]
     let combatLength = timelineCombatLog.timerNext-1
     //Time
-    for (let i = 0; i<combatLength; i++) {
+    for (let i = 10; i<combatLength; i+=10) {
         let textX = 15+(i/combatLength)*canvasW
         drawText(textX,15,i)
         drawLine(textX,20,textX,canvasH,1,"rgba(255,255,255,0.1)")
@@ -252,7 +252,7 @@ let open_logs = function(reload = false,type = false,type2 = false) {
                 let a = 0
                 for (let j = 0; j<reverseAbilitiesVals.length ; j++) {
                     let key = reverseAbilitiesVals[j]
-                    let xmin = 15 + ((i - 1) / combatLength) * canvasW
+                    let xmin = 14 + ((i - 1) / combatLength) * canvasW
                     let xmax = 15 + (i / combatLength) * canvasW
 
                     //TOP LEFT

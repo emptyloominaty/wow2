@@ -4,8 +4,8 @@ let movingSpellElement
 let movingCd = 0.5
 
 let moveFromSpellBook = function(spellname) {
+    spellname = spellname.replace('€', '\'')
     if (!player.abilities[spellname].passive) {
-        spellname = spellname.replace('€', '\'')
 
         if (movingFromSpellbook && movingSpellElement) {
             movingSpellElement.remove()

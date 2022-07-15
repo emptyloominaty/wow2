@@ -51,7 +51,7 @@ let raidFramesBuffs = {
     "holyPaladin": {
         bottomRight:"Glimmer of Light",
         bottomRight2:"Beacon of Light",
-        centreRight:"TODO",
+        centreRight:"Bestow Faith",
         bottomCentre:"TODO2",
     },
     "assassination": {

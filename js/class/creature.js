@@ -80,6 +80,7 @@ class Creature {
 
     damageReduction = 0
     magicDamageReduction = 0
+    physicalDamageReduction = 0
     reduceEnergyCost = 1
 
     battleShout = false
@@ -416,6 +417,7 @@ class Creature {
         this.reduceEnergyCost = 1
         this.damageReduction = 0
         this.magicDamageReduction = 0
+        this.physicalDamageReduction = 0
         this.damageIncrease = 1
 
         this.magicDamageTaken = 1
@@ -517,6 +519,8 @@ class Creature {
                         this.damageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "damageReductionStacks") {
                         this.damageReduction += this.buffs[i].effect[j].val * this.buffs[i].stacks
+                    } else if (this.buffs[i].effect[j].name === "physicalDamageReduction") {
+                        this.physicalDamageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "magicDamageReduction") { //DR
                         this.magicDamageReduction += this.buffs[i].effect[j].val
                     } else if (this.buffs[i].effect[j].name === "magicDamageTaken") {  //INC DMG TAKEN

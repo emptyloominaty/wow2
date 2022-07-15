@@ -21,8 +21,12 @@ class HolyPaladin_Abilities {
     "Hammer of Wrath" = new HammerofWrath()
     "Devotion Aura" = new DevotionAura()
     "Aura Mastery" = new AuraMastery()
+    "Divine Shield" = new DivineShield()
+    "Blessing of Protection" = new BlessingofProtection()
+    "Blessing of Freedom" = new BlessingofFreedom()
 
     //TODO: Retribution Aura
+    //TODO: "Blessing of Sacrifice" = new BlessingofSacrifice()
 
     //passive
     "Lightbringer" = new Lightbringer()

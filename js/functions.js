@@ -313,6 +313,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 damage = damage * (1-(target.stats.armor/100))
             }
 
+            damage = damage * (1-target.physicalDamageReduction)
             damage = damage * (target.physicalDamageTaken)
 
             //mystic touch

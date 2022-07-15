@@ -747,7 +747,7 @@ let iconsPath = {
     "Beacon of Virtue":"img/paladin/BeaconofVirtue.jpg",
     "Bestow Faith":"img/paladin/BestowFaith.jpg",
     "Blade of Justice":"img/paladin/BladeofJustice.jpg",
-    "Bladeof Wrath":"img/paladin/BladeofJustice.jpg",
+    "Blade of Wrath":"img/paladin/BladeofJustice.jpg",
     "Blessed Hammer":"img/paladin/BlessedHammer.jpg",
     "Blessing of Freedom":"img/paladin/BlessingofFreedom.jpg",
     "Blessing of Protection":"img/paladin/BlessingofProtection.jpg",

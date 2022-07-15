@@ -52,6 +52,10 @@ class CrusaderStrike extends Ability {
                         this.setCd()
                     }
                 }
+                if (caster.abilities["Crusader's Might"].talentSelect) {
+                    caster.abilities["Holy Shock"].incCd(caster,1.5,false)
+                }
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
