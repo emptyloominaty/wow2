@@ -33,6 +33,10 @@ class AvengingWrath extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            if (caster.spec==="holyPaladin" && caster.abilities["Sanctified Wrath"].talentSelect) {
+                caster.abilities["Holy Shock"].cd *= 0.6
+                caster.abilities["Holy Shock"].maxCd *= 0.6
+            }
             applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)
@@ -40,5 +44,12 @@ class AvengingWrath extends Ability {
             return true
         }
         return false
+    }
+
+    endBuff(caster) {
+        if (caster.spec==="holyPaladin" && caster.abilities["Sanctified Wrath"].talentSelect) {
+            caster.abilities["Holy Shock"].cd /= 0.6
+            caster.abilities["Holy Shock"].maxCd /= 0.6
+        }
     }
 }

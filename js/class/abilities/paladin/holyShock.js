@@ -34,6 +34,7 @@ class HolyShock extends Ability {
             if (target==="" || Object.keys(target).length === 0 || target.isDead ) {
                 //heal self
                 doHeal(caster,caster,this,undefined,this.spellPowerHeal,undefined,undefined,undefined,undefined,30)
+                target = caster
             } else {
                 //heal target
                 if (this.isEnemy(caster,target)) {
@@ -41,8 +42,30 @@ class HolyShock extends Ability {
                 } else {
                     doHeal(caster,target,this,undefined,this.spellPowerHeal,undefined,undefined,undefined,undefined,30)
                 }
+            }
+
+            if (caster.abilities["Glimmer of Light"].talentSelect) {
+                if (target.enemy) {
+                    applyDebuff(caster,target,caster.abilities["Glimmer of Light"])
+                } else {
+                    applyBuff(caster,target,caster.abilities["Glimmer of Light"])
+                }
+
+                for (let i = 0; i<friendlyTargets.length; i++) {
+                    if (!friendlyTargets[i].isDead && checkBuff(caster,friendlyTargets[i],"Glimmer of Light")) {
+                        doHeal(caster,friendlyTargets[i],caster.abilities["Glimmer of Light"],undefined,caster.abilities["Glimmer of Light"].spellPowerHeal)
+                    }
+                }
+                for (let i = 0; i<enemies.length; i++) {
+                    if (!enemies[i].isDead && checkDebuff(caster,enemies[i],"Glimmer of Light")) {
+                        doDamage(caster,enemies[i],caster.abilities["Glimmer of Light"])
+                    }
+
+                }
 
             }
+
+
             caster.useEnergy(this.cost,this.secCost)
             this.setCd()
             this.setGcd(caster)

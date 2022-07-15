@@ -276,6 +276,23 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         }
                     }
                 }
+            } else if (caster.spec === "holyPaladin") {
+                if (caster.abilities["Avenging Crusader"].talentSelect && checkBuff(caster,caster,"Avenging Crusader")) {
+                    if (ability.name==="Judgment" || ability.name === "Crusader Strike") {
+                        let heal = damage * 2.5
+                        let targets = sortFriendlyTargetsByHealth(true)
+                        let ttt = 0
+                        for (let i = 0; i<targets.length; i++) {
+                            if (!targets[i].isDead && getDistance(caster,targets[i])<10) {
+                                doHeal(caster,targets[i],caster.abilities["Avenging Crusader"],undefined,undefined,undefined,undefined,undefined,heal)
+                                ttt++
+                                if (ttt>=3) {
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

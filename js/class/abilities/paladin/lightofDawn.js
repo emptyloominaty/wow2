@@ -56,6 +56,11 @@ class LightofDawn extends Ability {
                     applyBuff(caster,caster,caster.abilities["Divine Purpose"])
                 }
             }
+            if (caster.abilities["Awakening"].talentSelect) {
+                if (getChance(15)) {
+                    applyBuff(caster,caster,caster.abilities["Avenging Wrath"],undefined,undefined,undefined,10)
+                }
+            }
             caster.useEnergy(this.cost,secCost)
             this.setCd()
             this.setGcd(caster)

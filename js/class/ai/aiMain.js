@@ -44,6 +44,9 @@ class Ai {
         "discipline":() => {
             _ai_discipline(this.creature)
         },
+        "holyPaladin":() => {
+            _ai_holyPaladin(this.creature)
+        },
         "bossTest":() => {
             _ai_bossTest(this.creature)
         }, "addTest":() => {

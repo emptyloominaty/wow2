@@ -9,7 +9,7 @@ let settings = {
     uiScaling: 1,
 
     spellGlow:true,
-    spellVisuals:4, //0-off, 1-low, 2-medium, 3-high, 4-ultra
+    spellVisuals:3, //0-off, 1-low, 2-medium, 3-high, 4-ultra
     uiRefreshRate:4,
     detailsRefreshRate:4,
 }

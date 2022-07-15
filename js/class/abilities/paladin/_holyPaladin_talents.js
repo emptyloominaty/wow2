@@ -25,14 +25,14 @@ let _holyPaladin_talents = function(caster) {
     caster.abilities["Seraphim"] = new Seraphim()
 
     //6
-    //caster.abilities["Sanctified Wrath"] = new SanctifiedWrath()
-    //caster.abilities["Avenging Crusader"] = new AvengingCrusader()
-    //caster.abilities["Awakening"] = new Awakening()
+    caster.abilities["Sanctified Wrath"] = new SanctifiedWrath()
+    caster.abilities["Avenging Crusader"] = new AvengingCrusader()
+    caster.abilities["Awakening"] = new Awakening()
 
     //7
-    //caster.abilities["Glimmer of Light"] = new GlimmerofLight()
-    //caster.abilities["Beacon of Faith"] = new BeaconofFaith()
-    //caster.abilities["Beacon of Virtue"] = new BeaconofVirtue()
+    caster.abilities["Glimmer of Light"] = new GlimmerofLight()
+    caster.abilities["Beacon of Faith"] = new BeaconofFaith()
+    caster.abilities["Beacon of Virtue"] = new BeaconofVirtue()
 
 
     caster.talents = [["Crusader's Might","Bestow Faith","Light's Hammer"],
@@ -379,7 +379,6 @@ class DivinePurpose extends Ability {
         return "Holy Power abilities have a 15% chance to make your next Holy Power ability free and deal 20% increased damage and healing."
     }
 
-
 }
 //------------------------------------------------
 class HolyAvenger extends Ability {
@@ -459,8 +458,144 @@ class Seraphim extends Ability {
 
 }
 //------------------------------------------------------------------------------------------------ROW6
+class SanctifiedWrath extends Ability {
+    constructor() {
+        super("Sanctified Wrath", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Avenging Wrath lasts 25% longer and also reduces Holy Shock's cooldown by 40%.."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Avenging Wrath"].duration *= 1.2
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Avenging Wrath"].duration /= 1.2
+    }
+
+
+}
 //------------------------------------------------
+class AvengingCrusader extends Ability {
+    constructor() {
+        super("Avenging Crusader", 10, 0, 0, 120, false, false, false, "holy", 5, 1)
+        this.talent = true
+        this.duration = 20
+        this.noGcd = true
+
+    }
+
+    getTooltip() {
+        return "You become the ultimate crusader of light, increasing your Crusader Strike, Judgment, and auto-attack damage by 30%.<br>" +
+            "<br>" +
+            "Crusader Strike and Judgment cool down 30% faster and heal up to 3 injured allies for 250% of the damage they deal. Lasts 20 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Crusader Strike, Judgment and auto-attack damage increased by 30%.<br>" +
+            "<br>" +
+            "Crusader Strike and Judgment cool down 30% faster.<br>" +
+            "<br>" +
+            "3 nearby allies will be healed for 250% of the damage done."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+
+            caster.abilities["Crusader Strike"].spellPower *= 1.3
+            caster.abilities["Judgment"].spellPower *= 1.3
+            //TODO:AUTOATTACK
+
+            caster.abilities["Crusader Strike"].cd *= 1.3
+            caster.abilities["Judgment"].cd *= 1.3
+            caster.abilities["Crusader Strike"].maxCd *= 1.3
+            caster.abilities["Judgment"].maxCd *= 1.3
+
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(0)
+            return true
+        }
+        return false
+    }
+
+    endBuff(caster) {
+        caster.abilities["Crusader Strike"].spellPower /= 1.3
+        caster.abilities["Judgment"].spellPower /= 1.3
+
+        caster.abilities["Crusader Strike"].cd /= 1.3
+        caster.abilities["Judgment"].cd /= 1.3
+        caster.abilities["Crusader Strike"].maxCd /= 1.3
+        caster.abilities["Judgment"].maxCd /= 1.3
+    }
+
+}
 //------------------------------------------------
+class Awakening extends Ability {
+    constructor() {
+        super("Awakening", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Word of Glory and Light of Dawn have a 15% chance to grant you Avenging Wrath for 10 sec."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
+class GlimmerofLight extends Ability {
+    constructor() {
+        super("Glimmer of Light", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.16
+        this.spellPowerHeal = 0.3
+        this.duration = 30
+    }
+
+    getTooltip() {
+        return "Holy Shock leaves a Glimmer of Light on the target for 30 sec.  When you Holy Shock, all targets with Glimmer of Light are damaged for (16% of Spell power) or healed for (38% of Spell power)."
+    }
+}
 //------------------------------------------------
+class BeaconofFaith extends Ability {
+    constructor() {
+        super("Beacon of Faith", 0.625, 1.5, 0, 0, false, false, false, "holy", 60, 1)
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Mark a second target as a Beacon, mimicking the effects of Beacon of Light. Your heals will now heal both of your Beacons, but at 30% reduced effectiveness."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Healed whenever the "+caster.name+" directly heals a nearby ally."
+    }
+}
 //------------------------------------------------
+class BeaconofVirtue extends Ability {
+    constructor() {
+        super("Beacon of Virtue", 2, 1.5, 0, 15, false, false, false, "holy", 40, 1)
+        this.talent = true
+        this.duration = 8
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Apply a Beacon of Light to your target and 3 injured allies within 30 yards for 8 sec.\n" +
+            "\n" +
+            "All affected allies will be healed for 50% of the amount of your other healing done.\n" +
+            "\n" +
+            "Your Flash of Light and Holy Light on these targets will also grant 1 Holy Power"
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Healed whenever the "+caster.name+" heals a nearby ally."
+    }
+}

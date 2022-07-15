@@ -9,7 +9,8 @@ let raidersStats = {
 }
 
 let raiders = [
-    new Raider("raider1",50000,100,50,50,0,"restorationDruid",raidersStats["stat1"]),
+    //new Raider("raider1",50000,100,50,50,0,"restorationDruid",raidersStats["stat1"]),
+    new Raider("raider1",50000,100,50,50,0,"holyPaladin",raidersStats["stat1"]),
     new Raider("raider2",50000,100,200,80,0,"restorationShaman",raidersStats["stat1"]),
     new Raider("raider3",50000,100,150,10,0,"arcane",raidersStats["stat1"]),
     new Raider("raider4",50000,100,250,200,0,"balance",raidersStats["stat1"]),
