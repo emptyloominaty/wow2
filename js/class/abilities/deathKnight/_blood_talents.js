@@ -35,7 +35,7 @@ let _blood_talents = function(caster) {
     //caster.abilities[""] = new ()
 
 
-    caster.talents = [["HeartBreaker","Blooddrinker","Tombstone"],
+    caster.talents = [["Heartbreaker","Blooddrinker","Tombstone"],
         ["Rapid Decomposition","Hemostasis","Consumption"],
         ["Foul Bulwark","Relish in Blood","Blood Tap"],
         ["Will of the Necropolis","Anti-Magic Barrier","Mark of Blood"],

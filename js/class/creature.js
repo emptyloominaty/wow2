@@ -214,7 +214,18 @@ class Creature {
             this.maxEnergy = 10
             this.melee = true
             this.role = "tank"
-        }  else if (spec==="elemental") {//----------------------------------------Elemental
+        } else if (spec==="blood") {//----------------------------------------Blood DK
+            this.class = "Death Knight"
+            this.abilities = new Blood_Abilities()
+            _blood_talents(this)
+            this.secondaryResourceName = "Runes"
+            this.secondaryResource = 6
+            this.maxSecondaryResource = 6
+            this.resourceName = "Runic Power"
+            this.energy = 0
+            this.melee = true
+            this.role = "tank"
+        } else if (spec==="elemental") {//----------------------------------------Elemental
             this.class = "Shaman"
             this.abilities = new Elemental_Abilities()
             _elemental_talents(this)
@@ -360,8 +371,19 @@ class Creature {
                     this.energy += (this.energyRegen*0.2)/fps
                 }
             }
-
-        } //TODO:RUNES
+        }
+        if (this.secondaryResourceName==="Runes") { //cba
+            if (this.secondaryResource<4) {
+                this.secondaryResource += (0.3*(1+(this.stats.haste/100)))/fps
+            } else if (this.secondaryResource<5) {
+                this.secondaryResource += (0.2*(1+(this.stats.haste/100)))/fps
+            } else {
+                this.secondaryResource += (0.1*(1+(this.stats.haste/100)))/fps
+            }
+            if (this.secondaryResource>this.maxSecondaryResource) {
+                this.secondaryResource = this.maxSecondaryResource
+            }
+        }
 
         if (this.energy>this.maxEnergy) {
             this.energy = this.maxEnergy

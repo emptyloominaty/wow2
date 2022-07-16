@@ -26,6 +26,7 @@ let iconsPath = {
         "vengeance":"img/specs/demonhunter/vengeance.jpg",
         "holyPaladin":"img/specs/paladin/holy.png",
         "protectionPaladin":"img/specs/paladin/protection.png",
+        "blood":"img/specs/deathknight/blood.png",
     },
 
     //classes
@@ -113,7 +114,7 @@ let iconsPath = {
     "Permafrost":"img/deathKnight/Permafrost.jpg",
     "Pestilent Pustules":"img/deathKnight/PestilentPustules.jpg",
     "Red Thirst":"img/deathKnight/RedThirst.jpg",
-    "Relishin Blood":"img/deathKnight/RelishinBlood.jpg",
+    "Relish in Blood":"img/deathKnight/RelishinBlood.jpg",
     "Spell Eater":"img/deathKnight/SpellEater.jpg",
     "Tightening Grasp":"img/deathKnight/TighteningGrasp.jpg",
     "Tombstone":"img/deathKnight/Tombstone.jpg",
@@ -152,7 +153,7 @@ let iconsPath = {
     "Frostwyrm's Fury":"img/deathKnight/FrostwyrmsFury.jpg",
     "Frozen Heart":"img/deathKnight/FrozenHeart.jpg",
     "Gorefiends Grasp":"img/deathKnight/GorefiendsGrasp.jpg",
-    "HeartS trike":"img/deathKnight/HeartStrike.jpg",
+    "Heart Strike":"img/deathKnight/HeartStrike.jpg",
     "Howling Blast":"img/deathKnight/Howling Blast.jpg",
     "Chains of Ice":"img/deathKnight/ChainsofIce.jpg",
     "Icebound Fortitude":"img/deathKnight/IceboundFortitude.jpg",
@@ -177,6 +178,7 @@ let iconsPath = {
     "Sudden Doom":"img/deathKnight/SuddenDoom.jpg",
     "Vampiric Blood":"img/deathKnight/VampiricBlood.jpg",
     "Veteran of the Third War":"img/deathKnight/VeteranoftheThirdWar.jpg",
+    "Will of the Necropolis":"img/deathKnight/WilloftheNecropolis.jpg",
 
     //Demon Hunter
     "Chaos Brand":"img/demonHunter/ChaosBrand.jpg",

@@ -692,3 +692,24 @@ if (player.spec==="vengeance") {
         //bar3
     }
 }
+
+if (player.spec==="blood") {
+    actions = {
+        //bar0
+
+        "Mind Freeze": new Action("Mind Freeze",0,5),
+
+        //bar1
+        "Dark Command": new Action("Dark Command",1,0),
+
+        "Blood Boil": new Action("Blood Boil",1,2),
+
+        "Heart Strike": new Action("Heart Strike",1,8),
+        "Death Strike": new Action("Death Strike",1,9),
+
+        //bar2
+
+        //bar3
+
+    }
+}

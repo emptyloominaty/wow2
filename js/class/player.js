@@ -18,4 +18,4 @@ class Player extends Creature {
 //"mistweaver" , "restorationShaman" , "restorationDruid" , "assassination" , "holyPriest" , "brewmaster"
 let playerStats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, block:0, speed:0, stamina:3100}
 
-let player = new Player("player",50500,100,0,0,0,"protectionPaladin",playerStats)
+let player = new Player("player",50500,100,0,0,0,"blood",playerStats)

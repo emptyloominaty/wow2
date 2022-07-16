@@ -401,6 +401,8 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (target.abilities["Angel's Mercy"].talentSelect) {
                 target.abilities["Angel's Mercy"].takeDamage(target,damage)
             }
+        } else if (target.class === "Death Knight") {
+            target.abilities["Death Strike"].damageLast5Sec[target.abilities["Death Strike"].idx] += damage
         }
 
         //PET
