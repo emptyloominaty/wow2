@@ -60,6 +60,12 @@ let raidFramesBuffs = {
         centreRight:"none",
         bottomCentre:"none",
     },
+    "protectionPaladin": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
     "balance": {
         bottomRight:"Riptide",
         bottomRight2:"none",

@@ -1,5 +1,5 @@
 class Judgment extends Ability {
-    constructor() {
+    constructor(prot = false) {
         let name = "Judgment"
         let cost = 1.5
         let gcd = 1.5
@@ -15,6 +15,10 @@ class Judgment extends Ability {
         this.hasteCd = true
         this.spellPower = 1.125*1.5
         this.secCost = -1
+
+        if (prot) {
+            this.spellPower *= 0.73
+        }
 
     }
 

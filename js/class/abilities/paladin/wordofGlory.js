@@ -26,7 +26,7 @@ class WordofGlory extends Ability {
     startCast(caster) {
         let secCost = this.secCost
         let spellPower = this.spellPower
-        if (caster.abilities["Divine Purpose"].talentSelect && checkBuff(caster,caster,"Divine Purpose")) {
+        if (caster.spec==="holyPaladin" && caster.abilities["Divine Purpose"].talentSelect && checkBuff(caster,caster,"Divine Purpose")) {
             secCost = 0
             spellPower *= 1.2
         }
@@ -38,21 +38,24 @@ class WordofGlory extends Ability {
 
             let target = caster.castTarget
             if (target==="" || Object.keys(target).length === 0 || target.isDead || this.isEnemy(caster,target) ) {
+                spellPower = spellPower * (((caster.maxHealth-caster.health) / caster.maxHealth) * 2.5 + 1)
                 //heal self
-                doHeal(caster,caster,this,undefined,spellPower) // TODO If cast on yourself, healing increased by up to 250% based on your missing health
+                doHeal(caster,caster,this,undefined,spellPower)
             } else {
                 //heal target
                 doHeal(caster,target,this,undefined,spellPower)
             }
-            if (caster.abilities["Divine Purpose"].talentSelect) {
-                checkBuff(caster,caster,"Divine Purpose",true)
-                if (getChance(15)) {
-                    applyBuff(caster,caster,caster.abilities["Divine Purpose"])
+            if (caster.spec==="holyPaladin") {
+                if (caster.abilities["Awakening"].talentSelect) {
+                    if (getChance(15)) {
+                        applyBuff(caster,caster,caster.abilities["Avenging Wrath"],undefined,undefined,undefined,10)
+                    }
                 }
-            }
-            if (caster.spec==="holyPaladin" && caster.abilities["Awakening"].talentSelect) {
-                if (getChance(15)) {
-                    applyBuff(caster,caster,caster.abilities["Avenging Wrath"],undefined,undefined,undefined,10)
+                if (caster.abilities["Divine Purpose"].talentSelect) {
+                    checkBuff(caster,caster,"Divine Purpose",true)
+                    if (getChance(15)) {
+                        applyBuff(caster,caster,caster.abilities["Divine Purpose"])
+                    }
                 }
             }
             caster.useEnergy(this.cost,secCost)

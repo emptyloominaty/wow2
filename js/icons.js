@@ -25,6 +25,7 @@ let iconsPath = {
         "discipline":"img/specs/priest/discipline.png",
         "vengeance":"img/specs/demonhunter/vengeance.jpg",
         "holyPaladin":"img/specs/paladin/holy.png",
+        "protectionPaladin":"img/specs/paladin/protection.png",
     },
 
     //classes
@@ -792,7 +793,7 @@ let iconsPath = {
     "Hand of Hindrance":"img/paladin/HandofHindrance.jpg",
     "Hand of Light":"img/paladin/HandofLight.jpg",
     "Hand of Reckoning":"img/paladin/HandofReckoning.jpg",
-    "Hand of theProtector":"img/paladin/HandoftheProtector.jpg",
+    "Hand of the Protector":"img/paladin/HandoftheProtector.jpg",
     "Healing Hands":"img/paladin/HealingHands.jpg",
     "Holy Avenger":"img/paladin/HolyAvenger.jpg",
     "Holy Light":"img/paladin/HolyLight.jpg",

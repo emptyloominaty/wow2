@@ -200,7 +200,21 @@ class Creature {
             this.maxSecondaryResource = 5
             this.melee = true
             this.role = "healer"
-        } else if (spec==="elemental") {//----------------------------------------Elemental
+        } else if (spec==="protectionPaladin") {//----------------------------------------Prot Paladin
+            this.class = "Paladin"
+            this.abilities = new ProtectionPaladin_Abilities()
+            _protectionPaladin_talents(this)
+            applyBuff(this,this,this.abilities["Aegis of Light"])
+            applyBuff(this,this,this.abilities["Divine Bulwark"])
+            //applyBuff(this,this,this.abilities["Devotion Aura"])
+            this.secondaryResourceName = "Holy Power"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 5
+            this.energy = 10
+            this.maxEnergy = 10
+            this.melee = true
+            this.role = "tank"
+        }  else if (spec==="elemental") {//----------------------------------------Elemental
             this.class = "Shaman"
             this.abilities = new Elemental_Abilities()
             _elemental_talents(this)
@@ -737,7 +751,20 @@ class Creature {
                         if (this.role==="healer" || this.class==="Mage" || this.class==="Priest" || this.spec==="balance" || this.spec==="elemental" || this.class==="Warlock") {
                             this.stats.primary *= 1.05
                         }
+                    } else if (this.buffs[i].effect[j].name === "divineBulwark") {
+                        this.stats.primary *= 1+(this.stats.mastery/100)
+                        this.stats.dodge *= 1+(this.stats.mastery/100)
+                        let consecration = this.abilities["Consecration"]
+                        if (consecration.areaId!==undefined) {
+                            if (areas[consecration.areaId] && areas[consecration.areaId].ability.name === "Consecration" && areas[consecration.areaId].caster === this) {
+                                if (getDistance(this,areas[consecration.areaId])<8) {
+                                    this.damageReduction += (player.stats.mastery/2.666)/100
+                                }
+                            }
+                        }
                     }
+
+
                 }
             } else {
                 //OLD

@@ -1,5 +1,5 @@
 class FlashofLight extends Ability {
-    constructor() {
+    constructor(prot = false) {
         let name = "Flash of Light"
         let cost = 4.4
         let gcd = 1.5
@@ -14,6 +14,9 @@ class FlashofLight extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 2.02
+        if (prot) {
+            this.spellPower *= 1.39
+        }
     }
 
     getTooltip() {
@@ -50,7 +53,7 @@ class FlashofLight extends Ability {
             doHeal(caster,target,this)
         }
         let cost = this.cost
-        if (checkBuff(caster,caster,"Infusion of Light",true)) {
+        if (caster.spec==="holyPaladin" && checkBuff(caster,caster,"Infusion of Light",true)) {
             cost *= 0.7
         }
         caster.useEnergy(cost)

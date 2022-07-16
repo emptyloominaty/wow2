@@ -1,5 +1,5 @@
 class Consecration extends Ability {
-    constructor(holy = false) {
+    constructor(holy = false,prot = false) {
         let name = "Consecration"
         let cost = 0
         let gcd = 1.5
@@ -17,10 +17,12 @@ class Consecration extends Ability {
         this.area = {type:"circle", radius:8, duration: 12,data:{type:"dot", maxTargets:"all", spellPower:this.spellPower, timer:1/*sec*/,color:"#ffe699",color2:"rgba(255,249,170,0.11)"},cast:false}
         this.areaId = undefined
 
-        this.hasteCd = true
-
         if (holy) {
+            this.hasteCd = true
             this.spellPower *= 2.1
+        } else if (prot) {
+            this.cd /= 2
+            this.maxCd /= 2
         }
     }
 

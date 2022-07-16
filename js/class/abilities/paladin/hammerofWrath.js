@@ -19,7 +19,7 @@ class HammerofWrath extends Ability {
 
     }
 
-    getTooltip() { //TODO:and causing the target to take 30% increased damage from your next Crusader Strike or Holy Shock
+    getTooltip() {
         return "Hurls a divine hammer that strikes an enemy for (120% of Attack power) Holy damage. Only usable on enemies that have less than 20% health or during Avenging Wrath<br>" +
             "<br>" +
             "Generates 1 Holy Power."
