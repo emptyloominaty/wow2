@@ -26,7 +26,7 @@ class WordofGlory extends Ability {
     startCast(caster) {
         let secCost = this.secCost
         let spellPower = this.spellPower
-        if (caster.spec==="holyPaladin" && caster.abilities["Divine Purpose"].talentSelect && checkBuff(caster,caster,"Divine Purpose")) {
+        if (caster.abilities["Divine Purpose"].talentSelect && checkBuff(caster,caster,"Divine Purpose")) {
             secCost = 0
             spellPower *= 1.2
         }
@@ -54,14 +54,14 @@ class WordofGlory extends Ability {
                         applyBuff(caster,caster,caster.abilities["Avenging Wrath"],undefined,undefined,undefined,10)
                     }
                 }
-                if (caster.abilities["Divine Purpose"].talentSelect) {
-                    checkBuff(caster,caster,"Divine Purpose",true)
-                    if (getChance(15)) {
-                        applyBuff(caster,caster,caster.abilities["Divine Purpose"])
-                    }
-                }
             } else if (caster.spec==="protectionPaladin") {
                 checkBuff(caster,caster,"Shining Light",true)
+            }
+            if (caster.abilities["Divine Purpose"].talentSelect) {
+                checkBuff(caster,caster,"Divine Purpose",true)
+                if (getChance(15)) {
+                    applyBuff(caster,caster,caster.abilities["Divine Purpose"])
+                }
             }
             caster.useEnergy(this.cost,secCost)
             this.setCd()

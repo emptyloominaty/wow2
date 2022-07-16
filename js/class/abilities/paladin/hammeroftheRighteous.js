@@ -69,6 +69,10 @@ class HammeroftheRighteous extends Ability {
                     }
                 }
 
+                if (getChance(15)) {
+                    caster.abilities["Avenger's Shield"].cd = caster.abilities["Avenger's Shield"].maxCd
+                }
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }

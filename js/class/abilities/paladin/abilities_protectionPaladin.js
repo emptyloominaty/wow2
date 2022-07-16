@@ -20,6 +20,7 @@ class ProtectionPaladin_Abilities {
     "Guardian of Ancient Kings" = new GuardianofAncientKings()
     "Hammer of the Righteous" = new HammeroftheRighteous()
     "Shield of the Righteous" = new ShieldoftheRighteous()
+    "Avenger's Shield" = new AvengersShield()
 
     //passive
     "Divine Bulwark" = new DivineBulwark()
@@ -73,7 +74,7 @@ class GrandCrusader extends Ability {
         this.passive = true
     }
 
-    getTooltip() { //(Proc chance: 15%, 1s cooldown) //TODO:
+    getTooltip() { //TODO:When you avoid a melee attack
         return  "When you avoid a melee attack or use Hammer of the Righteous, you have a 15% chance to reset the remaining cooldown on Avenger's Shield."
     }
 }

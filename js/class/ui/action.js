@@ -603,6 +603,7 @@ if (player.spec==="protectionPaladin") {
     actions = {
         //bar0
         "Avenging Wrath": new Action("Avenging Wrath",0,0),
+        "Avenger's Shield": new Action("Avenger's Shield",0,1),
 
         "Cleanse Toxins": new Action("Cleanse Toxins",0,4),
         "Rebuke": new Action("Rebuke",0,5),

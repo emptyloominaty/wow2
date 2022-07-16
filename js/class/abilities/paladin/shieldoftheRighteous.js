@@ -43,6 +43,9 @@ class ShieldoftheRighteous extends Ability {
                 this.shiningLight = 0
                 applyBuff(caster,caster,caster.abilities["Shining Light"])
             }
+            if (caster.abilities["Redoubt"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Redoubt"],1,true)
+            }
             applyBuff(caster,caster,this)
             caster.useEnergy(this.cost,this.secCost)
             this.setCd()

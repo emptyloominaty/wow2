@@ -17,7 +17,7 @@ class Creature {
     //        plate-mail-leather-cloth
     //armor:  108 -  72 -  49  -  28
     //        1  - 0.66 - 0.45 - 0.25
-    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, speed:0, stamina:2500}
+    stats = {primary:2000, haste:25, crit:15, vers:0, mastery:34, leech:1, avoidance:0, dodge:0, armor:10, block:0, speed:0, stamina:2500}
 
     itemLevel = 270
 
@@ -1050,7 +1050,10 @@ class Creature {
             if (this.abilities["Holy Avenger"].talentSelect && val2<0 && checkBuff(this,this,"Holy Avenger")) {
                 this.useSec(val2 * 2)
             }
-
+        } else if (this.spec==="protectionPaladin") {
+            if (this.abilities["Holy Avenger"].talentSelect && val2<0 && checkBuff(this,this,"Holy Avenger")) {
+                this.useSec(val2 * 2)
+            }
         }
     }
 

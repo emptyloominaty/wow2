@@ -322,6 +322,18 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 damage = damage * 1.05
             }
 
+            if (target.stats.block>0) {
+                if (getChance(target.stats.block)) {
+                    damage = damage * 0.3
+
+                    if (target.spec==="protectionPaladin" && target.abilities["Holy Shield"].talentSelect) {
+                        doDamage(target,caster,target.abilities["Holy Shield"])
+                    }
+
+                }
+            }
+
+
             //dodge
             if (ability.range<8) {
                 let dodgeChance = getChance(target.stats.dodge)
@@ -334,6 +346,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
                 if (dodgeChance) {
                     damage = 0
+                    if (target.spec==="protectionPaladin" && getChance(15)) {
+                        target.abilities["Avenger's Shield"].cd = target.abilities["Avenger's Shield"].maxCd
+                    }
                 }
             }
 
