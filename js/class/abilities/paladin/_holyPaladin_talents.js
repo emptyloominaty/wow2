@@ -466,7 +466,12 @@ class SanctifiedWrath extends Ability {
     }
 
     getTooltip() {
-        return "Avenging Wrath lasts 25% longer and also reduces Holy Shock's cooldown by 40%.."
+        if (player.spec==="holyPaladin") {
+            return "Avenging Wrath lasts 25% longer and also reduces Holy Shock's cooldown by 40%."
+        } else {
+            return "Avenging Wrath lasts 25% longer and causes Judgment to generate 1 additional Holy Power."
+        }
+
     }
 
     setTalent(caster) {

@@ -60,11 +60,8 @@ class HolyShock extends Ability {
                     if (!enemies[i].isDead && checkDebuff(caster,enemies[i],"Glimmer of Light")) {
                         doDamage(caster,enemies[i],caster.abilities["Glimmer of Light"])
                     }
-
                 }
-
             }
-
 
             caster.useEnergy(this.cost,this.secCost)
             this.setCd()

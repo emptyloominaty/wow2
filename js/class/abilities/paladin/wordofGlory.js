@@ -46,6 +46,9 @@ class WordofGlory extends Ability {
                 doHeal(caster,caster,this,undefined,spellPower)
             } else {
                 //heal target
+                if (caster.spec==="protectionPaladin" && caster.abilities["Hand of the Protector"].talentSelect) {
+                    spellPower = spellPower * (((caster.maxHealth-caster.health) / caster.maxHealth) * 2.5 + 1)
+                }
                 doHeal(caster,target,this,undefined,spellPower)
             }
             if (caster.spec==="holyPaladin") {

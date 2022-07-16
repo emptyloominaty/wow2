@@ -1054,6 +1054,11 @@ class Creature {
             if (this.abilities["Holy Avenger"].talentSelect && val2<0 && checkBuff(this,this,"Holy Avenger")) {
                 this.useSec(val2 * 2)
             }
+            if (this.abilities["Righteous Protector"].talentSelect && val2>0) {
+                //"Each Holy Power spent reduces the remaining cooldown on Avenging Wrath and Guardian of Ancient Kings by 1 sec."
+                this.abilities["Avenging Wrath"].incCd(this,val2,false)
+                this.abilities["Guardian of Ancient Kings"].incCd(this,val2,false)
+            }
         }
     }
 

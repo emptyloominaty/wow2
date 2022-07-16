@@ -71,6 +71,9 @@ class HammeroftheRighteous extends Ability {
 
                 if (getChance(15)) {
                     caster.abilities["Avenger's Shield"].cd = caster.abilities["Avenger's Shield"].maxCd
+                    if (caster.abilities["Crusader's Judgment"].talentSelect) {
+                        caster.abilities["Judgment"].cd = caster.abilities["Judgment"].maxCd
+                    }
                 }
 
                 if (caster.isChanneling) {

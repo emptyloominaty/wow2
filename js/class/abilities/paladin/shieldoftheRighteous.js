@@ -26,7 +26,14 @@ class ShieldoftheRighteous extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        let secCost = this.secCost
+        let spellPower = this.spellPower
+        if (caster.abilities["Divine Purpose"].talentSelect && checkBuff(caster,caster,"Divine Purpose")) {
+            secCost = 0
+            spellPower *= 1.2
+        }
+
+        if (this.checkStart(caster,undefined,secCost)) {
 
             let dir = caster.direction
             let targets = enemies
@@ -34,7 +41,7 @@ class ShieldoftheRighteous extends Ability {
                 if (!targets[i].isDead && this.checkDistance(caster, targets[i],6,true)) {
                     let dirToTarget = getDirection(caster,targets[i])
                     if (directionHit(dir,dirToTarget,75)) {
-                        doDamage(caster, targets[i], this)
+                        doDamage(caster, targets[i], this,undefined,spellPower)
                     }
                 }
             }
@@ -46,8 +53,15 @@ class ShieldoftheRighteous extends Ability {
             if (caster.abilities["Redoubt"].talentSelect) {
                 applyBuff(caster,caster,caster.abilities["Redoubt"],1,true)
             }
+            if (caster.abilities["Divine Purpose"].talentSelect) {
+                checkBuff(caster,caster,"Divine Purpose",true)
+                if (getChance(15)) {
+                    applyBuff(caster,caster,caster.abilities["Divine Purpose"])
+                }
+            }
+
             applyBuff(caster,caster,this)
-            caster.useEnergy(this.cost,this.secCost)
+            caster.useEnergy(this.cost,secCost)
             this.setCd()
             if (caster.isChanneling) {
                 caster.isChanneling = false

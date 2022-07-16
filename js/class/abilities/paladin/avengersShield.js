@@ -12,11 +12,12 @@ class AvengersShield extends Ability {
         let school = "holy"
         let range = 30
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
         this.spellPower = 0.52416
         this.jumptargets = 2
         this.jumpRange = 15
         this.secCost = -1
+        this.duration = 3
+        this.effect = [{name:"interrupt"}]
     }
 
     getTooltip() {
@@ -56,6 +57,7 @@ class AvengersShield extends Ability {
                 if (this.isEnemy(caster,target) || !target.isDead || target!=="" || Object.keys(target).length !== 0) {
                     doDamage(caster, target, this)
                     target.interrupt()
+                    applyDebuff(caster,target,this)
 
                     //jump
                     let ttt = 0
@@ -72,6 +74,11 @@ class AvengersShield extends Ability {
                             }
                         }
                     }
+
+                    if (caster.abilities["First Avenger"].talentSelect) {
+                        caster.abilities["First Avenger"].applyAbsorb(caster,((ttt+1)*((caster.stats.primary * this.spellPower) * (1 + (caster.stats.vers / 100)))))
+                    }
+
                     this.setCd()
                     caster.useEnergy(this.cost,this.secCost)
                     this.setGcd(caster)

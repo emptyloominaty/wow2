@@ -37,6 +37,9 @@ class AvengingWrath extends Ability {
                 caster.abilities["Holy Shock"].cd *= 0.6
                 caster.abilities["Holy Shock"].maxCd *= 0.6
             }
+            if (caster.spec==="protectionPaladin" && caster.abilities["Sanctified Wrath"].talentSelect) {
+                caster.abilities["Judgment"].secCost -= 1
+            }
             applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)
@@ -50,6 +53,9 @@ class AvengingWrath extends Ability {
         if (caster.spec==="holyPaladin" && caster.abilities["Sanctified Wrath"].talentSelect) {
             caster.abilities["Holy Shock"].cd /= 0.6
             caster.abilities["Holy Shock"].maxCd /= 0.6
+        }
+        if (caster.spec==="protectionPaladin" && caster.abilities["Sanctified Wrath"].talentSelect) {
+            caster.abilities["Judgment"].secCost += 1
         }
     }
 }
