@@ -30,6 +30,9 @@ class WordofGlory extends Ability {
             secCost = 0
             spellPower *= 1.2
         }
+        if (caster.spec==="protectionPaladin" && checkBuff(caster,caster,"Shining Light")) {
+            secCost = 0
+        }
 
         if (this.checkStart(caster,undefined,secCost)) {
             if (caster.isChanneling) {
@@ -57,6 +60,8 @@ class WordofGlory extends Ability {
                         applyBuff(caster,caster,caster.abilities["Divine Purpose"])
                     }
                 }
+            } else if (caster.spec==="protectionPaladin") {
+                checkBuff(caster,caster,"Shining Light",true)
             }
             caster.useEnergy(this.cost,secCost)
             this.setCd()

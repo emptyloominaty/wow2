@@ -1,34 +1,31 @@
-class Judgment extends Ability {
-    constructor(prot = false) {
-        let name = "Judgment"
-        let cost = 1.5
+class HammeroftheRighteous extends Ability {
+    constructor() {
+        let name = "Hammer of the Righteous"
+        let cost = 0
         let gcd = 1.5
         let castTime = 0
-        let cd = 12
-        let charges = 1
+        let cd = 6
+        let charges = 2
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "holy"
-        let range = 30
+        let school = "physical"
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.hasteCd = true
-        this.spellPower = 1.125*1.5
-        this.secCost = -1
 
-        if (prot) {
-            this.spellPower *= 0.73
-            this.cost = 0
-        }
+        this.spellPower = 0.27
+        this.spellPowerAoe = 0.087048
+        this.hasteCd = true
+        this.secCost = -1
 
     }
 
-    getTooltip() { //TODO:and causing the target to take 30% increased damage from your next Crusader Strike or Holy Shock
-        if (player.spec==="holyPaladin") {
-            return "Judges the target, dealing "+spellPowerToNumber(this.spellPower)+" Holy damage and causing the target to take 30% increased damage from your next Crusader Strike or Holy Shock. Generates 1 Holy Power."
-        } else {
-            return "Judges the target, dealing "+spellPowerToNumber(this.spellPower)+" Holy damage and causing them to take 25% increased damage from your next Holy Power ability. Generates 1 Holy Power."
-        }
+    getTooltip() {
+        return "Hammers the current target for "+spellPowerToNumber(this.spellPower)+" Physical damage." +
+            "<br>" +
+            "While you are standing in your Consecration, Hammer of the Righteous also causes a wave of light that hits all other targets within 8 yds for "+spellPowerToNumber(this.spellPowerAoe)+" Holy damage<br>" +
+            "<br>" +
+            "Generates 1 Holy Power."
     }
 
     startCast(caster) {
@@ -56,12 +53,22 @@ class Judgment extends Ability {
                         doDamage(caster, caster.castTarget, this)
                         caster.useEnergy(this.cost,this.secCost)
                         this.setCd()
-                        if (caster.spec==="holyPaladin" && caster.abilities["Judgment of Light"].talentSelect) {
-                            applyDebuff(caster,caster.castTarget,caster.abilities["Judgment of Light"],undefined,25,true)
-                        }
-
                     }
                 }
+
+                let consecration = caster.abilities["Consecration"]
+                if (consecration.areaId!==undefined) {
+                    if (areas[consecration.areaId] && areas[consecration.areaId].ability.name === "Consecration" && areas[consecration.areaId].caster === caster) {
+                        if (getDistance(caster,areas[consecration.areaId])<8) {
+                            for (let i = 0; i<enemies.length; i++) {
+                                if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true)) {
+                                    doDamage(caster,enemies[i],this,undefined,this.spellPowerAoe)
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }

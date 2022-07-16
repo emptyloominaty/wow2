@@ -786,7 +786,7 @@ let iconsPath = {
     "Flash of Light":"img/paladin/FlashofLight.jpg",
     "Glimmer of Light":"img/paladin/GlimmerofLight.jpg",
     "Grand Crusader":"img/paladin/GrandCrusader.jpg",
-    "Guardian of AncientKings":"img/paladin/GuardianofAncientKings.jpg",
+    "Guardian of Ancient Kings":"img/paladin/GuardianofAncientKings.jpg",
     "Hammer of Justice":"img/paladin/HammerofJustice.jpg",
     "Hammer of the Righteous":"img/paladin/HammeroftheRighteous.jpg",
     "Hammer of Wrath":"img/paladin/HammerofWrath.jpg",

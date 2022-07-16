@@ -607,16 +607,18 @@ if (player.spec==="protectionPaladin") {
         "Cleanse Toxins": new Action("Cleanse Toxins",0,4),
         "Rebuke": new Action("Rebuke",0,5),
         "Consecration": new Action("Consecration",0,6),
-        "Divine Shield": new Action("Divine Shield",0,7),
+        "Ardent Defender": new Action("Ardent Defender",0,7),
+        "Guardian of Ancient Kings": new Action("Guardian of Ancient Kings",0,8),
 
         //bar1
         "Hand of Reckoning": new Action("Hand of Reckoning",1,0),
         "Word of Glory": new Action("Word of Glory",1,1),
+        "Shield of the Righteous": new Action("Shield of the Righteous",1,2),
 
         "Divine Steed": new Action("Divine Steed",1,3),
 
         "Judgment": new Action("Judgment",1,8),
-
+        "Hammer of the Righteous": new Action("Hammer of the Righteous",1,9),
         "Hammer of Justice": new Action("Hammer of Justice",1,10),
 
         //bar2
@@ -625,7 +627,7 @@ if (player.spec==="protectionPaladin") {
 
         "Lay on Hands": new Action("Lay on Hands",2,4),
         "Blessing of Protection": new Action("Blessing of Protection",2,5),
-
+        "Divine Shield": new Action("Divine Shield",2,6),
         "Blessing of Freedom": new Action( "Blessing of Freedom",2,11),
 
         //bar3

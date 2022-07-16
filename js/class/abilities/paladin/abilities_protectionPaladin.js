@@ -16,17 +16,23 @@ class ProtectionPaladin_Abilities {
     "Avenging Wrath" = new AvengingWrath()
     "Rebuke" = new Rebuke()
     "Cleanse Toxins" = new CleanseToxins()
+    "Ardent Defender" = new ArdentDefender()
+    "Guardian of Ancient Kings" = new GuardianofAncientKings()
+    "Hammer of the Righteous" = new HammeroftheRighteous()
+    "Shield of the Righteous" = new ShieldoftheRighteous()
 
     //passive
     "Divine Bulwark" = new DivineBulwark()
     "Aegis of Light" = new AegisofLight()
+    "Grand Crusader" = new GrandCrusader()
+    "Shining Light" = new ShiningLight()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
 //------------------------------------------------
 class DivineBulwark extends Ability {
     constructor() {
-        super("Divine Bulwark", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
+        super("Divine Bulwark", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
         this.passive = true
         this.mastery = true
         this.permanentBuff = true
@@ -44,7 +50,7 @@ class DivineBulwark extends Ability {
 //------------------------------------------------
 class AegisofLight extends Ability {
     constructor() {
-        super("Aegis of Light", 0, 0, 0, 0, false, false, false, "holy", 40, 1)
+        super("Aegis of Light", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
         this.passive = true
         this.permanentBuff = true
         this.duration = 10
@@ -58,5 +64,28 @@ class AegisofLight extends Ability {
             "Armor increased by 10%.<br>" +
             "<br>" +
             "All damage taken reduced by 10%"
+    }
+}
+//------------------------------------------------
+class GrandCrusader extends Ability {
+    constructor() {
+        super("Grand Crusader", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() { //(Proc chance: 15%, 1s cooldown) //TODO:
+        return  "When you avoid a melee attack or use Hammer of the Righteous, you have a 15% chance to reset the remaining cooldown on Avenger's Shield."
+    }
+}
+//------------------------------------------------
+class ShiningLight extends Ability {
+    constructor() {
+        super("Shining Light", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+        this.duration = 30
+    }
+
+    getTooltip() {
+        return  "Every 5 Shields of the Righteous make your next Word of Glory free."
     }
 }
