@@ -205,20 +205,19 @@ class ElusiveBrawler extends Ability {
         this.mastery = true
         this.duration = 10
         this.maxStacks = 10
-        this.effect = [{name:"increaseStat",stat:"primary",val:8,percent:true},{name:"increaseStat",stat:"dodge",val:0,percent:true}]
+        this.effect = [{name:"increaseStat",stat:"dodge",val:0,percent:true}]
     }
 
     hit(target) {
         let done = false
         for (let i = 0; i<target.buffs.length; i++) {
             if (target.buffs[i].name==="Elusive Brawler") {
-                target.buffs[i].effect[1].val += target.stats.mastery
+                target.buffs[i].effect[0].val += target.stats.mastery
                 done = true
             }
         }
         if (!done) {
             this.effect[0].val = target.stats.mastery
-            this.effect[1].val = target.stats.mastery
             applyBuff(target,target,this)
         }
     }

@@ -73,6 +73,10 @@ class DeathStrike extends Ability {
                     heal = (caster.maxHealth*0.07)
                 }
 
+                if (caster.spec==="blood") {
+                    caster.abilities["Blood Shield"].applyAbsorb(caster,heal)
+                }
+
                 doHeal(caster,caster,this,undefined,undefined,false,undefined,undefined,heal)
 
                 caster.useEnergy(this.cost,this.secCost)

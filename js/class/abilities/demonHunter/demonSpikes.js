@@ -27,7 +27,7 @@ class DemonSpikes extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
 
-            this.effect[0].val = (caster.stats.primary*(0.0075+(caster.stats.mastery/10000)))*4
+            this.effect[0].val = (caster.stats.primary*(0.0075+(caster.stats.mastery/10000)))*4 //TODO: % instead of primary
             applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)

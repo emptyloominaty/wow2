@@ -697,19 +697,31 @@ if (player.spec==="blood") {
     actions = {
         //bar0
 
+        "Vampiric Blood": new Action("Vampiric Blood",0,1),
+
         "Mind Freeze": new Action("Mind Freeze",0,5),
+
+        "Lichborne": new Action("Lichborne",0,7),
+        "Icebound Fortitude": new Action("Icebound Fortitude",0,8),
 
         //bar1
         "Dark Command": new Action("Dark Command",1,0),
 
         "Blood Boil": new Action("Blood Boil",1,2),
 
+
         "Heart Strike": new Action("Heart Strike",1,8),
         "Death Strike": new Action("Death Strike",1,9),
+        "Asphyxiate": new Action("Asphyxiate",1,10),
 
         //bar2
 
+        "Death's Caress": new Action("Death's Caress",2,3),
+
+        "Rune Tap": new Action("Rune Tap",2,7),
+
         //bar3
+        "Raise Ally": new Action("Raise Ally",3,0),
 
     }
 }

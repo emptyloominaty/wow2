@@ -15,7 +15,6 @@ class BloodBoil extends Ability {
 
         this.hasteCd = true
         this.spellPower = 0.4257
-        this.secCost = 1
     }
 
     getTooltip() {

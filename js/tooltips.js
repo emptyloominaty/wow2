@@ -61,8 +61,13 @@ let showSpellTooltip = function(i,j,notActionBar = false,spellname = "") {
             cost = cost + " " + player.resourceName
         }
 
+        let secCost = ""
+        if (ability.secCost>0 || ability.secCost<0) {
+            secCost = " ("+Math.round((ability.secCost)*100)/100+" "+player.secondaryResourceName+")"
+        }
 
-        let htmlTooltip = "<div class='spellTooltip' id='spellTooltip'><h4 class='spellTooltip_name'>" + ability.name + "</h4><p class='spellTooltip_cost'>" + cost + "</p> <p class='spellTooltip_castTime'>" + castTime + "</p> <p class='spellTooltip_cd'>" + cd + "</p> <p> "+range+"</p> <p class='spellTooltip_info'>"+ability.getTooltip()+"</p></div>"
+
+        let htmlTooltip = "<div class='spellTooltip' id='spellTooltip'><h4 class='spellTooltip_name'>" + ability.name + "</h4><p class='spellTooltip_cost'>" + cost + secCost + "</p> <p class='spellTooltip_castTime'>" + castTime + "</p> <p class='spellTooltip_cd'>" + cd + "</p> <p> "+range+"</p> <p class='spellTooltip_info'>"+ability.getTooltip()+"</p></div>"
 
         elements.ui.insertAdjacentHTML("beforeend", htmlTooltip)
 

@@ -9,7 +9,7 @@ class DarkCommand extends Ability {
         let channeling = false
         let casting = false
         let canMove = true
-        let school = "holy"
+        let school = "physical"
         let range = 30
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 

@@ -218,6 +218,8 @@ class Creature {
             this.class = "Death Knight"
             this.abilities = new Blood_Abilities()
             _blood_talents(this)
+            applyBuff(this,this,this.abilities["Veteran of the Third War"])
+
             this.secondaryResourceName = "Runes"
             this.secondaryResource = 6
             this.maxSecondaryResource = 6
@@ -483,6 +485,9 @@ class Creature {
         this.battleShout = false
         this.healthA = this.health
 
+        if (this.role==="tank") {
+            this.stats.primary *= 1+(this.stats.mastery/100)
+        }
 
         //TODO?
         if (this.form==="Ghost Wolf") {
@@ -774,7 +779,6 @@ class Creature {
                             this.stats.primary *= 1.05
                         }
                     } else if (this.buffs[i].effect[j].name === "divineBulwark") {
-                        this.stats.primary *= 1+(this.stats.mastery/100)
                         this.stats.dodge *= 1+(this.stats.mastery/100)
                         let consecration = this.abilities["Consecration"]
                         if (consecration.areaId!==undefined) {
