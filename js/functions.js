@@ -479,7 +479,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             let absorbed = damage
 
             damage = damage - target.absorb
-            if (damage<0) {damage = 0}
+            if (damage<0) {
+                damage = 0
+            } else {
+                absorbed -= damage
+            }
 
             for (let b = 0; b<target.absorbsBuffId.length; b++) {
                 if (target.buffs[target.absorbsBuffId[b]] && target.buffs[target.absorbsBuffId[b]].effect[0] && target.buffs[target.absorbsBuffId[b]].effect[0].name==="absorb") {
@@ -497,6 +501,35 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             }
         }
+
+        //magic absorb
+        if (ability.school!=="physical" && target.magicabsorb>0) {
+            let absorbed = damage
+
+            damage = damage - target.magicabsorb
+            if (damage<0) {
+                damage = 0
+            } else {
+                absorbed -= damage
+            }
+
+            for (let b = 0; b<target.magicabsorbsBuffId.length; b++) {
+                if (target.buffs[target.magicabsorbsBuffId[b]] && target.buffs[target.magicabsorbsBuffId[b]].effect[0] && target.buffs[target.magicabsorbsBuffId[b]].effect[0].name==="magicabsorb") {
+                    if (inCombat) {
+                        timelineCombatLog.heal(target.buffs[target.magicabsorbsBuffId[b]].caster,target,target.buffs[target.magicabsorbsBuffId[b]].ability,absorbed,0)
+                    }
+                    details.doHealing(target.buffs[target.magicabsorbsBuffId[b]].caster, absorbed, target.buffs[target.magicabsorbsBuffId[b]].ability, 0,target.buffs[target.magicabsorbsBuffId[b]].name)
+                    if (target.buffs[target.magicabsorbsBuffId[b]].effect[0].val>absorbed) {
+                        target.buffs[target.magicabsorbsBuffId[b]].effect[0].val -= absorbed
+                        break
+                    } else {
+                        absorbed -= target.buffs[target.magicabsorbsBuffId[b]].effect[0].val
+                        target.buffs[target.magicabsorbsBuffId[b]].effect[0].val = 0
+                    }
+                }
+            }
+        }
+
 
         caster.inCombat = true
         target.inCombat = true
@@ -584,6 +617,10 @@ let applyDebuff = function (caster,target,ability,type = "debuff",stacks = 1, st
         let debuffName = ability.name
         if (name!=="") {
             debuffName = name
+        }
+
+        if (target.immuneToMagic) {
+            return false
         }
 
         for (let i = 0; i<target.debuffs.length; i++) {
@@ -676,6 +713,11 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
     if (duration2===0) {
         duration2 = ability.duration
     }
+
+    if (target.immuneToMagic) {
+        return false
+    }
+
     if (!target.isDead) {
         for (let i = 0; i<target.debuffs.length; i++) {
             if (target.debuffs[i].name === ability.name && target.debuffs[i].caster === caster) {

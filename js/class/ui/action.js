@@ -707,8 +707,11 @@ if (player.spec==="blood") {
         //bar1
         "Dark Command": new Action("Dark Command",1,0),
         "Marrowrend": new Action("Marrowrend",1,1),
-
         "Blood Boil": new Action("Blood Boil",1,2),
+        "Death's Advance": new Action("Death's Advance",1,3),
+
+        "Death Grip": new Action("Death Grip",1,4),
+        "Gorefiend's Grasp": new Action("Gorefiend's Grasp",1,5),
 
 
         "Heart Strike": new Action("Heart Strike",1,8),
@@ -716,8 +719,11 @@ if (player.spec==="blood") {
         "Asphyxiate": new Action("Asphyxiate",1,10),
 
         //bar2
+        "Anti-Magic Shell": new Action("Anti-Magic Shell",2,0),
+        "Death Coil": new Action("Death Coil",2,1),
 
         "Death's Caress": new Action("Death's Caress",2,3),
+        "Anti-Magic Zone": new Action("Anti-Magic Zone",2,4),
 
         "Rune Tap": new Action("Rune Tap",2,7),
 

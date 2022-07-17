@@ -14,6 +14,12 @@ class Blood_Abilities {
     "Death and Decay" = new DeathandDecay(true)
     "Marrowrend" = new Marrowrend()
     "Dancing Rune Weapon" = new DancingRuneWeapon()
+    "Anti-Magic Shell" = new AntiMagicShell()
+    "Death's Advance" = new DeathsAdvance()
+    "Anti-Magic Zone" = new AntiMagicZone()
+    "Death Coil" = new DeathCoil()
+    "Death Grip" = new DeathGrip()
+    "Gorefiend's Grasp" = new GorefiendsGrasp()
 
     //passive
     "Veteran of the Third War" = new VeteranoftheThirdWar(true)
@@ -36,7 +42,7 @@ class BloodShield extends Ability {
         this.duration = 10
     }
 
-    getTooltip() { //TODO: ABSORB BUG?
+    getTooltip() {
         return "Each time you heal yourself with Death Strike, you gain "+(player.stats.mastery).toFixed(1)+"% of the amount healed as a Physical damage absorption shield.<br>" +
             "<br>" +
             "Also increases your attack power by "+(player.stats.mastery/2).toFixed(1)+"%."

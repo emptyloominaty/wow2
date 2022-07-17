@@ -619,7 +619,7 @@ function draw(progress) {
             elements["raidFrame_health"+i].style.width = ((raidFrameTarget.health/raidFrameTarget.maxHealth)*100)+"%"
             elements["raidFrame_health"+i].style.backgroundColor = colors[raidFrameTarget.class]
 
-            elements["raidFrame_absorb"+i].style.width = ((raidFrameTarget.absorb/raidFrameTarget.maxHealth)*100)+"%"
+            elements["raidFrame_absorb"+i].style.width = (((raidFrameTarget.absorb+raidFrameTarget.magicabsorb)/raidFrameTarget.maxHealth)*100)+"%"
 
             if (raidFrameTarget.health<raidFrameTarget.maxHealth) {
                 elements["raidFrame_healthLost"+i].textContent = "-"+Math.round(raidFrameTarget.maxHealth-raidFrameTarget.health)

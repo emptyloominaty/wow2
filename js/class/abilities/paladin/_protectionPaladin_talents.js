@@ -188,7 +188,7 @@ class BlessingofSpellwarding extends Ability {
         super("Blessing of Spellwarding", 3, 1.5, 0, 180, false, false, false, "holy", 40, 1)
         this.talent = true
         this.duration = 10
-        this.effect = [{name:"magicDamageReduction",val:1}]
+        this.effect = [{name:"magicDamageReduction",val:1},{name:"immuneToMagic"}]
     }
 
     getTooltip() {

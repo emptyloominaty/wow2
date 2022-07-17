@@ -63,6 +63,7 @@ class Creature {
     debuffs = []
 
     absorb = 0
+    magicabsorb = 0
     increaseHealth = 1
     healingIncrease = 1
     damageIncrease = 1
@@ -86,6 +87,7 @@ class Creature {
     //
     battleShout = false
     isReflectingSpell = false
+    immuneToMagic = false
 
     //
 
@@ -450,6 +452,8 @@ class Creature {
 
         this.absorbsBuffId = []
         this.absorb = 0
+        this.magicabsorbsBuffId = []
+        this.magicabsorb = 0
         this.increaseHealth = 1
         this.healingIncrease = 1
         this.moveSpeedIncrease = 1
@@ -484,6 +488,7 @@ class Creature {
         this.isStealthed = false
         this.isReflectingSpell = false
         this.battleShout = false
+        this.immuneToMagic = false
         this.healthA = this.health
 
         if (this.role==="tank") {
@@ -576,6 +581,9 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "absorb") {
                         this.absorb += this.buffs[i].effect[j].val
                         this.absorbsBuffId.push(i)
+                    } else if (this.buffs[i].effect[j].name === "magicabsorb") {
+                        this.magicabsorb += this.buffs[i].effect[j].val
+                        this.magicabsorbsBuffId.push(i)
                     } else if (this.buffs[i].effect[j].name === "increaseStat") {
                         if (this.buffs[i].effect[j].percent) {
                             if (this.buffs[i].stacks > 1) {
@@ -792,7 +800,12 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "boneShield") {
                         this.stats.haste += 10
                         this.stats.armor += 16
+                    } else if (this.buffs[i].effect[j].name === "immuneToMagic") {
+                        this.immuneToMagic = true
                     }
+
+
+
 
 
                 }
@@ -826,7 +839,7 @@ class Creature {
             if (!this.buffs[i].ability.permanentBuff) {
                 this.buffs[i].duration -= progressInSec
                 if (this.buffs[i].duration < 0 || this.buffs[i].stacks <= 0) {
-                    this.buffs[i].ability.endBuff(this)
+                    this.buffs[i].ability.endBuff(this,i)
                     this.buffs.splice(i, 1)
                     i--
                 } else {
@@ -834,7 +847,7 @@ class Creature {
                 }
             } else {
                 if (this.buffs[i].duration===-1) {
-                    this.buffs[i].ability.endBuff(this)
+                    this.buffs[i].ability.endBuff(this,i)
                     this.buffs.splice(i, 1)
                     i--
                 } else {

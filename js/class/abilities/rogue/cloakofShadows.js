@@ -14,7 +14,7 @@ class CloakofShadows extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.dispelTypes = ["magic",false,false]
         this.duration = 5
-        this.effect = [{name:"magicDamageReduction",val:100}]
+        this.effect = [{name:"magicDamageReduction",val:100},{name:"immuneToMagic"}]
         this.dontBreakStealth = true
     }
 

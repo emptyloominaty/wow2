@@ -13,12 +13,12 @@ class BlessingofProtection extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.effect = [{name:"physicalDamageReduction",val:1}]
+        this.effect = [{name:"physicalDamageReduction",val:1},{name:"immuneToMagic"}]
         this.duration = 10
     }
 
     getTooltip() {
-        return "Blesses a party or raid member, granting immunity to Physical damage and harmful effects for 10 sec.<br>" + //TODO:Harmful effects
+        return "Blesses a party or raid member, granting immunity to Physical damage and harmful effects for 10 sec.<br>" +
             "<br>" +
             "Cannot be used if you have Forbearance. Causes Forbearance for 30 sec." //TODO
     }
