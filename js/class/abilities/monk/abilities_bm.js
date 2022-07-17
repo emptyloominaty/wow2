@@ -155,7 +155,7 @@ class BrewmastersBalance extends Ability {
         this.passive = true
         this.permanentBuff = true
         this.hiddenBuff = true
-        this.effect = [{name:"increaseStat",stat:"armor",val:25},{name:"increaseStat",stat:"stamina",val:30,percent:true},{name:"damageReduction",val:0.1}]
+        this.effect = [{name:"increaseStat",stat:"armor",val:25,percent:true},{name:"increaseStat",stat:"stamina",val:30,percent:true},{name:"damageReduction",val:0.1}]
     }
 
     apply(caster){

@@ -224,6 +224,7 @@ class Creature {
             this.secondaryResource = 6
             this.maxSecondaryResource = 6
             this.resourceName = "Runic Power"
+            this.maxEnergy = 110
             this.energy = 0
             this.melee = true
             this.role = "tank"
@@ -788,6 +789,9 @@ class Creature {
                                 }
                             }
                         }
+                    } else if (this.buffs[i].effect[j].name === "boneShield") {
+                        this.stats.haste += 10
+                        this.stats.armor += 16
                     }
 
 

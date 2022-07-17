@@ -11,11 +11,17 @@ class Blood_Abilities {
     "Raise Ally" = new RaiseAlly()
     "Vampiric Blood" = new VampiricBlood()
     "Death's Caress" = new DeathsCaress()
+    "Death and Decay" = new DeathandDecay(true)
+    "Marrowrend" = new Marrowrend()
+    "Dancing Rune Weapon" = new DancingRuneWeapon()
 
     //passive
     "Veteran of the Third War" = new VeteranoftheThirdWar(true)
     "Blood Shield" = new BloodShield()
     "Blood Plague" = new BloodPlague()
+    "Bone Shield" = new BoneShield()
+    "Ossuary" = new Ossuary()
+    "Crimson Scourge" = new CrimsonScourge()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -30,7 +36,7 @@ class BloodShield extends Ability {
         this.duration = 10
     }
 
-    getTooltip() {
+    getTooltip() { //TODO: ABSORB BUG?
         return "Each time you heal yourself with Death Strike, you gain "+(player.stats.mastery).toFixed(1)+"% of the amount healed as a Physical damage absorption shield.<br>" +
             "<br>" +
             "Also increases your attack power by "+(player.stats.mastery/2).toFixed(1)+"%."
@@ -46,7 +52,6 @@ class BloodShield extends Ability {
     }
 }
 //------------------------------------
-
 class VeteranoftheThirdWar extends Ability {
     constructor(blood = true) {
         super("Veteran of the Third War", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
@@ -70,4 +75,51 @@ class VeteranoftheThirdWar extends Ability {
         }
 
     }
+}
+//------------------------------------
+class BoneShield extends Ability {
+    constructor() {
+        super("Bone Shield", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.duration = 30
+        this.effect = [{name:"boneShield"}]
+        this.maxStacks = 10
+    }
+
+    getTooltip() {
+       return "Surrounds you with a barrier of whirling bones, increasing Armor by 16% and your Haste by 10% <br><br>" +
+           "Each melee attack against you consumes a charge. Lasts 30 sec or until all charges are consumed."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Armor increased by 16%.<br>" +
+            "Haste increased by 10%."
+    }
+}
+//------------------------------------
+class Ossuary extends Ability {
+    constructor() {
+        super("Ossuary", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "While you have at least 5 Bone Shield charges, the cost of Death Strike is reduced by 5 Runic Power.<br>" +
+            "<br>" +
+            "Additionally, your maximum Runic Power is increased by 10."
+    }
+
+}
+//------------------------------------
+class CrimsonScourge extends Ability {
+    constructor() {
+        super("Crimson Scourge", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.duration = 15
+    }
+
+    getTooltip() { //25%
+        return "Your auto attacks on targets infected with your Blood Plague have a chance to make your next Death and Decay cost no runes and reset its cooldown."
+    }
+
 }

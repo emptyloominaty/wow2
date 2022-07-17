@@ -90,6 +90,7 @@ let iconsPath = {
     "Blood Tap":"img/deathKnight/BloodTap.jpg",
     "Bloodworms":"img/deathKnight/Bloodworms.jpg",
     "Bonestorm":"img/deathKnight/Bonestorm.jpg",
+    "Bone Shield":"img/deathKnight/BoneShield.jpg",
     "Bursting Sores":"img/deathKnight/BurstingSores.jpg",
     "Clawing Shadows":"img/deathKnight/ClawingShadows.jpg",
     "Cold Heart":"img/deathKnight/ColdHeart.jpg",

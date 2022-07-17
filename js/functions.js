@@ -182,6 +182,19 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (target.abilities["Void Reaver"].talentSelect && checkDebuff(target,caster,"Void Reaver")) {
                 damage *= 0.94
             }
+        } else if (target.spec==="blood") {
+            if (ability.range<6) {
+                for (let i = 0; i<target.buffs.length; i++) {
+                    if (target.buffs[i].name==="Bone Shield") {
+                        if (target.buffs[i].stacks>1) {
+                            target.buffs[i].stacks --
+                        } else {
+                            target.buffs[i].duration = -1
+                        }
+                        break
+                    }
+                }
+            }
         }
 
         damage = damage * (1-target.damageReduction)

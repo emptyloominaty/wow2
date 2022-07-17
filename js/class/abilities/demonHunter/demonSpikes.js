@@ -21,13 +21,13 @@ class DemonSpikes extends Ability {
     }
 
     getTooltip() { //(75 * Agility / 100)
-        return "Surge with fel power, increasing your Armor by "+player.stats.primary*0.0075+"  and your Parry chance by 15%, for 6 sec"
+        return "Surge with fel power, increasing your Armor by "+(25*(1+(player.stats.mastery/100))).toFixed(0)+"%  and your Parry chance by 15%, for 6 sec"
     }
 
     startCast(caster) {
         if (this.checkStart(caster)) {
 
-            this.effect[0].val = (caster.stats.primary*(0.0075+(caster.stats.mastery/10000)))*4 //TODO: % instead of primary
+            this.effect[0].val = (25*(1+(caster.stats.mastery/100)))
             applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)

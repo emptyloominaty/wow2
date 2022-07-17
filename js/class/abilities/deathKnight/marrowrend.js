@@ -1,7 +1,7 @@
-class HeartStrike extends Ability {
+class Marrowrend extends Ability {
     constructor() {
-        let name = "Heart Strike"
-        let cost = -15
+        let name = "Marrowrend"
+        let cost = -20
         let gcd = 1.5
         let castTime = 0
         let cd = 0
@@ -13,16 +13,13 @@ class HeartStrike extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.3592*1.2*1.06
-        this.secCost = 1
-
-        this.duration = 8
-        this.effect = [{name:"moveSpeed",val:0.2}]
+        this.spellPower = 0.53295
+        this.secCost = 2
 
     }
 
     getTooltip() {
-        return "Instantly strike the target and 1 other nearby enemy, causing "+spellPowerToNumber(this.spellPower)+" Physical damage, and reducing enemies' movement speed by 20% for 8 sec."
+        return "Smash the target, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage and generating 3 charges of Bone Shield."
     }
 
     startCast(caster) {
@@ -45,33 +42,8 @@ class HeartStrike extends Ability {
                 }
             }
             if (done) {
-                let target = caster.castTarget
                 doDamage(caster, caster.castTarget, this)
-                applyDebuff(caster, caster.castTarget, this)
-
-
-                let maxTargets = 1
-                let deathandDecay = caster.abilities["Death and Decay"]
-                if (deathandDecay.areaId!==undefined) {
-                    if (areas[deathandDecay.areaId] && areas[deathandDecay.areaId].ability.name === "Death and Decay" && areas[deathandDecay.areaId].caster === caster) {
-                        if (getDistance(caster, areas[deathandDecay.areaId]) < 8) {
-                            maxTargets += 3
-                        }
-                    }
-                }
-
-
-                let ttt = 0
-                for (let i = 0; i<enemies.length; i++) {
-                    if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(caster,enemies[i],5,true)) {
-                        doDamage(caster,enemies[i],this)
-                        applyDebuff(caster,enemies[i],this)
-                        ttt ++
-                        if (ttt>=maxTargets) {
-                            break
-                        }
-                    }
-                }
+                applyBuff(caster,caster,caster.abilities["Bone Shield"],3,true)
 
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()

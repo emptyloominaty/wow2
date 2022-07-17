@@ -696,16 +696,17 @@ if (player.spec==="vengeance") {
 if (player.spec==="blood") {
     actions = {
         //bar0
-
+        "Dancing Rune Weapon": new Action("Dancing Rune Weapon",0,0),
         "Vampiric Blood": new Action("Vampiric Blood",0,1),
 
         "Mind Freeze": new Action("Mind Freeze",0,5),
-
+        "Death and Decay": new Action("Death and Decay",0,6),
         "Lichborne": new Action("Lichborne",0,7),
         "Icebound Fortitude": new Action("Icebound Fortitude",0,8),
 
         //bar1
         "Dark Command": new Action("Dark Command",1,0),
+        "Marrowrend": new Action("Marrowrend",1,1),
 
         "Blood Boil": new Action("Blood Boil",1,2),
 

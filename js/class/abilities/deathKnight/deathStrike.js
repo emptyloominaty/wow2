@@ -13,7 +13,7 @@ class DeathStrike extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.464256
+        this.spellPower = 0.464256*1.53
 
         //TODO:frost: spellPower [(46.4256% of Attack power) + (29.835% of Attack power)]
         //TODO:frost/unholy: Death Strike's cost is reduced by 10, and its healing is increased by 60%.
@@ -67,19 +67,26 @@ class DeathStrike extends Ability {
                 for (let i = 0; i<this.damageLast5Sec.length; i++) {
                     heal += this.damageLast5Sec[i]
                 }
-                heal = heal * 0.25
+                heal = heal * 0.25 * 1.53 // 1.53 = blood dk aura
 
                 if (heal<(caster.maxHealth*0.07)) {
                     heal = (caster.maxHealth*0.07)
                 }
 
+                let cost = this.cost
                 if (caster.spec==="blood") {
                     caster.abilities["Blood Shield"].applyAbsorb(caster,heal)
+
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Bone Shield" && caster.buffs[i].stacks>=5) {
+                            cost -= 5
+                        }
+                    }
                 }
 
                 doHeal(caster,caster,this,undefined,undefined,false,undefined,undefined,heal)
 
-                caster.useEnergy(this.cost,this.secCost)
+                caster.useEnergy(cost,this.secCost)
                 this.setCd()
                 this.setGcd(caster)
                 if (caster.isChanneling) {

@@ -42,6 +42,13 @@ class AutoAttack extends Ability {
                     if (caster.abilities["Demon Blades"].talentSelect) {
                         caster.abilities["Demon Blades"].doDamage(caster,caster.targetObj)
                     }
+                } else if (caster.spec==="blood") {
+                    if (checkDebuff(caster,caster.targetObj,"Blood Plague")) {
+                        if (getChance(25)) {
+                            applyBuff(caster,caster,caster.abilities["Crimson Scourge"])
+                            caster.abilities["Death and Decay"].cd = caster.abilities["Death and Decay"].maxCd
+                        }
+                    }
                 }
             }
 
