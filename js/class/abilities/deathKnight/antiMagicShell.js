@@ -29,8 +29,13 @@ class AntiMagicShell extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            let mul = 1
 
-            this.effect[0].val = caster.maxHealth * 0.3 * (1+(caster.stats.vers/100))
+            if (caster.abilities["Anti-Magic Barrier"].talentSelect) {
+                mul = 1.4
+            }
+
+            this.effect[0].val = (caster.maxHealth * 0.3 * (1+(caster.stats.vers/100)))*mul
 
             applyBuff(caster,caster,this)
             this.setCd()

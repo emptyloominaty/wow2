@@ -186,6 +186,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             if (ability.range<6) {
                 for (let i = 0; i<target.buffs.length; i++) {
                     if (target.buffs[i].name==="Bone Shield") {
+                        if(target.abilities["Blood Tap"].talentSelect) {
+                            target.abilities["Blood Tap"].incCd(target,2,false)
+                        }
+
                         if (target.buffs[i].stacks>1) {
                             target.buffs[i].stacks --
                         } else {
@@ -194,6 +198,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         break
                     }
                 }
+            }
+            if (target.abilities["Will of the Necropolis"].talentSelect && target.health/target.maxHealth<0.3) {
+                damage *= 0.7
             }
         }
 

@@ -7,27 +7,27 @@ let _blood_talents = function(caster) {
     //2
     caster.abilities["Rapid Decomposition"] = new RapidDecomposition()
     caster.abilities["Hemostasis"] = new Hemostasis()
-    //caster.abilities["Consumption"] = new Consumption()
+    caster.abilities["Consumption"] = new Consumption()
 
     //3
-    //caster.abilities["Foul Bulwark"] = new FoulBulwark()
-    //caster.abilities["Relish in Blood"] = new RelishinBlood()
-    //caster.abilities["Blood Tap"] = new BloodTap()
+    caster.abilities["Foul Bulwark"] = new FoulBulwark()
+    caster.abilities["Relish in Blood"] = new RelishinBlood()
+    caster.abilities["Blood Tap"] = new BloodTap()
 
     //4
-    //caster.abilities["Will of the Necropolis"] = new WilloftheNecropolis()
-    //caster.abilities["Anti-Magic Barrier"] = new AntiMagicBarrier()
-    //caster.abilities["Mark of Blood"] = new MarkofBlood()
+    caster.abilities["Will of the Necropolis"] = new WilloftheNecropolis()
+    caster.abilities["Anti-Magic Barrier"] = new AntiMagicBarrier()
+    caster.abilities["Mark of Blood"] = new MarkofBlood()
 
     //5
-    //caster.abilities["Grip of the Dead"] = new GripoftheDead()
-    //caster.abilities["Tightening Grasp"] = new TighteningGrasp()
-    //caster.abilities["Wraith Walk"] = new WraithWalk()
+    caster.abilities["Grip of the Dead"] = new GripoftheDead()
+    caster.abilities["Tightening Grasp"] = new TighteningGrasp()
+    caster.abilities["Wraith Walk"] = new WraithWalk()
 
     //6
-    //caster.abilities["Voracious"] = new Voracious()
-    //caster.abilities["Death Pact"] = new DeathPact()
-    //caster.abilities["Bloodworms"] = new Bloodworms()
+    caster.abilities["Voracious"] = new Voracious()
+    caster.abilities["Death Pact"] = new DeathPact()
+    caster.abilities["Bloodworms"] = new Bloodworms()
 
     //7
     //caster.abilities["Purgatory"] = new Purgatory()
@@ -108,7 +108,7 @@ class Blooddrinker extends Ability {
 //------------------------------------------------
 class Tombstone extends Ability {
     constructor() {
-        super("Tombstone", 0, 1.5, 0, 60, true, false, false, "shadow", 5, 1)
+        super("Tombstone", 0, 1.5, 0, 60, false, false, false, "shadow", 5, 1)
         this.talent = true
         this.duration = 8
         this.effect = [{name:"absorb",val:0}]
@@ -197,21 +197,222 @@ class Consumption extends Ability {
         this.talent = true
     }
 
-    getTooltip() {
+    getTooltip() { //TODO:
         return "//NOT IMPLEMENTED//Strikes all enemies in front of you with a hungering attack that deals (65.52% of Attack power)% Physical damage and heals you for 150% of that damage. Deals reduced damage beyond 8 targets."
     }
 
 }
 //------------------------------------------------------------------------------------------------ROW3
+class FoulBulwark extends Ability {
+    constructor() {
+        super("Foul Bulwark", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Each charge of Bone Shield increases your maximum health by 1%."
+    }
+}
 //------------------------------------------------
+class RelishinBlood extends Ability {
+    constructor() {
+        super("Relish in Blood", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {//TODO:
+        return "//NOT IMPLEMENTED//While Crimson Scourge is active, your next Death and Decay heals you for (24% of Attack power) health per Bone Shield charge and you immediately gain 10 Runic Power."
+    }
+}
 //------------------------------------------------
+class BloodTap extends Ability {
+    constructor() {
+        super("Blood Tap", 0, 0, 0, 60, false, false, false, "shadow", 5, 2)
+        this.talent = true
+        this.talentSelect = true
+        this.noGcd = true
+        this.secCost = -1
+    }
+
+    getTooltip() {
+        return "Consume the essence around you to generate 1 Rune.<br>" +
+            "<br>" +
+            "Recharge time reduced by 2 sec whenever a Bone Shield charge is consumed." //TODO:
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
+            this.setCd()
+            caster.useEnergy(this.cost,this.secCost)
+            this.setGcd(caster)
+            return true
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW4
+class WilloftheNecropolis extends Ability {
+    constructor() {
+        super("Will of the Necropolis", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+}
+
+    getTooltip() {
+        return "Damage taken below 30% Health is reduced by 30%."
+    }
+}
 //------------------------------------------------
+class AntiMagicBarrier extends Ability {
+    constructor() {
+        super("Anti-Magic Barrier", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Reduces the cooldown of Anti-Magic Shell by 20 sec and increases its duration and amount absorbed by 40%."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Anti-Magic Shell"].cd -= 20
+        caster.abilities["Anti-Magic Shell"].maxCd -= 20
+        caster.abilities["Anti-Magic Shell"].duration *= 1.4
+    }
+    unsetTalent(caster) {
+        caster.abilities["Anti-Magic Shell"].cd += 20
+        caster.abilities["Anti-Magic Shell"].maxCd += 20
+        caster.abilities["Anti-Magic Shell"].duration /= 1.4
+    }
+}
 //------------------------------------------------
+class MarkofBlood extends Ability {
+    constructor() {
+        super("Mark of Blood", 0, 1.5, 0, 6, false, false, false, "shadow", 15, 1)
+        this.talent = true
+        this.duration = 15
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Places a Mark of Blood on an enemy for 15 sec. The enemy's damaging auto attacks will also heal their victim for 3% of the victim's maximum health."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW5
+class GripoftheDead extends Ability {
+    constructor() {
+        super("Grip of the Dead", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Death and Decay reduces the movement speed of enemies within its area by 90%, decaying by 10% every sec."
+    }
+
+}
 //------------------------------------------------
+class TighteningGrasp extends Ability {
+    constructor() {
+        super("Tightening Grasp", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Reduces the cooldown on Gorefiend's Grasp by 30 sec."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Gorefiend's Grasp"].cd -= 30
+        caster.abilities["Gorefiend's Grasp"].maxCd -= 30
+    }
+    unsetTalent(caster) {
+        caster.abilities["Gorefiend's Grasp"].cd += 30
+        caster.abilities["Gorefiend's Grasp"].maxCd += 30
+    }
+}
 //------------------------------------------------
+class WraithWalk extends Ability {
+    constructor() {
+        super("Wraith Walk", 0, 1.5, 0, 60, false, false, false, "shadow", 5, 1)
+        this.talent = true
+        this.duration = 4
+        this.effect = [{name:"moveSpeed",val:0.7}]
+    }
+
+    getTooltip() { //TODO:Taking any action cancels the effect.  While active, your movement speed cannot be reduced below 170%
+        return "Embrace the power of the Shadowlands, removing all root effects and increasing your movement speed by 70% for 4 sec. Taking any action cancels the effect.<br>" +
+            "<br>" +
+            "While active, your movement speed cannot be reduced below 170%."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Movement speed increased by 70%.<br>" +
+            "Cannot be slowed below 170% of normal movement speed.<br>" +
+            "Cannot attack."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW6
+class Voracious extends Ability {
+    constructor() {
+        super("Voracious", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 8
+        this.effect = [{name:"increaseStat",stat:"leech",val:15}]
+    }
+
+    getTooltip() {
+        return "Death Strike's healing is increased by 20% and grants you 15% Leech for 8 sec."
+    }
+
+}
 //------------------------------------------------
+class DeathPact extends Ability {
+    constructor() {
+        super("Death Pact", 0, 0, 0, 120, false, false, false, "shadow", 5, 1)
+        this.talent = true
+        this.noGcd = true
+    }
+
+    getTooltip() { //TODO
+        return "//NOT IMPLEMENTED//Create a death pact that heals you for 50% of your maximum health, but absorbs incoming healing equal to 30% of your max health for 15 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "The next 0 healing received will be absorbed." //TODO
+    }
+
+}
 //------------------------------------------------
+class Bloodworms extends Ability {
+    constructor() {
+        super("Bloodworms", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() { //TODO
+        return "//NOT IMPLEMENTED//Your auto attacks have a chance to summon a Bloodworm.<br>" +
+            "<br>" +
+            "Bloodworms deal minor damage to your target for 15 sec and then burst, healing you for 15% of your missing health.<br>" +
+            "<br>" +
+            "If you drop below 50% health, your Bloodworms will immediately burst and heal you."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

@@ -800,6 +800,10 @@ class Creature {
                     } else if (this.buffs[i].effect[j].name === "boneShield") {
                         this.stats.haste += 10
                         this.stats.armor += 16
+                        if (this.abilities["Foul Bulwark"].talentSelect) {
+                            this.increaseHealth += 0.01*this.buffs[i].stacks
+                        }
+
                     } else if (this.buffs[i].effect[j].name === "immuneToMagic") {
                         this.immuneToMagic = true
                     }

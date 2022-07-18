@@ -75,7 +75,6 @@ class DeathStrike extends Ability {
 
                 let cost = this.cost
                 if (caster.spec==="blood") {
-                    caster.abilities["Blood Shield"].applyAbsorb(caster,heal)
                     for (let i = 0; i<caster.buffs.length; i++) {
                         if (caster.buffs[i].name==="Bone Shield" && caster.buffs[i].stacks>=5) {
                             cost -= 5
@@ -85,6 +84,11 @@ class DeathStrike extends Ability {
                             caster.buffs[i].duration = -1
                         }
                     }
+                    if (caster.abilities["Voracious"].talentSelect) {
+                        applyBuff(caster,caster,caster.abilities["Voracious"])
+                        heal = heal * 1.2
+                    }
+                    caster.abilities["Blood Shield"].applyAbsorb(caster,heal)
                 }
 
                 doHeal(caster,caster,this,undefined,undefined,false,undefined,undefined,heal)
