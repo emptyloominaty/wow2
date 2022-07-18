@@ -73,7 +73,12 @@ class HeartStrike extends Ability {
                     }
                 }
 
-                caster.useEnergy(this.cost,this.secCost)
+                let cost = this.cost
+                if (caster.abilities["Heartbreaker"].talentSelect) {
+                    cost -= (2*ttt)+2
+                }
+
+                caster.useEnergy(cost,this.secCost)
                 this.setCd()
                 this.setGcd(caster)
                 if (caster.isChanneling) {

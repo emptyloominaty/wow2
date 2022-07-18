@@ -76,10 +76,13 @@ class DeathStrike extends Ability {
                 let cost = this.cost
                 if (caster.spec==="blood") {
                     caster.abilities["Blood Shield"].applyAbsorb(caster,heal)
-
                     for (let i = 0; i<caster.buffs.length; i++) {
                         if (caster.buffs[i].name==="Bone Shield" && caster.buffs[i].stacks>=5) {
                             cost -= 5
+                        }
+                        if (caster.buffs[i].name==="Hemostasis") {
+                            heal = heal * (1+(caster.buffs[i].stacks*0.08))
+                            caster.buffs[i].duration = -1
                         }
                     }
                 }

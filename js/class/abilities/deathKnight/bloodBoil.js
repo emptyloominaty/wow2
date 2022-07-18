@@ -23,12 +23,17 @@ class BloodBoil extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-
+            let ttt = 0
             for (let i = 0; i<enemies.length; i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],10,true)) {
                     doDamage(caster,enemies[i],this)
-                    applyDot(caster,enemies[i], caster.abilities["Blood Plague"])
+                    caster.abilities["Blood Plague"].apply(caster,enemies[i])
+                    ttt++
                 }
+            }
+
+            if (caster.abilities["Hemostasis"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Hemostasis"],ttt,true)
             }
 
             caster.useEnergy(this.cost,this.secCost)
@@ -79,9 +84,20 @@ class BloodPlague extends Ability {
             this.timer1 += progressInSec
         } else {
             this.timer1 = 0
-            doHeal(buff.caster,buff.caster,this,undefined,this.spellPower/24)
+            let heal = this.spellPower/24
+            if (buff.caster.abilities["Rapid Decomposition"].talentSelect) {
+                heal = heal * 1.5
+            }
+            doHeal(buff.caster,buff.caster,this,undefined,heal)
         }
 
+    }
+
+    apply(caster,target) {
+        if (caster.abilities["Rapid Decomposition"].talentSelect) {
+            this.spellPower = 0.6416*1.15
+        }
+        applyDot(caster,target,this)
     }
 
 

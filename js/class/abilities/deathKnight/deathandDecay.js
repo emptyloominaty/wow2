@@ -46,6 +46,10 @@ class DeathandDecay extends Ability {
                 caster.isChanneling = false
             }
 
+            if (caster.abilities["Rapid Decomposition"].talentSelect) {
+                this.spellPower = 0.036036*1.1*1.15
+            }
+
             if (caster===player) {
                 this.castPosition.x = mousePosition2d.x
                 this.castPosition.y = mousePosition2d.y
