@@ -18,8 +18,10 @@ class Blood_Abilities {
     "Death's Advance" = new DeathsAdvance()
     "Anti-Magic Zone" = new AntiMagicZone()
     "Death Coil" = new DeathCoil()
-    "Death Grip" = new DeathGrip()
+    "Death Grip" = new DeathGrip(true)
     "Gorefiend's Grasp" = new GorefiendsGrasp()
+    "Raise Dead" = new RaiseDead(true)
+    "Sacrificial Pact" = new SacrificialPact()
 
     //passive
     "Veteran of the Third War" = new VeteranoftheThirdWar(true)

@@ -226,7 +226,7 @@ class Creature {
             this.secondaryResource = 6
             this.maxSecondaryResource = 6
             this.resourceName = "Runic Power"
-            this.maxEnergy = 110
+            this.maxEnergy = 125
             this.energy = 0
             this.melee = true
             this.role = "tank"

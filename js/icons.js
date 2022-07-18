@@ -180,6 +180,7 @@ let iconsPath = {
     "Vampiric Blood":"img/deathKnight/VampiricBlood.jpg",
     "Veteran of the Third War":"img/deathKnight/VeteranoftheThirdWar.jpg",
     "Will of the Necropolis":"img/deathKnight/WilloftheNecropolis.jpg",
+    "Claw":"img/deathKnight/Claw.jpg",
 
     //Demon Hunter
     "Chaos Brand":"img/demonHunter/ChaosBrand.jpg",

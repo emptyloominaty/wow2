@@ -721,6 +721,7 @@ if (player.spec==="blood") {
         //bar2
         "Anti-Magic Shell": new Action("Anti-Magic Shell",2,0),
         "Death Coil": new Action("Death Coil",2,1),
+        "Raise Dead": new Action("Raise Dead",2,2),
 
         "Death's Caress": new Action("Death's Caress",2,3),
         "Anti-Magic Zone": new Action("Anti-Magic Zone",2,4),
@@ -729,6 +730,7 @@ if (player.spec==="blood") {
 
         //bar3
         "Raise Ally": new Action("Raise Ally",3,0),
+        "Sacrificial Pact": new Action("Sacrificial Pact",3,1),
 
     }
 }

@@ -1,5 +1,5 @@
 class DeathGrip extends Ability {
-    constructor() {
+    constructor(blood = false) {
         let name = "Death Grip"
         let cost = 0
         let gcd = 0
@@ -15,6 +15,11 @@ class DeathGrip extends Ability {
 
         this.duration = 2
         this.effect = [{name:"moveToTarget",val:7,target:0}]
+
+        if (blood) {
+            this.cd = 15
+            this.maxCd = 15
+        }
     }
 
     getTooltip() {
