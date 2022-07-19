@@ -327,7 +327,15 @@ class Creature {
             this.resourceName = "Rage"
             this.energy = 0
             this.role = "dps"
-        }  else if (spec==="bossTest") {//----------------------------------------Boss Test
+        } else if (spec==="arms") {//----------------------------------------Arms
+            this.class = "Warrior"
+            this.melee = true
+            this.abilities = new Arms_Abilities()
+            _arms_talents(this)
+            this.resourceName = "Rage"
+            this.energy = 0
+            this.role = "dps"
+        } else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"
             this.abilities = new BossTestAbilities()
             this.isStunnable = false

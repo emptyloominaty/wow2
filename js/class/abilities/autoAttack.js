@@ -34,7 +34,14 @@ class AutoAttack extends Ability {
                 this.setCd()
                 this.maxCd = (caster.autoattackSpeed/caster.attackSpeed) / (1 + (caster.stats.haste / 100))
                 if (caster.class==="Warrior") {
-                    caster.useEnergy(-3,0)
+                    if (caster.spec==="fury") {
+                        caster.useEnergy(-6,0)
+                    } else if (caster.spec==="arms") {
+                        caster.useEnergy(-25,0)
+                    } else if (caster.spec==="protectionWarrior") {
+                        caster.useEnergy(-2,0)
+                    }
+
                     if (caster.spec==="fury" && caster.abilities["War Machine"].talentSelect) {
                         caster.useEnergy(-0.6,0)
                     }

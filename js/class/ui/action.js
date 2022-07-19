@@ -479,6 +479,47 @@ if (player.spec==="fury") {
     }
 }
 
+if (player.spec==="arms") {
+    actions = {
+        //bar0
+
+        //"Bladestorm": new Action("Bladestorm", 0, 1),
+
+        "Pummel": new Action("Pummel", 0, 5),
+        "Cleave": new Action("Cleave",0,6),
+        "Ignore Pain": new Action("Ignore Pain",0,7),
+
+        //bar1
+        "Overpower": new Action("Overpower",1,0),
+
+        "Victory Rush": new Action("Victory Rush", 1, 2),
+        "Charge": new Action("Charge", 1, 3),
+
+        "Slam": new Action("Slam",1,8),
+        "Mortal Strike": new Action("Mortal Strike",1,9),
+
+
+        //bar2
+        "Execute": new Action("Execute", 2, 0),
+        "Whirlwind": new Action("Whirlwind", 2, 1),
+        "Shattering Throw": new Action("Shattering Throw",2,2),
+        "Heroic Throw": new Action("Heroic Throw",2,3),
+
+        "Rallying Cry": new Action("Rallying Cry", 2, 4),
+
+        "Heroic Leap": new Action("Heroic Leap", 2, 11),
+
+        //bar3
+        "Intervene": new Action("Intervene",3,0),
+        "Spell Reflection": new Action("Spell Reflection",3,1),
+        "Piercing Howl": new Action("Piercing Howl",3,2),
+        "Challenging Shout":  new Action("Challenging Shout", 3, 8),
+        "Battle Shout":  new Action("Battle Shout", 3, 10),
+
+    }
+}
+
+
 if (player.spec==="holyPriest") {
     actions = {
         "Holy Word: Serenity": new Action("Holy Word: Serenity", 1, 0),

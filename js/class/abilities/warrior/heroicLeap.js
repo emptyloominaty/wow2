@@ -23,7 +23,7 @@ class HeroicLeap extends Ability {
     //TODO: Protection
     // and resetting the remaining cooldown on Taunt
     getTooltip() {
-        return "Charge to an enemy, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage, rooting it for 1 sec <br> Min Range:8"
+        return "Leap through the air toward a target location, slamming down with destructive force to deal "+spellPowerToNumber(this.spellPower)+" Physical damage to all enemies within 8 yards"
     }
 
     startCast(caster) {

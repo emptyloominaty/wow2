@@ -1,5 +1,5 @@
 class Whirlwind extends Ability {
-    constructor() {
+    constructor(arms = false) {
         let name = "Whirlwind"
         let cost = -3
 
@@ -16,7 +16,6 @@ class Whirlwind extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = (0.083+0.089+(2*0.083)+0.089)
-        //TODO Causes your next 2 single-target melee attacks to strike up to 4 additional targets for 45% damage
 
         this.hasteCd = true
 
@@ -26,14 +25,15 @@ class Whirlwind extends Ability {
         this.targets = 4
         this.cleaveDamage = 0.45
 
+        if (arms) {
+            this.cost = 30
+        }
+
 
     }
 
     getTooltip() {
         return "Unleashes a whirlwind of steel, striking all nearby enemies for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage. Causes your next 2 single-target melee attacks to strike up to 4 additional targets for 45% damage."
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {
@@ -55,10 +55,13 @@ class Whirlwind extends Ability {
             if (cost<-8) {
                 cost = -8
             }
-
+            if (caster.spec==="fury") {
+                applyBuff(caster,caster,this,this.stacks,true)
+            } else {
+                cost = this.cost
+            }
             caster.useEnergy(cost,this.secCost)
             this.setGcd(caster)
-            applyBuff(caster,caster,this,this.stacks,true)
             return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
@@ -66,6 +69,4 @@ class Whirlwind extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

@@ -27,7 +27,8 @@ let iconsPath = {
         "holyPaladin":"img/specs/paladin/holy.png",
         "protectionPaladin":"img/specs/paladin/protection.png",
         "blood":"img/specs/deathknight/blood.png",
-        "retribution":"img/specs/paladin/retribution.png"
+        "retribution":"img/specs/paladin/retribution.png",
+        "arms":"img/specs/warrior/arms.png",
     },
 
     //classes

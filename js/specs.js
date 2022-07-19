@@ -17,4 +17,5 @@ let specsName = {
     "protectionPaladin":"Protection",
     "blood":"Blood",
     "retribution":"Retribution",
+    "arms":"Arms",
 }
