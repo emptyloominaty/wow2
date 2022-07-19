@@ -1,4 +1,4 @@
-class Cleave extends Ability {
+class Cleave extends Ability { //TODO:TALENT
     constructor() {
         let name = "Cleave"
         let cost = 20
@@ -27,13 +27,17 @@ class Cleave extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            let spellPower = this.spellPower
+            if (checkBuffStacks(caster,caster,"Overpower")) {
+                spellPower *= 1.2
+            }
             let dir = caster.direction
             let targets = enemies
             for (let i = 0; i<targets.length ;i++) {
                 if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
                     let dirToTarget = getDirection(caster,targets[i])
                     if (directionHit(dir,dirToTarget,75)) {
-                        doDamage(caster, targets[i], this)
+                        doDamage(caster, targets[i], this,undefined,spellPower)
                     }
                 }
             }

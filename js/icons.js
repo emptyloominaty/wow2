@@ -1300,6 +1300,7 @@ let iconsPath = {
     "Berserker Rage":"img/warrior/BerserkerRage.jpg",
     "Best Served Cold":"img/warrior/BestServedCold.jpg",
     "Bladestorm":"img/warrior/Bladestorm.jpg",
+    "Bladestorm ":"img/warrior/Bladestorm.jpg",
     "Bloodthirst":"img/warrior/Bloodthirst.jpg",
     "Bolster":"img/warrior/Bolster.jpg",
     "Booming Voice":"img/warrior/BoomingVoice.jpg",

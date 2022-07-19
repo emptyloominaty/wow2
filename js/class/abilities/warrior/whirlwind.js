@@ -27,13 +27,17 @@ class Whirlwind extends Ability {
 
         if (arms) {
             this.cost = 30
+            this.spellPower = 0.182*3*1.13
         }
-
 
     }
 
     getTooltip() {
-        return "Unleashes a whirlwind of steel, striking all nearby enemies for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage. Causes your next 2 single-target melee attacks to strike up to 4 additional targets for 45% damage."
+        if (player.spec==="fury") {
+            return "Unleashes a whirlwind of steel, striking all nearby enemies for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage. Causes your next 2 single-target melee attacks to strike up to 4 additional targets for 45% damage."
+        } else {
+            return "Unleashes a whirlwind of steel, striking all nearby enemies for "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Physical damage."
+        }
     }
 
     startCast(caster) {

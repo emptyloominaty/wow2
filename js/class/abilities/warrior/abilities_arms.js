@@ -19,9 +19,10 @@ class Arms_Abilities {
     "Mortal Strike" = new MortalStrike()
     "Slam" = new Slam()
     "Overpower" = new Overpower()
-    "Cleave" = new Cleave()
-
-    //TODO   caster.abilities["Bladestorm"] = new Bladestorm()
+    "Colossus Smash" = new ColossusSmash()
+    "Sweeping Strikes" = new SweepingStrikes()
+    "Bladestorm " = new BladestormArms()
+    "Die by the Sword" = new DiebytheSword()
 
     //passive
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}

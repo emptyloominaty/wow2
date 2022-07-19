@@ -1,47 +1,36 @@
-class Slam extends Ability {
+class ColossusSmash extends Ability {
     constructor() {
-        let name = "Slam"
-        let cost = 20
+        let name = "Colossus Smash"
+        let cost = 0
         let gcd = 1.5
         let castTime = 0
-        let cd = 0
+        let cd = 45
         let charges = 1
         let channeling = false
         let casting = false
-        let canMove = true
+        let canMove = false
         let school = "physical"
-        let range = 5 //melee
+        let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.spellPower = 0.35*2.1*1.36
-        this.hasteCd = true
+
+        this.effect = []
+        this.duration = 10
+        this.spellPower = 1.815
+
     }
 
     getTooltip() {
-        return "Slams an opponent, causing "+spellPowerToNumber(this.spellPower)+" Physical damage."
+        return "Smashes the enemy's armor, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage, and increasing damage you deal to them by 30% for 10 sec."
     }
 
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
-            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    applyDebuff(caster,caster.castTarget,this)
                     doDamage(caster,caster.castTarget,this)
                     done = true
-                }
-            } else {
-                let newTarget = findNearestEnemy(caster)
-                if (newTarget!==false) {
-                    if (caster===player) {
-                        document.getElementById("raidFrame"+targetSelect).style.outline = "0px solid #fff"
-                    }
-                    caster.targetObj = newTarget
-                    caster.target = newTarget.name
-                    target = caster.targetObj
-                    if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
-                        done = true
-                    }
                 }
             }
             if (done) {
@@ -49,7 +38,7 @@ class Slam extends Ability {
                     caster.isChanneling = false
                 }
                 if (caster.spec==="arms" && checkBuff(caster,caster,"Sweeping Strikes")) {
-                    caster.abilities["Sweeping Strikes"].cleave(caster,target,this)
+                    caster.abilities["Sweeping Strikes"].cleave(caster,caster.castTarget,this)
                 }
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)

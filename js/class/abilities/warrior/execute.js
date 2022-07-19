@@ -27,10 +27,14 @@ class Execute extends Ability {
     startCast(caster) {
         if (this.checkStart(caster) && (caster.castTarget.health/caster.castTarget.maxHealth<this.lessthanhealth || checkBuff(caster,caster,"Sudden Death"))) {
             let done = false
+            let target = target.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)
-                    caster.abilities["WhirlwindBuff"].startCast(caster,caster.castTarget,this)
+                    if (caster.spec==="fury") {
+                        caster.abilities["WhirlwindBuff"].startCast(caster,caster.castTarget,this)
+                    }
+
                     done = true
                 }
             } else {
@@ -41,9 +45,12 @@ class Execute extends Ability {
                     }
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
+                    target= caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         doDamage(caster, caster.targetObj, this)
-                        caster.abilities["WhirlwindBuff"].startCast(caster,caster.targetObj,this)
+                        if (caster.spec==="fury") {
+                            caster.abilities["WhirlwindBuff"].startCast(caster, caster.targetObj, this)
+                        }
                         done = true
                     }
                 }
@@ -53,12 +60,15 @@ class Execute extends Ability {
                     caster.isChanneling = false
                 }
 
-                for (let i = 0; i<caster.buffs.length; i++) {
-                    if (caster.buffs[i].name==="Sudden Death") {
-                        caster.buffs[i].duration = -1
+                if (caster.spec==="fury") {
+                    for (let i = 0; i < caster.buffs.length; i++) {
+                        if (caster.buffs[i].name === "Sudden Death") {
+                            caster.buffs[i].duration = -1
+                        }
                     }
+                } else if (caster.spec==="arms" && checkBuff(caster,caster,"Sweeping Strikes")) {
+                    caster.abilities["Sweeping Strikes"].cleave(caster,target,this)
                 }
-
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

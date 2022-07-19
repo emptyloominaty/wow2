@@ -51,6 +51,9 @@ class Overpower extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.spec==="arms" && checkBuff(caster,caster,"Sweeping Strikes")) {
+                    caster.abilities["Sweeping Strikes"].cleave(caster,target,this)
+                }
                 applyBuff(caster,caster,this,1,true)
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)

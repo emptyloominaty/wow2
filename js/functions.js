@@ -322,6 +322,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         doDamage(caster,target,caster.abilities["Final Reckoning"],undefined,caster.abilities["Final Reckoning"].spellPower2)
                     }
                 }
+            } else if (caster.spec==="arms") {
+                if (checkDebuff(caster, target, "Colossus Smash")) {
+                    damage *= 1.3
+                }
             }
         }
 

@@ -567,7 +567,6 @@ class Bladestorm extends Ability {
         this.talent = true
         this.talentSelect = true
         this.spellPower = 1*1.21
-        this.hasteCd = true
         this.duration = 4
     }
 

@@ -482,16 +482,16 @@ if (player.spec==="fury") {
 if (player.spec==="arms") {
     actions = {
         //bar0
-
-        //"Bladestorm": new Action("Bladestorm", 0, 1),
+        "Colossus Smash": new Action("Colossus Smash",0,0),
+        "Bladestorm ": new Action("Bladestorm ", 0, 1),
 
         "Pummel": new Action("Pummel", 0, 5),
-        "Cleave": new Action("Cleave",0,6),
+        //"Cleave": new Action("Cleave",0,6),
         "Ignore Pain": new Action("Ignore Pain",0,7),
 
         //bar1
         "Overpower": new Action("Overpower",1,0),
-
+        "Sweeping Strikes": new Action("Sweeping Strikes",1,1),
         "Victory Rush": new Action("Victory Rush", 1, 2),
         "Charge": new Action("Charge", 1, 3),
 

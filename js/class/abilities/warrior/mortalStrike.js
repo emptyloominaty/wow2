@@ -53,6 +53,9 @@ class MortalStrike extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.spec==="arms" && checkBuff(caster,caster,"Sweeping Strikes")) {
+                    caster.abilities["Sweeping Strikes"].cleave(caster,target,this)
+                }
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
