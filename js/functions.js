@@ -317,6 +317,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (ability.school === "holy") {
                     damage = damage * (1 + (caster.stats.mastery / 100))
                 }
+                if (caster.abilities["Final Reckoning"].talentSelect && caster.abilities["Final Reckoning"].cd<caster.abilities["Final Reckoning"].maxCd && ability.name!=="Final Reckoning") {
+                    if (getChance(11.1*(1+(caster.stats.haste/100)))) {
+                        doDamage(caster,target,caster.abilities["Final Reckoning"],undefined,caster.abilities["Final Reckoning"].spellPower2)
+                    }
+                }
             }
         }
 

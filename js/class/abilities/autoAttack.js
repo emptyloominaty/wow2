@@ -50,7 +50,11 @@ class AutoAttack extends Ability {
                         }
                     }
                 } else if (caster.spec==="retribution") {
-                    if (getChance(8)) {
+                    let chance = 8
+                    if (caster.abilities["Blade of Wrath"].talentSelect) {
+                        chance *= 2
+                    }
+                    if (getChance(chance)) {
                         caster.abilities["Blade of Justice"].cd = caster.abilities["Blade of Justice"].maxCd
                     }
                     if (caster.abilities["Zeal"].talentSelect && checkBuffStacks(caster,caster,"Zeal")) {

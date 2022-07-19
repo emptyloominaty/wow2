@@ -17,6 +17,8 @@ class FlashofLight extends Ability {
         if (prot) {
             this.spellPower *= 1.39
         }
+
+        this.selflessHealer = 0
     }
 
     getTooltip() {
@@ -30,6 +32,15 @@ class FlashofLight extends Ability {
                 caster.isChanneling = false
             }
             let castTime = this.castTime
+            if (caster.spec==="retribution" && caster.abilities["Selfless Healer"].talentSelect) {
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Selfless Healer") {
+                        castTime = this.castTime * ((4-caster.buffs[i].stacks)/4)
+                        this.selflessHealer = caster.buffs[i].stacks
+                        caster.buffs[i].duration =- 1
+                    }
+                }
+            }
 
             caster.isCasting = true
             caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
@@ -44,13 +55,18 @@ class FlashofLight extends Ability {
     endCast(caster) {
         caster.isCasting = false
         let target = caster.casting.target
+        let spellPower = this.spellPower
+        if (this.selflessHealer>0) {
+            spellPower = spellPower * (1+(this.selflessHealer/10))
+            this.selflessHealer = 0
+        }
         if (this.isEnemy(caster,target) || target.isDead || target==="" || Object.keys(target).length === 0) {
             //heal self
-            doHeal(caster,caster,this)
+            doHeal(caster,caster,this,undefined,spellPower)
             target = caster
         } else {
             //heal target
-            doHeal(caster,target,this)
+            doHeal(caster,target,this,undefined,spellPower)
         }
         let cost = this.cost
         if (caster.spec==="holyPaladin" && checkBuff(caster,caster,"Infusion of Light",true)) {

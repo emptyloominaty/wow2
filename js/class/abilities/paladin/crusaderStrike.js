@@ -54,6 +54,8 @@ class CrusaderStrike extends Ability {
                 this.setCd()
                 if (caster.spec==="holyPaladin" && caster.abilities["Crusader's Might"].talentSelect) {
                     caster.abilities["Holy Shock"].incCd(caster,1.5,false)
+                } else if (caster.spec==="retribution" && caster.abilities["Fires of Justice"].talentSelect && getChance(15)) {
+                    caster.useEnergy(0,-1)
                 }
 
                 if (caster.isChanneling) {

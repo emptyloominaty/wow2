@@ -23,14 +23,10 @@ class Starsurge extends Ability {
             this.canUse = false
         }
 
-
     }
 
     getTooltip() {
         return "Launch a surge of stellar energies at the target, dealing"+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+"  Astral damage, and empowering the damage bonus of any active Eclipse for its duration."
-    }
-
-    run(caster) {
     }
 
     startCast(caster) {
@@ -89,9 +85,4 @@ class Starsurge extends Ability {
         }
     }
 
-    runBuff() {
-    }
-
-    endBuff() {
-    }
 }

@@ -20,7 +20,7 @@ class HammerofWrath extends Ability {
     }
 
     getTooltip() {
-        return "Hurls a divine hammer that strikes an enemy for (120% of Attack power) Holy damage. Only usable on enemies that have less than 20% health or during Avenging Wrath<br>" +
+        return "Hurls a divine hammer that strikes an enemy for "+spellPowerToNumber(this.spellPower)+" Holy damage. Only usable on enemies that have less than 20% health or during Avenging Wrath<br>" +
             "<br>" +
             "Generates 1 Holy Power."
     }

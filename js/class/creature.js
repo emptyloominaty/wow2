@@ -1134,6 +1134,9 @@ class Creature {
             if (this.abilities["Sanctified Wrath"].talentSelect && val2>0 && checkBuff(this,this,"Avenging Wrath")) {
                 this.abilities["Sanctified Wrath"].explode(this,val2)
             }
+            if (this.abilities["Selfless Healer"].talentSelect && val2>0) {
+                applyBuff(this,this,this.abilities["Selfless Healer"],1,true)
+            }
         } else if (this.spec==="blood") {
             if (this.abilities["Red Thirst"].talentSelect) {
                 if (val>0) {

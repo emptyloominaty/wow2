@@ -48,6 +48,19 @@ class TemplarsVerdict extends Ability {
                 }
             }
             if (done) {
+                if (caster.abilities["Righteous Verdict"].talentSelect) {
+                    let y = false
+                    for (let i = 0; i<caster.buffs.length; i++) {
+                        if (caster.buffs[i].name==="Righteous Verdict") {
+                            caster.buffs.splice(i, 1)
+                            y = true
+                        }
+                    }
+                    if (y) {
+                        spellPower *= 1.15
+                    }
+                    applyBuff(caster,caster,caster.abilities["Righteous Verdict"])
+                }
                 doDamage(caster, caster.castTarget, this,undefined,spellPower)
                 caster.useEnergy(this.cost,secCost)
                 this.setCd()

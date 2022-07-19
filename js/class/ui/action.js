@@ -660,6 +660,7 @@ if (player.spec==="retribution") {
         //bar2
         "Flash of Light": new Action("Flash of Light", 2, 0),
         "Hammer of Wrath": new Action("Hammer of Wrath",2,1),
+        "Final Reckoning": new Action("Final Reckoning",2,2),
 
         "Lay on Hands": new Action("Lay on Hands",2,4),
         "Blessing of Protection": new Action("Blessing of Protection",2,5),

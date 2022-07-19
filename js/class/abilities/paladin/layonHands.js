@@ -12,7 +12,6 @@ class LayonHands extends Ability {
         let school = "holy"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.hasteCd = true
         this.spellPower = 0.68
         this.spellPowerHeal = 1.55
         this.noGcd = true
