@@ -88,7 +88,7 @@ class Creature {
     battleShout = false
     isReflectingSpell = false
     immuneToMagic = false
-
+    cantDie = false
     //
 
     magicDamageTaken = 1
@@ -489,6 +489,7 @@ class Creature {
         this.isReflectingSpell = false
         this.battleShout = false
         this.immuneToMagic = false
+        this.cantDie = false
         this.healthA = this.health
 
         if (this.role==="tank") {
@@ -770,6 +771,8 @@ class Creature {
                         }
                     } else if (this.buffs[i].effect[j].name === "cantDie") {
                         this.health = this.maxHealth
+                    } else if (this.buffs[i].effect[j].name === "cantDie2") {
+                        this.cantDie = true
                     } else if (this.buffs[i].effect[j].name === "cenarionWard") {
                         if (this.healthA < this.healthB) {
                             this.buffs[i].duration = -1
@@ -982,6 +985,10 @@ class Creature {
     }
 
     die() {
+        if (this.cantDie) {
+            return false
+        }
+
         if (this.class==="Rogue" && this.abilities["Cheat Death"].talentSelect) {
             this.abilities["Cheat Death"].cheat(this)
             return false
@@ -994,6 +1001,8 @@ class Creature {
         } else if (this.spec==="vengeance" && this.abilities["Last Resort"].talentSelect) {
             this.abilities["Last Resort"].cheat(this)
             return false
+        } else if (this.spec==="blood" && this.abilities["Purgatory"].talentSelect) {
+            this.abilities["Purgatory"].preventFatalDamage(this)
         }
 
         this.floatingTexts.removeAll()
@@ -1105,6 +1114,12 @@ class Creature {
                 //"Each Holy Power spent reduces the remaining cooldown on Avenging Wrath and Guardian of Ancient Kings by 1 sec."
                 this.abilities["Avenging Wrath"].incCd(this,val2,false)
                 this.abilities["Guardian of Ancient Kings"].incCd(this,val2,false)
+            }
+        } else if (this.spec==="blood") {
+            if (this.abilities["Red Thirst"].talentSelect) {
+                if (val>0) {
+                    this.abilities["Vampiric Blood"].incCd(this,1.5*(val/10),true)
+                }
             }
         }
     }

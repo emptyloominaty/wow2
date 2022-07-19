@@ -30,9 +30,9 @@ let _blood_talents = function(caster) {
     caster.abilities["Bloodworms"] = new Bloodworms()
 
     //7
-    //caster.abilities["Purgatory"] = new Purgatory()
-    //caster.abilities["Red Thirst"] = new RedThirst()
-    //caster.abilities["Bonestorm"] = new Bonestorm()
+    caster.abilities["Purgatory"] = new Purgatory()
+    caster.abilities["Red Thirst"] = new RedThirst()
+    caster.abilities["Bonestorm"] = new Bonestorm()
 
 
     caster.talents = [["Heartbreaker","Blooddrinker","Tombstone"],
@@ -414,5 +414,61 @@ class Bloodworms extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW7
+class Purgatory extends Ability {
+    constructor() {
+        super("Purgatory", 0, 0, 0, 240, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.effect = [{name:"healingAbsorb",val:0},{name:"cantDie2"}]
+        this.duration = 3
+    }
+
+    getTooltip() { //TODO:healing absorb
+        return "An unholy pact that prevents fatal damage, instead absorbing incoming healing equal to the damage prevented, lasting 3 sec.<br>" +
+            "<br>" +
+            "If any healing absorption remains when this effect expires, you will die. This effect may only occur every 4 min."
+    }
+
+    preventFatalDamage(caster) {
+        if (this.cd>=this.maxCd) {
+            this.effect[0].val = caster.health*(-1)
+            caster.health = 1
+            applyBuff(caster,caster,this)
+            this.setCd()
+        }
+    }
+
+    endBuff(caster,i) {
+        if (caster.buffs[i].effect[0].val<=0) {
+            caster.health = -9999
+            caster.die()
+        }
+    }
+
+}
 //------------------------------------------------
+class RedThirst extends Ability {
+    constructor() {
+        super("Red Thirst", 0, 0, 0, 0, false, false, false, "shadow", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Reduces the cooldown on Vampiric Blood by 1.5 sec per 10 Runic Power spent."
+    }
+}
 //------------------------------------------------
+class Bonestorm extends Ability {
+    constructor() {
+        super("Bonestorm", 10, 1.5, 0, 60, false, false, false, "shadow", 8, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//A whirl of bone and gore batters all nearby enemies, dealing (19.65% of Attack power) Shadow damage every 1 sec, and healing you for 3% of your maximum health every time it deals damage (up to 15%). Lasts 1 sec per 10 Runic Power spent."
+    }
+}
