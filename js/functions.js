@@ -313,6 +313,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         }
                     }
                 }
+            } else if (caster.spec==="retribution") {
+                if (ability.school === "holy") {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
             }
         }
 

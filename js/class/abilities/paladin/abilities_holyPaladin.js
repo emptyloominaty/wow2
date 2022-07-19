@@ -1,8 +1,8 @@
 class HolyPaladin_Abilities {
     "Flash of Light" = new FlashofLight()
     "Holy Light" = new HolyLight()
-    "Judgment" = new Judgment()
-    "Crusader Strike" = new CrusaderStrike()
+    "Judgment" = new Judgment(false,true)
+    "Crusader Strike" = new CrusaderStrike(true)
     "Holy Shock" = new HolyShock()
     "Lay on Hands" = new LayonHands()
     "Light of Dawn" = new LightofDawn()

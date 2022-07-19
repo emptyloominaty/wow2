@@ -635,6 +635,36 @@ if (player.spec==="protectionPaladin") {
 
     }
 }
+if (player.spec==="retribution") {
+    actions = {
+        //bar0
+        "Avenging Wrath": new Action("Avenging Wrath",0,0),
+
+        "Cleanse Toxins": new Action("Cleanse Toxins",0,4),
+        "Rebuke": new Action("Rebuke",0,5),
+        "Consecration": new Action("Consecration",0,6),
+
+        //bar1
+
+        "Divine Steed": new Action("Divine Steed",1,3),
+
+        "Judgment": new Action("Judgment",1,8),
+        "Crusader Strike": new Action("Crusader Strike",1,9),
+        "Hammer of Justice": new Action("Hammer of Justice",1,10),
+
+        //bar2
+        "Flash of Light": new Action("Flash of Light", 2, 0),
+        "Hammer of Wrath": new Action("Hammer of Wrath",2,1),
+
+        "Lay on Hands": new Action("Lay on Hands",2,4),
+        "Blessing of Protection": new Action("Blessing of Protection",2,5),
+        "Divine Shield": new Action("Divine Shield",2,6),
+        "Blessing of Freedom": new Action( "Blessing of Freedom",2,11),
+
+        //bar3
+
+    }
+}
 
 if (player.spec==="havoc") {
     actions = {

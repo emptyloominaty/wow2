@@ -1,5 +1,5 @@
 class Judgment extends Ability {
-    constructor(prot = false) {
+    constructor(prot = false,holy = false) {
         let name = "Judgment"
         let cost = 1.5
         let gcd = 1.5
@@ -20,6 +20,9 @@ class Judgment extends Ability {
             this.cd = 6
             this.maxCd = 6
             this.spellPower *= 0.73
+            this.cost = 0
+        }
+        if (!holy) {
             this.cost = 0
         }
 
@@ -58,7 +61,7 @@ class Judgment extends Ability {
                         doDamage(caster, caster.castTarget, this)
                         caster.useEnergy(this.cost,this.secCost)
                         this.setCd()
-                        if (caster.abilities["Judgment of Light"].talentSelect) {
+                        if (caster.spec!=="retribution" && caster.abilities["Judgment of Light"].talentSelect) {
                             applyDebuff(caster,caster.castTarget,caster.abilities["Judgment of Light"],undefined,25,true)
                         }
 

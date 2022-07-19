@@ -216,6 +216,18 @@ class Creature {
             this.maxEnergy = 10
             this.melee = true
             this.role = "tank"
+        } else if (spec==="retribution") {//----------------------------------------Retribution Paladin
+            this.class = "Paladin"
+            this.abilities = new Retribution_Abilities()
+            _retribution_talents(this)
+
+            this.secondaryResourceName = "Holy Power"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 5
+            this.energy = 10
+            this.maxEnergy = 10
+            this.melee = true
+            this.role = "dps"
         } else if (spec==="blood") {//----------------------------------------Blood DK
             this.class = "Death Knight"
             this.abilities = new Blood_Abilities()

@@ -1,5 +1,5 @@
 class CrusaderStrike extends Ability {
-    constructor() {
+    constructor(holy = false) {
         let name = "Crusader Strike"
         let cost = 0.44
         let gcd = 1.5
@@ -16,6 +16,10 @@ class CrusaderStrike extends Ability {
         this.spellPower = 0.765
         this.hasteCd = true
         this.secCost = -1
+
+        if (!holy) {
+            this.cost = 0
+        }
 
     }
 
@@ -44,15 +48,11 @@ class CrusaderStrike extends Ability {
                     }
                 }
             }
-            if (done && Object.keys(caster.castTarget).length !== 0) {
-                if (this.isEnemy(caster,caster.castTarget)) {
-                    if (this.checkDistance(caster,caster.castTarget) && !caster.castTarget.isDead) {
-                        doDamage(caster, caster.castTarget, this)
-                        caster.useEnergy(this.cost,this.secCost)
-                        this.setCd()
-                    }
-                }
-                if (caster.abilities["Crusader's Might"].talentSelect) {
+            if (done) {
+                doDamage(caster, caster.castTarget, this)
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
+                if (caster.spec==="holyPaladin" && caster.abilities["Crusader's Might"].talentSelect) {
                     caster.abilities["Holy Shock"].incCd(caster,1.5,false)
                 }
 
