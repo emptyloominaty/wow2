@@ -49,6 +49,10 @@ class AutoAttack extends Ability {
                             caster.abilities["Death and Decay"].cd = caster.abilities["Death and Decay"].maxCd
                         }
                     }
+                } else if (caster.spec==="retribution") {
+                    if (getChance(8)) {
+                        caster.abilities["Blade of Justice"].cd = caster.abilities["Blade of Justice"].maxCd
+                    }
                 }
             }
 

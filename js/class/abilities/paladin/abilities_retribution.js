@@ -17,10 +17,15 @@ class Retribution_Abilities {
     "Rebuke" = new Rebuke()
     "Cleanse Toxins" = new CleanseToxins()
     "Crusader Strike" = new CrusaderStrike()
-
+    "Templar's Verdict" = new TemplarsVerdict()
+    "Blade of Justice" = new BladeofJustice()
+    "Divine Storm" = new DivineStorm()
+    "Hand of Hindrance" = new HandofHindrance()
+    "Wake of Ashes" = new WakeofAshes()
 
     //passive
     "Hand of Light" = new HandofLight()
+    "Art of War" = new ArtofWar()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -34,5 +39,16 @@ class HandofLight extends Ability {
 
     getTooltip() {
         return "Increases Holy damage done by "+player.stats.mastery.toFixed(1)+"%. "
+    }
+}
+//---------------------------
+class ArtofWar extends Ability {
+    constructor() {
+        super("Art of War", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "Your auto attacks have a 8% chance to reset the cooldown of Blade of Justice. "
     }
 }

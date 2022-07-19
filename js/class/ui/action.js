@@ -639,13 +639,16 @@ if (player.spec==="retribution") {
     actions = {
         //bar0
         "Avenging Wrath": new Action("Avenging Wrath",0,0),
+        "Divine Storm": new Action("Divine Storm",0,1),
 
         "Cleanse Toxins": new Action("Cleanse Toxins",0,4),
         "Rebuke": new Action("Rebuke",0,5),
         "Consecration": new Action("Consecration",0,6),
 
         //bar1
-
+        "Templar's Verdict": new Action("Templar's Verdict",1,0),
+        "Blade of Justice": new Action("Blade of Justice",1,1),
+        "Wake of Ashes": new Action("Wake of Ashes",1,2),
         "Divine Steed": new Action("Divine Steed",1,3),
 
         "Judgment": new Action("Judgment",1,8),
