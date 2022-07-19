@@ -645,6 +645,8 @@ if (player.spec==="retribution") {
         "Rebuke": new Action("Rebuke",0,5),
         "Consecration": new Action("Consecration",0,6),
 
+        "Shield of Vengeance": new Action("Shield of Vengeance",0,8),
+
         //bar1
         "Templar's Verdict": new Action("Templar's Verdict",1,0),
         "Blade of Justice": new Action("Blade of Justice",1,1),

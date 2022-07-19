@@ -265,9 +265,9 @@ class UnbreakableSpirit extends Ability {
         if (player.spec==="holyPaladin") {
             return "Reduces the cooldown of your Divine Shield, Divine Protection and Lay on Hands by 30%."
         } else if (player.spec==="retribution") {
-            return "Reduces the cooldown of your Divine Shield, Shield of Vengeance, Divine Protection and Lay on Hands by 30%."
+            return "Reduces the cooldown of your Divine Shield, Shield of Vengeance and Lay on Hands by 30%."
         } else if (player.spec==="protectionPaladin") {
-            return "Reduces the cooldown of your Divine Shield, Ardent Defender, Divine Protection and Lay on Hands by 30%."
+            return "Reduces the cooldown of your Divine Shield, Ardent Defender and Lay on Hands by 30%."
         }
     }
 
@@ -283,6 +283,9 @@ class UnbreakableSpirit extends Ability {
         } else if (caster.spec==="protectionPaladin") {
             caster.abilities["Ardent Defender"].cd *= 0.7
             caster.abilities["Ardent Defender"].maxCd *= 0.7
+        } else if (caster.spec==="holyPaladin") {
+            caster.abilities["Divine Protection"].cd *= 0.7
+            caster.abilities["Divine Protection"].maxCd *= 0.7
         }
     }
 
@@ -298,6 +301,9 @@ class UnbreakableSpirit extends Ability {
         } else if (caster.spec==="protectionPaladin") {
             caster.abilities["Ardent Defender"].cd /= 0.7
             caster.abilities["Ardent Defender"].maxCd /= 0.7
+        } else if (caster.spec==="holyPaladin") {
+            caster.abilities["Divine Protection"].cd /= 0.7
+            caster.abilities["Divine Protection"].maxCd /= 0.7
         }
     }
 
@@ -375,7 +381,7 @@ class DivinePurpose extends Ability {
 
     }
 
-    getTooltip() { //TODO:TemplarsVerdict, DivineStorm, ExecutionSentence, JusticarsVengeance,  ShieldOfTheRighteous, FinalVerdict
+    getTooltip() {
         return "Holy Power abilities have a 15% chance to make your next Holy Power ability free and deal 20% increased damage and healing."
     }
 
@@ -463,13 +469,16 @@ class SanctifiedWrath extends Ability {
         super("Sanctified Wrath", 0, 0, 0, 0, false, false, false, "holy", 5, 1)
         this.passive = true
         this.talent = true
+        this.spellPower = 0.27
     }
 
     getTooltip() {
         if (player.spec==="holyPaladin") {
             return "Avenging Wrath lasts 25% longer and also reduces Holy Shock's cooldown by 40%."
-        } else {
+        } else if (player.spec==="protectionPaladin") {
             return "Avenging Wrath lasts 25% longer and causes Judgment to generate 1 additional Holy Power."
+        } else {
+            return "Avenging Wrath lasts 25% longer. During Avenging Wrath, each Holy Power spent causes you to explode with Holy light for "+spellPowerToNumber(this.spellPower)+" damage to nearby enemies."
         }
 
     }
@@ -482,6 +491,13 @@ class SanctifiedWrath extends Ability {
         caster.abilities["Avenging Wrath"].duration /= 1.2
     }
 
+    explode(caster,val) {
+        for (let i = 0; i<enemies.length; i++) {
+            if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true)) {
+                doDamage(caster, enemies[i], this,undefined,this.spellPower*val)
+            }
+        }
+    }
 
 }
 //------------------------------------------------

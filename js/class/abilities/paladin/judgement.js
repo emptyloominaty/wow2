@@ -55,18 +55,22 @@ class Judgment extends Ability {
                     }
                 }
             }
-            if (done && Object.keys(caster.castTarget).length !== 0) {
-                if (this.isEnemy(caster,caster.castTarget)) {
-                    if (this.checkDistance(caster,caster.castTarget) && !caster.castTarget.isDead) {
-                        doDamage(caster, caster.castTarget, this)
-                        caster.useEnergy(this.cost,this.secCost)
-                        this.setCd()
-                        if (caster.spec!=="retribution" && caster.abilities["Judgment of Light"].talentSelect) {
-                            applyDebuff(caster,caster.castTarget,caster.abilities["Judgment of Light"],undefined,25,true)
-                        }
-
-                    }
+            if (done) {
+                doDamage(caster, caster.castTarget, this)
+                let secCost = this.secCost
+                if (caster.spec==="protectionPaladin" && caster.abilities["Sanctified Wrath"].talentSelect && checkBuff(caster,caster,"Avenging Wrath")) {
+                    secCost -= 1
                 }
+                caster.useEnergy(this.cost,secCost)
+                this.setCd()
+                if (caster.spec!=="retribution" && caster.abilities["Judgment of Light"].talentSelect) {
+                    applyDebuff(caster,caster.castTarget,caster.abilities["Judgment of Light"],undefined,25,true)
+                }
+                if (caster.spec==="retribution" && caster.abilities["Zeal"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Zeal"],3,true)
+                }
+
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }

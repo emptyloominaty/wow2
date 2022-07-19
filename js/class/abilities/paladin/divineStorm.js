@@ -22,20 +22,33 @@ class DivineStorm extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        let secCost = this.secCost
+        let spellPower = this.spellPower
+        if (caster.abilities["Divine Purpose"].talentSelect && checkBuff(caster,caster,"Divine Purpose")) {
+            secCost = 0
+            spellPower *= 1.2
+        }
+
+        if (this.checkStart(caster,undefined,secCost)) {
 
             for (let i = 0; i<enemies.length; i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true)) {
-                    doDamage(caster, enemies[i], this)
+                    doDamage(caster, enemies[i], this,undefined,spellPower)
                 }
             }
 
-            caster.useEnergy(this.cost,this.secCost)
+            caster.useEnergy(this.cost,secCost)
             this.setCd()
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
             this.setGcd(caster)
+            if (caster.abilities["Divine Purpose"].talentSelect) {
+                checkBuff(caster,caster,"Divine Purpose",true)
+                if (getChance(15)) {
+                    applyBuff(caster,caster,caster.abilities["Divine Purpose"])
+                }
+            }
             return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)

@@ -1127,6 +1127,13 @@ class Creature {
                 this.abilities["Avenging Wrath"].incCd(this,val2,false)
                 this.abilities["Guardian of Ancient Kings"].incCd(this,val2,false)
             }
+        } else if (this.spec==="retribution") {
+            if (this.abilities["Holy Avenger"].talentSelect && val2<0 && checkBuff(this,this,"Holy Avenger")) {
+                this.useSec(val2 * 2)
+            }
+            if (this.abilities["Sanctified Wrath"].talentSelect && val2>0 && checkBuff(this,this,"Avenging Wrath")) {
+                this.abilities["Sanctified Wrath"].explode(this,val2)
+            }
         } else if (this.spec==="blood") {
             if (this.abilities["Red Thirst"].talentSelect) {
                 if (val>0) {

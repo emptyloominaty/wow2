@@ -834,6 +834,23 @@ let checkBuff = function(caster,target,buffName,remove = false) {
     }
 }
 
+let checkBuffStacks = function(caster,target,buffName) {
+    let remove = true
+    for (let i = 0; i<target.buffs.length; i++) {
+        if (target.buffs[i].name===buffName && target.buffs[i].caster === caster) {
+            if (remove) {
+                if (target.buffs[i].stacks>1) {
+                    target.buffs[i].stacks --
+                } else {
+                    target.buffs[i].duration = -1
+                }
+
+            }
+            return true
+        }
+    }
+}
+
 let checkDebuff = function(caster,target,buffName) {
     for (let i = 0; i<target.debuffs.length; i++) {
         if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {

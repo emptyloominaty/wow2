@@ -22,6 +22,7 @@ class Retribution_Abilities {
     "Divine Storm" = new DivineStorm()
     "Hand of Hindrance" = new HandofHindrance()
     "Wake of Ashes" = new WakeofAshes()
+    "Shield of Vengeance" = new ShieldofVengeance()
 
     //passive
     "Hand of Light" = new HandofLight()
