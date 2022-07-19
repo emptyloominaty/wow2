@@ -1116,6 +1116,10 @@ class Creature {
                 } else {
                     this.abilities["Anger Management"].spendRage(this,val)
                 }
+            } else if (this.spec==="arms") {
+                if (val>0 && getChance(1.4*val)) {
+                    this.abilities["Overpower"].cd = this.abilities["Overpower"].maxCd
+                }
             }
         } else if (this.spec==="holyPaladin") {
             if  (this.abilities["Fist of Justice"].talentSelect) {

@@ -50,6 +50,7 @@ class BladestormArms extends Ability {
         for (let i = 0; i<enemies.length; i++) {
             if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],undefined,true)) {
                 doDamage(caster, enemies[i], this)
+                applyDot(caster,enemies[i],caster.abilities["Deep Wounds"])
             }
         }
     }

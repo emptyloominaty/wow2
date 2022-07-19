@@ -1,5 +1,5 @@
 class Execute extends Ability {
-    constructor() {
+    constructor(fury = true) {
         let name = "Execute"
         let cost = -20
         let gcd = 1.5
@@ -13,10 +13,16 @@ class Execute extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = ((1.128+1.27)*1.15)*1.29
+        this.spellPower = ((2*1.7+1.27)*1.15)*1.29
         this.lessthanhealth = 0.2
-
         this.hasteCd = true
+
+        if (!fury) {
+            this.cd = 0
+            this.maxCd = 0
+            this.cost = 30
+            this.spellPower = 2*1.7*1.13
+        }
 
     }
 
@@ -27,7 +33,7 @@ class Execute extends Ability {
     startCast(caster) {
         if (this.checkStart(caster) && (caster.castTarget.health/caster.castTarget.maxHealth<this.lessthanhealth || checkBuff(caster,caster,"Sudden Death"))) {
             let done = false
-            let target = target.castTarget
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this)

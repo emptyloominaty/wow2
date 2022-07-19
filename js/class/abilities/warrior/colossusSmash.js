@@ -30,6 +30,7 @@ class ColossusSmash extends Ability {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDebuff(caster,caster.castTarget,this)
                     doDamage(caster,caster.castTarget,this)
+                    applyDot(caster,caster.castTarget,caster.abilities["Deep Wounds"])
                     done = true
                 }
             }

@@ -38,6 +38,7 @@ class Cleave extends Ability { //TODO:TALENT
                     let dirToTarget = getDirection(caster,targets[i])
                     if (directionHit(dir,dirToTarget,75)) {
                         doDamage(caster, targets[i], this,undefined,spellPower)
+                        applyDot(caster,targets[i],caster.abilities["Deep Wounds"])
                     }
                 }
             }

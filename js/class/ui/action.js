@@ -488,6 +488,7 @@ if (player.spec==="arms") {
         "Pummel": new Action("Pummel", 0, 5),
         //"Cleave": new Action("Cleave",0,6),
         "Ignore Pain": new Action("Ignore Pain",0,7),
+        "Die by the Sword": new Action("Die by the Sword",0,8),
 
         //bar1
         "Overpower": new Action("Overpower",1,0),

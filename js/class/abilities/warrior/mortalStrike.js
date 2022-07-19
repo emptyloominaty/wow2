@@ -56,6 +56,7 @@ class MortalStrike extends Ability {
                 if (caster.spec==="arms" && checkBuff(caster,caster,"Sweeping Strikes")) {
                     caster.abilities["Sweeping Strikes"].cleave(caster,target,this)
                 }
+                applyDot(caster,target,caster.abilities["Deep Wounds"])
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

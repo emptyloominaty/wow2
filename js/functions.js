@@ -326,6 +326,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (checkDebuff(caster, target, "Colossus Smash")) {
                     damage *= 1.3
                 }
+                if (checkDebuff(caster,target,"Deep Wounds")) {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
             }
         }
 
