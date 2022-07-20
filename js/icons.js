@@ -1297,6 +1297,7 @@ let iconsPath = {
     //Warrior
     "Anger Management":"img/warrior/AngerManagement.jpg",
     "Avatar":"img/warrior/Avatar.jpg",
+    "Avatar ":"img/warrior/Avatar.jpg",
     "Battle Shout":"img/warrior/BattleShout.jpg",
     "Berserker Rage":"img/warrior/BerserkerRage.jpg",
     "Best Served Cold":"img/warrior/BestServedCold.jpg",

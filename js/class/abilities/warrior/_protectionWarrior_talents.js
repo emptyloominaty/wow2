@@ -1,39 +1,38 @@
 let _protectionWarrior_talents = function(caster) {
     //1
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["War Machine"] = new WarMachine()
+    //caster.abilities["Punish"] = new Punish()
+    //caster.abilities["Devastator"] = new Devastator()
 
     //2
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Double Time"] = new DoubleTime()
+    //caster.abilities["Rumbling Earth"] = new RumblingEarth()
+    caster.abilities["Storm Bolt"] = new StormBolt()
 
     //3
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Best Served Cold"] = new BestServedCold()
+    //caster.abilities["Booming Voice"] = new BoomingVoice()
+    //caster.abilities["Dragon Roar"] = new DragonRoar()
 
     //4
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Crackling Thunder"] = new CracklingThunder()
+    caster.abilities["Bounding Stride"] = new BoundingStride()
+    //caster.abilities["Menace"] = new Menace()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Never Surrender"] = new NeverSurrender()
+    //caster.abilities["Indomitable"] = new Indomitable()
+    caster.abilities["Impending Victory"] = new ImpendingVictory()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Into the Fray"] = new IntotheFray()
+    //caster.abilities["Unstoppable Force"] = new UnstoppableForce()
+    caster.abilities["Ravager"] = new Ravager()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-
+    caster.abilities["Anger Management"] = new AngerManagement()
+    //caster.abilities["Heavy Repercussions"] = new HeavyRepercussions()
+    //caster.abilities["Bolster"] = new Bolster()
 
     caster.talents = [["War Machine","Punish","Devastator"],
         ["Double Time","Rumbling Earth","Storm Bolt"],

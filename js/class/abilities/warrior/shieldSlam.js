@@ -25,9 +25,14 @@ class ShieldSlam extends Ability {
         if (this.checkStart(caster)) {
             let done = false
             let target = caster.castTarget
+            let spellPower = this.spellPower
+            if (checkBuff(caster,caster,"Shield Block")) {
+                spellPower *= 1.3
+            }
+
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
+                    doDamage(caster,caster.castTarget,this,undefined, spellPower)
                     done = true
                 }
             } else {
@@ -40,7 +45,7 @@ class ShieldSlam extends Ability {
                     caster.target = newTarget.name
                     target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
+                        doDamage(caster, caster.targetObj, this,undefined, spellPower)
                         done = true
                     }
                 }

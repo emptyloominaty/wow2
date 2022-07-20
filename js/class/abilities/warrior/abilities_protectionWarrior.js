@@ -20,6 +20,10 @@ class ProtectionWarrior_Abilities {
     "Revenge" = new Revenge()
     "Shield Wall" = new ShieldWall()
     "Last Stand" = new LastStand()
+    "Demoralizing Shout" = new DemoralizingShout()
+    "Shield Block" = new ShieldBlock()
+    "Shockwave" = new Shockwave()
+    "Avatar " = new AvatarProtection()
 
     //passive
     "Critical Block" = new CriticalBlock()
@@ -36,6 +40,7 @@ class CriticalBlock extends Ability {
         this.permanentBuff = true
         this.duration = 10
         this.effect = [{name:"criticalBlock"}]
+        this.hiddenBuff = true
     }
 
     getTooltip() {
@@ -53,6 +58,7 @@ class Vanguard extends Ability {
         this.permanentBuff = true
         this.duration = 10
         this.effect = [{name:"increaseStat",stat:"stamina",val:25,percent:true},{name:"increaseStat",stat:"armor",val:20},{name:"damageReduction",val:0.15}]
+        this.hiddenBuff = true
     }
 
     getTooltip() {

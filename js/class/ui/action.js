@@ -523,7 +523,8 @@ if (player.spec==="arms") {
 if (player.spec==="protectionWarrior") {
     actions = {
         //bar0
-        //"Avatar": new Action("Avatar", 0, 0),
+        "Avatar ": new Action("Avatar ", 0, 0),
+        "Demoralizing Shout": new Action("Demoralizing Shout",0,1),
 
         "Pummel": new Action("Pummel", 0, 5),
         "Revenge": new Action("Revenge",0,6),
@@ -532,12 +533,13 @@ if (player.spec==="protectionWarrior") {
 
         //bar1
         "Taunt": new Action("Taunt",1,0),
-        "Thunder Clap": new Action("Thunder Clap",1,0),
+        "Thunder Clap": new Action("Thunder Clap",1,1),
         "Victory Rush": new Action("Victory Rush", 1, 2),
         "Charge": new Action("Charge", 1, 3),
 
         "Devastate": new Action("Devastate",1,8),
         "Shield Slam": new Action("Shield Slam",1,9),
+        "Shockwave": new Action("Shockwave",1,10),
 
         //bar2
         "Execute": new Action("Execute", 2, 0),
@@ -546,6 +548,8 @@ if (player.spec==="protectionWarrior") {
         "Heroic Throw": new Action("Heroic Throw",2,3),
         "Rallying Cry": new Action("Rallying Cry", 2, 4),
         "Last Stand": new Action("Last Stand",2,5),
+
+        "Shield Block": new Action("Shield Block",2,7),
 
         "Heroic Leap": new Action("Heroic Leap", 2, 11),
 
