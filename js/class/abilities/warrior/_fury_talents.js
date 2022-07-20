@@ -76,7 +76,12 @@ class SuddenDeath extends Ability {
     }
 
     getTooltip() {
-        return "Your attacks have a chance to reset the cooldown of Execute and make it usable on any target, regardless of their health."
+        if (player.spec==="fury") {
+            return "Your attacks have a chance to reset the cooldown of Execute and make it usable on any target, regardless of their health."
+        } else {
+            return "Your attacks have a chance to make your next Execute cost no Rage, be usable on any target regardless of their health."
+        }
+
     }
 }
 //------------------------------------------------
@@ -251,15 +256,19 @@ class Massacre extends Ability {
     }
 
     setTalent(caster) {
-        caster.abilities["Execute"].cd -= 1.5
-        caster.abilities["Execute"].maxCd -= 1.5
-        caster.abilities["Execute"].health = 0.35
+        if (caster.spec==="fury") {
+            caster.abilities["Execute"].cd -= 1.5
+            caster.abilities["Execute"].maxCd -= 1.5
+        }
+        caster.abilities["Execute"].lessthanhealth = 0.35
     }
 
     unsetTalent(caster) {
-        caster.abilities["Execute"].cd += 1.5
-        caster.abilities["Execute"].maxCd += 1.5
-        caster.abilities["Execute"].health = 0.2
+        if (caster.spec==="fury") {
+            caster.abilities["Execute"].cd += 1.5
+            caster.abilities["Execute"].maxCd += 1.5
+        }
+        caster.abilities["Execute"].lessthanhealth = 0.2
     }
 }
 //------------------------------------------------
@@ -625,6 +634,8 @@ class AngerManagement extends Ability {
     getTooltip() {
         if (player.spec==="fury") {
             return "Every 20 Rage you spend reduces the remaining cooldown on Recklessness by 1 sec."
+        } else if (player.spec==="arms") {
+            return "Every 20 Rage you spend reduces the remaining cooldown on Warbreaker, Colossus Smash and Bladestorm by 1 sec."
         }
         //         Protection
         //         Every 10 Rage you spend reduces the remaining cooldown on Avatar and Shield Wall by 1 sec.
@@ -645,6 +656,10 @@ class AngerManagement extends Ability {
                     this.rageSpent-=this.rageNeed
                     if(caster.spec==="fury") {
                         caster.abilities["Recklessness"].cd ++
+                    } else if (caster.spec==="arms") {
+                        caster.abilities["Warbreaker"].incCd(caster,1,false)
+                        caster.abilities["Bladestorm"].incCd(caster,1,false)
+                        caster.abilities["Colossus Smash"].incCd(caster,1,false)
                     }
                 } else {
                     a = false

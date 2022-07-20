@@ -13,7 +13,7 @@ class Execute extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = ((2*1.7+1.27)*1.15)*1.29
+        this.spellPower = ((1.7+1.27)*1.15)*1.29
         this.lessthanhealth = 0.2
         this.hasteCd = true
 
@@ -66,17 +66,20 @@ class Execute extends Ability {
                     caster.isChanneling = false
                 }
 
-                if (caster.spec==="fury") {
-                    for (let i = 0; i < caster.buffs.length; i++) {
-                        if (caster.buffs[i].name === "Sudden Death") {
-                            caster.buffs[i].duration = -1
+                let cost = this.cost
+                for (let i = 0; i < caster.buffs.length; i++) {
+                    if (caster.buffs[i].name === "Sudden Death") {
+                        caster.buffs[i].duration = -1
+                        if (caster.spec==="arms") {
+                            cost = 0
                         }
                     }
-                } else if (caster.spec==="arms" && checkBuff(caster,caster,"Sweeping Strikes")) {
+                }
+                if (caster.spec==="arms" && checkBuff(caster,caster,"Sweeping Strikes")) {
                     caster.abilities["Sweeping Strikes"].cleave(caster,target,this)
                 }
                 this.setCd()
-                caster.useEnergy(this.cost,this.secCost)
+                caster.useEnergy(cost,this.secCost)
                 this.setGcd(caster)
                 return true
             }

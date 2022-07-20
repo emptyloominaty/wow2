@@ -482,11 +482,11 @@ if (player.spec==="fury") {
 if (player.spec==="arms") {
     actions = {
         //bar0
-        "Colossus Smash": new Action("Colossus Smash",0,0),
+        //"Avatar": new Action("Avatar", 0, 0),
         "Bladestorm ": new Action("Bladestorm ", 0, 1),
 
         "Pummel": new Action("Pummel", 0, 5),
-        //"Cleave": new Action("Cleave",0,6),
+        "Whirlwind": new Action("Whirlwind", 0, 6),
         "Ignore Pain": new Action("Ignore Pain",0,7),
         "Die by the Sword": new Action("Die by the Sword",0,8),
 
@@ -498,11 +498,11 @@ if (player.spec==="arms") {
 
         "Slam": new Action("Slam",1,8),
         "Mortal Strike": new Action("Mortal Strike",1,9),
-
+        "Rend": new Action("Rend",1,10),
 
         //bar2
         "Execute": new Action("Execute", 2, 0),
-        "Whirlwind": new Action("Whirlwind", 2, 1),
+        "Colossus Smash": new Action("Colossus Smash",2,1),
         "Shattering Throw": new Action("Shattering Throw",2,2),
         "Heroic Throw": new Action("Heroic Throw",2,3),
 

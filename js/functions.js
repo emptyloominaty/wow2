@@ -323,11 +323,24 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     }
                 }
             } else if (caster.spec==="arms") {
-                if (checkDebuff(caster, target, "Colossus Smash")) {
+                if (checkDebuff(caster, target, "Colossus Smash")) { //TODO: DEBUFFS O
+                    damage *= 1.3
+                }
+                if (checkDebuff(caster, target, "Warbreaker")) {
                     damage *= 1.3
                 }
                 if (checkDebuff(caster,target,"Deep Wounds")) {
                     damage = damage * (1 + (caster.stats.mastery / 100))
+                }
+                if (checkDebuff(caster,target,"Rend")) {
+                    if (crit>1) {
+                        damage *= 1.1
+                    }
+                }
+                if (caster.abilities["Sudden Death"].talentSelect) {
+                    if (getChance(5 * (1 + (caster.stats.haste / 100)))) {
+                        applyBuff(caster, caster, caster.abilities["Sudden Death"])
+                    }
                 }
             }
         }

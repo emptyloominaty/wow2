@@ -14,7 +14,7 @@ class BladestormArms extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.talent = true
         this.talentSelect = true
-        this.spellPower = 1*1.21
+        this.spellPower = 1*1.21*1.4
         this.duration = 6
     }
 

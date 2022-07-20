@@ -42,7 +42,7 @@ class AutoAttack extends Ability {
                         caster.useEnergy(-2,0)
                     }
 
-                    if (caster.spec==="fury" && caster.abilities["War Machine"].talentSelect) {
+                    if ((caster.spec==="fury" || caster.spec==="arms") && caster.abilities["War Machine"].talentSelect) {
                         caster.useEnergy(-0.6,0)
                     }
                 } else if (caster.spec==="havoc") {
