@@ -20,10 +20,14 @@ class HeroicLeap extends Ability {
         this.canCastWhileRooted = false
         this.castPosition = {x:0,y:0}
     }
-    //TODO: Protection
-    // and resetting the remaining cooldown on Taunt
+
     getTooltip() {
-        return "Leap through the air toward a target location, slamming down with destructive force to deal "+spellPowerToNumber(this.spellPower)+" Physical damage to all enemies within 8 yards"
+        if (player.spec==="protectionWarrior") {
+            return "Leap through the air toward a target location, slamming down with destructive force to deal "+spellPowerToNumber(this.spellPower)+" Physical damage to all enemies within 8 yards and resetting the remaining cooldown on Taunt."
+        } else {
+            return "Leap through the air toward a target location, slamming down with destructive force to deal "+spellPowerToNumber(this.spellPower)+" Physical damage to all enemies within 8 yards."
+        }
+
     }
 
     startCast(caster) {
@@ -47,7 +51,9 @@ class HeroicLeap extends Ability {
             if (caster.abilities["Bounding Stride"].talentSelect) {
                 applyBuff(caster,caster,caster.abilities["Bounding Stride"])
             }
-
+            if (caster.spec==="protectionWarrior") {
+                caster.abilities["Taunt"].cd = caster.abilities["Taunt"].maxCd
+            }
             this.setGcd(caster)
             this.setCd()
             this.caster = caster

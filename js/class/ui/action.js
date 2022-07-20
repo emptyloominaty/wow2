@@ -520,6 +520,43 @@ if (player.spec==="arms") {
     }
 }
 
+if (player.spec==="protectionWarrior") {
+    actions = {
+        //bar0
+        //"Avatar": new Action("Avatar", 0, 0),
+
+        "Pummel": new Action("Pummel", 0, 5),
+        "Revenge": new Action("Revenge",0,6),
+        "Ignore Pain": new Action("Ignore Pain",0,7),
+        "Shield Wall": new Action("Shield Wall",0,8),
+
+        //bar1
+        "Taunt": new Action("Taunt",1,0),
+        "Thunder Clap": new Action("Thunder Clap",1,0),
+        "Victory Rush": new Action("Victory Rush", 1, 2),
+        "Charge": new Action("Charge", 1, 3),
+
+        "Devastate": new Action("Devastate",1,8),
+        "Shield Slam": new Action("Shield Slam",1,9),
+
+        //bar2
+        "Execute": new Action("Execute", 2, 0),
+        "Challenging Shout": new Action("Challenging Shout",2,1),
+        "Shattering Throw": new Action("Shattering Throw",2,2),
+        "Heroic Throw": new Action("Heroic Throw",2,3),
+        "Rallying Cry": new Action("Rallying Cry", 2, 4),
+        "Last Stand": new Action("Last Stand",2,5),
+
+        "Heroic Leap": new Action("Heroic Leap", 2, 11),
+
+        //bar3
+        "Intervene": new Action("Intervene",3,0),
+        "Spell Reflection": new Action("Spell Reflection",3,1),
+        "Piercing Howl": new Action("Piercing Howl",3,2),
+        "Battle Shout":  new Action("Battle Shout", 3, 10),
+
+    }
+}
 
 if (player.spec==="holyPriest") {
     actions = {

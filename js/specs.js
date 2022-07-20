@@ -18,4 +18,5 @@ let specsName = {
     "blood":"Blood",
     "retribution":"Retribution",
     "arms":"Arms",
+    "protectionWarrior":"Protection",
 }

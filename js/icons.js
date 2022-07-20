@@ -29,6 +29,7 @@ let iconsPath = {
         "blood":"img/specs/deathknight/blood.png",
         "retribution":"img/specs/paladin/retribution.png",
         "arms":"img/specs/warrior/arms.png",
+        "protectionWarrior":"img/specs/warrior/protection.png",
     },
 
     //classes
@@ -1342,7 +1343,7 @@ let iconsPath = {
     "Intervene":"img/warrior/Intervene.jpg",
     "Intimidating Shout":"img/warrior/IntimidatingShout.jpg",
     "Menace":"img/warrior/IntimidatingShout.jpg",
-    "Intothe Fray":"img/warrior/IntotheFray.jpg",
+    "Into the Fray":"img/warrior/IntotheFray.jpg",
     "Last Stand":"img/warrior/LastStand.jpg",
     "Massacre":"img/warrior/Massacre.jpg",
     "Meat Cleaver":"img/warrior/MeatCleaver.jpg",

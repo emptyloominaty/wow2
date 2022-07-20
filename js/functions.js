@@ -372,9 +372,13 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
 
             if (target.stats.block>0) {
-                if (getChance(target.stats.block)) {
-                    damage = damage * 0.3
-
+                let block = target.stats.block
+                let blockVal = 0.7
+                if (block>100) {
+                    blockVal = 1-((block/100)*0.3)
+                }
+                if (getChance(block)) {
+                    damage = damage * blockVal
                     if (target.spec==="protectionPaladin" && target.abilities["Holy Shield"].talentSelect) {
                         doDamage(target,caster,target.abilities["Holy Shield"])
                     }
@@ -772,7 +776,7 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
 
         if (target.isReflectingSpell) {
             for (let i = 0; i<target.buffs.length; i++) {
-                for (let j = 0; j<target.buffs.length; j++) {
+                for (let j = 0; j<target.buffs[i].effect.length; j++) {
                     if (target.buffs[i].effect[j].name==="reflectSpell") {
                         if (target.buffs[i].effect[j].removeOnReflect) {
                             target.buffs[i].duration = -1

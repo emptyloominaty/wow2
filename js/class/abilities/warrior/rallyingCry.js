@@ -19,7 +19,7 @@ class RallyingCry extends Ability {
     }
 
     getTooltip() {
-        return "Lets loose a rallying cry, granting all party or raid members within 40 yards 15% temporary and maximum health for 10 sec."
+        return "Lets loose a rallying cry, granting all party or raid members within 40 yards 20% temporary and maximum health for 10 sec."
     }
 
     startCast(caster) {

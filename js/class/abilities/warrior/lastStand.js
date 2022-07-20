@@ -1,10 +1,10 @@
-class IgnorePain extends Ability {
+class LastStand extends Ability {
     constructor() {
-        let name = "Ignore Pain"
-        let cost = 35
+        let name = "Last Stand"
+        let cost = 0
         let gcd = 0
         let castTime = 0
-        let cd = 1
+        let cd = 180
         let charges = 1
         let channeling = false
         let casting = false
@@ -13,29 +13,29 @@ class IgnorePain extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.effect = [{name:"absorb",val:0}] //TODO: 55% of damage taken
-        this.duration = 12
+        this.effect = [{name:"increaseHealth",val:0.3}]
 
+        this.duration = 15
+        this.noGcd = true
     }
 
     getTooltip() {
-        return  "Fight through the pain, ignoring 55% of damage taken, up to "+((player.stats.primary*3.5)) * (1 + (player.stats.vers / 100))+" total damage prevented."
+        return "Increases maximum health by 30% for 15 sec, and instantly heals you for that amount."
     }
 
     getBuffTooltip(caster, target, buff) {
-        return "Ignoring 55% of damage taken, preventing "+buff.effect[0].val+" total damage."
+        return "Maximum health increased by 30%."
     }
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            this.effect[0].val = ((player.stats.primary*3.5)) * (1 + (player.stats.vers / 100))
-            applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)
+            applyBuff(caster,caster,this)
+            caster.health += (caster.stats.stamina*20) * 0.3
             caster.useEnergy(this.cost)
             return true
         }
         return false
     }
-
 }

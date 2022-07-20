@@ -335,6 +335,17 @@ class Creature {
             this.resourceName = "Rage"
             this.energy = 0
             this.role = "dps"
+        } else if (spec==="protectionWarrior") {//----------------------------------------Protection Warrior
+            this.class = "Warrior"
+            this.melee = true
+            this.abilities = new ProtectionWarrior_Abilities()
+            _protectionWarrior_talents(this)
+            applyBuff(this,this,this.abilities["Critical Block"])
+            applyBuff(this,this,this.abilities["Vanguard"])
+
+            this.resourceName = "Rage"
+            this.energy = 0
+            this.role = "tank"
         } else if (spec==="bossTest") {//----------------------------------------Boss Test
             this.class = "Boss"
             this.abilities = new BossTestAbilities()
@@ -829,12 +840,9 @@ class Creature {
 
                     } else if (this.buffs[i].effect[j].name === "immuneToMagic") {
                         this.immuneToMagic = true
+                    } else if (this.buffs[i].effect[j].name === "criticalBlock") {
+                        this.stats.block += this.stats.mastery*2
                     }
-
-
-
-
-
                 }
             } else {
                 //OLD
