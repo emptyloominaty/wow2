@@ -1128,6 +1128,10 @@ class Creature {
                 if (val>0 && getChance(1.4*val)) {
                     this.abilities["Overpower"].cd = this.abilities["Overpower"].maxCd
                 }
+            } else if (this.spec==="protectionWarrior") {
+                if (this.abilities["Indomitable"].talentSelect && val>0) {
+                    doHeal(this,this,this.abilities["Indomitable"],undefined,undefined,undefined,undefined,undefined,val*0.001)
+                }
             }
         } else if (this.spec==="holyPaladin") {
             if  (this.abilities["Fist of Justice"].talentSelect) {

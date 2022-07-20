@@ -504,7 +504,7 @@ class MeatCleaver extends Ability {
 class DragonRoar extends Ability {
     constructor() {
         let name = "Dragon Roar"
-        let cost = -10 //TODO: -20 prot war
+        let cost = -10
         let gcd = 1.5
         let castTime = 0
         let cd = 30
@@ -525,6 +525,9 @@ class DragonRoar extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            if (caster.spec==="protectionWarrior") {
+                this.cost = -20
+            }
 
             let spellPower = this.spellPower*(1+((caster.stats.crit/100)*3)) //3times CRIT FIX
 

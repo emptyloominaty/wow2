@@ -43,6 +43,12 @@ class AutoAttack extends Ability {
                     } else if (caster.spec==="protectionWarrior") {
                         rage = -2
                         caster.useEnergy(-2,0)
+                        if (caster.abilities["Devastator"].talentSelect) {
+                            doDamage(caster,caster.targetObj,caster.abilities["Devastator"])
+                            if (getChance(20)) {
+                                caster.abilities["Shield Slam"].cd = caster.abilities["Shield Slam"].maxCd
+                            }
+                        }
                     }
 
                     if (caster.abilities["War Machine"].talentSelect) {

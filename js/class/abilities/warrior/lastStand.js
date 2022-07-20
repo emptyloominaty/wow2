@@ -32,6 +32,9 @@ class LastStand extends Ability {
             this.setCd()
             this.setGcd(caster)
             applyBuff(caster,caster,this)
+            if (caster.abilities["Bolster"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Shield Block"],undefined,undefined,undefined,15)
+            }
             caster.health += (caster.stats.stamina*20) * 0.3
             caster.useEnergy(this.cost)
             return true

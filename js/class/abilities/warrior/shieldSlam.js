@@ -29,6 +29,9 @@ class ShieldSlam extends Ability {
             if (checkBuff(caster,caster,"Shield Block")) {
                 spellPower *= 1.3
             }
+            if (caster.abilities["Punish"].talentSelect) {
+                spellPower *= 1.2
+            }
 
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
@@ -53,6 +56,9 @@ class ShieldSlam extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
+                }
+                if (caster.abilities["Punish"].talentSelect) {
+                    applyDebuff(caster,target,caster.abilities["Punish"])
                 }
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)

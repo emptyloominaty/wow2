@@ -342,6 +342,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         applyBuff(caster, caster, caster.abilities["Sudden Death"])
                     }
                 }
+            } else if (caster.spec==="protectionWarrior") {
+                if (caster.abilities["Booming Voice"].talentSelect && checkDebuff(caster,target,"Demoralizing Shout")) {
+                    damage *= 1.2
+                }
             }
         }
 

@@ -25,9 +25,15 @@ class ThunderClap extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            let unstoppableForce = false
+            let spellPower = this.spellPower
+            if (caster.abilities["Unstoppable Force"].talentSelect && checkBuff(caster,caster,"Avatar")) {
+                spellPower *= 1.3
+            }
+
             for (let i = 0; i<enemies.length ;i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
-                    doDamage(caster, enemies[i], this)
+                    doDamage(caster, enemies[i], this,undefined,spellPower)
                     applyDebuff(caster, enemies[i], this)
                 }
             }
@@ -35,6 +41,11 @@ class ThunderClap extends Ability {
                 caster.isChanneling = false
             }
             this.setCd()
+
+            if (unstoppableForce) {
+                this.cd = this.maxCd/2
+            }
+
             caster.useEnergy(this.cost,this.secCost)
             this.setGcd(caster)
             return true
