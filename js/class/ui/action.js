@@ -482,7 +482,7 @@ if (player.spec==="fury") {
 if (player.spec==="arms") {
     actions = {
         //bar0
-        //"Avatar": new Action("Avatar", 0, 0),
+        "Avatar": new Action("Avatar", 0, 0),
         "Bladestorm ": new Action("Bladestorm ", 0, 1),
 
         "Pummel": new Action("Pummel", 0, 5),

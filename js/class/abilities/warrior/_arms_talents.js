@@ -25,13 +25,13 @@ let _arms_talents = function(caster) {
     caster.abilities["Cleave"] = new Cleave()
 
     //6
-    //caster.abilities["In For The Kill"] = new InForTheKill()
-    //caster.abilities["Avatar"] = new Avatar()
-    //caster.abilities["Deadly Calm"] = new DeadlyCalm()
+    caster.abilities["In For The Kill"] = new InForTheKill()
+    caster.abilities["Avatar"] = new Avatar()
+    caster.abilities["Deadly Calm"] = new DeadlyCalm()
 
     //7
     caster.abilities["Anger Management"] = new AngerManagement()
-    //caster.abilities["Dreadnaught"] = new Dreadnaught()
+    caster.abilities["Dreadnaught"] = new Dreadnaught()
     //caster.abilities["Ravager"] = new Ravager()
 
 
@@ -302,8 +302,100 @@ class Cleave extends Ability {
     }
 }
 //------------------------------------------------------------------------------------------------ROW6
+class InForTheKill extends Ability {
+    constructor() {
+        super("In For The Kill", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.passive = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Colossus Smash/Warbreaker increases your Haste by 10%, or by 20% if the target is below 20% health. Lasts 10 sec."
+    }
+}
 //------------------------------------------------
+class Avatar extends Ability {
+    constructor() {
+        super("Avatar", -20, 0, 0, 90, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 20
+        this.effect = [{name:"increaseDamage",val:0.2}]
+        this.noGcd = true
+    }
+
+    getTooltip() {
+        return"Transform into a colossus for 20 sec, causing you to deal 20% increased damage and removing all roots and snares.<br>" + //TODO: remove all roots and snares
+            "<br>" +
+            "Generates 20 Rage."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            this.setCd()
+            this.setGcd(caster)
+            applyBuff(caster,caster,this)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}
 //------------------------------------------------
+class DeadlyCalm extends Ability {
+    constructor() {
+        super("Deadly Calm", 0, 0, 0, 60, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.duration = 20
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Reduces the Rage cost of your next 4 abilities by 100%.<br>" +
+            "<br>" +
+            "Passive: Your maximum Rage is increased by 30."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Your abilities cost 100% less Rage."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
 //------------------------------------------------
+class Dreadnaught extends Ability {
+    constructor() {
+        super("Dreadnaught", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.passive = true
+    }
+
+    getTooltip() { //TODO:Line
+        return "Overpower has 2 charges //NOT IMPLEMENTED//and causes a seismic wave, dealing (46% of Attack power) damage to all enemies in a 10 yd line."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Overpower"].charges ++
+        caster.abilities["Overpower"].maxCharges ++
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Overpower"].charges --
+        caster.abilities["Overpower"].maxCharges --
+    }
+}
 //------------------------------------------------
+class Ravager extends Ability {
+    constructor() {
+        super("Ravager", 0, 1.5, 0, 45, false, false, false, "physical", 40, 1)
+        this.talent = true
+    }
+                    //Replaces Bladestorm
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Throws a whirling weapon at the target location that chases nearby enemies, inflicting [6 * (42.4% of Attack power)] Physical damage and applying Deep Wounds to all enemies over 12 sec. Deals reduced damage beyond 8 targets.<br>" +
+            "<br>" +
+            "Generates 7 Rage each time it deals damage."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Ravager is currently active."
+    }
+}

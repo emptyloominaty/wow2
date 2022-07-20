@@ -40,7 +40,7 @@ class Charge extends Ability {
                 this.effect[0].target = caster.castTarget.id
                 applyBuff(caster,caster,this)
 
-                if (caster.abilities["Furious Charge"].talentSelect) {
+                if (caster.spec==="fury" && caster.abilities["Furious Charge"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Furious Charge"])
                 }
 
