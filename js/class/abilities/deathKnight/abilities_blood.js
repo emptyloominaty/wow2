@@ -20,7 +20,7 @@ class Blood_Abilities {
     "Death Coil" = new DeathCoil()
     "Death Grip" = new DeathGrip(true)
     "Gorefiend's Grasp" = new GorefiendsGrasp()
-    "Raise Dead" = new RaiseDead(true)
+    "Raise Dead" = new RaiseDead()
     "Sacrificial Pact" = new SacrificialPact()
 
     //passive

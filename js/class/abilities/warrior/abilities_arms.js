@@ -42,7 +42,7 @@ class DeepWounds extends Ability {
 
     getTooltip() { //TODO: Warbreaker, Ravager
         return "Mortal Strike, Warbreaker, Colossus Smash, Cleave, Ravager and Bladestorm" +
-            " inflict Deep Wounds, dealing "+spellPowerToNumber(this.spellPower)+" Bleed damage over 12 sec and increasing the damage the enemy takes from you by "+player.stats.mastery+"%.. "
+            " inflict Deep Wounds, dealing "+spellPowerToNumber(this.spellPower)+" Bleed damage over 12 sec and increasing the damage the enemy takes from you by "+player.stats.mastery+"%. "
     }
 
 }

@@ -1,5 +1,5 @@
 class RaiseDead extends Ability {
-    constructor(blood = false) {
+    constructor(unholy = false) {
         let name = "Raise Dead"
         let cost = 0
         let gcd = 0
@@ -23,7 +23,7 @@ class RaiseDead extends Ability {
         this.petDuration = 60
         this.noGcd = true
 
-        if (!blood) {
+        if (unholy) {
             this.cd = 30
             this.maxCd = 30
             this.petDuration = 999 //TODO:

@@ -853,3 +853,37 @@ if (player.spec==="blood") {
 
     }
 }
+
+
+if (player.spec==="frostDk") {
+    actions = {
+        //bar0
+
+        "Mind Freeze": new Action("Mind Freeze",0,5),
+        "Death and Decay": new Action("Death and Decay",0,6),
+        "Lichborne": new Action("Lichborne",0,7),
+        "Icebound Fortitude": new Action("Icebound Fortitude",0,8),
+
+        //bar1
+        "Death Grip": new Action("Death Grip",1,4),
+        "Death's Advance": new Action("Death's Advance",1,3),
+
+
+        "Obliterate": new Action("Obliterate",1,8),
+        "Frost Strike": new Action("Frost Strike",1,9),
+        "Asphyxiate": new Action("Asphyxiate",1,10),
+
+        //bar2
+        "Anti-Magic Shell": new Action("Anti-Magic Shell",2,0),
+        "Death Coil": new Action("Death Coil",2,1),
+        "Raise Dead": new Action("Raise Dead",2,2),
+        "Death Strike": new Action("Death Strike",2,3),
+        "Anti-Magic Zone": new Action("Anti-Magic Zone",2,4),
+
+
+        //bar3
+        "Raise Ally": new Action("Raise Ally",3,0),
+        "Sacrificial Pact": new Action("Sacrificial Pact",3,1),
+
+    }
+}

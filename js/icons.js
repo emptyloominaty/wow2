@@ -30,6 +30,7 @@ let iconsPath = {
         "retribution":"img/specs/paladin/retribution.png",
         "arms":"img/specs/warrior/arms.png",
         "protectionWarrior":"img/specs/warrior/protection.png",
+        "frostDk":"img/specs/deathknight/frost.png",
     },
 
     //classes
@@ -177,6 +178,7 @@ let iconsPath = {
     "Rune Strike":"img/deathKnight/RuneStrike.jpg",
     "Rune Tap":"img/deathKnight/RuneTap.jpg",
     "Runic Corruption":"img/deathKnight/RunicCorruption.jpg",
+    "Runic Attenuation":"img/deathKnight/RunicAttenuation.jpg",
     "Sacrificial Pact":"img/deathKnight/SacrificialPact.jpg",
     "Scourge Strike":"img/deathKnight/ScourgeStrike.jpg",
     "Sudden Doom":"img/deathKnight/SuddenDoom.jpg",

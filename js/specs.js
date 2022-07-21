@@ -19,4 +19,5 @@ let specsName = {
     "retribution":"Retribution",
     "arms":"Arms",
     "protectionWarrior":"Protection",
+    "frostDk":"Frost",
 }

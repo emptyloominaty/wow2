@@ -346,6 +346,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (caster.abilities["Booming Voice"].talentSelect && checkDebuff(caster,target,"Demoralizing Shout")) {
                     damage *= 1.2
                 }
+            } else if (caster.spec==="frostDk") {
+                if (ability.school==="frost") {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
             }
         }
 

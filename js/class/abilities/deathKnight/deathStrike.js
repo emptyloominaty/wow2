@@ -1,5 +1,5 @@
 class DeathStrike extends Ability {
-    constructor() {
+    constructor(blood = true) {
         let name = "Death Strike"
         let cost = 45
         let gcd = 1.5
@@ -15,8 +15,9 @@ class DeathStrike extends Ability {
 
         this.spellPower = 0.464256*1.53
 
-        //TODO:frost: spellPower [(46.4256% of Attack power) + (29.835% of Attack power)]
-        //TODO:frost/unholy: Death Strike's cost is reduced by 10, and its healing is increased by 60%.
+        if (!blood) {
+            this.cost -= 10
+        }
 
         this.damageLast5Sec = [0,0,0,0,0]
         this.timer1 = 0
@@ -67,7 +68,8 @@ class DeathStrike extends Ability {
                 for (let i = 0; i<this.damageLast5Sec.length; i++) {
                     heal += this.damageLast5Sec[i]
                 }
-                heal = heal * 0.25 * 1.53 // 1.53 = blood dk aura
+
+                heal = heal * 0.25 * 1.53
 
                 if (heal<(caster.maxHealth*0.07)) {
                     heal = (caster.maxHealth*0.07)

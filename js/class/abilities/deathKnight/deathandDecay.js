@@ -46,7 +46,7 @@ class DeathandDecay extends Ability {
                 caster.isChanneling = false
             }
 
-            if (caster.abilities["Rapid Decomposition"].talentSelect) {
+            if (caster.spec==="blood" && caster.abilities["Rapid Decomposition"].talentSelect) {
                 this.spellPower = 0.036036*1.1*1.15
             }
 
