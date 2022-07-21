@@ -159,7 +159,7 @@ let iconsPath = {
     "Frozen Heart":"img/deathKnight/FrozenHeart.jpg",
     "Gorefiend's Grasp":"img/deathKnight/GorefiendsGrasp.jpg",
     "Heart Strike":"img/deathKnight/HeartStrike.jpg",
-    "Howling Blast":"img/deathKnight/Howling Blast.jpg",
+    "Howling Blast":"img/deathKnight/HowlingBlast.jpg",
     "Chains of Ice":"img/deathKnight/ChainsofIce.jpg",
     "Icebound Fortitude":"img/deathKnight/IceboundFortitude.jpg",
     "Killing Machine":"img/deathKnight/KillingMachine.jpg",
@@ -186,6 +186,7 @@ let iconsPath = {
     "Veteran of the Third War":"img/deathKnight/VeteranoftheThirdWar.jpg",
     "Will of the Necropolis":"img/deathKnight/WilloftheNecropolis.jpg",
     "Claw":"img/deathKnight/Claw.jpg",
+    "Runic Empowerment":"img/deathKnight/RunicEmpowerment.jpg",
 
     //Demon Hunter
     "Chaos Brand":"img/demonHunter/ChaosBrand.jpg",

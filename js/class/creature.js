@@ -1181,6 +1181,22 @@ class Creature {
                     this.abilities["Vampiric Blood"].incCd(this,1.5*(val/10),true)
                 }
             }
+        } else if (this.spec==="frostDk") {
+            if (val>0) {
+                if (getChance(val*2)) {
+                    this.secondaryResource+=1
+                    if (this.secondaryResource>this.maxSecondaryResource) {
+                        this.secondaryResource = this.maxSecondaryResource
+                    }
+                }
+            }
+            if (val2>0) {
+                for (let i = 0; i<this.buffs.length; i++) {
+                    if (this.buffs[i].name === "Pillar of Frost") {
+                        this.buffs[i].effect[0].val += val2
+                    }
+                }
+            }
         }
     }
 

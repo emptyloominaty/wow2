@@ -43,7 +43,17 @@ class Obliterate extends Ability {
             }
             if (done) {
                 //let target = caster.castTarget
-                doDamage(caster, caster.castTarget, this)
+                let crit = false
+                let spellPower = this.spellPower
+                if (checkBuff(caster,caster,"Killing Machine",true)) {
+                    crit = true
+                    spellPower = spellPower * (1+(caster.stats.mastery/100)) //FROST
+                }
+                if (getChance(45)) {
+                    applyBuff(caster,caster,caster.abilities["Rime"])
+                }
+
+                doDamage(caster, caster.castTarget, this,undefined,spellPower,undefined,crit)
 
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()

@@ -858,6 +858,8 @@ if (player.spec==="blood") {
 if (player.spec==="frostDk") {
     actions = {
         //bar0
+        "Empower Rune Weapon": new Action("Empower Rune Weapon",0,0),
+        "Pillar of Frost": new Action("Pillar of Frost",0,1),
 
         "Mind Freeze": new Action("Mind Freeze",0,5),
         "Death and Decay": new Action("Death and Decay",0,6),
@@ -865,9 +867,11 @@ if (player.spec==="frostDk") {
         "Icebound Fortitude": new Action("Icebound Fortitude",0,8),
 
         //bar1
-        "Death Grip": new Action("Death Grip",1,4),
+        "Howling Blast": new Action("Howling Blast",1,0),
+        "Frostwyrm's Fury": new Action("Frostwyrm's Fury",1,1),
+        "Remorseless Winter": new Action("Remorseless Winter" ,1,2),
         "Death's Advance": new Action("Death's Advance",1,3),
-
+        "Death Grip": new Action("Death Grip",1,4),
 
         "Obliterate": new Action("Obliterate",1,8),
         "Frost Strike": new Action("Frost Strike",1,9),

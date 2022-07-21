@@ -350,6 +350,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (ability.school==="frost") {
                     damage = damage * (1 + (caster.stats.mastery / 100))
                 }
+                if (ability.name==="Auto Attack") {
+                    if (getChance(70)) {
+                        applyBuff(caster,caster,caster.abilities["Killing Machine"])
+                    }
+                }
             }
         }
 
