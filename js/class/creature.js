@@ -606,7 +606,11 @@ class Creature {
                             this.moveSpeedIncrease += this.buffs[i].effect[j].val
                         }
                     } else if (this.buffs[i].effect[j].name === "incAttackSpeed") {
-                        this.attackSpeed *= (1 + this.buffs[i].effect[j].val)
+                        if (this.buffs[i].stacks > 1) {
+                            this.attackSpeed *= (1 + (this.buffs[i].effect[j].val* this.buffs[i].stacks))
+                        } else {
+                            this.attackSpeed *= (1 + this.buffs[i].effect[j].val)
+                        }
                     } else if (this.buffs[i].effect[j].name === "reduceEnergyCost") {
                         this.reduceEnergyCost -= (this.buffs[i].effect[j].val)
                         if (this.reduceEnergyCost<0) {
@@ -1188,6 +1192,9 @@ class Creature {
                     if (this.secondaryResource>this.maxSecondaryResource) {
                         this.secondaryResource = this.maxSecondaryResource
                     }
+                }
+                if (this.abilities["Icy Talons"].talentSelect) {
+                    applyBuff(this,this,this.abilities["Icy Talons"],1,true)
                 }
             }
             if (val2>0) {

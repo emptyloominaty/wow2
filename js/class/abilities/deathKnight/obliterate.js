@@ -55,6 +55,10 @@ class Obliterate extends Ability {
 
                 doDamage(caster, caster.castTarget, this,undefined,spellPower,undefined,crit)
 
+                if (caster.abilities["Inexorable Assault"].talentSelect && checkBuffStacks(caster,caster,"Inexorable Assault")) {
+                    doDamage(caster,caster.castTarget,caster.abilities["Inexorable Assault"])
+                }
+
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
                 this.setGcd(caster)

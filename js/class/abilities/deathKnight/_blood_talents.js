@@ -362,6 +362,16 @@ class WraithWalk extends Ability {
             "Cannot be slowed below 170% of normal movement speed.<br>" +
             "Cannot attack."
     }
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            this.setCd()
+            this.setGcd(caster)
+            applyBuff(caster,caster,this)
+            caster.useEnergy(this.cost,this.secCost)
+            return true
+        }
+        return false
+    }
 
 }
 //------------------------------------------------------------------------------------------------ROW6
