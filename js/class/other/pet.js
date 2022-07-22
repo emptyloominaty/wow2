@@ -137,6 +137,11 @@ class Pet {
             this.abilities["Auto Attack"].startCast(this)
         }
 
+        this.moveSpeedIncrease = 1
+        this.damageIncrease = 1
+        this.attackSpeed = 1
+        this.increaseHealth = 1
+
         //buffs
         for (let i = 0; i<this.buffs.length; i++) {
             if (Array.isArray(this.buffs[i].effect)) {
@@ -162,9 +167,35 @@ class Pet {
                                 this.buffs[i].effect[j]._end = true
                             }
                         }
+                    } else if (this.buffs[i].effect[j].name === "increaseDamage") {
+                        if (this.buffs[i].stacks > 1) {
+                            this.damageIncrease += this.buffs[i].effect[j].val * this.buffs[i].stacks
+                        } else {
+                            this.damageIncrease += this.buffs[i].effect[j].val
+                        }
                     }
                 }
             }
+
+            if (!this.buffs[i].ability.permanentBuff) {
+                this.buffs[i].duration -= progressInSec
+                if (this.buffs[i].duration < 0 || this.buffs[i].stacks <= 0) {
+                    this.buffs[i].ability.endBuff(this,i)
+                    this.buffs.splice(i, 1)
+                    i--
+                } else {
+                    this.buffs[i].ability.runBuff(this, this.buffs[i], i)
+                }
+            } else {
+                if (this.buffs[i].duration===-1) {
+                    this.buffs[i].ability.endBuff(this,i)
+                    this.buffs.splice(i, 1)
+                    i--
+                } else {
+                    this.buffs[i].ability.runBuff(this, this.buffs[i], i)
+                }
+            }
+
         }
 
         for (let i = 0; i<this.data.do.length;i++ ) {

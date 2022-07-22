@@ -895,6 +895,9 @@ if (player.spec==="frostDk") {
 if (player.spec==="unholy") {
     actions = {
         //bar0
+        "Army of the Dead": new Action("Army of the Dead",0,0),
+        "Dark Transformation": new Action("Dark Transformation",0,1),
+
 
         "Mind Freeze": new Action("Mind Freeze",0,5),
         "Death and Decay": new Action("Death and Decay",0,6),
@@ -903,7 +906,8 @@ if (player.spec==="unholy") {
 
         //bar1
         "Death Coil": new Action("Death Coil",1,0),
-
+        "Outbreak": new Action("Outbreak",1,1),
+        "Epidemic": new Action("Epidemic",1,2),
         "Death's Advance": new Action("Death's Advance",1,3),
         "Death Grip": new Action("Death Grip",1,4),
 
@@ -917,7 +921,7 @@ if (player.spec==="unholy") {
         "Raise Dead": new Action("Raise Dead",2,2),
         "Death Strike": new Action("Death Strike",2,3),
         "Anti-Magic Zone": new Action("Anti-Magic Zone",2,4),
-
+        "Apocalypse": new Action("Apocalypse",2,7),
 
         //bar3
         "Raise Ally": new Action("Raise Ally",3,0),

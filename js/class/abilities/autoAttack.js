@@ -87,6 +87,10 @@ class AutoAttack extends Ability {
                         caster.abilities["Permafrost"].effect[0].val = ((caster.stats.primary * this.spellPower) * (1 + (caster.stats.vers / 100)))
                         applyBuff(caster,caster,caster.abilities["Permafrost"],undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
                     }
+                } else if (caster.spec==="unholy") {
+                    if (getChance(8)) {
+                        applyBuff(caster,caster,caster.abilities["Sudden Doom"])
+                    }
                 }
             }
 

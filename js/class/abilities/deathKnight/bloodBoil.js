@@ -66,7 +66,6 @@ class BloodPlague extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.passive = true
-        this.hiddenSB = true
         this.spellPower = 0.6416
         this.duration = 24
 

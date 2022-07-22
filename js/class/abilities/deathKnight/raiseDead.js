@@ -13,7 +13,7 @@ class RaiseDead extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.petData = {
-            name:"Raise Dead",
+            name:"Ghoul",
             abilities:{"Claw":new Claw()},
             color:"#563e38",
             size:4,
@@ -33,7 +33,12 @@ class RaiseDead extends Ability {
     }
 
     getTooltip() {
-            return "Raises a ghoul to fight by your side.  You can have a maximum of one ghoul at a time.  Lasts 1 min."
+        if (player.spec==="unholy") {
+            return "Raises a ghoul to fight by your side.  You can have a maximum of one ghoul at a time."
+        } else {
+            return "Raises a ghoul to fight by your side.  You can have a maximum of one ghoul at a time. Lasts 1 min."
+        }
+
     }
 
     startCast(caster) {
@@ -42,7 +47,7 @@ class RaiseDead extends Ability {
                 caster.isChanneling = false
             }
             if (caster.pets[this.petId]!==undefined) {
-                if (caster.pets[this.petId] && caster.pets[this.petId].name==="Raise Dead") {
+                if (caster.pets[this.petId] && caster.pets[this.petId].name==="Ghoul") {
                     caster.pets[this.petId] = undefined
                 }
             }

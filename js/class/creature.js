@@ -260,7 +260,11 @@ class Creature {
             this.class = "Death Knight"
             this.abilities = new Unholy_Abilities()
             _unholy_talents(this)
-            //applyBuff(this,this,this.abilities["Veteran of the Third War"])
+            applyBuff(this,this,this.abilities["Veteran of the Third War"])
+            setTimeout(()=>{
+                this.abilities["Raise Dead"].startCast(this)
+            },400)
+
 
             this.secondaryResourceName = "Runes"
             this.secondaryResource = 6
@@ -1220,6 +1224,12 @@ class Creature {
                         this.abilities["Remorseless Winter"].gatheringStorm += val2
                         this.buffs[i].duration += val2*0.5
                     }
+                }
+            }
+        } else if (this.spec==="unholy") {
+            if (val>0) {
+                if (getChance(val*1.6)) {
+                    this.secondaryResource -= 0.3
                 }
             }
         }

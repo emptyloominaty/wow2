@@ -26,7 +26,11 @@ class DeathCoil extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        let cost = this.cost
+        if (caster.spec==="unholy" && checkBuff(caster,caster,"Sudden Doom")) {
+            cost = 0
+        }
+        if (this.checkStart(caster,cost)) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
@@ -40,11 +44,13 @@ class DeathCoil extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                if (caster.spec==="unholy" && caster.abilities["Dark Transformation"]) { //TODO:caster.abilities["Dark Transformation"]
+                if (caster.spec==="unholy" ) {
                     caster.abilities["Dark Transformation"].incCd(caster,1,false)
+                    checkBuff(caster,caster,"Sudden Doom",true)
                 }
+
                 this.setCd()
-                caster.useEnergy(this.cost,this.secCost)
+                caster.useEnergy(cost,this.secCost)
                 this.setGcd(caster)
                 return true
             }

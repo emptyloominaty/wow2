@@ -10,11 +10,11 @@ class ScourgeStrike extends Ability {
         let casting = false
         let canMove = false
         let school = "physical"
-        let range = 5
+        let range = 8
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.345
-        this.spellPower2 = 0.19
+        this.spellPower = 0.345*1.2
+        this.spellPower2 = 0.19*1.2
         this.secCost = 1
 
     }
@@ -63,7 +63,7 @@ class ScourgeStrike extends Ability {
 
                 let ttt = 0
                 for (let i = 0; i<enemies.length; i++) {
-                    if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(caster,enemies[i],5,true)) {
+                    if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(caster,enemies[i],8,true)) {
                         if (ttt>=maxTargets) {
                             break
                         }

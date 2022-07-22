@@ -13,7 +13,7 @@ class FesteringStrike extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 1.16
+        this.spellPower = 1.16*1.2
         this.secCost = 2
         this.maxStacks = 10
     }
