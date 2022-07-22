@@ -31,6 +31,7 @@ let iconsPath = {
         "arms":"img/specs/warrior/arms.png",
         "protectionWarrior":"img/specs/warrior/protection.png",
         "frostDk":"img/specs/deathknight/frost.png",
+        "unholy":"img/specs/deathknight/unholy.png",
     },
 
     //classes

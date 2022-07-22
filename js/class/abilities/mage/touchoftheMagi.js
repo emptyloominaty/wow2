@@ -76,13 +76,12 @@ class TouchoftheMagi extends Ability {
     endBuff(target) {
         let caster = this.caster
         let val = this.damageDealt * 0.25
-
         doDamage(caster,target,this,undefined,undefined,false,undefined,undefined,undefined,val)
 
         let targets = enemies
         for (let i = 0; i<targets.length ;i++) {
             if (!targets[i].isDead && target!==targets[i] && this.checkDistance(target, targets[i],undefined,true)) {
-                doDamage(caster, targets[i], this,undefined,undefined,undefined,undefined,undefined,undefined,val/3)
+                doDamage(caster, targets[i], this,undefined,undefined,undefined,undefined,undefined,undefined,val/2)
             }
         }
         this.damageDealt = 0

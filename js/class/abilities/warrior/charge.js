@@ -25,7 +25,7 @@ class Charge extends Ability {
         return "Charge to an enemy, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage, rooting it for 1 sec <br> Min Range:8"
     }
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && !caster.isRolling) {
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && !caster.castTarget.isDead && this.checkDistance(caster,caster.castTarget) && !this.checkDistance(caster,caster.castTarget,this.minRange)) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false

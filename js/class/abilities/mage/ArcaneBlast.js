@@ -85,10 +85,10 @@ class ArcaneBlast extends Ability {
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 let spellPower = this.spellPower
-                for (let i = 0; i<caster.secondaryResource; i++) {
-                    spellPower += spellPower * (0.6)
-                    spellPower += spellPower * (((caster.stats.mastery / 100))/2)
-                }
+
+                spellPower += spellPower * (0.6*caster.secondaryResource)
+                spellPower += spellPower * ((((caster.stats.mastery / 100))/2)*caster.secondaryResource)
+
 
                 let cost = this.cost * (1 + (caster.secondaryResource))
                 for (let i = 0; i<caster.buffs.length; i++) {

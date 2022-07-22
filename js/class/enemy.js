@@ -34,7 +34,7 @@ let enemiesStats = {
 
 enemies.push(new Enemy("Test1",1000000,100,0,-150,180,"bossTest","boss",enemiesStats["boss1"]))
 /*enemies.push(new Enemy("Test2",650000,100,50,-170,180,"addTest","add",enemiesStats["add1"]))
-enemies.push(new Enemy("Test3",650000,100,-50,-170,180,"addTest","add",enemiesStats["add1"]))*/
-/*enemies.push(new Enemy("Test4",650000,100,25,-180,180,"addTest","add",enemiesStats["add1"]))
+enemies.push(new Enemy("Test3",650000,100,-50,-170,180,"addTest","add",enemiesStats["add1"]))
+enemies.push(new Enemy("Test4",650000,100,25,-180,180,"addTest","add",enemiesStats["add1"]))
 enemies.push(new Enemy("Test5",650000,100,-25,-180,180,"addTest","add",enemiesStats["add1"]))
 enemies.push(new Enemy("Test6",650000,100,0,-200,180,"addTest","add",enemiesStats["add1"]))*/

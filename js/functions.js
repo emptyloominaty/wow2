@@ -145,7 +145,7 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
     }
 }
 
-let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "",incCrit = 0,val = 0,name = "") {
+let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCrit = true, crit100 = false,t = "",incCrit = 0,val = 0,name = "",school2 = "") {
     if (!target.isDead) {
 
         if (name==="") {
@@ -160,6 +160,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             crit = 2
         }
         let damage = 0
+        let school = ability.school
+        if (school2 !== "") {
+            school = school2
+        }
 
         if (spellPower === 0) {
             damage = (caster.stats.primary * ability.spellPower) * (1 + (caster.stats.vers / 100)) * crit
@@ -242,8 +246,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     caster.abilities["Invoke Xuen, the White Tiger"].storeDamage(caster, damage)
                 }
             } else if (caster.spec === "arcane") {
-                if (ability.name !== "Arcane Blast" && ability.name !== "Arcane Barrage")
-                    damage = damage * (1 + (((caster.stats.mastery / 100) * caster.secondaryResource)) / 1.2)
+                if (ability.name !== "Arcane Blast" && ability.name !== "Arcane Barrage") {
+                    damage = damage * (1 + (((caster.stats.mastery / 100))))
+                }
                 if (checkDebuff(caster, target, "Touch of the Magi")) {
                     caster.abilities["Touch of the Magi"].damageDealt += damage
                     if (caster.abilities["Arcane Echo"].talentSelect && ability.name !== "Arcane Echo") {
@@ -354,6 +359,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     if (getChance(70)) {
                         applyBuff(caster,caster,caster.abilities["Killing Machine"])
                     }
+                }
+            } else if (caster.spec==="unholy") {
+                if (school==="shadow") {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
                 }
             }
         }
@@ -482,6 +491,8 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         }
                     }
                 }
+            } else if (caster.spec==="unholy") {
+                damage = damage * (1 + (caster.stats.mastery / 100))
             }
         }
 
@@ -891,6 +902,26 @@ let checkBuffStacks = function(caster,target,buffName) {
             return true
         }
     }
+    return false
+}
+
+
+let checkDebuffStacks = function(caster,target,buffName) {
+    let remove = true
+    for (let i = 0; i<target.debuffs.length; i++) {
+        if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
+            if (remove) {
+                if (target.debuffs[i].stacks>1) {
+                    target.debuffs[i].stacks --
+                } else {
+                    target.debuffs[i].duration = -1
+                }
+
+            }
+            return true
+        }
+    }
+    return false
 }
 
 let checkDebuff = function(caster,target,buffName) {

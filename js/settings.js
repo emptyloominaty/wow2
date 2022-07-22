@@ -84,6 +84,12 @@ let raidFramesBuffs = {
         centreRight:"none",
         bottomCentre:"none",
     },
+    "unholy": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
     "arms": {
         bottomRight:"none",
         bottomRight2:"none",

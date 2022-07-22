@@ -26,10 +26,10 @@ class DeathandDecay extends Ability {
 
     }
 
-    getTooltip() { //TODO:heart strike
+    getTooltip() {
         if (player.spec==="blood") {
             return  "Corrupts the targeted ground, causing "+spellPowerToNumber(this.spellPower*10)+" Shadow damage over 10 sec to targets within the area. Heart Strike will hit up to 3 additional targets."
-        } else { //TODO:Unholy
+        } else {
             return  "Corrupts the targeted ground, causing "+spellPowerToNumber(this.spellPower*10)+" Shadow damage over 10 sec to targets within the area. Scourge Strike will hit up to 4 enemies near the target."
         }
 

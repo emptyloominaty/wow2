@@ -17,9 +17,12 @@ class DeathCoil extends Ability {
     }
 
     getTooltip() {
-        return "Fires a blast of unholy energy at the target, causing "+spellPowerToNumber(this.spellPower)+" Shadow damage to an enemy or healing an Undead ally for "+spellPowerToNumber(this.spellPowerHeal)+" health."
-
-        //TODO: UNHOLY: "Reduces the cooldown of Dark Transformation by 1 sec"
+        if (player.spec!=="unholy") {
+            return "Fires a blast of unholy energy at the target, causing "+spellPowerToNumber(this.spellPower)+" Shadow damage to an enemy or healing an Undead ally for "+spellPowerToNumber(this.spellPowerHeal)+" health."
+        } else {
+            return "Fires a blast of unholy energy at the target, causing "+spellPowerToNumber(this.spellPower)+" Shadow damage to an enemy or healing an Undead ally" +
+                " for "+spellPowerToNumber(this.spellPowerHeal)+" health. Reduces the cooldown of Dark Transformation by 1 sec."
+        }
     }
 
     startCast(caster) {
@@ -36,6 +39,9 @@ class DeathCoil extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
+                }
+                if (caster.spec==="unholy" && caster.abilities["Dark Transformation"]) { //TODO:caster.abilities["Dark Transformation"]
+                    caster.abilities["Dark Transformation"].incCd(caster,1,false)
                 }
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)

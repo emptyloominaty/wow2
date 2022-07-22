@@ -252,11 +252,25 @@ class Creature {
             this.secondaryResource = 6
             this.maxSecondaryResource = 6
             this.resourceName = "Runic Power"
+            this.maxEnergy = 120
+            this.energy = 0
+            this.melee = true
+            this.role = "dps"
+        } else if (spec==="unholy") {//----------------------------------------Unholy DK
+            this.class = "Death Knight"
+            this.abilities = new Unholy_Abilities()
+            _unholy_talents(this)
+            //applyBuff(this,this,this.abilities["Veteran of the Third War"])
+
+            this.secondaryResourceName = "Runes"
+            this.secondaryResource = 6
+            this.maxSecondaryResource = 6
+            this.resourceName = "Runic Power"
             this.maxEnergy = 100
             this.energy = 0
             this.melee = true
             this.role = "dps"
-        } else if (spec==="elemental") {//----------------------------------------Elemental
+        }  else if (spec==="elemental") {//----------------------------------------Elemental
             this.class = "Shaman"
             this.abilities = new Elemental_Abilities()
             _elemental_talents(this)
