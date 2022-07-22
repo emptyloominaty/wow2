@@ -1229,7 +1229,7 @@ class Creature {
         } else if (this.spec==="unholy") {
             if (val>0) {
                 if (getChance(val*1.6)) {
-                    this.secondaryResource -= 0.3
+                    this.secondaryResource += 0.3
                 }
             }
         }
