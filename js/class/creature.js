@@ -1202,6 +1202,10 @@ class Creature {
                     if (this.buffs[i].name === "Pillar of Frost") {
                         this.buffs[i].effect[0].val += val2
                     }
+                    if (this.buffs[i].name==="Remorseless Winter" && this.abilities["Gathering Storm"].talentSelect) {
+                        this.abilities["Remorseless Winter"].gatheringStorm += val2
+                        this.buffs[i].duration += val2*0.5
+                    }
                 }
             }
         }

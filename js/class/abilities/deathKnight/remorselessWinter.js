@@ -19,6 +19,7 @@ class RemorselessWinter extends Ability {
 
         this.timer1 = 0
         this.timer2 = 1
+        this.gatheringStorm = 0
     }
 
     getTooltip() { //TODO: movement speed
@@ -31,6 +32,7 @@ class RemorselessWinter extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            this.gatheringStorm = 0
             applyBuff(caster, caster, this)
             caster.useEnergy(this.cost,this.secCost)
             this.setCd()
@@ -52,7 +54,7 @@ class RemorselessWinter extends Ability {
             this.timer1 = 0
             for (let i = 0; i<enemies.length; i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true)) {
-                    doDamage(caster,enemies[i],this)
+                    doDamage(caster,enemies[i],this,undefined,this.spellPower*(1+(this.gatheringStorm/10)))
                 }
             }
         }

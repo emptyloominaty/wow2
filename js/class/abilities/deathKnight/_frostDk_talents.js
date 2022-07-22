@@ -25,14 +25,14 @@ let _frostDk_talents = function(caster) {
     caster.abilities["Death Pact"] = new DeathPact()
 
     //6
-    //caster.abilities["Gathering Storm"] = new GatheringStorm()
-    //caster.abilities["Hypothermic Presence"] = new HypothermicPresence()
-    //caster.abilities["Glacial Advance"] = new GlacialAdvance()
+    caster.abilities["Gathering Storm"] = new GatheringStorm()
+    caster.abilities["Hypothermic Presence"] = new HypothermicPresence()
+    caster.abilities["Glacial Advance"] = new GlacialAdvance()
 
     //7
-    //caster.abilities["Icecap"] = new Icecap()
-    //caster.abilities["Obliteration"] = new Obliteration()
-    //caster.abilities["Breath of Sindragosa"] = new BreathofSindragosa()
+    caster.abilities["Icecap"] = new Icecap()
+    caster.abilities["Obliteration"] = new Obliteration()
+    caster.abilities["Breath of Sindragosa"] = new BreathofSindragosa()
 
 
     caster.talents = [["Inexorable Assault","Icy Talons","Cold Heart"],
@@ -115,7 +115,6 @@ class RunicAttenuation extends Ability {
         super("Runic Attenuation", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
         this.passive = true
         this.talent = true
-        this.talentSelect = true
     }
 
     getTooltip() {
@@ -129,6 +128,7 @@ class MurderousEfficiency extends Ability {
         super("Murderous Efficiency", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
         this.passive = true
         this.talent = true
+        this.talentSelect = true
     }
 
     getTooltip() {
@@ -250,20 +250,145 @@ class Permafrost extends Ability {
         this.talent = true
         this.effect = [{name:"absorb",val:0}]
         this.duration = 10
+        this.talentSelect = true
     }
 
     getTooltip() {
         return "Your auto attack damage grants you an absorb shield equal to 100% of the damage dealt." //TODO:40% + NO RESET
     }
 
-
-
 }
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW6
+class GatheringStorm extends Ability {
+    constructor() {
+        super("Gathering Storm", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() {
+        return "Each Rune spent during Remorseless Winter increases its damage by 10%, and extends its duration by 0.5 sec."
+    }
+
+}
 //------------------------------------------------
+class HypothermicPresence extends Ability {
+    constructor() {
+        super("Hypothermic Presence", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
+        this.talent = true
+        this.duration = 8
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Embrace the ice in your veins, reducing the Runic Power cost of your abilities by 35% for 8 sec. Does not trigger the global cooldown."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "The Runic Power cost of your abilities is reduced by 35%."
+    }
+
+}
 //------------------------------------------------
+class GlacialAdvance extends Ability {
+    constructor() {
+        super("Glacial Advance", 30, 1.5, 0, 6, false, false, false, "frost", 100, 1)
+        this.talent = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Summon glacial spikes from the ground that advance forward, each dealing [(44.94% of Attack power) * [(Attack power * 0.98)][((Attack power + Offhand attack power) * 2 / 3)] -- 2H, DW / Attack power] Frost damage and applying Razorice to enemies near their eruption point."
+    }
+}
 //------------------------------------------------------------------------------------------------ROW7
+class Icecap extends Ability {
+    constructor() {
+        super("Icecap", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Your Frost Strike Frostscythe and Obliterate critical strikes reduce the remaining cooldown of Pillar of Frost by 4 sec."
+    }
+
+}
 //------------------------------------------------
+class Obliteration extends Ability {
+    constructor() {
+        super("Obliteration", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+    }
+
+    getTooltip() { //TODO:Glacial Advance
+        return "While Pillar of Frost is active, Frost Strike, Glacial Advance and Howling Blast always grant Killing Machine and have a 30% chance to generate a Rune."
+    }
+
+}
 //------------------------------------------------
+class BreathofSindragosa extends Ability {
+    constructor() {
+        super("Breath of Sindragosa", 16, 0, 0, 120, false, false, false, "frost", 12, 1)
+        this.talent = true
+        this.spellPower = 0.503
+        this.secCost = -2
+        this.duration = 10
+        this.permanentBuff = true
+        this.timer1 = 0
+        this.timer2 = 1
+    }
+
+    getTooltip() { //TODO:
+        return "Continuously deal "+spellPowerToNumber(this.spellPower)+" Frost damage every 1 sec" +
+            " to enemies in a cone in front of you, until your Runic Power is exhausted. Deals reduced damage to secondary targets." +
+            "<br><br>" +
+            "Generates 2 Rune at the start and end."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Continuously dealing Frost damage every 1 sec to enemies in a cone in front of you."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            this.setCd()
+            this.setGcd(caster)
+            applyBuff(caster,caster,this)
+            caster.useEnergy(this.cost,this.secCost)
+            return true
+        }
+        return false
+    }
+
+    runBuff(caster, buff, id = 0) {
+        if (this.timer1<this.timer2) {
+            this.timer1 += progressInSec
+        } else {
+            this.timer1 = 0
+            if (caster.energy>this.cost) {
+                caster.useEnergy(this.cost,0)
+                let dir = caster.direction
+                let targets = enemies
+                for (let i = 0; i<targets.length ;i++) {
+                    if (!targets[i].isDead && this.checkDistance(caster, targets[i],undefined,true)) {
+                        let dirToTarget = getDirection(caster,targets[i])
+                        if (directionHit(dir,dirToTarget,45)) {
+                            doDamage(caster, targets[i], this,)
+                        }
+                    }
+                }
+            } else {
+                buff.duration = -1
+            }
+        }
+    }
+
+    endBuff(caster) {
+        caster.useEnergy(0,-2)
+    }
+
+}

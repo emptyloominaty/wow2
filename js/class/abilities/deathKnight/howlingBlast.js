@@ -24,8 +24,7 @@ class HowlingBlast extends Ability {
     }
 
     getTooltip() {
-        return "Blast the target with a frigid wind, dealing [(14.37% of Attack power) * [(Attack power * 0.98)][((Attack power + Offhand attack power) * 2 / 3)] -- 2H, DW / Attack power]<br><br>" +
-            "Frost damage to that foe, and reduced damage to all other enemies within 10 yards, infecting all targets with Frost Fever."
+        return "Blast the target with a frigid wind, dealing "+spellPowerToNumber(this.spellPower)+" Frost damage to that foe, and reduced damage to all other enemies within 10 yards, infecting all targets with Frost Fever."
     }
 
     run(caster) {
@@ -72,7 +71,12 @@ class HowlingBlast extends Ability {
                         avalanche = true
                     }
                 }
-
+                if (caster.abilities["Obliteration"].talentSelect && checkBuff(caster,caster,"Pillar of Frost")) {
+                    applyBuff(caster,caster,caster.abilities["Killing Machine"])
+                    if (getChance(30)) {
+                        caster.useEnergy(0,-1)
+                    }
+                }
 
                 doDamage(caster, caster.castTarget, this,undefined,spellPower)
                 if (avalanche) {

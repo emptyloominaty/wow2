@@ -158,10 +158,12 @@ let open_logs = function(reload = false,type = false,type2 = false) {
             if (i>2 && i+2<combatLength) {
                 totalValsInt[i] = (totalVals[i-2]+totalVals[i-1]+totalVals[i]+totalVals[i+1]+totalVals[i+2])/5
             } else if (i>1 && i+1<combatLength) {
-                totalValsInt[i] = (totalVals[i-1]+totalVals[i]+totalVals[i+1])/3
+                totalValsInt[i] = (totalVals[i-1]+totalVals[i]+totalVals[i+1])/5
+            } else {
+                totalValsInt[i] = totalVals[i]/5
             }
         } else {
-            totalValsInt[i] = totalVals[i]
+            totalValsInt[i] = totalVals[i]/5
         }
         Object.keys(valsAbilities).forEach(key => {
             if (valsAbilitiesInt[key]===undefined) {
@@ -171,10 +173,12 @@ let open_logs = function(reload = false,type = false,type2 = false) {
                 if (i>2 && i+2<combatLength) {
                     valsAbilitiesInt[key][i] = (valsAbilities[key][i-2]+valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1]+valsAbilities[key][i+2])/5
                 } else if (i>1 && i+1<combatLength) {
-                    valsAbilitiesInt[key][i] = (valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1])/3
+                    valsAbilitiesInt[key][i] = (valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1])/5
+                } else {
+                    valsAbilitiesInt[key][i] = valsAbilities[key][i]/5
                 }
             } else {
-                valsAbilitiesInt[key][i] = valsAbilities[key][i]
+                valsAbilitiesInt[key][i] = valsAbilities[key][i]/5
             }
         })
     }

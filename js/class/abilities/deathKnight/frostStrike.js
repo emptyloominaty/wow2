@@ -43,8 +43,13 @@ class FrostStrike extends Ability {
             if (done) {
                 //let target = caster.castTarget
                 doDamage(caster, caster.castTarget, this)
-
                 caster.useEnergy(this.cost,this.secCost)
+                if (caster.abilities["Obliteration"].talentSelect && checkBuff(caster,caster,"Pillar of Frost")) {
+                    applyBuff(caster,caster,caster.abilities["Killing Machine"])
+                    if (getChance(30)) {
+                        caster.useEnergy(0,-1)
+                    }
+                }
                 this.setCd()
                 this.setGcd(caster)
                 if (caster.isChanneling) {

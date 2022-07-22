@@ -53,6 +53,9 @@ class Ai {
         "retribution":() => {
             _ai_retribution(this.creature)
         },
+        "frostDk":() => {
+            _ai_frostDk(this.creature)
+        },
         "bossTest":() => {
             _ai_bossTest(this.creature)
         }, "addTest":() => {
