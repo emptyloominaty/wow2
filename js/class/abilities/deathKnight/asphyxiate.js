@@ -1,5 +1,5 @@
 class Asphyxiate extends Ability {
-    constructor() {
+    constructor(frost = false) {
         let name = "Asphyxiate"
         let cost = 0
         let gcd = 1.5
@@ -15,6 +15,9 @@ class Asphyxiate extends Ability {
 
         this.effect = [{name:"stun"}]
         this.duration = 5
+        if (frost) {
+            this.talent = true
+        }
 
     }
 
@@ -24,6 +27,9 @@ class Asphyxiate extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
+            if (caster.spec==="frostDk" && !this.talentSelect) {
+                return false
+            }
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true

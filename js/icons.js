@@ -89,6 +89,7 @@ let iconsPath = {
     "Anti-Magic Barrier":"img/deathKnight/Anti-MagicBarrier.jpg",
     "Army of the Damned":"img/deathKnight/ArmyoftheDamned.jpg",
     "Asphyxiate":"img/deathKnight/Asphyxiate.jpg",
+    "Asphyxiate ":"img/deathKnight/Asphyxiate.jpg",
     "Avalanche":"img/deathKnight/Avalanche.jpg",
     "Blinding Sleet":"img/deathKnight/BlindingSleet.jpg",
     "Blood Tap":"img/deathKnight/BloodTap.jpg",

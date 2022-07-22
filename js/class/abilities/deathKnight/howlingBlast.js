@@ -64,18 +64,28 @@ class HowlingBlast extends Ability {
             if (done) {
                 let spellPower = this.spellPower
                 let secCost = this.secCost
+                let avalanche = false
                 if (checkBuff(caster,caster,"Rime",true)) {
                     spellPower *= 2.5
                     secCost = 0
+                    if (caster.abilities["Avalanche"].talentSelect) {
+                        avalanche = true
+                    }
                 }
 
 
                 doDamage(caster, caster.castTarget, this,undefined,spellPower)
+                if (avalanche) {
+                    doDamage(caster,caster.castTarget,caster.abilities["Avalanche"])
+                }
                 applyDot(caster,caster.castTarget,caster.abilities["Frost Fever"])
                 caster.abilities["Frost Fever"].caster = caster
                 for (let i = 0; i<enemies.length; i++) {
                     if (!enemies[i].isDead && enemies[i]!==caster.castTarget &&this.checkDistance(caster.castTarget,enemies[i],10,true)) {
                         doDamage(caster, enemies[i], this,undefined,spellPower/2)
+                        if (avalanche) {
+                            doDamage(caster,enemies[i],caster.abilities["Avalanche"])
+                        }
                         applyDot(caster,enemies[i],caster.abilities["Frost Fever"])
                     }
                 }

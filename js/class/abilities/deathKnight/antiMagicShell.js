@@ -31,7 +31,7 @@ class AntiMagicShell extends Ability {
         if (this.checkStart(caster)) {
             let mul = 1
 
-            if (caster.abilities["Anti-Magic Barrier"].talentSelect) {
+            if (caster.spec==="blood" && caster.abilities["Anti-Magic Barrier"].talentSelect) {
                 mul = 1.4
             }
 

@@ -2,7 +2,7 @@ class frostDk_Abilities {
     "Death Strike" = new DeathStrike(false)
     "Mind Freeze" = new MindFreeze()
     "Dark Command" = new DarkCommand()
-    "Asphyxiate" = new Asphyxiate()
+    "Asphyxiate" = new Asphyxiate(true)
     "Icebound Fortitude" = new IceboundFortitude()
     "Lichborne" = new Lichborne()
     "Raise Ally" = new RaiseAlly()
@@ -82,5 +82,10 @@ class KillingMachine extends Ability {
         return "Your auto attack critical strikes have a chance to make your next Obliterate deal Frost damage and critically strike."
     }
 
+    endBuff(caster) {
+        if (caster.abilities["Murderous Efficiency"].talentSelect && getChance(50)) {
+            caster.useEnergy(0,-1)
+        }
+    }
 }
 

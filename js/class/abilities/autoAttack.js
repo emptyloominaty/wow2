@@ -77,12 +77,20 @@ class AutoAttack extends Ability {
                         this.cd = this.maxCd*0.3
                         doDamage(caster,caster.castTarget,caster.abilities["Zeal"])
                     }
+                } else if (caster.spec==="frostDk") {
+                    if (caster.abilities["Runic Attenuation"].talentSelect) {
+                        if (getChance(43)) {
+                            caster.useEnergy(-5,0)
+                        }
+                    }
+                    if (caster.abilities["Permafrost"].talentSelect) {
+                        caster.abilities["Permafrost"].effect[0].val = ((caster.stats.primary * this.spellPower) * (1 + (caster.stats.vers / 100)))
+                        applyBuff(caster,caster,caster.abilities["Permafrost"],undefined,undefined,undefined,undefined,undefined,undefined,undefined,true)
+                    }
                 }
             }
 
         }
     }
 
-    endCast(caster) {
-    }
 }
