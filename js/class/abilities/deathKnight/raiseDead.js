@@ -52,6 +52,10 @@ class RaiseDead extends Ability {
                 }
             }
             this.petId = spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this)
+            if (caster.spec==="unholy" && caster.abilities["All Will Serve"].talentSelect) {
+                caster.abilities["All Will Serve"].spawnPet(caster)
+            }
+
             this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)
@@ -107,6 +111,74 @@ class Claw extends Ability {
             }
             if (done) {
                 doDamage(caster, caster.castTarget, this)
+                if (caster.caster.spec==="unholy" && caster.caster.abilities["Infected Claws"].talentSelect && getChance(30)) {
+                    applyDebuff(caster.caster,caster.castTarget,caster.caster.abilities["Festering Wound"],undefined,1,true)
+                }
+
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
+                this.setGcd(caster)
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+
+                return true
+            }
+
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+}
+//----------------------------------------
+class SkulkerShot extends Ability {
+    constructor() {
+        let name = "Skulker Shot"
+        let cost = 40
+        let gcd = 0
+        let castTime = 0
+        let cd = 2.5
+        let charges = 1
+        let channeling = false
+        let casting = false
+        let canMove = false
+        let school = "physical"
+        let range = 35
+        super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        this.spellPower = 0.55
+    }
+
+    getTooltip() {
+        return "A ranged shot that causes Physical damage."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            let done = false
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                done = true
+            } else {
+                let newTarget = findNearestEnemy(caster)
+                if (newTarget!==false) {
+                    if (caster === player) {
+                        document.getElementById("raidFrame" + targetSelect).style.outline = "0px solid #fff"
+                    }
+                    caster.targetObj = newTarget
+                    caster.castTarget = newTarget
+                    caster.target = newTarget.name
+                    if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                        done = true
+                    }
+                }
+            }
+            if (done) {
+                doDamage(caster, caster.castTarget, this)
+                if (caster.caster.spec==="unholy" && caster.caster.abilities["Infected Claws"].talentSelect && getChance(30)) {
+                    applyDebuff(caster.caster,caster.castTarget,caster.caster.abilities["Festering Wound"],undefined,1,true)
+                }
+
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
                 this.setGcd(caster)

@@ -74,6 +74,8 @@ let iconsPath = {
 
     //Death Knight
     "All Will Serve":"img/deathKnight/AllWillServe.jpg",
+    "Skulker Shot":"img/deathKnight/SkulkerShot.jpg",
+    "Risen Skulker":"img/deathKnight/AllWillServe.jpg",
     "Blooddrinker":"img/deathKnight/Blooddrinker.jpg",
     "Breath of Sindragosa":"img/deathKnight/BreathofSindragosa.jpg",
     "Frostscythe":"img/deathKnight/Frostscythe.jpg",
@@ -176,6 +178,7 @@ let iconsPath = {
     "Raise Ally":"img/deathKnight/RaiseAlly.jpg",
     "Raise Dead":"img/deathKnight/RaiseDead.jpg",
     "Ghoul":"img/deathKnight/RaiseDead.jpg",
+
     "Ghoul(Apocalypse)0":"img/deathKnight/ArmyoftheDead.jpg",
     "Ghoul(Apocalypse)1":"img/deathKnight/ArmyoftheDead.jpg",
     "Ghoul(Apocalypse)2":"img/deathKnight/ArmyoftheDead.jpg",
