@@ -33,6 +33,8 @@ class AntiMagicShell extends Ability {
 
             if (caster.spec==="blood" && caster.abilities["Anti-Magic Barrier"].talentSelect) {
                 mul = 1.4
+            } else if (caster.spec==="unholy" && caster.abilities["Spell Eater"].talentSelect) {
+                mul = 1.3
             }
 
             this.effect[0].val = (caster.maxHealth * 0.3 * (1+(caster.stats.vers/100)))*mul

@@ -493,6 +493,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             } else if (caster.spec==="unholy") {
                 damage = damage * (1 + (caster.stats.mastery / 100))
+                if (caster.abilities["Unholy Blight"].talentSelect && checkDebuff(caster,target,"Unholy Blight Dot")) {
+                    damage *= 1.1
+                }
             }
         }
 

@@ -913,14 +913,15 @@ if (player.spec==="unholy") {
 
         "Scourge Strike": new Action("Scourge Strike",1,8),
         "Festering Strike": new Action("Festering Strike",1,9),
-        //"Asphyxiate": new Action("Asphyxiate",1,10), //TALENT
+        "Asphyxiate": new Action("Asphyxiate",1,10),
 
         //bar2
         "Anti-Magic Shell": new Action("Anti-Magic Shell",2,0),
-
+        "Soul Reaper": new Action("Soul Reaper",2,0),
         "Raise Dead": new Action("Raise Dead",2,2),
         "Death Strike": new Action("Death Strike",2,3),
         "Anti-Magic Zone": new Action("Anti-Magic Zone",2,4),
+        "Unholy Blight": new Action("Unholy Blight",2,5),
         "Apocalypse": new Action("Apocalypse",2,7),
 
         //bar3

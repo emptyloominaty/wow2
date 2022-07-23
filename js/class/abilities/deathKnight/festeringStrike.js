@@ -94,6 +94,13 @@ class FesteringWound extends Ability {
 
     burst(caster,target) {
         doDamage(caster,target,this)
+        if (caster.abilities["Bursting Sores"].talentSelect) {
+            for (let i = 0; i<enemies.length; i++) {
+                if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],8,true)) {
+                    doDamage(caster,enemies[i],caster.abilities["Bursting Sores"])
+                }
+            }
+        }
         caster.useEnergy(-3,0)
     }
 }

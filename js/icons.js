@@ -129,6 +129,7 @@ let iconsPath = {
     "Tombstone":"img/deathKnight/Tombstone.jpg",
     "Unholy Assault":"img/deathKnight/UnholyAssault.jpg",
     "Unholy Blight":"img/deathKnight/UnholyBlight.jpg",
+    "Unholy Blight Dot":"img/deathKnight/UnholyBlight.jpg",
     "Unholy Pact":"img/deathKnight/UnholyPact.jpg",
     "Voracious":"img/deathKnight/Voracious.jpg",
     "Anti-Magic Shell":"img/deathKnight/Anti-MagicShell.jpg",
