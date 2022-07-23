@@ -917,7 +917,7 @@ if (player.spec==="unholy") {
 
         //bar2
         "Anti-Magic Shell": new Action("Anti-Magic Shell",2,0),
-        "Soul Reaper": new Action("Soul Reaper",2,0),
+        "Soul Reaper": new Action("Soul Reaper",2,1),
         "Raise Dead": new Action("Raise Dead",2,2),
         "Death Strike": new Action("Death Strike",2,3),
         "Anti-Magic Zone": new Action("Anti-Magic Zone",2,4),

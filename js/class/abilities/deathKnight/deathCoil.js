@@ -46,6 +46,11 @@ class DeathCoil extends Ability {
                 }
                 if (caster.spec==="unholy" ) {
                     caster.abilities["Dark Transformation"].incCd(caster,1,false)
+                    if (caster.abilities["Army of the Damned"]) {
+                        caster.abilities["Army of the Dead"].incCd(caster,5,false)
+                        caster.abilities["Apocalypse"].incCd(caster,1,false)
+                    }
+
                     checkBuff(caster,caster,"Sudden Doom",true)
                 }
 

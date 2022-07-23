@@ -18,7 +18,7 @@ class RaiseDead extends Ability {
             color:"#563e38",
             size:4,
             do:[{name:"goMelee"},{name:"cast",ability:"Claw"}],
-            autoAttackDamage:1
+            autoAttackDamage:0.85
         }
         this.petDuration = 60
         this.noGcd = true

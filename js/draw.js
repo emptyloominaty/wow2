@@ -207,9 +207,9 @@ function draw(progress) {
 
     for (let i = 0; i<creatures.length; i++) {
         //pets
-        for (let i = 0; i<creatures[i].pets.length; i++) {
-            if (creatures[i].pets[i]!==undefined) {
-                creatures[i].pets[i].draw()
+        for (let j = 0; j<creatures[i].pets.length; j++) {
+            if (creatures[i].pets[j]!==undefined) {
+                creatures[i].pets[j].draw()
             }
         }
 

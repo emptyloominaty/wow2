@@ -34,6 +34,9 @@ class DarkTransformation extends Ability {
                 }
             }
 
+            if (caster.abilities["Unholy Pact"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Unholy Pact"])
+            }
 
             this.setCd()
             this.setGcd(caster)

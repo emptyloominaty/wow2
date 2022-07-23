@@ -27,14 +27,14 @@ let _unholy_talents = function(caster) {
     caster.abilities["Death Pact"] = new DeathPact()
 
     //6
-    //caster.abilities["Pestilence"] = new Pestilence()
-    //caster.abilities["Unholy Pact"] = new UnholyPact()
-    //caster.abilities["Defile"] = new Defile()
+    caster.abilities["Pestilence"] = new Pestilence()
+    caster.abilities["Unholy Pact"] = new UnholyPact()
+    caster.abilities["Defile"] = new Defile()
 
     //7
-    //caster.abilities["Army of the Damned"] = new ArmyoftheDamned()
-    //caster.abilities["Summon Gargoyle"] = new SummonGargoyle()
-    //caster.abilities["Unholy Assault"] = new UnholyAssault()
+    caster.abilities["Army of the Damned"] = new ArmyoftheDamned()
+    caster.abilities["Summon Gargoyle"] = new SummonGargoyle()
+    caster.abilities["Unholy Assault"] = new UnholyAssault()
 
 
 
@@ -297,8 +297,110 @@ class SpellEater extends Ability {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW6
+class Pestilence extends Ability {
+    constructor() {
+        super("Pestilence", 0, 0, 0, 0, false, false, false, "shadow", 0, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {  // Death and Decay damage has a 10% chance to apply a Festering Wound to the enemy.
+        return "Death and Decay damage increased by 100%."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Death and Decay"].spellPower *= 2
+    }
+    unsetTalent(caster) {
+        caster.abilities["Death and Decay"].spellPower /= 2
+    }
+}
 //------------------------------------------------
+class UnholyPact extends Ability {
+    constructor() {
+        super("Unholy Pact", 0, 0, 0, 0, false, false, false, "shadow", 0, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.effect = [{name:"increaseStat",stat:"primary",val:7,percent:true}]
+        this.duration = 15
+    }
+
+    getTooltip() {
+        return "While Dark Transformation is active, your strength is increased by 7%."
+    }
+    //TODO:Dark Transformation creates an unholy pact between you and your pet, igniting flaming chains that deal [(15.75% of Attack power) * 15] Shadow damage over 15 sec to enemies between you and your pet.
+    // While active, your strength is increased by 5%.
+    getBuffTooltip(caster, target, buff) {
+        return "Strength is increased by 7%."
+    }
+
+}
+
+
 //------------------------------------------------
+class Defile extends Ability {
+    constructor() {
+        super("Defile", -10, 1.5, 0, 20, false, false, false, "shadow", 30, 1)
+        this.talent = true
+        this.secCost = 1
+    }
+
+    getTooltip() { //TODO: REPLACE "Death and Decay"
+        return "//NOT IMPLEMENTED//Defile the targeted ground, dealing [((5% of Attack power) * (11) / 1)] Shadow damage to all enemies over 10 sec.\n" +
+            "\n" +
+            "While you remain within your Defile, your\n" +
+            "Clawing Shadows/\n" +
+            "\n" +
+            "Scourge Strike will hit 4 enemies near the target.\n" +
+            "\n" +
+            "If any enemies are standing in the Defile, it grows in size and deals increasing damage every sec."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW7
+class ArmyoftheDamned extends Ability {
+    constructor() {
+        super("Army of the Damned", 0, 0, 0, 0, false, false, false, "shadow", 0, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Death Coil and Epidemic reduce the cooldown of Apocalypse by 1 sec and Army of the Dead by 5 sec.<br>" +
+            "<br>" +
+            "//NOT IMPLEMENTED//Apocalypse and Army of the Dead also summon a Magus of the Dead who hurls Frostbolts and Shadow Bolts at your foes." //TODO:
+    }
+}
 //------------------------------------------------
+class SummonGargoyle extends Ability {
+    constructor() {
+        super("Summon Gargoyle", 0, 1.5, 0, 180, false, false, false, "shadow", 30, 1)
+        this.talent = true
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Summon a Gargoyle into the area to bombard the target for 30 sec.\n" +
+            "\n" +
+            "The Gargoyle gains 1% increased damage for every 2 Runic Power you spend."
+    }
+
+}
 //------------------------------------------------
+class UnholyAssault extends Ability {
+    constructor() {
+        super("Unholy Assault", 0, 1.5, 0, 75, false, false, false, "shadow", 30, 1)
+        this.talent = true
+        this.duration = 12
+    }
+
+    getTooltip() { //TODO:
+        return "//NOT IMPLEMENTED//Strike your target dealing (127.6% of Attack power) Shadow damage, infecting the target with 4 Festering Wounds" +
+            " and sending you into an Unholy Frenzy increasing haste by 20% for 12 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Haste increased by 20%."
+    }
+
+}

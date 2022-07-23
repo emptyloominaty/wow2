@@ -56,6 +56,9 @@ class Ai {
         "frostDk":() => {
             _ai_frostDk(this.creature)
         },
+        "unholy":() => {
+            _ai_unholy(this.creature)
+        },
         "bossTest":() => {
             _ai_bossTest(this.creature)
         }, "addTest":() => {

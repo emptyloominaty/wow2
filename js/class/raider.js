@@ -22,7 +22,7 @@ let raiders = [
     new Raider("raider10",50000,100,-320,200,0,"arms",raidersStats["stat1"]),
     new Raider("raider11",50000,100,-300,150,0,"retribution",raidersStats["stat1"]),
     new Raider("raider12",50000,100,-150,200,0,"frostDk",raidersStats["stat1"]),
-    new Raider("raider13",50000,100,-320,200,0,"windwalker",raidersStats["stat1"]),
+    new Raider("raider13",50000,100,-320,200,0,"unholy",raidersStats["stat1"]),
     new Raider("raider14",50000,100,-300,150,0,"fury",raidersStats["stat1"]),
     new Raider("raider15",75000,100,0,-40,0,"brewmaster",raidersStats["stat1"]),
     new Raider("raider16",50000,100,300,30,0,"holyPriest",raidersStats["stat1"]),
