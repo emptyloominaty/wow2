@@ -13,8 +13,8 @@ class Regrowth extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 1.73
-        this.spellPowerHot = 0.432
+        this.spellPower = 1.73*1.4
+        this.spellPowerHot = 0.432*1.4
         this.duration = 12
         this.crit = 0
 

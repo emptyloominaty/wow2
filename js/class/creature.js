@@ -261,11 +261,7 @@ class Creature {
             this.abilities = new Unholy_Abilities()
             _unholy_talents(this)
             applyBuff(this,this,this.abilities["Veteran of the Third War"])
-            setTimeout(()=>{
-                this.abilities["Raise Dead"].startCast(this)
-            },400)
-
-
+            setTimeout(()=>{this.abilities["Raise Dead"].startCast(this)},settings.start1)
             this.secondaryResourceName = "Runes"
             this.secondaryResource = 6
             this.maxSecondaryResource = 6
@@ -314,6 +310,19 @@ class Creature {
             this.resourceName = "Astral Power"
             this.energy = 0
             this.role = "dps"
+        } else if (spec==="guardian") { //----------------------------------------Guardian
+            this.class = "Druid"
+            this.abilities = new Guardian_Abilities()
+            _guardian_talents(this)
+
+            setTimeout(()=>{
+                this.abilities["Bear Form"].startCast(this)
+                this.gcd = 0
+            },settings.start1)
+            this.melee = true
+            this.energy = 0
+            this.role = "tank"
+            this.resourceName = "Rage"
         } else if (spec==="arcane") {//----------------------------------------Arcane
             this.class = "Mage"
             this.abilities = new Arcane_abilities()
@@ -347,7 +356,6 @@ class Creature {
             _vengeance_talents(this)
             applyBuff(this,this,this.abilities["Demonic Wards"])
             applyBuff(this,this,this.abilities["Thick Skin"])
-            setTimeout(()=>{this.updateHealth()},30)
             this.energy = 0
             this.resourceName = "Fury"
             this.role = "tank"
@@ -398,6 +406,7 @@ class Creature {
 
         if (this.role==="tank") {
             this.aggroMultiplier = 10
+            setTimeout(()=>{this.updateHealth()},settings.start1)
         }
 
         if (this.enemy) {
@@ -419,7 +428,7 @@ class Creature {
     run() {
         this.floatingTexts.run()
 
-        if (!this.playerCharacter && combatTime>0.5) {
+        if (!this.playerCharacter && combatTime>settings.start2/1000) {
             this.ai.run()
         }
 

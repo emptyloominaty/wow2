@@ -32,6 +32,7 @@ let iconsPath = {
         "protectionWarrior":"img/specs/warrior/protection.png",
         "frostDk":"img/specs/deathknight/frost.png",
         "unholy":"img/specs/deathknight/unholy.png",
+        "guardian":"img/specs/druid/guardian.png",
     },
 
     //classes
@@ -429,6 +430,7 @@ let iconsPath = {
     "Warrior of Elune":"img/druid/WarriorofElune.jpg",
     "Wild Charge":"img/druid/WildCharge.jpg",
     "Ysera's Gift":"img/druid/YserasGift.jpg",
+
 
     //hunter
     "Aimed Shot":"img/hunter/AimedShot.jpg",

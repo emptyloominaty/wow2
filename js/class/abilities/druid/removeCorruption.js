@@ -13,8 +13,8 @@ class RemoveCorruption extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.dispelTypes = ["poison","curse",false]
-        this.canCastForm = "Moonkin Form"
-
+        //this.canCastForm = "Moonkin Form"
+        this.canCastForm = "all"
     }
 
     getTooltip() {

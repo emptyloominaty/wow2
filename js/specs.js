@@ -21,4 +21,5 @@ let specsName = {
     "protectionWarrior":"Protection",
     "frostDk":"Frost",
     "unholy":"Unholy",
+    "guardian":"Guardian",
 }

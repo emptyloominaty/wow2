@@ -238,7 +238,7 @@ if (player.spec==="elemental") {
         "Spiritwalker's Grace": new Action("Spiritwalker's Grace", 2, 11),
 
         "Frost Shock": new Action("Frost Shock", 3, 1),
-
+        "Heroism": new Action("Heroism", 3, 5),
     }
 }
 
@@ -898,7 +898,6 @@ if (player.spec==="unholy") {
         "Army of the Dead": new Action("Army of the Dead",0,0),
         "Dark Transformation": new Action("Dark Transformation",0,1),
 
-
         "Mind Freeze": new Action("Mind Freeze",0,5),
         "Death and Decay": new Action("Death and Decay",0,6),
         "Lichborne": new Action("Lichborne",0,7),
@@ -927,6 +926,43 @@ if (player.spec==="unholy") {
         //bar3
         "Raise Ally": new Action("Raise Ally",3,0),
         "Sacrificial Pact": new Action("Sacrificial Pact",3,1),
+
+    }
+}
+
+
+if (player.spec==="guardian") {
+    actions = {
+        //bar0
+
+        "Thrash": new Action("Thrash",0,1),
+
+        "Remove Corruption": new Action("Remove Corruption",0,4),
+
+        "Skull Bash": new Action("Skull Bash",0,5),
+        "Swipe": new Action("Swipe",0,6),
+        "Soothe": new Action("Soothe",0,7),
+        //"Renewal": new Action( "Renewal",0,7),
+        "Barkskin": new Action("Barkskin",0,8),
+        "Entangling Roots": new Action("Entangling Roots",0,11),
+
+        //bar1
+        "Growl": new Action("Growl",1,8),
+
+        "Mangle": new Action("Mangle",1,8),
+        "Maul": new Action("Maul",1,9),
+
+
+        //bar2
+        "Moonfire": new Action("Moonfire", 2, 0),
+
+        "Bear Form": new Action("Bear Form",2,5),
+
+
+        //bar3
+        "Rebirth": new Action("Rebirth",3,1),
+
+        "Revive": new Action ("Revive",3,4),
 
     }
 }

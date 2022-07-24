@@ -1,13 +1,11 @@
 class Moonfire extends Ability {
-    constructor(balance = false) {
+    constructor(balance = false,guardian = false) {
         let name = "Moonfire"
         let cost = 1.2 //% mana
-
         let gcd = 1.5
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
@@ -23,6 +21,9 @@ class Moonfire extends Ability {
         if (balance) {
             this.cost = -2
             this.duration += 6
+        } else if (guardian) {
+            this.cost = 0
+            this.canCastForm = "Bear Form"
         }
 
     }

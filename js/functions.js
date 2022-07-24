@@ -816,9 +816,9 @@ let applyDot = function (caster,target,ability,duration = 0,extDuration = 0,spel
         }
 
         if (duration === 0) {
-            target.debuffs.push({name:ability.name, type:"dot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration2, maxDuration:duration2, extendedDuration:0, spellPower:spellPower/duration2, caster:caster,ability:ability })
+            target.debuffs.push({name:ability.name, type:"dot",stacks:1, effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration2, maxDuration:duration2, extendedDuration:0, spellPower:spellPower/duration2, caster:caster,ability:ability })
         } else {
-            target.debuffs.push({name:ability.name, type:"dot", effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:duration2, extendedDuration:extDuration, spellPower:spellPower/duration2, caster:caster,ability:ability })
+            target.debuffs.push({name:ability.name, type:"dot",stacks:1, effect:JSON.parse(JSON.stringify(ability.effect)), effectValue:ability.effectValue, timer:0, duration:duration, maxDuration:duration2, extendedDuration:extDuration, spellPower:spellPower/duration2, caster:caster,ability:ability })
         }
     }
 }

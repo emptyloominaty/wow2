@@ -12,6 +12,9 @@ let settings = {
     spellVisuals:3, //0-off, 1-low, 2-medium, 3-high, 4-ultra
     uiRefreshRate:4,
     detailsRefreshRate:4,
+
+    start1: 400,
+    start2: 500,
 }
 
 let spellQueueWindow = 0.3 //sec
@@ -85,6 +88,12 @@ let raidFramesBuffs = {
         bottomCentre:"none",
     },
     "unholy": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
+    "guardian": {
         bottomRight:"none",
         bottomRight2:"none",
         centreRight:"none",

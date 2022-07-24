@@ -1,5 +1,5 @@
 class BearForm extends Ability {
-    constructor() {
+    constructor(guardian=false) {
         let name = "Bear Form"
         let cost = 0
         let gcd = 1.5
@@ -15,9 +15,12 @@ class BearForm extends Ability {
 
         this.spellPower = 0
         this.effects = [{name:"increaseArmor",val:3.2},{name:"increaseStat",stat:"stamina",val:25}]
+        if (guardian) {
+            this.effects[1].val = 45
+        }
 
         this.actionBar = [false,false,false,false,false,false,false,false,false,false,false,false]
-        this.actionBarForm = ["Growl",false,false,"Cat Form",false,false,false,false,false,false,false,false]
+        this.actionBarForm = ["Growl",false,false,false,false,false,false,false,false,false,false,false]
     }
 
     getTooltip() {

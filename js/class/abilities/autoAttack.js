@@ -91,6 +91,8 @@ class AutoAttack extends Ability {
                     if (getChance(8)) {
                         applyBuff(caster,caster,caster.abilities["Sudden Doom"])
                     }
+                } else if (caster.class==="Druid" && caster.form==="Bear Form") {
+                    caster.useEnergy(-4,0)
                 }
             }
 
