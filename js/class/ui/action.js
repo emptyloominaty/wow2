@@ -934,7 +934,7 @@ if (player.spec==="unholy") {
 if (player.spec==="guardian") {
     actions = {
         //bar0
-
+        "Berserk": new Action("Berserk",0,0),
         "Thrash": new Action("Thrash",0,1),
 
         "Remove Corruption": new Action("Remove Corruption",0,4),
@@ -943,23 +943,24 @@ if (player.spec==="guardian") {
         "Swipe": new Action("Swipe",0,6),
         "Soothe": new Action("Soothe",0,7),
         //"Renewal": new Action( "Renewal",0,7),
-        "Barkskin": new Action("Barkskin",0,8),
+        "Survival Instincts": new Action("Survival Instincts",0,8),
         "Entangling Roots": new Action("Entangling Roots",0,11),
 
         //bar1
         "Growl": new Action("Growl",1,0),
         "Ironfur": new Action("Ironfur",1,1),
         "Frenzied Regeneration": new Action("Frenzied Regeneration",1,2),
-
+        "Stampeding Roar": new Action("Stampeding Roar",1,3),
         "Mangle": new Action("Mangle",1,8),
         "Maul": new Action("Maul",1,9),
+        "Incapacitating Roar": new Action("Incapacitating Roar",1,10),
 
 
         //bar2
         "Moonfire": new Action("Moonfire", 2, 0),
+        "Barkskin": new Action("Barkskin",2,1),
 
         "Bear Form": new Action("Bear Form",2,5),
-
 
         //bar3
         "Rebirth": new Action("Rebirth",3,1),

@@ -1,11 +1,11 @@
-class Ironfur extends Ability {
+class SurvivalInstincts extends Ability {
     constructor() {
-        let name = "Ironfur"
-        let cost = 40
+        let name = "Survival Instincts"
+        let cost = 0
         let gcd = 0
         let castTime = 0
-        let cd = 0
-        let charges = 1
+        let cd = 180
+        let charges = 2
         let channeling = false
         let casting = false
         let canMove = false
@@ -13,27 +13,25 @@ class Ironfur extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0
-        this.effect = [{name:"increaseStat",stat:"armor",val:0.2}]
-        this.needForm = "Bear Form"
+        this.effect = [{name:"damageReduction",val:0.5}]
         this.duration = 6
         this.noGcd = true
+        this.canCastForm = "all"
     }
 
-    getTooltip() { //(100 * Agility / 100)
-        return "Increases armor by 31% for 7 sec. Multiple uses of this ability may overlap" //TODO:overlap
+    getTooltip() {
+        return "Reduces all damage you take by 50% for 6 sec."
     }
 
     getBuffTooltip(caster, target, buff) {
-        return "Armor increased by 31%."
+        return "All damage taken reduced by 50%."
     }
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            this.effect[0].val = 31
-            applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)
+            applyBuff(caster,caster,this)
             caster.useEnergy(this.cost)
             return true
         }

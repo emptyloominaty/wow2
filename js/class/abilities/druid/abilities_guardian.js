@@ -19,7 +19,9 @@ class Guardian_Abilities {
     "Thrash" = new Thrash()
     "Ironfur" = new Ironfur()
     "Frenzied Regeneration" = new FrenziedRegeneration()
-
+    "Survival Instincts" = new SurvivalInstincts()
+    "Berserk" = new Berserk()
+    "Incapacitating Roar" = new IncapacitatingRoar()
 
     //passive
     "Nature's Guardian" = new NaturesGuardian()
