@@ -55,6 +55,12 @@ class Thrash extends Ability {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            if (caster.spec==="guardian") {
+                if (getChance(15)) {
+                    caster.useEnergy(-4,0)
+                    caster.abilities["Mangle"].cd = caster.abilities["Mangle"].maxCd
+                }
+            }
             this.setCd()
             caster.useEnergy(this.cost,this.secCost)
             this.setGcd(caster)

@@ -947,7 +947,9 @@ if (player.spec==="guardian") {
         "Entangling Roots": new Action("Entangling Roots",0,11),
 
         //bar1
-        "Growl": new Action("Growl",1,8),
+        "Growl": new Action("Growl",1,0),
+        "Ironfur": new Action("Ironfur",1,1),
+        "Frenzied Regeneration": new Action("Frenzied Regeneration",1,2),
 
         "Mangle": new Action("Mangle",1,8),
         "Maul": new Action("Maul",1,9),

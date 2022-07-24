@@ -64,6 +64,10 @@ class Mangle extends Ability {
                     caster.isChanneling = false
                 }
 
+                if (caster.spec==="guardian") {
+                    applyDebuff(caster,target,caster.abilities["Infected Wounds"])
+                }
+
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

@@ -55,6 +55,14 @@ class Maul extends Ability {
                     caster.isChanneling = false
                 }
 
+                if (caster.spec==="guardian") {
+                    applyDebuff(caster,target,caster.abilities["Infected Wounds"])
+                    if (getChance(15)) {
+                        caster.useEnergy(-4,0)
+                        caster.abilities["Mangle"].cd = caster.abilities["Mangle"].maxCd
+                    }
+                }
+
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

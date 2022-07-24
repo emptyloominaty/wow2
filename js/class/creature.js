@@ -314,13 +314,15 @@ class Creature {
             this.class = "Druid"
             this.abilities = new Guardian_Abilities()
             _guardian_talents(this)
-
+            applyBuff(this,this,this.abilities["Nature's Guardian"])
+            applyBuff(this,this,this.abilities["Ursine Adept"])
+            applyBuff(this,this,this.abilities["Thick Hide"])
             setTimeout(()=>{
                 this.abilities["Bear Form"].startCast(this)
                 this.gcd = 0
             },settings.start1)
             this.melee = true
-            this.energy = 0
+            this.energy = 25
             this.role = "tank"
             this.resourceName = "Rage"
         } else if (spec==="arcane") {//----------------------------------------Arcane
@@ -887,6 +889,9 @@ class Creature {
                         this.immuneToMagic = true
                     } else if (this.buffs[i].effect[j].name === "criticalBlock") {
                         this.stats.block += this.stats.mastery*2
+                    } else if (this.buffs[i].effect[j].name === "naturesGuardian") {
+                        this.increaseHealth += (this.stats.mastery/200)
+                        this.healingIncrease += (this.stats.mastery/200)
                     }
                 }
             } else {

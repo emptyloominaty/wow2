@@ -24,7 +24,7 @@ class BearForm extends Ability {
     }
 
     getTooltip() {
-        return "Shapeshift into Bear Form, increasing armor by 220% and Stamina by 25%, granting protection from Polymorph effects, and increasing threat generation." +
+        return "Shapeshift into Bear Form, increasing armor by 220% and Stamina by "+this.effects[1].val+"%, granting protection from Polymorph effects, and increasing threat generation." +
         "The act of shapeshifting frees you from movement impairing effects." //TODO: frees you from movement impairing effects
     }
 

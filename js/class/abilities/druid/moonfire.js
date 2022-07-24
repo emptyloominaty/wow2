@@ -71,6 +71,13 @@ class Moonfire extends Ability {
                         }
                     }
                 }
+                if (caster.spec==="guardian") {
+                    if (getChance(15)) {
+                        caster.useEnergy(-4,0)
+                        caster.abilities["Mangle"].cd = caster.abilities["Mangle"].maxCd
+                    }
+                }
+
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.cd = 0
