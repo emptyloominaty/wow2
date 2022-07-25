@@ -478,6 +478,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             }
         } else if (target.class === "Death Knight") {
             target.abilities["Death Strike"].damageLast5Sec[target.abilities["Death Strike"].idx] += damage
+        } else if (target.spec==="guardian") {
+            if (target.abilities["Bristling Fur"].talentSelect && checkBuff(target,target,"Bristling Fur")) {
+                let val = -100 * (damage/target.maxHealth)
+                target.useEnergy(val)
+            }
         }
 
         //PET

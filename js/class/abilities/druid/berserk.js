@@ -45,7 +45,7 @@ class Berserk extends Ability {
 
     endBuff(caster) {
         caster.abilities["Mangle"].maxCd *= 2
-        caster.abilities["Trash"].maxCd *= 2
+        caster.abilities["Thrash"].maxCd *= 2
         caster.abilities["Growl"].maxCd *= 2
         caster.abilities["Frenzied Regeneration"].maxCd *= 2
         caster.abilities["Ironfur"].cost *= 2

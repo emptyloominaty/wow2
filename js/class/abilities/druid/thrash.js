@@ -71,4 +71,10 @@ class Thrash extends Ability {
         return false
     }
 
+    runBuff(target, buff, id) {
+        if (buff.caster.abilities["Blood Frenzy"].talentSelect) {
+            buff.caster.useEnergy(-2,0)
+        }
+    }
+
 }

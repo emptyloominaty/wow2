@@ -22,6 +22,9 @@ class Guardian_Abilities {
     "Survival Instincts" = new SurvivalInstincts()
     "Berserk" = new Berserk()
     "Incapacitating Roar" = new IncapacitatingRoar()
+    "Wild Growth" = new WildGrowth(false)
+    "Rejuvenation" = new Rejuvenation(false)
+    "Swiftmend" = new Swiftmend(false)
 
     //passive
     "Nature's Guardian" = new NaturesGuardian()
@@ -29,6 +32,7 @@ class Guardian_Abilities {
     "Thick Hide" = new ThickHide()
     "Gore" = new Gore()
     "Infected Wounds" = new InfectedWounds()
+    "Ysera's Gift" = new YserasGift()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 //------------------------
