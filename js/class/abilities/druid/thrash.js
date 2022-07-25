@@ -24,6 +24,9 @@ class Thrash extends Ability {
         }
         this.hasteCd = true
         this.maxStacks = 3
+
+        this.timer1 = 0
+        this.timer2 = 1
     }
 
     getTooltip() {
@@ -60,6 +63,9 @@ class Thrash extends Ability {
                     caster.useEnergy(-4,0)
                     caster.abilities["Mangle"].cd = caster.abilities["Mangle"].maxCd
                 }
+                if (caster.abilities["Earthwarden"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Earthwarden"],1,true)
+                }
             }
             this.setCd()
             caster.useEnergy(this.cost,this.secCost)
@@ -73,7 +79,12 @@ class Thrash extends Ability {
 
     runBuff(target, buff, id) {
         if (buff.caster.abilities["Blood Frenzy"].talentSelect) {
-            buff.caster.useEnergy(-2,0)
+            if (this.timer1<this.timer2) {
+                this.timer1 += progressInSec
+            } else {
+                this.timer1 = 0
+                buff.caster.useEnergy(-2,0)
+            }
         }
     }
 

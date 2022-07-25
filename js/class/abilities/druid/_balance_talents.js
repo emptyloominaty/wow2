@@ -267,6 +267,17 @@ class IncarnationChosenofElune extends Ability {
         return false
     }
 
+
+    setTalent(caster) {
+        caster.abilities["Celestial Alignment"].canUse = false
+        replaceAction(caster, "Celestial Alignment", this.name)
+    }
+
+    unsetTalent(caster) {
+        caster.abilities["Celestial Alignment"].canUse = true
+        replaceAction(caster,this.name,"Celestial Alignment")
+    }
+
 }
 //------------------------------------------------------------------------------------------------ROW6
 class TwinMoons extends Ability {
