@@ -480,8 +480,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             target.abilities["Death Strike"].damageLast5Sec[target.abilities["Death Strike"].idx] += damage
         } else if (target.spec==="guardian") {
             if (target.abilities["Bristling Fur"].talentSelect && checkBuff(target,target,"Bristling Fur")) {
-                let val = -100 * (damage/target.maxHealth)
+                let val = -100 * (damage / target.maxHealth)
                 target.useEnergy(val)
+            }
+            if (target.abilities["Pulverize"].talentSelect && checkDebuff(target,caster,"Pulverize")) {
+                damage *= 0.65
             }
         }
 

@@ -935,12 +935,13 @@ if (player.spec==="guardian") {
     actions = {
         //bar0
         "Berserk": new Action("Berserk",0,0),
-        "Thrash": new Action("Thrash",0,1),
+        "Swipe": new Action("Swipe",0,1),
+
 
         "Remove Corruption": new Action("Remove Corruption",0,4),
 
         "Skull Bash": new Action("Skull Bash",0,5),
-        "Swipe": new Action("Swipe",0,6),
+        "Thrash": new Action("Thrash",0,6),
         "Soothe": new Action("Soothe",0,7),
         //"Renewal": new Action( "Renewal",0,7),
         "Survival Instincts": new Action("Survival Instincts",0,8),

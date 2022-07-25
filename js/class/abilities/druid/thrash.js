@@ -66,6 +66,9 @@ class Thrash extends Ability {
                 if (caster.abilities["Earthwarden"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Earthwarden"],1,true)
                 }
+                if (caster.abilities["Rend and Tear"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Rend and Tear"],1,true)
+                }
             }
             this.setCd()
             caster.useEnergy(this.cost,this.secCost)

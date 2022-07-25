@@ -26,13 +26,13 @@ let _guardian_talents = function(caster) {
 
     //6
     caster.abilities["Earthwarden"] = new Earthwarden()
-    //caster.abilities["Survival of the Fittest"] = new SurvivaloftheFittest()
-    //caster.abilities["Guardian of Elune"] = new GuardianofElune()
+    caster.abilities["Survival of the Fittest"] = new SurvivaloftheFittest()
+    caster.abilities["Guardian of Elune"] = new GuardianofElune()
 
     //7
-    //caster.abilities["Rend and Tear"] = new RendandTear()
-    //caster.abilities["Tooth and Claw"] = new ToothandClaw()
-    //caster.abilities["Pulverize"] = new Pulverize()
+    caster.abilities["Rend and Tear"] = new RendandTear()
+    caster.abilities["Tooth and Claw"] = new ToothandClaw()
+    caster.abilities["Pulverize"] = new Pulverize()
 
     caster.talents = [["Brambles","Blood Frenzy","Bristling Fur"],
         ["Tiger Dash","Renewal","Wild Charge"],
@@ -226,7 +226,119 @@ class Earthwarden extends Ability {
 
 }
 //------------------------------------------------
+class SurvivaloftheFittest extends Ability {
+    constructor() {
+        super("Survival of the Fittest", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {
+        return "Reduces the cooldowns of Barkskin and Survival Instincts by 33%."
+    }
+
+    setTalent(caster) {
+        caster.abilities["Barkskin"].cd *= 0.67
+        caster.abilities["Barkskin"].maxCd *= 0.67
+        caster.abilities["Survival Instincts"].cd *= 0.67
+        caster.abilities["Survival Instincts"].maxCd *= 0.67
+    }
+    unsetTalent(caster) {
+        caster.abilities["Barkskin"].cd /= 0.67
+        caster.abilities["Barkskin"].maxCd /= 0.67
+        caster.abilities["Survival Instincts"].cd /= 0.67
+        caster.abilities["Survival Instincts"].maxCd /= 0.67
+    }
+
+}
 //------------------------------------------------
+class GuardianofElune extends Ability {
+    constructor() {
+        super("Guardian of Elune", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {//TODO:
+        return "//NOT IMPLEMENTED//Mangle increases the duration of your next Ironfur by 2 sec, or the healing of your next Frenzied Regeneration by 20%."
+    }
+
+}
 //------------------------------------------------------------------------------------------------ROW7
+class RendandTear extends Ability {
+    constructor() {
+        super("Rend and Tear", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.talentSelect = true
+        this.effect = [{name:"damageReductionStacks",val:0.02},{name:"increaseDamage",val:0.02}] //TODO: NOT ALL
+        this.duration = 15
+        this.maxStacks = 3
+    }
+
+    getTooltip() {
+        return "Each stack of Thrash reduces the target's damage to you by 2% and increases your damage to them by 2%."
+    }
+
+}
 //------------------------------------------------
+class ToothandClaw extends Ability {
+    constructor() {
+        super("Tooth and Claw", 0, 0, 0, 0, false, false, false, "nature", 5, 1)
+        this.passive = true
+        this.talent = true
+        this.duration = 15
+    }
+
+    getTooltip() {
+        return "//NOT IMPLEMENTED//Autoattacks have a 20% chance to empower your next Maul, stacking up to 2 times.\n" +
+            "\n" +
+            "Empowered Maul deals 40% increased damage and reduces the target's damage to you by 15% for 6 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Your next Maul deals 40% more damage and reduces the target's damage to you by 15%~ for 6 sec."
+    }
+
+}
 //------------------------------------------------
+class Pulverize extends Ability {
+    constructor() {
+        super("Pulverize", 0, 1.5, 0, 45, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.duration = 10
+        this.spellPower = 0.969306
+        this.canCastForm = "Bear Form"
+    }
+
+    getTooltip() {
+        return "A devastating blow that consumes 2 stacks of your Thrash on the target to deal "+spellPowerToNumber(this.spellPower)+" Physical damage and reduce the damage they deal to you by 35% for 10 sec."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            let done = false
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
+                if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    doDamage(caster,caster.castTarget,this)
+                    applyDebuff(caster,caster.castTarget,this)
+                    done = true
+                }
+            }
+            if (done) {
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+                this.setCd()
+                caster.useEnergy(this.cost,this.secCost)
+                this.setGcd(caster)
+                return true
+            }
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+
+}
