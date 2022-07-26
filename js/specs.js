@@ -22,4 +22,5 @@ let specsName = {
     "frostDk":"Frost",
     "unholy":"Unholy",
     "guardian":"Guardian",
+    "feral":"Feral",
 }

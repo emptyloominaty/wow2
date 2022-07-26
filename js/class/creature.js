@@ -325,6 +325,22 @@ class Creature {
             this.energy = 25
             this.role = "tank"
             this.resourceName = "Rage"
+        } else if (spec==="feral") {//----------------------------------------Feral
+            this.class = "Druid"
+            this.abilities = new Feral_Abilities()
+            _feral_talents(this)
+            setTimeout(()=>{
+                this.abilities["Cat Form"].startCast(this)
+                this.gcd = 0
+            },settings.start1)
+            this.melee = true
+            this.resourceName = "Energy"
+            this.energy = 100
+            this.energyRegen = 10
+            this.role = "dps"
+            this.secondaryResourceName = "Combo Points"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 5
         } else if (spec==="arcane") {//----------------------------------------Arcane
             this.class = "Mage"
             this.abilities = new Arcane_abilities()

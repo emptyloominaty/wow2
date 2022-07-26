@@ -2,7 +2,7 @@ class BearForm extends Ability {
     constructor(guardian=false) {
         let name = "Bear Form"
         let cost = 0
-        let gcd = 1.5
+        let gcd = 1
         let castTime = 0
         let cd = 0
         let charges = 1

@@ -1,5 +1,32 @@
 class Feral_Abilities {
+    "Regrowth" = new Regrowth(false)
+    "Moonfire" = new Moonfire(false,true)
+    "Barkskin" = new Barkskin()
+    "Revive" = new Revive(false)
+    "Rebirth" = new Rebirth(false)
+    "Cat Form" = new CatForm()
+    "Bear Form" = new BearForm(true)
+    "Growl" = new Growl()
+    "Dash" = new Dash()
+    "Stampeding Roar" = new StampedingRoar()
+    "Entangling Roots" = new EntanglingRoots(false)
+    "Soothe" = new Soothe(false)
+    "Remove Corruption" = new RemoveCorruption()
+    "Skull Bash" = new SkullBash()
+    "Swipe" = new Swipe(true)
+    "Thrash" = new Thrash()
+    "Survival Instincts" = new SurvivalInstincts()
+    "Berserk" = new Berserk()
+    "Wild Growth" = new WildGrowth(false)
+    "Rejuvenation" = new Rejuvenation(false)
+    "Swiftmend" = new Swiftmend(false)
+    "Shred" = new Shred()
+    "Rake" = new Rake()
+    "Ferocious Bite" = new FerociousBite()
+    "Rip" = new Rip()
+    "Maim" = new Maim()
 
     //passive
+    "Ysera's Gift" = new YserasGift()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }

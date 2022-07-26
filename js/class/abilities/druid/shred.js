@@ -1,8 +1,8 @@
-class Maul extends Ability {
-    constructor(guardian=false) {
-        let name = "Maul"
+class Shred extends Ability {
+    constructor() {
+        let name = "Shred"
         let cost = 40
-        let gcd = 1.5
+        let gcd = 1
         let castTime = 0
         let cd = 0
         let charges = 1
@@ -13,17 +13,16 @@ class Maul extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.85527
-        this.needForm = "Bear Form"
-        this.canCastForm = "Cat Form"
-        if (guardian) {
-            this.spellPower *= 1.16
-        }
+        this.spellPower = 0.46*1.32
+        this.needForm = "Cat Form"
+        this.secCost = -1
 
     }
 
-    getTooltip() {
-        return "Maul the target for "+spellPowerToNumber(this.spellPower)+" Physical damage."
+    //TODO:Deals 20% increased damage against bleeding targets
+    getTooltip() { //TODO:While stealthed, Shred deals 60% increased damage, has double the chance to critically strike, and generates 1 additional combo point
+        return "Shred the target, causing "+spellPowerToNumber(this.spellPower)+" Physical damage. Deals 20% increased damage against bleeding targets <br><br>" +
+            "Awards 1 combo point."
     }
 
     startCast(caster) {
@@ -54,15 +53,6 @@ class Maul extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-
-                if (caster.spec==="guardian") {
-                    applyDebuff(caster,target,caster.abilities["Infected Wounds"])
-                    if (getChance(15)) {
-                        caster.useEnergy(-4,0)
-                        caster.abilities["Mangle"].cd = caster.abilities["Mangle"].maxCd
-                    }
-                }
-
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

@@ -75,6 +75,12 @@ let raidFramesBuffs = {
         centreRight:"none",
         bottomCentre:"none",
     },
+    "feral": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
     "retribution": {
         bottomRight:"none",
         bottomRight2:"none",

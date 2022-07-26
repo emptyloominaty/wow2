@@ -29,7 +29,9 @@ class StampedingRoar extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             if (caster.form!=="Bear Form") {
-                caster.abilities["Bear Form"].startCast(caster)
+                if (caster.form!=="Cat Form") {
+                    caster.abilities["Bear Form"].startCast(caster)
+                }
             }
             for (let i = 0; i<friendlyTargets.length; i++) {
                 if (!friendlyTargets[i].isDead && this.checkDistance(caster,friendlyTargets[i],undefined,true)) {

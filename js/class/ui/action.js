@@ -970,3 +970,46 @@ if (player.spec==="guardian") {
 
     }
 }
+
+
+if (player.spec==="feral") {
+    actions = {
+        //bar0
+        //"Berserk": new Action("Berserk",0,0),
+        "Swipe": new Action("Swipe",0,1),
+
+
+        "Remove Corruption": new Action("Remove Corruption",0,4),
+
+        "Skull Bash": new Action("Skull Bash",0,5),
+        "Thrash": new Action("Thrash",0,6),
+        "Soothe": new Action("Soothe",0,7),
+        //"Renewal": new Action( "Renewal",0,7),
+        "Survival Instincts": new Action("Survival Instincts",0,8),
+        "Entangling Roots": new Action("Entangling Roots",0,11),
+
+        //bar1
+        "Rake": new Action("Rake",1,0),
+        "Rip": new Action("Rip",1,1),
+
+        "Stampeding Roar": new Action("Stampeding Roar",1,3),
+
+
+
+        "Shred": new Action("Shred",1,8),
+        "Ferocious Bite": new Action("Ferocious Bite",1,9),
+        "Maim": new Action("Maim",1,10),
+
+        //bar2
+        "Moonfire": new Action("Moonfire", 2, 0),
+        "Barkskin": new Action("Barkskin",2,1),
+
+        "Bear Form": new Action("Bear Form",2,5),
+
+        //bar3
+        "Rebirth": new Action("Rebirth",3,1),
+
+        "Revive": new Action ("Revive",3,4),
+
+    }
+}

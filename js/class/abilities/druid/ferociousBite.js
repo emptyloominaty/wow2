@@ -1,37 +1,28 @@
-class Envenom extends Ability {
+class FerociousBite extends Ability {
     constructor() {
-        let name = "Envenom"
-        let cost = 35
-
+        let name = "Ferocious Bite"
+        let cost = 25
         let gcd = 1
         let castTime = 0
         let cd = 0
         let charges = 1
-        let maxCharges = 1
         let channeling = false
         let casting = false
         let canMove = true
-        let school = "nature"
+        let school = "physical"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.16*1.51
-        this.duration = 8
-
-        this.spellPowerC = [0.16*1.51, 0.32*1.51, 0.48*1.51, 0.64*1.51, 0.8*1.51, 0.96*1.51]
-
-        this.effect = ""
-        this.effectValue = 0
+        this.spellPower = 0.9828*1.32
 
         this.secCost = "all"
-
-
+        this.needForm = "Cat Form"
 
     }
 
     getTooltip() {
         let spellPower = ((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)))
-        return "Finishing move that drives your poisoned blades in deep, dealing instant Nature damage and increasing your poison application chance by 30%. Damage and duration increased per combo point. " +
+        return "Finishing move that causes Physical damage per combo point and consumes up to 25 additional Energy to increase damage by up to 100%. " +
             "<br>1 point: "+(spellPower).toFixed(0)+"  damage " +
             "<br>2 points: "+(spellPower*2).toFixed(0)+"  damage " +
             "<br>3 points: "+(spellPower*3).toFixed(0)+"  damage " +
@@ -44,12 +35,22 @@ class Envenom extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            this.duration = 4 + (4*caster.secondaryResource)
             let target = caster.castTarget
             let done = false
+            let spellPower = this.spellPower
+            let cost = this.cost
+            if (caster.energy>this.cost) {
+                let val = caster.energy-this.cost
+                if (val>this.cost) {
+                    val = this.cost
+                }
+                cost += val
+                spellPower *= 1+(val/this.cost)
+            }
+
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this,undefined,this.spellPowerC[caster.secondaryResource])
+                    doDamage(caster,caster.castTarget,this,undefined,spellPower*caster.secondaryResource)
                     done = true
                 }
             } else {
@@ -62,39 +63,22 @@ class Envenom extends Ability {
                     caster.target = newTarget.name
                     target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster,caster.targetObj,this,undefined,this.spellPowerC[caster.secondaryResource])
+                        doDamage(caster,caster.targetObj,this,undefined,spellPower*caster.secondaryResource)
                         done = true
                     }
                 }
             }
             if (done) {
-                for (let i = 0; i<caster.buffs.length; i++) {
-                    if (caster.buffs[i].name==="Slice And Dice" && caster.buffs[i].caster === caster) {
-                        caster.buffs[i].duration += 3*caster.secondaryResource
-                    }
-                }
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                if (caster.abilities["Elaborate Planning"].talentSelect) {
-                    applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
-                }
-
-                if (caster.abilities["Alacrity"].talentSelect) {
-                    caster.abilities["Alacrity"].applyBuff(caster)
-                }
-
-                if (caster.abilities["Poison Bomb"].talentSelect) {
-                    caster.abilities["Poison Bomb"].smashVial(caster,target)
-                }
-
-                caster.useEnergy(this.cost,this.secCost)
+                caster.useEnergy(cost,this.secCost)
                 this.setGcd(caster)
-                this.cd = 0
+                this.setCd()
                 return true
             }
 
-        } else if (caster===player && caster.gcd<spellQueueWindow && caster.gcd>0) {
+        } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
         return false

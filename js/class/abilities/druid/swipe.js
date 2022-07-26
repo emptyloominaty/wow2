@@ -1,5 +1,5 @@
 class Swipe extends Ability {
-    constructor() {
+    constructor(feral = false) {
         let name = "Swipe"
         let cost = 0
         let gcd = 1.5
@@ -16,11 +16,20 @@ class Swipe extends Ability {
         this.spellPower = 0.36
         this.needForm = "Bear Form"
         this.canCastForm = "Cat Form"
+
+        if (feral) {
+            this.gcd = 1
+            this.secCost = -1
+            this.cost = 35
+        }
     }
 
     getTooltip() {
-        return "Swipe all nearby enemies, inflicting "+spellPowerToNumber(this.spellPower)+" Physical damage."
-
+        if (player.spec==="guardian") {
+            return "Swipe all nearby enemies, inflicting "+spellPowerToNumber(this.spellPower)+" Physical damage."
+        } else {
+            return "Swipe all nearby enemies, inflicting "+spellPowerToNumber(this.spellPower)+" Physical damage. Deals 20% increased damage against bleeding targets. Awards 1 combo point."
+        } //TODO:Deals 20% increased damage against bleeding targets
     }
 
     startCast(caster) {

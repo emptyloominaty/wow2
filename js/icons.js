@@ -33,6 +33,7 @@ let iconsPath = {
         "frostDk":"img/specs/deathknight/frost.png",
         "unholy":"img/specs/deathknight/unholy.png",
         "guardian":"img/specs/druid/guardian.png",
+        "feral":"img/specs/druid/feral.png",
     },
 
     //classes

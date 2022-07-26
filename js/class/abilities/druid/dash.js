@@ -2,7 +2,7 @@ class Dash extends Ability {
     constructor() {
         let name = "Dash"
         let cost = 0
-        let gcd = 1.5
+        let gcd = 1
         let castTime = 0
         let cd = 120
         let charges = 1

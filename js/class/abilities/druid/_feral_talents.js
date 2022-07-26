@@ -35,14 +35,12 @@ let _feral_talents = function(caster) {
     //caster.abilities[""] = new ()
 
 
-
-
     caster.talents = [["Predator","Sabertooth","Lunar Inspiration"],
         ["Tiger Dash","Renewal","Wild Charge"],
         ["Balance Affinity","Guardian Affinity","Restoration Affinity"],
         ["Mighty Bash","Mass Entanglement","Heart of the Wild"],
         ["Soul of the Forest","Savage Roar","Incarnation: King of the Jungle"],
-        ["Scent of Blood","Brutal Slash","Priaml Wrath"],
+        ["Scent of Blood","Brutal Slash","Primal Wrath"],
         ["Moment of Clarity","Bloodtalons","Feral Frenzy"]
     ]
 }
@@ -66,3 +64,5 @@ let _feral_talents = function(caster) {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

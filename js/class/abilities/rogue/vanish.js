@@ -40,7 +40,7 @@ class Vanish extends Ability {
                 this.setGcd(caster)
                 this.setCd()
                 return true
-            } else if (caster === player && caster.gcd < spellQueueWindow && caster.gcd > 0) {
+            } else if (this.canSpellQueue(caster)) {
                 spellQueue.add(this, caster.gcd)
             }
         return false
