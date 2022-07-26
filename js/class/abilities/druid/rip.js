@@ -60,6 +60,9 @@ class Rip extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.spec==="feral" && caster.abilities["Soul of the Forest"].talentSelect) {
+                    caster.useEnergy(-caster.secondaryResource*5)
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)
                 this.setCd()

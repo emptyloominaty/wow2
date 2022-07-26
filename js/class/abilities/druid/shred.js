@@ -19,7 +19,6 @@ class Shred extends Ability {
 
     }
 
-    //TODO:Deals 20% increased damage against bleeding targets
     getTooltip() { //TODO:While stealthed, Shred deals 60% increased damage, has double the chance to critically strike, and generates 1 additional combo point
         return "Shred the target, causing "+spellPowerToNumber(this.spellPower)+" Physical damage. Deals 20% increased damage against bleeding targets <br><br>" +
             "Awards 1 combo point."
@@ -29,9 +28,12 @@ class Shred extends Ability {
         if (this.checkStart(caster)) {
             let done = false
             let target = caster.castTarget
+            let spellPower = this.spellPower
+            if (caster.spec==="feral" && checkBuff(caster,caster,"Berserk")) {
+                spellPower *= 1.6
+            }
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
                     done = true
                 }
             } else {
@@ -44,17 +46,29 @@ class Shred extends Ability {
                     caster.target = newTarget.name
                     target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster, caster.targetObj, this)
                         done = true
                     }
                 }
             }
             if (done) {
+
+                for (let i = 0; i<target.buffs; i++) {
+                    if (target.buffs[i].ability.bleed) {
+                        spellPower *= 1.2
+                        break
+                    }
+                }
+                doDamage(caster, target, this,undefined,spellPower)
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
                 this.setCd()
-                caster.useEnergy(this.cost,this.secCost)
+                if (caster.spec==="feral" && checkBuff(caster,caster,"Omen of Clarity",true)) {
+                    caster.useEnergy(0,this.secCost)
+                } else {
+                    caster.useEnergy(this.cost,this.secCost)
+                }
                 this.setGcd(caster)
                 return true
             }

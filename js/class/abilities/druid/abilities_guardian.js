@@ -25,6 +25,9 @@ class Guardian_Abilities {
     "Wild Growth" = new WildGrowth(false)
     "Rejuvenation" = new Rejuvenation(false)
     "Swiftmend" = new Swiftmend(false)
+    "Starfire" = new Starfire(true)
+    "Starsurge" = new Starsurge(true)
+    "Moonkin Form" = new MoonkinForm(true)
 
     //passive
     "Nature's Guardian" = new NaturesGuardian()
@@ -104,6 +107,10 @@ class InfectedWounds extends Ability {
     }
 
     getTooltip() {
-        return "Mangle and Maul cause an Infected Wound in the target, reducing their movement speed by 50% for 12 sec."
+        if (player.spec==="guardian") {
+            return "Mangle and Maul cause an Infected Wound in the target, reducing their movement speed by 50% for 12 sec."
+        } else {
+            return "Rake causes an Infected Wound in the target, reducing their movement speed by 50% for 12 sec." //TODO:20%
+        }
     }
 }

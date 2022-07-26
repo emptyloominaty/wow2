@@ -1,5 +1,5 @@
 class Moonfire extends Ability {
-    constructor(balance = false,guardian = false) {
+    constructor(balance = false,guardian = false,feral = false) {
         let name = "Moonfire"
         let cost = 1.2 //% mana
         let gcd = 1.5
@@ -24,6 +24,12 @@ class Moonfire extends Ability {
         } else if (guardian) {
             this.cost = 0
             this.canCastForm = "Bear Form"
+        } else if (feral) {
+            this.cost = 30
+            this.secCost = -1
+            this.spellPower = 0.15*1.32
+            this.spellPowerDot = 1.2*1.32
+            this.canCastForm = "Cat Form"
         }
 
     }

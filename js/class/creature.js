@@ -329,6 +329,7 @@ class Creature {
             this.class = "Druid"
             this.abilities = new Feral_Abilities()
             _feral_talents(this)
+            applyBuff(this,this,this.abilities["Feline Swiftness"])
             setTimeout(()=>{
                 this.abilities["Cat Form"].startCast(this)
                 this.gcd = 0

@@ -88,7 +88,11 @@ class Thrash extends Ability {
                 }
             }
             this.setCd()
-            caster.useEnergy(this.cost,this.secCost)
+            if (caster.spec==="feral" && checkBuff(caster,caster,"Omen of Clarity",true)) {
+                caster.useEnergy(0,this.secCost)
+            } else {
+                caster.useEnergy(this.cost,this.secCost)
+            }
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

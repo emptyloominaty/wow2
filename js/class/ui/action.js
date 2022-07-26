@@ -975,9 +975,8 @@ if (player.spec==="guardian") {
 if (player.spec==="feral") {
     actions = {
         //bar0
-        //"Berserk": new Action("Berserk",0,0),
+        "Berserk": new Action("Berserk",0,0),
         "Swipe": new Action("Swipe",0,1),
-
 
         "Remove Corruption": new Action("Remove Corruption",0,4),
 
@@ -992,7 +991,9 @@ if (player.spec==="feral") {
         "Rake": new Action("Rake",1,0),
         "Rip": new Action("Rip",1,1),
 
-        "Stampeding Roar": new Action("Stampeding Roar",1,3),
+        "Cat Form": new Action("Cat Form",1,3),
+
+        "Stampeding Roar": new Action("Stampeding Roar",1,5),
 
 
 
@@ -1005,6 +1006,7 @@ if (player.spec==="feral") {
         "Barkskin": new Action("Barkskin",2,1),
 
         "Bear Form": new Action("Bear Form",2,5),
+        "Tiger's Fury": new Action("Tiger's Fury",2,7),
 
         //bar3
         "Rebirth": new Action("Rebirth",3,1),

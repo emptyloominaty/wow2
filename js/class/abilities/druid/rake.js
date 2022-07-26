@@ -33,10 +33,18 @@ class Rake extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let target = caster.castTarget
+            let spellPower = this.spellPower
+            let spellPowerDot = this.spellPowerDot
+            if (caster.spec==="feral" && checkBuff(caster,caster,"Berserk")) {
+                spellPower *= 1.6
+                spellPowerDot *= 1.6
+            }
+
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    doDamage(caster,caster.castTarget,this)
-                    applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
+                    doDamage(caster,caster.castTarget,this,undefined,undefined,spellPower)
+                    applyDot(caster,caster.castTarget,this,undefined,undefined,spellPowerDot)
                     done = true
                 }
             } else {
@@ -48,8 +56,9 @@ class Rake extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        doDamage(caster,caster.targetObj,this)
-                        applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPowerDot)
+                        doDamage(caster,caster.targetObj,this,undefined,undefined,spellPower)
+                        applyDot(caster,caster.targetObj,this,undefined,undefined,spellPowerDot)
+                        target = caster.targetObj
                         done = true
                     }
                 }
@@ -57,6 +66,9 @@ class Rake extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
+                }
+                if (caster.spec==="feral") {
+                    applyDebuff(caster,target,caster.abilities["Infected Wounds"])
                 }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setGcd(caster)

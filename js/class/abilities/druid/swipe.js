@@ -29,27 +29,42 @@ class Swipe extends Ability {
             return "Swipe all nearby enemies, inflicting "+spellPowerToNumber(this.spellPower)+" Physical damage."
         } else {
             return "Swipe all nearby enemies, inflicting "+spellPowerToNumber(this.spellPower)+" Physical damage. Deals 20% increased damage against bleeding targets. Awards 1 combo point."
-        } //TODO:Deals 20% increased damage against bleeding targets
+        }
     }
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            for (let i = 0; i<enemies.length ;i++) {
-                if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
-                    doDamage(caster, enemies[i], this)
-                }
-            }
-            if (caster.isChanneling) {
-                caster.isChanneling = false
-            }
             if (caster.spec==="guardian") {
                 if (getChance(15)) {
                     caster.useEnergy(-4,0)
                     caster.abilities["Mangle"].cd = caster.abilities["Mangle"].maxCd
                 }
             }
+            let spellPower = this.spellPower
+            for (let i = 0; i<enemies.length ;i++) {
+                if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
+                    if (caster.spec!=="guardian") {
+                        let target = enemies[i]
+                        for (let i = 0; i<target.buffs; i++) {
+                            if (target.buffs[i].ability.bleed) {
+                                spellPower *= 1.2
+                                break
+                            }
+                        }
+                    }
+                    doDamage(caster, enemies[i], this,undefined,spellPower)
+                }
+            }
+            if (caster.isChanneling) {
+                caster.isChanneling = false
+            }
+
             this.setCd()
-            caster.useEnergy(this.cost,this.secCost)
+            if (caster.spec==="feral" && checkBuff(caster,caster,"Omen of Clarity",true)) {
+                caster.useEnergy(0,this.secCost)
+            } else {
+                caster.useEnergy(this.cost,this.secCost)
+            }
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

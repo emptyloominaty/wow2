@@ -364,6 +364,21 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (school==="shadow") {
                     damage = damage * (1 + (caster.stats.mastery / 100))
                 }
+            } else if (caster.spec==="feral") {
+                //bleed abilities and finishing moves
+                if (ability.bleed || ability.name==="Maim" || ability.name==="Ferocious Bite" || ability.name==="Primal Wrath") {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
+                if (crit>1) {
+                    if ((ability.name==="Moonfire" || ability.name==="Rake" || ability.name==="Shred" || ability.name==="Swipe" || ability.name==="Thrash" || ability.name==="Brutal Slash") && t!==true) {
+                        caster.useEnergy(0,-1)
+                    }
+                }
+                if (checkBuff(caster,caster,"Berserk")) {
+                    if ((ability.name==="Rip" || ability.name==="Ferocious Bite" || ability.name==="Maim" || ability.name==="Savage Roar" || ability.name==="Primal Wrath") && t!==true && getChance(20)) {
+                        caster.useEnergy(0,-1)
+                    }
+                }
             }
         }
 

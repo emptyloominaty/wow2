@@ -72,6 +72,20 @@ class FerociousBite extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                if (caster.spec==="feral") {
+                    if (caster.abilities["Sabertooth"].talentSelect) {
+                        for (let i = 0; i < target.debuffs.length; i++) {
+                            if (target.debuffs[i].name === "Rip" && target.debuffs[i].caster === caster) {
+                                target.debuffs[i].duration += caster.secondaryResource
+                                break
+                            }
+                        }
+                    }
+                    if (caster.abilities["Soul of the Forest"].talentSelect) {
+                        caster.useEnergy(-caster.secondaryResource*5)
+                    }
+                }
+
                 caster.useEnergy(cost,this.secCost)
                 this.setGcd(caster)
                 this.setCd()

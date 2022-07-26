@@ -15,7 +15,7 @@ class StampedingRoar extends Ability {
 
         this.effect = [{name:"moveSpeed",val:0.6}]
         this.duration = 8
-        this.canCastForm = "Bear Form"
+        this.canCastForm = "all"
     }
 
     getTooltip() {
@@ -30,6 +30,7 @@ class StampedingRoar extends Ability {
         if (this.checkStart(caster)) {
             if (caster.form!=="Bear Form") {
                 if (caster.form!=="Cat Form") {
+                    console.log(caster.form)
                     caster.abilities["Bear Form"].startCast(caster)
                 }
             }

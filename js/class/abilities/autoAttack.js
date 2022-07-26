@@ -93,6 +93,11 @@ class AutoAttack extends Ability {
                     }
                 } else if (caster.class==="Druid" && caster.form==="Bear Form") {
                     caster.useEnergy(-4,0)
+                } else if (caster.spec==="feral") {
+                    if (getChance(10)) {
+                        applyBuff(caster,caster,caster.abilities["Omen of Clarity"])
+                    }
+
                 }
             }
 
