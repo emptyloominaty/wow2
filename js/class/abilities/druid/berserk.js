@@ -44,12 +44,13 @@ class Berserk extends Ability {
 
     startCast(caster) {
         if (this.checkStart(caster)) {
-            caster.abilities["Mangle"].maxCd /= 2
-            caster.abilities["Thrash"].maxCd /= 2
-            caster.abilities["Growl"].maxCd /= 2
-            caster.abilities["Frenzied Regeneration"].maxCd /= 2
-            caster.abilities["Ironfur"].cost /= 2
-
+            if (caster.spec==="guardian") {
+                caster.abilities["Mangle"].maxCd /= 2
+                caster.abilities["Thrash"].maxCd /= 2
+                caster.abilities["Growl"].maxCd /= 2
+                caster.abilities["Frenzied Regeneration"].maxCd /= 2
+                caster.abilities["Ironfur"].cost /= 2
+            }
             applyBuff(caster,caster,this)
             this.setCd()
             this.setGcd(caster)
@@ -60,11 +61,13 @@ class Berserk extends Ability {
     }
 
     endBuff(caster) {
-        caster.abilities["Mangle"].maxCd *= 2
-        caster.abilities["Thrash"].maxCd *= 2
-        caster.abilities["Growl"].maxCd *= 2
-        caster.abilities["Frenzied Regeneration"].maxCd *= 2
-        caster.abilities["Ironfur"].cost *= 2
+        if (caster.spec==="guardian") {
+            caster.abilities["Mangle"].maxCd *= 2
+            caster.abilities["Thrash"].maxCd *= 2
+            caster.abilities["Growl"].maxCd *= 2
+            caster.abilities["Frenzied Regeneration"].maxCd *= 2
+            caster.abilities["Ironfur"].cost *= 2
+        }
     }
 
 

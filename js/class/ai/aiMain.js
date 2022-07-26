@@ -35,6 +35,9 @@ class Ai {
         "fury":() => {
             _ai_fury(this.creature)
         },
+        "feral":() => {
+            _ai_feral(this.creature)
+        },
         "arms":() => {
             _ai_arms(this.creature)
         },

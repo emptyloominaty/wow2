@@ -16,7 +16,6 @@ class Feral_Abilities {
     "Swipe" = new Swipe(true)
     "Thrash" = new Thrash()
     "Survival Instincts" = new SurvivalInstincts()
-    "Berserk" = new Berserk()
     "Wild Growth" = new WildGrowth(false)
     "Rejuvenation" = new Rejuvenation(false)
     "Swiftmend" = new Swiftmend(false)

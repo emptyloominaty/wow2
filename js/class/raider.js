@@ -17,7 +17,7 @@ let raiders = [
     new Raider("raider5",50000,100,200,200,0,"assassination",raidersStats["stat1"]),
     new Raider("raider6",50000,100,150,200,0,"havoc",raidersStats["stat1"]),
     new Raider("raider7",50000,100,320,200,0,"windwalker",raidersStats["stat1"]),
-    new Raider("raider8",50000,100,300,150,0,"assassination",raidersStats["stat1"]),
+    new Raider("raider8",50000,100,300,150,0,"feral",raidersStats["stat1"]),
     new Raider("raider9",50000,100,-150,200,0,"havoc",raidersStats["stat1"]),
     new Raider("raider10",50000,100,-320,200,0,"arms",raidersStats["stat1"]),
     new Raider("raider11",50000,100,-300,150,0,"retribution",raidersStats["stat1"]),
