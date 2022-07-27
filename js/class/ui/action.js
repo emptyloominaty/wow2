@@ -1020,9 +1020,8 @@ if (player.spec==="feral") {
 
 if (player.spec==="enhancement") {
     actions = {
-
+        "Feral Spirit": new Action("Feral Spirit",0,0),
         "Crash Lightning": new Action("Crash Lightning",0,1),
-
 
         "Wind Shear": new Action("Wind Shear", 0, 5),
         "Chain Lightning": new Action("Chain Lightning", 0, 6),

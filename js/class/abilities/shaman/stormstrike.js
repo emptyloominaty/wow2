@@ -28,6 +28,9 @@ class Stormstrike extends Ability {
             if (checkBuff(caster,caster,"Stormbringer")) {
                 spellPower *= 1.25
             }
+            if (caster.abilities["Stormflurry"].talentSelect && getChance(25)) {
+                spellPower *= 1.4
+            }
 
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {

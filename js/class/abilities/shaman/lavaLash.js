@@ -31,6 +31,9 @@ class LavaLash extends Ability {
             if (checkBuff(caster,caster,"Flametongue Weapon")) {
                 spellPower *= 2
             }
+            if (caster.abilities["Hot Hand"].talentSelect && checkBuff(caster,caster,"Hot Hand")) {
+                spellPower *= 2
+            }
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     doDamage(caster,caster.castTarget,this,undefined,spellPower)

@@ -1127,7 +1127,7 @@ let sortFriendlyTargetsByHealth = function(array = false) {
     }
 }
 
-let spawnPet = function (caster,type,name,x,y,ability) {
+let spawnPet = function (caster,type,name,x,y,ability,dontReplace = false) {
     if (caster.pets.length===0) {
         caster.pets.push(new Pet(caster.pets.length,caster,type,ability.petDuration,ability.petData,x,y))
         return caster.pets.length-1
@@ -1148,6 +1148,10 @@ let spawnPet = function (caster,type,name,x,y,ability) {
                 undefinedV = i
                 break
             }
+        }
+
+        if (dontReplace) {
+            statue = false
         }
 
         if (statue!==false){

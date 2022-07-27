@@ -22,6 +22,7 @@ class Enhancement_Abilities {
     "Flametongue Weapon" = new FlametongueWeapon()
     "Windfury Weapon" = new WindfuryWeapon()
     "Windfury Totem" = new WindfuryTotem()
+    "Feral Spirit" = new FeralSpirit()
 
     //passive
     "Exhaustion" = new Exhaustion()

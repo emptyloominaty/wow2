@@ -13,7 +13,7 @@ class Rip extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.28*1.32
+        this.spellPower = 0.5*1.32 //0.28
         this.duration = 8
         this.bleed = true
 
@@ -38,7 +38,7 @@ class Rip extends Ability {
             let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPower*caster.secondaryResource)
+                    applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPower*(1+caster.secondaryResource))
                     done = true
                 }
             } else {
@@ -51,7 +51,7 @@ class Rip extends Ability {
                     caster.target = newTarget.name
                     target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPower*caster.secondaryResource)
+                        applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPower*(1+caster.secondaryResource))
                         done = true
                     }
                 }
