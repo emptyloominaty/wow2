@@ -195,7 +195,7 @@ class EchoingShock extends Ability {
 }
 //------------------------------------------------
 class ElementalBlast extends Ability {
-    constructor() {
+    constructor(enh = false) {
         let name = "Elemental Blast"
         let cost = -30
         let gcd = 1.5
@@ -212,6 +212,10 @@ class ElementalBlast extends Ability {
         this.spellPower = 1.40 * 1.05
         this.duration = 10
         this.effect = [{name:"increaseStat",stat:"haste",val:3}]
+
+        if (enh) {
+            this.cost = 2.75
+        }
     }
 
     getTooltip() {
@@ -264,7 +268,7 @@ class ElementalBlast extends Ability {
             if (this.checkDistance(caster,target)  && !target.isDead) {
 
                 let spellPower = this.spellPower
-                if (caster.abilities["Master of the Elements"].talentSelect && checkBuff(caster,caster,"Master of the Elements")) {
+                if (caster.spec==="elemental" &&caster.abilities["Master of the Elements"].talentSelect && checkBuff(caster,caster,"Master of the Elements")) {
                     spellPower *= 1.2
                     for (let i = 0; i<caster.buffs.length; i++) {
                         if (caster.buffs[i].name==="Master of the Elements") {

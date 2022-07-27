@@ -1,38 +1,38 @@
 let _enhancement_talents = function(caster) {
     //1
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Lashing Flames"] = new LashingFlames()
+    //caster.abilities["Forceful Winds"] = new ForcefulWinds()
+    caster.abilities["Elemental Blast"] = new ElementalBlast(true)
 
     //2
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Stormflurry"] = new Stormflurry()
+    //caster.abilities["Hot Hand"] = new HotHand()
+    //caster.abilities["Ice Strike"] = new IceStrike()
 
     //3
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Spirit Wolf"] = new SpiritWolf()
+    caster.abilities["Earth Shield"] = new EarthShield()
+    caster.abilities["Static Charge"] = new StaticCharge()
 
     //4
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Elemental Assault"] = new ElementalAssault()
+    //caster.abilities["Hailstorm"] = new Hailstorm()
+    //caster.abilities["Fire Nova"] = new FireNova()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    caster.abilities["Nature's Guardian"] = new NaturesGuardian()
+    //caster.abilities["Feral Lunge"] = new FeralLunge()
+    caster.abilities["Wind Rush Totem"] = new WindRushTotem()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Crashing Storm"] = new CrashingStorm()
+    //caster.abilities["Stormkeeper"] = new Stormkeeper()
+    //caster.abilities["Sundering"] = new Sundering()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Elemental Spirits"] = new ElementalSpirits()
+    //caster.abilities["Earthen Spike"] = new EarthenSpike()
+    //caster.abilities["Ascendance"] = new Ascendance()
 
 
     caster.talents = [["Lashing Flames","Forceful Winds","Elemental Blast"],
@@ -64,3 +64,5 @@ let _enhancement_talents = function(caster) {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

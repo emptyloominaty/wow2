@@ -282,6 +282,9 @@ class Creature {
             this.class = "Shaman"
             this.abilities = new Enhancement_Abilities()
             _enhancement_talents(this)
+            applyBuff(this,this,this.abilities["Flametongue Weapon"])
+            applyBuff(this,this,this.abilities["Windfury Weapon"])
+
             this.melee = true
             this.role = "dps"
             this.resourceName = "Mana"

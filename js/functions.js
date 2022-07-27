@@ -118,6 +118,23 @@ let doHeal = function(caster,target,ability,yOffset = 0,spellPower = 0,canCrit =
                 applyBuff(caster,caster,caster.abilities["Infusion of Light"])
             }
 
+        } else if (caster.spec==="enhancement") {
+            if (ability.name!=="Leech") {
+                let stacks = 0
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Maelstrom Weapon") {
+                        if (caster.buffs[i].stacks>5) {
+                            caster.buffs[i].stacks -=5
+                            stacks = 5
+                        } else {
+                            stacks = caster.buffs[i].stacks
+                            caster.buffs[i].duration = -1
+                        }
+                        break
+                    }
+                }
+                heal *= (1+(stacks*0.2))
+            }
         }
 
         if (target.spec==="brewmaster") {
@@ -378,6 +395,43 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     if ((ability.name==="Rip" || ability.name==="Ferocious Bite" || ability.name==="Maim" || ability.name==="Savage Roar" || ability.name==="Primal Wrath") && t!==true && getChance(20)) {
                         caster.useEnergy(0,-1)
                     }
+                }
+            } else if (caster.spec==="enhancement") {
+                if (t !== true && ability.name!=="Auto Attack" && ability.name!=="Windfury Weapon" && ability.name!=="Flametongue Weapon") {
+                    let stacks = 0
+                    for (let i = 0; i < caster.buffs.length; i++) {
+                        if (caster.buffs[i].name === "Maelstrom Weapon") {
+                            if (caster.buffs[i].stacks > 5) {
+                                caster.buffs[i].stacks -= 5
+                                stacks = 5
+                            } else {
+                                stacks = caster.buffs[i].stacks
+                                caster.buffs[i].duration = -1
+                            }
+                            break
+                        }
+                    }
+                    damage *= (1 + (stacks * 0.2))
+                }
+                if (t !== true && ability.name !== "Flametongue Weapon" && ability.name !== "Windfury Weapon") {
+                    if (checkBuff(caster, caster, "Flametongue Weapon") && getChance(40+(caster.stats.mastery*0.08))) {
+                        doDamage(caster, target, caster.abilities["Flametongue Weapon"])
+                    }
+                    if (checkBuff(caster, caster, "Windfury Weapon") && getChance(25+(caster.stats.mastery*0.04))) {
+                        doDamage(caster, target, caster.abilities["Windfury Weapon"])
+                        doDamage(caster, target, caster.abilities["Windfury Weapon"])
+                    }
+                    if (getChance(20)) {
+                        applyBuff(caster,caster,caster.abilities["Maelstrom Weapon"],1,true)
+                    }
+                }
+                if (ability.name === "Crash Lightning" || ability.name === "Windfury Weapon" || ability.name === "Ice Strike" || ability.name === "Sundering") {
+                    if (getChance(5+(caster.stats.mastery*0.04))) {
+                        caster.abilities["Stormstrike"].cd = caster.abilities["Stormstrike"].maxCd
+                    }
+                }
+                if (ability.school==="fire" || ability.school==="frost" || ability.school==="nature") {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
                 }
             }
         }

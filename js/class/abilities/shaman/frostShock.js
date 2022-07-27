@@ -27,6 +27,8 @@ class FrostShock extends Ability {
         }
         if (enh) {
             this.spellPower *= 1.03
+            this.cd = 6
+            this.maxCd = 6
         }
 
     }

@@ -1040,7 +1040,7 @@ if (player.spec==="enhancement") {
         "Capacitor Totem": new Action("Capacitor Totem", 1, 10),
 
 
-
+        "Windfury Totem": new Action("Windfury Totem",2,7),
         "Spirit Walk": new Action("Spirit Walk",2,11),
 
         "Frost Shock": new Action("Frost Shock", 3, 1),

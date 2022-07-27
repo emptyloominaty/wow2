@@ -31,6 +31,13 @@ class AutoAttack extends Ability {
                 }
             }
             if (done) {
+                for (let i = 0; i<caster.buffs.length; i++) {
+                    if (caster.buffs[i].name==="Windfury Totem") {
+                        if (getChance(20)) {
+                            doDamage(caster, caster.targetObj, this)
+                        }
+                    }
+                }
                 this.setCd()
                 this.maxCd = (caster.autoattackSpeed/caster.attackSpeed) / (1 + (caster.stats.haste / 100))
                 if (caster.class==="Warrior") {

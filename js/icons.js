@@ -1218,6 +1218,7 @@ let iconsPath = {
     "Eye of the Storm":"img/shaman/EyeoftheStorm.jpg",
     "Wind Gust":"img/shaman/WindShear.jpg",
     "Lava Beam":"img/druid/Sunfire.jpg",
+    "Windfury Weapon":"img/shaman/WindfuryWeapon.jpg",
 
 
     //Warlock

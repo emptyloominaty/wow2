@@ -22,6 +22,8 @@ class LightningBolt extends Ability {
             this.spellPower = this.spellPower*1.05
         } else if (resto) {
             this.spellPower = this.spellPower*1.15
+        } else {
+            this.spellPower *= 0.77
         }
     }
 
