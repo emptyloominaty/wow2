@@ -36,6 +36,7 @@ let _enhancement_talents = function(caster) {
     caster.abilities["Ascendance"] = new AscendanceEnh()
 
 
+
     caster.talents = [["Lashing Flames","Forceful Winds","Elemental Blast"],
         ["Stormflurry","Hot Hand","Ice Strike"],
         ["Spirit Wolf","Earth Shield","Static Charge"],
