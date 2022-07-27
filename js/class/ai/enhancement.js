@@ -24,6 +24,9 @@ let _ai_enhancement = function(creature) {
                     casted = c.abilities["Windfury Totem"].startCast(c)
                 }
                 if (!casted) {
+                    casted = c.abilities["Sundering"].startCast(c)
+                }
+                if (!casted) {
                     casted = c.abilities["Lava Lash"].startCast(c)
                 }
                 if (!casted) {

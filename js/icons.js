@@ -1219,6 +1219,7 @@ let iconsPath = {
     "Wind Gust":"img/shaman/WindShear.jpg",
     "Lava Beam":"img/druid/Sunfire.jpg",
     "Windfury Weapon":"img/shaman/WindfuryWeapon.jpg",
+    "Windstrike":"img/shaman/Windstrike.jpg",
 
 
     //Warlock

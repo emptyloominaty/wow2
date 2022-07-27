@@ -1031,6 +1031,7 @@ if (player.spec==="enhancement") {
 
         "Lava Lash": new Action("Lava Lash",1,0),
         "Flame Shock": new Action("Flame Shock", 1, 1),
+        "Sundering": new Action("Sundering",1,2),
 
         "Ghost Wolf": new Action("Ghost Wolf",1,3),
 

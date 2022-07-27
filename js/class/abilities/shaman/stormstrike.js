@@ -31,6 +31,9 @@ class Stormstrike extends Ability {
             if (caster.abilities["Stormflurry"].talentSelect && getChance(25)) {
                 spellPower *= 1.4
             }
+            if (caster.abilities["Elemental Assault"].talentSelect) {
+                spellPower *= 1.15
+            }
 
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
@@ -55,6 +58,9 @@ class Stormstrike extends Ability {
             if (done) {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
+                }
+                if (caster.abilities["Elemental Assault"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Maelstrom Weapon"],1,true)
                 }
                 this.setCd()
                 caster.useEnergy(this.cost,this.secCost)
