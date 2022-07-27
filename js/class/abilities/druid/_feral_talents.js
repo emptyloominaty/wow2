@@ -247,6 +247,7 @@ class PrimalWrath extends Ability {
         this.needForm = "Cat Form"
         this.secCost = "all"
         this.spellPower = 0.055
+        this.talentSelect = true
     }
 
     getTooltip() { //TODO:
@@ -286,6 +287,7 @@ class Bloodtalons extends Ability {
         super("Bloodtalons", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
         this.passive = true
         this.talent = true
+        this.talentSelect = true
     }
 
     getTooltip() { //TODO:When you use 3 different combo point-generating abilities within 4 sec, the damage of your next 2 Rips or Ferocious Bites is increased by 30%.

@@ -34,6 +34,7 @@ let iconsPath = {
         "unholy":"img/specs/deathknight/unholy.png",
         "guardian":"img/specs/druid/guardian.png",
         "feral":"img/specs/druid/feral.png",
+        "enhancement":"img/specs/shaman/enhancement.jpg",
     },
 
     //classes

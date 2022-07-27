@@ -24,6 +24,9 @@ class ChainLightning extends Ability {
         } else if (resto) {
             this.spellPower *= 1.61
             this.spellPower *= 1.15
+        } else {
+            //TODO:If Chain Lightning hits more than 1 target, each target hit by your Chain Lightning increases the damage of your next Crash Lightning by 20%
+            //TODO:Each target hit by Chain Lightning reduces the cooldown of Crash Lightning by 1.0 sec
         }
     }
 

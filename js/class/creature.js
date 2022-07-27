@@ -270,7 +270,7 @@ class Creature {
             this.energy = 0
             this.melee = true
             this.role = "dps"
-        }  else if (spec==="elemental") {//----------------------------------------Elemental
+        }  else if (spec==="elemental") {//----------------------------------------Elemental //enhancement
             this.class = "Shaman"
             this.abilities = new Elemental_Abilities()
             _elemental_talents(this)
@@ -278,6 +278,13 @@ class Creature {
             this.role = "dps"
             this.energy = 0
             this.resourceName = "Maelstrom"
+        } else if (spec==="enhancement") {//----------------------------------------Enhancement
+            this.class = "Shaman"
+            this.abilities = new Enhancement_Abilities()
+            _enhancement_talents(this)
+            this.melee = true
+            this.role = "dps"
+            this.resourceName = "Mana"
         } else if (spec==="assassination") { //----------------------------------------Assa
             this.class = "Rogue"
             this.abilities = new assassination_abilities()

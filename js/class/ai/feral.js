@@ -12,8 +12,7 @@ let _ai_feral = function(creature) {
         c.move(1)
     } else {
 
-
-        if (!casted) {
+        if (!casted && !aiFunctions.checkDebuff(c,target,"Rake")) {
             casted = c.abilities["Rake"].startCast(c)
         }
 
@@ -37,15 +36,17 @@ let _ai_feral = function(creature) {
             casted = c.abilities["Rip"].startCast(c)
         }
 
-        if (!casted && c.secondaryResource>4) {
+
+
+        if (!casted && c.secondaryResource>4 && c.energy>50) {
             casted = c.abilities["Ferocious Bite"].startCast(c)
         }
 
-        if (!casted) {
+        if (!casted && c.secondaryResource<5) {
             casted = c.abilities["Shred"].startCast(c)
         }
 
-        if (!casted) {
+        if (!casted && c.secondaryResource<5) {
             casted = c.abilities["Thrash"].startCast(c)
         }
 

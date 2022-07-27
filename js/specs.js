@@ -23,4 +23,5 @@ let specsName = {
     "unholy":"Unholy",
     "guardian":"Guardian",
     "feral":"Feral",
+    "enhancement":"Enhancement",
 }

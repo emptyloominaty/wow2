@@ -1015,3 +1015,35 @@ if (player.spec==="feral") {
 
     }
 }
+
+
+
+if (player.spec==="enhancement") {
+    actions = {
+
+        "Crash Lightning": new Action("Crash Lightning",0,1),
+
+
+        "Wind Shear": new Action("Wind Shear", 0, 5),
+        "Chain Lightning": new Action("Chain Lightning", 0, 6),
+        "Purge": new Action("Purge", 0, 7),
+        "Astral Shift": new Action("Astral Shift", 0, 8),
+
+
+        "Lava Lash": new Action("Lava Lash",1,0),
+        "Flame Shock": new Action("Flame Shock", 1, 1),
+
+        "Ghost Wolf": new Action("Ghost Wolf",1,3),
+
+        "Lightning Bolt": new Action("Lightning Bolt", 1, 8),
+        "Stormstrike": new Action("Stormstrike",1,9),
+        "Capacitor Totem": new Action("Capacitor Totem", 1, 10),
+
+
+
+        "Spirit Walk": new Action("Spirit Walk",2,11),
+
+        "Frost Shock": new Action("Frost Shock", 3, 1),
+        "Heroism": new Action("Heroism", 3, 5),
+    }
+}

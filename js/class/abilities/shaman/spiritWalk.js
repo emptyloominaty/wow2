@@ -1,10 +1,10 @@
-class SpiritwalkersGrace extends Ability {
-    constructor(ele=false) {
-        let name = "Spiritwalker's Grace"
-        let cost = 2.82
+class SpiritWalk extends Ability {
+    constructor() {
+        let name = "Spirit Walk"
+        let cost = 0
         let gcd = 0
         let castTime = 0
-        let cd = 120
+        let cd = 60
         let charges = 1
         let channeling = false
         let casting = false
@@ -13,26 +13,21 @@ class SpiritwalkersGrace extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.noGcd = true
-
-        this.effect = [{name:"canMoveWhileCasting"},{name:"moveSpeed",val:0}]
+        this.effect = [{name:"moveSpeed",val:0.6}]
         this.duration = 15
-        if (ele) {
-            this.cost = 0
-        }
     }
 
-    getTooltip() {
-        return "Calls upon the guidance of the spirits for 15 sec, permitting movement while casting Shaman spells. Castable while casting."
+    getTooltip() {//TODO:Removes all movement impairing effects
+        return "Removes all movement impairing effects and increases your movement speed by 60% for 8 sec."
     }
 
     getBuffTooltip(caster, target, buff) {
-        return "Able to move while casting all Shaman spells."
+        return "Increases movement speed by 60%."
     }
 
     startCast(caster) {
         if (this.checkStart(caster)) {
             applyBuff(caster,caster,this)
-            caster.canMoveWhileCasting = true
             this.setCd()
             caster.useEnergy(this.cost)
             this.setGcd(caster)
@@ -41,7 +36,4 @@ class SpiritwalkersGrace extends Ability {
         return false
     }
 
-    endBuff(caster) {
-        caster.canMoveWhileCasting = false
-    }
 }
