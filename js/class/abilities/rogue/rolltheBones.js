@@ -13,6 +13,7 @@ class RolltheBones extends Ability {
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.duration = 30
+        this.dontBreakStealth = true
     }
 
     getTooltip() {

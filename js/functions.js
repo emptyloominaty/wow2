@@ -440,6 +440,13 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (checkDebuff(caster,target,"Between the Eyes")) {
                     damage *= 1.2 //20%CRIT
                 }
+                if (ability.name !== "Blade Flurry" && checkBuff(caster,caster,"Blade Flurry")) {
+                    for (let i = 0; i<enemies.length ;i++) {
+                        if (!enemies[i].isDead && enemies[i]!==target && getDistance(caster, enemies[i])<8 ) {
+                            doDamage(caster, enemies[i], caster.abilities["Blade Flurry"],undefined,undefined,false,undefined,undefined,undefined,damage*0.6)
+                        }
+                    }
+                }
                 if (ability.name==="Between the Eyes") {
                     if (crit>1) {
                         damage *= 2

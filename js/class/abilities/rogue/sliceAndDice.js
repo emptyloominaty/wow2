@@ -47,10 +47,20 @@ class SliceAndDice extends Ability {
             if (caster.abilities["Alacrity"] && caster.abilities["Alacrity"].talentSelect) {
                 caster.abilities["Alacrity"].applyBuff(caster)
             }
-            caster.useEnergy(this.cost,this.secCost)
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
+            let sec = caster.secondaryResource
+            caster.useEnergy(this.cost,this.secCost)
+            if (caster.spec==="outlaw") {
+                if (getChance(20*sec)) {
+                    caster.useEnergy(0,-1)
+                }
+                caster.abilities["Restless Blades"].reduceCd2(caster,sec)
+            }
+
+
+
             return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)

@@ -18,7 +18,7 @@ class TricksoftheTrade extends Ability { //TODO:
     }
 
     getTooltip() {
-        return "Redirects all threat you cause to the targeted party or raid member, beginning with your next damaging attack within the next 30 sec and lasting 6 sec."
+        return "//NOT IMPLEMENTED//Redirects all threat you cause to the targeted party or raid member, beginning with your next damaging attack within the next 30 sec and lasting 6 sec."
     }
 
     getBuffTooltip(caster, target, buff) {

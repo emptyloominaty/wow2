@@ -30,13 +30,13 @@ let _ai_assassination = function(creature) {
         if (!casted && !aiFunctions.checkBuff(c,c,"Deadly Poison")) {
             casted = c.abilities["Deadly Poison"].startCast(c)
         }
-        if (!casted && !aiFunctions.checkBuff(c,c,"Slice And Dice") && c.secondaryResource>2) {
+        if (!casted && !aiFunctions.checkBuff(c,c,"Slice And Dice") && c.secondaryResource>3) {
             casted = c.abilities["Slice And Dice"].startCast(c)
         }
         if (!casted && !aiFunctions.checkDebuff(c,target,"Garrote")) {
             casted = c.abilities["Garrote"].startCast(c)
         }
-        if (!casted && !aiFunctions.checkDebuff(c,target,"Rupture") && c.secondaryResource>2) {
+        if (!casted && !aiFunctions.checkDebuff(c,target,"Rupture") && c.secondaryResource>3) {
             casted = c.abilities["Rupture"].startCast(c)
         }
         if (!casted) {

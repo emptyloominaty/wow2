@@ -55,7 +55,12 @@ class Dispatch extends Ability {
                     caster.isChanneling = false
                 }
                 this.setCd()
+                let sec = caster.secondaryResource
                 caster.useEnergy(this.cost,this.secCost)
+                if (getChance(20*sec)) {
+                    caster.useEnergy(0,-1)
+                }
+                caster.abilities["Restless Blades"].reduceCd2(caster,sec)
                 this.setGcd(caster)
                 return true
             }

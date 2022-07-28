@@ -16,7 +16,6 @@ class Shiv extends Ability {
         this.spellPower = 0.5*1.51
 
         this.effect = []
-        //TODO:DISPEL ENRAGE
 
         this.secCost = -1
 
@@ -35,6 +34,7 @@ class Shiv extends Ability {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                    dispelEnemyEnrage(caster,caster.castTarget)
                     doDamage(caster,caster.castTarget,this)
                     done = true
                 }
@@ -47,6 +47,7 @@ class Shiv extends Ability {
                     caster.targetObj = newTarget
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
+                        dispelEnemyEnrage(caster,caster.targetObj)
                         doDamage(caster, caster.targetObj, this)
                         done = true
                     }

@@ -1053,10 +1053,12 @@ if (player.spec==="outlaw") {
         //bar0
         "Adrenaline Rush": new Action("Adrenaline Rush",0,0),
 
+
         "Sprint": new Action("Sprint", 0, 2),
         "Shiv": new Action("Shiv", 0, 4),
 
         "Kick": new Action("Kick", 0, 5),
+        "Blade Flurry": new Action("Blade Flurry",0,6),
         "Crimson Vial": new Action("Crimson Vial", 0, 7),
 
         "Sap": new Action("Sap", 0, 11),
@@ -1064,8 +1066,8 @@ if (player.spec==="outlaw") {
         //bar1
         "Between the Eyes": new Action("Between the Eyes",1,0),
         "Roll the Bones": new Action("Roll the Bones",1,1),
-
         "Slice And Dice": new Action("Slice And Dice",1,2),
+        "Grappling Hook": new Action("Grappling Hook",1,3),
 
         "Sinister Strike": new Action("Sinister Strike",1,8),
         "Dispatch": new Action("Dispatch",1,9),
