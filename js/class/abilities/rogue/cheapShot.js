@@ -30,7 +30,7 @@ class CheapShot extends Ability {
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDebuff(caster,caster.castTarget,this)
-                    if (caster.abilities["Prey on the Weak"].talentSelect) {
+                    if (caster.abilities["Prey on the Weak"] && caster.abilities["Prey on the Weak"].talentSelect) {
                         caster.abilities["Prey on the Weak"].applyDebuff(caster,caster.castTarget)
                     }
                     done = true
@@ -45,7 +45,7 @@ class CheapShot extends Ability {
                     caster.target = newTarget.name
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
                         applyDebuff(caster,caster.targetObj,this)
-                        if (caster.abilities["Prey on the Weak"].talentSelect) {
+                        if (caster.abilities["Prey on the Weak"] && caster.abilities["Prey on the Weak"].talentSelect) {
                             caster.abilities["Prey on the Weak"].applyDebuff(caster,caster.targetObj)
                         }
                         done = true

@@ -32,7 +32,7 @@ class Vanish extends Ability {
                     caster.isChanneling = false
                 }
                 applyBuff(caster, caster, this,undefined,undefined,undefined,undefined,undefined,undefined,"stealth")
-                if (caster.abilities["Nightstalker"].talentSelect) {
+                if (caster.abilities["Nightstalker"] && caster.abilities["Nightstalker"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Nightstalker"])
                 }
 
@@ -47,10 +47,10 @@ class Vanish extends Ability {
     }
 
     endBuff(caster) {
-        if (caster.abilities["Subterfuge"].talentSelect) {
+        if (caster.abilities["Subterfuge"] && caster.abilities["Subterfuge"].talentSelect) {
             applyBuff(caster,caster,caster.abilities["Subterfuge"])
         }
-        if (caster.abilities["Master Assassin"].talentSelect) {
+        if (caster.abilities["Master Assassin"] && caster.abilities["Master Assassin"].talentSelect) {
             applyBuff(caster,caster,caster.abilities["Master Assassin"])
         }
     }

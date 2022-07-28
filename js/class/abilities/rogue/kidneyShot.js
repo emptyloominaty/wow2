@@ -60,17 +60,17 @@ class KidneyShot extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                if (caster.abilities["Elaborate Planning"].talentSelect) {
+                if (caster.spec==="assassination" && caster.abilities["Elaborate Planning"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
                 }
 
-                if (caster.abilities["Internal Bleeding"].talentSelect) {
+                if (caster.spec==="assassination" && caster.abilities["Internal Bleeding"].talentSelect) {
                     caster.abilities["Internal Bleeding"].applyDot(caster,target)
                 }
-                if (caster.abilities["Prey on the Weak"].talentSelect) {
+                if (caster.spec==="assassination" && caster.abilities["Prey on the Weak"].talentSelect) {
                     caster.abilities["Prey on the Weak"].applyDebuff(caster,target)
                 }
-                if (caster.abilities["Alacrity"].talentSelect) {
+                if (caster.spec==="assassination" && caster.abilities["Alacrity"].talentSelect) {
                     caster.abilities["Alacrity"].applyBuff(caster)
                 }
                 caster.useEnergy(this.cost,this.secCost)

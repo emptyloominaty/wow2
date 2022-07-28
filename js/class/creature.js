@@ -302,6 +302,18 @@ class Creature {
             this.secondaryResourceName = "Combo Points"
             this.secondaryResource = 0
             this.maxSecondaryResource = 5
+        } else if (spec==="outlaw") { //----------------------------------------Outlaw
+            this.class = "Rogue"
+            this.abilities = new Outlaw_Abilities()
+            _outlaw_talents(this)
+            applyBuff(this,this,this.abilities["Instant Poison"])
+            this.melee = true
+            this.role = "dps"
+            this.energyRegen = 10
+            this.resourceName = "Energy"
+            this.secondaryResourceName = "Combo Points"
+            this.secondaryResource = 0
+            this.maxSecondaryResource = 5
         } else if (spec==="restorationDruid") { //----------------------------------------Resto Druid
             this.class = "Druid"
             this.abilities = new restoDruid_abilities()

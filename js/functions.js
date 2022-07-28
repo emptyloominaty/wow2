@@ -433,6 +433,18 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (ability.school==="fire" || ability.school==="frost" || ability.school==="nature") {
                     damage = damage * (1 + (caster.stats.mastery / 100))
                 }
+            } else if (caster.spec==="outlaw") {
+                if ((ability.name==="Auto Attack" || ability.name === "Sinister Strike" || ability.name === "Killing Spree") && getChance(30)) {
+                    doDamage(caster,target,caster.abilities["Main Gauche"],undefined,(caster.stats.mastery / 100))
+                }
+            }
+
+            if (caster.class==="Rogue") {
+                if (ability.name==="Auto Attack" || ability.name==="Shadow Vault" || ability.name==="Shuriken Storm" || ability.name==="Black Powder" || ability.name==="Blade Flurry") {
+                    if (checkBuff(caster, caster, "Instant Poison") && getChance(30)) {
+                        doDamage(caster,target,caster.abilities["Instant Poison"])
+                    }
+                }
             }
         }
 

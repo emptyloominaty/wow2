@@ -35,19 +35,16 @@ class SliceAndDice extends Ability {
             "<br>5 points: 36 seconds"
     }
 
-    run(caster) {
-    }
-
     startCast(caster) {
         if (this.checkStart(caster)) {
             this.duration = 12 + (6*caster.secondaryResource)
             this.setCd()
             applyBuff(caster,caster,this)
-            if (caster.abilities["Elaborate Planning"].talentSelect) {
+            if (caster.abilities["Elaborate Planning"] && caster.abilities["Elaborate Planning"].talentSelect) {
                 applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
             }
             this.setGcd(caster)
-            if (caster.abilities["Alacrity"].talentSelect) {
+            if (caster.abilities["Alacrity"] && caster.abilities["Alacrity"].talentSelect) {
                 caster.abilities["Alacrity"].applyBuff(caster)
             }
             caster.useEnergy(this.cost,this.secCost)
@@ -61,6 +58,4 @@ class SliceAndDice extends Ability {
         return false
     }
 
-    endCast(caster) {
-    }
 }

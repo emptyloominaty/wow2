@@ -1047,3 +1047,34 @@ if (player.spec==="enhancement") {
         "Heroism": new Action("Heroism", 3, 5),
     }
 }
+
+if (player.spec==="outlaw") {
+    actions = {
+        //bar0
+
+        "Sprint": new Action("Sprint", 0, 2),
+        "Shiv": new Action("Shiv", 0, 4),
+
+        "Kick": new Action("Kick", 0, 5),
+        "Crimson Vial": new Action("Crimson Vial", 0, 7),
+
+        "Sap": new Action("Sap", 0, 11),
+
+        //bar1
+
+        "Slice And Dice": new Action("Slice And Dice",1,2),
+
+
+
+        //bar2
+        "Ambush": new Action("Ambush", 2, 0),
+
+        "Cloak of Shadows": new Action("Cloak of Shadows", 2, 4),
+        "Evasion": new Action("Evasion", 2, 5),
+        "Vanish": new Action("Vanish", 2, 6),
+
+        "Stealth": new Action("Stealth", 2, 11),
+
+        //bar3
+    }
+}

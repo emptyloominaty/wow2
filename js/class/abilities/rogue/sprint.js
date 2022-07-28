@@ -20,8 +20,6 @@ class Sprint extends Ability {
 
     getTooltip() {
         return "Increases your movement speed by 70% for 8 sec. Usable while stealthed."
-        //TODO: Subtlety (Level 43)
-        // Allows you to run over water
     }
 
     startCast(caster) {
