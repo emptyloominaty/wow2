@@ -437,6 +437,20 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if ((ability.name==="Auto Attack" || ability.name === "Sinister Strike" || ability.name === "Killing Spree") && getChance(30)) {
                     doDamage(caster,target,caster.abilities["Main Gauche"],undefined,(caster.stats.mastery / 100))
                 }
+                if (checkDebuff(caster,target,"Between the Eyes")) {
+                    damage *= 1.2 //20%CRIT
+                }
+                if (ability.name==="Between the Eyes") {
+                    if (crit>1) {
+                        damage *= 2
+                    }
+                }
+                //Combat Potency
+                if (ability.name==="Auto Attack" || ability.name === "Main Gauche") {
+                    if (getChance(75)) {
+                        caster.useEnergy(-10)
+                    }
+                }
             }
 
             if (caster.class==="Rogue") {

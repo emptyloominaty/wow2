@@ -1051,6 +1051,7 @@ if (player.spec==="enhancement") {
 if (player.spec==="outlaw") {
     actions = {
         //bar0
+        "Adrenaline Rush": new Action("Adrenaline Rush",0,0),
 
         "Sprint": new Action("Sprint", 0, 2),
         "Shiv": new Action("Shiv", 0, 4),
@@ -1061,14 +1062,18 @@ if (player.spec==="outlaw") {
         "Sap": new Action("Sap", 0, 11),
 
         //bar1
+        "Between the Eyes": new Action("Between the Eyes",1,0),
+        "Roll the Bones": new Action("Roll the Bones",1,1),
 
         "Slice And Dice": new Action("Slice And Dice",1,2),
 
+        "Sinister Strike": new Action("Sinister Strike",1,8),
+        "Dispatch": new Action("Dispatch",1,9),
 
 
         //bar2
         "Ambush": new Action("Ambush", 2, 0),
-
+        "Pistol Shot": new Action("Pistol Shot",2,3),
         "Cloak of Shadows": new Action("Cloak of Shadows", 2, 4),
         "Evasion": new Action("Evasion", 2, 5),
         "Vanish": new Action("Vanish", 2, 6),

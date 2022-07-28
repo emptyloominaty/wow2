@@ -309,7 +309,7 @@ class Creature {
             applyBuff(this,this,this.abilities["Instant Poison"])
             this.melee = true
             this.role = "dps"
-            this.energyRegen = 10
+            this.energyRegen = 13.5
             this.resourceName = "Energy"
             this.secondaryResourceName = "Combo Points"
             this.secondaryResource = 0
@@ -1285,6 +1285,30 @@ class Creature {
                     this.secondaryResource += 0.3
                 }
             }
+        } else if (this.spec==="outlaw") {
+            if (val2>0) {
+                if (checkBuff(this,this,"Grand Melee")) {
+                    let a = true
+                    for (let i = 0; i<this.buffs.length; i++) {
+                        if (this.buffs[i].name==="Slice and Dice") {
+                            this.buffs[i].duration += val2*2
+                            a = false
+                            break
+                        }
+                    }
+                    if (a) {
+                        applyBuff(this,this,this.abilities["Slice and Dice"],undefined,undefined,undefined,val2*2)
+                    }
+                }
+            } else if (val2<0) {
+                if (checkBuff(this,this,"Broadside")) {
+                    this.secondaryResource ++
+                    if (this.secondaryResource>this.maxSecondaryResource) {
+                        this.secondaryResource = this.maxSecondaryResource
+                    }
+                }
+            }
+
         }
     }
 

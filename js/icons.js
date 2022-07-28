@@ -1108,7 +1108,12 @@ let iconsPath = {
     "Wound Poison":"img/rogue/WoundPoison.jpg",
     "Venomous Wounds":"img/rogue/VenomousWounds.jpg",
     "Cut to the Chase":"img/rogue/CuttotheChase.jpg",
-
+    "Grand Melee":"img/rogue/GrandMelee.jpg",
+    "Broadside":"img/rogue/Broadside.jpg",
+    "Ruthless Precision":"img/rogue/RuthlessPrecision.jpg",
+    "Buried Treasure":"img/rogue/BuriedTreasure.jpg",
+    "Skull and Crossbones":"img/rogue/SkullandCrossbones.jpg",
+    "True Bearing":"img/rogue/TrueBearing.jpg",
 
     //Shaman
     "Healing Surge":"img/shaman/HealingSurge.jpg",
