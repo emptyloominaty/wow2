@@ -41,7 +41,7 @@ let _subtlety_talents = function(caster) {
         ["Soothing Darkness","Cheat Death","Elusiveness"],
         ["Shot in the Dark","Night Terrors","Prey on the Weak"],
         ["Dark Shadow","Alacrity","Enveloping Shadows"],
-        ["Master of SHadows","Secret Technique","Shuriken Tornado"]
+        ["Master of Shadows","Secret Technique","Shuriken Tornado"]
     ]
 }
 

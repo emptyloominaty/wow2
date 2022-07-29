@@ -443,7 +443,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (ability.name !== "Blade Flurry" && checkBuff(caster,caster,"Blade Flurry")) {
                     for (let i = 0; i<enemies.length ;i++) {
                         if (!enemies[i].isDead && enemies[i]!==target && getDistance(caster, enemies[i])<8 ) {
-                            doDamage(caster, enemies[i], caster.abilities["Blade Flurry"],undefined,undefined,false,undefined,undefined,undefined,damage*0.6)
+                            doDamage(caster, enemies[i], caster.abilities["Blade Flurry"],undefined,undefined,false,undefined,undefined,undefined,damage*caster.abilities["Blade Flurry"].damage)
                         }
                     }
                 }

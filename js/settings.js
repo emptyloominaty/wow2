@@ -87,6 +87,12 @@ let raidFramesBuffs = {
         centreRight:"none",
         bottomCentre:"none",
     },
+    "subtlety": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
     "enhancement": {
         bottomRight:"none",
         bottomRight2:"none",

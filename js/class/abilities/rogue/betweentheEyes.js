@@ -64,6 +64,9 @@ class BetweentheEyes extends Ability {
                 if (getChance(20*sec)) {
                     caster.useEnergy(0,-1)
                 }
+                if (caster.abilities["Alacrity"].talentSelect) {
+                    caster.abilities["Alacrity"].applyBuff(caster)
+                }
                 caster.abilities["Restless Blades"].reduceCd2(caster,sec)
                 this.setGcd(caster)
                 return true

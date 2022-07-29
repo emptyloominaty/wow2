@@ -44,6 +44,9 @@ class Ai {
         "arms":() => {
             _ai_arms(this.creature)
         },
+        "outlaw":() => {
+            _ai_outlaw(this.creature)
+        },
         "arcane":() => {
             _ai_arcane(this.creature)
         },

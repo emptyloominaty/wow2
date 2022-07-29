@@ -14,6 +14,7 @@ class BladeFlurry extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.duration = 12
         this.spellPower = 0.4
+        this.damage = 0.6
     }
 
     getTooltip() {

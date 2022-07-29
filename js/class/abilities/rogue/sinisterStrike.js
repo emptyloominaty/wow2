@@ -53,9 +53,14 @@ class SinisterStrike extends Ability {
                     caster.isChanneling = false
                 }
                 let chance = 35
+                if (caster.abilities["Weaponmaster"].talentSelect) {
+                    chance += 10
+                }
                 if (checkBuff(caster,caster,"Skull and Crossbones")) {
                     chance += 30
                 }
+
+
 
                 if (getChance(chance)) {
                     doDamage(caster, target, this,undefined,this.spellPower*0.35)
