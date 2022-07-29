@@ -20,7 +20,7 @@ class ShurikenStorm extends Ability {
 
     getTooltip() {
         return  "Sprays shurikens at all enemies within 10 yards, dealing "+spellPowerToNumber(this.spellPower)+" Physical damage.<br>" +
-            "Critical strikes with Shuriken Storm apply Find Weakness for 6 sec<br>" + //TODO:
+            "Shuriken Storm has an additional 15% chance to crit and its critical strikes with Shuriken Storm apply Find Weakness for 6 sec<br>" +
             "<br>" +
             "Awards 1 combo points per target hit plus an additional 1"
     }
@@ -33,7 +33,8 @@ class ShurikenStorm extends Ability {
 
             for (let i = 0; i<enemies.length ;i++) {
                 if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
-                    doDamage(caster, enemies[i], this)
+                    doDamage(caster, enemies[i], this,undefined,undefined,undefined,undefined,undefined,15)
+                    applyDebuff(caster,enemies[i],caster.abilities["Find Weakness"],undefined,undefined,undefined,undefined,6) //TODO:ONLY CRITS
                     caster.useEnergy(0,-1)
                 }
             }

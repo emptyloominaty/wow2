@@ -458,6 +458,17 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         caster.useEnergy(-10)
                     }
                 }
+            } else if (caster.spec==="subtlety") {
+                if (ability.name==="Shadow Vault" || ability.name === "Eviscerate" || ability.name === "Black Powder" || ability.name === "Secret Technique" || ability.name === "Rupture") {
+                    damage = damage * (1 + (caster.stats.mastery / 100))
+                }
+                if (ability.name==="Backstab" || ability.name==="Shadowstrike" || ability.name==="Shuriken Storm" || ability.name==="Shuriken Toss" || ability.name==="Shiv" || ability.name==="Gloomblade") {
+                    if (checkBuff(caster,caster,"Shadow Blades")) {
+                        doDamage(caster,target,caster.abilities["Shadow Blades"],undefined,undefined,undefined,undefined,undefined,undefined,damage*0.5)
+                        caster.useEnergy(-1)
+                    }
+                }
+
             }
 
             if (caster.class==="Rogue") {

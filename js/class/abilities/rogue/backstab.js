@@ -28,9 +28,7 @@ class Backstab extends Ability {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-
-                    //applyDebuff(caster,caster.castTarget,caster.abilities["Find Weakness"],undefined,undefined,undefined,undefined,6) //TODO:ONLY CRITS
-
+                    applyDebuff(caster,caster.castTarget,caster.abilities["Find Weakness"],undefined,undefined,undefined,undefined,6) //TODO:ONLY CRITS
                     doDamage(caster,caster.castTarget,this)
                     done = true
                 }

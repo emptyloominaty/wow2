@@ -1202,6 +1202,7 @@ class Creature {
     }
 
     useEnergy(val,val2 = 0) {
+        let val2Used = this.secondaryResource
         if (this.reduceEnergyCost<0) {this.reduceEnergyCost=0}
         this.energy -= val * this.reduceEnergyCost
         if (val2!==0 && this.maxSecondaryResource>0) {
@@ -1298,18 +1299,24 @@ class Creature {
                 }
             }
         } else if (this.spec==="outlaw") {
-            if (val2>0) {
+            if (val2>0 || val2==="all") {
+                if (val2==="all") {
+                    val2 = val2Used
+                }
                 if (checkBuff(this,this,"Grand Melee")) {
                     let a = true
-                    for (let i = 0; i<this.buffs.length; i++) {
+                    /*for (let i = 0; i<this.buffs.length; i++) {
                         if (this.buffs[i].name==="Slice and Dice") {
                             this.buffs[i].duration += val2*2
                             a = false
                             break
                         }
-                    }
+                    }*/
                     if (a) {
-                        applyBuff(this,this,this.abilities["Slice and Dice"],undefined,undefined,undefined,val2*2)
+
+                        if (this.abilities["Slice and Dice"]) {
+                            applyBuff(this,this,this.abilities["Slice and Dice"],undefined,undefined,undefined,val2*2)
+                        }
                     }
                 }
             } else if (val2<0) {
@@ -1320,8 +1327,16 @@ class Creature {
                     }
                 }
             }
-
+        } else if (this.spec==="subtlety") {
+            if (val2>0 || val2==="all") { //Relentless Strikes, Deepening Shadows
+                if (val2==="all") {
+                    val2 = val2Used
+                }
+                this.abilities["Shadow Dance"].incCd(this,val2,false)
+                this.useEnergy(-6*val2)
+            }
         }
+
     }
 
     interrupt() {
