@@ -107,11 +107,14 @@ class AutoAttack extends Ability {
                     }
                 } else if (caster.spec==="enhancement") {
                     if (caster.abilities["Hot Hand"].talentSelect) {
-                        // "Melee auto-attacks with Flametongue Weapon active have a 5% chance to reduce the cooldown of Lava Lash by 75% and increase the damage of Lava Lash by 100% for 8 sec."
                         if (getChance(5)) {
                             caster.abilities["Lava Lash"].incCd(caster,9,false)
                             applyBuff(caster,caster,caster.abilities["Hot Hand"])
                         }
+                    }
+                } else if (caster.spec==="subtlety") {
+                    if (getChance(25)) { //Shadow Techniques
+                        caster.useEnergy(-8,-1)
                     }
                 }
             }

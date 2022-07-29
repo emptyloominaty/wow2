@@ -44,7 +44,7 @@ class SliceAndDice extends Ability {
                 applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
             }
             this.setGcd(caster)
-            if (caster.abilities["Alacrity"].talentSelect) {
+            if (caster.abilities["Alacrity"] && caster.abilities["Alacrity"].talentSelect) {
                 caster.abilities["Alacrity"].applyBuff(caster)
             }
             if (caster.isChanneling) {
@@ -58,8 +58,6 @@ class SliceAndDice extends Ability {
                 }
                 caster.abilities["Restless Blades"].reduceCd2(caster,sec)
             }
-
-
 
             return true
         } else if (this.canSpellQueue(caster)) {

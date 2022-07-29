@@ -1,5 +1,5 @@
 class Shadowstep extends Ability {
-    constructor() {
+    constructor(sub = false) {
         let name = "Shadowstep"
         let cost = 0
         let gcd = 0
@@ -16,6 +16,11 @@ class Shadowstep extends Ability {
         this.duration = 2
         this.effect = [{name:"moveSpeed",val:0.7}]
         this.dontBreakStealth = true
+
+        if (sub) {
+            this.charges ++
+            this.maxCharges ++
+        }
     }
 
     getTooltip() {

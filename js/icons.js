@@ -1115,6 +1115,7 @@ let iconsPath = {
     "Buried Treasure":"img/rogue/BuriedTreasure.jpg",
     "Skull and Crossbones":"img/rogue/SkullandCrossbones.jpg",
     "True Bearing":"img/rogue/TrueBearing.jpg",
+    "Find Weakness":"img/rogue/FindWeakness.jpg",
 
     //Shaman
     "Healing Surge":"img/shaman/HealingSurge.jpg",

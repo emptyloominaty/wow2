@@ -1,10 +1,10 @@
-class CheapShot extends Ability {
+class Eviscerate extends Ability {
     constructor() {
-        let name = "Cheap Shot"
-        let cost = 25
+        let name = "Eviscerate"
+        let cost = 35
         let gcd = 1
         let castTime = 0
-        let cd = 5
+        let cd = 0
         let charges = 1
         let channeling = false
         let casting = false
@@ -12,28 +12,27 @@ class CheapShot extends Ability {
         let school = "physical"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
-        this.duration = 4
-        this.secCost = -1
-        this.effect = [{name:"stun"}]
-        this.requiresStealth = true
-
+        this.spellPower = 0.176*1.21
+        this.secCost = "all"
     }
 
     getTooltip() {
-        return "Stuns the target for 4 sec. "
+        let spellPower = ((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100)))
+        return "Finishing move that disembowels the target, causing damage per combo point. Targets with Find Weakness suffer an additional 50% damage as Shadow. " + //TODO: with Find Weakness suffer an additional 50% damage as Shadow.
+            "<br>1 point: "+(spellPower).toFixed(0)+"  damage " +
+            "<br>2 points: "+(spellPower*2).toFixed(0)+"  damage " +
+            "<br>3 points: "+(spellPower*3).toFixed(0)+"  damage " +
+            "<br>4 points: "+(spellPower*4).toFixed(0)+"  damage " +
+            "<br>5 points: "+(spellPower*5).toFixed(0)+"  damage "
     }
 
     startCast(caster) {
-        if (this.checkStart(caster) && caster.isStealthed) {
+        if (this.checkStart(caster)) {
             let done = false
             let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    applyDebuff(caster,caster.castTarget,this)
-                    if (caster.abilities["Prey on the Weak"] && caster.abilities["Prey on the Weak"].talentSelect) {
-                        caster.abilities["Prey on the Weak"].applyDebuff(caster,caster.castTarget)
-                    }
+                    doDamage(caster,caster.castTarget,this,undefined,this.spellPower*caster.secondaryResource)
                     done = true
                 }
             } else {
@@ -46,10 +45,7 @@ class CheapShot extends Ability {
                     caster.target = newTarget.name
                     target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        applyDebuff(caster,caster.targetObj,this)
-                        if (caster.abilities["Prey on the Weak"] && caster.abilities["Prey on the Weak"].talentSelect) {
-                            caster.abilities["Prey on the Weak"].applyDebuff(caster,caster.targetObj)
-                        }
+                        doDamage(caster, caster.targetObj, this,undefined,this.spellPower*caster.secondaryResource)
                         done = true
                     }
                 }
@@ -58,18 +54,22 @@ class CheapShot extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                if (caster.spec==="subtlety") {
-                    applyDebuff(caster,target,caster.abilities["Find Weakness"])
+                this.setCd()
+                if (checkDebuff(caster,target,"Find Weakness")) {
+                    //TODO:SHADOW?
+                    doDamage(caster, caster.targetObj, this,undefined,this.spellPower*caster.secondaryResource*0.5)
                 }
                 caster.useEnergy(this.cost,this.secCost)
+                if (caster.abilities["Alacrity"] && caster.abilities["Alacrity"].talentSelect) {
+                    caster.abilities["Alacrity"].applyBuff(caster)
+                }
                 this.setGcd(caster)
-                this.cd = 0
                 return true
             }
-
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
         return false
     }
+
 }

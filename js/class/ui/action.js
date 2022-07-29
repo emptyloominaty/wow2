@@ -1091,33 +1091,34 @@ if (player.spec==="subtlety") {
     actions = {
         //bar0
 
-        //"Sprint": new Action("Sprint", 0, 2),
-        //"Shiv": new Action("Shiv", 0, 4),
+        "Sprint": new Action("Sprint", 0, 2),
+        "Shiv": new Action("Shiv", 0, 4),
 
-        //"Kick": new Action("Kick", 0, 5),
+        "Kick": new Action("Kick", 0, 5),
+        "Shuriken Storm": new Action("Shuriken Storm",0,6),
+        "Crimson Vial": new Action("Crimson Vial", 0, 7),
 
-        //"Crimson Vial": new Action("Crimson Vial", 0, 7),
-
-        //"Sap": new Action("Sap", 0, 11),
+        "Sap": new Action("Sap", 0, 11),
 
         //bar1
-        //"Between the Eyes": new Action("Between the Eyes",1,0),
-        //"Roll the Bones": new Action("Roll the Bones",1,1),
-        //"Slice And Dice": new Action("Slice And Dice",1,2),
-        //"Grappling Hook": new Action("Grappling Hook",1,3),
+        "Rupture": new Action("Rupture", 1, 0),
 
-        //"Sinister Strike": new Action("Sinister Strike",1,8),
-        //"Dispatch": new Action("Dispatch",1,9),
+        "Slice And Dice": new Action("Slice And Dice",1,2),
+        "Shadowstep": new Action("Shadowstep",1,3),
 
+        "Shadowstrike": new Action("Shadowstrike",1,8),
+        "Eviscerate": new Action("Eviscerate",1,9),
 
         //bar2
-        //"Ambush": new Action("Ambush", 2, 0),
-        //"Pistol Shot": new Action("Pistol Shot",2,3),
-        //"Cloak of Shadows": new Action("Cloak of Shadows", 2, 4),
-        //"Evasion": new Action("Evasion", 2, 5),
-        //"Vanish": new Action("Vanish", 2, 6),
+        "Ambush": new Action("Ambush", 2, 0),
+        "Backstab": new Action("Backstab",2,1),
 
-        //"Stealth": new Action("Stealth", 2, 11),
+        "Shuriken Toss": new Action("Shuriken Toss",2,3),
+        "Cloak of Shadows": new Action("Cloak of Shadows", 2, 4),
+        "Evasion": new Action("Evasion", 2, 5),
+        "Vanish": new Action("Vanish", 2, 6),
+
+        "Stealth": new Action("Stealth", 2, 11),
 
         //bar3
     }

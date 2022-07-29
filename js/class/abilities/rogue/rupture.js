@@ -1,5 +1,5 @@
 class Rupture extends Ability {
-    constructor() {
+    constructor(sub = false) {
         let name = "Rupture"
         let cost = 25
 
@@ -18,15 +18,15 @@ class Rupture extends Ability {
         this.spellPower = 0.2505*1.51
         this.duration = 8
 
-        this.spellPowerC = [0.501*1.51, 0.752*1.51, 1.002*1.51, 1.253*1.51, 1.504*1.51, 1.754*1.51]
-
         this.effect = ""
         this.effectValue = 0
         this.bleed = true
 
         this.secCost = "all"
 
-
+        if (sub) {
+            this.spellPower = 0.2505*1.21
+        }
 
     }
 
@@ -50,7 +50,7 @@ class Rupture extends Ability {
             let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) ) {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
-                    applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerC[caster.secondaryResource])
+                    applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPower*caster.secondaryResource)
                     done = true
                 }
             } else {
@@ -63,7 +63,7 @@ class Rupture extends Ability {
                     caster.target = newTarget.name
                     target = caster.targetObj
                     if (this.checkDistance(caster, caster.targetObj) && !caster.targetObj.isDead) {
-                        applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPowerC[caster.secondaryResource])
+                        applyDot(caster,caster.targetObj,this,undefined,undefined,this.spellPower*caster.secondaryResource)
                         done = true
                     }
                 }
@@ -72,14 +72,14 @@ class Rupture extends Ability {
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                if (caster.abilities["Elaborate Planning"].talentSelect) {
+                if (caster.abilities["Elaborate Planning"] && caster.abilities["Elaborate Planning"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
                 }
-                if (caster.abilities["Alacrity"].talentSelect) {
+                if (caster.abilities["Alacrity"] &&caster.abilities["Alacrity"].talentSelect) {
                     caster.abilities["Alacrity"].applyBuff(caster)
                 }
 
-                if (caster.abilities["Poison Bomb"].talentSelect) {
+                if (caster.abilities["Poison Bomb"] && caster.abilities["Poison Bomb"].talentSelect) {
                     caster.abilities["Poison Bomb"].smashVial(caster,target)
                 }
 

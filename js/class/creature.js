@@ -318,7 +318,7 @@ class Creature {
             this.class = "Rogue"
             this.abilities = new Subtlety_Abilities()
             _subtlety_talents(this)
-            //applyBuff(this,this,this.abilities["Instant Poison"])
+            applyBuff(this,this,this.abilities["Instant Poison"])
             this.melee = true
             this.role = "dps"
             this.energyRegen = 10
@@ -326,7 +326,6 @@ class Creature {
             this.secondaryResourceName = "Combo Points"
             this.secondaryResource = 0
             this.maxSecondaryResource = 5
-            //subtlety
         } else if (spec==="restorationDruid") { //----------------------------------------Resto Druid
             this.class = "Druid"
             this.abilities = new restoDruid_abilities()
