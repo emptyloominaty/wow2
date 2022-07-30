@@ -732,7 +732,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
 
             target.aggroInc(caster.id2, damage * caster.aggroMultiplier * ability.threat)
         }
+        return crit
     }
+    return false
 }
 
 let applyHot = function(caster,target,ability,duration = 0,extDuration = 0,spellPowerHot = 0,maxDuration = ability.duration) {

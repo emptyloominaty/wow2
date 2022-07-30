@@ -1125,3 +1125,34 @@ if (player.spec==="subtlety") {
         //bar3
     }
 }
+
+if (player.spec==="fire") {
+    actions = {
+        //bar 0
+
+        "Remove Curse": new Action("Remove Curse",0,4),
+        "Counterspell": new Action("Counterspell",0,5),
+
+        "Spellsteal":  new Action("Spellsteal",0,7),
+
+
+        //bar1
+        "Fire Blast": new Action("Fire Blast",1,0),
+
+        "Blink": new Action("Blink",1,3),
+
+        "Fireball": new Action("Fireball",1,8),
+        "Scorch": new Action("Scorch",1,9),
+        "Frost Nova": new Action("Frost Nova",1,10),
+
+        //bar2
+
+
+        "Ice Block": new Action("Ice Block",2,4),
+        "Mirror Image": new Action("Mirror Image",2,5),
+
+        //bar3
+
+        "Time Warp": new Action("Time Warp",3,5),
+    }
+}

@@ -26,4 +26,5 @@ let specsName = {
     "enhancement":"Enhancement",
     "outlaw":"Outlaw",
     "subtlety":"Subtlety",
+    "fire":"Fire",
 }

@@ -1,45 +1,45 @@
 let _fire_talents = function(caster) {
     //1
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Firestarter"] = new Firestarter()
+    //caster.abilities["Pyromaniac"] = new Pyromaniac()
+    //caster.abilities["Searing Touch"] = new SearingTouch()
 
     //2
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Blazing Soul"] = new BlazingSoul()
+    //caster.abilities["Shimmer"] = new Shimmer()
+    //caster.abilities["Blast Wave"] = new BlastWave()
 
     //3
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Incanter's Flow"] = new IncantersFlow()
+    //caster.abilities["Focus Magic"] = new FocusMagic()
+    //caster.abilities["Rune of Power"] = new RuneofPower()
 
     //4
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Flame On"] = new FlameOn()
+    //caster.abilities["Alexstrasza's Fury"] = new AlexstraszasFury()
+    //caster.abilities["From the Ashes"] = new FromtheAshes()
 
     //5
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Frenetic Speed"] = new FreneticSpeed()
+    //caster.abilities["Ice Ward"] = new IceWard()
+    //caster.abilities["Ring of Frost"] = new RingofFrost()
 
     //6
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Flame Patch"] = new FlamePatch()
+    //caster.abilities["Conflagration"] = new Conflagration()
+    //caster.abilities["Living Bomb"] = new LivingBomb()
 
     //7
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
-    //caster.abilities[""] = new ()
+    //caster.abilities["Kindling"] = new Kindling()
+    //caster.abilities["Pyroclasm"] = new Pyroclasm()
+    //caster.abilities["Meteor"] = new Meteor()
 
 
     caster.talents = [["Firestarter","Pyromaniac","Searing Touch"],
         ["Blazing Soul","Shimmer","Blast Wave"],
         ["Incanter's Flow","Focus Magic","Rune of Power"],
         ["Flame On","Alexstrasza's Fury","From the Ashes"],
-        ["Franetic Speed","Ice Ward","Ring of Frost"],
+        ["Frenetic Speed","Ice Ward","Ring of Frost"],
         ["Flame Patch","Conflagration","Living Bomb"],
         ["Kindling","Pyroclasm","Meteor"]
     ]
@@ -64,3 +64,5 @@ let _fire_talents = function(caster) {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
+//------------------------------------------------
+//------------------------------------------------

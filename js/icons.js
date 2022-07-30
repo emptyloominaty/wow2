@@ -37,6 +37,7 @@ let iconsPath = {
         "enhancement":"img/specs/shaman/enhancement.jpg",
         "outlaw":"img/specs/rogue/outlaw.jpg",
         "subtlety":"img/specs/rogue/subtlety.png",
+        "fire":"img/specs/mage/fire.png",
     },
 
     //classes

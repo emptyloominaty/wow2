@@ -43,12 +43,14 @@ class Creature {
     isRooted = false
     isInterrupted = false
     isCasting = false
+    isCasting2 = false
     isChanneling = false
     isMoving = false
     canMoveWhileCasting = false
     channeling = {name:"", time:0, time2:0}
     isRolling = false
     casting = {name:"", time:0, time2:0}
+    casting2 = {name:"", time:0, time2:0}
     isDead = false
     playerCharacter = false
     gcd = 0
@@ -390,6 +392,12 @@ class Creature {
             this.secondaryResourceName = "Arcane Charges"
             this.secondaryResource = 0
             this.maxSecondaryResource = 4
+        } else if (spec==="fire") {//----------------------------------------Fire
+            this.class = "Mage"
+            this.abilities = new Fire_Abilities()
+            _fire_talents(this)
+            this.melee = false
+            this.role = "dps"
         } else if (spec==="havoc") {//----------------------------------------Havoc
             this.class = "Demon Hunter"
             this.melee = true
@@ -531,6 +539,7 @@ class Creature {
 
         if (this.isStunned) {
             this.isCasting = false
+            this.isCasting2 = false
             this.isChanneling = false
             this.gcd = 0
         }
@@ -544,6 +553,16 @@ class Creature {
                 this.isCasting = false
             }
         }
+        //casting2 ability
+        if (this.isCasting2) {
+            if (this.casting2.time<this.casting2.time2) {
+                this.casting2.time += progressInSec
+            } else {
+                this.abilities[this.casting2.name].endCast(this)
+                this.isCasting2 = false
+            }
+        }
+
         //channeling ability
         if (this.isChanneling) {
             if (this.channeling.time<this.channeling.time2) {
@@ -1388,6 +1407,10 @@ class Creature {
 
         if (this.isCasting && this.abilities[this.casting.name].castTime>0 && !this.canMoveWhileCasting) {
             this.isCasting = false
+            this.gcd = 0
+        }
+        if (this.isCasting2 && this.abilities[this.casting2.name].castTime>0 && !this.canMoveWhileCasting) {
+            this.isCasting2 = false
             this.gcd = 0
         }
         if (this.isChanneling && !this.canMoveWhileCasting) {
