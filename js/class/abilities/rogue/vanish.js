@@ -35,7 +35,9 @@ class Vanish extends Ability {
                 if (caster.abilities["Nightstalker"] && caster.abilities["Nightstalker"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Nightstalker"])
                 }
-
+                if (caster.abilities["Master of Shadows"] && caster.abilities["Master of Shadows"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Master of Shadows"])
+                }
                 caster.useEnergy(this.cost, this.secCost)
                 this.setGcd(caster)
                 this.setCd()

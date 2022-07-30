@@ -45,7 +45,9 @@ class BlackPowder extends Ability {
                     }
                 }
             }
-
+            if (caster.abilities["Alacrity"].talentSelect) {
+                caster.abilities["Alacrity"].applyBuff(caster)
+            }
             this.setCd()
             caster.useEnergy(this.cost,this.secCost)
             this.setGcd(caster)

@@ -55,7 +55,11 @@ class Weaponmaster extends Ability {
     }
 
     getTooltip() {
-        return "Sinister Strike has a 10% increased chance to strike an additional time."
+        if (player.spec==="subtlety") {
+            return "Shadowstrike and Backstab have a 15% chance to hit the target twice each time they deal damage."
+        } else {
+            return "Sinister Strike has a 10% increased chance to strike an additional time."
+        }
     }
 
 }

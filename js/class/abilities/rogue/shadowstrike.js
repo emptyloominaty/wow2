@@ -51,6 +51,9 @@ class Shadowstrike extends Ability {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDebuff(caster,caster.castTarget,caster.abilities["Find Weakness"])
                     doDamage(caster,caster.castTarget,this,undefined,spellPower)
+                    if (caster.abilities["Weaponmaster"].talentSelect && getChance(15)) {
+                        doDamage(caster,caster.castTarget,this,undefined,spellPower)
+                    }
                     done = true
                 }
             }

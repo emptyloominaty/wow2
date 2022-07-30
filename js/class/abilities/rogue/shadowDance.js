@@ -28,6 +28,12 @@ class ShadowDance extends Ability {
                 caster.isChanneling = false
             }
             applyBuff(caster,caster,this)
+            if (caster.abilities["Nightstalker"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Nightstalker"])
+            }
+            if (caster.abilities["Master of Shadows"].talentSelect) {
+                applyBuff(caster,caster,caster.abilities["Master of Shadows"])
+            }
             caster.useEnergy(this.cost,this.secCost)
             this.setGcd(caster)
             this.setCd()

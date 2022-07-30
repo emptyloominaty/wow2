@@ -75,7 +75,7 @@ class Rupture extends Ability {
                 if (caster.abilities["Elaborate Planning"] && caster.abilities["Elaborate Planning"].talentSelect) {
                     applyBuff(caster,caster,caster.abilities["Elaborate Planning"])
                 }
-                if (caster.abilities["Alacrity"] &&caster.abilities["Alacrity"].talentSelect) {
+                if (caster.abilities["Alacrity"].talentSelect) {
                     caster.abilities["Alacrity"].applyBuff(caster)
                 }
 

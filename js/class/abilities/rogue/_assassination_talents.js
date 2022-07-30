@@ -128,10 +128,10 @@ class Subterfuge extends Ability {
         this.duration = 3
     }
 
-    getTooltip() { //TODO:SUB: SHADOW DANCE
+    getTooltip() {
         let tooltip = "Your abilities requiring Stealth can still be used for 3 sec after Stealth breaks."
         if (player.spec==="subtlety") {
-            tooltip += "Also increases the duration of Shadow Dance by 1 sec"
+            tooltip += "Also increases the duration of Shadow Dance by 1 sec" //TODO:
         } else {
             tooltip += "Also causes Garrote to deal 80% increased damage and have no cooldown when used from Stealth and for 3 sec after breaking Stealth"
         }

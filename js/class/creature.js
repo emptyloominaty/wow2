@@ -1332,8 +1332,18 @@ class Creature {
                 if (val2==="all") {
                     val2 = val2Used
                 }
-                this.abilities["Shadow Dance"].incCd(this,val2,false)
+                if (this.abilities["Enveloping Shadows"].talentSelect) {
+                    this.abilities["Shadow Dance"].incCd(this,val2*1.5,false)
+                } else {
+                    this.abilities["Shadow Dance"].incCd(this,val2,false)
+                }
+
                 this.useEnergy(-6*val2)
+            }
+            if (val>0) {
+                if (this.abilities["Shadow Focus"].talentSelect && this.isStealthed) {
+                    this.useEnergy(-val*0.2)
+                }
             }
         }
 

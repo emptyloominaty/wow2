@@ -30,6 +30,9 @@ class Backstab extends Ability {
                 if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                     applyDebuff(caster,caster.castTarget,caster.abilities["Find Weakness"],undefined,undefined,undefined,undefined,6) //TODO:ONLY CRITS
                     doDamage(caster,caster.castTarget,this)
+                    if (caster.abilities["Weaponmaster"].talentSelect && getChance(15)) {
+                        doDamage(caster,caster.castTarget,this)
+                    }
                     done = true
                 }
             }

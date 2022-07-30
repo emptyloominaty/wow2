@@ -38,6 +38,9 @@ class Ai {
         "feral":() => {
             _ai_feral(this.creature)
         },
+        "subtlety":() => {
+            _ai_subtlety(this.creature)
+        },
         "enhancement":() => {
             _ai_enhancement(this.creature)
         },
