@@ -270,9 +270,6 @@ class RuneofPower extends Ability {
     endCast(caster) {
         caster.isCasting = false
         addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,caster.x,caster.y,true,this.area.radius)
-        if (caster.spec==="arcane") {
-            applyBuff(caster,caster,caster.abilities["Arcane Power"])
-        }
         caster.useEnergy(this.cost,this.secCost)
         this.setCd()
 

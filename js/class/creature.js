@@ -1152,6 +1152,13 @@ class Creature {
             return false
         } else if (this.spec==="blood" && this.abilities["Purgatory"].talentSelect) {
             this.abilities["Purgatory"].preventFatalDamage(this)
+            return false
+        } else if (this.spec==="fire") {
+            if (this.abilities["Cauterize"].cd>=this.abilities["Cauterize"].maxCd) {
+                this.health = this.maxHealth*0.35
+                applyBuff(this,this,this.abilities["Cauterize"])
+                return false
+            }
         }
 
         this.floatingTexts.removeAll()

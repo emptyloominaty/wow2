@@ -3,7 +3,7 @@ class Flamestrike extends Ability {
         let name = "Flamestrike"
         let cost = 2.5
         let gcd = 1.5
-        let castTime = 4
+        let castTime = 3.5
         let cd = 0
         let charges = 1
         let channeling = false
@@ -13,7 +13,7 @@ class Flamestrike extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.54756
+        this.spellPower = 0.54756*1.15
 
         this.area = {type:"circle", radius:8, duration: 0.5,data:{type:"damage", maxTargets:6, spellPower:0.54756,color:"#ff5300",color2:"rgba(255,56,0,0.09)",cast:false}}
 

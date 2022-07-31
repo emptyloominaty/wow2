@@ -6,13 +6,13 @@ let _fire_talents = function(caster) {
 
     //2
     //caster.abilities["Blazing Soul"] = new BlazingSoul()
-    //caster.abilities["Shimmer"] = new Shimmer()
+    caster.abilities["Shimmer"] = new Shimmer()
     //caster.abilities["Blast Wave"] = new BlastWave()
 
     //3
-    //caster.abilities["Incanter's Flow"] = new IncantersFlow()
-    //caster.abilities["Focus Magic"] = new FocusMagic()
-    //caster.abilities["Rune of Power"] = new RuneofPower()
+    caster.abilities["Incanter's Flow"] = new IncantersFlow()
+    caster.abilities["Focus Magic"] = new FocusMagic()
+    caster.abilities["Rune of Power"] = new RuneofPower()
 
     //4
     //caster.abilities["Flame On"] = new FlameOn()
@@ -21,8 +21,8 @@ let _fire_talents = function(caster) {
 
     //5
     //caster.abilities["Frenetic Speed"] = new FreneticSpeed()
-    //caster.abilities["Ice Ward"] = new IceWard()
-    //caster.abilities["Ring of Frost"] = new RingofFrost()
+    caster.abilities["Ice Ward"] = new IceWard()
+    caster.abilities["Ring of Frost"] = new RingofFrost()
 
     //6
     //caster.abilities["Flame Patch"] = new FlamePatch()

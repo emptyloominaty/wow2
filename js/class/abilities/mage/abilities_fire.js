@@ -19,12 +19,14 @@ class Fire_Abilities {
     "Greater Invisibility" = new GreaterInvisibility() //TODO: Invisiblity 5min cd Turns you invisible over 3 sec, reducing threat each second. While invisible, you are untargetable by enemies. Lasts 20 sec. Taking any action cancels the effect.
     "Dragon's Breath" = new DragonsBreath()
     "Flamestrike" = new Flamestrike()
+    "Blazing Barrier" = new BlazingBarrier()
 
     //passive
     "Critical Mass" = new CriticalMass()
     "Ignite" = new Ignite()
     "Hot Streak" = new HotStreak()
     "Heating Up" = new HeatingUp()
+    "Cauterize" = new Cauterize()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 
@@ -88,7 +90,7 @@ class Ignite extends Ability {
     }
 }
 //----------------------------------------
-class HotStreak extends Ability { //TODO:Flamestrike, Double ignite damage
+class HotStreak extends Ability {
     constructor() {
         super("Hot Streak", 0, 0, 0, 0, false, false, false, "fire", 5, 1)
         this.passive = true
@@ -118,5 +120,32 @@ class HeatingUp extends Ability {
         return "Scored a spell critical. A second spell critical in a row will make your next Pyroblast or Flamestrike spell instant cast, and cause double the normal Ignite damage."
     }
 }
+//----------------------------------------
+class Cauterize extends Ability {
+    constructor() {
+        super("Cauterize", 0, 0, 0, 300, false, false, false, "fire", 5, 1)
+        this.passive = true
+        this.duration = 6
+        this.effect = [{name:"moveSpeed",val:1.5}]
+    }
+
+    getTooltip() {
+        return "Fatal damage instead brings you to 35% health and then burns you for 28% of your maximum health over 6 sec.<br>" +
+            "<br>" +
+            "While burning, movement slowing effects are suppressed and your movement speed is increased by 150%.<br>" +
+            "<br>" +
+            "This effect cannot occur more than once every 5 min."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "150% increased movement speed and unaffected by movement speed slowing effects."
+    }
+
+    runBuff(caster, buff, id) {
+        caster.health -= (4.66*progressInSec)/100
+    }
+}
+
+
 
 

@@ -1,6 +1,6 @@
-class PrismaticBarrier extends Ability {
+class BlazingBarrier extends Ability {
     constructor() {
-        let name = "Prismatic Barrier"
+        let name = "Blazing Barrier"
         let cost = 3
         let gcd = 1.5
         let castTime = 0
@@ -9,24 +9,25 @@ class PrismaticBarrier extends Ability {
         let channeling = false
         let casting = false
         let canMove = false
-        let school = "arcane"
+        let school = "fire"
         let range = 5
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.duration = 60
-        this.effect = [{name:"absorb",val:0},{name:"magicDamageReduction",val:0.15}]
+        this.effect = [{name:"absorb",val:0}]
+        this.spellPower = 0.125
 
     }
 
     getTooltip() {
-        return "Shields you with an arcane force, absorbing "+(player.maxHealth * 0.2) * (1+(player.stats.vers/100))+" damage and reducing magic damage taken by 15% for 1 min.<br>" +
+        return "Shields you in flame, absorbing "+(player.maxHealth * 0.2) * (1+(player.stats.vers/100))+" damage<br>" +
             "<br>" +
-            "The duration of harmful Magic effects against you is reduced by 25%." //TODO:
+            "and reducing Physical damage taken by 0%" //TODO:
     }
+    //TODO: Melee attackers take (12.5% of spell power) Fire damage
 
     getBuffTooltip(caster, target, buff) {
         return "Absorbs "+buff.effect[0].val+" damage.<br>" +
-            "Magic damage taken reduced by 15%.<br>" +
-            "Duration of all harmful Magic effects reduced by 25%."
+            "Melee attackers take "+spellPowerToNumber(this.spellPower)+" Fire damage."
     }
 
     startCast(caster) {

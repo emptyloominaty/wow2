@@ -1135,7 +1135,7 @@ if (player.spec==="fire") {
         "Counterspell": new Action("Counterspell",0,5),
         "Flamestrike": new Action("Flamestrike",0,6),
         "Spellsteal":  new Action("Spellsteal",0,7),
-
+        "Blazing Barrier": new Action("Blazing Barrier",0,8),
 
         //bar1
         "Fire Blast": new Action("Fire Blast",1,0),

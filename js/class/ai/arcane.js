@@ -23,6 +23,9 @@ let _ai_arcane = function(creature) {
                         casted = c.abilities["Evocation"].startCast(c)
                     }
                     if (!casted) {
+                        casted = c.abilities["Arcane Power"].startCast(c)
+                    }
+                    if (!casted) {
                         casted = c.abilities["Rune of Power"].startCast(c)
                     }
                     if (!casted) {

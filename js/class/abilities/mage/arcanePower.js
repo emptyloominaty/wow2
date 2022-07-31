@@ -31,6 +31,11 @@ class ArcanePower extends Ability {
     startCast(caster) {
         if (this.checkStart(caster)) {
             applyBuff(caster,caster,this)
+            if (caster.abilities["Rune of Power"].talentSelect) {
+                let area = caster.abilities["Rune of Power"].area
+                caster.abilities["Rune of Power"].setCd(caster)
+                addArea(areas.length,caster,caster.abilities["Rune of Power"],area.type,area.duration,area.data,caster.x,caster.y,true,area.radius)
+            }
             this.setCd()
             this.setGcd(caster)
             caster.useEnergy(this.cost)
