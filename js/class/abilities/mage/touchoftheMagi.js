@@ -80,7 +80,7 @@ class TouchoftheMagi extends Ability {
 
         let targets = enemies
         for (let i = 0; i<targets.length ;i++) {
-            if (!targets[i].isDead && target!==targets[i] && this.checkDistance(target, targets[i],undefined,true)) {
+            if (!targets[i].isDead && target!==targets[i] && this.checkDistance(target, targets[i],10,true)) {
                 doDamage(caster, targets[i], this,undefined,undefined,undefined,undefined,undefined,undefined,val/2)
             }
         }

@@ -468,7 +468,26 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         caster.useEnergy(-1)
                     }
                 }
-
+            } else if (caster.spec==="fire") {
+                if (ability.name==="Fireball" || ability.name==="Fire Blast" || ability.name==="Scorch" || ability.name==="Pyroblast" || ability.name==="Meteor" || ability.name==="Phoenix Flames" || ability.name==="Flamestrike" || ability.name==="Cinderstorm") {
+                    caster.abilities["Ignite"].applyIgnite(caster, target, damage)
+                }
+                if (ability.name==="Fireball" || ability.name==="Fire Blast" || ability.name==="Scorch" || ability.name==="Pyroblast" || ability.name==="Phoenix Flames") {
+                    if (crit>1) {
+                        if (checkBuff(caster,caster,"Heating Up",true)) {
+                            applyBuff(caster,caster,caster.abilities["Hot Streak"])
+                        } else if (!checkBuff(caster,caster,"Hot Streak")) {
+                            applyBuff(caster,caster,caster.abilities["Heating Up"])
+                        }
+                    } else {
+                        for (let i = 0; i<caster.buffs.length; i++) {
+                            if (caster.buffs[i].name==="Heating Up" && caster.buffs[i].duration<8.5) {
+                                caster.buffs[i].duration = -1
+                                return true
+                            }
+                        }
+                    }
+                }
             }
 
             if (caster.class==="Rogue") {

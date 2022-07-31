@@ -1,30 +1,26 @@
-class FireBlast extends Ability {
+class PhoenixFlames extends Ability {
     constructor() {
-        let name = "Fire Blast"
-        let cost = 1
-        let gcd = 0
-        let castTime = 1.5
-        let cd = 12
+        let name = "Phoenix Flames"
+        let cost = 0
+        let gcd = 1.5
+        let castTime = 0
+        let cd = 25
         let charges = 2
-        let maxCharges = 2
         let channeling = false
-        let casting = true
+        let casting = false
         let canMove = false
         let school = "fire"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
-        this.spellPower = 1.002
-        this.noGcd = true
-
+        this.spellPower = 0.9
     }
 
-    getTooltip() { //TODO: Castable while casting other spells
-        return "Blasts the enemy for "+spellPowerToNumber(this.spellPower)+" Fire damage. Castable while casting other spells. Always deals a critical strike"
+    getTooltip() {
+        return "Hurls a Phoenix that deals "+spellPowerToNumber(this.spellPower)+" Fire damage to the target and reduced damage to other nearby enemies."
     }
 
     startCast(caster) {
-        if (this.checkStart(caster) && !caster.isCasting2) {
+        if (this.checkStart(caster)) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
@@ -43,15 +39,14 @@ class FireBlast extends Ability {
                 }
             }
             if (done) {
-                caster.isCasting2 = true
-                caster.casting2 = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
                 this.setGcd(caster)
-                return true
             }
-
+            return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
@@ -59,11 +54,16 @@ class FireBlast extends Ability {
     }
 
     endCast(caster) {
-        caster.isCasting2 = false
-        let target = caster.casting2.target
+        caster.isCasting = false
+        let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                doDamage(caster,target,this,undefined,undefined,undefined,true)
+                doDamage(caster,target,this)
+                for (let i = 0; i<enemies.length; i++) {
+                    if (!enemies[i].isDead && target!==enemies[i] && this.checkDistance(target, enemies[i],8,true)) {
+                        doDamage(caster, enemies[i], this,undefined,this.spellPower/2)
+                    }
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }

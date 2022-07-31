@@ -602,6 +602,7 @@ let iconsPath = {
     "Glacial Spike":"img/mage/GlacialSpike.jpg",
     "Greater Invisibility":"img/mage/GreaterInvisibility.jpg",
     "Hot Streak":"img/mage/HotStreak.jpg",
+    "Heating Up":"img/mage/HotStreak.jpg",
     "Chain Reaction":"img/mage/ChainReaction.jpg",
     "Chrono Shift":"img/mage/ChronoShift.jpg",
     "Ice Barrier":"img/mage/IceBarrier.jpg",
@@ -653,6 +654,8 @@ let iconsPath = {
     "Time Anomaly":"img/mage/TimeWarp.jpg",
     "Time Warp":"img/mage/TimeWarp.jpg",
     "Touch of the Magi":"img/mage/TouchoftheMagi.jpg",
+    "Critical Mass":"img/druid/Sunfire.jpg",
+
 
     //Monk
     "Vivify":"img/monk/Vivify.jpg",

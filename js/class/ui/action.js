@@ -1129,21 +1129,26 @@ if (player.spec==="subtlety") {
 if (player.spec==="fire") {
     actions = {
         //bar 0
+        "Combustion": new Action("Combustion",0,0),
 
         "Remove Curse": new Action("Remove Curse",0,4),
         "Counterspell": new Action("Counterspell",0,5),
-
+        "Flamestrike": new Action("Flamestrike",0,6),
         "Spellsteal":  new Action("Spellsteal",0,7),
 
 
         //bar1
         "Fire Blast": new Action("Fire Blast",1,0),
-
+        "Pyroblast": new Action("Pyroblast",1,1),
+        "Phoenix Flames": new Action("Phoenix Flames",1,2),
         "Blink": new Action("Blink",1,3),
+
+        "Frost Nova": new Action("Frost Nova",1,5),
 
         "Fireball": new Action("Fireball",1,8),
         "Scorch": new Action("Scorch",1,9),
-        "Frost Nova": new Action("Frost Nova",1,10),
+        "Dragon's Breath": new Action("Dragon's Breath",1,10),
+
 
         //bar2
 

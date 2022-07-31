@@ -396,6 +396,7 @@ class Creature {
             this.class = "Mage"
             this.abilities = new Fire_Abilities()
             _fire_talents(this)
+            applyBuff(this,this,this.abilities["Critical Mass"])
             this.melee = false
             this.role = "dps"
         } else if (spec==="havoc") {//----------------------------------------Havoc
