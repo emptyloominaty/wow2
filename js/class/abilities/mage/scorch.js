@@ -62,7 +62,14 @@ class Scorch extends Ability {
         let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                doDamage(caster,target,this)
+                if (caster.abilities["Searing Touch"].talentSelect && target.health/target.maxHealth<0.35) {
+                    doDamage(caster,target,this,undefined,this.spellPower*2.5,undefined,undefined,undefined,30)
+                } else {
+                    doDamage(caster,target,this)
+                }
+                if (caster.abilities["Frenetic Speed"].talentSelect) {
+                    applyBuff(caster,caster,caster.abilities["Frenetic Speed"])
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }

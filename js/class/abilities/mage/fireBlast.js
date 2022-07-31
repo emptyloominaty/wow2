@@ -16,6 +16,7 @@ class FireBlast extends Ability {
 
         this.spellPower = 1.002
         this.noGcd = true
+        this.hasteCd = true
 
     }
 

@@ -472,7 +472,7 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (ability.name==="Fireball" || ability.name==="Fire Blast" || ability.name==="Scorch" || ability.name==="Pyroblast" || ability.name==="Meteor" || ability.name==="Phoenix Flames" || ability.name==="Flamestrike" || ability.name==="Cinderstorm") {
                     caster.abilities["Ignite"].applyIgnite(caster, target, damage)
                 }
-                if (ability.name==="Fireball" || ability.name==="Fire Blast" || ability.name==="Scorch" || ability.name==="Pyroblast" || ability.name==="Phoenix Flames") {
+                if ((ability.name==="Fireball" || ability.name==="Fire Blast" || ability.name==="Scorch" || ability.name==="Pyroblast" || ability.name==="Phoenix Flames") && t!==true) {
                     if (crit>1) {
                         if (checkBuff(caster,caster,"Heating Up",true)) {
                             applyBuff(caster,caster,caster.abilities["Hot Streak"])

@@ -64,7 +64,7 @@ class Ignite extends Ability {
     }
 
     applyIgnite(caster,target,damage) {
-        let val = (damage / caster.stats.primary) * (caster.stats.mastery / 100)
+        let val = ((damage / caster.stats.primary)/(1+(caster.stats.vers / 100))) * (caster.stats.mastery / 100)
         if (this.doubleDamage) {
             val *= 2
             this.doubleDamage = false
@@ -102,6 +102,12 @@ class HotStreak extends Ability {
     }
     getBuffTooltip(caster, target, buff) {
         return "Your next Pyroblast or Flamestrike spell is instant cast, and causes double the normal Ignite damage."
+    }
+
+    endBuff(caster) {
+        if (caster.abilities["Pyroclasm"].talentSelect && getChance(90)) {
+            applyBuff(caster,caster,caster.abilities["Pyroclasm"],1,true)
+        }
     }
 }
 //----------------------------------------

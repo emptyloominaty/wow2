@@ -66,6 +66,9 @@ class Fireball extends Ability {
                 } else if (cr===2) {
                     this.crit = 0
                 }
+                if (caster.abilities["Conflagration"].talentSelect) {
+                    applyDot(caster,target,caster.abilities["Conflagration"])
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }

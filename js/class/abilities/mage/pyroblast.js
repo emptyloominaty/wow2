@@ -65,8 +65,14 @@ class Pyroblast extends Ability {
         let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                doDamage(caster,target,this)
-                applyDot(caster,target,this,undefined,undefined,this.spellPowerDot)
+                let spellPower = this.spellPower
+                let spellPowerDot = this.spellPowerDot
+                if (!caster.abilities["Ignite"].doubleDamage && checkBuffStacks(caster,caster,"Pyroclasm")) {
+                    spellPower *= 3.4
+                    spellPowerDot *= 3.4
+                }
+                doDamage(caster,target,this,undefined,spellPower)
+                applyDot(caster,target,this,undefined,undefined,spellPowerDot)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }
