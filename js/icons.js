@@ -38,6 +38,7 @@ let iconsPath = {
         "outlaw":"img/specs/rogue/outlaw.jpg",
         "subtlety":"img/specs/rogue/subtlety.png",
         "fire":"img/specs/mage/fire.png",
+        "frostMage":"img/specs/mage/frost.png",
     },
 
     //classes
@@ -655,6 +656,7 @@ let iconsPath = {
     "Time Warp":"img/mage/TimeWarp.jpg",
     "Touch of the Magi":"img/mage/TouchoftheMagi.jpg",
     "Critical Mass":"img/druid/Sunfire.jpg",
+    "Splitting Ice":"img/mage/SplittingIce.jpg",
 
 
     //Monk

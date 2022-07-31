@@ -399,7 +399,14 @@ class Creature {
             applyBuff(this,this,this.abilities["Critical Mass"])
             this.melee = false
             this.role = "dps"
-        } else if (spec==="havoc") {//----------------------------------------Havoc
+        } else if (spec==="frostMage") {//----------------------------------------Frost
+            this.class = "Mage"
+            this.abilities = new FrostMage_Abilities()
+            _frost_talents(this)
+
+            this.melee = false
+            this.role = "dps"
+        }  else if (spec==="havoc") {//----------------------------------------Havoc
             this.class = "Demon Hunter"
             this.melee = true
             this.abilities = new Havoc_Abilities()

@@ -1,7 +1,8 @@
 class Fire_Abilities {
+    "Arcane Intellect" = new ArcaneIntellect()
+    "Alter Time" = new AlterTime()
     "Time Warp" = new TimeWarp()
     "Counterspell" = new Counterspell()
-    "Evocation" = new Evocation()
     "Remove Curse" = new RemoveCurse()
     "Slow" = new Slow()
     "Frost Nova" = new FrostNova()

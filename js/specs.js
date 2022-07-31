@@ -27,4 +27,5 @@ let specsName = {
     "outlaw":"Outlaw",
     "subtlety":"Subtlety",
     "fire":"Fire",
+    "frostMage":"Frost",
 }
