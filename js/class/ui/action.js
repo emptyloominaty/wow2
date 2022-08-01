@@ -1178,12 +1178,15 @@ if (player.spec==="frostMage") {
 
 
         //bar1
-
+        "Flurry": new Action("Flurry",1,0),
+        "Cone of Cold": new Action("Cone of Cold",1,1),
         "Blink": new Action("Blink",1,3),
 
         "Frost Nova": new Action("Frost Nova",1,5),
 
 
+        "Frostbolt": new Action("Frostbolt",1,8),
+        "Ice Lance": new Action("Ice Lance",1,9),
 
 
         //bar2

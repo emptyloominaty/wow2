@@ -657,6 +657,7 @@ let iconsPath = {
     "Touch of the Magi":"img/mage/TouchoftheMagi.jpg",
     "Critical Mass":"img/druid/Sunfire.jpg",
     "Splitting Ice":"img/mage/SplittingIce.jpg",
+    "Winter's Chill":"img/mage/WintersChill.jpg",
 
 
     //Monk
