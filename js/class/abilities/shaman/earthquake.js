@@ -48,6 +48,7 @@ class Earthquake extends Ability {
                     }
                 }
             }
+            this.area.data.spellPower = this.spellPower
 
             addArea(areas.length,caster,this,this.area.type,this.area.duration,this.area.data,this.castPosition.x,this.castPosition.y,true,this.area.radius)
             this.setCd()

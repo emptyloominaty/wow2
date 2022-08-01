@@ -650,6 +650,7 @@ let iconsPath = {
     "Slow Fall":"img/mage/SlowFall.jpg",
     "Spellsteal":"img/mage/Spellsteal.jpg",
     "Summon Water Elemental":"img/mage/SummonWaterElemental.jpg",
+    "Water Elemental":"img/mage/SummonWaterElemental.jpg",
     "Supernova":"img/mage/Supernova.jpg",
     "Thermal Void":"img/mage/ThermalVoid.jpg",
     "Time Anomaly":"img/mage/TimeWarp.jpg",
@@ -658,6 +659,7 @@ let iconsPath = {
     "Critical Mass":"img/druid/Sunfire.jpg",
     "Splitting Ice":"img/mage/SplittingIce.jpg",
     "Winter's Chill":"img/mage/WintersChill.jpg",
+    "Waterbolt":"img/mage/Waterbolt.jpg",
 
 
     //Monk

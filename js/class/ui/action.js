@@ -1168,18 +1168,21 @@ if (player.spec==="fire") {
 if (player.spec==="frostMage") {
     actions = {
         //bar 0
-
+        "Icy Veins": new Action("Icy Veins",0,0),
         //"Rune of Power": new Action("Rune of Power",0,1),
+
 
         "Remove Curse": new Action("Remove Curse",0,4),
         "Counterspell": new Action("Counterspell",0,5),
-
+        "Blizzard": new Action("Blizzard",0,6),
         "Spellsteal":  new Action("Spellsteal",0,7),
+        "Ice Barrier": new Action("Ice Barrier",0,8),
 
 
         //bar1
         "Flurry": new Action("Flurry",1,0),
-        "Cone of Cold": new Action("Cone of Cold",1,1),
+        "Frozen Orb": new Action("Frozen Orb",1,1),
+        "Cone of Cold": new Action("Cone of Cold",1,2),
         "Blink": new Action("Blink",1,3),
 
         "Frost Nova": new Action("Frost Nova",1,5),
@@ -1190,10 +1193,11 @@ if (player.spec==="frostMage") {
 
 
         //bar2
-
+        "Cold Snap": new Action("Cold Snap",2,0),
 
         "Ice Block": new Action("Ice Block",2,4),
         "Mirror Image": new Action("Mirror Image",2,5),
+        "Summon Water Elemental": new Action("Summon Water Elemental",2,6),
 
         //bar3
 

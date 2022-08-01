@@ -169,6 +169,16 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
             name = ability.name
         }
 
+        if (caster.spec==="frostMage") { //Shatter
+            if (checkDebuff(caster,target,"Winter's Chill")) {
+                incCrit += caster.stats.crit*0.5
+                incCrit += 50
+            }
+            if (ability.name==="Blizzard") {
+                caster.abilities["Frozen Orb"].incCd(caster,0.25,false)
+            }
+        }
+
         let crit = critChance(caster,incCrit)
         if (!canCrit) { //0% crit chance
             crit = 1

@@ -16,11 +16,19 @@ class FrostMage_Abilities {
     "Ice Lance" = new IceLance()
     "Flurry" = new Flurry()
     "Cone of Cold" = new ConeofCold()
+    "Icy Veins" = new IcyVeins()
+    "Frozen Orb" = new FrozenOrb()
+    "Blizzard" = new Blizzard()
+    "Ice Barrier" = new IceBarrier()
+    "Cold Snap" = new ColdSnap()
+    "Summon Water Elemental" = new SummonWaterElemental()
 
     //passive
     "Winter's Chill" = new WintersChill()
     "Brain Freeze" = new BrainFreeze()
     "Icicles" = new Icicles()
+    "Shatter" = new Shatter()
+    "Fingers of Frost" = new FingersofFrost()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 //----------------------------------------
@@ -50,7 +58,7 @@ class Icicles extends Ability {
     getTooltip() {
         return "Casting Frostbolt or Flurry grants you an Icicle. Casting Ice Lance causes all Icicles stored to begin launching at the target, each dealing "+spellPowerToNumber(player.stats.mastery/100)+" Frost damage.<br>" +
             "Up to 5 Icicles can be stored. Any excess Icicles gained will be automatically launched.<br>" +
-            "Increases the damage of Frozen Orb by "+player.stats.mastery*1.875.toFixed(1)+"%" //TODO:
+            "Increases the damage of Frozen Orb by "+player.stats.mastery*1.875.toFixed(1)+"%"
     }
 
     increaseIcicles(caster,target) {
@@ -64,6 +72,43 @@ class Icicles extends Ability {
     launchIcicles(caster,target) {
         if (this.icicles>0) {
             doDamage(caster,target,this,undefined,caster.stats.mastery/100*this.icicles)
+            this.icicles = 0
+        }
+    }
+
+}
+//----------------------------------------
+class Shatter extends Ability {
+    constructor() {
+        super("Shatter", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "Multiplies the critical strike chance of your Frost spells against frozen targets by 1.5, and adds an additional 50% critical strike chance."
+    }
+
+}
+//----------------------------------------
+class FingersofFrost extends Ability {
+    constructor() {
+        super("Fingers of Frost", 0, 0, 0, 0, false, false, false, "frost", 5, 1)
+        this.passive = true
+        this.duration = 15
+        this.maxStacks = 2
+    }
+
+    getTooltip() {
+        return "Frostbolt has a 15% chance and Frozen Orb damage has a 10% to grant a charge of Fingers of Frost.<br>" +
+            "Fingers of Frost causes your next Ice Lance to deal damage as if the target were frozen.<br>" +
+            "Maximum 2 charges."
+    }
+
+    getBuff(caster,ability) {
+        if (ability.name==="Frostbolt" && getChance(15)) {
+            applyBuff(caster,caster,this,1,true)
+        } else if (ability.name==="Frozen Orb" && getChance(10)) {
+            applyBuff(caster,caster,this,1,true)
         }
     }
 

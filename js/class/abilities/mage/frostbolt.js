@@ -67,6 +67,7 @@ class Frostbolt extends Ability {
                     applyBuff(caster,caster,caster.abilities["Brain Freeze"])
                 }
                 caster.abilities["Icicles"].increaseIcicles(caster,target)
+                caster.abilities["Fingers of Frost"].getBuff(caster,this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }

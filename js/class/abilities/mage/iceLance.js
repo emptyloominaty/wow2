@@ -54,7 +54,9 @@ class IceLance extends Ability {
                         }
                     }
                 }
-
+                if (checkBuffStacks(caster,caster,"Fingers of Frost")) {
+                    spellPower *= 3
+                }
                 doDamage(caster,target,this,undefined,spellPower)
                 caster.abilities["Icicles"].launchIcicles(caster,target)
                 this.setGcd(caster)

@@ -417,7 +417,7 @@ class ArcaneOrb extends Ability {
         this.talent = true
         this.talentSelect = true
         this.spellPower = 1.092
-        this.area = {type:"circle", radius:8, duration:2.5,data:{type:"damage", maxTargets:"all", spellPower:this.spellPower,moving:true,speed:14,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
+        this.area = {type:"circle", radius:8, duration:2.5,data:{type:"damage", maxTargets:"all", spellPower:this.spellPower,moving:true,speed:10,color:"#8f6aff",color2:"rgba(192,182,255,0.05)"}}
         this.secCost = -2 //TODO:Grants 1 Arcane Charge when cast and every time it deals damage.
     }
 
@@ -449,7 +449,7 @@ class ArcaneOrb extends Ability {
         let target = getPointTarget(caster,40,caster.direction)
 
         addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
-            {size:10,speed:40,target:target,color:"#966eff",onEnd:{},onRun:{name:"fire",color1:"rgba(93,37,255,0.7)",color2:"rgba(194,139,255,0.7)",life:0.4}})
+            {size:10,speed:10,target:target,color:"#966eff",onEnd:{},onRun:{name:"fire",color1:"rgba(93,37,255,0.7)",color2:"rgba(194,139,255,0.7)",life:0.4}})
 
         this.setCd()
         caster.useEnergy(this.cost,this.secCost)
