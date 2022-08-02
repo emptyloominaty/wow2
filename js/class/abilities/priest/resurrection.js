@@ -1,5 +1,5 @@
 class Resurrection extends Ability {
-    constructor() {
+    constructor(shadow = false) {
         let name = "Resurrection"
         let cost = 0.8
         let gcd = 1.5
@@ -12,6 +12,9 @@ class Resurrection extends Ability {
         let school = "holy"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
+        if (shadow) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

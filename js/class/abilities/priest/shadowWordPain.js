@@ -1,5 +1,5 @@
 class ShadowWordPain extends Ability {
-    constructor() {
+    constructor(shadow = false) {
         let name = "Shadow Word: Pain"
         let cost = 0.3 //% mana
         let gcd = 1.5
@@ -17,6 +17,9 @@ class ShadowWordPain extends Ability {
         this.spellPowerDot = 0.57528
         this.duration = 12
 
+        if (shadow) {
+            this.cost = -4
+        }
     }
 
     getTooltip() {

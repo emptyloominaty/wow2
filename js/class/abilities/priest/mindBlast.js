@@ -17,6 +17,9 @@ class MindBlast extends Ability {
         this.hasteCd = true
         if (disc) {
             this.spellPower = 0.9792*0.76
+        } else {
+            this.cost = -8
+            this.cd = 7.5
         }
 
     }

@@ -1,5 +1,5 @@
 class DispelMagic extends Ability {
-    constructor() {
+    constructor(shadow = false) {
         let name = "Dispel Magic"
         let cost = 1.6
         let gcd = 1.5
@@ -12,6 +12,9 @@ class DispelMagic extends Ability {
         let school = "holy"
         let range = 40
         super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
+        if (shadow) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

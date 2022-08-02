@@ -1,5 +1,5 @@
 class PowerWordFortitude extends Ability {
-    constructor() {
+    constructor(shadow = false) {
         let name = "Power Word: Fortitude"
         let cost = 4
         let gcd = 1.5
@@ -15,6 +15,9 @@ class PowerWordFortitude extends Ability {
 
         this.effect = [{name:"increaseStat",stat:"stamina",val:5,percent:true}]
         this.duration = 3600
+        if (shadow) {
+            this.cost = 0
+        }
 
     }
 

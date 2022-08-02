@@ -1,5 +1,5 @@
 class MassDispel extends Ability {
-    constructor() {
+    constructor(shadow=false) {
         let name = "Mass Dispel"
         let cost = 8 //8?
         let gcd = 1.5
@@ -14,6 +14,10 @@ class MassDispel extends Ability {
         super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
         this.castPosition = {x:0,y:0}
         this.area = {type:"circle", radius:15, duration: 0.3,data:{type:"no",color:"#a2fffc",color2:"rgba(141,224,255,0.24)",cast:false}}
+
+        if (shadow) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

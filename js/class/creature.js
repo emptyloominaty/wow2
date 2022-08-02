@@ -194,6 +194,14 @@ class Creature {
             _discipline_talents(this)
             this.melee = false
             this.role = "healer"
+        } else if (spec==="shadow") {//----------------------------------------Shadow Priest
+            this.class = "Priest"
+            this.abilities = new Shadow_Abilities()
+            _shadow_talents(this)
+            this.resourceName = "Insanity"
+            this.energy = 0
+            this.melee = false
+            this.role = "dps"
         } else if (spec==="holyPaladin") {//----------------------------------------Holy Paladin
             this.class = "Paladin"
             this.abilities = new HolyPaladin_Abilities()

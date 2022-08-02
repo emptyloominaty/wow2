@@ -1,5 +1,5 @@
 class LeapofFaith extends Ability {
-    constructor() {
+    constructor(shadow=false) {
         let name = "Leap of Faith"
         let cost = 2.6 //% mana
         let gcd = 0
@@ -15,6 +15,9 @@ class LeapofFaith extends Ability {
 
         this.duration = 2
         this.effect = [{name:"moveToTarget",val:7,target:0}]
+        if (shadow) {
+            this.cost = 0
+        }
     }
 
     getTooltip() {

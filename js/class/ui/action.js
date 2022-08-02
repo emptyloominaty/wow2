@@ -1205,3 +1205,36 @@ if (player.spec==="frostMage") {
         "Arcane Intellect": new Action("Arcane Intellect",3,6),
     }
 }
+
+if (player.spec==="shadow") {
+    actions = {
+        //bar0
+        "Power Infusion": new Action( "Power Infusion",0,0),
+
+        "Purify Disease": new Action("Purify Disease",0,4),
+        "Silence": new Action("Silence",0,5),
+
+        "Dispel Magic": new Action("Dispel Magic", 0, 7),
+        "Desperate Prayer": new Action("Desperate Prayer", 0, 8),
+
+        //bar1
+
+        "Shadow Word: Pain": new Action("Shadow Word: Pain", 1, 1),
+        "Shadowfiend": new Action("Shadowfiend",1,2),
+        //"Angelic Feather": new Action("Angelic Feather", 1, 3),
+
+        "Mass Dispel": new Action("Mass Dispel",1,4),
+
+        "Mind Blast": new Action("Mind Blast",1,8),
+
+        //bar2
+
+        "Shadow Word: Death": new Action("Shadow Word: Death",2,0),
+
+
+        //bar3
+        "Leap of Faith": new Action( "Leap of Faith",3,0),
+        "Power Word: Shield": new Action( "Power Word: Shield",3,2),
+
+    }
+}

@@ -93,6 +93,12 @@ let raidFramesBuffs = {
         centreRight:"none",
         bottomCentre:"none",
     },
+    "shadow": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
     "frostMage": {
         bottomRight:"none",
         bottomRight2:"none",

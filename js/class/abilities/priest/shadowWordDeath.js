@@ -1,5 +1,5 @@
 class ShadowWordDeath extends Ability {
-    constructor() {
+    constructor(shadow = false) {
         let name = "Shadow Word: Death"
         let cost = 0.5 //% mana
         let gcd = 1.5
@@ -14,6 +14,9 @@ class ShadowWordDeath extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.85*1.17
+        if (shadow) {
+            this.cost = 0
+        }
     }
 
     getTooltip() { //TODO Discipline - Does not trigger Atonement

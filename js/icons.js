@@ -39,6 +39,7 @@ let iconsPath = {
         "subtlety":"img/specs/rogue/subtlety.png",
         "fire":"img/specs/mage/fire.png",
         "frostMage":"img/specs/mage/frost.png",
+        "shadow":"img/specs/priest/shadow.png",
     },
 
     //classes
@@ -913,7 +914,7 @@ let iconsPath = {
     "Fade":"img/priest/Fade.jpg",
     "Flash Heal":"img/priest/FlashHeal.jpg",
     "Focused Will":"img/priest/FocusedWill.jpg",
-    "Fortress of the Mind":"img/priest/.jpg",
+    "Fortress of the Mind":"img/priest/FortressoftheMind.jpg",
     "Grace":"img/priest/Grace.jpg",
     "Guardian Angel":"img/priest/GuardianAngel.jpg",
     "Guardian Spirit":"img/priest/GuardianSpirit.jpg",
@@ -928,7 +929,7 @@ let iconsPath = {
     "Holy Word: Serenity":"img/priest/HolyWordSerenity.jpg",
     "Hungering Void":"img/priest/HungeringVoid.jpg",
     "Intangibility":"img/priest/Intangibility.jpg",
-    "LastWord":"img/priest/LastWord.jpg",
+    "Last Word":"img/priest/LastWord.jpg",
     "Leap of Faith":"img/priest/LeapofFaith.jpg",
     "Lenience":"img/priest/Lenience.jpg",
     "Levitate":"img/priest/Levitate.jpg",
