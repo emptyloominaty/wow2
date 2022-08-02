@@ -1,9 +1,9 @@
-class ShadowWordPain extends Ability {
-    constructor(shadow = false) {
-        let name = "Shadow Word: Pain"
-        let cost = 0.3 //% mana
+class VampiricTouch extends Ability {
+    constructor() {
+        let name = "Vampiric Touch"
+        let cost = -5
         let gcd = 1.5
-        let castTime = 0
+        let castTime = 1.5
         let cd = 0
         let charges = 1
         let channeling = false
@@ -13,19 +13,18 @@ class ShadowWordPain extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.1292*2.12
-        this.spellPowerDot = 0.57528*2.12
-        this.duration = 12
+        this.spellPower = 1.29*1.5
+        this.duration = 21
+        this.timer1 = 0
+        this.timer2 = 1
 
-        if (shadow) {
-            this.cost = -4
-            this.spellPower = 0.1292*1.5
-            this.spellPowerDot = 0.57528*1.5
-        }
     }
 
     getTooltip() {
-        return "A word of darkness that causes "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Shadow damage instantly, and an additional "+((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" Shadow damage over 12 sec."
+        return "A touch of darkness that causes "+spellPowerHotToNumber(this.spellPower)+" Shadow damage over 21 sec, and heals you for 50% of damage dealt.<br>" +
+            "If Vampiric Touch is dispelled, the dispeller flees in Horror for 3 sec<br>" +
+            "<br>" +
+            "Generates 5 Insanity."
     }
 
     startCast(caster) {
@@ -48,17 +47,11 @@ class ShadowWordPain extends Ability {
                 }
             }
             if (done && Object.keys(caster.castTarget).length !== 0) {
-                if (this.isEnemy(caster,caster.castTarget)) {
-                    if (this.checkDistance(caster,caster.castTarget) && !caster.castTarget.isDead) {
-                        doDamage(caster, caster.castTarget, this)
-                        applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
-                        caster.useEnergy(this.cost,this.secCost)
-                        this.setCd()
-                    }
-                }
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 this.setGcd(caster)
                 return true
             }
@@ -67,6 +60,29 @@ class ShadowWordPain extends Ability {
             spellQueue.add(this,caster.gcd)
         }
         return false
+    }
+
+
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
+                applyDot(caster,target,this,undefined,undefined,this.spellPowerDot)
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
+            }
+        }
+    }
+
+
+    runBuff(target, buff, id = 0) {
+        if (this.timer1<this.timer2) {
+            this.timer1 += progressInSec
+        } else {
+            this.timer1 = 0
+            doHeal(buff.caster,buff.caster,this,undefined,this.spellPower/this.duration*0.5)
+        }
     }
 
 }

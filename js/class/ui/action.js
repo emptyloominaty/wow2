@@ -1213,12 +1213,12 @@ if (player.spec==="shadow") {
 
         "Purify Disease": new Action("Purify Disease",0,4),
         "Silence": new Action("Silence",0,5),
-
+        "Mind Sear": new Action("Mind Sear",0,6),
         "Dispel Magic": new Action("Dispel Magic", 0, 7),
         "Desperate Prayer": new Action("Desperate Prayer", 0, 8),
 
         //bar1
-
+        "Void Eruption": new Action("Void Eruption",1,0),
         "Shadow Word: Pain": new Action("Shadow Word: Pain", 1, 1),
         "Shadowfiend": new Action("Shadowfiend",1,2),
         //"Angelic Feather": new Action("Angelic Feather", 1, 3),
@@ -1226,11 +1226,13 @@ if (player.spec==="shadow") {
         "Mass Dispel": new Action("Mass Dispel",1,4),
 
         "Mind Blast": new Action("Mind Blast",1,8),
+        "Mind Flay": new Action("Mind Flay",1,9),
 
         //bar2
 
         "Shadow Word: Death": new Action("Shadow Word: Death",2,0),
-
+        "Vampiric Touch": new Action("Vampiric Touch",2,1),
+        "Devouring Plague": new Action("Devouring Plague",2,2),
 
         //bar3
         "Leap of Faith": new Action( "Leap of Faith",3,0),

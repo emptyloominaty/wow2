@@ -504,6 +504,22 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         damage *= 1.6
                     }
                 }
+            } else if (caster.spec==="shadow") {
+                if (checkBuff(caster,caster,"Voidform")) {
+                    damage *= (1 + ((caster.stats.mastery / 100)*3))
+                } else {
+                    for (let i = 0; i<target.debuffs.length; i++) {
+                        if (target.debuffs[i].caster === caster) {
+                            if (target.debuffs[i].name==="Shadow Word: Pain") {
+                                damage *= (1 + (caster.stats.mastery / 100))
+                            } else if (target.debuffs[i].name==="Vampiric Touch") {
+                                damage *= (1 + (caster.stats.mastery / 100))
+                            } else if (target.debuffs[i].name==="Devouring Plague") {
+                                damage *= (1 + (caster.stats.mastery / 100))
+                            }
+                        }
+                    }
+                }
             }
 
 

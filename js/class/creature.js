@@ -198,6 +198,7 @@ class Creature {
             this.class = "Priest"
             this.abilities = new Shadow_Abilities()
             _shadow_talents(this)
+            applyBuff(this,this,this.abilities["Shadowform"])
             this.resourceName = "Insanity"
             this.energy = 0
             this.melee = false

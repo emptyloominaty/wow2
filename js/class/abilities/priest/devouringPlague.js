@@ -1,7 +1,7 @@
-class ShadowWordPain extends Ability {
-    constructor(shadow = false) {
-        let name = "Shadow Word: Pain"
-        let cost = 0.3 //% mana
+class DevouringPlague extends Ability {
+    constructor() {
+        let name = "Devouring Plague"
+        let cost = 50
         let gcd = 1.5
         let castTime = 0
         let cd = 0
@@ -13,19 +13,18 @@ class ShadowWordPain extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.1292*2.12
-        this.spellPowerDot = 0.57528*2.12
-        this.duration = 12
+        this.spellPower = 0.49036
+        this.spellPowerDot = 0.82
+        this.duration = 6
+        this.timer1 = 0
+        this.timer2 = 1
 
-        if (shadow) {
-            this.cost = -4
-            this.spellPower = 0.1292*1.5
-            this.spellPowerDot = 0.57528*1.5
-        }
     }
 
     getTooltip() {
-        return "A word of darkness that causes "+((player.stats.primary * this.spellPower) * (1 + (player.stats.vers / 100))).toFixed(0)+" Shadow damage instantly, and an additional "+((player.stats.primary * this.spellPowerDot) * (1 + (player.stats.vers / 100)) * (1 + (player.stats.haste / 100))).toFixed(0)+" Shadow damage over 12 sec."
+        return "Afflicts the target with a disease that instantly causes (49.036% of Spell power) Shadow damage plus an additional 4 Shadow damage over 6 sec. Heals you for 50% of damage dealt.<br>" +
+            "<br>" +
+            "If this effect is reapplied, any remaining damage will be added to the new Devouring Plague"//TODO:
     }
 
     startCast(caster) {
@@ -50,7 +49,7 @@ class ShadowWordPain extends Ability {
             if (done && Object.keys(caster.castTarget).length !== 0) {
                 if (this.isEnemy(caster,caster.castTarget)) {
                     if (this.checkDistance(caster,caster.castTarget) && !caster.castTarget.isDead) {
-                        doDamage(caster, caster.castTarget, this)
+                        doDamage(caster,caster.castTarget,this)
                         applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
                         caster.useEnergy(this.cost,this.secCost)
                         this.setCd()
@@ -67,6 +66,16 @@ class ShadowWordPain extends Ability {
             spellQueue.add(this,caster.gcd)
         }
         return false
+    }
+
+
+    runBuff(target, buff, id = 0) {
+        if (this.timer1<this.timer2) {
+            this.timer1 += progressInSec
+        } else {
+            this.timer1 = 0
+            doHeal(buff.caster,buff.caster,this,undefined,this.spellPowerDot/this.duration*0.5)
+        }
     }
 
 }

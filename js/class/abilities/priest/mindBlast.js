@@ -20,6 +20,7 @@ class MindBlast extends Ability {
         } else {
             this.cost = -8
             this.cd = 7.5
+            this.maxCd = 7.5
         }
 
     }
