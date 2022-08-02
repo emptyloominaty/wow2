@@ -1210,6 +1210,7 @@ if (player.spec==="shadow") {
     actions = {
         //bar0
         "Power Infusion": new Action( "Power Infusion",0,0),
+        "Vampiric Embrace": new Action("Vampiric Embrace",0,1),
 
         "Purify Disease": new Action("Purify Disease",0,4),
         "Silence": new Action("Silence",0,5),
@@ -1233,6 +1234,8 @@ if (player.spec==="shadow") {
         "Shadow Word: Death": new Action("Shadow Word: Death",2,0),
         "Vampiric Touch": new Action("Vampiric Touch",2,1),
         "Devouring Plague": new Action("Devouring Plague",2,2),
+
+        "Dispersion": new Action("Dispersion",2,4),
 
         //bar3
         "Leap of Faith": new Action( "Leap of Faith",3,0),

@@ -900,6 +900,7 @@ let iconsPath = {
     "Cosmic Ripple":"img/priest/CosmicRipple.jpg",
     "Damnation":"img/priest/Damnation.jpg",
     "Dark Thoughts":"img/priest/DarkThoughts.jpg",
+    "Dark Thought":"img/priest/DarkThoughts.jpg",
     "Death and Madness":"img/priest/DeathandMadness.jpg",
     "Desperate Prayer":"img/priest/DesperatePrayer.jpg",
     "Devouring Plague":"img/priest/DevouringPlague.jpg",

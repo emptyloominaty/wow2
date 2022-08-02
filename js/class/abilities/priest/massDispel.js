@@ -16,7 +16,7 @@ class MassDispel extends Ability {
         this.area = {type:"circle", radius:15, duration: 0.3,data:{type:"no",color:"#a2fffc",color2:"rgba(141,224,255,0.24)",cast:false}}
 
         if (shadow) {
-            this.cost = 0
+            this.cost = -6
         }
     }
 

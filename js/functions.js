@@ -505,20 +505,34 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     }
                 }
             } else if (caster.spec==="shadow") {
+                let chance = 0
                 if (checkBuff(caster,caster,"Voidform")) {
                     damage *= (1 + ((caster.stats.mastery / 100)*3))
+                    chance = 9
                 } else {
                     for (let i = 0; i<target.debuffs.length; i++) {
                         if (target.debuffs[i].caster === caster) {
                             if (target.debuffs[i].name==="Shadow Word: Pain") {
                                 damage *= (1 + (caster.stats.mastery / 100))
+                                chance = 3
                             } else if (target.debuffs[i].name==="Vampiric Touch") {
                                 damage *= (1 + (caster.stats.mastery / 100))
+                                chance = 6
                             } else if (target.debuffs[i].name==="Devouring Plague") {
                                 damage *= (1 + (caster.stats.mastery / 100))
+                                chance = 9
                             }
                         }
                     }
+                }
+                if (getChance(chance)) { //Dark Thoughts
+                    caster.abilities["Dark Thought"].getBuff(caster)
+                }
+                if (ability.name==="Shadow Word: Pain" && crit>1) {
+                    doDamage(caster,target,caster.abilities["Shadowy Apparitions"])
+                }
+                if (checkBuff(caster, caster, "Vampiric Embrace")) {
+                    caster.abilities["Vampiric Embrace"].collectHeal(damage)
                 }
             }
 

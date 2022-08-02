@@ -1,5 +1,5 @@
 class Shadow_Abilities {
-    "Power Word: Shield" = new PowerWordShield()
+    "Power Word: Shield" = new PowerWordShield(true)
     "Power Word: Fortitude" = new PowerWordFortitude(true)
     "Shackle Undead" = new ShackleUndead()
     "Leap of Faith" = new LeapofFaith(true)
@@ -23,11 +23,17 @@ class Shadow_Abilities {
     "Void Bolt" = new VoidBolt()
     "Mind Flay" = new MindFlay()
     "Mind Sear" = new MindSear()
+    "Vampiric Embrace" = new VampiricEmbrace()
+    "Dispersion" = new Dispersion()
 
     //passive
     "Voidform" = new Voidform()
     "Weakened Soul" = new WeakenedSoul()
     "Shadow Weaving" = new ShadowWeaving()
+    "Hallucinations" = new Hallucinations()
+    "Shadowy Apparitions" = new ShadowyApparitions()
+    "Dark Thought" = new DarkThought()
+    "Dark Thoughts" = new DarkThoughts()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 //---------------------------------------
@@ -44,10 +50,71 @@ class ShadowWeaving extends Ability {
     }
 
 }
+//---------------------------------------
+class Hallucinations extends Ability {
+    constructor() {
+        super("Hallucinations", 0, 0, 0, 0, false, false, false, "shadow", 40, 1)
+        this.passive = true
+    }
 
+    getTooltip() {//TODO:Vampiric Embrace
+        return "Your successful Dispel Magic, Mass Dispel, Purify Disease, Vampiric Embrace, and Power Word: Shield casts generate 6 Insanity during combat."
+    }
+
+}
 //---------------------------------------
+class ShadowyApparitions extends Ability {
+    constructor() {
+        super("Shadowy Apparitions", 0, 0, 0, 0, false, false, false, "shadow", 40, 1)
+        this.passive = true
+        this.spellPower = 0.17
+    }
+
+    getTooltip() {
+        return "When your Shadow Word: Pain damage over time critically strikes, you also create a shadowy version of yourself that floats towards the target and deals "+spellPowerToNumber(this.spellPower)+" Shadow damage."
+    }
+
+}
 //---------------------------------------
-//---------------------------------------
+class DarkThoughts extends Ability {
+    constructor() {
+        super("Dark Thoughts", 0, 0, 0, 0, false, false, false, "shadow", 40, 1)
+        this.passive = true
+    }
+
+    getTooltip() {
+        return "For each of your Shadow damage over time effects on the target, your Mind Flay and Mind Sear have a 3% chance to trigger a Dark Thought."
+    }
+
+}
+class DarkThought extends Ability {
+    constructor() {
+        super("Dark Thought", 0, 0, 0, 0, false, false, false, "shadow", 40, 1)
+        this.passive = true
+        this.duration = 10
+    }
+
+    getTooltip() {
+        return "Increases the number of charges of Mind Blast by 1, Mind Blast can be cast instantly, and can be cast while channelling Mind Flay or Mind Sear."
+    }
+    getBuffTooltip(caster, target, buff) {
+        return "Increases the number of charges of Mind Blast by 1, Mind Blast can be cast instantly, and can be cast while channelling Mind Flay or Mind Sear."
+    }
+
+    getBuff(caster) {
+        if (!checkBuff(caster,caster,"Dark Thought")) {
+            caster.abilities["Mind Blast"].charges++
+            caster.abilities["Mind Blast"].maxCharges++
+        }
+        applyBuff(caster,caster,this)
+    }
+
+    endBuff(caster) {
+        caster.abilities["Mind Blast"].charges--
+        caster.abilities["Mind Blast"].maxCharges--
+    }
+
+}
 //---------------------------------------
 class Shadowform extends Ability {
     constructor() {

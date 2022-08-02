@@ -65,6 +65,9 @@ class Ai {
         "discipline":() => {
             _ai_discipline(this.creature)
         },
+        "shadow":() => {
+            _ai_shadow(this.creature)
+        },
         "holyPaladin":() => {
             _ai_holyPaladin(this.creature)
         },

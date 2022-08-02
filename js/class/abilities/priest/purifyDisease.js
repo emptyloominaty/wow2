@@ -1,7 +1,7 @@
 class PurifyDisease extends Ability {
     constructor() {
         let name = "Purify Disease"
-        let cost = 0
+        let cost = -6
         let gcd = 1.5
         let castTime = 0
         let cd = 8

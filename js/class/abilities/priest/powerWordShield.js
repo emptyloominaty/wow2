@@ -1,5 +1,5 @@
 class PowerWordShield extends Ability {
-    constructor() {
+    constructor(shadow = false) {
         let name = "Power Word: Shield"
         let cost = 3.1 //% mana
         let gcd = 1.5
@@ -17,6 +17,9 @@ class PowerWordShield extends Ability {
         this.spellPower = 1.65*1.16
         this.duration = 7.5
         this.effect = [{name:"absorb",val:0}]
+        if (shadow) {
+            this.cost = -6
+        }
     }
 
     getTooltip() {

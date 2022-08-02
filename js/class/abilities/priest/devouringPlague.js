@@ -22,9 +22,9 @@ class DevouringPlague extends Ability {
     }
 
     getTooltip() {
-        return "Afflicts the target with a disease that instantly causes (49.036% of Spell power) Shadow damage plus an additional 4 Shadow damage over 6 sec. Heals you for 50% of damage dealt.<br>" +
+        return "Afflicts the target with a disease that instantly causes "+spellPowerToNumber(this.spellPower)+" Shadow damage plus an additional "+spellPowerHotToNumber(this.spellPowerDot)+" Shadow damage over 6 sec. Heals you for 50% of damage dealt.<br>" +
             "<br>" +
-            "If this effect is reapplied, any remaining damage will be added to the new Devouring Plague"//TODO:
+            "If this effect is reapplied, any remaining damage will be added to the new Devouring Plague"
     }
 
     startCast(caster) {
@@ -50,6 +50,14 @@ class DevouringPlague extends Ability {
                 if (this.isEnemy(caster,caster.castTarget)) {
                     if (this.checkDistance(caster,caster.castTarget) && !caster.castTarget.isDead) {
                         doDamage(caster,caster.castTarget,this)
+
+                        let dmg = 0
+                        for (let i = 0; i<caster.castTarget.debuffs.length; i++) {
+                            if (caster.castTarget.debuffs[i].name===this.name && caster.castTarget.debuffs[i].caster === caster) {
+                                dmg = caster.castTarget.debuffs[i].duration*this.spellPowerDot/this.duration
+                            }
+                        }
+                        doDamage(caster,caster.castTarget,this,undefined,dmg) //TODO:FIX DOT
                         applyDot(caster,caster.castTarget,this,undefined,undefined,this.spellPowerDot)
                         caster.useEnergy(this.cost,this.secCost)
                         this.setCd()

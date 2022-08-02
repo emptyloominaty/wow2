@@ -526,8 +526,13 @@ class AncestralGuidance extends Ability {
         targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
 
         let healing = val*0.25
+        let ttt = 0
         for (let i = 0; i<targets.length; i++) {
             doHeal(caster,targets[i],this,undefined,undefined,undefined,undefined,undefined,healing)
+            ttt++
+            if (ttt>=3) {
+                break
+            }
         }
         this.healing = 0
     }

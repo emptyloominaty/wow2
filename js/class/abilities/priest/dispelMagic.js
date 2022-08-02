@@ -13,7 +13,7 @@ class DispelMagic extends Ability {
         let range = 40
         super(name, cost, gcd, castTime, cd, channeling, casting, canMove, school, range, charges)
         if (shadow) {
-            this.cost = 0
+            this.cost = -6
         }
     }
 

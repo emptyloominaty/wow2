@@ -56,7 +56,7 @@ class MindBlast extends Ability {
             if (done) {
                 caster.isCasting = true
                 caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
-                if (caster.isChanneling) {
+                if (caster.isChanneling && !checkBuff(caster,caster,"Dark Thought")) {
                     caster.isChanneling = false
                 }
                 this.setGcd(caster)
