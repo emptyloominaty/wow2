@@ -17,7 +17,7 @@ let _ai_shadow = function(creature) {
                 if (!casted && checkBuff(b,b,"Dark Thought")) {
                     casted = c.abilities["Mind Blast"].startCast(c)
                 }
-                if (c.gcd<=0 && !enemyTargets[i].isDead && !c.isChanneling) {
+                if (c.gcd<=0 && !enemyTargets[i].isDead) {
                     c.targetObj = enemyTargets[i]
                     c.castTarget = enemyTargets[i]
                     c.target = enemyTargets[i].name
@@ -30,25 +30,28 @@ let _ai_shadow = function(creature) {
                         casted = c.abilities["Shadow Word: Pain"].startCast(c)
                     }
                     if (!casted) {
-                        casted = c.abilities["Mind Blast"].startCast(c)
+                        casted = c.abilities["Shadowfiend"].startCast(c)
                     }
                     if (!casted) {
-                        casted = c.abilities["Shadowfiend"].startCast(c)
+                        casted = c.abilities["Mindbender"].startCast(c)
+                    }
+                    if (!casted) {
+                        casted = c.abilities["Void Bolt"].startCast(c)
+                    }
+                    if (!casted) {
+                        casted = c.abilities["Mind Blast"].startCast(c)
                     }
                     if (!casted) {
                         casted = c.abilities["Devouring Plague"].startCast(c)
                     }
                     if (!casted) {
-                        casted = c.abilities["Void Eruption"].startCast(c)
-                    }
-                    if (!casted) {
                         casted = c.abilities["Power Infusion"].startCast(c)
                     }
                     if (!casted) {
-                        casted = c.abilities["Void Bolt"].startCast(c)
+                        casted = c.abilities["Void Eruption"].startCast(c)
                     }
 
-                    if (!casted) {
+                    if (!casted && !c.isChanneling) {
                         c.abilities["Mind Flay"].startCast(c)
                     }
                     break

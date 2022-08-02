@@ -16,10 +16,9 @@ class VampiricEmbrace extends Ability {
         this.healing = 0
         this.timer = 0
         this.timer2 = 1
-
     }
 
-    getTooltip() {
+    getTooltip() { //TODO:SINGLE TARGET
         return "Fills you with the embrace of Shadow energy for 15 sec, causing you to heal a nearby ally for 50% of any single-target Shadow spell damage you deal."
     }
 
@@ -73,7 +72,13 @@ class VampiricEmbrace extends Ability {
             }
         }
         targets = targets.sort((a, b) => a.health/a.maxHealth > b.health/b.maxHealth ? 1 : -1) //most injured targets
-        doHeal(caster,targets[0],this,undefined,undefined,undefined,undefined,undefined,val*0.5)
+
+        let mul = 0.5
+        if (caster.abilities["San'layn"].talentSelect) {
+            mul += 0.25
+        }
+
+        doHeal(caster,targets[0],this,undefined,undefined,undefined,undefined,undefined,val*mul)
         this.healing = 0
     }
 

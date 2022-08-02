@@ -71,7 +71,25 @@ class ShadowyApparitions extends Ability {
     }
 
     getTooltip() {
-        return "When your Shadow Word: Pain damage over time critically strikes, you also create a shadowy version of yourself that floats towards the target and deals "+spellPowerToNumber(this.spellPower)+" Shadow damage."
+        return "When you use Mind Blast, Devouring Plague or Void Bolt you also create a shadowy version of yourself that floats towards all targets afflicted by your Vampiric Touch" +
+            " dealing "+spellPowerToNumber(this.spellPower)+" Shadow damage." +
+            "<br>" +
+            "Critical strikes will cause two Apparitions to be created. "
+    }
+
+    createShadow(caster,crit) {
+        for (let i = 0; i<enemies.length; i++) {
+            if (!enemies[i].isDead && this.checkDistance(caster,enemies[i],40,true) && checkDebuff(caster,enemies[i],"Vampiric Touch")) {
+                doDamage(caster,enemies[i],this)
+                if (crit>1) {
+                    doDamage(caster,enemies[i],this)
+                }
+                if (caster.abilities["Auspicious Spirits"].talentSelect) {
+                    caster.useEnergy(-2)
+                }
+            }
+        }
+
     }
 
 }

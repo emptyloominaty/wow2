@@ -13,13 +13,13 @@ class MindFlay extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 1.284/5
+        this.spellPower = 1.284/6
         this.duration = 4.5
         this.effect = [{name:"moveSpeed",val:0.5}]
     }
 
     getTooltip() {
-        return "Assaults the target's mind with Shadow energy, causing "+spellPowerToNumber(this.spellPower*5)+" Shadow damage over 4.5 sec and slowing their movement speed by 50%.<br><br>" +
+        return "Assaults the target's mind with Shadow energy, causing "+spellPowerToNumber(this.spellPower*6)+" Shadow damage over 4.5 sec and slowing their movement speed by 50%.<br><br>" +
             "Generates 18 Insanity over the duration."
     }
 

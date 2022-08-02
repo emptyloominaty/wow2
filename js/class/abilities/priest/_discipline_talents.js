@@ -194,6 +194,9 @@ class Mindbender extends Ability {
                 caster.isChanneling = false
             }
 
+            if (caster.spec==="shadow") {
+                this.effect[0].val = 15
+            }
             spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this)
             applyBuff(caster,caster,this)
             this.setCd()

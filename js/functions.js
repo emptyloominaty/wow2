@@ -528,11 +528,16 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (getChance(chance)) { //Dark Thoughts
                     caster.abilities["Dark Thought"].getBuff(caster)
                 }
-                if (ability.name==="Shadow Word: Pain" && crit>1) {
-                    doDamage(caster,target,caster.abilities["Shadowy Apparitions"])
+
+                if ((ability.name==="Mind Blast" || ability.name==="Devouring Plague" || ability.name==="Void Bolt") && t!==true)  {
+                    caster.abilities["Shadowy Apparitions"].createShadow(caster,crit)
                 }
+
                 if (checkBuff(caster, caster, "Vampiric Embrace")) {
                     caster.abilities["Vampiric Embrace"].collectHeal(damage)
+                }
+                if (caster.abilities["Twist of Fate"].talentSelect && target.health/target.maxHealth<0.35) {
+                    applyBuff(caster,caster,caster.abilities["Twist of Fate"])
                 }
             }
 

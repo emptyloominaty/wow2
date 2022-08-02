@@ -58,6 +58,17 @@ class VoidBolt extends Ability {
                     }
                 }
                 doDamage(caster,target,this)
+                if (caster.abilities["Hungering Void"].talentSelect) {
+                    if (checkDebuff(caster,target,"Hungering Void")) {
+                        for (let i = 0; i<caster.buffs.length; i++) {
+                            if (caster.buffs[i].name==="Voidform") {
+                                caster.buffs[i].duration ++
+                            }
+                        }
+                    }
+
+                    applyDebuff(caster,target,caster.abilities["Hungering Void"])
+                }
                 this.setGcd(caster)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
