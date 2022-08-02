@@ -63,7 +63,7 @@ class Frostbolt extends Ability {
                 doDamage(caster,target,this)
                 applyDebuff(caster,target,this)
                 if (getChance(30)) {
-                    applyDebuff(caster,target,caster.abilities["Winter's Chill"])
+                    applyDebuff(caster,target,caster.abilities["Winter's Chill"],undefined,1,true)
                     applyBuff(caster,caster,caster.abilities["Brain Freeze"])
                 }
                 caster.abilities["Icicles"].increaseIcicles(caster,target)

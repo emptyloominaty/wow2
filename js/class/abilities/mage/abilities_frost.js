@@ -65,6 +65,16 @@ class Icicles extends Ability {
         this.icicles++
         if (this.icicles>5) {
             doDamage(caster,target,this,undefined,caster.stats.mastery/100)
+            if (caster.abilities["Splitting Ice"].talentSelect) {
+                //jump
+                let targets = enemies
+                for (let i = 0; i<targets.length ;i++) {
+                    if (!targets[i].isDead && this.checkDistance(target, targets[i],8,true)) {
+                        doDamage(caster, targets[i], this,undefined,caster.stats.mastery/100*this.icicles*0.65)
+                        break
+                    }
+                }
+            }
             this.icicles --
         }
     }
@@ -72,6 +82,16 @@ class Icicles extends Ability {
     launchIcicles(caster,target) {
         if (this.icicles>0) {
             doDamage(caster,target,this,undefined,caster.stats.mastery/100*this.icicles)
+            if (caster.abilities["Splitting Ice"].talentSelect) {
+                //jump
+                let targets = enemies
+                for (let i = 0; i<targets.length ;i++) {
+                    if (!targets[i].isDead && this.checkDistance(target, targets[i],8,true)) {
+                        doDamage(caster, targets[i], this,undefined,caster.stats.mastery/100*this.icicles*0.65)
+                        break
+                    }
+                }
+            }
             this.icicles = 0
         }
     }
@@ -120,6 +140,7 @@ class WintersChill extends Ability {
         this.passive = true
         this.duration = 6
         this.hiddenSB = true
+        this.maxStacks = 2
     }
 
 }

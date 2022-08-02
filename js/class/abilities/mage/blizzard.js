@@ -39,8 +39,13 @@ class Blizzard extends Ability {
                 this.castPosition.y = caster.mousePos.y
             }
 
+            let castTime = this.castTime
+            if (caster.abilities["Freezing Rain"].talentSelect && checkBuff(caster,caster,"Freezing Rain")) {
+                castTime = 0
+            }
+
             caster.isCasting = true
-            caster.casting = {name:this.name, time:0, time2:(this.castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            caster.casting = {name:this.name, time:0, time2:(castTime/(1+(caster.secondaryResource*0.08)))/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             this.setGcd(caster)
             return true
         } else if (this.canSpellQueue(caster)) {

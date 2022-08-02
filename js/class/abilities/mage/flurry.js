@@ -69,7 +69,7 @@ class Flurry extends Ability {
                 let spellPower = this.spellPower
                 if (checkBuff(caster,caster,"Brain Freeze",true)) {
                     spellPower *= 1.5
-                    applyDebuff(caster,target,caster.abilities["Winter's Chill"])
+                    applyDebuff(caster,target,caster.abilities["Winter's Chill"],undefined,1,true)
                 }
                 doDamage(caster,target,this,undefined,spellPower)
                 applyDebuff(caster,target,this)

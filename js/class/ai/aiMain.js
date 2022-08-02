@@ -38,6 +38,9 @@ class Ai {
         "feral":() => {
             _ai_feral(this.creature)
         },
+        "frostMage":() => {
+            _ai_frost(this.creature)
+        },
         "subtlety":() => {
             _ai_subtlety(this.creature)
         },

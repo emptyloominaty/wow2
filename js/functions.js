@@ -498,7 +498,14 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                         }
                     }
                 }
+            } else if (caster.spec==="frostMage") {
+                if (ability.name==="Blizzard") {
+                    if (caster.abilities["Freezing Rain"].talentSelect &&checkBuff(caster,caster,"Freezing Rain")) {
+                        damage *= 1.6
+                    }
+                }
             }
+
 
             if (caster.class==="Rogue") {
                 if (ability.name==="Auto Attack" || ability.name==="Shadow Vault" || ability.name==="Shuriken Storm" || ability.name==="Black Powder" || ability.name==="Blade Flurry") {

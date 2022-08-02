@@ -41,6 +41,9 @@ class FrozenOrb extends Ability {
         addSpellVisualEffects(caster.x,caster.y,getDirection(caster,target),"projectile",
             {size:10,speed:10,target:target,color:"#a1e4ff",onEnd:{},onRun:{name:"fire",color1:"rgba(235,246,255,0.7)",color2:"rgba(150,226,255,0.7)",life:0.4}})
 
+        if (caster.abilities["Freezing Rain"].talentSelect) {
+            applyBuff(caster,caster,caster.abilities["Freezing Rain"])
+        }
         this.setCd()
         caster.useEnergy(this.cost,this.secCost)
     }

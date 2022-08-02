@@ -1169,7 +1169,7 @@ if (player.spec==="frostMage") {
     actions = {
         //bar 0
         "Icy Veins": new Action("Icy Veins",0,0),
-        //"Rune of Power": new Action("Rune of Power",0,1),
+        "Rune of Power": new Action("Rune of Power",0,1),
 
 
         "Remove Curse": new Action("Remove Curse",0,4),

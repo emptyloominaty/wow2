@@ -32,4 +32,5 @@ let raiders = [
     new Raider("raider20",50000,100,80,66,0,"outlaw",raidersStats["stat1"]),
     new Raider("raider21",50000,100,20,20,0,"subtlety",raidersStats["stat1"]),
     new Raider("raider22",50000,100,100,0,0,"fire",raidersStats["stat1"]),
+    new Raider("raider23",50000,100,130,130,0,"frostMage",raidersStats["stat1"]),
 ]
