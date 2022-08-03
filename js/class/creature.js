@@ -406,7 +406,10 @@ class Creature {
             this.abilities = new Destruction_Abilities()
             _destruction_talents(this)
 
-            setTimeout(()=>{this.abilities["Healthstone"].onStart(this)},settings.start1)
+            setTimeout(()=>{
+                this.abilities["Healthstone"].onStart(this)
+                this.abilities["Summon Imp"].startCast(this)
+            },settings.start1)
             this.melee = false
             this.role = "dps"
             this.secondaryResourceName = "Soul Shards"

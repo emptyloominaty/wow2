@@ -540,6 +540,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                     applyBuff(caster,caster,caster.abilities["Twist of Fate"])
                 }
             } else if (caster.spec==="destruction") {
+                if (ability.name !== "Havoc" && caster.abilities["Havoc"].target && caster.abilities["Havoc"].target !== target) {
+                    if (checkDebuff(caster,caster.abilities["Havoc"].target,"Havoc")) {
+                        doDamage(caster,target,caster.abilities["Havoc"],undefined,undefined,false,undefined,undefined,undefined,damage*0.6)
+                    }
+                }
                 if (ability.name==="Immolate") {
                     caster.useEnergy(0,-0.033)
                     if (crit>1) {
@@ -548,7 +553,6 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
                 damage *= (1 + (caster.stats.mastery / 100))
                 damage *= (1 + ((caster.stats.mastery / 100))*Math.random())
-
             }
 
 

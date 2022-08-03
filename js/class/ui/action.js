@@ -1248,7 +1248,9 @@ if (player.spec==="destruction") {
     actions = {
         //bar0
         "Summon Infernal": new Action("Summon Infernal",0,0),
+        "Havoc": new Action("Havoc",0,1),
 
+        "Command Demon": new Action("Command Demon",0,5),
         "Rain of Fire": new Action("Rain of Fire",0,6),
 
         "Unending Resolve": new Action("Unending Resolve",0, 8),
@@ -1266,6 +1268,9 @@ if (player.spec==="destruction") {
 
         //bar3
         "Soulstone": new Action("Soulstone",3,0),
+
+        "Summon Imp": new Action("Summon Imp",3,4),
+        "Summon Felhunter": new Action("Summon Felhunter",3,5),
 
     }
 }

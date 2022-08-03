@@ -80,6 +80,9 @@ class Ai {
         "unholy":() => {
             _ai_unholy(this.creature)
         },
+        "destruction":() => {
+            _ai_destruction(this.creature)
+        },
         "bossTest":() => {
             _ai_bossTest(this.creature)
         }, "addTest":() => {

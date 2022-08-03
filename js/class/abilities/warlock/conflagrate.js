@@ -16,6 +16,7 @@ class Conflagrate extends Ability {
         this.hasteCd = true
         this.secCost = -0.5
         this.duration = 10
+        this.maxStacks = 2
     }
 
     getTooltip() {
@@ -23,6 +24,10 @@ class Conflagrate extends Ability {
             "Reduces the cast time of your next Incinerate or Chaos Bolt by 30% for 10 sec<br>" +
             "<br>" +
             "Generates 5 Soul Shard Fragments."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Conflagrate reduces the cast time of your next Incinerate or Chaos Bolt by 30%. Maximum 2 charges."
     }
 
     startCast(caster) {
@@ -51,7 +56,7 @@ class Conflagrate extends Ability {
                     caster.isChanneling = false
                 }
                 doDamage(caster,target,this)
-                applyBuff(caster,caster,this)
+                applyBuff(caster,caster,this,1,true)
                 this.setGcd(caster)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()

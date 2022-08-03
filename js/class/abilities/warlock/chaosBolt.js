@@ -42,7 +42,7 @@ class ChaosBolt extends Ability {
             }
             if (done) {
                 let castTime = this.castTime
-                if (checkBuff(caster,caster,"Conflagrate")) {
+                if (checkBuffStacks(caster,caster,"Conflagrate")) {
                     castTime /= 1.3
                 }
 

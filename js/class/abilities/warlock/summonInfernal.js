@@ -19,7 +19,7 @@ class SummonInfernal extends Ability {
             color:"rgba(57,185,0,0.84)",
             size:10,
             do:[{name:"goMelee",},{name:"cast",ability:"Immolation Aura"},{name:"cast",ability:"Infernal"}],
-            autoAttackDamage:0.85
+            autoAttackDamage:0.45
         }
         this.petDuration = 30
         this.petId = false
@@ -87,7 +87,7 @@ class ImmolationAuraInfernal extends Ability {
         let school = "fire"
         let range = 8
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-        this.spellPower = 0.55
+        this.spellPower = 1.35
 
     }
 
