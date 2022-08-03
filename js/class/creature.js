@@ -401,6 +401,15 @@ class Creature {
             this.secondaryResourceName = "Arcane Charges"
             this.secondaryResource = 0
             this.maxSecondaryResource = 4
+        } else if (spec==="destruction") {//----------------------------------------Destruction
+            this.class = "Warlock"
+            this.abilities = new Destruction_Abilities()
+            _destruction_talents(this)
+            this.melee = false
+            this.role = "dps"
+            this.secondaryResourceName = "Soul Shards"
+            this.secondaryResource = 3
+            this.maxSecondaryResource = 5
         } else if (spec==="fire") {//----------------------------------------Fire
             this.class = "Mage"
             this.abilities = new Fire_Abilities()

@@ -1243,3 +1243,22 @@ if (player.spec==="shadow") {
 
     }
 }
+
+if (player.spec==="destruction") {
+    actions = {
+        //bar0
+
+
+        //bar1
+
+        "Incinerate": new Action("Incinerate",1,8),
+        "Chaos Bolt": new Action("Chaos Bolt",1,9),
+
+        //bar2
+
+
+
+        //bar3
+
+    }
+}

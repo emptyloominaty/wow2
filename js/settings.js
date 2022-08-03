@@ -99,6 +99,42 @@ let raidFramesBuffs = {
         centreRight:"none",
         bottomCentre:"none",
     },
+    "destruction": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
+    "affliction": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
+    "demonology": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
+    "beastMastery": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
+    "marksmanship": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
+    "survival": {
+        bottomRight:"none",
+        bottomRight2:"none",
+        centreRight:"none",
+        bottomCentre:"none",
+    },
     "frostMage": {
         bottomRight:"none",
         bottomRight2:"none",

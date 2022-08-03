@@ -29,4 +29,10 @@ let specsName = {
     "fire":"Fire",
     "frostMage":"Frost",
     "shadow":"Shadow",
+    "destruction":"Destruction",
+    "affliction":"Affliction",
+    "demonology":"Demonology",
+    "beastMastery":"Beast Mastery",
+    "marksmanship":"Marksmanship",
+    "survival":"Survival",
 }

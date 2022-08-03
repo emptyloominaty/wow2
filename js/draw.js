@@ -200,7 +200,7 @@ function draw(progress) {
     game2d.drawPlayerDirection(0, 0, 6*gameScaling, 3, "#999f9a", player.direction)
 
     if (player.maxSecondaryResource>0) {
-        bars.playerSecondaryResource.setText(getNumberString(player.secondaryResource)+"/"+getNumberString(player.maxSecondaryResource))
+        bars.playerSecondaryResource.setText(getNumberString(Math.floor(player.secondaryResource))+"/"+getNumberString(player.maxSecondaryResource))
         bars.playerSecondaryResource.setVal(player.secondaryResource)
         bars.playerSecondaryResource.setMaxVal(player.maxSecondaryResource)
     }
