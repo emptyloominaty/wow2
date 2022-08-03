@@ -405,6 +405,8 @@ class Creature {
             this.class = "Warlock"
             this.abilities = new Destruction_Abilities()
             _destruction_talents(this)
+
+            setTimeout(()=>{this.abilities["Healthstone"].onStart(this)},settings.start1)
             this.melee = false
             this.role = "dps"
             this.secondaryResourceName = "Soul Shards"
@@ -490,6 +492,7 @@ class Creature {
         this.abilities["Auto Attack"] = new AutoAttack()
         this.abilities["Leech"] = new Leech()
         this.abilities["Exhaustion"] = new Exhaustion()
+        this.abilities["Healthstone"] = new Healthstone()
 
         if (this.role==="tank") {
             this.aggroMultiplier = 10

@@ -41,8 +41,13 @@ class ChaosBolt extends Ability {
                 }
             }
             if (done) {
+                let castTime = this.castTime
+                if (checkBuff(caster,caster,"Conflagrate")) {
+                    castTime /= 1.3
+                }
+
                 caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }

@@ -1342,6 +1342,7 @@ let iconsPath = {
     "Summon Felhunter":"img/warlock/SummonFelhunter.jpg",
     "Summon Imp":"img/warlock/SummonImp.jpg",
     "Summon Infernal":"img/warlock/SummonInfernal.jpg",
+    "Infernal":"img/warlock/SummonInfernal.jpg",
     "Summon Succubus":"img/warlock/SummonSuccubus.jpg",
     "Summon Vilefiend":"img/warlock/SummonVilefiend.jpg",
     "Summon Voidwalker":"img/warlock/SummonVoidwalker.jpg",
@@ -1349,6 +1350,8 @@ let iconsPath = {
     "Unstable Affliction":"img/warlock/UnstableAffliction.jpg",
     "Vile Taint":"img/warlock/VileTaint.jpg",
     "Writhe in Agony":"img/warlock/WritheinAgony.jpg",
+    "Life Tap":"img/warlock/LifeTap.jpg",
+    "Healthstone":"img/warlock/CreateHealthstone.jpg",
 
     //Warrior
     "Anger Management":"img/warrior/AngerManagement.jpg",

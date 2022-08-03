@@ -1247,18 +1247,25 @@ if (player.spec==="shadow") {
 if (player.spec==="destruction") {
     actions = {
         //bar0
+        "Summon Infernal": new Action("Summon Infernal",0,0),
 
+        "Rain of Fire": new Action("Rain of Fire",0,6),
+
+        "Unending Resolve": new Action("Unending Resolve",0, 8),
 
         //bar1
+        "Conflagrate": new Action("Conflagrate",1,0),
+        "Immolate": new Action("Immolate",1,1),
 
         "Incinerate": new Action("Incinerate",1,8),
         "Chaos Bolt": new Action("Chaos Bolt",1,9),
 
         //bar2
 
-
+        "Life Tap": new Action("Life Tap",2,7),
 
         //bar3
+        "Soulstone": new Action("Soulstone",3,0),
 
     }
 }

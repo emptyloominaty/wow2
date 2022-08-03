@@ -1,31 +1,34 @@
-class Incinerate extends Ability {
+class Conflagrate extends Ability {
     constructor() {
-        let name = "Incinerate"
-        let cost = 1.5
+        let name = "Conflagrate"
+        let cost = 1
         let gcd = 1.5
-        let castTime = 2
-        let cd = 0
-        let charges = 1
+        let castTime = 0
+        let cd = 12.96
+        let charges = 2
         let channeling = false
-        let casting = true
+        let casting = false
         let canMove = false
         let school = "fire"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
-
-        this.spellPower = 0.7692*1.1
-        this.secCost = -0.2
-
+        this.spellPower = 1.1*1.1
+        this.hasteCd = true
+        this.secCost = -0.5
+        this.duration = 10
     }
 
     getTooltip() {
-        return "Draws fire toward the enemy, dealing "+spellPowerToNumber(this.spellPower)+" Fire damage.<br>" +
+        return "Triggers an explosion on the target, dealing "+spellPowerToNumber(this.spellPower)+" Fire damage.<br>" +
+            "Reduces the cast time of your next Incinerate or Chaos Bolt by 30% for 10 sec<br>" +
             "<br>" +
-            "Generates 2 Soul Shard Fragments and an additional 1 on critical strikes.>"
+            "Generates 5 Soul Shard Fragments."
     }
+
     startCast(caster) {
         if (this.checkStart(caster)) {
             let done = false
+            let target = caster.castTarget
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
             } else {
@@ -37,45 +40,27 @@ class Incinerate extends Ability {
                     caster.targetObj = newTarget
                     caster.castTarget = newTarget
                     caster.target = newTarget.name
+                    target = newTarget
                     if (this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                         done = true
                     }
                 }
             }
             if (done) {
-                let castTime = this.castTime
-                if (checkBuff(caster,caster,"Conflagrate")) {
-                    castTime /= 1.3
-                }
-                caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                doDamage(caster,target,this)
+                applyBuff(caster,caster,this)
                 this.setGcd(caster)
-                return true
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
             }
-
+            return true
         } else if (this.canSpellQueue(caster)) {
             spellQueue.add(this,caster.gcd)
         }
         return false
-    }
-
-    endCast(caster) {
-        caster.isCasting = false
-        let target = caster.casting.target
-        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
-            if (this.checkDistance(caster,target)  && !target.isDead) {
-                let cr = doDamage(caster, target, this)
-                let cost = this.cost
-                if (cr>1) {
-                    cost += 0.1
-                }
-                caster.useEnergy(cost,this.secCost)
-                this.setCd()
-            }
-        }
     }
 
 }
