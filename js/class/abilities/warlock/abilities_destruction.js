@@ -4,7 +4,7 @@ class Destruction_Abilities {
     "Immolate" = new Immolate()
     "Conflagrate" = new Conflagrate()
     "Unending Resolve" = new UnendingResolve()
-    "Life Tap" = new LifeTap()
+    //"Life Tap" = new LifeTap()
     "Soulstone" = new Soulstone()
     "Rain of Fire" = new RainofFire()
     "Summon Infernal" = new SummonInfernal()
@@ -21,6 +21,11 @@ class Destruction_Abilities {
 
     //TODO:BANISH, 1.5sec Cast, 30yd, 1.5 cost, Banishes an enemy Demon, Aberration, or Elemental, preventing any action for 30 sec. Limit 1. Casting Banish again on the target will cancel the effect.
     //TODO:Demonic Gateway, 2sec Cast, 10-40yard, 20 cost, 10 cd, Creates a demonic gateway between two locations. Activating the gateway transports the user to the other gateway. Each player can use a Demonic Gateway only once per 1.5 min.
+
+    //TODO:Drain Life, (shadow)
+    // 0% of base mana, plus 3% per second
+    // Channeled (5 sec cast)
+    // Drains life from the target, causing 25 Shadow damage over 5 sec, and healing you for 500% of the damage done.
 
     //TODO:Curses: A warlock can only have one Curse active per target.
     //TODO:Curse of Weakness, Increases the time between an enemy's attacks by 20% for 2 min.

@@ -1,28 +1,33 @@
-class Immolate extends Ability {
-    constructor() {
-        let name = "Immolate"
-        let cost = 0
+class ShadowBolt extends Ability {
+    constructor(demo = false) {
+        let name = "Shadow Bolt"
+        let cost = 1.5
         let gcd = 1.5
-        let castTime = 1.5
+        let castTime = 2
         let cd = 0
         let charges = 1
         let channeling = false
         let casting = true
         let canMove = false
-        let school = "fire"
+        let school = "shadow"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.48*1.1
-        this.spellPowerDot = 1.80*1.1
-        this.duration = 18
+        this.spellPower = 0.39*1.14
 
+        if (demo) {
+            this.secCost = -1
+        }
     }
 
     getTooltip() {
-        return "Burns the enemy, causing "+spellPowerToNumber(this.spellPower)+" Fire damage immediately and an additional "+spellPowerHotToNumber(this.spellPowerDot)+" Fire damage over 18 sec.<br>" +
-            "<br>" +
-            "Periodic damage generates 1 Soul Shard Fragment and has a 50% chance to generate an additional 1 on critical strikes."
+        if (player.spec==="demonology") {
+            return "Sends a shadowy bolt at the enemy, causing "+spellPowerToNumber(this.spellPower)+" Shadow damage." +
+                " Generates 1 Soul Shard."
+        } else {
+            return "Sends a shadowy bolt at the enemy, causing "+spellPowerToNumber(this.spellPower)+" Shadow damage."
+        }
+
     }
 
     startCast(caster) {
@@ -33,6 +38,9 @@ class Immolate extends Ability {
             } else {
                 let newTarget = findNearestEnemy(caster)
                 if (newTarget!==false) {
+                    if (caster === player) {
+                        document.getElementById("raidFrame" + targetSelect).style.outline = "0px solid #fff"
+                    }
                     caster.targetObj = newTarget
                     caster.castTarget = newTarget
                     caster.target = newTarget.name
@@ -42,6 +50,7 @@ class Immolate extends Ability {
                 }
             }
             if (done) {
+
                 caster.isCasting = true
                 caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
@@ -51,6 +60,8 @@ class Immolate extends Ability {
                 return true
             }
 
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
         }
         return false
     }
@@ -60,11 +71,11 @@ class Immolate extends Ability {
         let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                applyDot(caster,target,this,undefined,undefined,this.spellPowerDot)
-                doDamage(caster,target,this)
+                doDamage(caster, target, this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }
         }
     }
+
 }

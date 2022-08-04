@@ -1270,7 +1270,7 @@ let iconsPath = {
     "Dark Pact":"img/warlock/DarkPact.jpg",
     "Dark Soul: Instability":"img/warlock/DarkSoulInstability.jpg",
     "Demonic Consumption":"img/warlock/DarkSoulInstability.jpg",
-    "Dark Soul Misery":"img/warlock/DarkSoulInstability.jpg",
+    "Dark Soul: Misery":"img/warlock/DarkSoulInstability.jpg",
     "Demonbolt":"img/warlock/Demonbolt.jpg",
     "Demonic Calling":"img/warlock/DemonicCalling.jpg",
     "Demonic Circle":"img/warlock/DemonicCircle.jpg",
@@ -1361,6 +1361,7 @@ let iconsPath = {
     "Writhe in Agony":"img/warlock/WritheinAgony.jpg",
     "Life Tap":"img/warlock/LifeTap.jpg",
     "Healthstone":"img/warlock/CreateHealthstone.jpg",
+    "Siphon Life":"img/warlock/SiphonLife.jpg",
 
     //Warrior
     "Anger Management":"img/warrior/AngerManagement.jpg",

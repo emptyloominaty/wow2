@@ -1,28 +1,26 @@
-class Immolate extends Ability {
+class Corruption extends Ability {
     constructor() {
-        let name = "Immolate"
-        let cost = 0
+        let name = "Corruption"
+        let cost = 1
         let gcd = 1.5
-        let castTime = 1.5
+        let castTime = 0
         let cd = 0
         let charges = 1
         let channeling = false
         let casting = true
         let canMove = false
-        let school = "fire"
+        let school = "shadow"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
-        this.spellPower = 0.48*1.1
-        this.spellPowerDot = 1.80*1.1
-        this.duration = 18
+        this.spellPower = 0.138*1.14
+        this.spellPowerDot = 0.91*1.14
+        this.duration = 14
 
     }
 
     getTooltip() {
-        return "Burns the enemy, causing "+spellPowerToNumber(this.spellPower)+" Fire damage immediately and an additional "+spellPowerHotToNumber(this.spellPowerDot)+" Fire damage over 18 sec.<br>" +
-            "<br>" +
-            "Periodic damage generates 1 Soul Shard Fragment and has a 50% chance to generate an additional 1 on critical strikes."
+        return "Corrupts the target, causing "+spellPowerToNumber(this.spellPower)+" Shadow damage and an additional "+spellPowerHotToNumber(this.spellPowerDot)+" Shadow damage over 14 sec."
     }
 
     startCast(caster) {

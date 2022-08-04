@@ -34,12 +34,12 @@ let _affliction_talents = function(caster) {
     //caster.abilities[""] = new ()
     //caster.abilities[""] = new ()
 
-    caster.talents = [["Nightfall","Inevitable","Drain Soul"],
+    caster.talents = [["Nightfall","Inevitable Demise","Drain Soul"],
         ["Writhe in Agony","Absolute Corruption","Siphon Life"],
         ["Demon Skin","Burning Rush","Dark Pact"],
         ["Sow the Seeds","Phantom Singularity","Vile Taint"],
         ["Darkfury","Mortal Coil","Howl of Terror"],
-        ["Shadow Embrace","Haunt","Grimoire of Sancrifice"],
+        ["Shadow Embrace","Haunt","Grimoire of Sacrifice"],
         ["Soul Conduit","Creeping Death","Dark Soul: Misery"]
     ]
 }
