@@ -179,6 +179,14 @@ class Area {
                 applyDebuff(this.caster,targets[i],this.ability)
                 targets[i].interrupt()
             }
+        } else if (this.data.type==="cataclysm") {
+            let targets = this.findAllCreaturesInsideEnemy()
+            for (let i = 0; i<targets.length; i++) {
+                applyDot(this.caster,targets[i],this.caster.abilities["Immolate"])
+                doDamage(this.caster, targets[i], this.ability, undefined, (this.data.spellPower))
+                targets[i].interrupt()
+                this.duration = -1
+            }
         }
 
 

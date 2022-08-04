@@ -409,6 +409,7 @@ class Creature {
             setTimeout(()=>{
                 this.abilities["Healthstone"].onStart(this)
                 this.abilities["Summon Imp"].startCast(this)
+                this.gcd = 0
             },settings.start1)
             this.melee = false
             this.role = "dps"

@@ -553,6 +553,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
                 damage *= (1 + (caster.stats.mastery / 100))
                 damage *= (1 + ((caster.stats.mastery / 100))*Math.random())
+                if (ability.name==="Conflagrate" || ability.name==="Incinerate" || ability.name==="Immolate")
+                if (checkDebuff(caster,target,"Roaring Blaze")) {
+                    damage *= 1.25
+                }
             }
 
 

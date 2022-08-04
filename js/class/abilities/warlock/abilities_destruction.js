@@ -12,6 +12,12 @@ class Destruction_Abilities {
     "Command Demon" = new CommandDemon()
     "Summon Imp" = new SummonImp()
     "Summon Felhunter" = new SummonFelhunter()
+    "Shadowfury" = new Shadowfury()
+
+
+    //TODO:Demonic Embrace,passive, Stamina increased by 10%.
+    //TODO:Fel Domination, 3min cd, nogcd, Your next Imp, Voidwalker, Incubus, Succubus, Felhunter, or Felguard Summon spell is free and has its casting time reduced by 6 sec.
+    //15 sec, bufftooltip: Imp, Voidwalker, Succubus, Felhunter, or Felguard casting time reduced by 6 sec.
 
     //TODO:BANISH, 1.5sec Cast, 30yd, 1.5 cost, Banishes an enemy Demon, Aberration, or Elemental, preventing any action for 30 sec. Limit 1. Casting Banish again on the target will cancel the effect.
     //TODO:Demonic Gateway, 2sec Cast, 10-40yard, 20 cost, 10 cd, Creates a demonic gateway between two locations. Activating the gateway transports the user to the other gateway. Each player can use a Demonic Gateway only once per 1.5 min.

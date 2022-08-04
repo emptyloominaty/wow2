@@ -1248,21 +1248,24 @@ if (player.spec==="destruction") {
     actions = {
         //bar0
         "Summon Infernal": new Action("Summon Infernal",0,0),
-        "Havoc": new Action("Havoc",0,1),
+        "Dark Soul: Instability": new Action("Dark Soul: Instability",0,1),
+
 
         "Command Demon": new Action("Command Demon",0,5),
         "Rain of Fire": new Action("Rain of Fire",0,6),
-
+        "Havoc": new Action("Havoc",0,7),
         "Unending Resolve": new Action("Unending Resolve",0, 8),
 
         //bar1
         "Conflagrate": new Action("Conflagrate",1,0),
         "Immolate": new Action("Immolate",1,1),
+        "Cataclysm": new Action("Cataclysm",1,2),
 
         "Burning Rush": new Action("Burning Rush",1,3),
 
         "Incinerate": new Action("Incinerate",1,8),
         "Chaos Bolt": new Action("Chaos Bolt",1,9),
+        "Shadowfury": new Action("Shadowfury",1,10),
 
         //bar2
 

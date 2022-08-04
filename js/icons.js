@@ -1326,7 +1326,7 @@ let iconsPath = {
     "Shadow Bolt":"img/warlock/ShadowBolt.jpg",
     "Shadowburn":"img/warlock/Shadowburn.jpg",
     "Shadow Embrace":"img/warlock/ShadowEmbrace.jpg",
-    "Shadow fury":"img/warlock/Shadowfury.jpg",
+    "Shadowfury":"img/warlock/Shadowfury.jpg",
     "Soul Conduit":"img/warlock/SoulConduit.jpg",
     "Soul Fire":"img/warlock/SoulFire.jpg",
     "Firebolt":"img/warlock/SoulFire.jpg",

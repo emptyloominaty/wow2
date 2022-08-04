@@ -24,9 +24,12 @@ let _ai_destruction = function(creature) {
                     if (!casted) {
                         casted = c.abilities["Summon Infernal"].startCast(c)
                     }
-                    /*if (!casted) {
+                    if (!casted) {
+                        casted = c.abilities["Dark Soul: Instability"].startCast(c)
+                    }
+                    if (!casted) {
                         casted = c.abilities["Cataclysm"].startCast(c)
-                    }*/
+                    }
                     if (!casted && !checkDebuff(c,c.castTarget,"Immolate")) {
                         casted = c.abilities["Immolate"].startCast(c)
                     }

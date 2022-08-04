@@ -58,6 +58,9 @@ class Conflagrate extends Ability {
                 }
                 doDamage(caster,target,this)
                 applyBuff(caster,caster,this,this.stacks,true)
+                if (caster.abilities["Roaring Blaze"].talentSelect) {
+                    applyDebuff(caster,target,caster.abilities["Roaring Blaze"])
+                }
                 this.setGcd(caster)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
