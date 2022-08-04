@@ -20,41 +20,31 @@ let _ai_destruction = function(creature) {
                     c.castTarget = enemyTargets[i]
                     c.target = enemyTargets[i].name
 
-
-
+                    c.setMousePos(enemies[0].x,enemies[0].y)
                     if (!casted) {
-                        c.setMousePos(enemies[0].x,enemies[0].y)
                         casted = c.abilities["Summon Infernal"].startCast(c)
                     }
-
                     /*if (!casted) {
-                        c.setMousePos(enemies[0].x,enemies[0].y)
                         casted = c.abilities["Cataclysm"].startCast(c)
                     }*/
-
-
                     if (!casted && !checkDebuff(c,c.castTarget,"Immolate")) {
                         casted = c.abilities["Immolate"].startCast(c)
                     }
-
                     if (!casted && c.secondaryResource>4.5) {
                         casted = c.abilities["Chaos Bolt"].startCast(c)
                     }
-
                     if (!casted && c.abilities["Conflagrate"].charges>1) {
                         casted = c.abilities["Conflagrate"].startCast(c)
                     }
                     if (!casted) {
                         casted = c.abilities["Chaos Bolt"].startCast(c)
                     }
-
                     if (!casted) {
                         casted = c.abilities["Conflagrate"].startCast(c)
                     }
                     if (!casted) {
                         casted = c.abilities["Incinerate"].startCast(c)
                     }
-
                     break
                 }
             }

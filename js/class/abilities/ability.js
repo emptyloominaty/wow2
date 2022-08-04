@@ -200,6 +200,10 @@ class Ability {
                     }
                 }
             }
+        } else if (caster.spec==="destruction" && caster.abilities["Reverse Entropy"]) {
+            if (getChance(7)) {
+                applyBuff(caster,caster,caster.abilities["Reverse Entropy"])
+            }
         }
         if (caster.isStealthed && !this.dontBreakStealth) {
             for (let i = 0; i<caster.buffs.length; i++) {

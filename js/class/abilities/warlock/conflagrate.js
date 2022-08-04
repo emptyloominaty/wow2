@@ -17,6 +17,7 @@ class Conflagrate extends Ability {
         this.secCost = -0.5
         this.duration = 10
         this.maxStacks = 2
+        this.stacks = 1
     }
 
     getTooltip() {
@@ -27,7 +28,7 @@ class Conflagrate extends Ability {
     }
 
     getBuffTooltip(caster, target, buff) {
-        return "Conflagrate reduces the cast time of your next Incinerate or Chaos Bolt by 30%. Maximum 2 charges."
+        return "Conflagrate reduces the cast time of your next Incinerate or Chaos Bolt by 30%."
     }
 
     startCast(caster) {
@@ -56,7 +57,7 @@ class Conflagrate extends Ability {
                     caster.isChanneling = false
                 }
                 doDamage(caster,target,this)
-                applyBuff(caster,caster,this,1,true)
+                applyBuff(caster,caster,this,this.stacks,true)
                 this.setGcd(caster)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()

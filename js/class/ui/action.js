@@ -1259,6 +1259,8 @@ if (player.spec==="destruction") {
         "Conflagrate": new Action("Conflagrate",1,0),
         "Immolate": new Action("Immolate",1,1),
 
+        "Burning Rush": new Action("Burning Rush",1,3),
+
         "Incinerate": new Action("Incinerate",1,8),
         "Chaos Bolt": new Action("Chaos Bolt",1,9),
 
