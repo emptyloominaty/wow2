@@ -1285,18 +1285,19 @@ if (player.spec==="affliction") {
         //bar0
 
 
+
         "Command Demon": new Action("Command Demon",0,5),
 
         "Unending Resolve": new Action("Unending Resolve",0, 8),
 
         //bar1
-
+        "Agony": new Action("Agony",1,0),
         "Corruption": new Action("Corruption",1,1),
-
+        "Unstable Affliction": new Action("Unstable Affliction",1,2),
         //"Burning Rush": new Action("Burning Rush",1,3),
 
         "Shadow Bolt": new Action("Shadow Bolt",1,8),
-
+        "Malefic Rapture": new Action("Malefic Rapture",1,9),
         "Shadowfury": new Action("Shadowfury",1,10),
 
         //bar2

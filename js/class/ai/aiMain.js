@@ -83,6 +83,9 @@ class Ai {
         "destruction":() => {
             _ai_destruction(this.creature)
         },
+        "affliction":() => {
+            _ai_affliction(this.creature)
+        },
         "bossTest":() => {
             _ai_bossTest(this.creature)
         }, "addTest":() => {

@@ -557,6 +557,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (checkDebuff(caster,target,"Roaring Blaze")) {
                     damage *= 1.25
                 }
+            } else if (caster.spec==="affliction") {
+                //Potent Afflictions
+                if (ability.name==="Agony" || ability.name==="Malefic Rapture" || ability.name==="Corruption" || ability.name==="Unstable Affliction" || ability.name==="Seed of Corruption" || ability.name==="Siphon Life" || ability.name==="Phantom Singularity" || ability.name==="Vile Taint") {
+                    damage *= (1 + (caster.stats.mastery / 100))
+                }
             }
 
 
@@ -1146,6 +1151,24 @@ let checkDebuff = function(caster,target,buffName) {
     for (let i = 0; i<target.debuffs.length; i++) {
         if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
             return true
+        }
+    }
+}
+
+
+let returnDebuffStacks = function(caster,target,buffName) {
+    for (let i = 0; i<target.debuffs.length; i++) {
+        if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
+            return target.debuffs[i].stacks
+        }
+    }
+}
+
+
+let returnDebuffDuration = function(caster,target,buffName) {
+    for (let i = 0; i<target.debuffs.length; i++) {
+        if (target.debuffs[i].name===buffName && target.debuffs[i].caster === caster) {
+            return target.debuffs[i].duration
         }
     }
 }
