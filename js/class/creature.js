@@ -421,6 +421,22 @@ class Creature {
             this.abilities = new Affliction_Abilities()
             _affliction_talents(this)
 
+            setTimeout(()=>{
+                this.abilities["Healthstone"].onStart(this)
+                this.abilities["Summon Imp"].startCast(this)
+                this.gcd = 0
+            },settings.start1)
+
+            this.melee = false
+            this.role = "dps"
+            this.secondaryResourceName = "Soul Shards"
+            this.secondaryResource = 3
+            this.maxSecondaryResource = 5
+        } else if (spec==="demonology") {//----------------------------------------Demonology
+            this.class = "Warlock"
+            this.abilities = new Demonology_Abilities()
+            _demonology_talents(this)
+
             /*setTimeout(()=>{
                 this.abilities["Healthstone"].onStart(this)
                 this.abilities["Summon Imp"].startCast(this)

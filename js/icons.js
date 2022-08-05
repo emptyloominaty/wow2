@@ -1290,7 +1290,7 @@ let iconsPath = {
     "Fire and Brimstone":"img/warlock/FireandBrimstone.jpg",
     "Flashover":"img/warlock/Flashover.jpg",
     "From the Shadows":"img/warlock/FromtheShadows.jpg",
-    "Grimoire Felguard":"img/warlock/GrimoireFelguard.jpg",
+    "Grimoire: Felguard":"img/warlock/GrimoireFelguard.jpg",
     "Grimoire of Sacrifice":"img/warlock/GrimoireofSacrifice.jpg",
     "Hand of Gul'dan":"img/warlock/HandofGuldan.jpg",
     "Haunt":"img/warlock/Haunt.jpg",

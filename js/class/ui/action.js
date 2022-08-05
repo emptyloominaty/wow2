@@ -1314,3 +1314,34 @@ if (player.spec==="affliction") {
 
     }
 }
+
+if (player.spec==="demonology") {
+    actions = {
+        //bar0
+
+
+        "Command Demon": new Action("Command Demon",0,5),
+
+        "Unending Resolve": new Action("Unending Resolve",0, 8),
+
+        //bar1
+
+        "Burning Rush": new Action("Burning Rush",1,3),
+
+        "Shadow Bolt": new Action("Shadow Bolt",1,8),
+
+        "Shadowfury": new Action("Shadowfury",1,10),
+
+        //bar2
+
+
+
+
+        //bar3
+        "Soulstone": new Action("Soulstone",3,0),
+
+        "Summon Imp": new Action("Summon Imp",3,4),
+        "Summon Felhunter": new Action("Summon Felhunter",3,5),
+
+    }
+}

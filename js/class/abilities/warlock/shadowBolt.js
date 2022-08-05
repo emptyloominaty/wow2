@@ -17,6 +17,7 @@ class ShadowBolt extends Ability {
 
         if (demo) {
             this.secCost = -1
+            this.spellPower = 0.39
         }
     }
 
