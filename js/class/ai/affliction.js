@@ -25,23 +25,28 @@ let _ai_affliction = function(creature) {
                         casted = c.abilities["Dark Soul: Instability"].startCast(c)
                     }*/
 
-                    if (!casted && (!checkDebuff(c,c.castTarget,"Agony") || returnDebuffDuration(c,c.castTarget,"Unstable Affliction")<5)) {
+                    if (!casted && (!checkDebuff(c,c.castTarget,"Agony") || returnDebuffDuration(c,c.castTarget,"Agony")<4)) {
                         casted = c.abilities["Agony"].startCast(c)
                     }
                     if (!casted && !checkDebuff(c,c.castTarget,"Corruption")) {
                         casted = c.abilities["Corruption"].startCast(c)
                     }
-                    /*if (!casted) {
-                        casted = c.abilities["Summon Darkglare"].startCast(c)
-                    }*/
-                    if (!casted && (!checkDebuff(c,c.castTarget,"Unstable Affliction") || returnDebuffStacks(c,c.castTarget,"Unstable Affliction")<4)) {
+                    if (!casted && (!checkDebuff(c,c.castTarget,"Unstable Affliction") || returnDebuffStacks(c,c.castTarget,"Unstable Affliction")<4) || returnDebuffDuration(c,c.castTarget,"Unstable Affliction")<4) {
                         casted = c.abilities["Unstable Affliction"].startCast(c)
                     }
-                    if (!casted && checkDebuff(c,c.castTarget,"Unstable Affliction") && checkDebuff(c,c.castTarget,"Corruption") && checkDebuff(c,c.castTarget,"Agony")) {
+                    if (!casted && c.secondaryResource>4.5) {
                         casted = c.abilities["Malefic Rapture"].startCast(c)
                     }
-
-                    if (!casted && c.secondaryResource>4.5) {
+                    if (!casted && !checkDebuff(c,c.castTarget,"Phantom Singularity")) {
+                        casted = c.abilities["Phantom Singularity"].startCast(c)
+                    }
+                    if (!casted && !checkDebuff(c,c.castTarget,"Siphon Life")) {
+                        casted = c.abilities["Siphon Life"].startCast(c)
+                    }
+                    if (!casted) {
+                        casted = c.abilities["Summon Darkglare"].startCast(c)
+                    }
+                    if (!casted && checkDebuff(c,c.castTarget,"Unstable Affliction") && checkDebuff(c,c.castTarget,"Corruption") && checkDebuff(c,c.castTarget,"Agony")) {
                         casted = c.abilities["Malefic Rapture"].startCast(c)
                     }
                     if (!casted) {

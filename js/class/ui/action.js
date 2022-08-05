@@ -1283,18 +1283,18 @@ if (player.spec==="destruction") {
 if (player.spec==="affliction") {
     actions = {
         //bar0
-
-
+        "Summon Darkglare": new Action("Summon Darkglare",0,0),
+        //"Dark Soul: Misery": new Action("Dark Soul: Misery",0,1),
 
         "Command Demon": new Action("Command Demon",0,5),
-
+        "Seed of Corruption": new Action("Seed of Corruption",0,6),
         "Unending Resolve": new Action("Unending Resolve",0, 8),
 
         //bar1
         "Agony": new Action("Agony",1,0),
         "Corruption": new Action("Corruption",1,1),
         "Unstable Affliction": new Action("Unstable Affliction",1,2),
-        //"Burning Rush": new Action("Burning Rush",1,3),
+        "Burning Rush": new Action("Burning Rush",1,3),
 
         "Shadow Bolt": new Action("Shadow Bolt",1,8),
         "Malefic Rapture": new Action("Malefic Rapture",1,9),
@@ -1302,6 +1302,7 @@ if (player.spec==="affliction") {
 
         //bar2
 
+        "Siphon Life": new Action("Siphon Life",2,1),
 
         //bar3
         "Soulstone": new Action("Soulstone",3,0),

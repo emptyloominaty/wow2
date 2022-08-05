@@ -10,6 +10,8 @@ class Affliction_Abilities {
     "Agony" = new Agony()
     "Unstable Affliction" = new UnstableAffliction()
     "Malefic Rapture" = new MaleficRapture()
+    "Seed of Corruption" = new SeedofCorruption()
+    "Summon Darkglare" = new SummonDarkglare()
 
     //passive
     "Potent Afflictions" = new PotentAfflictions()

@@ -1339,6 +1339,7 @@ let iconsPath = {
     "Subjugate Demon":"img/warlock/SubjugateDemon.jpg",
     "Summon Darkglare":"img/warlock/SummonDarkglare.jpg",
     "Darkglare":"img/warlock/SummonDarkglare.jpg",
+    "Eye Beam ":"img/warlock/SummonDarkglare.jpg",
     "Summon Demonic Tyrant":"img/warlock/SummonDemonicTyrant.jpg",
     "Demonic Tyrant":"img/warlock/SummonDemonicTyrant.jpg",
     "Summon Felguard":"img/warlock/SummonFelguard.jpg",
