@@ -1284,7 +1284,7 @@ if (player.spec==="affliction") {
     actions = {
         //bar0
         "Summon Darkglare": new Action("Summon Darkglare",0,0),
-        //"Dark Soul: Misery": new Action("Dark Soul: Misery",0,1),
+        "Dark Soul: Misery": new Action("Dark Soul: Misery",0,1),
 
         "Command Demon": new Action("Command Demon",0,5),
         "Seed of Corruption": new Action("Seed of Corruption",0,6),
@@ -1301,8 +1301,10 @@ if (player.spec==="affliction") {
         "Shadowfury": new Action("Shadowfury",1,10),
 
         //bar2
-
+        "Phantom Singularity": new Action("Phantom Singularity",2,0),
         "Siphon Life": new Action("Siphon Life",2,1),
+
+        "Haunt": new Action("Haunt",2,7),
 
         //bar3
         "Soulstone": new Action("Soulstone",3,0),

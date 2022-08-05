@@ -562,6 +562,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (ability.name==="Agony" || ability.name==="Malefic Rapture" || ability.name==="Corruption" || ability.name==="Unstable Affliction" || ability.name==="Seed of Corruption" || ability.name==="Siphon Life" || ability.name==="Phantom Singularity" || ability.name==="Vile Taint") {
                     damage *= (1 + (caster.stats.mastery / 100))
                 }
+                if (caster.abilities["Haunt"].talentSelect && checkDebuff(caster,target,"Haunt")) {
+                    damage *= 1.1
+                }
             }
 
 

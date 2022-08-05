@@ -25,14 +25,14 @@ let _affliction_talents = function(caster) {
     caster.abilities["Howl of Terror"] = new HowlofTerror()
 
     //6
-    //caster.abilities["Shadow Embrace"] = new ShadowEmbrace()
-    //caster.abilities["Haunt"] = new Haunt()
+    caster.abilities["Shadow Embrace"] = new ShadowEmbrace()
+    caster.abilities["Haunt"] = new Haunt()
     caster.abilities["Grimoire of Sacrifice"] = new GrimoireofSacrifice()
 
     //7
     caster.abilities["Soul Conduit"] = new SoulConduit()
-    //caster.abilities["Creeping Death"] = new CreepingDeath()
-    //caster.abilities["Dark Soul: Misery"] = new DarkSoulMisery()
+    caster.abilities["Creeping Death"] = new CreepingDeath()
+    caster.abilities["Dark Soul: Misery"] = new DarkSoulMisery()
 
     caster.talents = [["Nightfall","Inevitable Demise","Drain Soul"],
         ["Writhe in Agony","Absolute Corruption","Siphon Life"],
@@ -261,8 +261,111 @@ class VileTaint extends Ability {
 //------------------------------------------------
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW6
+class ShadowEmbrace extends Ability {
+    constructor() {
+        super("Shadow Embrace", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {//TODO:
+        return "//NOT IMPLEMENTED//Drain Soul/Shadow Bolt applies Shadow Embrace, increasing your damage dealt to the target by 3% for 16 sec. Stacks up to 3 times."
+    }
+}
 //------------------------------------------------
+class Haunt extends Ability {
+    constructor() {
+        super("Haunt", 2, 1.5, 1.5, 15, false, true, false, "shadow", 40, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.spellPower = 0.6875*1.14
+        this.duration = 18
+    }
+
+    getTooltip() {
+        return "A ghostly soul haunts the target, dealing "+spellPowerToNumber(this.spellPower)+" Shadow damage and increasing your damage dealt to the target by 10% for 18 sec.<br>" +
+            "<br>" +
+            "If the target dies, Haunt's cooldown is reset." //TODO
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            let done = false
+            if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
+                done = true
+            }
+            if (done) {
+                if (caster.isChanneling) {
+                    caster.isChanneling = false
+                }
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                this.setGcd(caster)
+                return true
+            }
+
+        } else if (this.canSpellQueue(caster)) {
+            spellQueue.add(this,caster.gcd)
+        }
+        return false
+    }
+
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
+                doDamage(caster,caster.castTarget,this)
+                applyDebuff(caster, caster.castTarget, this)
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
+            }
+        }
+    }
+
+
+}
 //------------------------------------------------
 //------------------------------------------------------------------------------------------------ROW7
 //------------------------------------------------
+class CreepingDeath extends Ability {
+    constructor() {
+        super("Creeping Death", 0, 0, 0, 0, false, false, false, "physical", 5, 1)
+        this.passive = true
+        this.talent = true
+    }
+
+    getTooltip() {//TODO:
+        return "//NOT IMPLEMENTED//Your Agony, Corruption, Siphon Life, and Unstable Affliction deal their full damage 15% faster."
+    }
+}
 //------------------------------------------------
+class DarkSoulMisery extends Ability {
+    constructor() {
+        super("Dark Soul: Misery", 1, 0, 0, 120, false, false, false, "physical", 5, 1)
+        this.talent = true
+        this.talentSelect = true
+        this.duration = 20
+        this.effect = [{name:"increaseStat",stat:"haste",val:30}]
+        this.noGcd = true
+    }
+
+    getTooltip() {
+        return "Infuses your soul with the misery of fallen foes, increasing haste by 30% for 20 sec."
+    }
+
+    getBuffTooltip(caster, target, buff) {
+        return "Haste increased by 30%."
+    }
+
+    startCast(caster) {
+        if (this.checkStart(caster)) {
+            applyBuff(caster,caster,this)
+            this.setCd()
+            this.setGcd(caster)
+            caster.useEnergy(this.cost)
+            return true
+        }
+        return false
+    }
+}

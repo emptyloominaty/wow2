@@ -21,10 +21,9 @@ let _ai_affliction = function(creature) {
                     c.target = enemyTargets[i].name
 
                     c.setMousePos(enemies[0].x,enemies[0].y)
-                    /*if (!casted) {
-                        casted = c.abilities["Dark Soul: Instability"].startCast(c)
-                    }*/
-
+                    if (!casted) {
+                        casted = c.abilities["Dark Soul: Misery"].startCast(c)
+                    }
                     if (!casted && (!checkDebuff(c,c.castTarget,"Agony") || returnDebuffDuration(c,c.castTarget,"Agony")<4)) {
                         casted = c.abilities["Agony"].startCast(c)
                     }
@@ -39,6 +38,9 @@ let _ai_affliction = function(creature) {
                     }
                     if (!casted && !checkDebuff(c,c.castTarget,"Phantom Singularity")) {
                         casted = c.abilities["Phantom Singularity"].startCast(c)
+                    }
+                    if (!casted && !checkDebuff(c,c.castTarget,"Haunt")) {
+                        casted = c.abilities["Haunt"].startCast(c)
                     }
                     if (!casted && !checkDebuff(c,c.castTarget,"Siphon Life")) {
                         casted = c.abilities["Siphon Life"].startCast(c)
