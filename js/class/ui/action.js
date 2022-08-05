@@ -1347,3 +1347,24 @@ if (player.spec==="demonology") {
 
     }
 }
+
+if (player.spec==="marksmanship") {
+    actions = {
+        //bar0
+
+
+        //bar1
+        "Arcane Shot": new Action("Arcane Shot",1,0),
+
+        "Aimed Shot": new Action("Aimed Shot",1,8),
+        "Steady Shot": new Action("Steady Shot",1,9),
+
+        //bar2
+        "Kill Shot": new Action("Kill Shot",2,0),
+
+
+        //bar3
+
+
+    }
+}

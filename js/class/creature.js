@@ -437,17 +437,25 @@ class Creature {
             this.abilities = new Demonology_Abilities()
             _demonology_talents(this)
 
-            /*setTimeout(()=>{
+            setTimeout(()=>{
                 this.abilities["Healthstone"].onStart(this)
                 this.abilities["Summon Imp"].startCast(this)
                 this.gcd = 0
-            },settings.start1)*/
+            },settings.start1)
 
             this.melee = false
             this.role = "dps"
             this.secondaryResourceName = "Soul Shards"
             this.secondaryResource = 3
             this.maxSecondaryResource = 5
+        } else if (spec==="marksmanship") {//----------------------------------------Marksmanship
+            this.class = "Hunter"
+            this.abilities = new Marksmanship_Abilities()
+            _marksmanship_talents(this)
+            this.melee = false
+            this.role = "dps"
+            this.energyRegen = 5
+            this.resourceName = "Focus"
         } else if (spec==="fire") {//----------------------------------------Fire
             this.class = "Mage"
             this.abilities = new Fire_Abilities()
@@ -526,6 +534,9 @@ class Creature {
 //---------------------------------------------------------------------------------------
 
         this.abilities["Auto Attack"] = new AutoAttack()
+        if (this.class === "Hunter") {
+            this.abilities["Auto Attack"].range = 40
+        }
         this.abilities["Leech"] = new Leech()
         this.abilities["Exhaustion"] = new Exhaustion()
         this.abilities["Healthstone"] = new Healthstone()

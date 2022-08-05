@@ -44,7 +44,7 @@ let iconsPath = {
         "affliction":"img/specs/warlock/affliction.png",
         "demonology":"img/specs/warlock/demonology.png",
         "beastMastery":"img/specs/hunter/beastmastery.png",
-        "marksmanship":"img/specs/hunter/marksmanship.png",
+        "marksmanship":"img/specs/hunter/marksman.png",
         "survival":"img/specs/hunter/survival.png",
     },
 
