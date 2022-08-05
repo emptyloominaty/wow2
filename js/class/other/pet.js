@@ -81,6 +81,9 @@ class Pet {
             this.autoattackDamage = this.data.autoAttackDamage
         }
 
+        if (this.data.dontAutoAttack) {
+            this.melee = false
+        }
 
         this.abilities = this.data.abilities
         this.abilities["Auto Attack"] = new AutoAttack()
@@ -229,7 +232,6 @@ class Pet {
         this.time += progressInSec
         if (this.time>this.duration) {
             this.end()
-            this.caster.pets[this.id] = undefined
         }
     }
 
@@ -245,6 +247,12 @@ class Pet {
     }
 
     end() {
+        if (this.name==="Wild Imp" && getChance(10)) {
+            applyBuff(this.caster,this.caster,this.caster.abilities["Demonic Core"],1,true)
+        } else if (this.name==="Dreadstalker") {
+            applyBuff(this.caster,this.caster,this.caster.abilities["Demonic Core"],1,true)
+        }
+        this.caster.pets[this.id] = undefined
     }
 
     move(val, forceVal = 0,noInc = false) {

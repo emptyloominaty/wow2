@@ -1318,18 +1318,20 @@ if (player.spec==="affliction") {
 if (player.spec==="demonology") {
     actions = {
         //bar0
-
+        "Summon Demonic Tyrant": new Action("Summon Demonic Tyrant",0,0),
 
         "Command Demon": new Action("Command Demon",0,5),
+        "Implosion": new Action("Implosion",0,6),
 
         "Unending Resolve": new Action("Unending Resolve",0, 8),
 
         //bar1
-
+        "Call Dreadstalkers": new Action("Call Dreadstalkers",1,0),
+        "Demonbolt": new Action("Demonbolt",1,1),
         "Burning Rush": new Action("Burning Rush",1,3),
 
         "Shadow Bolt": new Action("Shadow Bolt",1,8),
-
+        "Hand of Gul'dan": new Action("Hand of Gul'dan",1,9),
         "Shadowfury": new Action("Shadowfury",1,10),
 
         //bar2

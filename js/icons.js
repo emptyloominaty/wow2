@@ -1255,6 +1255,7 @@ let iconsPath = {
     "Bilescourge Bombers":"img/warlock/BilescourgeBombers.jpg",
     "Burning Rush":"img/warlock/BurningRush.jpg",
     "Call Dreadstalkers":"img/warlock/CallDreadstalkers.jpg",
+    "Dreadstalker":"img/warlock/CallDreadstalkers.jpg",
     "Cataclysm":"img/warlock/Cataclysm.jpg",
     "Command Demon":"img/warlock/CommandDemon.jpg",
     "Conflagrate":"img/warlock/Conflagrate.jpg",
@@ -1339,7 +1340,7 @@ let iconsPath = {
     "Subjugate Demon":"img/warlock/SubjugateDemon.jpg",
     "Summon Darkglare":"img/warlock/SummonDarkglare.jpg",
     "Darkglare":"img/warlock/SummonDarkglare.jpg",
-    "Eye Beam ":"img/warlock/SummonDarkglare.jpg",
+    "Eye Beam  ":"img/warlock/SummonDarkglare.jpg",
     "Summon Demonic Tyrant":"img/warlock/SummonDemonicTyrant.jpg",
     "Demonic Tyrant":"img/warlock/SummonDemonicTyrant.jpg",
     "Summon Felguard":"img/warlock/SummonFelguard.jpg",
@@ -1363,6 +1364,10 @@ let iconsPath = {
     "Life Tap":"img/warlock/LifeTap.jpg",
     "Healthstone":"img/warlock/CreateHealthstone.jpg",
     "Siphon Life":"img/warlock/SiphonLife.jpg",
+    "Wild Imp":"img/warlock/WildImp.jpg",
+    "Fel Firebolt":"img/warlock/FelFirebolt.jpg",
+    "Dreadbite":"img/warlock/Dreadbite.jpg",
+    "Demonfire":"img/warlock/Demonfire.jpg",
 
     //Warrior
     "Anger Management":"img/warrior/AngerManagement.jpg",

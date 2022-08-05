@@ -719,6 +719,9 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 }
             } else if (caster.spec==="demonology") {
                 damage = damage * (1 + (caster.stats.mastery / 100))
+                if (checkBuff(caster,caster,"Summon Demonic Tyrant")) {
+                    damage *= 1.15
+                }
             }
         }
 
