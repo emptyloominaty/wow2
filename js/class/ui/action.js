@@ -1413,3 +1413,35 @@ if (player.spec==="survival") {
 
     }
 }
+
+
+if (player.spec==="beastMastery") {
+    actions = {
+        //bar0
+
+        "Counter Shot": new Action("Counter Shot",0,5),
+
+        "Tranquilizing Shot": new Action("Tranquilizing Shot",0,7),
+        "Survival of the Fittest": new Action("Survival of the Fittest",0,8),
+
+
+        //bar1
+
+
+        "Aspect of the Cheetah": new Action("Aspect of the Cheetah",1,3),
+
+
+
+        //bar2
+        "Kill Shot": new Action("Kill Shot",2,0),
+        "Exhilaration": new Action("Exhilaration",2,1),
+        "Concussive Shot": new Action("Concussive Shot",2,2),
+
+        "Aspect of the Turtle": new Action("Aspect of the Turtle",2,4),
+
+
+        //bar3
+
+
+    }
+}

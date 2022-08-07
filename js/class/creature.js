@@ -464,6 +464,14 @@ class Creature {
             this.role = "dps"
             this.energyRegen = 5
             this.resourceName = "Focus"
+        } else if (spec==="beastMastery") {//----------------------------------------Beast Mastery
+            this.class = "Hunter"
+            this.abilities = new BeastMastery_Abilities()
+            _beastMastery_talents(this)
+            this.melee = false
+            this.role = "dps"
+            this.energyRegen = 5
+            this.resourceName = "Focus"
         } else if (spec==="fire") {//----------------------------------------Fire
             this.class = "Mage"
             this.abilities = new Fire_Abilities()
