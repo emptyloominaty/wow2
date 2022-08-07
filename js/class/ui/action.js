@@ -1352,6 +1352,8 @@ if (player.spec==="marksmanship") {
     actions = {
         //bar0
         "Trueshot": new Action("Trueshot",0,0),
+        "Double Tap": new Action("Double Tap",0,1),
+
 
         "Counter Shot": new Action("Counter Shot",0,5),
         "Multi-Shot": new Action("Multi-Shot",0,6),
@@ -1362,7 +1364,8 @@ if (player.spec==="marksmanship") {
         //bar1
         "Arcane Shot": new Action("Arcane Shot",1,0),
         "Rapid Fire": new Action("Rapid Fire",1,1),
-
+        "Volley": new Action("Volley",1,2),
+        "Aspect of the Cheetah": new Action("Aspect of the Cheetah",1,3),
         "Aimed Shot": new Action("Aimed Shot",1,8),
         "Steady Shot": new Action("Steady Shot",1,9),
 

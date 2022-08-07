@@ -9,18 +9,22 @@ let _ai_marksmanship = function(creature) {
             setTargetAi(c, target)
             c.direction = getDirection(c, c.targetObj)
 
+            c.setMousePos(enemies[0].x,enemies[0].y)
+            if (!casted) {
+                casted = c.abilities["Double Tap"].startCast(c)
+            }
+            if (!casted) {
+                casted = c.abilities["Volley"].startCast(c)
+            }
             if (!casted) {
                 casted = c.abilities["Trueshot"].startCast(c)
             }
-
             if (!casted) {
                 casted = c.abilities["Rapid Fire"].startCast(c)
             }
-
             if (!casted && aiFunctions.getNumberOfEnemies(c,40)>=2 ) {
                 casted = c.abilities["Multi-Shot"].startCast(c)
             }
-
             if (!casted) {
                 casted = c.abilities["Kill Shot"].startCast(c)
             }

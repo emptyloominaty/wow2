@@ -61,7 +61,14 @@ class AimedShot extends Ability {
         let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                doDamage(caster, target, this)
+                let spellPower = this.spellPower
+                if (caster.abilities["Careful Aim"].talentSelect && target.health/target.maxHealth>0.7) {
+                    spellPower *= 1.5
+                }
+                doDamage(caster, target, this,undefined, spellPower)
+                if (caster.abilities["Double Tap"].talentSelect && checkBuff(caster,caster,"Double Tap",true)) {
+                    doDamage(caster, target, this,undefined, spellPower)
+                }
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
                 applyBuff(caster,caster,caster.abilities["Precise Shots"],Math.ceil(Math.random()*2),true)

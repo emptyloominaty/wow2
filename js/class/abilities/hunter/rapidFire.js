@@ -27,7 +27,12 @@ class RapidFire extends Ability {
     startCast(caster) {
         if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget) && this.isEnemy(caster,caster.castTarget)) {
             caster.isChanneling = true
-            caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:0.284/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+            let timer = 0.284
+            if (caster.abilities["Double Tap"].talentSelect && checkBuff(caster,caster,"Double Tap",true)) {
+                timer /= 2
+            }
+
+            caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:timer/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             caster.canMoveWhileCasting = true
             this.trickShots = false
             if (checkBuff(caster,caster,"Trick Shots",true)) {
