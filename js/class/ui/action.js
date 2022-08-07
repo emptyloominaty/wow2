@@ -1353,14 +1353,25 @@ if (player.spec==="marksmanship") {
         //bar0
 
 
+        "Counter Shot": new Action("Counter Shot",0,5),
+
+        "Tranquilizing Shot": new Action("Tranquilizing Shot",0,7),
+        "Survival of the Fittest": new Action("Survival of the Fittest",0,8),
+
+
         //bar1
         "Arcane Shot": new Action("Arcane Shot",1,0),
+        "Rapid Fire": new Action("Rapid Fire",1,1),
 
         "Aimed Shot": new Action("Aimed Shot",1,8),
         "Steady Shot": new Action("Steady Shot",1,9),
 
         //bar2
         "Kill Shot": new Action("Kill Shot",2,0),
+        "Exhilaration": new Action("Exhilaration",2,1),
+        "Concussive Shot": new Action("Concussive Shot",2,2),
+
+        "Aspect of the Turtle": new Action("Aspect of the Turtle",2,4),
 
 
         //bar3

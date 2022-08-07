@@ -565,8 +565,21 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (caster.abilities["Haunt"].talentSelect && checkDebuff(caster,target,"Haunt")) {
                     damage *= 1.1
                 }
-            }
+            } else if (caster.spec==="marksmanship") {
+                damage *= (1 + (caster.stats.mastery / 100))
+                //Lone Wolf
+                let lw = true
+                for (let i = 0; i<caster.pets.length; i++) {
+                    if (caster.pets[i]!==undefined) {
+                        lw = false
+                    }
+                }
+                if (lw) {
+                    damage *= 1.1
+                }
 
+
+            }
 
             if (caster.class==="Rogue") {
                 if (ability.name==="Auto Attack" || ability.name==="Shadow Vault" || ability.name==="Shuriken Storm" || ability.name==="Black Powder" || ability.name==="Blade Flurry") {
