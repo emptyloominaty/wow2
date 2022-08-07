@@ -86,6 +86,9 @@ class Ai {
         "affliction":() => {
             _ai_affliction(this.creature)
         },
+        "marksmanship":() => {
+            _ai_marksmanship(this.creature)
+        },
         "bossTest":() => {
             _ai_bossTest(this.creature)
         }, "addTest":() => {

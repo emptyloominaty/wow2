@@ -14,6 +14,7 @@ class RapidFire extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
 
         this.spellPower = 0.38
+        this.trickShots = false
     }
 
     getTooltip() {
@@ -28,8 +29,11 @@ class RapidFire extends Ability {
             caster.isChanneling = true
             caster.channeling = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)), timer:0, timer2:0.284/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
             caster.canMoveWhileCasting = true
+            this.trickShots = false
+            if (checkBuff(caster,caster,"Trick Shots",true)) {
+                this.trickShots = true
+            }
             this.setGcd(caster)
-
             this.setCd()
             return true
         } else if (this.canSpellQueue(caster)) {
@@ -43,6 +47,16 @@ class RapidFire extends Ability {
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
                 doDamage(caster, target, this)
+
+                if (this.trickShots) {
+                    for (let i = 0; i<enemies.length ;i++) {
+                        if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(target, enemies[i],10,true) ) {
+                            doDamage(caster, enemies[i], this, undefined, this.spellPower*0.55)
+                        }
+                    }
+                }
+
+
                 caster.useEnergy(this.cost)
             } else {
                 caster.isChanneling = false

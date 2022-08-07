@@ -10,7 +10,8 @@ class Marksmanship_Abilities {
     "Aspect of the Turtle" = new AspectoftheTurtle()
     "Concussive Shot" = new ConcussiveShot()
     "Exhilaration" = new Exhilaration()
-
+    "Multi-Shot" = new MultiShot()
+    "Trueshot" = new Trueshot()
 
 
     //TODO:Bursting Shot, 1.5, 30sec cd, Fires an explosion of bolts at all enemies in front of you, knocking them back, snaring them by 50% for 6 sec, and dealing (5.2728% of Attack power) Physical damage.   (8yards)
@@ -19,6 +20,8 @@ class Marksmanship_Abilities {
     //passive
     "Sniper Training" = new SniperTraining()
     "Lone Wolf" = new LoneWolf()
+    "Precise Shots" = new PreciseShots()
+    "Trick Shots" = new TrickShots()
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}
 }
 //---------------------------------------
@@ -46,3 +49,33 @@ class LoneWolf extends Ability {
     }
 
 }
+//---------------------------------------
+class PreciseShots extends Ability {
+    constructor() {
+        super("Precise Shots", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.duration = 15
+        this.maxStacks = 2
+    }
+
+    getTooltip() {
+        return "Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 75% more damage."
+    }
+
+}
+//---------------------------------------
+class TrickShots extends Ability {
+    constructor() {
+        super("Trick Shots", 0, 0, 0, 0, false, false, false, "physical", 40, 1)
+        this.passive = true
+        this.duration = 20
+    }
+
+    getTooltip() {
+        return "When Multi-Shot hits 3 or more targets, your next Aimed Shot or Rapid Fire will ricochet and hit up to 5 additional targets for 55% of normal damage."
+    }
+
+}
+
+
+

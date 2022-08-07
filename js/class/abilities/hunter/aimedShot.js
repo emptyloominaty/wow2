@@ -64,6 +64,16 @@ class AimedShot extends Ability {
                 doDamage(caster, target, this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
+                applyBuff(caster,caster,caster.abilities["Precise Shots"],Math.ceil(Math.random()*2),true)
+
+                if (checkBuff(caster,caster,"Trick Shots",true)) {
+                    for (let i = 0; i<enemies.length ;i++) {
+                        if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(target, enemies[i],10,true) ) {
+                            doDamage(caster, enemies[i], this, undefined, this.spellPower*0.55)
+                        }
+                    }
+                }
+
             }
         }
     }

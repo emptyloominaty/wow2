@@ -1,6 +1,6 @@
-class ArcaneShot extends Ability {
+class MultiShot extends Ability {
     constructor() {
-        let name = "Arcane Shot"
+        let name = "Multi-Shot"
         let cost = 20
         let gcd = 1.5
         let castTime = 0
@@ -9,16 +9,16 @@ class ArcaneShot extends Ability {
         let channeling = false
         let casting = true
         let canMove = false
-        let school = "arcane"
+        let school = "physical"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.hasteCd = true
-        this.spellPower = 0.627
+        this.spellPower = 0.412
 
     }
 
     getTooltip() {
-        return "A quick shot that causes "+spellPowerToNumber(this.spellPower)+" Arcane damage."
+        return "Fires several missiles, hitting your current target and all enemies within 10 yards for "+spellPowerToNumber(this.spellPower)+" Physical damage."
     }
 
     startCast(caster) {
@@ -41,12 +41,29 @@ class ArcaneShot extends Ability {
                 }
             }
             if (done) {
+                let spellPower = this.spellPower
+                if (checkBuffStacks(caster,caster,"Precise Shots")) {
+                    spellPower *= 1.75
+                }
 
-                caster.isCasting = true
-                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
+                let target = caster.castTarget
+                doDamage(caster, target, this, undefined, spellPower)
+                let enemiesHit = 0
+                for (let i = 0; i<enemies.length ;i++) {
+                    if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(target, enemies[i],10,true) ) {
+                        doDamage(caster, enemies[i], this, undefined, spellPower)
+                        enemiesHit ++
+                    }
+                }
+                if (enemiesHit>2) {
+                    applyBuff(caster,caster,caster.abilities["Trick Shots"])
+                }
+
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
                 this.setGcd(caster)
                 return true
             }
@@ -57,21 +74,5 @@ class ArcaneShot extends Ability {
         return false
     }
 
-    endCast(caster) {
-        caster.isCasting = false
-        let target = caster.casting.target
-        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
-            if (this.checkDistance(caster,target)  && !target.isDead) {
-                let spellPower = this.spellPower
-                if (checkBuffStacks(caster,caster,"Precise Shots")) {
-                    spellPower *= 1.75
-                }
-
-                doDamage(caster, target, this, undefined, spellPower)
-                caster.useEnergy(this.cost,this.secCost)
-                this.setCd()
-            }
-        }
-    }
 
 }

@@ -1351,10 +1351,10 @@ if (player.spec==="demonology") {
 if (player.spec==="marksmanship") {
     actions = {
         //bar0
-
+        "Trueshot": new Action("Trueshot",0,0),
 
         "Counter Shot": new Action("Counter Shot",0,5),
-
+        "Multi-Shot": new Action("Multi-Shot",0,6),
         "Tranquilizing Shot": new Action("Tranquilizing Shot",0,7),
         "Survival of the Fittest": new Action("Survival of the Fittest",0,8),
 

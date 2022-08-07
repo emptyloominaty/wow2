@@ -110,7 +110,7 @@ class SpinningCraneKick extends Ability {
 
     cast(caster) {
         for (let i = 0; i<enemies.length ;i++) {
-            if (!enemies[i].isDead && this.checkDistance(caster, enemies[i]) ) {
+            if (!enemies[i].isDead && this.checkDistance(caster, enemies[i],undefined,true) ) {
                 doDamage(caster, enemies[i], this)
             }
         }
