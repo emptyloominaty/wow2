@@ -447,7 +447,7 @@ let iconsPath = {
 
     //hunter
     "Aimed Shot":"img/hunter/AimedShot.jpg",
-    "AlphaPredator":"img/hunter/Alpha Predator.jpg",
+    "Alpha Predator":"img/hunter/AlphaPredator.jpg",
     "A Murder of Crows":"img/hunter/AMurderofCrows.jpg",
     "Animal Companion":"img/hunter/AnimalCompanion.jpg",
     "Arcane Shot":"img/hunter/ArcaneShot.jpg",

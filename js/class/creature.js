@@ -456,6 +456,14 @@ class Creature {
             this.role = "dps"
             this.energyRegen = 5
             this.resourceName = "Focus"
+        } else if (spec==="survival") {//----------------------------------------Survival
+            this.class = "Hunter"
+            this.abilities = new Survival_Abilities()
+            _survival_talents(this)
+            this.melee = false
+            this.role = "dps"
+            this.energyRegen = 5
+            this.resourceName = "Focus"
         } else if (spec==="fire") {//----------------------------------------Fire
             this.class = "Mage"
             this.abilities = new Fire_Abilities()
@@ -534,7 +542,7 @@ class Creature {
 //---------------------------------------------------------------------------------------
 
         this.abilities["Auto Attack"] = new AutoAttack()
-        if (this.class === "Hunter") {
+        if (this.class === "Hunter" && this.spec!=="survival") {
             this.abilities["Auto Attack"].range = 40
         }
         this.abilities["Leech"] = new Leech()
