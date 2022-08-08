@@ -116,6 +116,10 @@ class AutoAttack extends Ability {
                     if (getChance(25)) { //Shadow Techniques
                         caster.useEnergy(-8,-1)
                     }
+                } else if (caster.spec==="beastMastery") {
+                    if (getChance(20)) { //Wild Call
+                        caster.abilities["Barbed Shot"].incCd(caster,12,false)
+                    }
                 }
             }
         }

@@ -1,24 +1,28 @@
-class ArcaneShot extends Ability {
+class BarbedShot extends Ability {
     constructor() {
-        let name = "Arcane Shot"
-        let cost = 20
+        let name = "Barbed Shot"
+        let cost = -20
         let gcd = 1.5
         let castTime = 0
-        let cd = 0
-        let charges = 1
+        let cd = 12
+        let charges = 2
         let channeling = false
-        let casting = false
+        let casting = true
         let canMove = false
-        let school = "arcane"
+        let school = "physical"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.hasteCd = true
-        this.spellPower = 0.627
-
+        this.spellPower = 0.163125
+        this.bleed = true
     }
 
     getTooltip() {
-        return "A quick shot that causes "+spellPowerToNumber(this.spellPower)+" Arcane damage."
+        return "Fire a shot that tears through your enemy, causing them to bleed for "+spellPowerToNumber(this.spellPower*8)+" damage over 8 sec.<br>" +
+            "<br>" +
+            "Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.<br>" + //TODO:
+            "<br>" +
+            "Generates 20 Focus over 8 sec." //TODO: over 8 sec
     }
 
     startCast(caster) {
@@ -62,12 +66,7 @@ class ArcaneShot extends Ability {
         let target = caster.casting.target
         if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
             if (this.checkDistance(caster,target)  && !target.isDead) {
-                let spellPower = this.spellPower
-                if (checkBuffStacks(caster,caster,"Precise Shots")) {
-                    spellPower *= 1.75
-                }
-
-                doDamage(caster, target, this, undefined, spellPower)
+                applyDot(caster,target,this)
                 caster.useEnergy(this.cost,this.secCost)
                 this.setCd()
             }

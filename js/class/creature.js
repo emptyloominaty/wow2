@@ -471,6 +471,8 @@ class Creature {
             this.melee = false
             this.role = "dps"
             this.energyRegen = 5
+            this.maxEnergy = 120
+            this.energy = 120
             this.resourceName = "Focus"
         } else if (spec==="fire") {//----------------------------------------Fire
             this.class = "Mage"

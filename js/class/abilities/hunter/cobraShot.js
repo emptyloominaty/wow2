@@ -1,30 +1,25 @@
-class MultiShot extends Ability {
-    constructor(bm = false) {
-        let name = "Multi-Shot"
-        let cost = 20
+class CobraShot extends Ability {
+    constructor() {
+        let name = "Cobra Shot"
+        let cost = 35
         let gcd = 1.5
         let castTime = 0
         let cd = 0
         let charges = 1
         let channeling = false
-        let casting = true
+        let casting = false
         let canMove = false
         let school = "physical"
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.hasteCd = true
-        this.spellPower = 0.412
-
-
+        this.spellPower = 0.848*1.5
 
     }
 
     getTooltip() {
-        if (player.spec==="beastMastery") {
-            return "Fires several missiles, hitting your current target and all enemies within 10 yards for "+spellPowerToNumber(this.spellPower)+" Physical damage and triggering Beast Cleave."
-        } else {
-            return "Fires several missiles, hitting your current target and all enemies within 10 yards for "+spellPowerToNumber(this.spellPower)+" Physical damage."
-        }
+        return "A quick shot causing "+spellPowerToNumber(this.spellPower)+" Physical damage.<br>" +
+            "Reduces the cooldown of Kill Command by 1 sec."
     }
 
     startCast(caster) {
@@ -47,32 +42,12 @@ class MultiShot extends Ability {
                 }
             }
             if (done) {
-                let spellPower = this.spellPower
-                if (caster.spec==="marksmanship" && checkBuffStacks(caster,caster,"Precise Shots")) {
-                    spellPower *= 1.75
-                }
 
-                let target = caster.castTarget
-                doDamage(caster, target, this, undefined, spellPower)
-                let enemiesHit = 0
-                for (let i = 0; i<enemies.length ;i++) {
-                    if (!enemies[i].isDead && enemies[i]!==target && this.checkDistance(target, enemies[i],10,true) ) {
-                        doDamage(caster, enemies[i], this, undefined, spellPower)
-                        enemiesHit ++
-                    }
-                }
-                if (caster.spec==="marksmanship" && enemiesHit>2) {
-                    applyBuff(caster,caster,caster.abilities["Trick Shots"])
-                }
-                if (caster.spec==="beastMastery") {
-
-                }
-
+                caster.isCasting = true
+                caster.casting = {name:this.name, time:0, time2:this.castTime/(1 + (caster.stats.haste / 100)),target:caster.castTarget}
                 if (caster.isChanneling) {
                     caster.isChanneling = false
                 }
-                caster.useEnergy(this.cost,this.secCost)
-                this.setCd()
                 this.setGcd(caster)
                 return true
             }
@@ -83,5 +58,17 @@ class MultiShot extends Ability {
         return false
     }
 
+    endCast(caster) {
+        caster.isCasting = false
+        let target = caster.casting.target
+        if (Object.keys(target).length !== 0 && this.isEnemy(caster,target)) {
+            if (this.checkDistance(caster,target)  && !target.isDead) {
+                caster.abilities["Kill Command"].incCd(caster,1,true)
+                doDamage(caster, target, this)
+                caster.useEnergy(this.cost,this.secCost)
+                this.setCd()
+            }
+        }
+    }
 
 }

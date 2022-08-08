@@ -744,6 +744,8 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (ability.cost>0) {
                     damage *= (1 + (caster.stats.mastery / 100))
                 }
+            } else if (caster.spec==="beastMastery") {
+                damage *= (1 + (caster.stats.mastery / 100))
             }
         }
 

@@ -1388,17 +1388,18 @@ if (player.spec==="beastMastery") {
         //bar0
 
         "Counter Shot": new Action("Counter Shot",0,5),
-
+        "Multi-Shot": new Action("Multi-Shot",0,6),
         "Tranquilizing Shot": new Action("Tranquilizing Shot",0,7),
         "Survival of the Fittest": new Action("Survival of the Fittest",0,8),
 
 
         //bar1
 
-
+        "Kill Command": new Action("Kill Command",1,2),
         "Aspect of the Cheetah": new Action("Aspect of the Cheetah",1,3),
 
-
+        "Barbed Shot": new Action("Barbed Shot",1,8),
+        "Cobra Shot": new Action("Cobra Shot",1,9),
 
         //bar2
         "Kill Shot": new Action("Kill Shot",2,0),
