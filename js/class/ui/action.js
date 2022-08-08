@@ -1383,7 +1383,7 @@ if (player.spec==="marksmanship") {
     }
 }
 
-if (player.spec==="survival") {
+if (player.spec==="beastMastery") {
     actions = {
         //bar0
 
@@ -1415,22 +1415,26 @@ if (player.spec==="survival") {
 }
 
 
-if (player.spec==="beastMastery") {
+if (player.spec==="survival") {
     actions = {
         //bar0
+        "Coordinated Assault": new Action("Coordinated Assault",0,0),
+        "Aspect of the Eagle": new Action("Aspect of the Eagle",0,1),
 
         "Counter Shot": new Action("Counter Shot",0,5),
-
+        "Carve": new Action("Carve",0,6),
         "Tranquilizing Shot": new Action("Tranquilizing Shot",0,7),
         "Survival of the Fittest": new Action("Survival of the Fittest",0,8),
 
 
         //bar1
-
-
+        "Wildfire Bomb": new Action("Wildfire Bomb",1,0),
+        "Serpent Sting": new Action("Serpent Sting",1,1),
+        "Kill Command": new Action("Kill Command",1,2),
         "Aspect of the Cheetah": new Action("Aspect of the Cheetah",1,3),
 
 
+        "Raptor Strike": new Action("Raptor Strike",1,8),
 
         //bar2
         "Kill Shot": new Action("Kill Shot",2,0),

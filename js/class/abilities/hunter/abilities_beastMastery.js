@@ -7,6 +7,9 @@ class BeastMastery_Abilities {
     "Concussive Shot" = new ConcussiveShot()
     "Exhilaration" = new Exhilaration()
     "Aspect of the Cheetah" = new AspectoftheCheetah()
+    "Arcane Shot" = new ArcaneShot()
+    "Kill Command" = new KillCommand(true)
+    
 
     //passive
     "" = {startCast:function(xd){return false},run:function(caster){},incCd:function(caster){}}

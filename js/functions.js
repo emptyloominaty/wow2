@@ -580,7 +580,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 if (caster.abilities["Master Marksman"].talentSelect && crit>1 && ability.name!=="Master Marksman" && ability.name!=="Auto Attack" ) {
                     applyDot(caster,target,caster.abilities["Master Marksman"],undefined,undefined,ability.spellPower*0.30)//15*crit=30 //TODO 15% of the damage dealt
                 }
-
+            } else if (caster.spec==="survival") {
+                if (ability.cost>0) {
+                    damage *= (1 + (caster.stats.mastery / 100))
+                }
             }
 
             if (caster.class==="Rogue") {
@@ -736,6 +739,10 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
                 damage = damage * (1 + (caster.stats.mastery / 100))
                 if (checkBuff(caster,caster,"Summon Demonic Tyrant")) {
                     damage *= 1.15
+                }
+            } else if (caster.spec==="survival") {
+                if (ability.cost>0) {
+                    damage *= (1 + (caster.stats.mastery / 100))
                 }
             }
         }
