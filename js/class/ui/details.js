@@ -223,17 +223,20 @@ let details = {
             }
         }
     },
-    doDamage: function(caster,val,ability) {
+    doDamage: function(caster,val,ability,name = false) {
+        if (name===false) {
+            name = ability.name
+        }
         if (inCombat) {
             if (this.combats[this.combatIdx][caster.id]===undefined) {
                 this.combats[this.combatIdx][caster.id] = {}
             }
 
-            if(this.combats[this.combatIdx][caster.id][ability.name]===undefined) {
-                this.combats[this.combatIdx][caster.id][ability.name] = {heal:0,damage:0,damageTaken:0,name:ability.name,casts:0,school:ability.school}
+            if(this.combats[this.combatIdx][caster.id][name]===undefined) {
+                this.combats[this.combatIdx][caster.id][name] = {heal:0,damage:0,damageTaken:0,name:name,casts:0,school:ability.school}
             }
 
-            this.combats[this.combatIdx][caster.id][ability.name].damage += val
+            this.combats[this.combatIdx][caster.id][name].damage += val
             caster.damageDone += val
 
         }

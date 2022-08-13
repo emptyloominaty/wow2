@@ -14,7 +14,7 @@ class ArmyoftheDead extends Ability {
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.duration = 4
         this.petData = {
-            name:"Ghoul(Army of the Dead)",
+            name:"Army of the Dead",
             abilities:{"Claw":new Claw()},
             color:"#563e38",
             size:3,
@@ -58,8 +58,7 @@ class ArmyoftheDead extends Ability {
             this.timer1 += progressInSec
         } else {
             this.timer1 = 0
-            this.petData.name = "Ghoul(Army of the Dead)"+this.i
-            spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this)
+            spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this,true)
             this.i++
         }
     }

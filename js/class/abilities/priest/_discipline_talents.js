@@ -90,7 +90,7 @@ class Schism extends Ability {
 
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
@@ -189,7 +189,7 @@ class Mindbender extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }
@@ -234,7 +234,7 @@ class PowerWordSolace extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
@@ -396,7 +396,7 @@ class PurgetheWicked extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
             let done = false
             if (Object.keys(caster.castTarget).length !== 0 && this.isEnemy(caster,caster.castTarget) && this.checkDistance(caster,caster.castTarget)  && !caster.castTarget.isDead) {
                 done = true
@@ -486,7 +486,7 @@ class SpiritShell extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
 
             applyBuff(caster,caster,this)
             if (caster.isChanneling) {
@@ -535,7 +535,7 @@ class Evangelism extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster)) {
+        if (this.checkStart(caster) && this.talentSelect) {
 
             for (let i = 0; i<friendlyTargets.length; i++) {
                 for (let j = 0; j<friendlyTargets[i].buffs.length; j++) {

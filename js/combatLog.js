@@ -26,14 +26,18 @@ let timelineCombatLog = {
 
         this.healThisSec[caster.id][ability.name].push({val:val,overheal:overheal})
     },
-    damage:function(caster,target,ability,val) {
+    damage:function(caster,target,ability,val,name = false) {
         if (this.damageThisSec[caster.id]===undefined) {
             this.damageThisSec[caster.id] = {}
         }
-        if (this.damageThisSec[caster.id][ability.name]===undefined) {
-            this.damageThisSec[caster.id][ability.name] = []
+        if (name===false) {
+            name = ability.name
         }
-        this.damageThisSec[caster.id][ability.name].push({val:val})
+
+        if (this.damageThisSec[caster.id][name]===undefined) {
+            this.damageThisSec[caster.id][name] = []
+        }
+        this.damageThisSec[caster.id][name].push({val:val})
     },
     takeDamage:function(caster,target,ability,val) {
         if (this.damageTakenThisSec[target.id]===undefined) {

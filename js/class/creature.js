@@ -577,6 +577,9 @@ class Creature {
             if (this.abilities[key].talentSelect) {
                 this.abilities[key].setTalent(this)
             }
+            if (this.abilities[key].gcd === 0) {
+                this.abilities[key].noGcd = true
+            }
         })
     }
 
@@ -1088,6 +1091,9 @@ class Creature {
             if (!this.buffs[i].ability.permanentBuff) {
                 this.buffs[i].duration -= progressInSec
                 if (this.buffs[i].duration < 0 || this.buffs[i].stacks <= 0) {
+                    if (this.buffs[i].type==="hot") {
+                        doHeal(this.buffs[i].caster,this,this.buffs[i],undefined,this.buffs[i].spellPower*this.buffs[i].timer,undefined,undefined,undefined,undefined,undefined,true)
+                    }
                     this.buffs[i].ability.endBuff(this,i)
                     this.buffs.splice(i, 1)
                     i--
@@ -1201,6 +1207,9 @@ class Creature {
             if (!this.debuffs[i].ability.permanentBuff) {
                 this.debuffs[i].duration -= progressInSec
                 if (this.debuffs[i].duration < 0) {
+                    if (this.debuffs[i].type==="dot") {
+                        doDamage(this.debuffs[i].caster,this,this.debuffs[i].ability,undefined,this.debuffs[i].spellPower*this.debuffs[i].timer,undefined,undefined,true)
+                    }
                     this.debuffs[i].ability.endBuff(this)
                     this.debuffs.splice(i, 1)
                     i--

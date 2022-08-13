@@ -13,7 +13,7 @@ class MultiShot extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.hasteCd = true
-        this.spellPower = 0.412
+        this.spellPower = 0.412*1.25
 
 
 

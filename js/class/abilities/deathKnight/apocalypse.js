@@ -15,7 +15,7 @@ class Apocalypse extends Ability {
         this.spellPower = 0.5
         this.secCost = -2
         this.petData = {
-            name:"Ghoul(Apocalypse)",
+            name:"Apocalypse",
             abilities:{"Claw":new Claw()},
             color:"#563e38",
             size:3,
@@ -46,8 +46,7 @@ class Apocalypse extends Ability {
                 for (let i = 0; i<4; i++) {
                     if (checkDebuffStacks(caster,caster.castTarget,"Festering Wound")) {
                         caster.abilities["Festering Wound"].burst(caster,caster.castTarget)
-                        this.petData.name = "Ghoul(Apocalypse)"+this.i
-                        spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this)
+                        spawnPet(caster,"guardian",this.petData.name,caster.x+20,caster.y+20,this,true)
                         this.i++
                     }
                 }

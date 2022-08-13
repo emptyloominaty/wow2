@@ -128,7 +128,6 @@ class DarkThought extends Ability {
     }
 
     endBuff(caster) {
-        caster.abilities["Mind Blast"].charges--
         caster.abilities["Mind Blast"].maxCharges--
     }
 

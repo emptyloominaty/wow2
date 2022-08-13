@@ -720,7 +720,11 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
         }
 
         //PET
+        let pet = false
+        let petName = ""
         if (caster.spec==="pet") {
+            pet = true
+            petName = caster.name
             caster = caster.caster
             if (caster.spec==="discipline") {
                 for (let i = 0; i<friendlyTargets.length; i++) {
@@ -752,9 +756,18 @@ let doDamage = function (caster,target,ability,yOffset = 0,spellPower = 0,canCri
 
         if (ability.name!=="Stagger" && ability.name!=="Shadow Mend") {
             if (inCombat) {
-                timelineCombatLog.damage(caster, target, ability, damage)
+                if (pet) {
+                    timelineCombatLog.damage(caster, target, ability, damage, petName)
+                } else {
+                    timelineCombatLog.damage(caster, target, ability, damage)
+                }
             }
-            details.doDamage(caster, damage, ability)
+            if (pet) {
+                details.doDamage(caster, damage, ability, petName)
+            } else {
+                details.doDamage(caster, damage, ability)
+            }
+
             if (caster === player && settings.showTargetFloatingText) {
                 target.floatingTexts.addText(damage, "damage", crit, name, t)
             }

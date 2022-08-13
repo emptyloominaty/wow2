@@ -170,13 +170,61 @@ let open_logs = function(reload = false,type = false,type2 = false) {
                 valsAbilitiesInt[key] = []
             }
             if (i>0 && i<combatLength) {
-                if (i>2 && i+2<combatLength) {
+//-------------------------------------------
+                let divVal = Math.ceil(combatLength/12)
+                if (divVal<5) {
+                    divVal = 5
+                }
+                if (!(divVal % 2)) {
+                    divVal++
+                }
+                let avgg = function(valsAbilitiesInt,key,i,divVal,mid,n) {
+                    let a = 0
+                    for (let l = 0; l<n; l++) {
+                        a += valsAbilities[key][i+l]
+                        a += valsAbilities[key][i-l]
+                    }
+                    return a/divVal
+                }
+
+                let checkVal = function(valsAbilitiesInt,key,i,divVal,mid) {
+                    for (let o = mid; o>0; o--) {
+                        if (i>o && i+o<combatLength) {
+                            return avgg(valsAbilitiesInt,key,i,divVal,mid,o)
+                        }
+                    }
+                }
+
+                let avgV = function (valsAbilitiesInt,key,i,divVal) {
+                    let mid = Math.floor(divVal/2)
+                    return checkVal(valsAbilitiesInt,key,i,divVal,mid)
+                }
+
+                if (divVal===1) {
+                    valsAbilitiesInt[key][i] = valsAbilities[key][i]/divVal
+                } else {
+                    valsAbilitiesInt[key][i] = avgV(valsAbilitiesInt,key,i,divVal)
+                }
+//-------------------------------------------
+
+               /* if (i>2 && i+2<combatLength) {
                     valsAbilitiesInt[key][i] = (valsAbilities[key][i-2]+valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1]+valsAbilities[key][i+2])/5
                 } else if (i>1 && i+1<combatLength) {
                     valsAbilitiesInt[key][i] = (valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1])/5
                 } else {
                     valsAbilitiesInt[key][i] = valsAbilities[key][i]/5
-                }
+                }*/
+
+
+                /*if (i>2 && i+2<combatLength) {
+                    valsAbilitiesInt[key][i] = (valsAbilities[key][i-2]+valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1]+valsAbilities[key][i+2])/5
+                } else if (i>1 && i+1<combatLength) {
+                    valsAbilitiesInt[key][i] = (valsAbilities[key][i-1]+valsAbilities[key][i]+valsAbilities[key][i+1])/5
+                } else {
+                    valsAbilitiesInt[key][i] = valsAbilities[key][i]/5
+                }*/
+
+
             } else {
                 valsAbilitiesInt[key][i] = valsAbilities[key][i]/5
             }
@@ -193,20 +241,20 @@ let open_logs = function(reload = false,type = false,type2 = false) {
         if (totalValsInt[i]) {
             let x = 15+(i/combatLength)*canvasW
             let y = canvasH - ((totalValsInt[i]/(maxVal*1.1))*canvasH)
-            if (logsSettings.type2!=="stacked") {
+            /*if (logsSettings.type2!=="stacked") {
                 drawCircle(x,y,3,"#FFF")
-            }
+            }*/
             let a = 0
             let yStack = 0
             Object.keys(valsAbilities).forEach(key => {
                 if (logsSettings.type2==="stacked") {
                     //drawRect(x,y,w,h,color)
                     yStack += (valsAbilitiesInt[key][i]/(maxVal*1.1))*canvasH
-                } else {
+                }/* else {
                     let x = 15+(i/combatLength)*canvasW
                     let y = (canvasH - ((valsAbilitiesInt[key][i]/(maxVal*1.1))*canvasH))-yStack
                     drawCircle(x,y,3,colors.logs[a])
-                }
+                }*/
                 a++
             })
         }
@@ -220,9 +268,9 @@ let open_logs = function(reload = false,type = false,type2 = false) {
 
             let x2 = 15+(i/combatLength)*canvasW
             let y2 = canvasH - ((totalValsInt[i]/(maxVal*1.1))*canvasH)
-
-            drawLine(x1,y1,x2,y2,1,"#999")
-
+            if (logsSettings.type2!=="stacked") {
+                drawLine(x1, y1, x2, y2, 1, "#999")
+            }
             let a = 0
 
             Object.keys(valsAbilities).forEach(key => {

@@ -13,7 +13,7 @@ class ArcaneShot extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.hasteCd = true
-        this.spellPower = 0.627
+        this.spellPower = 0.627*1.25
 
     }
 

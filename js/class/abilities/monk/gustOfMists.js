@@ -71,7 +71,7 @@ class GustOfMistsChiJi extends Ability {
         let range = 40
         super(name,cost,gcd,castTime,cd,channeling,casting,canMove,school,range,charges)
         this.passive = true
-
+        this.hiddenSB = true
         this.spellPower = 0.34
         this.effect = ""
         this.targets = 2

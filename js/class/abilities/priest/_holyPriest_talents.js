@@ -150,7 +150,7 @@ class AngelicFeather extends Ability {
     }
 
     startCast(caster) {
-        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)) {
+        if (this.checkStart(caster) && this.checkDistance(caster,caster.castTarget)  && this.talentSelect) {
             if (caster.isChanneling) {
                 caster.isChanneling = false
             }

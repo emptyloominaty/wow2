@@ -96,6 +96,9 @@ class Ability {
     }
 
     checkStart(caster,cost = 9999,secCost = 9999,checkForm = true) {
+        if (this.talent !== this.talentSelect) {
+            return false
+        }
         if (caster.isStunned || caster.isDead || (caster.isInterrupted && this.school!=="physical")) {
             return false
         }
