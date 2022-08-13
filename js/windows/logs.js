@@ -182,7 +182,9 @@ let open_logs = function(reload = false,type = false,type2 = false) {
                     let a = 0
                     for (let l = 0; l<n; l++) {
                         a += valsAbilities[key][i+l]
-                        a += valsAbilities[key][i-l]
+                        if (l>0) {
+                            a += valsAbilities[key][i-l]
+                        }
                     }
                     return a/divVal
                 }
@@ -230,12 +232,30 @@ let open_logs = function(reload = false,type = false,type2 = false) {
             }
         })
     }
+    if (logsSettings.type2==="stacked") {
 
-    for (let i = 0; i<totalValsInt.length; i++) {
-       if (totalValsInt[i]>maxVal) {
-           maxVal = totalValsInt[i]
-       }
+        for (let i = 0; i<totalVals.length; i++) {
+            let v = 0
+            Object.keys(valsAbilities).forEach(key => {
+                if (valsAbilitiesInt[key][i]) {
+                    v += valsAbilitiesInt[key][i]
+                }
+            })
+            if (v > maxVal) {
+                maxVal = v
+            }
+        }
+    } else {
+        for (let i = 0; i < totalValsInt.length; i++) {
+            if (totalValsInt[i] > maxVal) {
+                maxVal = totalValsInt[i]
+            }
+        }
     }
+
+
+
+
 
     for (let i = 0; i<totalValsInt.length; i++) {
         if (totalValsInt[i]) {
@@ -282,8 +302,6 @@ let open_logs = function(reload = false,type = false,type2 = false) {
 
                 drawLine(x1,y1,x2,y2,1,colors.logs[a])
                 if (logsSettings.type2==="stacked") {
-
-
                     yStack[0] += (valsAbilitiesInt[key][i-1] / (maxVal * 1.1)) * canvasH
                     yStack[1] += (valsAbilitiesInt[key][i]/(maxVal*1.1))*canvasH
                 }

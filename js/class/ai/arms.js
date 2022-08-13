@@ -13,13 +13,8 @@ let _ai_arms = function(creature) {
         if (!casted) {
             casted = c.abilities["Avatar"].startCast(c)
         }
-
         if (!casted) {
             casted = c.abilities["Bladestorm "].startCast(c)
-        }
-
-        if (!casted) {
-            casted = c.abilities["Execute"].startCast(c)
         }
         if (!casted && !aiFunctions.checkDebuff(c,target,"Rend")) {
             casted = c.abilities["Rend"].startCast(c)
@@ -32,6 +27,9 @@ let _ai_arms = function(creature) {
         }
         if (!casted) {
             casted = c.abilities["Mortal Strike"].startCast(c)
+        }
+        if (!casted) {
+            casted = c.abilities["Execute"].startCast(c)
         }
         if (!casted && aiFunctions.getNumberOfEnemies(c,8)>1) {
             casted = c.abilities["Whirlwind"].startCast(c)
